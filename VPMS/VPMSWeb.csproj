@@ -11,4 +11,12 @@
     <Folder Include="wwwroot\images\Icons\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VPMS.Lib.Data\VPMS.Lib.Data.csproj" />
+  </ItemGroup>
+
 </Project>

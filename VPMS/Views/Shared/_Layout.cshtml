@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VPMS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <!--<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />-->
-    <link rel="stylesheet" href="~/VPMS.styles.css" asp-append-version="true" />
+    <!--<link rel="stylesheet" href="~/VPMS.styles.css" asp-append-version="true" />---->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -38,7 +38,8 @@
             height: 100%;
             margin-left: -250px;
             /*overflow-y: auto;*/
-            background: #000;
+            /*background: #000;*/
+            background: #f2f2f2;
             -webkit-transition: all 0.5s ease;
             -moz-transition: all 0.5s ease;
             -o-transition: all 0.5s ease;
@@ -46,11 +47,11 @@
         }
 
         #wrapper.toggled #sidebar-wrapper {
-            width: 250px;
+            width: 280px;
         }
 
         #wrapper #sidebar-wrapper {
-            width: 250px;
+            width: 280px;
             height: 100%;
         }
 
@@ -60,8 +61,8 @@
             padding: 15px;
             margin-left: 250px;
             /* temp */
-            border-style: solid;
-            height: auto;
+            /*border-style: solid;
+            height: auto;*/
         }
 
         #wrapper.toggled #page-content-wrapper {
@@ -73,19 +74,23 @@
         /* Sidebar Styles */
 
         .sidebar-nav {
-            position: absolute;
-            top: 0;
-            width: 250px;
+            /*position: absolute;*/
+            position: fixed;
+
+            top: 150px;
+            width: 280px;
             margin: 0;
             padding: 0;
             list-style: none;
-            /* temp */
-            border-style: solid;
+            /* temp
+                    border-style: solid;*/
         }
 
             .sidebar-nav li {
                 text-indent: 0px;
                 line-height: 40px;
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
 
                 .sidebar-nav li a {
@@ -114,15 +119,27 @@
                 }
 
                 .sidebar-nav li ul {
-                    margin-left: 60px;
+                    margin-left: 88px;
+                    padding-left: 20px;
                     list-style-type: none;
                     border-left-style: solid;
-                    border-left-color: white;
+                    border-left-color: #707B7C;
+                    border-left-width: thin;
                     display: none;
                 }
 
                     .sidebar-nav li ul li {
                         width: 140px;
+                        color: black;
+                        line-height: 30px;
+                    }
+
+                    .sidebar-nav li ul li:first-child{
+                        margin-top: 0px;
+                    }
+
+                    .sidebar-nav li ul li:last-child{
+                        margin-bottom: 0px;
                     }
 
                     .sidebar-nav li ul.open {
@@ -130,7 +147,7 @@
                     }
 
                 .sidebar-nav li a #imgArrow {
-                    content: url('images/arrow-down.png');
+                    content: url('images/down-arrow.png');
                 }
 
                     .sidebar-nav li a #imgArrow.Up {
@@ -186,58 +203,76 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
+            <div style="margin-top: 25px; margin-left: 10px; margin-right: 10px;">
+                <img src="images/HomePetTest.png" width="250" height="60" />
+            </div>
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
-                </li>
-                <!--style="border-style: solid; border-color: white;"-->
-                <li >
-                    <a href="#">
-                        <!--<span style="background-color: orange; width: 20px; height: 40px; vertical-align: middle;  display: inline-block;"></span> -->
-                        <span style="background-color: none; width: 20px; height: 40px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/en.png" width="20" height="20" style="margin-left: 20px; margin-right: 15px;" />
-                        Dashboard
+                <li style="margin-top: 10px; margin-bottom: 10px">
+                    <a asp-controller="Dashboard" asp-action="Index">
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Dashboard</strong>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span style="background-color: none; width: 20px; height: 40px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/en.png" width="20" height="20" style="margin-left: 20px; margin-right: 15px;" />
-                        Shortcuts
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Patients</strong>
                     </a>
                 </li>
-                <li>  
+                <li>
                     <a href="#">
-                        <span style="background-color: none; width: 20px; height: 40px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/en.png" width="20" height="20" style="margin-left: 20px; margin-right: 15px;" />
-                        Test
-                        <img id="imgArrow" width="20" height="20" style="margin-left: 70px;" />
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Appointments</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Reception</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Access Control</strong>
+                        <img id="imgArrow" width="20" height="20" style="margin-left: 20px;" />
                         <ul>
-                            <li style="color: white;">A</li>
-                            <li style="color: white;">B</li>
+                            <li>Organization</li>
+                            <li>Staff Listing</li>
+                            <li>Role Setting</li>
                         </ul>
                     </a>
-
-                    <!--
-                        src="~/lib/arrow-down.png"
+                </li>
+                <li>
                     <a href="#">
-                        Overview
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Patient Treatment Plan</strong>
                     </a>
-                                -->
                 </li>
                 <li>
-                    <a href="#">Events</a>
+                    <a href="#">
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Service & Inventory</strong>
+                        <img id="imgArrow" width="20" height="20" style="margin-left: 3px;" />
+                        <ul>
+                            <li>Service</li>
+                            <li>Inventory</li>
+                        </ul>
+                    </a>
                 </li>
                 <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a href="#">
+                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <strong style="vertical-align: middle; color: black;">Customer Service</strong>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -268,7 +303,7 @@
 
     <script src="~/lib/jquery/dist/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="~/lib/boostrap/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <!--<script src="~/js/main.js" asp-append-version="true"></script>-->
     <script type="text/javascript">
 
