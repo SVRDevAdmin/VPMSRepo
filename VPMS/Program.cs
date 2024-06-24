@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using VPMS.Lib.Data.DBContext;
+
 namespace VPMS
 {
     public class Program
@@ -8,6 +12,29 @@ namespace VPMS
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<MembershipDBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<MembershipDBContext>();
+
+            var identitySettings = builder.Configuration.GetSection("IdentitySettings");
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireNonAlphanumeric = identitySettings.GetValue<bool>("RequireNonAlphanumeric"); ;
+                options.Password.RequiredLength = identitySettings.GetValue<int>("RequireLength");
+
+                //Lockedout setting
+                options.SignIn.RequireConfirmedAccount = identitySettings.GetValue<bool>("RequireConfirmedAccount");
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(identitySettings.GetValue<int>("DefaultLockedOutTimeSpan"));
+                options.Lockout.MaxFailedAccessAttempts = identitySettings.GetValue<int>("MaxFailedAccessAttempts");
+            });
+
 
             var app = builder.Build();
 
@@ -24,6 +51,7 @@ namespace VPMS
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

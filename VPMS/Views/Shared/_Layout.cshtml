@@ -147,11 +147,11 @@
                     }
 
                 .sidebar-nav li a #imgArrow {
-                    content: url('images/down-arrow.png');
+                    content: url('/images/down-arrow.png');
                 }
 
                     .sidebar-nav li a #imgArrow.Up {
-                        content: url('images/arrow-up.png');
+                        content: url('/images/arrow-up.png');
                     }
 
             .sidebar-nav > .sidebar-brand {
@@ -204,7 +204,7 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <div style="margin-top: 25px; margin-left: 10px; margin-right: 10px;">
-                <img src="images/HomePetTest.png" width="250" height="60" />
+                <img src="~/images/HomePetTest.png" width="250" height="60"/>
             </div>
             <ul class="sidebar-nav">
                 <li style="margin-top: 10px; margin-bottom: 10px">
@@ -368,8 +368,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
     -->
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>
