@@ -1,12 +1,12 @@
-﻿@model VPMS.Lib.Data.Models.LoginModel;
+﻿@model VPMS.Lib.Data.Models.RegisterModel;
 
 @{
     ViewData["Title"] = "Login Page";
 }
 
-<div class="row" style="padding-left:10vw;">
+<div class="row">
     <div class="col-md-8">
-        <form id="registerForm" method="post" asp-controller="Login" asp-action="SignIn">
+        <form id="registerForm" method="post" asp-controller="Login" asp-action="SignUp">
             <h2>Create a new account.</h2>
             <hr />
             <div class="text-danger" role="alert"></div>

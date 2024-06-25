@@ -13,7 +13,7 @@ namespace VPMS
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<MembershipDBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
@@ -33,6 +33,17 @@ namespace VPMS
                 options.SignIn.RequireConfirmedAccount = identitySettings.GetValue<bool>("RequireConfirmedAccount");
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(identitySettings.GetValue<int>("DefaultLockedOutTimeSpan"));
                 options.Lockout.MaxFailedAccessAttempts = identitySettings.GetValue<int>("MaxFailedAccessAttempts");
+            });
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Login/Login";
+                options.AccessDeniedPath = "/Login/AccessDenied";
+                options.SlidingExpiration = true;
             });
 
 

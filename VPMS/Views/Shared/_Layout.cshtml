@@ -6,203 +6,116 @@
     <title>@ViewData["Title"] - VPMS</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
     <!--<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />-->
     <!--<link rel="stylesheet" href="~/VPMS.styles.css" asp-append-version="true" />---->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <style type="text/css">
-        body {
-            overflow-x: hidden;
+        .searchbarInput {
+            border: 0px solid #fff;
+            box-shadow: unset !important;
+            background-color: transparent !important;
         }
 
-        #wrapper {
-            padding-left: 0;
-            -webkit-transition: all 0.5s ease;
-            -moz-transition: all 0.5s ease;
-            -o-transition: all 0.5s ease;
-            transition: all 0.5s ease;
+        .searchIcon {
+            margin-top: auto;
+            margin-bottom: auto;
         }
 
-            #wrapper.toggled {
-                padding-left: 250px;
+        .searchArea {
+            display: flex;
+            border: 1px solid;
+            border-radius: 1vw;
+            padding-left: 1vw;
+        }
+
+        /* Dropdown css */
+        .dropdown {
+            float: left;
+            /* overflow: hidden; */
+        }
+
+            .dropdown .dropbtn {
+                cursor: pointer;
+                font-size: 16px;
+                border: none;
+                outline: none;
+                color: black;
+                /* padding: 14px 16px; */
+                background-color: inherit;
+                font-family: inherit;
+                margin: 0;
             }
 
-        #sidebar-wrapper {
-            z-index: 1000;
-            /*position: fixed;*/
-            position: fixed;
-            left: 250px;
-            height: 100%;
-            margin-left: -250px;
-            /*overflow-y: auto;*/
-            /*background: #000;*/
-            background: #f2f2f2;
-            -webkit-transition: all 0.5s ease;
-            -moz-transition: all 0.5s ease;
-            -o-transition: all 0.5s ease;
-            transition: all 0.5s ease;
-        }
-
-        #wrapper.toggled #sidebar-wrapper {
-            width: 280px;
-        }
-
-        #wrapper #sidebar-wrapper {
-            width: 280px;
-            height: 100%;
-        }
-
-        #page-content-wrapper {
-            width: 100%;
+        .dropdown-content {
+            display: none;
             position: absolute;
-            padding: 15px;
-            margin-left: 250px;
-            /* temp */
-            /*border-style: solid;
-            height: auto;*/
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
         }
 
-        #wrapper.toggled #page-content-wrapper {
-            position: absolute;
-            margin-right: -250px;
+            .dropdown-content a {
+                float: none;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .show {
+            display: block;
         }
 
-
-        /* Sidebar Styles */
-
-        .sidebar-nav {
-            /*position: absolute;*/
-            position: fixed;
-
-            top: 150px;
-            width: 280px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            /* temp
-                    border-style: solid;*/
-        }
-
-            .sidebar-nav li {
-                text-indent: 0px;
-                line-height: 40px;
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-
-                .sidebar-nav li a {
-                    display: block;
-                    text-decoration: none;
-                    color: #999999;
-                }
-
-                    .sidebar-nav li a:hover {
-                        text-decoration: none;
-                        color: #fff;
-                        background: rgba(255, 255, 255, 0.2);
-                    }
-
-                    .sidebar-nav li a:active, .sidebar-nav li a:focus {
-                        text-decoration: none;
-                    }
-
-                .sidebar-nav li span.selected {
-                    background-color: orange;
-                    display: inline-block;
-                }
-
-                .sidebar-nav li span {
-                    background-color: none;
-                }
-
-                .sidebar-nav li ul {
-                    margin-left: 88px;
-                    padding-left: 20px;
-                    list-style-type: none;
-                    border-left-style: solid;
-                    border-left-color: #707B7C;
-                    border-left-width: thin;
-                    display: none;
-                }
-
-                    .sidebar-nav li ul li {
-                        width: 140px;
-                        color: black;
-                        line-height: 30px;
-                    }
-
-                    .sidebar-nav li ul li:first-child{
-                        margin-top: 0px;
-                    }
-
-                    .sidebar-nav li ul li:last-child{
-                        margin-bottom: 0px;
-                    }
-
-                    .sidebar-nav li ul.open {
-                        display: inline-block;
-                    }
-
-                .sidebar-nav li a #imgArrow {
-                    content: url('/images/down-arrow.png');
-                }
-
-                    .sidebar-nav li a #imgArrow.Up {
-                        content: url('/images/arrow-up.png');
-                    }
-
-            .sidebar-nav > .sidebar-brand {
-                height: 65px;
-                font-size: 18px;
-                line-height: 60px;
-            }
-
-                .sidebar-nav > .sidebar-brand a {
-                    color: #999999;
-                }
-
-                    .sidebar-nav > .sidebar-brand a:hover {
-                        color: #fff;
-                        background: none;
-                    }
-
-        @@media(min-width:768px) {
-            #wrapper {
-                padding-left: 0;
-            }
-
-                #wrapper.toggled {
-                    padding-left: 250px;
-                }
-
-            #sidebar-wrapper {
-                width: 0;
-            }
-
-            #wrapper.toggled #sidebar-wrapper {
-                width: 250px;
-            }
-
-            #page-content-wrapper {
-                padding: 20px;
-                position: relative;
-            }
-
-            #wrapper.toggled #page-content-wrapper {
-                position: relative;
-                margin-right: 0;
-            }
-        }
     </style>
 </head>
 <body>
+
     <div id="wrapper">
 
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1" style="justify-content:flex-end; padding-right: 20vw;">
+                        <li class="nav-item">
+                            <div class="searchArea">
+                                <i class="fa fa-search searchIcon"></i>
+                                <input type="text" placeholder="Search dashboard" class="form-control searchbarInput" />
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1" style="justify-content:flex-end;">
+                        <li class="nav-item dropdown">
+                            <button class="nav-link text-dark dropbtn" onclick="myFunction()">
+                                Dr Kim Ji-Won
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content" id="myDropdown">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="ChangePassword">Change Password</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Sign up</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
+        <div id="sidebar-wrapper" style="position:absolute; top: 0;">
             <div style="margin-top: 25px; margin-left: 10px; margin-right: 10px;">
                 <img src="~/images/HomePetTest.png" width="250" height="60"/>
             </div>
@@ -278,7 +191,7 @@
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div id="page-content-wrapper" style="padding-left:10vw;">
             <!--
             <div class="container-fluid">
             <a href="#menu-toggle"  class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
@@ -331,6 +244,24 @@
             $(this).parent().parent().find('#imgArrow').toggleClass('Up');
             $(this).parent().parent().parent().find('span').toggleClass('selected');
         });
+    </script>
+
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (e) {
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
+                }
+            }
+        }
     </script>
     <!--
     <header>

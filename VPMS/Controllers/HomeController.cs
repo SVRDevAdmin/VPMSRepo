@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using VPMS.Models;
 
 namespace VPMS.Controllers
 {
+    [Authorize(Roles = "Superadmin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
