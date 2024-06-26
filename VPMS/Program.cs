@@ -35,11 +35,12 @@ namespace VPMS
                 options.Lockout.MaxFailedAccessAttempts = identitySettings.GetValue<int>("MaxFailedAccessAttempts");
             });
 
+            var cookieSettings = builder.Configuration.GetSection("CookieSetting");
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(cookieSettings.GetValue<int>("ExpireTimeSpan"));
 
                 options.LoginPath = "/Login/Login";
                 options.AccessDeniedPath = "/Login/AccessDenied";

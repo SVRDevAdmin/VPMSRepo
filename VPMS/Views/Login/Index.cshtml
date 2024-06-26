@@ -9,7 +9,6 @@
         <form id="registerForm" method="post" asp-controller="Login" asp-action="SignUp">
             <h2>Create a new account.</h2>
             <hr />
-            <div class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
                 <input asp-for="Username" class="form-control" aria-required="true" placeholder="Username" />
                 <span asp-validation-for="Username" class="text-danger"></span>

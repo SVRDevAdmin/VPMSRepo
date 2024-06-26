@@ -8,7 +8,7 @@ namespace VPMS.Lib.Data.DBContext
     {
         private string connectionString = "";
 
-        public MembershipDBContext(DbContextOptions options) : base(options)
+        public MembershipDBContext(DbContextOptions<MembershipDBContext> options) : base(options)
         {
             connectionString = options.FindExtension<MySqlOptionsExtension>().ConnectionString;
         }

@@ -19,22 +19,31 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body>
+    @if (ViewData["alert"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewData["alert"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="$('.alert').alert('close');">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
 
     <div class="row" style="justify-content:center;">
         <div class="col-md-8">
             <form id="registerForm" method="post" asp-controller="Login" asp-action="SignIn">
                 <h2>Login</h2>
                 <hr />
-                <div class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
                     <input asp-for="Username" class="form-control" aria-required="true" placeholder="Username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
                     <input asp-for="Password" class="form-control" aria-required="true" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
-                <button id="registerSubmit" asp-controller="Login" asp-action="FirstRegister" class="w-100 btn btn-lg btn-primary">First Register</button>
-                <button id="recoverySubmit" asp-controller="Login" asp-action="PasswordRecovery" class="w-100 btn btn-lg btn-primary">Forgot Password</button>
+                <a id="recoverySubmit" asp-controller="Login" asp-action="PasswordRecovery">Forgot password?</a>
             </form>
             
         </div>
