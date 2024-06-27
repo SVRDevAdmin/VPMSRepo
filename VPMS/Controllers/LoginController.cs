@@ -43,6 +43,8 @@ namespace VPMSWeb.Controllers
 
         public IActionResult Login()
         {
+            var test = HttpContext.Session.GetString("SessionID");
+
             var anyPersonExist = _userManager.Users.Any();
 
             if (anyPersonExist)
@@ -80,7 +82,9 @@ namespace VPMSWeb.Controllers
 
                     _loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric , ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
 
-                    _loginSessionDBContext.SaveChanges();
+                    //_loginSessionDBContext.SaveChanges();
+
+                    HttpContext.Session.SetString("SessionID", randomAlphanumeric);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -159,6 +163,14 @@ namespace VPMSWeb.Controllers
         public async Task<IActionResult> LogoutAsync()
         {
             await _signInManager.SignOutAsync();
+
+            //var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
+
+            //var newLoginSessionLog = new LoginSessionLogModel() { ActionType = "user-logout", SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
+
+            //_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
+
+            //_loginSessionDBContext.SaveChanges();
 
             return RedirectToAction("Login", "Login");
         }
@@ -297,6 +309,7 @@ namespace VPMSWeb.Controllers
                 }
             }
 
+
             if (!roles.Where(x => x.Name == "Clinic Admin").Any())
             {
                 role = new IdentityRole("Clinic Admin");
@@ -308,6 +321,7 @@ namespace VPMSWeb.Controllers
                     _roleDBContext.SaveChanges();
                 }
             }
+
 
             if (!roles.Where(x => x.Name == "User").Any())
             {

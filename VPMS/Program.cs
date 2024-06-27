@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VPMS.Lib.Data.DBContext;
+using VPMSWeb.Middleware;
 
 namespace VPMS
 {
@@ -45,8 +47,16 @@ namespace VPMS
                 options.LoginPath = "/Login/Login";
                 options.AccessDeniedPath = "/Login/AccessDenied";
                 options.SlidingExpiration = true;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+
+                options.EventsType = typeof(CustomCookieAuthenticationEvents);
             });
 
+            builder.Services.AddTransient<CustomCookieAuthenticationEvents>();
+
+            //Added for session state
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -58,10 +68,15 @@ namespace VPMS
                 app.UseHsts();
             }
 
+
+            app.UseSession();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //app.UseMiddleware<AuthExpireCheckMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
