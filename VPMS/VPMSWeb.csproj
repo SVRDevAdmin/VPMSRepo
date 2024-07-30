@@ -7,8 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\login.css" />
+    <Content Remove="wwwroot\js\login.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="bin\Debug\net8.0\" />
     <Folder Include="wwwroot\images\Icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\login.css" />
+    <None Include="wwwroot\css\loginNew.css" />
   </ItemGroup>
 
   <ItemGroup>

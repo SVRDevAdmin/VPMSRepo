@@ -76,8 +76,6 @@ namespace VPMS
 
             app.UseRouting();
 
-            //app.UseMiddleware<AuthExpireCheckMiddleware>();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

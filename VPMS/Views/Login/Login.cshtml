@@ -1,60 +1,99 @@
 ﻿@model VPMS.Lib.Data.Models.LoginModel;
 
 @{
-    Layout = null;
-    ViewData["Title"] = "Login Page";
+	Layout = null;
+	ViewData["Title"] = "Login Page";
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - VPMS</title>
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
+	<title>@ViewData["Title"]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="~/css/login.css" />
+	<!-- Add your custom HEAD content here -->
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+	<link rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+
 </head>
 <body>
-    @if (ViewData["alert"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @ViewData["alert"]
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick="$('.alert').alert('close');">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
+	<div id="content-container">
 
-    <div class="row" style="justify-content:center;">
-        <div class="col-md-8">
-            <form id="registerForm" method="post" asp-controller="Login" asp-action="SignIn">
-                <h2>Login</h2>
-                <hr />
-                <div class="form-floating mb-3">
-                    <input asp-for="Username" class="form-control" aria-required="true" placeholder="Username" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Password" class="form-control" aria-required="true" placeholder="Password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
-                <a id="recoverySubmit" asp-controller="Login" asp-action="PasswordRecovery">Forgot password?</a>
-            </form>
-            
-        </div>
-    </div>
+		<a href="dashboard___total_patients_selected___3.html">
+			<img src="~/images/skins/path_4043.png" id="path_4043" />
 
-    <script src="~/lib/jquery/dist/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+			<div id="group_1138">
+				<div id="rectangle_1045"></div>
+				<div id="rectangle_1046"></div>
 
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+			</div>
+
+			<div id="icon_feather_sun">
+				<img src="~/images/skins/path_519.png" id="path_519" />
+				<img src="~/images/skins/path_520.png" id="path_520" />
+
+			</div>
+
+		</a>
+
+		<div id="application_logo">
+			<img src="~/images/skins/path_5916.png" id="application_logo_img" />
+			<img src="~/images/skins/path_5917.png" id="application_logo_text" />
+		</div>
+
+		<div id="group_2126">
+			<img src="~/images/skins/bg_line_ek1.png" id="bg_line_left" />
+			<div id="circle_bg_left"></div>
+			<img src="~/images/skins/border_collie_dog.png" id="border_collie_dog" />
+			<div id="ellipse_413"></div>
+		</div>		
+
+		<div id="img_group_right">
+			<img src="~/images/skins/bg_line.png" id="bg_line" />
+			<div id="bg"></div>
+			<img src="~/images/skins/kitten.png" id="kitten_img" />
+			<div id="ellipse_412"></div>
+		</div>
+
+		<div class="row" style="justify-content:center; margin-top: 10vh;">
+			<div class="col-md-4">
+				<form id="registerForm" method="post" asp-controller="Login" asp-action="SignIn">
+					<h1 style="text-align: center;font-size: 4vw;margin-bottom: 2vw;">Login</h1>
+					<div class="form-floating mb-3" style="background: transparent;margin-bottom: 1.8vw !important;">
+						<div style="display: flex; align-items: center; background: white; border-radius: 0.5vw; padding-left: 1vw;border-style: solid;">
+							<img src="~/images/skins/icon_ion_person_sharp.png" style="width: 1.5vw;" />
+							<input asp-for="Username" style="border: 0;" class="form-control" aria-required="true" placeholder="Login ID" />
+						</div>
+						<span asp-validation-for="Username" class="text-danger"></span>
+					</div>
+					<div class="form-floating mb-3" style="background: transparent;margin-bottom: 3vw !important;">
+						<div style="display: flex; align-items: center; background: white; border-radius: 0.5vw; padding-left: 1vw;border-style: solid;">
+							<img src="~/images/skins/icon_ion_locked.png" style="width: 1.5vw;" />
+							<input asp-for="Password" autocomplete="new-password" style="border: 0;" class="form-control" aria-required="true" placeholder="Password" />
+						</div>
+						<span asp-validation-for="Password" class="text-danger"></span>
+					</div>
+					<button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
+					<a style="display: flex; justify-content: center; margin-top: 1vw; font-size: 1.2vw;" id="recoverySubmit" asp-controller="Login" asp-action="PasswordRecovery">Forgot password?</a>
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 </body>
 </html>

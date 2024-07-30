@@ -1,0 +1,190 @@
+﻿body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Arial";
+	overflow-x: hidden;
+}
+
+#content-container {
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(255, 255, 255, 0);
+	background: -webkit-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: -o-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: -moz-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: -ms-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+}
+
+/*below are for theme button*/
+
+#path_4043 {
+	top: 1vw;
+	right: 1vw;
+	width: 9vw;
+	height: 4.5vw;
+	position: absolute;
+}
+
+#group_1138 {
+	top: 1.4vw;
+	right: 1.5vw;
+	width: 3.6vw;
+	position: absolute;
+}
+
+
+#rectangle_1045, #rectangle_1046 {
+	width: 3.6vw;
+	height: 3.6vw;
+	-ms-border-radius: 7px;
+	-o-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 0.5vw;
+	background: rgba(30, 118, 251, 255);
+	position: absolute;
+}
+
+#icon_feather_sun {
+	top: 2.2vw;
+	right: 2.2vw;
+	width: 2.05vw;
+	position: absolute;
+}
+
+#path_519 {
+	top: 0.48vw;
+	right: 0.49vw;
+	width: 1.09vw;
+	position: absolute;
+}
+
+
+#path_520 {
+	top: -0.06vw;
+	right: -0.06vw;
+	width: 2.2vw;
+	position: absolute;
+}
+
+/*below area for logo*/
+
+#application_logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 5vh;
+}
+
+#application_logo_img {
+	width: 3vw;
+}
+
+
+#application_logo_text {
+	width: 10vw;
+	margin-left: 0.5vw;
+}
+
+/*Below are for image on the left*/
+
+#group_2126 {
+	position: absolute;
+}
+
+#bg_line_left {
+	width: 32vw;
+	position: absolute;
+}
+
+#circle_bg_left {
+	position: absolute;
+	top: 5.3vw;
+	left: 5.4vw;
+	width: 21.3vw;
+	height: 21.3vw;
+	-ms-border-radius: 262.1px / 262.23px;
+	-o-border-radius: 262.1px / 262.23px;
+	-moz-border-radius: 262.1px / 262.23px;
+	-webkit-border-radius: 262.1px / 262.23px;
+	border-radius: 262.1px / 262.23px;
+	background: rgba(144, 188, 255, 255);
+}
+
+#border_collie_dog {
+	left: 6.5vw;
+	width: 19.3vw;
+	position: absolute;
+	display: block;
+	margin: 0px;
+	border: none;
+	padding: 0px;
+}
+
+#ellipse_413 {
+	top: 23vw;
+	left: 25vw;
+	width: 2vw;
+	height: 2vw;
+	-ms-border-radius: 2vw;
+	-o-border-radius: 2vw;
+	-moz-border-radius: 2vw;
+	-webkit-border-radius: 2vw;
+	border-radius: 2vw;
+	background: rgba(144, 188, 255, 255);
+	position: absolute;
+}
+
+/*Below are for image on the right*/
+
+#img_group_right {
+	right: 0;
+	position: absolute;
+	margin-right: 4vw;
+}
+
+#bg_line {
+	position: absolute;
+	top: 2.1vw;
+	right: 0;
+	width: 27.3vw;
+}
+
+
+#bg {
+	top: 6.99vw;
+	right: 4.85vw;
+	width: 17.4vw;
+	height: 17.5vw;
+	-ms-border-radius: 190.01px / 190.11px;
+	-o-border-radius: 190.01px / 190.11px;
+	-moz-border-radius: 190.01px / 190.11px;
+	-webkit-border-radius: 190.01px / 190.11px;
+	border-radius: 190.01px / 190.11px;
+	background: rgba(255, 218, 71, 255);
+	position: absolute;
+}
+
+#kitten_img {
+	right: -5.9vw;
+	top: -5vw;
+	width: 37.7vw;
+	position: absolute;
+}
+
+#ellipse_412 {
+	top: 8.1vw;
+	right: 2vw;
+	width: 2vw;
+	height: 2vw;
+	-ms-border-radius: 2vw;
+	-o-border-radius: 2vw;
+	-moz-border-radius: 2vw;
+	-webkit-border-radius: 2vw;
+	border-radius: 2vw;
+	background: rgba(255, 218, 71, 255);
+	position: absolute;
+}

@@ -57,7 +57,17 @@ namespace VPMSWeb.Controllers
             }
         }
 
-        public async Task<IActionResult> SignIn(LoginModel loginInfo)
+		public IActionResult LoginOld()
+		{
+			return View();
+		}
+
+		public IActionResult LoginNew()
+		{
+			return View();
+		}
+
+		public async Task<IActionResult> SignIn(LoginModel loginInfo)
         {
             var user = await _userManager.FindByNameAsync(loginInfo.Username);
 
