@@ -170,7 +170,7 @@ namespace VPMSWeb.Controllers
             return View("FirstRegister");
         }
 
-        public async Task<IActionResult> LogoutAsync()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
 
