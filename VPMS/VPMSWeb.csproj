@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\css\login.css" />
-    <Content Remove="wwwroot\js\login.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\vpms_logo.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,4 @@
-﻿@using System.Security.Claims
-
-@{
-    var userFullName = User.Claims.FirstOrDefault(x => x.Type == "Fullname")?.Value;
-}
-
+﻿@inject IHttpContextAccessor httpContextaccessor
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +7,32 @@
     <title>@ViewData["Title"] - VPMS</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
-    <!--<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />-->
-    <!--<link rel="stylesheet" href="~/VPMS.styles.css" asp-append-version="true" />---->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <script src="~/lib/bootstrap/dist/js/v4.6.2/bootstrap.bundle.min.js"></script>
+
+    @{
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
+        if (theme != null)
+        {
+            if (theme == "dark")
+            {
+                <link rel="stylesheet" href="~/css/darktheme.css" />
+            }
+            if (theme == "light")
+            {
+                <link rel="stylesheet" href="~/css/lighttheme.css" />
+            }
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/css/lighttheme.css" />
+        }
+    }
+
     <style type="text/css">
         .searchbarInput {
             border: 0px solid #fff;
@@ -34,11 +45,8 @@
             margin-bottom: auto;
         }
 
-        .searchArea {
-            display: flex;
-            border: 1px solid;
-            border-radius: 1vw;
-            padding-left: 1vw;
+        #wrapper.toggled {
+            padding-left: 250px;
         }
 
         /* Dropdown css */
@@ -59,176 +67,287 @@
                 margin: 0;
             }
 
-        .dropdown-content {
-            /* display: none; */
-            opacity: 0;
-            pointer-events: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            -webkit-transition: all 0.5s ease;
-            -moz-transition: all 0.5s ease;
-            -o-transition: all 0.5s ease;
-            transition: all 0.5s ease;
-            /* height: 20vh; */
+        #wrapper #sidebar-wrapper {
+            width: 280px;
+            height: 100%;
         }
 
-            .dropdown-content a {
-                float: none;
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-                text-align: left;
+        #page-content-wrapper {
+            width: 100%;
+            position: absolute;
+            padding: 15px;
+            margin-left: 280px;
+            /* temp */
+            /*border-style: solid;
+            height: auto;*/
+        }
+
+        #wrapper.toggled #page-content-wrapper {
+            position: absolute;
+            /*margin-right: -250px;*/
+        }
+
+
+        /* Sidebar Styles */
+        .bar-menu-bg {
+            background-color: #f7f7f7;
+        }
+
+        .sidebar-nav {
+            background-color: #f7f7f7;
+            list-style: none;
+            position: fixed;
+            top: 88px;
+            width: 310px;
+            height: 100%;
+            margin-left: -15px;
+            padding: 0;  
+        }
+
+        .sidebar-nav li {
+            text-indent: 0px;
+            line-height: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            text-decoration: none;
+            color: #999999;
+        }
+
+        .sidebar-nav li a:hover {
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-nav li a:active, .sidebar-nav li a:focus {
+            text-decoration: none;
+        }
+
+        .sidebar-nav li span.selected {
+            /*background-color: orange;*/
+            background-color: rgb(30, 118, 251); 
+            display: inline-block;
+        }
+
+        .sidebar-nav li span {
+            background-color: none;
+        }
+
+        .sidebar-nav li ul {
+            margin-left: 88px;
+            padding-left: 20px;
+            list-style-type: none;
+            border-left-style: solid;
+            border-left-color: #707B7C;
+            border-left-width: thin;
+            display: none;
+        }
+
+        .sidebar-nav li ul li {
+            width: 140px;
+            color: black;
+            line-height: 30px;
+        }
+
+        .sidebar-nav li ul li:first-child{
+            margin-top: 0px;
+        }
+
+        .sidebar-nav li ul li:last-child{
+            margin-bottom: 0px;
+        }
+
+        .sidebar-nav li ul.open {
+            display: inline-block;
+        }
+
+        .sidebar-nav li a #imgArrow {
+            content: url('images/down-arrow.png');
+        }
+
+        .sidebar-nav li a #imgArrow.Up {
+            content: url('images/arrow-up.png');
+        }
+
+        #imgProfileArrow {
+            content: url('images/down-arrow.png');
+        }
+
+        .sidebar-nav > .sidebar-brand {
+            height: 65px;
+            font-size: 18px;
+            line-height: 60px;
+        }
+
+        .sidebar-nav > .sidebar-brand a {
+            color: #999999;
+        }
+
+        .sidebar-nav > .sidebar-brand a:hover {
+            color: #fff;
+            background: none;
+        }
+
+        @@media(min-width:768px) {
+            #wrapper {
+                padding-left: 0;
             }
 
-                .dropdown-content a:hover {
-                    background-color: #ddd;
-                }
+            #wrapper.toggled {
+                padding-left: 250px;
+            }
 
-        .show {
-            /* display: block; */
-            opacity: 1;
-            pointer-events: all;
-            /* height: 21.2vh; */
+            #sidebar-wrapper {
+                width: 0;
+            }
+
+            #wrapper.toggled #sidebar-wrapper {
+                width: 250px;
+            }
+
+            #page-content-wrapper {
+                padding: 20px;
+                position: relative;
+            }
+
+            #wrapper.toggled #page-content-wrapper {
+                position: relative;
+                margin-right: 0;
+            }
         }
-
     </style>
 </head>
 <body>
-    <span id="pageName" hidden>@ViewData["Title"]</span>
-    <div id="wrapper">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <dix class="col-auto bar-menu-bg">
+                <div class="d-flex flex-column align-items-center" style="width: 270px; margin-top: 35px; margin-left: 10px;">
+                    <div class="col-md-12">
+                        <img src="images/vpms_logo_icon.png" style="width: 40px; height: 34px; " />
+                        <img src="images/vpms_logo.png" style="width: 160px; height: 22px;" />
+                    </div>
 
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3">
-            <div class="container-fluid">
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1" style="justify-content:flex-end; padding-right: 20vw;">
-                        <li class="nav-item">
-                            <div class="searchArea">
-                                <i class="fa fa-search searchIcon"></i>
-                                <input type="text" placeholder="Search dashboard" class="form-control searchbarInput" />
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav flex-grow-1" style="justify-content:flex-end;">
-                        <li class="nav-item dropdown">
-                            <button class="nav-link text-dark dropbtn" onclick="myFunction()">
-                                @userFullName
-                                <i class="fa fa-caret-down" ></i>
-                            </button>
-                            <div class="dropdown-content" id="myDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="ChangePassword">Change Password</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Sign up</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
-            </div>
-        </nav>
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper" style="position:absolute; top: 0;">
-            <div style="margin-top: 25px; margin-left: 10px; margin-right: 10px;">
-                <img src="~/images/HomePetTest.png" width="250" height="60"/>
-            </div>
-            <ul class="sidebar-nav">
-                <li style="margin-top: 10px; margin-bottom: 10px">
-                    <a asp-controller="Dashboard" asp-action="Index">
-                        <span id="dashboardMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Dashboard</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Patients</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Appointments</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Reception</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Access Control</strong>
-                        <img id="imgArrow" width="20" height="20" style="margin-left: 20px;" />
-                        <ul>
-                            <li>Organization</li>
-                            <li>Staff Listing</li>
-                            <li>Role Setting</li>
-                        </ul>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Patient Treatment Plan</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Service & Inventory</strong>
-                        <img id="imgArrow" width="20" height="20" style="margin-left: 3px;" />
-                        <ul>
-                            <li>Service</li>
-                            <li>Inventory</li>
-                        </ul>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                        <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                        <strong style="vertical-align: middle; color: black;">Customer Service</strong>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- Page Content -->
-        <div id="page-content-wrapper" style="padding-left:10vw;">
-            <!--
-            <div class="container-fluid">
-            <a href="#menu-toggle"  class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
-                <h1>Simple Sidebar</h1>
-                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                <ul class="sidebar-nav">
+                    <li style="margin-top: 85px; margin-bottom: 10px">
+                        <a asp-controller="Dashboard" asp-action="Index">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Dashboard</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="images/fa_solid_paw_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Patients</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Appointment" asp-action="Index">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="~/images/file_icon.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Appointments</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="~/images/receipt_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Reception</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="~/images/users_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Access Control</strong>
+                            <img id="imgArrow" width="20" height="20" style="margin-left: 20px;" />
+                            <ul>
+                                <li>Organization</li>
+                                <li>Staff Listing</li>
+                                <li>Role Setting</li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="~/images/file_icon.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Patient Treatment Plan</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="~/images/box.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Service & Inventory</strong>
+                            <img id="imgArrow" width="20" height="20" style="margin-left: 3px;" />
+                            <ul>
+                                <li>Service</li>
+                                <li>Inventory</li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="~/images/mail_icon.png" width="24" height="24" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong style="vertical-align: middle; color: black;">Customer Service</strong>
+                        </a>
+                    </li>
+                </ul>
+            </dix>
+            <div class="col py-3">
+                <div class="row" style="border: 0px solid black; height: 85px;">
+                    <div class="col-md-6" style="border: 0px solid black;">
+                    </div>
+                    <div class="col-md-6" style="border: 0px solid black;">
+                        <div class="row" style="height: 80px;">
+                            <div class="col-md-4" style="border: 0px solid black;"></div>
+                            <div class="col-md-6" style="border: 0px solid black;">
+                                <div style="display: flex; flex-direction: row; margin-top: 10px; width: 280px; height: 60px;">
+                                    <div style="width: 60px; border-radius: 50px; background-color: cornflowerblue;">
+                                        <img src="images/AvatarProfile.png" width="60" height="60"/>
+                                    </div>
+                                    <div style="width: 220px; margin-left: 15px;">
+                                        <div class="dropdown" style="margin-top: 10px;">
+                                            <div class="dropdown-toggle" data-toggle="dropdown" style="width: 180px;">
+                                                <label style="font-size: 16px; font-weight: bold; margin-top: 5px;">NAME NAME NAME NAME</label>
+                                            </div>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">My Profile</a>
+                                                <a class="dropdown-item" href="#">Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="border: 0px solid black;">
+                                <!-- Switch Themes -->
+                                <div style="display: flex; flex-direction: row; margin-top: 15px; margin-left: 5px; width: 75px; height: 44px; border-radius: 5px; background-color: #f7f7f7;">
+                                    <div id="btnDark" class="text-center align-content-center" style="display: inline-block; width: 32px; height: 35px; border-radius: 5px; margin-left: 6px; margin-top: 4px; background-color: #1e76fb;" data="dark">
+                                        <img src="images/DarkWhite.png" width="22" height="20" />
+                                    </div>
+                                    <div id="btnBright" class="text-center align-content-center" style="width: 32px; height: 35px; border-radius: 5px; margin-right: 5px; margin-top: 4px;" data="light">
+                                        <img src="images/BrightnessWhite.png" width="22" height="20" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="border: 0px solid black;">
+                    @RenderBody()
+                </div>
                 
             </div>
-            -->
-            @RenderBody()
         </div>
-        <!-- /#page-content-wrapper -->
-
     </div>
-    <!--
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - LayoutMVCWebApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    -->
 
     <script src="~/lib/jquery/dist/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -264,63 +383,24 @@
             $(this).parent().parent().find('#imgArrow').toggleClass('Up');
             $(this).parent().parent().parent().find('span').toggleClass('selected');
         });
-    </script>
 
-    <script>
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
+        $('#btnDark').on('click', function () {
+            var sTheme = $(this)[0].attributes['data'].value;
+            updateThemes(sTheme);
+        });
+
+        $('#btnBright').on('click', function () {
+            var sTheme = $(this)[0].attributes['data'].value;
+            updateThemes(sTheme);
+        });
+
+        function updateThemes(themes) 
+        {
+            //alert(themes);
+            $.post("/Theme/SetThemes", {
+                data: themes
+            });
         }
-
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function (e) {
-            if (!e.target.matches('.dropbtn')) {
-                var myDropdown = document.getElementById("myDropdown");
-                if (myDropdown.classList.contains('show')) {
-                    myDropdown.classList.remove('show');
-                }
-            }
-        }
     </script>
-    <!--
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VPMS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - VPMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    -->
-    @await RenderSectionAsync("Scripts", required: false)
-
 </body>
 </html>

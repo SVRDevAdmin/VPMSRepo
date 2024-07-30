@@ -14,6 +14,7 @@ namespace VPMS
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
