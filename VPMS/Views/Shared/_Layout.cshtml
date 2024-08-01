@@ -14,7 +14,7 @@
 
     <script src="~/lib/bootstrap/dist/js/v4.6.2/bootstrap.bundle.min.js"></script>
 
-    @{
+    @* @{
         var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
         if (theme != null)
         {
@@ -31,7 +31,7 @@
         {
             <link rel="stylesheet" href="~/css/lighttheme.css" />
         }
-    }
+    } *@
 
     <style type="text/css">
         .searchbarInput {
@@ -224,7 +224,7 @@
 <body>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <dix class="col-auto bar-menu-bg">
+            <dix class="col-auto bar-menu-bg" style="height: 100vh;">
                 <div class="d-flex flex-column align-items-center" style="width: 270px; margin-top: 35px; margin-left: 10px;">
                     <div class="col-md-12">
                         <img src="images/vpms_logo_icon.png" style="width: 40px; height: 34px; " />
@@ -232,17 +232,17 @@
                     </div>
 
                 </div>
-                <ul class="sidebar-nav">
+                <ul class="sidebar-nav" style="background-color: transparent; position: absolute; height: 0;">
                     <li style="margin-top: 85px; margin-bottom: 10px">
                         <a asp-controller="Dashboard" asp-action="Index">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <span id="dashboardMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
                             <strong style="vertical-align: middle; color: black;">Dashboard</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <a asp-controller="Patients" asp-action="Index">
+                            <span id="patientsMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img src="images/fa_solid_paw_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
                             <strong style="vertical-align: middle; color: black;">Patients</strong>
                         </a>
@@ -349,15 +349,18 @@
         </div>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    @* <script src="~/lib/jquery/dist/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <!--<script src="~/js/main.js" asp-append-version="true"></script>-->
     <script type="text/javascript">
 
-        if (document.getElementById('pageName').innerHTML == "Dashboard Page") {
-            $("#dashboardMenu").toggleClass('selected')
-        }
+        // if (document.getElementById('pageName').innerHTML == "Dashboard Page") {
+        //     $("#dashboardMenu").toggleClass('selected')
+        // }
+
+        var pageName = document.getElementById('pageName').innerHTML;
+        $("#" + pageName).toggleClass('selected')
 
         $("#menu-toggle").click(function (e) {
             e.preventDefault();

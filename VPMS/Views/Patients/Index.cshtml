@@ -1,0 +1,160 @@
+﻿@{
+	Layout = "_Layout";
+	ViewData["Title"] = "Patients Page";
+	ViewData["SelectedMenu"] = "patientsMenu";
+}
+
+<style>
+	.table-content {
+		text-align: center;
+		height: 2vw;
+	}
+
+	table th:first-child {
+		border-radius: 0.2vw 0 0 0.2vw;
+	}
+
+	table th:last-child {
+		border-radius: 0 0.2vw 0.2vw 0;
+	}
+
+	.form-field {
+		border-style: solid;
+		border-color: black;
+	}
+
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1.5vw;
+	}
+
+	.form-label {
+		font-weight: bold;
+		margin-bottom: 0.7vw;
+	}
+</style>
+
+<div id="pageName" hidden>@ViewData["SelectedMenu"]</div>
+
+<div style="display: flex;">
+
+	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
+		<img src="~/images/BackArrow.png" style=" margin-right: 1vw;" /> <span style="font-size: 2vw;">Patients</span>
+	</div>
+
+	<div>
+		<button class="btn btn-lg btn-primary" style="right: 0; position: absolute; margin-right: 3vw;">
+			New Patient
+		</button>
+	</div>
+
+</div>
+
+<div style="display: flex;">
+	<div>
+		<table style="width: 56vw; margin-bottom: 2vw;">
+			<tr style="background-color: whitesmoke;">
+				<th class="table-content">No</th>
+				<th class="table-content">Owner Name</th>
+				<th class="table-content">Pet Name</th>
+				<th class="table-content">Species</th>
+				<th class="table-content">Breed</th>
+				<th class="table-content">Pet Age (Y)</th>
+				<th class="table-content">Sex</th>
+				<th class="table-content">Created On</th>
+				<th class="table-content"></th>
+			</tr>
+			<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+				<td class="table-content">1</td>
+				<td class="table-content">Choi Hue-Jin</td>
+				<td class="table-content">Simba</td>
+				<td class="table-content">Cat</td>
+				<td class="table-content">British Short Hair</td>
+				<td class="table-content">1</td>
+				<td class="table-content">M</td>
+				<td class="table-content">20/1/24</td>
+				<td class="table-content" style="width: 0;">
+					<div class="dropleft">
+						<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">
+							<img src="~/images/more_icon.png" style="width: 1.3vw;" />
+						</button>
+
+						<div class="dropdown-menu" style="min-width: fit-content;">
+							<a class="dropdown-item" href="#">View</a>
+							<a class="dropdown-item" href="#">Edit</a>
+							<a class="dropdown-item" href="#">Delete</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr style="height: 3.3vw;">
+				<td class="table-content">2</td>
+				<td class="table-content">Park Min-Ji</td>
+				<td class="table-content">Elsa</td>
+				<td class="table-content">Dog</td>
+				<td class="table-content">Border Collie</td>
+				<td class="table-content">0.5</td>
+				<td class="table-content">M</td>
+				<td class="table-content">20/1/24</td>
+				<td class="table-content" style="width: 0;">
+					<div class="dropleft">
+						<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">
+							<img src="~/images/more_icon.png" style="width: 1.3vw;" />
+						</button>
+
+						<div class="dropdown-menu" style="min-width: fit-content;">
+							<a class="dropdown-item" href="#">View</a>
+							<a class="dropdown-item" href="#">Edit</a>
+							<a class="dropdown-item" href="#">Delete</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<div style="display: flex; justify-content: flex-end;">
+			<div>
+				<button style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">Prev</button>
+			</div>
+			<div>
+				<button style="width: 3vw; height: 3vw; background-color: blue; color: white; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border-style: none; font-weight: bold;">01</button>
+			</div>
+			<div>
+				<button style="width: 3vw; height: 3vw; background-color: blue; color: white; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border-style: none; font-weight: bold;">02</button>
+			</div>
+			<div>
+				<button style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">Next</button>
+			</div>
+		</div>
+	</div>
+	<div style="background-color: whitesmoke; width: 20vw; border-radius: 0.2vw; margin-left: 1vw; padding: 2vw;">
+		<h3 style="text-align: left; margin-bottom: 2vw;">Filters</h3>
+
+		<div class="field-container">
+			<span class="form-label">Owner Name</span>
+			<input type="text" class="form-control form-field" />
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">Pet Name</span>
+			<input type="text" class="form-control form-field" />
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">Species</span>
+			<select class="form-control form-field">
+				<option> Cat</option>
+			</select>
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">Breed</span>
+			<select class="form-control form-field">
+				<option>British Short Hair</option>
+			</select>
+		</div>
+
+		<button class="w-100 btn btn-lg btn-primary" style="margin-top: 1vw;">Search</button>
+	</div>
+</div>

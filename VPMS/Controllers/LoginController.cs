@@ -74,7 +74,7 @@ namespace VPMSWeb.Controllers
             if (user != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(loginInfo.Username,
-                            loginInfo.Password, false, lockoutOnFailure: true);
+                            loginInfo.Password, false, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
@@ -84,17 +84,17 @@ namespace VPMSWeb.Controllers
 
                     _userDBContext.SaveChanges();
 
-                    var randomAlphanumeric = GenerateRandomAlphanumeric(32);
-                    var sessionCreatedOn = DateTime.Now;
-                    var sessionExpiredOn = DateTime.Now.AddMinutes(5);
+                    //var randomAlphanumeric = GenerateRandomAlphanumeric(32);
+                    //var sessionCreatedOn = DateTime.Now;
+                    //var sessionExpiredOn = DateTime.Now.AddMinutes(5);
 
-                    _loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
+                    //_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
 
-                    _loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric , ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
+                    //_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric , ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
 
                     //_loginSessionDBContext.SaveChanges();
 
-                    HttpContext.Session.SetString("SessionID", randomAlphanumeric);
+                    //HttpContext.Session.SetString("SessionID", randomAlphanumeric);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -114,7 +114,8 @@ namespace VPMSWeb.Controllers
                 {
                     var attempLeft = maxLoginAttempt - user.AccessFailedCount;
 
-                    ViewData["alert"] = "Wrong password. " + attempLeft + " attemp[s] left before the account is locked.";
+                    //ViewData["alert"] = "Wrong password. " + attempLeft + " attemp[s] left before the account is locked.";
+                    ViewData["alert"] = "Wrong password or username.";
 
                     return View("Login");
                 }
@@ -213,6 +214,14 @@ namespace VPMSWeb.Controllers
 
                     return RedirectToAction("Login", "Login");
                 }
+                else
+                {
+                    ViewData["alert"] = "Wrong email. Please check and try again.";
+                }
+            }
+            else
+            {
+                ViewData["alert"] = "Account not found based on the username. Please check and try again.";
             }
 
             return View("PasswordRecovery");
