@@ -36,11 +36,11 @@ namespace VPMSWeb.Middleware
             var ticketIssuedUtc =
                 new DateTimeOffset(ticketIssuedTicks, TimeSpan.FromHours(0));
 
-            if ((DateTimeOffset.UtcNow - ticketIssuedUtc > TimeSpan.FromHours(1)) || (DateTimeOffset.UtcNow - idleSessionCheck > TimeSpan.FromMinutes(5)))
+            if ((DateTimeOffset.UtcNow - ticketIssuedUtc > TimeSpan.FromHours(1)) /*|| (DateTimeOffset.UtcNow - idleSessionCheck > TimeSpan.FromMinutes(5))*/)
             {
                 //var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == context.Principal.Identity.Name);
 
-                //var newLoginSessionLog = new LoginSessionLogModel() { ActionType = "expired-logout", SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
+                //var newLoginSessionLog = new LoginSessionLogModel() { ActionType = "expired-logout", SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
 
                 //_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
 

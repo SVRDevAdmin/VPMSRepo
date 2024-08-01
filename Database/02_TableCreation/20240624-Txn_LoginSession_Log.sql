@@ -4,6 +4,7 @@ CREATE TABLE `txn_loginsession_log` (
   `SessionID` varchar(40) NOT NULL,
   `SessionCreatedOn` datetime NOT NULL,
   `SessionExpiredOn` datetime NOT NULL,
+  `UserID` varchar(255) NOT NULL,
   `LoginID` varchar(255) NOT NULL,
   `CreatedDate` datetime NOT NULL,
   `CreatedBy` varchar(50) NOT NULL,

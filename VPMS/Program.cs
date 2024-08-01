@@ -43,12 +43,13 @@ namespace VPMS
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(cookieSettings.GetValue<int>("ExpireTimeSpan"));
+                //options.ExpireTimeSpan = TimeSpan.FromMinutes(cookieSettings.GetValue<int>("ExpireTimeSpan"));
+                //options.ExpireTimeSpan = TimeSpan.FromHours(1); //default are 4 hours
 
                 options.LoginPath = "/Login/Login";
                 options.AccessDeniedPath = "/Login/AccessDenied";
-                options.SlidingExpiration = true;
-                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                //options.SlidingExpiration = true; //default is false
+                //options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
 
                 options.EventsType = typeof(CustomCookieAuthenticationEvents);
             });

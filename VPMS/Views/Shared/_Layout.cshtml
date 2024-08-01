@@ -166,11 +166,11 @@
         }
 
         .sidebar-nav li a #imgArrow {
-            content: url('images/down-arrow.png');
+            content: url('/images/down-arrow.png');
         }
 
         .sidebar-nav li a #imgArrow.Up {
-            content: url('images/arrow-up.png');
+            content: url('/images/arrow-up.png');
         }
 
         #imgProfileArrow {
@@ -221,14 +221,22 @@
         }
     </style>
 </head>
-<body>
+<body onload="StartTimers();" onmousemove="ResetTimers();" onkeydown="ResetTimers();">
+
+    <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert" id="alert" style="position: fixed; z-index: 9999;left: 50%; transform: translate(-50%, 0); display: none !important;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div style="margin-left: 1vw;">You will be automatically logout if continue to idle.</div>
+    </div>
+
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <dix class="col-auto bar-menu-bg" style="height: 100vh;">
                 <div class="d-flex flex-column align-items-center" style="width: 270px; margin-top: 35px; margin-left: 10px;">
                     <div class="col-md-12">
-                        <img src="images/vpms_logo_icon.png" style="width: 40px; height: 34px; " />
-                        <img src="images/vpms_logo.png" style="width: 160px; height: 22px;" />
+                        <img src="~/images/vpms_logo_icon.png" style="width: 40px; height: 34px; " />
+                        <img src="~/images/vpms_logo.png" style="width: 160px; height: 22px;" />
                     </div>
 
                 </div>
@@ -243,13 +251,13 @@
                     <li>
                         <a asp-controller="Patients" asp-action="Index">
                             <span id="patientsMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="images/fa_solid_paw_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                            <img src="~/images/fa_solid_paw_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
                             <strong style="vertical-align: middle; color: black;">Patients</strong>
                         </a>
                     </li>
                     <li>
                         <a asp-controller="Appointment" asp-action="Index">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <span id="appointmentMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img src="~/images/file_icon.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
                             <strong style="vertical-align: middle; color: black;">Appointments</strong>
                         </a>
@@ -312,7 +320,7 @@
                             <div class="col-md-6" style="border: 0px solid black;">
                                 <div style="display: flex; flex-direction: row; margin-top: 10px; width: 280px; height: 60px;">
                                     <div style="width: 60px; border-radius: 50px; background-color: cornflowerblue;">
-                                        <img src="images/AvatarProfile.png" width="60" height="60"/>
+                                        <img src="~/images/AvatarProfile.png" width="60" height="60" />
                                     </div>
                                     <div style="width: 220px; margin-left: 15px;">
                                         <div class="dropdown" style="margin-top: 10px;">
@@ -331,10 +339,10 @@
                                 <!-- Switch Themes -->
                                 <div style="display: flex; flex-direction: row; margin-top: 15px; margin-left: 5px; width: 75px; height: 44px; border-radius: 5px; background-color: #f7f7f7;">
                                     <div id="btnDark" class="text-center align-content-center" style="display: inline-block; width: 32px; height: 35px; border-radius: 5px; margin-left: 6px; margin-top: 4px; background-color: #1e76fb;" data="dark">
-                                        <img src="images/DarkWhite.png" width="22" height="20" />
+                                        <img src="~/images/DarkWhite.png" width="22" height="20" />
                                     </div>
                                     <div id="btnBright" class="text-center align-content-center" style="width: 32px; height: 35px; border-radius: 5px; margin-right: 5px; margin-top: 4px;" data="light">
-                                        <img src="images/BrightnessWhite.png" width="22" height="20" />
+                                        <img src="~/images/BrightnessWhite.png" width="22" height="20" />
                                     </div>
                                 </div>
                             </div>
@@ -353,6 +361,7 @@
     <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <!--<script src="~/js/main.js" asp-append-version="true"></script>-->
+
     <script type="text/javascript">
 
         // if (document.getElementById('pageName').innerHTML == "Dashboard Page") {
@@ -404,6 +413,44 @@
                 data: themes
             });
         }
+
+        //setting for idle logout
+        // Set timeout variables. 1000 = 1 second.
+        var timoutWarning = 5000;
+        var timoutNow = 10000;
+        var logoutUrl = 'login/Logout?autoLogout=true'; // URL to logout page.
+
+        var warningTimer;
+        var timeoutTimer;
+
+        // Start timers.
+        function StartTimers() {
+            warningTimer = setTimeout("IdleWarning()", timoutWarning);
+            timeoutTimer = setTimeout("IdleTimeout()", timoutNow);
+        }
+
+        // Reset timers.
+        function ResetTimers() {
+            clearTimeout(warningTimer);
+            clearTimeout(timeoutTimer);
+            StartTimers();
+
+            $("#alert").slideUp(500, function () {
+                $("#alert")[0].style.setProperty('display', 'none', 'important');
+            });
+        }
+
+        // Show idle timeout warning dialog.
+        function IdleWarning() {
+            $("#alert").slideDown(500);
+        }
+
+        // Logout the user.
+        function IdleTimeout() {
+            window.location = logoutUrl;
+        }
     </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

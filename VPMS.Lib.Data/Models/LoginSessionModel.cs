@@ -14,6 +14,7 @@ namespace VPMS.Lib.Data.Models
         public string SessionID { get; set; } = null!;
         public DateTime SessionCreatedOn { get; set; }
         public DateTime SessionExpiredOn { get; set; }
+        public string UserID { get; set; } = null!;
         public string LoginID { get; set; } = null!;
     }
 
@@ -25,6 +26,7 @@ namespace VPMS.Lib.Data.Models
         public string SessionID { get; set; } = null!;
         public DateTime SessionCreatedOn { get; set; }
         public DateTime SessionExpiredOn { get; set; }
+        public string UserID { get; set; } = null!;
         public string LoginID { get; set; } = null!;
     }
 }

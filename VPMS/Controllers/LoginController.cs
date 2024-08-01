@@ -88,9 +88,9 @@ namespace VPMSWeb.Controllers
                     //var sessionCreatedOn = DateTime.Now;
                     //var sessionExpiredOn = DateTime.Now.AddMinutes(5);
 
-                    //_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
+                    //_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { UserID = user.Id ,LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
 
-                    //_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric , ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
+                    //_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric, ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
 
                     //_loginSessionDBContext.SaveChanges();
 
@@ -171,13 +171,16 @@ namespace VPMSWeb.Controllers
             return View("FirstRegister");
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(bool autoLogout = false)
         {
             await _signInManager.SignOutAsync();
 
             //var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
 
-            //var newLoginSessionLog = new LoginSessionLogModel() { ActionType = "user-logout", SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
+            //var newLoginSessionLog = new LoginSessionLogModel() { SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
+
+            //if (autoLogout) { newLoginSessionLog.ActionType = "expired-logout"; }
+            //else { newLoginSessionLog.ActionType = "user-logout"; }
 
             //_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
 
