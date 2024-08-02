@@ -202,7 +202,8 @@
         function updateThemes(themes) 
         {
             $.post("/Theme/SetThemes", {
-                data: themes
+                data: themes,
+                userid: 'User A'
             }).done(function (resp) {
                 window.location.reload();           
             });
