@@ -1,0 +1,280 @@
+body {
+	overflow-x: hidden;
+	background-color: transparent;
+	font-family: Noto Sans;
+}
+
+#wrapper {
+	padding-left: 0;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+	padding-left: 250px;
+}
+
+#sidebar-wrapper {
+	z-index: 1000;
+	position: fixed;
+	left: 250px;
+	height: 100%;
+	margin-left: -250px;
+	background: #f2f2f2;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+	width: 280px;
+}
+
+#wrapper #sidebar-wrapper {
+	width: 280px;
+	height: 100%;
+}
+
+#page-content-wrapper {
+	width: 100%;
+	position: absolute;
+	padding: 15px;
+	margin-left: 280px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+	position: absolute;
+}
+
+/* Sidebar Styles */
+.bar-menu-bg {
+	background-color: #f7f7f7;
+}
+
+.sidebar-nav {
+	background-color: #f7f7f7;
+	list-style: none;
+	position: fixed;
+	top: 88px;
+	width: 310px;
+	height: 100%;
+	margin-left: -15px;
+	padding: 0;  
+}
+
+.sidebar-nav li {
+	text-indent: 0px;
+	line-height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.sidebar-nav li a {
+	display: block;
+	text-decoration: none;
+	color: #999999;
+}
+
+.sidebar-nav li a:hover {
+	text-decoration: none;
+	color: #fff;
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+	text-decoration: none;
+}
+
+.sidebar-nav li span.selected {
+	background-color: rgb(30, 118, 251); 
+	display: inline-block;
+}
+
+.sidebar-nav li span {
+	background-color: none;
+}
+
+.sidebar-nav li ul {
+	margin-left: 88px;
+	padding-left: 20px;
+	list-style-type: none;
+	border-left-style: solid;
+	border-left-color: #707B7C;
+	border-left-width: thin;
+	display: none;
+}
+
+.sidebar-nav li ul li {
+	width: 140px;
+	color: black;
+	line-height: 30px;
+}
+
+.sidebar-nav li ul li:first-child{
+	margin-top: 0px;
+}
+
+.sidebar-nav li ul li:last-child{
+	margin-bottom: 0px;
+}
+
+.sidebar-nav li ul.open {
+	display: inline-block;
+}
+
+.sidebar-nav li a #imgArrow {
+	content: url('../images/down-arrow.png');
+	width: 20px;
+	height: 20px;
+}
+
+.sidebar-nav li a #imgArrow.Up {
+	content: url('../images/arrow-up.png');
+	width: 20px;
+	height: 20px;
+}
+
+#imgProfileArrow {
+	content: url('../images/down-arrow.png');
+}
+
+.sidebar-nav > .sidebar-brand {
+	height: 65px;
+	font-size: 18px;
+	line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+	color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+	color: #fff;
+	background: none;
+}
+
+.sidebar-nav-font {
+	vertical-align: middle; 
+	color: black;
+}
+
+.divThemes {
+	display: flex; 
+	flex-direction: row; 
+	margin-top: 15px; 
+	margin-left: 5px; 
+	width: 75px; 
+	height: 44px; 
+	border-radius: 5px; 
+	background-color: #f7f7f7;
+}
+
+.ProfileFont {
+	font-size: 16px; 
+	font-weight: bold; 
+	color: black;
+	margin-top: 5px;
+}
+
+.profilemenu {
+	background-color: transparent;
+}
+
+.profilemenu > a {
+	color: black;
+}
+
+#btnBright {
+	background-color: #1e76fb;
+}
+
+#btnDark {
+	background-color: transparent;
+}
+
+#imgLogo {
+	content: url('../images/vpms_logo_icon.png');
+}
+
+#imgLogoTitle {
+	content: url('../images/vpms_logo.png');
+}
+
+#iconPatients {
+	content: url('../images/fa_solid_paw_icon.png');
+	width: 20px;
+	height: 20px;
+}
+
+#iconHome {
+	content: url('../images/home.png');
+	width: 20px;
+	height: 20px;
+}
+
+#iconAppt {
+	content: url('../images/file_icon.png');
+	width: 20px;
+	height: 20px;
+}
+
+#iconReceipt{
+	content: url('../images/receipt_icon.png');
+	width: 24px;
+	height: 24px;
+}
+
+#iconAccess {
+	content: url('../images/users_icon.png');
+	width: 24px;
+	height: 24px;
+}
+
+#imgTreatment {
+	content: url('../images/plan_icon.png');
+	width: 20px;
+	height: 20px;
+}
+
+#iconInventory {
+	content: url('../images/box_icon.png');
+	width: 32px;
+	height: 32px;
+}
+
+#iconServices {
+	content: url('../images/mail_icon.png');
+	width: 24px;
+	height: 24px;
+}
+
+@@media(min-width:768px) {
+	#wrapper {
+		padding-left: 0;
+	}
+
+	#wrapper.toggled {
+		padding-left: 250px;
+	}
+
+	#sidebar-wrapper {
+		width: 0;
+	}
+
+	#wrapper.toggled #sidebar-wrapper {
+		width: 250px;
+	}
+
+	#page-content-wrapper {
+		padding: 20px;
+		position: relative;
+	}
+
+	#wrapper.toggled #page-content-wrapper {
+		position: relative;
+		margin-right: 0;
+	}
+}

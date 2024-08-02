@@ -20,203 +20,18 @@
         {
             if (theme == "dark")
             {
-                <link rel="stylesheet" href="~/css/darktheme.css" />
+                <link rel="stylesheet" href="~/css/DarkTheme.css" />
             }
             if (theme == "light")
             {
-                <link rel="stylesheet" href="~/css/lighttheme.css" />
+                    <link rel="stylesheet" href="~/css/LightTheme.css" />
             }
         }
         else
         {
-            <link rel="stylesheet" href="~/css/lighttheme.css" />
-        }
-    } *@
-
-    <style type="text/css">
-        .searchbarInput {
-            border: 0px solid #fff;
-            box-shadow: unset !important;
-            background-color: transparent !important;
-        }
-
-        .searchIcon {
-            margin-top: auto;
-            margin-bottom: auto;
-        }
-
-        #wrapper.toggled {
-            padding-left: 250px;
-        }
-
-        /* Dropdown css */
-        .dropdown {
-            float: left;
-            /* overflow: hidden; */
-        }
-
-            .dropdown .dropbtn {
-                cursor: pointer;
-                font-size: 16px;
-                border: none;
-                outline: none;
-                color: black;
-                /* padding: 14px 16px; */
-                background-color: inherit;
-                font-family: inherit;
-                margin: 0;
-            }
-
-        #wrapper #sidebar-wrapper {
-            width: 280px;
-            height: 100%;
-        }
-
-        #page-content-wrapper {
-            width: 100%;
-            position: absolute;
-            padding: 15px;
-            margin-left: 280px;
+                <link rel="stylesheet" href="~/css/LightTheme.css" />
             /* temp */
-            /*border-style: solid;
-            height: auto;*/
-        }
-
-        #wrapper.toggled #page-content-wrapper {
-            position: absolute;
-            /*margin-right: -250px;*/
-        }
-
-
-        /* Sidebar Styles */
-        .bar-menu-bg {
-            background-color: #f7f7f7;
-        }
-
-        .sidebar-nav {
-            background-color: #f7f7f7;
-            list-style: none;
-            position: fixed;
-            top: 88px;
-            width: 310px;
-            height: 100%;
-            margin-left: -15px;
-            padding: 0;  
-        }
-
-        .sidebar-nav li {
-            text-indent: 0px;
-            line-height: 40px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar-nav li a {
-            display: block;
-            text-decoration: none;
-            color: #999999;
-        }
-
-        .sidebar-nav li a:hover {
-            text-decoration: none;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .sidebar-nav li a:active, .sidebar-nav li a:focus {
-            text-decoration: none;
-        }
-
-        .sidebar-nav li span.selected {
-            /*background-color: orange;*/
-            background-color: rgb(30, 118, 251); 
-            display: inline-block;
-        }
-
-        .sidebar-nav li span {
-            background-color: none;
-        }
-
-        .sidebar-nav li ul {
-            margin-left: 88px;
-            padding-left: 20px;
-            list-style-type: none;
-            border-left-style: solid;
-            border-left-color: #707B7C;
-            border-left-width: thin;
-            display: none;
-        }
-
-        .sidebar-nav li ul li {
-            width: 140px;
-            color: black;
-            line-height: 30px;
-        }
-
-        .sidebar-nav li ul li:first-child{
-            margin-top: 0px;
-        }
-
-        .sidebar-nav li ul li:last-child{
-            margin-bottom: 0px;
-        }
-
-        .sidebar-nav li ul.open {
-            display: inline-block;
-        }
-
-        .sidebar-nav li a #imgArrow {
-            content: url('/images/down-arrow.png');
-        }
-
-        .sidebar-nav li a #imgArrow.Up {
-            content: url('/images/arrow-up.png');
-        }
-
-        #imgProfileArrow {
-            content: url('images/down-arrow.png');
-        }
-
-        .sidebar-nav > .sidebar-brand {
-            height: 65px;
-            font-size: 18px;
-            line-height: 60px;
-        }
-
-        .sidebar-nav > .sidebar-brand a {
-            color: #999999;
-        }
-
-        .sidebar-nav > .sidebar-brand a:hover {
-            color: #fff;
-            background: none;
-        }
-
-        @@media(min-width:768px) {
-            #wrapper {
-                padding-left: 0;
-            }
-
-            #wrapper.toggled {
-                padding-left: 250px;
-            }
-
-            #sidebar-wrapper {
-                width: 0;
-            }
-
-            #wrapper.toggled #sidebar-wrapper {
-                width: 250px;
-            }
-
-            #page-content-wrapper {
-                padding: 20px;
-                position: relative;
-            }
-
-            #wrapper.toggled #page-content-wrapper {
-                position: relative;
-                margin-right: 0;
+    }
             }
         }
     </style>
@@ -229,35 +44,34 @@
         </svg>
         <div style="margin-left: 1vw;">You will be automatically logout if continue to idle.</div>
     </div>
-
-    <div class="container-fluid">
+            <dix class="col-auto bar-menu-bg">
+                <div class="d-flex flex-column align-items-center" style="width: 262px; margin-top: 35px; margin-left: 22px;">
         <div class="row flex-nowrap">
-            <dix class="col-auto bar-menu-bg" style="height: 100vh;">
-                <div class="d-flex flex-column align-items-center" style="width: 270px; margin-top: 35px; margin-left: 10px;">
+                        <img id="imgLogo" style="width: 40px; height: 34px; " />
+                        <img id="imgLogoTitle" style="width: 160px; height: 22px;" />
                     <div class="col-md-12">
-                        <img src="~/images/vpms_logo_icon.png" style="width: 40px; height: 34px; " />
-                        <img src="~/images/vpms_logo.png" style="width: 160px; height: 22px;" />
+                        <img src="images/vpms_logo_icon.png" style="width: 40px; height: 34px; " />
+                        <img src="images/vpms_logo.png" style="width: 160px; height: 22px;" />
                     </div>
-
                 </div>
-                <ul class="sidebar-nav" style="background-color: transparent; position: absolute; height: 0;">
-                    <li style="margin-top: 85px; margin-bottom: 10px">
-                        <a asp-controller="Dashboard" asp-action="Index">
-                            <span id="dashboardMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img id="iconHome" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">Dashboard</strong>
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
                             <strong style="vertical-align: middle; color: black;">Dashboard</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Patients" asp-action="Index">
-                            <span id="patientsMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/fa_solid_paw_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img id="iconPatients" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">Patients</strong>
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img src="images/fa_solid_paw_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
                             <strong style="vertical-align: middle; color: black;">Patients</strong>
                         </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Appointment" asp-action="Index">
-                            <span id="appointmentMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img id="iconAppt" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">Appointments</strong>
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img src="~/images/file_icon.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
                             <strong style="vertical-align: middle; color: black;">Appointments</strong>
                         </a>
@@ -265,16 +79,16 @@
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/receipt_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Reception</strong>
+                            <img id="iconReceipt" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">Reception</strong>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/users_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Access Control</strong>
-                            <img id="imgArrow" width="20" height="20" style="margin-left: 20px;" />
+                            <img id="iconAccess" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">Access Control</strong>
+                            <img id="imgArrow" style="margin-left: 20px;" />
                             <ul>
                                 <li>Organization</li>
                                 <li>Staff Listing</li>
@@ -285,16 +99,16 @@
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/file_icon.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Patient Treatment Plan</strong>
+                            <img id="imgTreatment" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">Patient Treatment Plan</strong>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/box.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Service & Inventory</strong>
-                            <img id="imgArrow" width="20" height="20" style="margin-left: 3px;" />
+                            <img id="iconInventory" style="margin-left: 16px; margin-right: 16px;" />
+                            <strong class="sidebar-nav-font">Service & Inventory</strong>
+                            <img id="imgArrow" style="margin-left: 3px;" />
                             <ul>
                                 <li>Service</li>
                                 <li>Inventory</li>
@@ -304,8 +118,8 @@
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/mail_icon.png" width="24" height="24" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Customer Service</strong>
+                            <img id="iconServices" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">Customer Service</strong>
                         </a>
                     </li>
                 </ul>
@@ -325,21 +139,21 @@
                                     <div style="width: 220px; margin-left: 15px;">
                                         <div class="dropdown" style="margin-top: 10px;">
                                             <div class="dropdown-toggle" data-toggle="dropdown" style="width: 180px;">
-                                                <label style="font-size: 16px; font-weight: bold; margin-top: 5px;">NAME NAME NAME NAME</label>
+                                                <label class="ProfileFont">NAME NAME NAME NAME</label>
                                             </div>
-                                            <div class="dropdown-menu">
+                                            <div class="dropdown-menu profilemenu">
                                                 <a class="dropdown-item" href="#">My Profile</a>
                                                 <a class="dropdown-item" href="Login/Logout">Logout</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2" style="border: 0px solid black;">
-                                <!-- Switch Themes -->
-                                <div style="display: flex; flex-direction: row; margin-top: 15px; margin-left: 5px; width: 75px; height: 44px; border-radius: 5px; background-color: #f7f7f7;">
-                                    <div id="btnDark" class="text-center align-content-center" style="display: inline-block; width: 32px; height: 35px; border-radius: 5px; margin-left: 6px; margin-top: 4px; background-color: #1e76fb;" data="dark">
-                                        <img src="~/images/DarkWhite.png" width="22" height="20" />
+                                <div class="divThemes">
+                                    <div id="btnDark" class="text-center align-content-center" style="display: inline-block; width: 32px; height: 35px; border-radius: 5px; margin-left: 6px; margin-top: 4px;" data="dark">
+                                        <img src="images/DarkWhite.png" width="22" height="20" />
+                                <div class="divThemes">
+                                    <div id="btnDark" class="text-center align-content-center" style="display: inline-block; width: 32px; height: 35px; border-radius: 5px; margin-left: 6px; margin-top: 4px;" data="dark">
+                                        <img src="images/DarkWhite.png" width="22" height="20" />
                                     </div>
                                     <div id="btnBright" class="text-center align-content-center" style="width: 32px; height: 35px; border-radius: 5px; margin-right: 5px; margin-top: 4px;" data="light">
                                         <img src="~/images/BrightnessWhite.png" width="22" height="20" />
@@ -354,14 +168,11 @@
                 </div>
                 
             </div>
-        </div>
+    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     </div>
-
-    @* <script src="~/lib/jquery/dist/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> *@
+    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <!--<script src="~/js/main.js" asp-append-version="true"></script>-->
-
     <script type="text/javascript">
 
         // if (document.getElementById('pageName').innerHTML == "Dashboard Page") {
@@ -408,9 +219,10 @@
 
         function updateThemes(themes) 
         {
-            //alert(themes);
             $.post("/Theme/SetThemes", {
                 data: themes
+            }).done(function (resp) {
+                window.location.reload();           
             });
         }
 
