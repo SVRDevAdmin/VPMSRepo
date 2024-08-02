@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -358,6 +359,21 @@ namespace VPMSWeb.Controllers
             }
 
             var test = _roleDBContext.Mst_Roles;
+        }
+
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            await _userManager.DeleteAsync(user);
+
+            var userInfo = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == id);
+
+            _userDBContext.Mst_User.Remove(userInfo);
+
+            _userDBContext.SaveChanges();
+
+            return View("Login");
         }
     }
 }
