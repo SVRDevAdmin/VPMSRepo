@@ -14,24 +14,7 @@
 
     <script src="~/lib/bootstrap/dist/js/v4.6.2/bootstrap.bundle.min.js"></script>
 
-    @{
-        var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
-        if (theme != null)
-        {
-            if (theme == "dark")
-            {
-                <link rel="stylesheet" href="~/css/DarkTheme.css" />
-            }
-            if (theme == "light")
-            {
-                    <link rel="stylesheet" href="~/css/LightTheme.css" />
-            }
-        }
-        else
-        {
-                <link rel="stylesheet" href="~/css/LightTheme.css" />
-        }
-    }
+
 </head>
 <body>
     <div class="container-fluid">
@@ -163,6 +146,9 @@
     <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
+        // $(document).ready(function () {
+        //     getThemes();
+        // });
 
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
@@ -208,6 +194,33 @@
                 window.location.reload();           
             });
         }
+
+        // function getThemes() 
+        // {
+        //     $.getJSON("/Theme/GetThemes", {
+        //         userid: 'User A'
+        //     }).always(function () {
+        //     })
+        // }
     </script>
+
+    @{
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
+        if (theme != null)
+        {
+            if (theme == "dark")
+            {
+                <link rel="stylesheet" href="~/css/DarkTheme.css" />
+            }
+            if (theme == "light")
+            {
+                <link rel="stylesheet" href="~/css/LightTheme.css" />
+            }
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/css/LightTheme.css" />
+        }
+    }
 </body>
 </html>

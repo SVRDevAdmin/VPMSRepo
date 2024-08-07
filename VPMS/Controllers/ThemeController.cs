@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
@@ -8,6 +9,7 @@ namespace VPMSWeb.Controllers
     public class ThemeController : Controller
     {
         public String sThemeConfigurationKey = "UserSettings_Themes";
+        public String sDefaultTheme = "light";
 
         public IActionResult Index()
         {
@@ -35,6 +37,37 @@ namespace VPMSWeb.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        public IActionResult GetThemes(String userid)
+        {
+            CookieOptions cookies = new CookieOptions();
+            cookies.Expires = DateTime.Now.AddDays(1);
+
+            try
+            {
+                var sResult = ConfigurationRepository.GetUserConfigurationSettingsByKey(ConfigSettings.GetConfigurationSettings(), userid, sThemeConfigurationKey);
+                if (sResult != null)
+                {
+                    Response.Cookies.Append("theme", sResult.ConfigurationValue, cookies);
+                    return Ok();
+                }
+                else
+                {
+                    Response.Cookies.Append("theme", sDefaultTheme, cookies);
+                    return Ok();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
+        }
+
+        public void abc()
+        {
+
         }
     }
 }

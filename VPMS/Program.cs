@@ -1,3 +1,8 @@
+using System.Net;
+using VPMS.Lib.Data;
+using VPMSWeb.Controllers;
+using VPMSWeb.Lib.Settings;
+
 namespace VPMS
 {
     public class Program
