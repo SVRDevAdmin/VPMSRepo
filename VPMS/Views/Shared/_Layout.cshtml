@@ -1,9 +1,12 @@
-﻿@inject IHttpContextAccessor httpContextaccessor
+﻿@using Microsoft.AspNetCore.Localization
+@inject IHttpContextAccessor httpContextaccessor
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name ="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VPMS</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -14,7 +17,10 @@
 
     <script src="~/lib/bootstrap/dist/js/v4.6.2/bootstrap.bundle.min.js"></script>
 
-
+    @{
+        var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+        var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+    }
 </head>
 <body>
     <div class="container-fluid">
@@ -76,7 +82,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="zh-Hans">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconInventory" style="margin-left: 16px; margin-right: 16px;" />
                             <strong class="sidebar-nav-font">Service & Inventory</strong>
@@ -88,22 +94,39 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en-US">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconServices" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">Customer Service</strong>
                         </a>
                     </li>
                 </ul>
-            </dix>
+            </dix> 
             <div class="col py-3">
+                <!-- @LangResources["Welcome"] -->
                 <div class="row" style="border: 0px solid black; height: 85px;">
-                    <div class="col-md-6" style="border: 0px solid black;">
+                    <div class="col-md-5" style="border: 0px solid black;">
                     </div>
-                    <div class="col-md-6" style="border: 0px solid black;">
+                    <div class="col-md-7" style="border: 0px solid black;">
                         <div class="row" style="height: 80px;">
-                            <div class="col-md-4" style="border: 0px solid black;"></div>
-                            <div class="col-md-6" style="border: 0px solid black;">
+                            <div class="col-md-4" style="border: 0px solid black;">
+                                <div style="display: flex; flex-direction: row; height: 60px; margin-top: 10px; border: 0px solid black;">
+                                    <div style="display: flex; flex-direction: row; width: 200px; height: 60px; border: 0px solid black;">
+                                        <div style="width: 50px; height: 60px; border: 0px solid black;">
+                                            <img id="imgEarth" style="margin-top: 16px; margin-left: 5px;" />
+                                        </div>
+                                        <div style="width: 200px; height: 60px; border: 0px solid black;">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#LanguageModal">
+                                                <label class="LanguageSelectionFont">English | Malaysia</label>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div style="width: 50px; height: 60px;  border: 0px solid black;">
+                                        <img id="imgBell" style="margin-top: 16px; margin-left: 8px; " />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="border: 0px solid black">
                                 <div style="display: flex; flex-direction: row; margin-top: 10px; width: 280px; height: 60px;">
                                     <div style="width: 60px; border-radius: 50px; background-color: cornflowerblue;">
                                         <img src="images/AvatarProfile.png" width="60" height="60"/>
@@ -139,6 +162,49 @@
                     @RenderBody()
                 </div>
                 
+            </div>
+        </div>
+    </div>
+
+    <div id="LanguageModal" class="modal fade modal-dialog modal-lg" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 0px;">
+                    <div style="width: 800px; display: flex; flex-direction: row; ">
+                        <div class="col-md-6" style="height: 600px; border: 1px solid black;">
+                            <div class="row" style="text-align: center;  ">
+                                <label style="font-size: 24px;">Select a language</label>
+                            </div>
+                            <div class="row" style="height: 300px; margin-left: 10px; margin-right: 10px; border: 1px solid black;">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value="" name="listgrpradio" id="chkFirst" style="margin-left: 30px; vertical-align: middle;"/>
+                                        <img src="../../images/Icons/Country/en.png" width="28" height="28" style="margin-left: 15px;" />
+                                        <label class="form-check-label" style="margin-left: 10px;">First</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value="" name="listgrpradio" id="chkSecond" style="margin-left: 30px; vertical-align: middle;" />
+                                        <img src="../../images/Icons/Country/de.png" width="28" height="28" style="margin-left: 15px;" />
+                                        <label class="form-check-label" style="margin-left: 10px;">Second</label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="height: 600px; border: 1px solid black">
+                            <div class="row" style="text-align: center; font-size: 16px;">
+                                <label style="font-size: 24px;">Select a Country</label>
+                            </div>
+                            <div class="row" style="height: 300px;margin-left: 10px; margin-right: 10px; border: 1px solid black">
+
+                            </div> 
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -202,6 +268,10 @@
         //     }).always(function () {
         //     })
         // }
+
+        $('#alink').addEventListener('shown.bs.modal', () => {
+            $('#LanguageModal').focus();
+        });
     </script>
 
     @{
@@ -210,16 +280,16 @@
         {
             if (theme == "dark")
             {
-                <link rel="stylesheet" href="~/css/DarkTheme.css" />
+                    <link rel="stylesheet" href="~/css/DarkTheme.css" />
             }
             if (theme == "light")
             {
-                <link rel="stylesheet" href="~/css/LightTheme.css" />
+                    <link rel="stylesheet" href="~/css/LightTheme.css" />
             }
         }
         else
         {
-            <link rel="stylesheet" href="~/css/LightTheme.css" />
+                <link rel="stylesheet" href="~/css/LightTheme.css" />
         }
     }
 </body>

@@ -179,6 +179,13 @@ body {
 	margin-top: 5px;
 }
 
+.LanguageSelectionFont {
+	font-size: 16px;
+	color: black;
+	margin-top: 15px;
+	margin-left: 5px;
+}
+
 .profilemenu {
 	background-color: transparent;
 }
@@ -247,6 +254,18 @@ body {
 
 #iconServices {
 	content: url('../images/mail_icon.png');
+	width: 24px;
+	height: 24px;
+}
+
+#imgBell {
+	content: url('../images/Bell_icon.png');
+	width: 24px;
+	height: 24px;
+}
+
+#imgEarth {
+	content: url('../images/earth_icon.png');
 	width: 24px;
 	height: 24px;
 }

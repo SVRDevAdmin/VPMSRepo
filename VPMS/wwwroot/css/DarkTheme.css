@@ -179,6 +179,14 @@ body {
 	margin-top: 5px;
 }
 
+.LanguageSelectionFont {
+	font-size: 16px;
+	text-align: center;
+	color: white;
+	margin-top: 15px;
+	margin-left: 5px;
+}
+
 .profilemenu {
 	background-color: #1f2e45;
 }
@@ -247,6 +255,18 @@ body {
 
 #iconServices {
 	content: url('../images/mail_dark_icon.png');
+	width: 24px;
+	height: 24px;
+}
+
+#imgBell {
+	content: url('../images/Bell_dark_icon.png');
+	width: 24px;
+	height: 24px;
+}
+
+#imgEarth {
+	content: url('../images/earth_dark_icon.png');
 	width: 24px;
 	height: 24px;
 }

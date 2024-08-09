@@ -1,7 +1,11 @@
+using System.Globalization;
 using System.Net;
+using System.Runtime.InteropServices;
 using VPMS.Lib.Data;
 using VPMSWeb.Controllers;
 using VPMSWeb.Lib.Settings;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace VPMS
 {
@@ -13,9 +17,33 @@ namespace VPMS
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddLocalization(options =>
+            {
+                options.ResourcesPath = "Resources";
+            });
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                 {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("zh-Hans")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+            //builder.Services.AddSingleton<VPMSWeb.Lib.SharedViewLocalizer>();
+            //builder.Services.AddSingleton<VPMSWeb.Lib.Interface.ISharedViewLocalizer, VPMSWeb.Lib.Shared.SharedViewLocalizer>();
+            builder.Services.AddSingleton<VPMSWeb.Interface.IResourcesLocalizer, VPMSWeb.Lib.ResourcesLocalizer>();
+
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var app = builder.Build();
+
+            //var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -29,6 +57,22 @@ namespace VPMS
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.Use(async (context, next) =>
+            {
+                string cookie = String.Empty;
+                if (context.Request.Cookies.TryGetValue("Language", out cookie))
+                {
+                    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cookie);
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(cookie);
+                }
+                else
+                {
+                    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en");
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+                }
+                await next.Invoke();
+            });
 
             app.UseAuthorization();
 
