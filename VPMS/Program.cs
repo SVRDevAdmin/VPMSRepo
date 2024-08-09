@@ -44,7 +44,7 @@ namespace VPMS
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
                 //options.ExpireTimeSpan = TimeSpan.FromMinutes(cookieSettings.GetValue<int>("ExpireTimeSpan"));
-                //options.ExpireTimeSpan = TimeSpan.FromHours(1); //default are 4 hours
+                options.ExpireTimeSpan = TimeSpan.FromHours(2); //default are 4 hours
 
                 options.LoginPath = "/Login/Login";
                 options.AccessDeniedPath = "/Login/AccessDenied";
@@ -83,7 +83,7 @@ namespace VPMS
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Patients}/{action=Index}/{id?}");
 
             app.Run();
         }

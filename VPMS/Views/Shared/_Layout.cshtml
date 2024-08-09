@@ -11,29 +11,138 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/main.js" asp-append-version="false"></script>
 
     <script src="~/lib/bootstrap/dist/js/v4.6.2/bootstrap.bundle.min.js"></script>
 
-    @* @{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    @{
         var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
         if (theme != null)
         {
             if (theme == "dark")
             {
-                <link rel="stylesheet" href="~/css/DarkTheme.css" />
+                        <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+                ViewBag.DarkTheme = "Dark";
             }
             if (theme == "light")
             {
-                    <link rel="stylesheet" href="~/css/LightTheme.css" />
+                        <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                ViewBag.DarkTheme = "Light";
             }
         }
         else
         {
-                <link rel="stylesheet" href="~/css/LightTheme.css" />
+                    <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+            ViewBag.DarkTheme = "Light";
             /* temp */
-    }
-            }
         }
+    }
+
+    <style>
+
+        /*below are for theme button*/
+
+        #theme {
+            z-index: 9998;
+            position: absolute;
+            right: 0;
+        }
+
+        #path_4043 {
+            top: 1vw;
+            right: 1vw;
+            width: 6.5vw;
+            height: 3.5vw;
+            position: absolute;
+        }
+
+        #group_1138 {
+            top: 1.4vw;
+            right: 1.5vw;
+            width: 2.6vw;
+            position: absolute;
+            /*animation*/
+            transition: all 0.5s linear;
+        }
+
+            #group_1138.darktheme {
+                top: 1.4vw;
+                right: 3.5vw;
+                width: 3.6vw;
+                position: absolute;
+                /*animation*/
+                transition: all 0.5s linear;
+            }
+
+        #dark_theme_icon {
+            visibility: hidden;
+            opacity: 0;
+            /*animation*/
+            transition: opacity 0.5s linear;
+        }
+
+            #dark_theme_icon.darktheme {
+                visibility: visible;
+                opacity: 1;
+                top: -0.25vw;
+                right: 2.7vw;
+                width: 1.6vw;
+                position: absolute;
+                /*animation*/
+                transition: opacity 0.5s linear;
+            }
+
+
+        #rectangle_1045, #rectangle_1046 {
+            width: 2.6vw;
+            height: 2.6vw;
+            -ms-border-radius: 7px;
+            -o-border-radius: 7px;
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+            border-radius: 0.5vw;
+            background: rgba(30, 118, 251, 255);
+            position: absolute;
+        }
+
+        #icon_feather_sun {
+            top: 2.2vw;
+            right: 2.2vw;
+            width: 2.05vw;
+            position: absolute;
+        }
+
+        #path_519 {
+            top: 0.15vw;
+            right: 0.15vw;
+            width: 0.9vw;
+            position: absolute;
+            visibility: visible;
+            opacity: 1;
+            /*animation*/
+            transition: opacity 0.5s linear;
+        }
+
+
+        #path_520 {
+            top: -0.21vw;
+            right: -0.21vw;
+            width: 1.6vw;
+            position: absolute;
+            visibility: visible;
+            opacity: 1;
+            /*animation*/
+            transition: opacity 0.5s linear;
+        }
+
+            #path_519.darktheme, #path_520.darktheme {
+                visibility: hidden;
+                opacity: 0;
+                /*animation*/
+                transition: opacity 0.5s linear;
+            }
     </style>
 </head>
 <body onload="StartTimers();" onmousemove="ResetTimers();" onkeydown="ResetTimers();">
@@ -44,36 +153,35 @@
         </svg>
         <div style="margin-left: 1vw;">You will be automatically logout if continue to idle.</div>
     </div>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
             <dix class="col-auto bar-menu-bg">
                 <div class="d-flex flex-column align-items-center" style="width: 262px; margin-top: 35px; margin-left: 22px;">
-        <div class="row flex-nowrap">
+                    <div class="col-md-12">
                         <img id="imgLogo" style="width: 40px; height: 34px; " />
                         <img id="imgLogoTitle" style="width: 160px; height: 22px;" />
-                    <div class="col-md-12">
-                        <img src="images/vpms_logo_icon.png" style="width: 40px; height: 34px; " />
-                        <img src="images/vpms_logo.png" style="width: 160px; height: 22px;" />
                     </div>
                 </div>
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                <ul class="sidebar-nav">
+                    <li style="margin-top: 85px; margin-bottom: 10px">
+                        <a asp-controller="Dashboard" asp-action="Index">
+                            <span id="dashboardMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconHome" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">Dashboard</strong>
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/home.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Dashboard</strong>
-                        <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Patients" asp-action="Index">
+                            <span id="patientsMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconPatients" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">Patients</strong>
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="images/fa_solid_paw_icon.png" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Patients</strong>
                         </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Appointment" asp-action="Index">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconAppt" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">Appointments</strong>
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img src="~/images/file_icon.svg" width="20" height="20" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong style="vertical-align: middle; color: black;">Appointments</strong>
                         </a>
                     </li>
                     <li>
@@ -137,28 +245,44 @@
                                         <img src="~/images/AvatarProfile.png" width="60" height="60" />
                                     </div>
                                     <div style="width: 220px; margin-left: 15px;">
-                                        <div class="dropdown" style="margin-top: 10px;">
-                                            <div class="dropdown-toggle" data-toggle="dropdown" style="width: 180px;">
+                                        <div class="dropdown" style="margin-top: 10px; width: fit-content;">
+                                            <div class="dropdown-toggle" data-toggle="dropdown" style="width: 11vw;">
                                                 <label class="ProfileFont">NAME NAME NAME NAME</label>
                                             </div>
                                             <div class="dropdown-menu profilemenu">
                                                 <a class="dropdown-item" href="#">My Profile</a>
-                                                <a class="dropdown-item" href="Login/Logout">Logout</a>
+                                                <a class="dropdown-item" asp-controller="Login" asp-action="Logout">Logout</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="divThemes">
+                            </div>
+                            <div class="col-md-2" style="border: 0px solid black;">
+                                <!-- Switch Themes -->
+                                @* <div class="divThemes">
                                     <div id="btnDark" class="text-center align-content-center" style="display: inline-block; width: 32px; height: 35px; border-radius: 5px; margin-left: 6px; margin-top: 4px;" data="dark">
-                                        <img src="images/DarkWhite.png" width="22" height="20" />
-                                <div class="divThemes">
-                                    <div id="btnDark" class="text-center align-content-center" style="display: inline-block; width: 32px; height: 35px; border-radius: 5px; margin-left: 6px; margin-top: 4px;" data="dark">
-                                        <img src="images/DarkWhite.png" width="22" height="20" />
+                                        <img src="~/images/DarkWhite.png" width="22" height="20" />
                                     </div>
                                     <div id="btnBright" class="text-center align-content-center" style="width: 32px; height: 35px; border-radius: 5px; margin-right: 5px; margin-top: 4px;" data="light">
                                         <img src="~/images/BrightnessWhite.png" width="22" height="20" />
                                     </div>
-                                </div>
+                                </div> *@
+                                <a href="#" id="theme" onclick="toggleTheme(true);">
+                                    <img src="~/images/skins/path_4043.png" id="path_4043" />
+
+                                    <div id="group_1138">
+                                        <div id="rectangle_1045"></div>
+                                        <div id="rectangle_1046"></div>
+
+                                    </div>
+
+                                    <div id="icon_feather_sun">
+                                        <img src="~/images/skins/path_519.png" id="path_519" />
+                                        <img src="~/images/skins/path_520.png" id="path_520" />
+                                        <img src="~/images/DarkWhite.png" id="dark_theme_icon" />
+
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -166,20 +290,22 @@
                 <div class="row" style="border: 0px solid black;">
                     @RenderBody()
                 </div>
-                
+
             </div>
-    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        </div>
     </div>
-    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <!--<script src="~/js/main.js" asp-append-version="true"></script>-->
-    <script type="text/javascript">
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-        // if (document.getElementById('pageName').innerHTML == "Dashboard Page") {
-        //     $("#dashboardMenu").toggleClass('selected')
-        // }
+    <script type="text/javascript">        
 
-        var pageName = document.getElementById('pageName').innerHTML;
+        if ('@ViewBag.darkTheme' == 'Dark') {
+            toggleTheme(false);
+        }
+
+        var pageName = '@ViewBag.SelectedMenu';
         $("#" + pageName).toggleClass('selected')
 
         $("#menu-toggle").click(function (e) {
@@ -192,8 +318,7 @@
                 $(this).find('ul').toggleClass('open');
                 $(this).find('#imgArrow').toggleClass('Up');
             }
-            else 
-            {
+            else {
                 $('.sidebar-nav').find('span').removeClass('selected');
                 $(this).find('span').toggleClass('selected');
             }
@@ -217,50 +342,49 @@
             updateThemes(sTheme);
         });
 
-        function updateThemes(themes) 
-        {
+        function updateThemes(themes) {
             $.post("/Theme/SetThemes", {
                 data: themes
             }).done(function (resp) {
-                window.location.reload();           
+                // window.location.reload();
             });
         }
 
-        //setting for idle logout
-        // Set timeout variables. 1000 = 1 second.
-        var timoutWarning = 5000;
-        var timoutNow = 10000;
-        var logoutUrl = 'login/Logout?autoLogout=true'; // URL to logout page.
+        function toggleTheme(changeCookie) {
+            var element = document.getElementById("group_1138");
+            var darkIcon = document.getElementById("dark_theme_icon");
+            var lightIcon1 = document.getElementById("path_519");
+            var lightIcon2 = document.getElementById("path_520");
+            element.classList.toggle("darktheme");
+            darkIcon.classList.toggle("darktheme");
+            lightIcon1.classList.toggle("darktheme");
+            lightIcon2.classList.toggle("darktheme");
 
-        var warningTimer;
-        var timeoutTimer;
+            if (changeCookie) {
+                var theme = "";
 
-        // Start timers.
-        function StartTimers() {
-            warningTimer = setTimeout("IdleWarning()", timoutWarning);
-            timeoutTimer = setTimeout("IdleTimeout()", timoutNow);
+                if (lightIcon1.classList.contains("darktheme")) {
+                    updateThemes("dark");
+                    theme = '/css/DarkTheme.css';
+                }
+                else {
+                    updateThemes("light");
+                    theme = '/css/LightTheme.css';
+                }
+
+                if (document.getElementById("themeCss")) {
+                    document.getElementById("themeCss").remove();
+                }
+
+                var head = document.getElementsByTagName('head')[0];
+                var link = document.createElement('link');
+                link.id = "themeCss"
+                link.rel = 'stylesheet';
+                link.href = theme;
+                head.appendChild(link);
+            }
         }
 
-        // Reset timers.
-        function ResetTimers() {
-            clearTimeout(warningTimer);
-            clearTimeout(timeoutTimer);
-            StartTimers();
-
-            $("#alert").slideUp(500, function () {
-                $("#alert")[0].style.setProperty('display', 'none', 'important');
-            });
-        }
-
-        // Show idle timeout warning dialog.
-        function IdleWarning() {
-            $("#alert").slideDown(500);
-        }
-
-        // Logout the user.
-        function IdleTimeout() {
-            window.location = logoutUrl;
-        }
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

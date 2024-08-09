@@ -1,0 +1,805 @@
+﻿@{
+	ViewData["Title"] = "Patients Page";
+	ViewBag.SelectedMenu = "patientsMenu";
+}
+
+<style>
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1.5vw;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.3vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize{
+		width: 16.5vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.currentPage{
+		background-color: blue !important;
+		color: white !important;
+		border: none;
+		border-style: none !important;
+	}
+
+	.currentPageText {
+		color: black !important;
+	}
+
+	.medicalRecordPartition{
+		width: 26vw;
+		height: 31vw;
+		overflow: auto;
+	}
+
+	.medicalRecordPartitionTitle {
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+		margin-bottom: 1.5vw;
+	}
+</style>
+
+<div style="display: flex;">
+
+	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw;" onclick="location.href='@Url.Action("Index", "Patients")'" />
+		<span class="textColor" style="font-size: 2vw;">Patients</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;">Create Patient Profile</span>
+	</div>
+</div>
+
+<div style="display: flex; align-items: center; margin-bottom: 2vw;">
+
+	<button style="width: 3vw; height: 3vw; background-color: blue; color: white; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border-style: none; font-weight: bold;"> 01 </button>
+	<span class="textColor">Owner Information</span>
+
+	<div id="lineBetweenTab" style="width: 10vw; background-color: lightgrey; height: 0.1vw; margin-left: 2vw; margin-right: 2vw;"></div>
+
+
+	<button id="secondTab" style="width: 3vw; height: 3vw; background-color: transparent; color: lightgray; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border-style: solid; font-weight: bold; border-color: lightgray;"> 02 </button>
+	<span id="secondTabText" style="color: lightgrey;">Pet Information</span>
+
+</div>
+
+<div id="ownerInfoContainer">
+	<div>
+		<div class="containerBackground2" style="width: 70vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			Owner Information
+		</div>
+		<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container halfSize">
+					<span class="formlabel">Owner Name</span>
+					<input id="OwnerName" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Contact No</span>
+					<input id="ContactNo" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Gender</span>
+					<select id="Gender" class="form-control form-field inputField">
+						<option value="" selected> -- Select Gender --</option>
+						<option value="M"> Male</option>
+						<option value="F"> Female</option>
+					</select>
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Country</span>
+					<select id="Country" class="form-control form-field inputField">
+						<option value="" selected> -- Select Country --</option>
+						<option value="Malaysia"> Malaysia</option>
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">State</span>
+					<select id="State" class="form-control form-field inputField">
+						<option value="" selected> -- Select State --</option>
+						<option value="Selangor"> Selangor</option>
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">City</span>
+					<select id="City" class="form-control form-field inputField">
+						<option value="" selected> -- Select City --</option>
+						<option value="Shah Alam"> Shah Alam</option>
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Postcode</span>
+					<input id="Postcode" type="text" class="form-control form-field inputField" />
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container halfSize">
+					<span class="formlabel">Address Line 1</span>
+					<input id="Address1" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container halfSize">
+					<span class="formlabel">Address Line 2</span>
+					<input id="Address2" type="text" class="form-control form-field inputField" />
+				</div>
+			</div>
+
+			<div>
+				<button id="AddCoOwnerButton" onclick="toggleCoOwner();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center;">
+					<span id="container">+</span>
+					<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Co-Owner</span>
+				</button>
+			</div>
+
+		</div>
+	</div>
+	
+
+	<div id="CoOwnerInfo" class="hideContainer">
+		<div class="containerBackground2" style="width: 70vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			Co-Owner Information
+		</div>
+		<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container halfSize">
+					<span class="formlabel">Owner Name</span>
+					<input id="CoOwnerName" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Contact No</span>
+					<input id="CoContactNo" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Gender</span>
+					<select id="CoGender" class="form-control form-field inputField">
+						<option value="" selected> -- Select Gender --</option>
+						<option value="M"> Male</option>
+						<option value="F"> Female</option>
+					</select>
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Country</span>
+					<select id="CoCountry" class="form-control form-field inputField">
+						<option value="" selected> -- Select Country --</option>
+						<option value="Malaysia"> Malaysia</option>
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">State</span>
+					<select id="CoState" class="form-control form-field inputField">
+						<option value="" selected> -- Select State --</option>
+						<option value="Selangor"> Selangor</option>
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">City</span>
+					<select id="CoCity" class="form-control form-field inputField">
+						<option value="" selected> -- Select City --</option>
+						<option value="Shah Alam"> Shah Alam</option>
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Postcode</span>
+					<input id="CoPostcode" type="text" class="form-control form-field inputField" />
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container halfSize">
+					<span class="formlabel">Address Line 1</span>
+					<input id="CoAddress1" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container halfSize">
+					<span class="formlabel">Address Line 2</span>
+					<input id="CoAddress2" type="text" class="form-control form-field inputField" />
+				</div>
+			</div>
+
+
+			<div>
+				<button id="DeleteCoOwnerButton" onclick="toggleCoOwner();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center;">
+					<span style="font-size: 1.2vw; margin-left: 0.5vw;">Remove Co-Owner</span>
+				</button>
+			</div>
+
+		</div>
+	</div>
+
+	<div style="text-align: end; margin-right: 1.6vw;">
+		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1.5vw;"> Cancel </button>
+		<button onclick="togglePage();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1.5vw;"> Next Step </button>
+	</div>
+	
+</div>
+
+<template id="VaccinationTemplate">
+	<div>
+		<div class="field-container">
+			<span class="formlabel">Type</span>
+			<input type="text" class="form-control form-field inputField TypeVaccination" />
+		</div>
+
+		<div class="field-container">
+			<span class="formlabel">Name</span>
+			<input type="text" class="form-control form-field inputField NameVaccination" />
+		</div>
+
+		<div class="field-container">
+			<span class="formlabel">Due Date</span>
+			<input type="date" class="form-control form-field inputField DueDateVaccination" />
+		</div>
+
+		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1.5vw;">Save Vaccination</button>
+			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+		</div>
+	</div>
+</template>
+
+<template id="MedicationTemplate">
+	<div>
+		<div class="field-container">
+			<span class="formlabel">Type</span>
+			<input type="text" class="form-control form-field inputField TypeMedication" />
+		</div>
+
+		<div class="field-container">
+			<span class="formlabel">Name</span>
+			<input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" />
+		</div>
+
+		<div class="field-container">
+			<span class="formlabel">Expiry Date</span>
+			<input type="date" class="form-control form-field inputField DueDateMedication" />
+		</div>
+
+		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1.5vw;"> Save Medication </button>
+			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+		</div>
+	</div>
+</template>
+
+<template id="SurgeriesTemplate">
+	<div>
+		<div class="field-container">
+			<span class="formlabel">Type</span>
+			<input type="text" class="form-control form-field inputField TypeSurgeries" />
+		</div>
+
+		<div class="field-container">
+			<span class="formlabel">Name</span>
+			<input type="text" class="form-control form-field inputField NameSurgeries" />
+		</div>
+
+		<div class="field-container">
+			<span class="formlabel">Due Date</span>
+			<input type="date" class="form-control form-field inputField DueDateSurgeries" />
+		</div>
+
+		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1.5vw;"> Save Surgery </button>
+			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+		</div>
+	</div>
+</template>
+
+<div id="petsInfoContainer" class="hideContainer">
+	<template id="petInfoTemplate">
+		<div>
+			<div>
+				<div class="containerBackground2" style="width: 70vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+					Pet Information
+				</div>
+				<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">Pet Name</span>
+							<input type="text" class="form-control form-field inputField PetName" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Registration No.</span>
+							<input type="text" class="form-control form-field inputField RegistrationNo" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Sex</span>
+							<select class="form-control form-field inputField Sex">
+								<option value="" selected> -- Select Sex --</option>
+								<option value="M"> Male</option>
+								<option value="F"> Female</option>
+							</select>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Date Of Birth</span>
+							<input type="date" class="form-control form-field inputField DOB" />
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">Age</span>
+							<input type="text" class="form-control form-field inputField Age" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Species</span>
+							<select onchange="changeSpecies(this);" class="form-control form-field inputField Species">
+								<option value="" selected> -- Select Species --</option>
+								@foreach (var species in ViewData["Species"] as List<string>)
+								{
+									<option value="@species"> @species</option>
+								}
+							</select>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Breed</span>
+							<select class="form-control form-field inputField Breed">
+								<option value="" selected> -- Select Breed --</option>
+							</select>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Allergies</span>
+							<input type="text" class="form-control form-field inputField Allergies" />
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">Color</span>
+							<select class="form-control form-field inputField Color">
+								<option value="" selected> -- Select Color --</option>
+								@foreach (var color in ViewData["Color"] as List<string>)
+								{
+									<option value="@color"> @color</option>
+								}
+							</select>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Height (cm)</span>
+							<input type="text" class="form-control form-field inputField Height" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Weight (kg)</span>
+							<input type="text" class="form-control form-field inputField Weight" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Status</span>
+							<select class="form-control form-field inputField Status">
+								<option value="" selected> -- Select Status --</option>
+								<option value="1"> Active</option>
+								<option value="2"> Inactive</option>
+							</select>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+			<div>
+				<div class="containerBackground2" style="width: 70vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+					Medical Record
+				</div>
+				<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
+
+					<div class="medicalRecordPartition">
+
+						<div class="medicalRecordPartitionTitle">
+							<span class="formlabel" style="color: blue;">Vaccination</span>
+						</div>
+
+						<div id="VaccinationContent">
+						</div>
+
+						<div>
+							<a onclick="cloneVaccination(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ Add New</a>
+						</div>
+
+					</div>
+
+					<div class="medicalRecordPartition">
+						<div class="medicalRecordPartitionTitle">
+							<span class="formlabel" style="color: blue;">Medication</span>
+						</div>
+
+						<div id="MedicationContent">
+						</div>
+
+						<div>
+							<a onclick="cloneMedication(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ Add New</a>
+						</div>
+
+					</div>
+
+					<div class="medicalRecordPartition">
+						<div class="medicalRecordPartitionTitle">
+							<span class="formlabel" style="color: blue;">Surgeries</span>
+						</div>
+
+						<div id="SurgeriesContent">
+						</div>
+
+						<div>
+							<a onclick="cloneSurgeries(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ Add New</a>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</template>
+
+	<div id="PetInfoContent">
+	</div>
+
+	<div>
+		<button onclick="AddPetInfo();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center;">
+			<span id="container">+</span>
+			<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Pet</span>
+		</button>
+	</div>
+
+	<div style="text-align: end; margin-right: 1.6vw;">
+		<button onclick="togglePage();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1.5vw;"> Go Back </button>
+		<button onclick="submitInfo();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1.5vw;"> Finish </button>
+	</div>
+
+</div>
+
+<script>
+
+	const template = document.getElementById("petInfoTemplate")
+	const clone = template.content.cloneNode(1).firstElementChild
+
+	document.getElementById("PetInfoContent").appendChild(clone);
+
+
+	var testGlobal = 0;
+
+	function changeSpecies(e) {
+		var breedElement = e.parentElement.parentElement.querySelector('.Breed');
+		breedList(e.value, breedElement);
+	}
+
+	function breedList(species, breedElement) {
+		fetch('/Patients/BreedList?species=' + species)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				breedElement.innerHTML = '<option value="" selected> -- Select Breed -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function toggleCoOwner (){
+		var element = document.getElementById("CoOwnerInfo");
+		var AddCoOwnerButton = document.getElementById("AddCoOwnerButton");
+		element.classList.toggle("hideContainer");
+		AddCoOwnerButton.classList.toggle("hideContainer");
+	}
+
+	function togglePage(){
+		var ownerElement = document.getElementById("ownerInfoContainer");
+		var petElement = document.getElementById("petsInfoContainer");
+		var lineElement = document.getElementById("lineBetweenTab");
+		var secondTabElement = document.getElementById("secondTab");
+		var secondTabTextElement = document.getElementById("secondTabText");
+		ownerElement.classList.toggle("hideContainer");
+		petElement.classList.toggle("hideContainer");
+		lineElement.classList.toggle("currentPage");
+		secondTabElement.classList.toggle("currentPage");
+		secondTabTextElement.classList.toggle("textColor");
+	}
+
+	function AddPetInfo() {
+		const template = document.getElementById("petInfoTemplate")
+		const clone = template.content.cloneNode(1).firstElementChild
+
+		document.getElementById("PetInfoContent").appendChild(clone);
+	}
+
+	function cloneVaccination(e) {
+		const template = document.getElementById("VaccinationTemplate")
+		const clone = template.content.cloneNode(1).firstElementChild
+
+		var element = e.parentElement.parentElement.querySelector('#VaccinationContent');
+		element.appendChild(clone);
+	}
+
+	function cloneMedication(e) {
+		const template = document.getElementById("MedicationTemplate")
+		const clone = template.content.cloneNode(1).firstElementChild
+
+		var element = e.parentElement.parentElement.querySelector('#MedicationContent');
+		element.appendChild(clone);
+	}
+
+	function cloneSurgeries(e) {
+		const template = document.getElementById("SurgeriesTemplate")
+		const clone = template.content.cloneNode(1).firstElementChild
+
+		var element = e.parentElement.parentElement.querySelector('#SurgeriesContent');
+		element.appendChild(clone);
+	}
+
+	function removeClone(e) {
+		var parent = e.parentElement.parentElement.remove();
+	}
+
+	function submitOwnerInfo(){
+		var ownerName = document.getElementById("OwnerName").value
+		var contactNo = document.getElementById("ContactNo").value
+		var gender = document.getElementById("Gender").value
+		var country = document.getElementById("Country").value
+		var state = document.getElementById("State").value
+		var city = document.getElementById("City").value
+		var postcode = document.getElementById("Postcode").value
+		var address1 = document.getElementById("Address1").value
+		var address2 = document.getElementById("Address2").value
+
+		var obj = {
+			PatientID: 1,
+			Name: ownerName,
+			ContactNo: contactNo,
+			Gender: gender,
+			Country: country,
+			State: state,
+			City: city,
+			PostCode: postcode,
+			Address: address1
+		};
+
+		fetch('/Patients/InsertInfo', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+		.then(data => {
+				
+
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+
+	}
+
+	function submitPetInfo() {
+
+		var petInfoList = document.getElementById("PetInfoContent");
+		var petInfoChildList = petInfoList.children;
+
+		for (let i = 0; i < petInfoChildList.length; i++) {
+			var vaccinationList = petInfoChildList[i].querySelectorAll('.TypeVaccination');
+
+			for (let i = 0; i < vaccinationList.length; i++) {
+				var vaccinationType = vaccinationList[i].value;
+				var test = vaccinationList[i].value;
+			}
+		}
+	}
+
+	function submitInfo() {
+
+		var obj = {
+			BranchID: 1,
+			CreatedDate: new Date(),
+			CreatedBy: "System"
+		};
+
+		fetch('/Patients/CreatePatientInfo', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				createOwnerInfo(data, false);
+
+				if (!document.getElementById("CoOwnerInfo").classList.contains("hideContainer")) {
+					createOwnerInfo(data, true);
+				}
+
+				createPetsInfo(data);
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+
+	}
+
+	function createOwnerInfo(patientID, coOwner) {
+		var ownerName, contactNo, gender, country, state, city, postcode, address1, address2;
+		if (coOwner) {
+			ownerName = document.getElementById("CoOwnerName").value
+			contactNo = document.getElementById("CoContactNo").value
+			gender = document.getElementById("CoGender").value
+			country = document.getElementById("CoCountry").value
+			state = document.getElementById("CoState").value
+			city = document.getElementById("CoCity").value
+			postcode = document.getElementById("CoPostcode").value
+			address1 = document.getElementById("CoAddress1").value
+			address2 = document.getElementById("CoAddress2").value
+		}
+		else {
+			ownerName = document.getElementById("OwnerName").value
+			contactNo = document.getElementById("ContactNo").value
+			gender = document.getElementById("Gender").value
+			country = document.getElementById("Country").value
+			state = document.getElementById("State").value
+			city = document.getElementById("City").value
+			postcode = document.getElementById("Postcode").value
+			address1 = document.getElementById("Address1").value
+			address2 = document.getElementById("Address2").value			
+		}
+
+		var obj = {
+			PatientID: patientID,
+			Name: ownerName,
+			ContactNo: contactNo,
+			Gender: gender,
+			Country: country,
+			State: state,
+			City: city,
+			PostCode: postcode,
+			Address: address1 + ", " + address2,
+			Status: 1,
+			CreatedDate: new Date(),
+			CreatedBy: "System",
+		};
+
+		fetch('/Patients/InsertPatientOwnerInfo', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function createPetsInfo(patientID) {
+
+		var petInfoList = document.getElementById("PetInfoContent");
+		var petInfoChildList = petInfoList.children;
+
+		for (let i = 0; i < petInfoChildList.length; i++) {
+			var petName = petInfoChildList[i].querySelector('.PetName').value;
+			var registrationNo = petInfoChildList[i].querySelector('.RegistrationNo').value;
+			var sex = petInfoChildList[i].querySelector('.Sex').value;
+			var dob = petInfoChildList[i].querySelector('.DOB').value;
+			var age = petInfoChildList[i].querySelector('.Age').value;
+			var species = petInfoChildList[i].querySelector('.Species').value;
+			var breed = petInfoChildList[i].querySelector('.Breed').value;
+			var allergies = petInfoChildList[i].querySelector('.Allergies').value;
+			var color = petInfoChildList[i].querySelector('.Color').value;
+			var height = petInfoChildList[i].querySelector('.Height').value;
+			var weight = petInfoChildList[i].querySelector('.Weight').value;
+			var status = petInfoChildList[i].querySelector('.Status').value;
+
+			var obj = {
+				PatientID: patientID,
+				Name: petName,
+				RegistrationNo: registrationNo,
+				Gender: sex,
+				DOB: dob,
+				Age : age,
+				Species: species,
+				Breed: breed,
+				Allergies: allergies,
+				Color: color,
+				Height: height,
+				HeightUnit: "cm",
+				Weight: weight,
+				WeightUnit: "kg",
+				Status: 1,
+				CreatedDate: new Date(),
+				CreatedBy: "System",
+			};
+
+			fetch('/Patients/InsertPetsInfo', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(obj)
+			})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+				})
+				.catch(error => {
+					console.error('There was a problem with the fetch operation:', error);
+				});
+		}
+	}
+</script>

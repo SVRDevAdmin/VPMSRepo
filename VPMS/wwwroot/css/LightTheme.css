@@ -1,5 +1,4 @@
 body {
-	overflow-x: hidden;
 	background-color: transparent;
 	font-family: Noto Sans;
 }
@@ -141,6 +140,10 @@ body {
 	content: url('../images/down-arrow.png');
 }
 
+#imgBackArrow {
+	content: url('../images/BackArrow.png');
+}
+
 .sidebar-nav > .sidebar-brand {
 	height: 65px;
 	font-size: 18px;
@@ -166,21 +169,22 @@ body {
 	flex-direction: row; 
 	margin-top: 15px; 
 	margin-left: 5px; 
-	width: 75px; 
+	/*width: 75px;*/ 
 	height: 44px; 
 	border-radius: 5px; 
 	background-color: #f7f7f7;
 }
 
 .ProfileFont {
-	font-size: 16px; 
-	font-weight: bold; 
+	font-size: 1vw;
+	font-weight: bold;
 	color: black;
 	margin-top: 5px;
+	text-wrap: wrap;
 }
 
 .profilemenu {
-	background-color: transparent;
+	background-color: white;
 }
 
 .profilemenu > a {
@@ -277,4 +281,23 @@ body {
 		position: relative;
 		margin-right: 0;
 	}
+}
+
+.containerBackground {
+	background-color: #f7f7f7;
+	color: black;
+}
+
+.containerBackground2 {
+	background-color: black;
+	color: white;
+}
+
+.textColor {
+	color: black !important;
+}
+
+.moreIcon {
+	content: url('../images/more_icon.png');
+	width: 1.3vw;
 }
