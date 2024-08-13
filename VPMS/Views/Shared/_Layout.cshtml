@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name ="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VPMS</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -198,7 +198,7 @@
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img id="iconReceipt" style="margin-left: 20px; margin-right: 20px;" />
+                            <img id="imgTreatment" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_PatientServices"]</strong>
                             <img id="imgArrow" style="margin-left: 20px;" />
                             <ul>
@@ -236,19 +236,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en-US">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconServices" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_CustomerService"]</strong>
                         </a>
                     </li>
                 </ul>
-            </dix>
+            </dix> 
             <div class="col py-3">
                 <div class="row" style="border: 0px solid black; height: 85px;">
-                    <div class="col-md-6" style="border: 0px solid black;">
+                    <div class="col-md-5" style="border: 0px solid black;">
                     </div>
-                    <div class="col-md-6" style="border: 0px solid black;">
+                    <div class="col-md-7" style="border: 0px solid black;">
                         <div class="row" style="height: 80px;">
                             <div class="col-md-4" style="border: 0px solid black;">
                                 <div style="display: flex; flex-direction: row; height: 60px; margin-top: 10px; border: 0px solid black;">
@@ -501,6 +501,13 @@
             $(this).parent().parent().parent().find('span').toggleClass('selected');
         });
 
+        $('#countrylist > .list-group-item').on('click', function(){
+            $this = $(this);
+
+            $('.active').removeClass('active');
+            $this.toggleClass('active');
+        });
+
         $('#btnDark').on('click', function () {
             var sTheme = $(this)[0].attributes['data'].value;
             updateThemes(sTheme);
@@ -513,7 +520,8 @@
 
         function updateThemes(themes) {
             $.post("/Theme/SetThemes", {
-                data: themes
+                data: themes,
+                userid: 'User A'
             }).done(function (resp) {
                 // window.location.reload();
             });

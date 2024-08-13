@@ -169,7 +169,7 @@ body {
 }
 
 .sidebar-nav-font {
-	vertical-align: middle; 
+	vertical-align: middle;
 	color: white;
 }
 
@@ -190,6 +190,14 @@ body {
 	color: white;
 	text-wrap: wrap;
 	width: 11vw;
+}
+
+.LanguageSelectionFont {
+	font-size: 16px;
+	text-align: center;
+	color: white;
+	margin-top: 15px;
+	margin-left: 5px;
 }
 
 .profilemenu {
@@ -218,8 +226,8 @@ body {
 
 #iconPatients {
 	content: url('../images/fa_dark_paw_icon.png');
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 }
 
 #iconHome {
@@ -229,9 +237,9 @@ body {
 }
 
 #iconAppt {
-	content: url('../images/file_dark_icon.png');
-	width: 20px;
-	height: 20px;
+	content: url('../images/appt_dark_icon.png');
+	width: 24px;
+	height: 24px;
 }
 
 #iconReceipt{

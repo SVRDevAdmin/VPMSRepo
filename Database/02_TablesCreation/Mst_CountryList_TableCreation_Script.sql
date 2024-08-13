@@ -1,0 +1,10 @@
+CREATE TABLE `mst_countrylist` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`CountryCode` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`CountryName` VARCHAR(150) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`IsActive` BIT(1) NOT NULL,
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;

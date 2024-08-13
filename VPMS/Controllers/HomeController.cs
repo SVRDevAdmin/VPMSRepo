@@ -7,7 +7,7 @@ using VPMS.Lib.Data.Models;
 using VPMS.Models;
 using VPMSWeb.Lib.Settings;
 
-namespace VPMS.Controllers
+namespace VPMSWeb.Controllers
 {
     [Authorize(Roles = "Superadmin")]
     public class HomeController : Controller
