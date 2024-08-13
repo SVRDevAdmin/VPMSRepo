@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Localization
 @inject IHttpContextAccessor httpContextaccessor
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@model List<VPMS.Lib.Data.Models.MastercodeModel>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,59 +38,60 @@
                         <a asp-controller="Dashboard" asp-action="Index">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconHome" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong class="sidebar-nav-font">Dashboard</strong>
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Dashboard"]</strong>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconPatients" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong class="sidebar-nav-font">Patients</strong>
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Patients"]</strong>
                         </a>
                     </li>
                     <li>
                         <a asp-controller="Appointment" asp-action="Index">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconAppt" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong class="sidebar-nav-font">Appointments</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img id="iconReceipt" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong class="sidebar-nav-font">Reception</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
-                            <img id="iconAccess" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong class="sidebar-nav-font">Access Control</strong>
-                            <img id="imgArrow" style="margin-left: 20px;" />
-                            <ul>
-                                <li>Organization</li>
-                                <li>Staff Listing</li>
-                                <li>Role Setting</li>
-                            </ul>
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Appointments"]</strong>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="imgTreatment" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong class="sidebar-nav-font">Patient Treatment Plan</strong>
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_PatientServices"]</strong>
+                            <img id="imgArrow" style="margin-left: 20px;" />
+                            <ul>
+                                <li>@LangResources["MenuBar_Label_PatientTreatmentPlan"]</li>
+                                <li>@LangResources["MenuBar_Label_Service"]</li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img id="iconReceipt" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_InvoiceReceipts"]</strong>
                         </a>
                     </li>
                     <li>
                         <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="zh-Hans">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconInventory" style="margin-left: 16px; margin-right: 16px;" />
-                            <strong class="sidebar-nav-font">Service & Inventory</strong>
-                            <img id="imgArrow" style="margin-left: 3px;" />
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Inventory"]</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <img id="iconAccess" style="margin-left: 20px; margin-right: 20px;" />
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</strong>
+                            <img id="imgArrow" style="margin-left: 20px;" />
                             <ul>
-                                <li>Service</li>
-                                <li>Inventory</li>
+                                <li>@LangResources["MenuBar_Label_Organization"]</li>
+                                <li>@LangResources["MenuBar_Label_StaffListing"]</li>
+                                <li>@LangResources["MenuBar_Label_RoleSetting"]</li>
+                                <li>@LangResources["MenuBar_Label_Integration"]</li>
                             </ul>
                         </a>
                     </li>
@@ -97,13 +99,12 @@
                         <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en-US">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconServices" style="margin-left: 20px; margin-right: 20px;" />
-                            <strong class="sidebar-nav-font">Customer Service</strong>
+                            <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_CustomerService"]</strong>
                         </a>
                     </li>
                 </ul>
             </dix> 
             <div class="col py-3">
-                <!-- @LangResources["Welcome"] -->
                 <div class="row" style="border: 0px solid black; height: 85px;">
                     <div class="col-md-5" style="border: 0px solid black;">
                     </div>
@@ -117,7 +118,12 @@
                                         </div>
                                         <div style="width: 200px; height: 60px; border: 0px solid black;">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#LanguageModal">
-                                                <label class="LanguageSelectionFont">English | Malaysia</label>
+                                                @{
+                                                    var sLanguageFullName = ViewData["LanguageFullNameSelected"] as VPMS.Lib.Data.Models.MastercodeModel;
+                                                    var sCountryFullName = ViewData["CountrySelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
+
+                                                    <label class="LanguageSelectionFont">@sLanguageFullName.CodeName | @sCountryFullName.ConfigurationValue</label>
+                                                }  
                                             </a>
                                         </div>
                                     </div>
@@ -170,40 +176,91 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="border-bottom: 0px;">
+                    <!-- Close Button -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="padding: 0px;">
-                    <div style="width: 800px; display: flex; flex-direction: row; ">
-                        <div class="col-md-6" style="height: 600px; border: 1px solid black;">
-                            <div class="row" style="text-align: center;  ">
-                                <label style="font-size: 24px;">Select a language</label>
+                    <div class="LangConfigContent">
+                        <div class="col-md-6 LangConfigContentLeftPane">
+                            <div class="row" style="text-align: center;">
+                                <label style="font-size: 22px;">@LangResources["LanguageCountry_Title_SelectLanguage"]</label>
                             </div>
-                            <div class="row" style="height: 300px; margin-left: 10px; margin-right: 10px; border: 1px solid black;">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <input class="form-check-input me-1" type="radio" value="" name="listgrpradio" id="chkFirst" style="margin-left: 30px; vertical-align: middle;"/>
-                                        <img src="../../images/Icons/Country/en.png" width="28" height="28" style="margin-left: 15px;" />
-                                        <label class="form-check-label" style="margin-left: 10px;">First</label>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <input class="form-check-input me-1" type="radio" value="" name="listgrpradio" id="chkSecond" style="margin-left: 30px; vertical-align: middle;" />
-                                        <img src="../../images/Icons/Country/de.png" width="28" height="28" style="margin-left: 15px;" />
-                                        <label class="form-check-label" style="margin-left: 10px;">Second</label>
-                                    </li>
+                            <div class="row LangContentRow">
 
+                                <ul class="list-group LangListGroup">
+                                    @{
+                                        var sLangObj = ViewData["LanguageCodeList"] as List<VPMS.Lib.Data.Models.MastercodeModel>;
+                                        var sLangSelected = ViewData["LanguageSelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
+
+                                        if (sLangObj.Count > 0)
+                                        {
+                                            foreach (var m in sLangObj)
+                                            {
+                                                var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
+                                            
+                                                <li class="list-group-item" style="border: 0px">
+                                                    <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"  
+                                                           style="margin-left: 30px; vertical-align: middle;" 
+                                                           @(sLangSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") />
+                                                    <img src=@sFlagPath class="CountryFlag" />
+                                                    <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
+                                                </li>
+                                            }                                           
+                                        }
+                                        else
+                                        {
+                                            <li class="list-group-item" style="border: 0px">
+                                                <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
+                                            </li>
+                                        }
+                                    }
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-6" style="height: 600px; border: 1px solid black">
+                        <div class="col-md-6 LangConfigContentRightPane">
                             <div class="row" style="text-align: center; font-size: 16px;">
-                                <label style="font-size: 24px;">Select a Country</label>
+                                <label style="font-size: 22px;">@LangResources["LanguageCountry_Title_SelectCountry"]</label>
                             </div>
-                            <div class="row" style="height: 300px;margin-left: 10px; margin-right: 10px; border: 1px solid black">
+                            <div class="row CountryContentFilterRow">
+                                <input id="txtfilter" class="form-control" type="text" height="30" />
+                            </div>
+                            <div class="row CountryContentRow"> 
+                                <ul id="countrylist" class="list-group CountryListGroup">
 
+                                    @{
+                                        var sCountryObj = ViewData["CountryList"] as List<VPMS.Lib.Data.Models.CountryListModel>;
+                                        var sCountrySelected = ViewData["CountrySelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
+                                        
+                                        if (sCountryObj.Count > 0)
+                                        {
+                                            foreach (var c in sCountryObj)
+                                            {
+                                                String sClassName = "list-group-item list-group-item-action";
+                                                if (sCountrySelected.ConfigurationValue == c.CountryName)
+                                                {
+                                                    sClassName = "list-group-item list-group-item-action active";
+                                                }
+
+                                                <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                            }                                            
+                                        }
+                                        else
+                                        {
+                                            <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
+                                        }
+                                    }
+                                </ul>
                             </div> 
                         </div>
                     </div>
-
+                    <div>
+                        <div class="row">
+                            <div class="col-md-10">&nbsp;</div>
+                            <div class="col-md-2 ConfigBottomRow">
+                                <button id="btnSave" type="button" class="btn btn-primary">@LangResources["LanguageCountry_Button_Save"]</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,9 +269,15 @@
     <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        // $(document).ready(function () {
-        //     getThemes();
-        // });
+        $(document).ready(function(){
+            $('#txtfilter').on('keyup', function(){
+                var value = $(this).val().toLowerCase();
+
+                $('#countrylist a').filter(function(){
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
 
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
@@ -241,6 +304,13 @@
             $(this).parent().parent().parent().find('span').toggleClass('selected');
         });
 
+        $('#countrylist > .list-group-item').on('click', function(){
+            $this = $(this);
+
+            $('.active').removeClass('active');
+            $this.toggleClass('active');
+        });
+
         $('#btnDark').on('click', function () {
             var sTheme = $(this)[0].attributes['data'].value;
             updateThemes(sTheme);
@@ -261,16 +331,42 @@
             });
         }
 
-        // function getThemes() 
-        // {
-        //     $.getJSON("/Theme/GetThemes", {
-        //         userid: 'User A'
-        //     }).always(function () {
-        //     })
-        // }
+        function updateCountrySettings()
+        {
+            $country = $('.list-group-item.active').text();
 
-        $('#alink').addEventListener('shown.bs.modal', () => {
-            $('#LanguageModal').focus();
+            if ($country != null && $country.length > 0)
+            {
+                $.post("Configuration/UpdateUserConfiguration", {
+                    UserID: 'User A',
+                    ConfigKey: 'UserSettings_Country',
+                    ConfigVal: $country
+                });
+            }
+        }
+
+
+        $('#btnSave').on('click', function()
+        {
+            $lang = $("input[type='radio'][name='listgrpradio']:checked").val();
+
+            if ($lang != null && $lang.length > 0)
+            {
+                $.post("/Home/ChangeLanguage", {
+                    lang: $lang,
+                    UserID: 'User A'
+                }).done(function(resp){
+                    updateCountrySettings();
+ 
+                    window.location.reload();
+                });
+            }
+            else
+            {
+                updateCountrySettings();
+ 
+                window.location.reload();
+            }
         });
     </script>
 
