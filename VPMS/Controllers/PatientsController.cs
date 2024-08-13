@@ -99,9 +99,23 @@ namespace VPMSWeb.Controllers
 			_patientDBContext.SaveChanges();
 		}
 
+		public void UpdatePatientOwnerInfo([FromBody] Patient_Owner patientOwner)
+		{
+			_patientDBContext.Update(patientOwner);
+
+			_patientDBContext.SaveChanges();
+		}
+
 		public void InsertPetsInfo([FromBody] Pets pets)
 		{
 			_patientDBContext.Mst_Pets.Add(pets);
+
+			_patientDBContext.SaveChanges();
+		}
+
+		public void UpdatePetInfo([FromBody] Pets pets)
+		{
+			_patientDBContext.Update(pets);
 
 			_patientDBContext.SaveChanges();
 		}

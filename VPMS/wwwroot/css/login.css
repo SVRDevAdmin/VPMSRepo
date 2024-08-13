@@ -17,7 +17,7 @@
 	font-size: 1.2vw;
 }
 
-#content-container {
+/*#content-container {
 	width: 100vw;
 	height: 100vh;
 	background: rgba(255, 255, 255, 0);
@@ -26,7 +26,7 @@
 	background: -moz-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
 	background: -ms-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
 	background: linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
-}
+}*/
 
 /*below are for theme button*/
 
@@ -207,22 +207,22 @@
 /*Below are for image on the right*/
 
 #img_group_right {
-	right: 0;
+	right: 5vw;
 	position: absolute;
-	margin-right: 4vw;
+	/*margin-right: 4vw;*/
 }
 
 #bg_line {
 	position: absolute;
 	top: 2.1vw;
-	right: 0;
+	right: 1vw;
 	width: 27.3vw;
 }
 
 
 #bg {
 	top: 6.99vw;
-	right: 4.85vw;
+	right: 5.85vw;
 	width: 17.4vw;
 	height: 17.5vw;
 	-ms-border-radius: 190.01px / 190.11px;
@@ -235,7 +235,7 @@
 }
 
 #kitten_img {
-	right: -5.9vw;
+	right: -4.9vw;
 	top: -5vw;
 	width: 37.7vw;
 	position: absolute;
@@ -243,7 +243,7 @@
 
 #ellipse_412 {
 	top: 8.1vw;
-	right: 2vw;
+	right: 3vw;
 	width: 2vw;
 	height: 2vw;
 	-ms-border-radius: 2vw;

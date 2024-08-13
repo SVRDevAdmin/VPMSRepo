@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 
@@ -84,6 +85,13 @@ namespace VPMSWeb.Controllers
                     if (userInfo != null) { userInfo.LastLoginDate = DateTime.Now; }
 
                     _userDBContext.SaveChanges();
+
+                    CookieOptions cookies = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddHours(1)
+                    };
+
+                    Response.Cookies.Append("user", userInfo.Name, cookies);
 
                     //var randomAlphanumeric = GenerateRandomAlphanumeric(32);
                     //var sessionCreatedOn = DateTime.Now;

@@ -30,10 +30,10 @@ namespace VPMS.Lib.Data.DBContext
 			var filter = "WHERE b.Name like '%" + ownerName + "%' AND a.Name like '%"+ petName + "%' AND a.Species like '%" + species + "%' AND a.Breed like '%" + breed + "%' ";
 
             var query1 = "select a.PatientID, a.ID, a.Name, b.Name AS 'OwnerName', a.Gender, a.Age, a.DOB, a.Species, a.Breed, a.CreatedDate from mst_pets a " +
-                "join mst_patients_owner b on b.PatientID = a.PatientID " + filter +
+				"join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " + filter +
                 "Order by a.ID LIMIT " + start + ", " + total + ";";
 
-            var query2 = "select Count(a.Name) as 'TotalPets' from mst_pets a join mst_patients_owner b on b.PatientID = a.PatientID " + filter + ";";
+            var query2 = "select Count(a.Name) as 'TotalPets' from mst_pets a join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " + filter + ";";
 
 			try
             {

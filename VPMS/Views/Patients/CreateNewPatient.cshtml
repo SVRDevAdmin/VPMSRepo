@@ -15,10 +15,12 @@
 	.formlabel {
 		font-weight: bold;
 		margin-bottom: 0.3vw;
+		font-size: 1vw;
 	}
 
 	.inputField {
 		border: 0.1vw solid;
+		font-size: 1vw;
 	}
 
 	.halfSize {
@@ -73,8 +75,8 @@
 
 <div style="display: flex;">
 
-	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw;" onclick="location.href='@Url.Action("Index", "Patients")'" />
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("Index", "Patients")'" />
 		<span class="textColor" style="font-size: 2vw;">Patients</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
 		<span style="font-size: 2vw; color: dodgerblue;">Create Patient Profile</span>
@@ -96,10 +98,10 @@
 
 <div id="ownerInfoContainer">
 	<div>
-		<div class="containerBackground2" style="width: 70vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-			Owner Information
+		<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Owner Information</span>
 		</div>
-		<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
@@ -177,10 +179,10 @@
 	
 
 	<div id="CoOwnerInfo" class="hideContainer">
-		<div class="containerBackground2" style="width: 70vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-			Co-Owner Information
+		<div class="containerBackground2" style="width: 77vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Co-Owner Information</span>
 		</div>
-		<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
@@ -257,8 +259,8 @@
 	</div>
 
 	<div style="text-align: end; margin-right: 1.6vw;">
-		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1.5vw;"> Cancel </button>
-		<button onclick="togglePage();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1.5vw;"> Next Step </button>
+		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
+		<button onclick="togglePage();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Next Step </button>
 	</div>
 	
 </div>
@@ -281,7 +283,7 @@
 		</div>
 
 		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1.5vw;">Save Vaccination</button>
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;">Save Vaccination</button>
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
@@ -305,7 +307,7 @@
 		</div>
 
 		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1.5vw;"> Save Medication </button>
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> Save Medication </button>
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
@@ -329,7 +331,7 @@
 		</div>
 
 		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1.5vw;"> Save Surgery </button>
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> Save Surgery </button>
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
@@ -339,10 +341,10 @@
 	<template id="petInfoTemplate">
 		<div>
 			<div>
-				<div class="containerBackground2" style="width: 70vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-					Pet Information
+				<div class="containerBackground2" style="width: 77vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+					<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
 				</div>
-				<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+				<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
@@ -437,10 +439,10 @@
 
 
 			<div>
-				<div class="containerBackground2" style="width: 70vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-					Medical Record
+				<div class="containerBackground2" style="width: 77vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+					<span class="formlabel" style="margin-bottom: 0 !important;">Medical Record</span>
 				</div>
-				<div class="containerBorder textColor" style="width: 70vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
+				<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
 
 					<div class="medicalRecordPartition">
 
@@ -502,8 +504,8 @@
 	</div>
 
 	<div style="text-align: end; margin-right: 1.6vw;">
-		<button onclick="togglePage();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1.5vw;"> Go Back </button>
-		<button onclick="submitInfo();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1.5vw;"> Finish </button>
+		<button onclick="togglePage();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Go Back </button>
+		<button onclick="submitInfo();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Finish </button>
 	</div>
 
 </div>

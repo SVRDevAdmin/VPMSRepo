@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using VPMS.Lib.Data.DBContext;
 using VPMSWeb.Middleware;
 
@@ -14,7 +16,27 @@ namespace VPMS
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+			builder.Services.AddLocalization(options =>
+			{
+				options.ResourcesPath = "Resources";
+			});
+			builder.Services.Configure<RequestLocalizationOptions>(options =>
+			{
+				var supportedCultures = new[]
+				 {
+					new CultureInfo("en-US"),
+					new CultureInfo("zh-Hans")
+				};
+
+				options.DefaultRequestCulture = new RequestCulture("en-US");
+				options.SupportedCultures = supportedCultures;
+				options.SupportedUICultures = supportedCultures;
+			});
+
+			builder.Services.AddSingleton<VPMSWeb.Interface.IResourcesLocalizer, VPMSWeb.Lib.ResourcesLocalizer>();
+
+			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -62,8 +84,10 @@ namespace VPMS
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+			app.UseRequestLocalization();
+
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -78,12 +102,29 @@ namespace VPMS
 
             app.UseRouting();
 
-            app.UseAuthentication();
+			app.Use(async (context, next) =>
+			{
+				string cookie = String.Empty;
+				if (context.Request.Cookies.TryGetValue("Language", out cookie))
+				{
+					Thread.CurrentThread.CurrentCulture = new CultureInfo(cookie);
+					Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie);
+				}
+				else
+				{
+					Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+					Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+				}
+				await next.Invoke();
+			});
+
+			app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Patients}/{action=Index}/{id?}");
+                //pattern: "{controller=Patients}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

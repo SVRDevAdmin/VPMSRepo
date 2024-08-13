@@ -14,6 +14,29 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    @{
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
+        if (theme != null)
+        {
+            if (theme == "dark")
+            {
+                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+                ViewBag.DarkTheme = "Dark";
+            }
+            if (theme == "light")
+            {
+                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                ViewBag.DarkTheme = "Light";
+            }
+        }
+        else
+        {
+            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+            ViewBag.DarkTheme = "Light";
+            /* temp */
+        }
+    }
+
 </head>
 <body>
 
@@ -29,7 +52,7 @@
             </div>
         }
 
-        <a href="#" id="theme" onclick="toggleTheme();">
+        <a href="#" id="theme" onclick="toggleTheme(true);">
             <img src="~/images/skins/path_4043.png" id="path_4043" />
 
             <div id="group_1138">
@@ -48,8 +71,8 @@
         </a>
 
         <div id="application_logo">
-            <img src="~/images/skins/path_5916.png" id="application_logo_img" />
-            <img src="~/images/skins/path_5917.png" id="application_logo_text" />
+            <img id="imgLogo" style="width: 5vw;" />
+            <img id="imgLogoTitle" style="width: 13vw; margin-left: 0.5vw;" />
         </div>
 
         <div id="group_2126">
@@ -66,7 +89,7 @@
             <div id="ellipse_412"></div>
         </div>
 
-        <div class="row" style="justify-content:center; margin-top: 10vh;">
+        <div class="row" style="justify-content:center; margin-top: 10vh; margin-right: 0;">
             <div style="width: 31vw;">
                 @RenderBody()
             </div>
@@ -81,13 +104,25 @@
 
     <script type="text/javascript">
 
+        if ('@ViewBag.darkTheme' == 'Dark') {
+            toggleTheme(false);
+        }
+
         $(document).ready(function () {
             $("#alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#alert").alert("close");
             });
         });
 
-        function toggleTheme() {
+        function updateThemes(themes) {
+            $.post("/Theme/SetThemes", {
+                data: themes
+            }).done(function (resp) {
+                // window.location.reload();
+            });
+        }
+
+        function toggleTheme(changeCookie) {
             var element = document.getElementById("group_1138");
             var darkIcon = document.getElementById("dark_theme_icon");
             var lightIcon1 = document.getElementById("path_519");
@@ -96,6 +131,31 @@
             darkIcon.classList.toggle("darktheme");
             lightIcon1.classList.toggle("darktheme");
             lightIcon2.classList.toggle("darktheme");
+
+            if (changeCookie) {
+                var theme = "";
+
+                if (lightIcon1.classList.contains("darktheme")) {
+                    updateThemes("dark");
+                    theme = '/css/DarkTheme.css';
+                }
+                else {
+                    updateThemes("light");
+                    theme = '/css/LightTheme.css';
+                }
+
+                if (document.getElementById("themeCss")) {
+                    document.getElementById("themeCss").href = theme;
+                }
+                else {
+                    var head = document.getElementsByTagName('head')[0];
+                    var link = document.createElement('link');
+                    link.id = "themeCss"
+                    link.rel = 'stylesheet';
+                    link.href = theme;
+                    head.appendChild(link);
+                }
+            }
         }
     </script>
 

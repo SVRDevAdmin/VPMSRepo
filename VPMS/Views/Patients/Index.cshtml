@@ -20,12 +20,14 @@
 	.form-field {
 		border-style: solid;
 		border-color: black;
+		font-size: 1vw;
 	}
 
 	.field-container {
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 1vw;
+		margin-bottom: 2vw;
+		font-size: 1vw;
 	}
 
 	.form-label {
@@ -51,13 +53,13 @@
 <div style="display: flex;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw;" /> <span class="textColor" style="font-size: 2vw;">Patients</span>
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">Patients</span>
 	</div>
 
 	<div>
 		<button class="btn btn-lg btn-primary" style="right: 0; position: absolute; margin-right: 3vw; display: flex; align-items: center;" onclick="location.href='@Url.Action("CreateNewPatient", "Patients")'">
 			<span id="container">+</span>
-			<span style="font-size: 1.2vw; margin-left: 0.5vw;">New Patient</span>
+			<span style="font-size: 1vw; margin-left: 0.5vw;">New Patient</span>
 		</button>
 	</div>
 
@@ -65,7 +67,7 @@
 
 <div style="display: flex;">
 	<div>
-		<table class="textColor" id="petInfoList" style="width: 50vw; margin-bottom: 2vw;">
+		<table class="textColor" id="petInfoList" style="width: 58vw; margin-bottom: 2vw; font-size: 1vw;">
 		</table>
 
 		<div id="pagination" style="display: flex; justify-content: flex-end;">
@@ -79,8 +81,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="containerBackground" style="width: 20vw; border-radius: 0.2vw; margin-left: 1vw; padding: 1vw;">
-		<h3 style="text-align: left; margin-bottom: 2vw;">Filters</h3>
+	<div class="containerBackground" style="width: 20vw; border-radius: 0.2vw; margin-left: 1vw; padding: 2vw;">
+		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">Filter</h3>
 
 		<div class="field-container">
 			<span class="form-label">Owner Name</span>
@@ -110,7 +112,7 @@
 			</select>
 		</div>
 
-		<button onclick="filter();" class="w-100 btn btn-lg btn-primary">Search</button>
+		<button onclick="filter();" class="w-100 btn btn-lg btn-primary" style="font-size: 1vw;">Search</button>
 	</div>
 </div>
 

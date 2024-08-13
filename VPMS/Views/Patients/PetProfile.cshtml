@@ -18,10 +18,12 @@
 	.formlabel {
 		font-weight: bold;
 		margin-bottom: 0.3vw;
+		font-size: 1vw;
 	}
 
 	.inputField {
 		border: 0.1vw solid;
+		font-size: 1vw;
 	}
 
 	.halfSize {
@@ -72,12 +74,48 @@
 		margin-right: 1.5vw;
 		margin-bottom: 1.5vw;
 	}
+
+	/* for tooltips */
+	/* Tooltip container */
+	.tooltip {
+		position: relative;
+		display: inline-block;
+		opacity: 1;
+	}
+
+		/* Tooltip text */
+		.tooltip .tooltiptext {
+			visibility: hidden;
+			/* width: 120px; */
+			background-color: black;
+			color: #fff;
+			text-align: center;
+			padding: 5px 0;
+			border-radius: 6px;
+			font-size: 0.7vw;
+			/* Position the tooltip text - see examples below! */
+			position: absolute;
+			z-index: 1;
+			width: 12vw;
+			bottom: 100%;
+			left: 50%;
+			margin-left: -1.8vw;
+			/* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+			opacity: 0;
+			transition: opacity 1s;
+		}
+
+		/* Show the tooltip text when you mouse over the tooltip container */
+		.tooltip:hover .tooltiptext {
+			opacity: 1;
+			visibility: visible;
+		}
 </style>
 
 <div style="display: flex;">
 
-	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw;" onclick="location.href='/Patients/ViewPatientProfile/@ViewBag.PatientID'" />
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/ViewPatientProfile/@ViewBag.PatientID'" />
 		<span class="textColor" style="font-size: 2vw;">Patients</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
 		<span class="textColor" style="font-size: 2vw;">Patient Profile</span>
@@ -86,16 +124,20 @@
 	</div>
 </div>
 
-<div style="display: flex; justify-content: space-between;">
-	<div id="LeftInfoContainer">
+<div style="display: flex; justify-content: center;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 45vw;">
 		
-		<div class="containerBackground2" style="width: 40vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
-			<span>Pet Information</span>
-			<button onclick="editPetInfo();" class="btn btn-lg btn-primary petInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+		<div class="containerBackground2" style="width: 43vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
+			<button onclick="editPetInfo(false);" class="btn btn-lg btn-primary petInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 			</button>
 		</div>
-		<div class="containerBorder" style="color: darkgray; width: 40vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+		<div class="containerBorder" style="color: darkgray; width: 43vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+			<input id="PetID" type="text" value="@Model.ID" hidden />
+			<input id="PetCreatedDate" type="text" value="@Model.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")" hidden />
+			<input id="PetCreatedBy" type="text" value="@Model.CreatedBy" hidden />
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
@@ -227,24 +269,210 @@
 							<option value="2" selected> Inactive</option>
 						}
 					</select>
-					<span class="formlabel petInfoProfile textColor Status">@Model.Status</span>
+					@if (Model.Status == 1)
+					{
+						<span class="formlabel petInfoProfile textColor Status">Active</span>
+					}
+					else
+					{
+						<span class="formlabel petInfoProfile textColor Status">Inactive</span>
+					}
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Obese?</span>
+					@if (Model.Weight > 0)
+					{
+						<span class="formlabel petInfoProfile Obese" style="color: red;">Yes</span>
+					}
+					else
+					{
+						<span class="formlabel petInfoProfile Obese" style="color: green;">No</span>
+					}
 				</div>
 			</div>
 
 
 			<div class="hideContainer petInfoProfile" style="text-align: end; margin-right: 1.6vw;">
-				<button onclick="editPetInfo(this.parentElement)" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1.5vw;"> Cancel </button>
-				<button onclick="editPetInfo(this.parentElement);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1.5vw;"> Save </button>
+				<button onclick="editPetInfo(false)" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
+				<button onclick="editPetInfo(true);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Save </button>
 			</div>
 
 		</div>
+
+		<div class="containerBackground2" style="width: 43vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Medical Record</span>
+			<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+			</button>
+		</div>
+		<div class="containerBorder textColor" style="width: 43vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
+
+			<div class="medicalRecordPartition">
+
+				<div class="medicalRecordPartitionTitle">
+					<span class="formlabel" style="color: blue;">Vaccination</span>
+				</div>
+
+				<div id="VaccinationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
+					<div style="margin-bottom: 1vw;">
+						<span>Vaccination</span> </br>
+						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Vaccination</span> </br>
+						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Vaccination</span> </br>
+						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="medicalRecordPartition">
+				<div class="medicalRecordPartitionTitle">
+					<span class="formlabel" style="color: blue;">Medication</span>
+				</div>
+
+				<div id="MedicationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
+					<div style="margin-bottom: 1vw;">
+						<span>Antifungals</span> </br>
+						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+						<span style="color: #5e8cd1">Active</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Antifungals</span> </br>
+						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+						<span style="color: #5e8cd1">Active</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Antifungals</span> </br>
+						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+						<span style="color: #5e8cd1">Active</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="medicalRecordPartition">
+				<div class="medicalRecordPartitionTitle">
+					<span class="formlabel" style="color: blue;">Surgeries</span>
+				</div>
+
+				<div id="SurgeriesContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
+					<div style="margin-bottom: 1vw;">
+						<span>Spaying</span> </br>
+						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Spaying</span> </br>
+						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Spaying</span> </br>
+						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
 	</div>
 
-	<div id="RightInfoContainer">
+	<div id="RightInfoContainer" style="margin-left: 1.5vw;">
 		<div>
 
 			<div class="containerBackground2" style="width: 28vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				All Pets
+				<span class="formlabel" style="margin-bottom: 0 !important;">All Pets</span>
 			</div>
 			<div class="containerBorder textColor" style="color: darkgray; width: 28vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
@@ -253,7 +481,7 @@
 					{
 						<div class="field-container" style="text-align: center;">
 							<img src = "~/images/Cat profile image.png" style = "width: 4vw;" />
-							<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet"> @otherPet </a>
+							<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
 						</div>
 					}
 				</div>
@@ -261,9 +489,9 @@
 			</div>
 
 			<div class="containerBackground2" style="width: 28vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				Upcoming Appointment
+				<span class="formlabel" style="margin-bottom: 0 !important;">Upcoming Appointment</span>
 			</div>
-			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 28vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 28vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
@@ -313,11 +541,15 @@
 		editPetInfo();
 	}
 
-	function editPetInfo() {
+	function editPetInfo(submit) {
 		var element = document.querySelectorAll('.petInfoProfile');
 
 		for (let i = 0; i < element.length; i++) {
 			element[i].classList.toggle("hideContainer");
+		}
+
+		if (submit) {
+			submitPetInfoUpdate();
 		}
 	}
 
@@ -356,4 +588,80 @@
 				console.error('There was a problem with the fetch operation:', error);
 			});
 	}
+
+	function submitPetInfoUpdate() {
+		var PetNameElement = document.querySelectorAll(".PetName")
+		var RegistrationNoElement = document.querySelectorAll(".RegistrationNo")
+		var GenderElement = document.querySelectorAll(".Sex")
+		var DOBElement = document.querySelectorAll(".DOB")
+		var AgeElement = document.querySelectorAll(".Age")
+		var SpeciesElement = document.querySelectorAll(".Species")
+		var BreedElement = document.querySelectorAll(".Breed")
+		var ColorElement = document.querySelectorAll(".Color")
+		var AllergiesElement = document.querySelectorAll(".Allergies")
+		var WeightElement = document.querySelectorAll(".Weight")
+		var HeightElement = document.querySelectorAll(".Height")
+		var StatusElement = document.querySelectorAll(".Status")
+
+
+		var obj = {
+			ID: document.querySelector("#PetID").value,
+			PatientID: @ViewBag.PatientID,
+			Name: PetNameElement[0].value,
+			RegistrationNo: RegistrationNoElement[0].value,
+			Gender: GenderElement[0].value,
+			DOB: DOBElement[0].value,
+			Age: AgeElement[0].value,
+			Species: SpeciesElement[0].value,
+			Breed: BreedElement[0].value,
+			Color: ColorElement[0].value,
+			Allergies: AllergiesElement[0].value,
+			Weight: WeightElement[0].value,
+			WeightUnit: "kg",
+			Height: HeightElement[0].value,
+			HeightUnit: "cm",
+			Status: StatusElement[0].value,
+			CreatedDate: document.querySelector("#PetCreatedDate").value,
+			CreatedBy: document.querySelector("#PetCreatedBy").value,
+			UpdatedDate: new Date(),
+			UpdatedBy: "Admin"
+		}
+
+		fetch('/Patients/UpdatePetInfo', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				PetNameElement[1].innerHTML = PetNameElement[0].value;
+				RegistrationNoElement[1].innerHTML = RegistrationNoElement[0].value;
+
+				if (GenderElement[0].value == "M") { GenderElement[1].innerHTML = "Male"; }
+				else { GenderElement[1].innerHTML = "Female"; }
+				
+				var date = new Date(DOBElement[0].value);
+				DOBElement[1].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+				AgeElement[1].innerHTML = AgeElement[0].value;
+				SpeciesElement[1].innerHTML = SpeciesElement[0].value;
+				BreedElement[1].innerHTML = BreedElement[0].value;
+				ColorElement[1].innerHTML = ColorElement[0].value;
+				AllergiesElement[1].innerHTML = AllergiesElement[0].value;
+				WeightElement[1].innerHTML = WeightElement[0].value;
+				HeightElement[1].innerHTML = HeightElement[0].value;
+
+				if (StatusElement[0].value == 1) { StatusElement[1].innerHTML = "Active"; }
+				else { StatusElement[1].innerHTML = "Inactive"; }
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+
 </script>
