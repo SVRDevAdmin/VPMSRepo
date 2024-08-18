@@ -11,7 +11,8 @@
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.2",
-          "VPMS.Lib.Data": "1.0.0"
+          "VPMS.Lib.Data": "1.0.0",
+          "VPMS.Lib.Helpers": "1.0.0"
         },
         "runtime": {
           "VPMSWeb.dll": {}
@@ -2119,6 +2120,11 @@
         "runtime": {
           "VPMS.Lib.Data.dll": {}
         }
+      },
+      "VPMS.Lib.Helpers/1.0.0": {
+        "runtime": {
+          "VPMS.Lib.Helpers.dll": {}
+        }
       }
     }
   },
@@ -3494,6 +3500,11 @@
       "hashPath": "zstdsharp.port.0.7.1.nupkg.sha512"
     },
     "VPMS.Lib.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "VPMS.Lib.Helpers/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

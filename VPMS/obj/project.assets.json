@@ -3389,6 +3389,16 @@
         "runtime": {
           "bin/placeholder/VPMS.Lib.Data.dll": {}
         }
+      },
+      "VPMS.Lib.Helpers/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/VPMS.Lib.Helpers.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/VPMS.Lib.Helpers.dll": {}
+        }
       }
     }
   },
@@ -8993,6 +9003,11 @@
       "type": "project",
       "path": "../VPMS.Lib.Data/VPMS.Lib.Data.csproj",
       "msbuildProject": "../VPMS.Lib.Data/VPMS.Lib.Data.csproj"
+    },
+    "VPMS.Lib.Helpers/1.0.0": {
+      "type": "project",
+      "path": "../Library/VPMS.Lib.Helpers/VPMS.Lib.Helpers.csproj",
+      "msbuildProject": "../Library/VPMS.Lib.Helpers/VPMS.Lib.Helpers.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9000,7 +9015,8 @@
       "Microsoft.AspNetCore >= 2.2.0",
       "Microsoft.AspNetCore.Http >= 2.2.2",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.2",
-      "VPMS.Lib.Data >= 1.0.0"
+      "VPMS.Lib.Data >= 1.0.0",
+      "VPMS.Lib.Helpers >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -9036,6 +9052,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "C:\\Dev\\VPMS\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj": {
+              "projectPath": "C:\\Dev\\VPMS\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj"
+            },
             "C:\\Dev\\VPMS\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj": {
               "projectPath": "C:\\Dev\\VPMS\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj"
             }

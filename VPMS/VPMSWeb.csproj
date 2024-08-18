@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Library\VPMS.Lib.Helpers\VPMS.Lib.Helpers.csproj" />
     <ProjectReference Include="..\VPMS.Lib.Data\VPMS.Lib.Data.csproj" />
   </ItemGroup>
 

@@ -1,9 +1,622 @@
-﻿@{
+﻿@model List<VPMSWeb.Controllers.AppointmentViewModel>
+
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    <h1>appointment</h1>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('apptCalendar');
+        var viewDropdownMenu = document.getElementById('viewDropdownMenu');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: { left: '', center: 'title', right: 'prev,next,customButton' },
+            initialView: 'dayGridMonth',
+            views: {
+                dayGridMonth: {
+                    titleFormat: {
+                        year: 'numeric',
+                        month: 'long'
+                    },
+                    buttonIcons: {
+                        prev: 'chevron-left',
+                        next: 'chevron-right',
+                        customButton: 'chevron-down'
+                    },
+                    dayHeaderFormat: {
+                        weekday: 'long'
+                    }
+                },
+                timeGridWeek: {
+                    titleFormat: {
+                        year: 'numeric',
+                        month: 'long'
+                    },
+                    dayHeaderFormat: {
+                        weekday: 'long',
+                        day: '2-digit'
+                    },
+                    allDaySlot: false,
+                    slotMinTime: "08:00:00",
+                    slotMaxTime: "24:00:00",
+                    slotLabelFormat: {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: false
+                    }
+                },
+                customDayGrid: {
+                    type: 'timeGrid',
+                    allDaySlot: false,
+                    slotMinTime: "08:00:00",
+                    slotMaxTime: "24:00:00",
+                    slotLabelFormat: {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: false
+                    }
+                }
+            },
+            customButtons: {
+                customButton: {
+                    text: 'Months',
+                    click: function (event) {
+                        var rect = event.target.getBoundingClientRect();
+                        viewDropdownMenu.style.display = 'block';
+                        viewDropdownMenu.style.left = rect.left + 'px';
+                        viewDropdownMenu.style.top = (rect.bottom + window.scrollY) + 'px';
+                    }
+                }
+            }
+            //dateClick: function(){
+            //    alert('A');
+            //}
+        });
+
+        calendar.batchRendering(function () {
+            calendar.changeView('dayGridMonth');
+            //calendar.addEvent({ title: 'Event ABC', start: '2024-07-01', end: '' });
+            //calendar.addEvent({ title: 'Event TT', start: '2024-07-02' });
+            //calendar.addEvent({ title: 'Event 5', start: '2024-06-02T13:00:00' });
+            //calendar.addEvent({ title: 'Event 6', start: '2024-06-10' });
+        });
+
+        calendar.on('dateClick', function (info) {
+            //alert('T');
+        });
+        calendar.render();
+
+        $('#dtAppt').datepicker();
+
+        $('.dropdown-item').on('click', function (ctl) {
+            var sView = $(this)[0].attributes["data"].value;
+            calendar.changeView(sView);
+
+            var sTag = $(this)[0].attributes["tags"].value;
+            $('.fc-customButton-button').text(sTag);
+
+            $('.dropdown-menu').hide();
+        });
+    });
+
+    function switchAppt(targetModal) {
+        $('.apptClss').hide();
+        $('#' + targetModal).show();
+    }
+
+    function ddlServicesChanges(services) {
+        $.post("/Appointment/GetServiceDoctorList", {
+            ServicesID: services.value
+        }).done(function (result) {
+            loadddlDoctor(result);
+        });
+    }
+
+    function ddlAddOwnerchanges(patient){
+        $.post("/Appointment/GetPetListByPatientID", {
+            PatientID: patient.value
+        }).done(function (result) {
+            loadddlPet(result);
+        });
+    }
+
+    function loadddlDoctor(data) { 
+        $('#ddlAddDoctor').empty();
+        $('#ddlAddDoctor').append(new Option('Please select doctor', ''));
+
+        for (var i = 0; i < data.length; i++){
+            var opt = new Option(data[i].DoctorInCharge, data[i].DoctorInCharge);
+            $('#ddlAddDoctor').append(opt);
+        }
+    }
+
+    function loadddlPet(data) {
+        $('#ddlAddPet').empty();
+        $('#ddlAddPet').append(new Option('Please select pet', ''));
+
+        for (var i = 0; i < data.length; i++) {
+            var opt = new Option(data[i].Name, data[i].ID);
+            $('#ddlAddPet').append(opt);
+        }
+    }
+
+    function AddAppointment()
+    {
+
+        var sApptObj = {
+            ApptDate: '2024-12-11',
+            ApptStartTime: '11:00',
+            ApptEndTime: '12:00',
+            OwnerID: '12',
+            PetID: '12',
+            status: 1,
+            InchargeDoctor: 'Doctor A',
+            EmailNotify: ''
+        };
+
+        $.post("/Appointment/CreateAppointment", sApptObj)
+        .done(function(result){
+
+        });
+    }
+</script>
+
+<style type="text/css">
+    .fc-toolbar-title {
+        font-family: sans-serif !important;
+        font-size: 20px !important;
+        font-weight: bold !important;
+    }
+
+    .fc-col-header-cell {
+        color: #fff !important;
+        font-size: 12px !important;
+        font-family: sans-serif !important;
+        background-color: black !important;
+    }
+
+    .fc-col-header-cell:first-of-type {
+        border-top-left-radius: 8px !important;
+    }
+
+    .fc-col-header-cell:last-of-type {
+        border-top-right-radius: 8px !important;
+    }
+
+    /*.fc-timeGridWeek-view > .fc-scrollgrid > .fc-col-header-cell:nth-of-type(1) {
+        border-top-left-radius: 8px !important;
+    }*/
+
+    .fc-col-header-cell-cushion {
+        color: #fff !important;
+        text-decoration: none !important;
+    }
+
+    .fc-daygrid-day-number {
+        color: #919191 !important;
+        text-decoration: none !important;
+        font-size: 13px !important;
+        font-weight: bold !important;
+    }
+
+    .fc-event-title {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        color: #fff !important;
+    }
+
+    .fc-customButton-button {
+        background-color: transparent !important;
+        color: black !important;
+        font-weight: bold !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .fc-customButton2-button {
+        background-color: transparent !important;
+        color: black !important;
+        font-weight: bold !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .fc-prev-button {
+        background-color: transparent !important;
+        color: black !important;
+        font-weight: bold !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .fc-next-button {
+        background-color: transparent !important;
+        color: black !important;
+        font-weight: bold !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .fc-timeGridWeek-view > .fc-scrollgrid {
+        border-left-style: none !important;
+        border-top-style: none !important;
+        border-bottom-style: none !important;
+    }
+
+    .fc-timeGridWeek-view > .fc-scrollgrid td:first-of-type {
+        border-left: none !important;
+        border-top: none !important;
+        border-bottom: none !important;
+     }
+
+    .fc-timeGridWeek-view > .fc-scrollgrid td:nth-of-type(2){
+        border-top-left-radius: 8px !important;
+    }
+
+    .fc-timegrid-slot-label-cushion {
+        color: #919191 !important;
+        font-family: sans-serif !important;
+        font-size: 12px !important;
+    }
+
+    .fc-timegrid-axis {
+        background-color: transparent !important;
+        border-bottom: none !important;
+    }
+
+    .fc-customDayGrid-view > .fc-scrollgrid {
+        border-left-style: none !important;
+        border-top-style: none !important;
+        border-bottom-style: none !important;
+    }
+
+    .fc-customDayGrid-view > .fc-scrollgrid td:first-of-type {
+        border-left: none !important;
+        border-top: none !important;
+        border-bottom: none !important;
+    }
+</style>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <!--&lt;-- Appointment-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9" style="height: auto; border: 0px solid black;">
+            <div class="row" style="height: auto; border: 0px solid black;">
+                <div class="col-md-12">&nbsp;</div>
+            </div>
+        </div>
+        <div class="col-md-3" style="height: auto; border: 0px solid black;">
+            <div clsas="row" style="height: auto; border: 0px solid black;">
+                <div class="col-md-12" style="text-align: right; margin-top: 5px;">
+                    <button id="btnCreate" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AppointmentModal" style="box-shadow: none;">
+                        <i class="bi bi-plus-circle"></i>
+                        New Appointment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9" style="height: auto; border: 0px solid black;">
+            <div class="row" style="height: auto; border: 0px solid black; margin-top: 15px; margin-left: 10px; margin-right: 5px;">
+                <div id="apptCalendar">
+                </div>
+
+                <div id="viewDropdownMenu" class="dropdown-menu" style="width: 120px; border-radius: 10px;">
+                    <a class="dropdown-item" data="customDayGrid" tags="Day">Day</a>
+                    <a class="dropdown-item" data="timeGridWeek" tags="Week">Week</a>
+                    <a class="dropdown-item" data="dayGridMonth" tags="Month">Month</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="height: auto; border: 0px solid black">
+            <div id="divSearch" class="row" style="height: auto; border: 0px solid black; ">
+                <div class="col-md-12" style="border-radius: 5px; border: 0px solid black">
+                    <div class="row" style="margin-top: 30px; margin-bottom: 30px; margin-left: 5px;">
+                        <label class="searchTitle">Filter</label>
+                    </div>
+                    <!-- Doctor Selection -->
+                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+                        <label class="searchLabel">Doctor</label>
+                    </div>
+                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                       <select id="ddlDoctor" class="form-select" aria-label="Default select example">
+                       </select>
+                    </div>
+                    <!-- Owner -->
+                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+                        <label class="searchLabel">Owner</label>
+                    </div>
+                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                        <select id="ddlOwner" class="form-select" aria-label="Default select example">
+                        </select>
+                    </div>
+                    <!-- Patients -->
+                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+                        <label class="searchLabel">Patient</label>
+                    </div>
+                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                        <select id="ddlPatient" class="form-select" aria-label="Default select example">
+                        </select>
+                    </div>
+                    <!-- Services -->
+                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+                        <label class="searchLabel">Services</label>
+                    </div>
+                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+
+
+                        <select id="ddlServices" class="form-select" aria-label="Default select example">
+                            @{
+                                var sServicesObj = ViewData["ServicesList"] as List<VPMS.Lib.Data.Models.TreatmentServicesModel>;
+
+                                if (sServicesObj != null && sServicesObj.Count > 0)
+                                {
+                                    foreach (var s in sServicesObj)
+                                    {
+                                                        <option value=@s.ID>@s.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="row" style="margin-top: 20px; margin-bottom: 30px; margin-left: 5px; margin-right: 5px;">
+                        <button id="btnSearch" type="button" class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="row" style="height: 20px">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div id="AppointmentModal" class="modal fade modal-xl" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content overflow-auto" style="width: 100%; height: auto; background-color: #f7f7f7">
+            <div class="modal-header" style="border-bottom: 0px;">
+            </div>
+            <div class="modal-body" style="padding: 0px">
+                <div id="divNewAppt" class="row apptClss">
+                    <div class="row" style="width: 100%;">
+                        <div class="col-md-6">
+                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;">Create Appointment</label>
+                        </div>
+                        <div class="col-md-6" style="text-align: right;">
+                            <label style="margin-right: 90px; font-size: 16px; vertical-align: middle;">
+                                New Client? <a href="javascript:;" onclick="switchAppt('divNewClientAppt')" style="font-weight: bold; text-decoration-color: black; text-decoration-line: underline;">Switch to quick appointment</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 30px;">&nbsp;</div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <label style="margin-left: 60px; font-weight: bold;">Owner Name</label>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <label style="font-weight: bold;">Pet Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <select id="ddlAddOwner" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlAddOwnerchanges(this);">
+                                <option value="">Please select owner</option>
+
+                                @{
+                                    var sAddOwnerViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                    if (sAddOwnerViewObj.PatientSelectionModel != null && 
+                                        sAddOwnerViewObj.PatientSelectionModel.Count > 0)
+                                    {
+                                        foreach (var p in sAddOwnerViewObj.PatientSelectionModel)
+                                        {
+                                                            <option value=@p.PatientID>@p.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <select id="ddlAddPet" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
+                                <option value="">Please select pet</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="margin-left: 60px; font-weight: bold;">Services</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="font-weight: bold;">Date & Time</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlAddServices" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlServicesChanges(this)">
+                                <option value="">Please select services</option>
+
+                                @{
+                                    var sAppointmentViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                    if (sAppointmentViewObj.TreatmentServicesModel != null && 
+                                        sAppointmentViewObj.TreatmentServicesModel.Count > 0)
+                                    {
+                                        foreach (var s in sAppointmentViewObj.TreatmentServicesModel)
+                                        {
+                                                            <option value=@s.ID>@s.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <!--<select id="ddldatetime" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
+                            </select> -->
+                            <input id="dtAppt" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" />
+
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div action="row">
+                        <div class="col-md-6">
+                            <label style="margin-left: 60px; font-weight: bold;">Doctor</label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlAddDoctor" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
+                                <option value="">Please select doctor</option>
+                            </select>
+                        </div>
+                        <div action="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="chkNotify" class="form-check-input" type="checkbox" style="margin-left: 60px; border: 1px solid black; box-shadow: none;" />
+                            <label style="margin-left: 10px;">Notify me via Email</label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right;">
+                            <button id="btnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">Cancel</button>
+                            <button id="btnConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;" onclick="AddAppointment();">Confirm</button>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+
+                <!-- New Client -->
+                <div id="divNewClientAppt" class="row apptClss" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;">Create Appointment (New Client)</label>
+                        </div>
+                        <div class="col-md-6" style="text-align: right;">
+                            <label style="margin-right: 90px; font-size: 16px; vertical-align: middle;">
+                                Existing Client? <a href="javascript:;" onclick="switchAppt('divNewAppt')" style="font-weight: bold; text-decoration-color: black; text-decoration-line: underline;">Switch back to appointment</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 30px;">&nbsp;</div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-6" style="border: 0px solid black">
+                            <label style="margin-left: 60px; font-weight: bold;">Owner's Full Name</label>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <label style="font-weight: bold;">Contact No.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <input id="txtNewOwnerfullName" type="text" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <input id="txtNewContactNo" type="text" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-6" style="border: 0px solid black">
+                            <label style="margin-left: 60px; font-weight: bold;">Email Address</label>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <label style="font-weight: bold;">Pet Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <input id="txtEmail" type="text" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <input id="txtNewPetName" type="text" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-6" style="border: 0px solid black">
+                            <label style="margin-left: 60px; font-weight: bold;">Pet's Date of Birth</label>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <label style="font-weight: bold;">Species</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <input id="txtNewDOB" type="text" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <select id="ddlNewSpecies" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
+                           </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-6" style="border: 0px solid black">
+                            <label style="margin-left: 60px; font-weight: bold;">Services</label>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <label style="font-weight: bold;">Date & Time</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <select id="ddlNewAddServices" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
+                            </select>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <select id="ddlNewDateTime" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-6" style="border: 0px solid black">
+                            <label style="margin-left: 60px; font-weight: bold;">Doctor</label>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border: 0px solid black;">
+                            <select id="ddlNewDoctor" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
+                            </select>
+                        </div>
+                        <div class="col-md-6" style="border: 0px solid black;">
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="chkNewNotify" class="form-check-input" type="checkbox" style="margin-left: 60px; border: 1px solid black; box-shadow: none;" />
+                            <label style="margin-left: 10px;">Notify me via Email</label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right;">
+                            <button id="btnNewCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">Cancel</button>
+                            <button id="btnNewConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;">Confirm</button>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 

@@ -11,12 +11,14 @@
     <title>@ViewData["Title"] - VPMS</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/icons/bootstrap-icons.min.css" asp-append-version="true" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script src="~/lib/bootstrap/dist/js/v4.6.2/bootstrap.bundle.min.js"></script>
+    <script src='~/lib/fullcalendar/index.global.min.js'></script>
 
     @{
         var requestCulture = Context.Features.Get<IRequestCultureFeature>();
@@ -49,7 +51,7 @@
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="Appointment" asp-action="Index">
+                        <a id="mnAppointment" asp-controller="Appointment" asp-action="Index">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconAppt" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Appointments"]</strong>
@@ -122,7 +124,11 @@
                                                     var sLanguageFullName = ViewData["LanguageFullNameSelected"] as VPMS.Lib.Data.Models.MastercodeModel;
                                                     var sCountryFullName = ViewData["CountrySelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
 
-                                                    <label class="LanguageSelectionFont">@sLanguageFullName.CodeName | @sCountryFullName.ConfigurationValue</label>
+                                                    if (sLanguageFullName != null && sCountryFullName != null)
+                                                    {
+                                                        <label class="LanguageSelectionFont">@sLanguageFullName.CodeName | @sCountryFullName.ConfigurationValue</label>
+                                                    }
+                                                    
                                                 }  
                                             </a>
                                         </div>
@@ -164,7 +170,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="border: 0px solid black;">
+                <div id="divContent" class="row" style="border: 0px solid black;">
                     @RenderBody()
                 </div>
                 
@@ -192,26 +198,26 @@
                                         var sLangObj = ViewData["LanguageCodeList"] as List<VPMS.Lib.Data.Models.MastercodeModel>;
                                         var sLangSelected = ViewData["LanguageSelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
 
-                                        if (sLangObj.Count > 0)
+                                        if (sLangObj != null && sLangObj.Count > 0)
                                         {
                                             foreach (var m in sLangObj)
                                             {
                                                 var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
                                             
-                                                <li class="list-group-item" style="border: 0px">
-                                                    <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"  
-                                                           style="margin-left: 30px; vertical-align: middle;" 
-                                                           @(sLangSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") />
-                                                    <img src=@sFlagPath class="CountryFlag" />
-                                                    <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
-                                                </li>
+                                                    <li class="list-group-item" style="border: 0px">
+                                                        <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"  
+                                                               style="margin-left: 30px; vertical-align: middle;" 
+                                                               @(sLangSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") />
+                                                        <img src=@sFlagPath class="CountryFlag" />
+                                                        <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
+                                                    </li>
                                             }                                           
                                         }
                                         else
                                         {
-                                            <li class="list-group-item" style="border: 0px">
-                                                <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
-                                            </li>
+                                                <li class="list-group-item" style="border: 0px">
+                                                    <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
+                                                </li>
                                         }
                                     }
                                 </ul>
@@ -230,8 +236,8 @@
                                     @{
                                         var sCountryObj = ViewData["CountryList"] as List<VPMS.Lib.Data.Models.CountryListModel>;
                                         var sCountrySelected = ViewData["CountrySelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
-                                        
-                                        if (sCountryObj.Count > 0)
+
+                                        if (sCountryObj != null && sCountryObj.Count > 0)
                                         {
                                             foreach (var c in sCountryObj)
                                             {
@@ -241,12 +247,12 @@
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
 
-                                                <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                                    <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
                                             }                                            
                                         }
                                         else
                                         {
-                                            <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
+                                                <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
                                         }
                                     }
                                 </ul>
@@ -368,6 +374,11 @@
                 window.location.reload();
             }
         });
+
+        //$('#mnAppointment').on('click', function () {
+        //    $('#divContent').load("/appointment/index");
+        //    return false;
+        //});
     </script>
 
     @{
@@ -376,16 +387,16 @@
         {
             if (theme == "dark")
             {
-                    <link rel="stylesheet" href="~/css/DarkTheme.css" />
+                        <link rel="stylesheet" href="~/css/DarkTheme.css" />
             }
             if (theme == "light")
             {
-                    <link rel="stylesheet" href="~/css/LightTheme.css" />
+                        <link rel="stylesheet" href="~/css/LightTheme.css" />
             }
         }
         else
         {
-                <link rel="stylesheet" href="~/css/LightTheme.css" />
+                    <link rel="stylesheet" href="~/css/LightTheme.css" />
         }
     }
 </body>
