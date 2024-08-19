@@ -6,8 +6,8 @@ using VPMS.Lib.Data.Models;
 
 namespace VPMSWeb.Controllers
 {
-    //[Authorize]
-    public class PatientsController : Controller
+	[Authorize]
+	public class PatientsController : Controller
     {
         private readonly PatientDBContext _patientDBContext = new PatientDBContext();
 		private readonly MasterCodeDataDBContext _masterCodeDataDBContext = new MasterCodeDataDBContext();
@@ -21,13 +21,14 @@ namespace VPMSWeb.Controllers
 			return View();
 		}
 
-		[Route("/Patients/ViewPatientProfile/{patientid}")]
-		public IActionResult ViewPatientProfile(int patientid)
+		[Route("/Patients/PatientProfile/{type}/{patientid}")]
+		public IActionResult ViewPatientProfile(string type, int patientid)
 		{
 			ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 			ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
 
 			ViewBag.PatientID = patientid;
+			ViewBag.type = type;
 
 			return View();
 		}
@@ -118,6 +119,18 @@ namespace VPMSWeb.Controllers
 			_patientDBContext.Update(pets);
 
 			_patientDBContext.SaveChanges();
+		}
+		
+		public void DeletePetInfo(int patientid, string petname)
+		{
+			var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
+
+			if(petInfo != null)
+			{
+				_patientDBContext.Mst_Pets.Remove(petInfo);
+
+				_patientDBContext.SaveChanges();
+			}
 		}
 	}
 }

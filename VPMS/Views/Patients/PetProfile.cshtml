@@ -1,11 +1,32 @@
 ﻿@model VPMS.Lib.Data.Models.Pets;
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
 	ViewBag.Breed = Model.Breed;
 	List<string> otherPets = ViewData["OtherPets"] as List<string>;
+
+	var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
+
+	if (theme != null)
+	{
+		if (theme == "dark")
+		{
+			ViewBag.DarkTheme = "Dark";
+		}
+		if (theme == "light")
+		{
+			ViewBag.DarkTheme = "Light";
+		}
+	}
+	else
+	{
+		ViewBag.DarkTheme = "Light";
+	}
 }
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
 <style>
 	.field-container {
@@ -110,12 +131,52 @@
 			opacity: 1;
 			visibility: visible;
 		}
+
+		/* Hover dropdown */
+	.dropbtn {
+		background-color: transparent;
+		/* color: white; */
+		/* padding: 16px; */
+		font-size: 1.3vw;
+		border: none;
+	}
+
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 9vw;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+		right: 0;
+		text-align: center;
+	}
+
+		.dropdown-content a {
+			color: black;
+			padding: 0 1vw;
+			text-decoration: none;
+			display: block;
+		}
+
+			.dropdown-content a:hover {
+				background-color: #ddd;
+			}
+
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
 </style>
 
 <div style="display: flex;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/ViewPatientProfile/@ViewBag.PatientID'" />
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/PatientProfile/view/@ViewBag.PatientID'" />
 		<span class="textColor" style="font-size: 2vw;">Patients</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
 		<span class="textColor" style="font-size: 2vw;">Patient Profile</span>
@@ -125,15 +186,15 @@
 </div>
 
 <div style="display: flex; justify-content: center;">
-	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 45vw;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
 		
-		<div class="containerBackground2" style="width: 43vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
 			<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
 			<button onclick="editPetInfo(false);" class="btn btn-lg btn-primary petInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
-				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				<i class="fa-regular fa-pen-to-square"></i>
 			</button>
 		</div>
-		<div class="containerBorder" style="color: darkgray; width: 43vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+		<div class="containerBorder" style="color: darkgray; width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 			<input id="PetID" type="text" value="@Model.ID" hidden />
 			<input id="PetCreatedDate" type="text" value="@Model.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")" hidden />
@@ -152,7 +213,7 @@
 					<span class="formlabel petInfoProfile textColor RegistrationNo">@Model.RegistrationNo</span>
 				</div>
 
-				<div class="field-container quaterSize">
+				<div class="field-container">
 					<span class="formlabel">Sex</span>
 					<select class="form-control form-field inputField petInfoProfile Sex hideContainer">
 						<option value=""> -- Select Sex --</option>
@@ -186,7 +247,7 @@
 					<span class="formlabel petInfoProfile textColor Age">@Model.Age</span>
 				</div>
 
-				<div class="field-container quaterSize">
+				<div class="field-container">
 					<span class="formlabel">Species</span>
 					<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer">
 						<option value=""> -- Select Species --</option>
@@ -221,7 +282,7 @@
 					<span class="formlabel petInfoProfile textColor Allergies">@Model.Allergies</span>
 				</div>
 
-				<div class="field-container quaterSize">
+				<div class="field-container">
 					<span class="formlabel">Color</span>
 					<select class="form-control form-field inputField petInfoProfile Color hideContainer">
 						<option value=""> -- Select Color --</option>
@@ -254,7 +315,7 @@
 					<span class="formlabel petInfoProfile textColor Weight">@Model.Weight</span>
 				</div>
 
-				<div class="field-container quaterSize">
+				<div class="field-container">
 					<span class="formlabel">Status</span>
 					<select class="form-control form-field inputField petInfoProfile Status hideContainer">
 						<option value=""> -- Select Status --</option>
@@ -280,16 +341,16 @@
 				</div>
 			</div>
 
-			<div style="display: flex; margin-bottom: 1.5vw;">
+			<div style="display: flex; margin-bottom: 1.5vw;" class="petInfoProfile">
 				<div class="field-container quaterSize">
 					<span class="formlabel">Obese?</span>
 					@if (Model.Weight > 0)
 					{
-						<span class="formlabel petInfoProfile Obese" style="color: red;">Yes</span>
+						<span class="formlabel Obese" style="color: red;">Yes</span>
 					}
 					else
 					{
-						<span class="formlabel petInfoProfile Obese" style="color: green;">No</span>
+						<span class="formlabel Obese" style="color: green;">No</span>
 					}
 				</div>
 			</div>
@@ -302,13 +363,13 @@
 
 		</div>
 
-		<div class="containerBackground2" style="width: 43vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
 			<span class="formlabel" style="margin-bottom: 0 !important;">Medical Record</span>
 			<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
-				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				<i class="fa-regular fa-pen-to-square"></i>
 			</button>
 		</div>
-		<div class="containerBorder textColor" style="width: 43vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
+		<div class="containerBorder textColor" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
 
 			<div class="medicalRecordPartition">
 
@@ -466,15 +527,135 @@
 
 		</div>
 
+		<div class="containerBorder textColor" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-radius: 0.5vw; border-style: solid; margin-bottom: 2vw;">
+
+			<div style="margin-bottom: 2vw;">
+				<span style="font-weight: bold;">Pet Growth History</span>
+			</div>
+
+			<div style="height: 24vw; overflow: auto;">
+				<table class="textColor" style="width: 46vw; margin-bottom: 2vw; font-size: 1vw;">
+					<tr class="containerBackground">
+						<th class="table-content"> Date </th>
+						<th class="table-content"> Age (Year) </th>
+						<th class="table-content"> Height </th>
+						<th class="table-content"> Weight </th>
+						<th class="table-content"> Allergies </th>
+						<th class="table-content"> Obesity </th>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+		<div class="containerBorder textColor" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-radius: 0.5vw; border-style: solid;">
+
+			<div style="display: flex; justify-content: space-between; margin-bottom: 2vw;">
+				<span style="font-weight: bold;">Pet Growth Trend</span>
+				<div class="dropdown">
+					<button class="dropbtn textColor"> <span id="chartSelection">BMI</span> <i class="fa-solid fa-chevron-down dropdown-arrow"></i></button>
+					<div class="dropdown-content">
+						<a href="#" onclick="changeChart('BMI');">BMI</a>
+						<a href="#" onclick="changeChart('Weight');">Weight</a>
+						<a href="#" onclick="changeChart('Height');">Height</a>
+					</div>
+				</div>
+			</div>
+
+			<canvas id="myChart"></canvas>
+
+		</div>
+
+
 	</div>
 
-	<div id="RightInfoContainer" style="margin-left: 1.5vw;">
+	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 74vh; width: 24vw;">
 		<div>
 
-			<div class="containerBackground2" style="width: 28vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">All Pets</span>
 			</div>
-			<div class="containerBorder textColor" style="color: darkgray; width: 28vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 				<div id="allPets" style="display: flex; margin-bottom: 1.5vw;">
 					@foreach(string otherPet in otherPets)
@@ -488,10 +669,50 @@
 
 			</div>
 
-			<div class="containerBackground2" style="width: 28vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">Additional Information</span>
+			</div>
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-notes-medical"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Health Card</span>
+					</div>
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-regular fa-hospital"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Treatment Plan</span>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-receipt"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Invoice & Billing</span>
+					</div>
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-flask-vial"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Test Management</span>
+					</div>
+				</div>
+
+
+				
+
+			</div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">Upcoming Appointment</span>
 			</div>
-			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 28vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
+			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
@@ -531,6 +752,96 @@
 
 	</div>
 </div>
+
+<script>
+	const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	const weight = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+	const height = [17, 18, 18, 19, 19, 19, 10, 11, 14, 14, 15];
+	const bmi = [16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5];
+	var chartElement;
+	var xData, yData, xLable, yLabel;
+	var borderOpacity = "0.1";
+	var axisColor = "black";
+
+	changeChart("BMI");
+
+	function changeChart(name) {
+		if (name != "current") {
+			document.getElementById("chartSelection").innerHTML = name;
+		}
+		
+		if (chartElement) {
+			chartElement.chart.destroy();
+		}
+
+		if (name == 'Weight') {
+			xData = age;
+			yData = weight;
+			xLable = "Age";
+			yLabel = "Weight (kg)";
+		}
+		else if (name == 'Height') {
+			xData = age;
+			yData = height;
+			xLable = "Age";
+			yLabel = "Height (cm)";
+		}
+		else if (name == 'BMI') {
+			xData = age;
+			yData = bmi;
+			xLable = "Age";
+			yLabel = "BMI";
+		}
+
+		chartElement = new Chart("myChart", {
+			type: "line",
+			data: {
+				labels: xData,
+				datasets: [{
+					label: yLabel,
+					fill: false,
+					backgroundColor: "rgba(0,0,255,1.0)",
+					borderColor: "rgba(0,0,255," + borderOpacity + ")",
+					data: yData
+				}]
+			},
+			options: {
+				legend: { display: false },
+				scales: {
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: yLabel
+						},
+						gridLines: {
+							drawOnChartArea: false
+						},
+						ticks: { beginAtZero: true, fontColor: axisColor }
+					}],
+					xAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: xLable
+						},
+						gridLines: {
+							drawOnChartArea: false
+						},
+						ticks: { fontColor: axisColor }
+					}]
+				},
+				tooltips: {
+					enabled: true,
+					callbacks: {
+						title: function (tooltipItem, data) {
+							var title = "Year " + tooltipItem[0].xLabel;
+							return title;
+						}
+					}
+				}
+			}
+		});
+	}
+</script>
 
 <script>
 	var species = document.querySelector(".Species").value;

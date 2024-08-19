@@ -4,12 +4,19 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using VPMS.Lib.Data.DBContext;
+using VPMS.Lib.Data.Models;
 using VPMSWeb.Middleware;
 
 namespace VPMS
 {
     public class Program
     {
+        public static ConfigurationModel LanguageSelected { get; set; }
+        public static ConfigurationModel CountrySelected { get; set; }
+        public static List<MastercodeModel> LanguageCodeList { get; set; }
+        public static List<CountryListModel> CountryList { get; set; }
+        public static MastercodeModel LanguageFullNameSelected { get; set; }
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

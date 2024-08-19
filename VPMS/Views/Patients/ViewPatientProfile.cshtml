@@ -27,7 +27,7 @@
 	}
 
 	.quaterSize {
-		width: 8.3vw;
+		width: 14.3vw;
 	}
 
 	/* circle-icon */
@@ -82,15 +82,15 @@
 </div>
 
 <div style="display: flex; justify-content: center;">
-	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 42vw;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 52vw;">
 		<div>
-			<div class="containerBackground2" style="width: 40vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
+			<div class="containerBackground2" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">Owner Information</span>
 				<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-primary ownerInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 				</button>
 			</div>
-			<div class="containerBorder" style="width: 40vw; color: darkgray; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+			<div class="containerBorder" style="width: 50vw; color: darkgray; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 				<input id="OwnerID" type="text" hidden/>
 				<input id="OwnerCreatedDate" type="text" hidden />
@@ -254,13 +254,13 @@
 
 		<template id="petInfoTemplate">
 			<div>
-				<div class="containerBackground2" style="width: 40vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+				<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
 					<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
-					<button class="btn btn-lg btn-primary editPetProfile" onclick="goToPetProfile('edit', this.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+					<button class="btn btn-lg btn-primary" onclick="goToPetProfile('edit', this.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 					</button>
 				</div>
-				<div class="containerBorder" style="color: darkgray; width: 40vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+				<div class="containerBorder" style="color: darkgray; width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 					<div style="display: flex;">
 						<img class="PetImage" style="height: 5vw; margin-left: 1vw;" />
@@ -277,7 +277,7 @@
 									<span class="formlabel textColor RegistrationNo"></span>
 								</div>
 
-								<div class="field-container quaterSize">
+								<div class="field-container">
 									<span class="formlabel">Sex</span>
 									<span class="formlabel textColor Sex"></span>
 								</div>
@@ -294,7 +294,7 @@
 									<span class="formlabel textColor Age"></span>
 								</div>
 
-								<div class="field-container quaterSize">
+								<div class="field-container">
 									<span class="formlabel">Species</span>
 									<span class="formlabel textColor Species"></span>
 								</div>
@@ -311,7 +311,7 @@
 									<span class="formlabel textColor Allergies"></span>
 								</div>
 
-								<div class="field-container quaterSize">
+								<div class="field-container">
 									<span class="formlabel">Color</span>
 									<span class="formlabel textColor Color"></span>
 								</div>
@@ -328,7 +328,7 @@
 									<span class="formlabel textColor Weight"></span>
 								</div>
 
-								<div class="field-container quaterSize">
+								<div class="field-container">
 									<span class="formlabel">Status</span>
 									<span class="formlabel textColor Status"></span>
 								</div>
@@ -341,7 +341,7 @@
 
 
 					<div style="text-align: end; margin-right: 1.6vw;">
-						<button class="btn btn-lg btn-primary viewPetProfile" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw;"> View Pet Profile </button>
+						<button class="btn btn-lg btn-primary" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw;"> View Pet Profile </button>
 					</div>
 
 				</div>
@@ -356,20 +356,20 @@
 	<div id="RightInfoContainer" style="margin-left: 1.5vw;">
 		<div>
 
-			<div class="containerBackground2" style="width: 28vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">All Pets</span>
 			</div>
-			<div class="containerBorder textColor" style="color: darkgray; width: 28vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 				<div id="allPets" style="display: flex; margin-bottom: 1.5vw;">
 				</div>
 
 			</div>
 
-			<div class="containerBackground2" style="width: 28vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">Upcoming Appointment</span>
 			</div>
-			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 28vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
+			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
@@ -411,6 +411,10 @@
 </div>
 
 <script type="text/javascript">
+
+	if ('@ViewBag.type' == 'edit') {
+		editOwnerInfo(false);
+	}
 
 	getPatientProfile();
 
@@ -574,9 +578,6 @@
 			const template = document.getElementById("petInfoTemplate");
 			const clone = template.content.cloneNode(1).firstElementChild;
 			var contentElement = document.getElementById("petsInfoContent");
-
-			clone.querySelector('.viewPetProfile').href = "/Patients/PetProfile/View/@ViewBag.PatientID/" + data.pets[i].name;
-			clone.querySelector('.editPetProfile').href = "/Patients/PetProfile/Edit/@ViewBag.PatientID/" + data.pets[i].name;
 
 			var element = clone.querySelectorAll('.PetImage');
 			element[0].src = "/images/" + data.pets[i].species + " profile image square.png";

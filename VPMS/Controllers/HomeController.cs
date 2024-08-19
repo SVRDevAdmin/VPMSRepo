@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Globalization;
+using VPMS;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMS.Models;
@@ -24,22 +25,29 @@ namespace VPMSWeb.Controllers
         {
 			var sMasterCodeObj = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), sLangCodeGroup);
 			ViewData["LanguageCodeList"] = sMasterCodeObj;
+			Program.LanguageCodeList = sMasterCodeObj;
 
-			var sCountryList = CountryRepository.GetCountryList(ConfigSettings.GetConfigurationSettings());
+            var sCountryList = CountryRepository.GetCountryList(ConfigSettings.GetConfigurationSettings());
 			ViewData["CountryList"] = sCountryList;
+            Program.CountryList = sCountryList;
 
-			var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), "d8a3963a-7dda-44c9-9a3b-8fcfb488dff9");
+            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), "d8a3963a-7dda-44c9-9a3b-8fcfb488dff9");
 			if (sUserConfigurationSettings != null)
 			{
 				ViewData["LanguageSelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Language").FirstOrDefault();
 				ViewData["CountrySelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Country").FirstOrDefault();
-			}
+
+
+                Program.LanguageSelected = ViewData["LanguageSelected"] as ConfigurationModel;
+                Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
+            }
 
 			if (ViewData["LanguageSelected"] != null)
 			{
 				var sLangSelected = ViewData["LanguageSelected"] as ConfigurationModel;
 				ViewData["LanguageFullNameSelected"] = sMasterCodeObj.Where(x => x.CodeID == sLangSelected.ConfigurationValue).FirstOrDefault();
-			}
+                Program.LanguageFullNameSelected = ViewData["LanguageFullNameSelected"] as MastercodeModel;
+            }
 
 			return View();
         }
@@ -70,7 +78,10 @@ namespace VPMSWeb.Controllers
 				{
 					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
-				}
+
+                    Program.LanguageFullNameSelected = Program.LanguageCodeList.Where(x => x.CodeID == lang).FirstOrDefault();
+
+                }
 				else
 				{
 					//todo:

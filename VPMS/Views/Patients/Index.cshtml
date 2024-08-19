@@ -67,7 +67,7 @@
 
 <div style="display: flex;">
 	<div>
-		<table class="textColor" id="petInfoList" style="width: 58vw; margin-bottom: 2vw; font-size: 1vw;">
+		<table class="textColor" id="petInfoList" style="width: 57vw; margin-bottom: 2vw; font-size: 1vw;">
 		</table>
 
 		<div id="pagination" style="display: flex; justify-content: flex-end;">
@@ -209,10 +209,10 @@
 							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
 							'<img class="moreIcon" /> ' +
 							'</button>' +
-							'<div class="dropdown-menu" style = "min-width: fit-content;" > ' +
-							'<a class="dropdown-item" href = "/Patients/ViewPatientProfile/' + data.petsInfo[i].patientID + '" > View </a>' +
-							'<a class="dropdown-item" href = "#" > Edit </a>' +
-							'<a class="dropdown-item" href = "#" > Delete </a>' +
+							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
+							'<a class="dropdown-item" href = "/Patients/PatientProfile/view/' + data.petsInfo[i].patientID + '" > View </a>' +
+							'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].patientID + '" > Edit </a>' +
+							'<a class="dropdown-item" onclick="deletePet(' + data.petsInfo[i].patientID + ',\'' + data.petsInfo[i].name + '\');" > Delete </a>' +
 							'</div>' +
 							'</div>' +
 							'</td>' +
@@ -310,6 +310,20 @@
 				for (let i = 0; i < data.length; i++) {
 					element.innerHTML = element.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
 				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function deletePet(patientID, petname){
+		fetch('/Patients/DeletePetInfo?patientID=' + patientID + '&petname=' + petname)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				getPetsList(currentPage, currentOwnername, currentPetName, currentSpecies, currentBreed, false);
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
