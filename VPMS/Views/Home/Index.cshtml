@@ -1,7 +1,11 @@
-﻿@{
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
     ViewData["Title"] = "Home Page";
     ViewBag.SelectedMenu = "dashboardMenu";
 }
 
-<h1 class="display-4">Welcomex</h1>
+<h1 class="display-4">@LangResources["MenuBar_Label_Dashboard"]</h1>
 <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>

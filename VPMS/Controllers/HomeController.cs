@@ -80,8 +80,9 @@ namespace VPMSWeb.Controllers
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
 
                     Program.LanguageFullNameSelected = Program.LanguageCodeList.Where(x => x.CodeID == lang).FirstOrDefault();
+					Program.LanguageSelected = sModel;
 
-                }
+				}
 				else
 				{
 					//todo:
