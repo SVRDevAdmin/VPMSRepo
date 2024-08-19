@@ -1,0 +1,332 @@
+﻿@{
+	ViewData["Title"] = "Patients Page";
+	ViewBag.SelectedMenu = "patientsMenu";
+}
+
+<style>
+	.table-content {
+		text-align: center;
+		height: 2vw;
+	}
+
+	table th:first-child {
+		border-radius: 0.2vw 0 0 0.2vw;
+	}
+
+	table th:last-child {
+		border-radius: 0 0.2vw 0.2vw 0;
+	}
+
+	.form-field {
+		border-style: solid;
+		border-color: black;
+		font-size: 1vw;
+	}
+
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2vw;
+		font-size: 1vw;
+	}
+
+	.form-label {
+		font-weight: bold;
+		margin-bottom: 0.7vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: white;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
+
+<div style="display: flex;">
+
+	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">Patients</span>
+	</div>
+
+	<div>
+		<button class="btn btn-lg btn-primary" style="right: 0; position: absolute; margin-right: 3vw; display: flex; align-items: center;" onclick="location.href='@Url.Action("CreateNewPatient", "Patients")'">
+			<span id="container">+</span>
+			<span style="font-size: 1vw; margin-left: 0.5vw;">New Patient</span>
+		</button>
+	</div>
+
+</div>
+
+<div style="display: flex;">
+	<div>
+		<table class="textColor" id="petInfoList" style="width: 57vw; margin-bottom: 2vw; font-size: 1vw;">
+		</table>
+
+		<div id="pagination" style="display: flex; justify-content: flex-end;">
+			<div>
+				<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">Prev</button>
+			</div>
+			<div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+			</div>
+			<div>
+				<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">Next</button>
+			</div>
+		</div>
+	</div>
+	<div class="containerBackground" style="width: 20vw; border-radius: 0.2vw; margin-left: 1vw; padding: 2vw;">
+		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">Filter</h3>
+
+		<div class="field-container">
+			<span class="form-label">Owner Name</span>
+			<input id="OwnerName" type="text" class="form-control form-field" />
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">Pet Name</span>
+			<input id="PetName" type="text" class="form-control form-field" />
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">Species</span>
+			<select id="Species" class="form-control form-field" onchange="changeSpecies();">
+				<option value="" selected> -- Select Species --</option>
+				@foreach (var species in ViewData["Species"] as List<string>)
+				{
+					<option value="@species"> @species</option>
+				}
+			</select>
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">Breed</span>
+			<select id="Breed" class="form-control form-field">
+				<option value="" selected> -- Select Breed -- </option>
+			</select>
+		</div>
+
+		<button onclick="filter();" class="w-100 btn btn-lg btn-primary" style="font-size: 1vw;">Search</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	var paginationLimit = 5;
+	var rowLimit = 8;
+	var startPagination = 1;
+	var endPagination = 0;
+	var totalPagination = 0;
+	var currentPage = 1;
+	var currentOwnername = "", currentPetName = "", currentSpecies = "", currentBreed = "";
+
+	filter();
+
+	function getPetsList(page, ownerName, petName, species, breed, reset) {
+		fetch('/Patients/GetPetsInfoList?rowLimit=' + rowLimit + '&page=' + page + '&ownername=' + ownerName + '&petName=' + petName + '&species=' + species + '&breed=' + breed)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				let total = data.totalPatients;
+
+				if (reset) {
+					if (total == 0) { document.getElementById("pagination").hidden = true; }
+					else {
+						document.getElementById("pagination").hidden = false;
+
+						var totalPage = parseInt(total / rowLimit);
+
+						if (totalPage == 0) { totalPage = totalPage + 1; }
+
+						if ((total > rowLimit) && (total % rowLimit) != 0) { totalPage = totalPage + 1; }
+
+						totalPagination = totalPage;
+
+						if (totalPage > paginationLimit) { endPagination = paginationLimit }
+						else { endPagination = totalPage;  }
+
+						pagination(startPagination, endPagination);
+					}
+				}
+				
+
+				if (currentPage == totalPagination) { document.getElementById("nextButton").hidden = true; }
+				else { document.getElementById("nextButton").hidden = false; }
+				if (currentPage == 1) { document.getElementById("prevButton").hidden = true; }
+				else { document.getElementById("prevButton").hidden = false; }
+
+				var content = document.getElementById("petInfoList");
+
+				
+
+				content.innerHTML = 
+					'<tr class="containerBackground">' +
+						'<th class="table-content" > No </th>' +
+						'<th class="table-content" > Owner Name </th>' +
+						'<th class="table-content" > Pet Name </th>' +
+						'<th class="table-content" > Species </th>' +
+						'<th class="table-content" > Breed </th>' +
+						'<th class="table-content" > Pet Age (Y) </th>' +
+						'<th class="table-content" > Sex </th>' +
+						'<th class="table-content" > Created On </th>' +
+						'<th class="table-content" > </th>' +
+					'</tr>';
+
+				if (data.totalPatients == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> No record available. <td> </tr>' }
+				else {
+					for (let i = 0; i < data.petsInfo.length; i++) {
+
+						var date = new Date(data.petsInfo[i].createdOn);
+						var dateString = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						content.innerHTML = content.innerHTML +
+							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+							'<td class="table-content" >' + data.petsInfo[i].no + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].ownerName + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].name + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].species + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].breed + '</td>' +
+							'<td class="table-content" >  ' + data.petsInfo[i].age + '</td>' +
+							'<td class="table-content" >  ' + data.petsInfo[i].gender + '</td>' +
+							'<td class="table-content" >  ' + dateString + '</td>' +
+							'<td class="table-content" style = "width: 0;" > ' +
+							'<div class="dropleft" > ' +
+							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
+							'<img class="moreIcon" /> ' +
+							'</button>' +
+							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
+							'<a class="dropdown-item" href = "/Patients/PatientProfile/view/' + data.petsInfo[i].patientID + '" > View </a>' +
+							'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].patientID + '" > Edit </a>' +
+							'<a class="dropdown-item" onclick="deletePet(' + data.petsInfo[i].patientID + ',\'' + data.petsInfo[i].name + '\');" > Delete </a>' +
+							'</div>' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+				}
+
+				
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function pagination(start, end) {
+
+		var element = document.getElementById("paginationNumbering");
+
+		element.innerHTML = "";
+		
+		for (let i = start; i < end + 1; i++) {
+			var color = "";
+			if (currentPage == i) { color = "orange" }
+			else { color = "blue"; }
+
+			element.innerHTML = element.innerHTML +
+				'<div>' +
+				'<button onclick="changePage(this);" data-page="'+i+'" style="width: 3vw; height: 3vw; background-color: ' + color + '; color: white; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border-style: none; font-weight: bold;"> ' + ('0' + i).slice(-2) + ' </button>' +
+				'</div>';
+		}
+
+	}
+
+	function prev() {
+		currentPage = currentPage - 1;
+
+		getPetsList(currentPage, currentOwnername, currentPetName, currentSpecies, currentBreed, false);
+
+		if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+	}
+
+	function next() {
+		currentPage = currentPage + 1;
+
+		getPetsList(currentPage, currentOwnername, currentPetName, currentSpecies, currentBreed, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		pagination(startPagination, endPagination);
+	}
+
+	function changePage(page){
+		let pageNum = page.getAttribute("data-page");
+
+		currentPage = Number(pageNum);
+
+		getPetsList(currentPage, currentOwnername, currentPetName, currentSpecies, currentBreed, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		else if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+
+
+	}
+
+	function filter() {
+		currentOwnername = document.getElementById("OwnerName").value;
+		currentPetName = document.getElementById("PetName").value;
+		currentSpecies = document.getElementById("Species").value;
+		currentBreed = document.getElementById("Breed").value;
+
+		currentPage = 1;
+
+		getPetsList(1, currentOwnername, currentPetName, currentSpecies, currentBreed, true);
+	}
+
+	function changeSpecies(){
+		breedList(document.getElementById("Species").value);
+	}
+
+	function breedList(species) {
+		fetch('/Patients/BreedList?species=' + species)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				var element = document.getElementById("Breed");
+
+				element.innerHTML = '<option value="" selected> -- Select Breed -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function deletePet(patientID, petname){
+		fetch('/Patients/DeletePetInfo?patientID=' + patientID + '&petname=' + petname)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				getPetsList(currentPage, currentOwnername, currentPetName, currentSpecies, currentBreed, false);
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+</script>

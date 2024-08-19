@@ -1,0 +1,978 @@
+﻿@model VPMS.Lib.Data.Models.Pets;
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+	ViewData["Title"] = "Patients Page";
+	ViewBag.SelectedMenu = "patientsMenu";
+	ViewBag.Breed = Model.Breed;
+	List<string> otherPets = ViewData["OtherPets"] as List<string>;
+
+	var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
+
+	if (theme != null)
+	{
+		if (theme == "dark")
+		{
+			ViewBag.DarkTheme = "Dark";
+		}
+		if (theme == "light")
+		{
+			ViewBag.DarkTheme = "Light";
+		}
+	}
+	else
+	{
+		ViewBag.DarkTheme = "Light";
+	}
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<style>
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.3vw;
+		font-size: 1vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+		font-size: 1vw;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize {
+		width: 16.5vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.currentPage {
+		background-color: blue !important;
+		color: white !important;
+		border: none;
+		border-style: none !important;
+	}
+
+	.currentPageText {
+		color: black !important;
+	}
+
+	.medicalRecordPartition {
+		width: 26vw;
+		height: 27vw;
+		overflow: auto;
+	}
+
+	.medicalRecordPartitionTitle {
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+		margin-bottom: 1.5vw;
+	}
+
+	/* for tooltips */
+	/* Tooltip container */
+	.tooltip {
+		position: relative;
+		display: inline-block;
+		opacity: 1;
+	}
+
+		/* Tooltip text */
+		.tooltip .tooltiptext {
+			visibility: hidden;
+			/* width: 120px; */
+			background-color: black;
+			color: #fff;
+			text-align: center;
+			padding: 5px 0;
+			border-radius: 6px;
+			font-size: 0.7vw;
+			/* Position the tooltip text - see examples below! */
+			position: absolute;
+			z-index: 1;
+			width: 12vw;
+			bottom: 100%;
+			left: 50%;
+			margin-left: -1.8vw;
+			/* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+			opacity: 0;
+			transition: opacity 1s;
+		}
+
+		/* Show the tooltip text when you mouse over the tooltip container */
+		.tooltip:hover .tooltiptext {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		/* Hover dropdown */
+	.dropbtn {
+		background-color: transparent;
+		/* color: white; */
+		/* padding: 16px; */
+		font-size: 1.3vw;
+		border: none;
+	}
+
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 9vw;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+		right: 0;
+		text-align: center;
+	}
+
+		.dropdown-content a {
+			color: black;
+			padding: 0 1vw;
+			text-decoration: none;
+			display: block;
+		}
+
+			.dropdown-content a:hover {
+				background-color: #ddd;
+			}
+
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+</style>
+
+<div style="display: flex;">
+
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/PatientProfile/view/@ViewBag.PatientID'" />
+		<span class="textColor" style="font-size: 2vw;">Patients</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span class="textColor" style="font-size: 2vw;">Patient Profile</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;">@ViewData["PetName"] Profile</span>
+	</div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
+		
+		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
+			<button onclick="editPetInfo(false);" class="btn btn-lg btn-primary petInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+				<i class="fa-regular fa-pen-to-square"></i>
+			</button>
+		</div>
+		<div class="containerBorder" style="color: darkgray; width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+			<input id="PetID" type="text" value="@Model.ID" hidden />
+			<input id="PetCreatedDate" type="text" value="@Model.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")" hidden />
+			<input id="PetCreatedBy" type="text" value="@Model.CreatedBy" hidden />
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Pet Name</span>
+					<input type="text" class="form-control form-field inputField petInfoProfile PetName hideContainer" value="@Model.Name" />
+					<span class="formlabel petInfoProfile textColor PetName">@Model.Name</span>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Registration No.</span>
+					<input type="text" class="form-control form-field inputField petInfoProfile RegistrationNo hideContainer" value="@Model.RegistrationNo" />
+					<span class="formlabel petInfoProfile textColor RegistrationNo">@Model.RegistrationNo</span>
+				</div>
+
+				<div class="field-container">
+					<span class="formlabel">Sex</span>
+					<select class="form-control form-field inputField petInfoProfile Sex hideContainer">
+						<option value=""> -- Select Sex --</option>
+						@if (Model.Gender == "M")
+						{
+							<option value="M" selected> Male</option>
+							<option value="F"> Female</option>
+							Model.Gender = "Male";
+						}
+						else
+						{
+							<option value="M"> Male</option>
+							<option value="F" selected> Female</option>
+							Model.Gender = "Female";
+						}
+					</select>
+					<span class="formlabel petInfoProfile textColor Sex">@Model.Gender</span>
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Date Of Birth</span>
+					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" />
+					<span class="formlabel petInfoProfile textColor DOB">@Model.DOB</span>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Age</span>
+					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@Model.Age" />
+					<span class="formlabel petInfoProfile textColor Age">@Model.Age</span>
+				</div>
+
+				<div class="field-container">
+					<span class="formlabel">Species</span>
+					<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer">
+						<option value=""> -- Select Species --</option>
+						@foreach (var species in ViewData["Species"] as List<string>)
+						{
+							if(species == Model.Species)
+							{
+								<option value="@species" selected> @species</option>
+							}
+							else
+							{
+								<option value="@species"> @species</option>
+							}
+						}
+					</select>
+					<span class="formlabel petInfoProfile textColor Species">@Model.Species</span>
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Breed</span>
+					<select class="form-control form-field inputField petInfoProfile Breed hideContainer">
+						<option value="" selected> -- Select Breed --</option>
+					</select>
+					<span class="formlabel petInfoProfile textColor Breed">@Model.Breed</span>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Allergies</span>
+					<input type="text" class="form-control form-field inputField petInfoProfile Allergies hideContainer" value="@Model.Allergies" />
+					<span class="formlabel petInfoProfile textColor Allergies">@Model.Allergies</span>
+				</div>
+
+				<div class="field-container">
+					<span class="formlabel">Color</span>
+					<select class="form-control form-field inputField petInfoProfile Color hideContainer">
+						<option value=""> -- Select Color --</option>
+						@foreach (var color in ViewData["Color"] as List<string>)
+						{
+							if (color == Model.Color)
+							{
+								<option value="@color" selected> @color</option>
+							}
+							else
+							{
+								<option value="@color"> @color</option>
+							}
+						}
+					</select>
+					<span class="formlabel petInfoProfile textColor Color">@Model.Color</span>
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Height (cm)</span>
+					<input type="text" class="form-control form-field inputField petInfoProfile Height hideContainer" value="@Model.Height" />
+					<span class="formlabel petInfoProfile textColor Height">@Model.Height</span>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Weight (kg)</span>
+					<input type="text" class="form-control form-field inputField petInfoProfile Weight hideContainer" value="@Model.Weight" />
+					<span class="formlabel petInfoProfile textColor Weight">@Model.Weight</span>
+				</div>
+
+				<div class="field-container">
+					<span class="formlabel">Status</span>
+					<select class="form-control form-field inputField petInfoProfile Status hideContainer">
+						<option value=""> -- Select Status --</option>
+						@if (Model.Status == 1)
+						{
+							<option value="1" selected> Active</option>
+							<option value="2"> Inactive</option>
+						}
+						else
+						{
+							<option value="1"> Active</option>
+							<option value="2" selected> Inactive</option>
+						}
+					</select>
+					@if (Model.Status == 1)
+					{
+						<span class="formlabel petInfoProfile textColor Status">Active</span>
+					}
+					else
+					{
+						<span class="formlabel petInfoProfile textColor Status">Inactive</span>
+					}
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;" class="petInfoProfile">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Obese?</span>
+					@if (Model.Weight > 0)
+					{
+						<span class="formlabel Obese" style="color: red;">Yes</span>
+					}
+					else
+					{
+						<span class="formlabel Obese" style="color: green;">No</span>
+					}
+				</div>
+			</div>
+
+
+			<div class="hideContainer petInfoProfile" style="text-align: end; margin-right: 1.6vw;">
+				<button onclick="editPetInfo(false)" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
+				<button onclick="editPetInfo(true);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Save </button>
+			</div>
+
+		</div>
+
+		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Medical Record</span>
+			<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+				<i class="fa-regular fa-pen-to-square"></i>
+			</button>
+		</div>
+		<div class="containerBorder textColor" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
+
+			<div class="medicalRecordPartition">
+
+				<div class="medicalRecordPartitionTitle">
+					<span class="formlabel" style="color: blue;">Vaccination</span>
+				</div>
+
+				<div id="VaccinationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
+					<div style="margin-bottom: 1vw;">
+						<span>Vaccination</span> </br>
+						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Vaccination</span> </br>
+						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Vaccination</span> </br>
+						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="medicalRecordPartition">
+				<div class="medicalRecordPartitionTitle">
+					<span class="formlabel" style="color: blue;">Medication</span>
+				</div>
+
+				<div id="MedicationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
+					<div style="margin-bottom: 1vw;">
+						<span>Antifungals</span> </br>
+						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+						<span style="color: #5e8cd1">Active</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Antifungals</span> </br>
+						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+						<span style="color: #5e8cd1">Active</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Antifungals</span> </br>
+						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+						<span style="color: #5e8cd1">Active</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="medicalRecordPartition">
+				<div class="medicalRecordPartitionTitle">
+					<span class="formlabel" style="color: blue;">Surgeries</span>
+				</div>
+
+				<div id="SurgeriesContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
+					<div style="margin-bottom: 1vw;">
+						<span>Spaying</span> </br>
+						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Spaying</span> </br>
+						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div style="margin-bottom: 1vw;">
+						<span>Spaying</span> </br>
+						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+						<span style="color: darkgray;">02/04/2023</span> </br>
+						<span style="color: red;">Due: 02/06/2023</span> </br>
+						<div>
+							<div class="tooltip">
+								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+							</div>
+							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="containerBorder textColor" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-radius: 0.5vw; border-style: solid; margin-bottom: 2vw;">
+
+			<div style="margin-bottom: 2vw;">
+				<span style="font-weight: bold;">Pet Growth History</span>
+			</div>
+
+			<div style="height: 24vw; overflow: auto;">
+				<table class="textColor" style="width: 46vw; margin-bottom: 2vw; font-size: 1vw;">
+					<tr class="containerBackground">
+						<th class="table-content"> Date </th>
+						<th class="table-content"> Age (Year) </th>
+						<th class="table-content"> Height </th>
+						<th class="table-content"> Weight </th>
+						<th class="table-content"> Allergies </th>
+						<th class="table-content"> Obesity </th>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+						<td class="table-content"> 5/8/2024 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> 50 </td>
+						<td class="table-content"> 5 </td>
+						<td class="table-content"> N/A </td>
+						<td class="table-content"> No </td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+		<div class="containerBorder textColor" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-radius: 0.5vw; border-style: solid;">
+
+			<div style="display: flex; justify-content: space-between; margin-bottom: 2vw;">
+				<span style="font-weight: bold;">Pet Growth Trend</span>
+				<div class="dropdown">
+					<button class="dropbtn textColor"> <span id="chartSelection">BMI</span> <i class="fa-solid fa-chevron-down dropdown-arrow"></i></button>
+					<div class="dropdown-content">
+						<a href="#" onclick="changeChart('BMI');">BMI</a>
+						<a href="#" onclick="changeChart('Weight');">Weight</a>
+						<a href="#" onclick="changeChart('Height');">Height</a>
+					</div>
+				</div>
+			</div>
+
+			<canvas id="myChart"></canvas>
+
+		</div>
+
+
+	</div>
+
+	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 74vh; width: 24vw;">
+		<div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">All Pets</span>
+			</div>
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<div id="allPets" style="display: flex; margin-bottom: 1.5vw;">
+					@foreach(string otherPet in otherPets)
+					{
+						<div class="field-container" style="text-align: center;">
+							<img src = "~/images/Cat profile image.png" style = "width: 4vw;" />
+							<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
+						</div>
+					}
+				</div>
+
+			</div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">Additional Information</span>
+			</div>
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-notes-medical"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Health Card</span>
+					</div>
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-regular fa-hospital"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Treatment Plan</span>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-receipt"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Invoice & Billing</span>
+					</div>
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-flask-vial"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">Test Management</span>
+					</div>
+				</div>
+
+
+				
+
+			</div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">Upcoming Appointment</span>
+			</div>
+			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">Date</span>
+						<span class="formlabel" style="color: black;">10/4/2024</span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">Time</span>
+						<span class="formlabel" style="color: black;">13:00</span>
+					</div>
+				</div>
+
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">Pet</span>
+						<span class="formlabel" style="color: black;">Simba</span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">Service</span>
+						<span class="formlabel" style="color: black;">General Check Up</span>
+					</div>
+				</div>
+
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">Doctor</span>
+						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	const weight = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+	const height = [17, 18, 18, 19, 19, 19, 10, 11, 14, 14, 15];
+	const bmi = [16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5];
+	var chartElement;
+	var xData, yData, xLable, yLabel;
+	var borderOpacity = "0.1";
+	var axisColor = "black";
+
+	changeChart("BMI");
+
+	function changeChart(name) {
+		if (name != "current") {
+			document.getElementById("chartSelection").innerHTML = name;
+		}
+		
+		if (chartElement) {
+			chartElement.chart.destroy();
+		}
+
+		if (name == 'Weight') {
+			xData = age;
+			yData = weight;
+			xLable = "Age";
+			yLabel = "Weight (kg)";
+		}
+		else if (name == 'Height') {
+			xData = age;
+			yData = height;
+			xLable = "Age";
+			yLabel = "Height (cm)";
+		}
+		else if (name == 'BMI') {
+			xData = age;
+			yData = bmi;
+			xLable = "Age";
+			yLabel = "BMI";
+		}
+
+		chartElement = new Chart("myChart", {
+			type: "line",
+			data: {
+				labels: xData,
+				datasets: [{
+					label: yLabel,
+					fill: false,
+					backgroundColor: "rgba(0,0,255,1.0)",
+					borderColor: "rgba(0,0,255," + borderOpacity + ")",
+					data: yData
+				}]
+			},
+			options: {
+				legend: { display: false },
+				scales: {
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: yLabel
+						},
+						gridLines: {
+							drawOnChartArea: false
+						},
+						ticks: { beginAtZero: true, fontColor: axisColor }
+					}],
+					xAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: xLable
+						},
+						gridLines: {
+							drawOnChartArea: false
+						},
+						ticks: { fontColor: axisColor }
+					}]
+				},
+				tooltips: {
+					enabled: true,
+					callbacks: {
+						title: function (tooltipItem, data) {
+							var title = "Year " + tooltipItem[0].xLabel;
+							return title;
+						}
+					}
+				}
+			}
+		});
+	}
+</script>
+
+<script>
+	var species = document.querySelector(".Species").value;
+	var breedElement = document.querySelector(".Breed");
+	breedList(species, breedElement, '@ViewBag.Breed');
+
+	if ('@ViewBag.type' == 'edit') {
+		editPetInfo();
+	}
+
+	function editPetInfo(submit) {
+		var element = document.querySelectorAll('.petInfoProfile');
+
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+
+		if (submit) {
+			submitPetInfoUpdate();
+		}
+	}
+
+	function changeSpecies(e) {
+		var breedElement = document.querySelector(".Breed");
+		breedList(e.value, breedElement, "");
+	}
+
+	function breedList(species, breedElement, breedValue) {
+		fetch('/Patients/BreedList?species=' + species)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				if (breedValue != "") {
+					breedElement.innerHTML = '<option value=""> -- Select Breed -- </option>';
+				}
+				else {
+					breedElement.innerHTML = '<option value="" selected> -- Select Breed -- </option>';
+				}
+
+				for (let i = 0; i < data.length; i++) {
+					if (breedValue == data[i].breed) {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '" selected>' + data[i].breed + '</option>';
+					}
+					else {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+					}
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function submitPetInfoUpdate() {
+		var PetNameElement = document.querySelectorAll(".PetName")
+		var RegistrationNoElement = document.querySelectorAll(".RegistrationNo")
+		var GenderElement = document.querySelectorAll(".Sex")
+		var DOBElement = document.querySelectorAll(".DOB")
+		var AgeElement = document.querySelectorAll(".Age")
+		var SpeciesElement = document.querySelectorAll(".Species")
+		var BreedElement = document.querySelectorAll(".Breed")
+		var ColorElement = document.querySelectorAll(".Color")
+		var AllergiesElement = document.querySelectorAll(".Allergies")
+		var WeightElement = document.querySelectorAll(".Weight")
+		var HeightElement = document.querySelectorAll(".Height")
+		var StatusElement = document.querySelectorAll(".Status")
+
+
+		var obj = {
+			ID: document.querySelector("#PetID").value,
+			PatientID: @ViewBag.PatientID,
+			Name: PetNameElement[0].value,
+			RegistrationNo: RegistrationNoElement[0].value,
+			Gender: GenderElement[0].value,
+			DOB: DOBElement[0].value,
+			Age: AgeElement[0].value,
+			Species: SpeciesElement[0].value,
+			Breed: BreedElement[0].value,
+			Color: ColorElement[0].value,
+			Allergies: AllergiesElement[0].value,
+			Weight: WeightElement[0].value,
+			WeightUnit: "kg",
+			Height: HeightElement[0].value,
+			HeightUnit: "cm",
+			Status: StatusElement[0].value,
+			CreatedDate: document.querySelector("#PetCreatedDate").value,
+			CreatedBy: document.querySelector("#PetCreatedBy").value,
+			UpdatedDate: new Date(),
+			UpdatedBy: "Admin"
+		}
+
+		fetch('/Patients/UpdatePetInfo', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				PetNameElement[1].innerHTML = PetNameElement[0].value;
+				RegistrationNoElement[1].innerHTML = RegistrationNoElement[0].value;
+
+				if (GenderElement[0].value == "M") { GenderElement[1].innerHTML = "Male"; }
+				else { GenderElement[1].innerHTML = "Female"; }
+				
+				var date = new Date(DOBElement[0].value);
+				DOBElement[1].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+				AgeElement[1].innerHTML = AgeElement[0].value;
+				SpeciesElement[1].innerHTML = SpeciesElement[0].value;
+				BreedElement[1].innerHTML = BreedElement[0].value;
+				ColorElement[1].innerHTML = ColorElement[0].value;
+				AllergiesElement[1].innerHTML = AllergiesElement[0].value;
+				WeightElement[1].innerHTML = WeightElement[0].value;
+				HeightElement[1].innerHTML = HeightElement[0].value;
+
+				if (StatusElement[0].value == 1) { StatusElement[1].innerHTML = "Active"; }
+				else { StatusElement[1].innerHTML = "Inactive"; }
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+
+</script>
