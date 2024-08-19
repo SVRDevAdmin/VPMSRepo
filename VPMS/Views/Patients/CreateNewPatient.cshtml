@@ -1,4 +1,7 @@
-﻿@{
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
 }
@@ -77,92 +80,92 @@
 
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
 		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("Index", "Patients")'" />
-		<span class="textColor" style="font-size: 2vw;">Patients</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;">Create Patient Profile</span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["Patient_Title_CreatePatientProfile"]</span>
 	</div>
 </div>
 
 <div style="display: flex; align-items: center; margin-bottom: 2vw;">
 
 	<button style="width: 3vw; height: 3vw; background-color: blue; color: white; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border-style: none; font-weight: bold;"> 01 </button>
-	<span class="textColor">Owner Information</span>
+	<span class="textColor">@LangResources["Patient_Title_OwnerInfo"]</span>
 
 	<div id="lineBetweenTab" style="width: 10vw; background-color: lightgrey; height: 0.1vw; margin-left: 2vw; margin-right: 2vw;"></div>
 
 
 	<button id="secondTab" style="width: 3vw; height: 3vw; background-color: transparent; color: lightgray; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border-style: solid; font-weight: bold; border-color: lightgray;"> 02 </button>
-	<span id="secondTabText" style="color: lightgrey;">Pet Information</span>
+	<span id="secondTabText" style="color: lightgrey;">@LangResources["Patient_Title_PetInfo"]</span>
 
 </div>
 
 <div id="ownerInfoContainer">
 	<div>
 		<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">Owner Information</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_OwnerInfo"]</span>
 		</div>
 		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
-					<span class="formlabel">Owner Name</span>
+					<span class="formlabel">@LangResources["Patient_Label_OwnerName"]</span>
 					<input id="OwnerName" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Contact No</span>
+					<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
 					<input id="ContactNo" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Gender</span>
+					<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
 					<select id="Gender" class="form-control form-field inputField">
-						<option value="" selected> -- Select Gender --</option>
-						<option value="M"> Male</option>
-						<option value="F"> Female</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectGender"] --</option>
+						<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+						<option value="F"> @LangResources["Patient_Selection_Female"]</option>
 					</select>
 				</div>
 			</div>
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Country</span>
+					<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
 					<select id="Country" class="form-control form-field inputField">
-						<option value="" selected> -- Select Country --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
 						<option value="Malaysia"> Malaysia</option>
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">State</span>
+					<span class="formlabel">@LangResources["Patient_Label_State"]</span>
 					<select id="State" class="form-control form-field inputField">
-						<option value="" selected> -- Select State --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
 						<option value="Selangor"> Selangor</option>
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">City</span>
+					<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 					<select id="City" class="form-control form-field inputField">
-						<option value="" selected> -- Select City --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
 						<option value="Shah Alam"> Shah Alam</option>
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Postcode</span>
+					<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
 					<input id="Postcode" type="text" class="form-control form-field inputField" />
 				</div>
 			</div>
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
-					<span class="formlabel">Address Line 1</span>
+					<span class="formlabel">@LangResources["Patient_Label_AddressLine1"]</span>
 					<input id="Address1" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container halfSize">
-					<span class="formlabel">Address Line 2</span>
+					<span class="formlabel">@LangResources["Patient_Label_AddressLine2"]</span>
 					<input id="Address2" type="text" class="form-control form-field inputField" />
 				</div>
 			</div>
@@ -170,7 +173,7 @@
 			<div>
 				<button id="AddCoOwnerButton" onclick="toggleCoOwner();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center;">
 					<span id="container">+</span>
-					<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Co-Owner</span>
+					<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_AddCoOwner"]</span>
 				</button>
 			</div>
 
@@ -180,70 +183,70 @@
 
 	<div id="CoOwnerInfo" class="hideContainer">
 		<div class="containerBackground2" style="width: 77vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">Co-Owner Information</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_CoOwnerInfo"]</span>
 		</div>
 		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
-					<span class="formlabel">Owner Name</span>
+					<span class="formlabel">@LangResources["Patient_Label_CoOwnerName"]</span>
 					<input id="CoOwnerName" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Contact No</span>
+					<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
 					<input id="CoContactNo" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Gender</span>
+					<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
 					<select id="CoGender" class="form-control form-field inputField">
-						<option value="" selected> -- Select Gender --</option>
-						<option value="M"> Male</option>
-						<option value="F"> Female</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectGender"] --</option>
+						<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+						<option value="F"> @LangResources["Patient_Selection_Female"]</option>
 					</select>
 				</div>
 			</div>
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Country</span>
+					<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
 					<select id="CoCountry" class="form-control form-field inputField">
-						<option value="" selected> -- Select Country --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
 						<option value="Malaysia"> Malaysia</option>
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">State</span>
+					<span class="formlabel">@LangResources["Patient_Label_State"]</span>
 					<select id="CoState" class="form-control form-field inputField">
-						<option value="" selected> -- Select State --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
 						<option value="Selangor"> Selangor</option>
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">City</span>
+					<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 					<select id="CoCity" class="form-control form-field inputField">
-						<option value="" selected> -- Select City --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
 						<option value="Shah Alam"> Shah Alam</option>
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Postcode</span>
+					<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
 					<input id="CoPostcode" type="text" class="form-control form-field inputField" />
 				</div>
 			</div>
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
-					<span class="formlabel">Address Line 1</span>
+					<span class="formlabel">@LangResources["Patient_Label_AddressLine1"]</span>
 					<input id="CoAddress1" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container halfSize">
-					<span class="formlabel">Address Line 2</span>
+					<span class="formlabel">@LangResources["Patient_Label_AddressLine2"]</span>
 					<input id="CoAddress2" type="text" class="form-control form-field inputField" />
 				</div>
 			</div>
@@ -251,7 +254,7 @@
 
 			<div>
 				<button id="DeleteCoOwnerButton" onclick="toggleCoOwner();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center;">
-					<span style="font-size: 1.2vw; margin-left: 0.5vw;">Remove Co-Owner</span>
+					<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_RemoveCoOwner"]</span>
 				</button>
 			</div>
 
@@ -259,8 +262,8 @@
 	</div>
 
 	<div style="text-align: end; margin-right: 1.6vw;">
-		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
-		<button onclick="togglePage();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Next Step </button>
+		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+		<button onclick="togglePage();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_NextStep"] </button>
 	</div>
 	
 </div>
@@ -268,22 +271,22 @@
 <template id="VaccinationTemplate">
 	<div>
 		<div class="field-container">
-			<span class="formlabel">Type</span>
+			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 			<input type="text" class="form-control form-field inputField TypeVaccination" />
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">Name</span>
+			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
 			<input type="text" class="form-control form-field inputField NameVaccination" />
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">Due Date</span>
+			<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
 			<input type="date" class="form-control form-field inputField DueDateVaccination" />
 		</div>
 
 		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;">Save Vaccination</button>
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;">@LangResources["Patient_Button_SaveVaccination"]</button>
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
@@ -292,22 +295,22 @@
 <template id="MedicationTemplate">
 	<div>
 		<div class="field-container">
-			<span class="formlabel">Type</span>
+			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 			<input type="text" class="form-control form-field inputField TypeMedication" />
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">Name</span>
+			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
 			<input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" />
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">Expiry Date</span>
+			<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
 			<input type="date" class="form-control form-field inputField DueDateMedication" />
 		</div>
 
 		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> Save Medication </button>
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> @LangResources["Patient_Button_SaveMedication"] </button>
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
@@ -316,22 +319,22 @@
 <template id="SurgeriesTemplate">
 	<div>
 		<div class="field-container">
-			<span class="formlabel">Type</span>
+			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 			<input type="text" class="form-control form-field inputField TypeSurgeries" />
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">Name</span>
+			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
 			<input type="text" class="form-control form-field inputField NameSurgeries" />
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">Due Date</span>
+			<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
 			<input type="date" class="form-control form-field inputField DueDateSurgeries" />
 		</div>
 
 		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> Save Surgery </button>
+			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> @LangResources["Patient_Button_SaveSurgery"] </button>
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
@@ -342,46 +345,46 @@
 		<div>
 			<div>
 				<div class="containerBackground2" style="width: 77vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-					<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
+					<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
 				</div>
 				<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Pet Name</span>
+							<span class="formlabel">@LangResources["Patient_Label_PetName"]</span>
 							<input type="text" class="form-control form-field inputField PetName" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Registration No.</span>
+							<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
 							<input type="text" class="form-control form-field inputField RegistrationNo" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Sex</span>
+							<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
 							<select class="form-control form-field inputField Sex">
-								<option value="" selected> -- Select Sex --</option>
-								<option value="M"> Male</option>
-								<option value="F"> Female</option>
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectSex"] --</option>
+								<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+								<option value="F"> @LangResources["Patient_Selection_Female"]</option>
 							</select>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Date Of Birth</span>
+							<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
 							<input type="date" class="form-control form-field inputField DOB" />
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Age</span>
+							<span class="formlabel">@LangResources["Patient_Label_Age"]</span>
 							<input type="text" class="form-control form-field inputField Age" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Species</span>
+							<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
 							<select onchange="changeSpecies(this);" class="form-control form-field inputField Species">
-								<option value="" selected> -- Select Species --</option>
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 								@foreach (var species in ViewData["Species"] as List<string>)
 								{
 									<option value="@species"> @species</option>
@@ -390,23 +393,23 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Breed</span>
+							<span class="formlabel">@LangResources["Patient_Label_Breed"]</span>
 							<select class="form-control form-field inputField Breed">
-								<option value="" selected> -- Select Breed --</option>
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
 							</select>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Allergies</span>
+							<span class="formlabel">@LangResources["Patient_Label_Allergies"]</span>
 							<input type="text" class="form-control form-field inputField Allergies" />
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Color</span>
+							<span class="formlabel">@LangResources["Patient_Label_Color"]</span>
 							<select class="form-control form-field inputField Color">
-								<option value="" selected> -- Select Color --</option>
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectColor"] --</option>
 								@foreach (var color in ViewData["Color"] as List<string>)
 								{
 									<option value="@color"> @color</option>
@@ -415,21 +418,21 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Height (cm)</span>
+							<span class="formlabel">@LangResources["Patient_Label_Height"] (cm)</span>
 							<input type="text" class="form-control form-field inputField Height" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Weight (kg)</span>
+							<span class="formlabel">@LangResources["Patient_Label_Weight"] (kg)</span>
 							<input type="text" class="form-control form-field inputField Weight" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Status</span>
+							<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
 							<select class="form-control form-field inputField Status">
-								<option value="" selected> -- Select Status --</option>
-								<option value="1"> Active</option>
-								<option value="2"> Inactive</option>
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
+								<option value="1"> @LangResources["Patient_Selection_Active"]</option>
+								<option value="2"> @LangResources["Patient_Selection_Inactive"]</option>
 							</select>
 						</div>
 					</div>
@@ -440,49 +443,49 @@
 
 			<div>
 				<div class="containerBackground2" style="width: 77vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-					<span class="formlabel" style="margin-bottom: 0 !important;">Medical Record</span>
+					<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_MedicalRecord"]</span>
 				</div>
 				<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
 
 					<div class="medicalRecordPartition">
 
 						<div class="medicalRecordPartitionTitle">
-							<span class="formlabel" style="color: blue;">Vaccination</span>
+							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Vaccination"]</span>
 						</div>
 
 						<div id="VaccinationContent">
 						</div>
 
 						<div>
-							<a onclick="cloneVaccination(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ Add New</a>
+							<a onclick="cloneVaccination(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ @LangResources["Patient_Button_AddNew"]</a>
 						</div>
 
 					</div>
 
 					<div class="medicalRecordPartition">
 						<div class="medicalRecordPartitionTitle">
-							<span class="formlabel" style="color: blue;">Medication</span>
+							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Medication"]</span>
 						</div>
 
 						<div id="MedicationContent">
 						</div>
 
 						<div>
-							<a onclick="cloneMedication(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ Add New</a>
+							<a onclick="cloneMedication(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ @LangResources["Patient_Button_AddNew"]</a>
 						</div>
 
 					</div>
 
 					<div class="medicalRecordPartition">
 						<div class="medicalRecordPartitionTitle">
-							<span class="formlabel" style="color: blue;">Surgeries</span>
+							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Surgeries"]</span>
 						</div>
 
 						<div id="SurgeriesContent">
 						</div>
 
 						<div>
-							<a onclick="cloneSurgeries(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ Add New</a>
+							<a onclick="cloneSurgeries(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ @LangResources["Patient_Button_AddNew"]</a>
 						</div>
 
 					</div>
@@ -499,13 +502,13 @@
 	<div>
 		<button onclick="AddPetInfo();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center;">
 			<span id="container">+</span>
-			<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Pet</span>
+			<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_AddPet"]</span>
 		</button>
 	</div>
 
 	<div style="text-align: end; margin-right: 1.6vw;">
-		<button onclick="togglePage();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Go Back </button>
-		<button onclick="submitInfo();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Finish </button>
+		<button onclick="togglePage();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_GoBack"] </button>
+		<button onclick="submitInfo();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Finish"] </button>
 	</div>
 
 </div>
@@ -535,7 +538,7 @@
 			})
 			.then(data => {
 
-				breedElement.innerHTML = '<option value="" selected> -- Select Breed -- </option>';
+				breedElement.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] -- </option>';
 
 				for (let i = 0; i < data.length; i++) {
 					breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';

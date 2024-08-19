@@ -1,4 +1,7 @@
-﻿@{
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
 }
@@ -75,9 +78,9 @@
 <div style="display: flex;">
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
 		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("Index", "Patients")'" />
-		<span class="textColor" style="font-size: 2vw;">Patients</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;">Patient Profile</span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["Patient_Title_PatientProfile"]</span>
 	</div>
 </div>
 
@@ -85,7 +88,7 @@
 	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 52vw;">
 		<div>
 			<div class="containerBackground2" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">Owner Information</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_OwnerInfo"]</span>
 				<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-primary ownerInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 				</button>
@@ -98,23 +101,23 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container halfSize">
-						<span class="formlabel">Owner Name</span>
+						<span class="formlabel">@LangResources["Patient_Label_OwnerName"]</span>
 						<input id="OwnerName" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 						<span id="OwnerNameText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">Contact No</span>
+						<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
 						<input id="ContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 						<span id="ContactNoText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">Gender</span>
+						<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
 						<select id="Gender" class="form-control form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
-							<option value="M"> Male</option>
-							<option value="F"> Female</option>
+							<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+							<option value="F"> @LangResources["Patient_Selection_Female"]</option>
 						</select>
 						<span id="GenderText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
@@ -122,7 +125,7 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
-						<span class="formlabel">Country</span>
+						<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
 						<select id="Country" class="form-control form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="Malaysia"> Malaysia</option>
@@ -131,7 +134,7 @@
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">State</span>
+						<span class="formlabel">@LangResources["Patient_Label_State"]</span>
 						<select id="State" class="form-control form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="Selangor"> Selangor</option>
@@ -140,7 +143,7 @@
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">City</span>
+						<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 						<select id="City" class="form-control form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="Shah Alam"> Shah Alam</option>
@@ -151,13 +154,13 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container halfSize">
-						<span class="formlabel">Address</span>
+						<span class="formlabel">@LangResources["Patient_Label_Address"]</span>
 						<input id="Address" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 						<span id="AddressText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">Postcode</span>
+						<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
 						<input id="Postcode" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 						<span id="PostcodeText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
@@ -167,7 +170,7 @@
 					<hr style="margin: 1vw; color: darkgray; border-width: medium;" />
 
 					<div class="field-container halfSize" style="margin-bottom: 1.5vw;">
-						<span class="formlabel hideContainer ownerInfoProfile">Co-Owner Information (Optional)</span>
+						<span class="formlabel hideContainer ownerInfoProfile">@LangResources["Patient_Label_CoOwnerInformationOptional"]</span>
 					</div>
 
 
@@ -177,23 +180,23 @@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container halfSize">
-							<span class="formlabel">Co-Owner Name</span>
+							<span class="formlabel">@LangResources["Patient_Label_CoOwnerName"]</span>
 							<input id="CoOwnerName" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 							<span id="CoOwnerNameText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Contact No</span>
+							<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
 							<input id="CoContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 							<span id="CoContactNoText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Gender</span>
+							<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
 							<select id="CoGender" class="form-control form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
-								<option value="M"> Male</option>
-								<option value="F"> Female</option>
+								<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+								<option value="F"> @LangResources["Patient_Selection_Female"]</option>
 							</select>
 							<span id="CoGenderText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
@@ -201,7 +204,7 @@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Country</span>
+							<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
 							<select id="CoCountry" class="form-control form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="Malaysia"> Malaysia</option>
@@ -210,7 +213,7 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">State</span>
+							<span class="formlabel">@LangResources["Patient_Label_State"]</span>
 							<select id="CoState" class="form-control form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="Selangor"> Selangor</option>
@@ -219,7 +222,7 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">City</span>
+							<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 							<select id="CoCity" class="form-control form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="Shah Alam"> Shah Alam</option>
@@ -230,13 +233,13 @@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container halfSize">
-							<span class="formlabel">Address</span>
+							<span class="formlabel">@LangResources["Patient_Label_Address"]</span>
 							<input id="CoAddress" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 							<span id="CoAddressText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Postcode</span>
+							<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
 							<input id="CoPostcode" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 							<span id="CoPostcodeText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
@@ -245,8 +248,8 @@
 
 
 				<div class="hideContainer ownerInfoProfile" style="text-align: end; margin-right: 1.6vw;">
-					<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
-					<button onclick="editOwnerInfo(true);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Save </button>
+					<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+					<button onclick="editOwnerInfo(true);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Save"] </button>
 				</div>
 
 			</div>
@@ -255,7 +258,7 @@
 		<template id="petInfoTemplate">
 			<div>
 				<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
-					<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
+					<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
 					<button class="btn btn-lg btn-primary" onclick="goToPetProfile('edit', this.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 					</button>
@@ -268,68 +271,68 @@
 						<div>
 							<div style="display: flex; margin-bottom: 1.5vw;">
 								<div class="field-container quaterSize">
-									<span class="formlabel">Pet Name</span>
+									<span class="formlabel">@LangResources["Patient_Label_PetName"]</span>
 									<span class="formlabel textColor PetName"></span>
 								</div>
 
 								<div class="field-container quaterSize">
-									<span class="formlabel">Registration No.</span>
+									<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
 									<span class="formlabel textColor RegistrationNo"></span>
 								</div>
 
 								<div class="field-container">
-									<span class="formlabel">Sex</span>
+									<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
 									<span class="formlabel textColor Sex"></span>
 								</div>
 							</div>
 
 							<div style="display: flex; margin-bottom: 1.5vw;">
 								<div class="field-container quaterSize">
-									<span class="formlabel">Date Of Birth</span>
+									<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
 									<span class="formlabel textColor DOB"></span>
 								</div>
 
 								<div class="field-container quaterSize">
-									<span class="formlabel">Age</span>
+									<span class="formlabel">@LangResources["Patient_Label_Age"]</span>
 									<span class="formlabel textColor Age"></span>
 								</div>
 
 								<div class="field-container">
-									<span class="formlabel">Species</span>
+									<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
 									<span class="formlabel textColor Species"></span>
 								</div>
 							</div>
 
 							<div style="display: flex; margin-bottom: 1.5vw;">
 								<div class="field-container quaterSize">
-									<span class="formlabel">Breed</span>
+									<span class="formlabel">@LangResources["Patient_Label_Breed"]</span>
 									<span class="formlabel textColor Breed"></span>
 								</div>
 
 								<div class="field-container quaterSize">
-									<span class="formlabel">Allergies</span>
+									<span class="formlabel">@LangResources["Patient_Label_Allergies"]</span>
 									<span class="formlabel textColor Allergies"></span>
 								</div>
 
 								<div class="field-container">
-									<span class="formlabel">Color</span>
+									<span class="formlabel">@LangResources["Patient_Label_Color"]</span>
 									<span class="formlabel textColor Color"></span>
 								</div>
 							</div>
 
 							<div style="display: flex; margin-bottom: 1.5vw;">
 								<div class="field-container quaterSize">
-									<span class="formlabel">Height (cm)</span>
+									<span class="formlabel">@LangResources["Patient_Label_Height"] (cm)</span>
 									<span class="formlabel textColor Height"></span>
 								</div>
 
 								<div class="field-container quaterSize">
-									<span class="formlabel">Weight (kg)</span>
+									<span class="formlabel">@LangResources["Patient_Label_Weight"] (kg)</span>
 									<span class="formlabel textColor Weight"></span>
 								</div>
 
 								<div class="field-container">
-									<span class="formlabel">Status</span>
+									<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
 									<span class="formlabel textColor Status"></span>
 								</div>
 							</div>
@@ -341,7 +344,7 @@
 
 
 					<div style="text-align: end; margin-right: 1.6vw;">
-						<button class="btn btn-lg btn-primary" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw;"> View Pet Profile </button>
+						<button class="btn btn-lg btn-primary" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw; --bs-btn-bg: transparent; --bs-btn-color: black; --bs-btn-hover-color: white; --bs-btn-border-color: black;"> @LangResources["Patient_Button_ViewPetProfile"] </button>
 					</div>
 
 				</div>
@@ -357,7 +360,7 @@
 		<div>
 
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">All Pets</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_AllPets"]</span>
 			</div>
 			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
@@ -367,18 +370,18 @@
 			</div>
 
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">Upcoming Appointment</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
 			</div>
 			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
-						<span class="formlabel">Date</span>
+						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
 						<span class="formlabel" style="color: black;">10/4/2024</span>
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">Time</span>
+						<span class="formlabel">@LangResources["Patient_Label_Time"]</span>
 						<span class="formlabel" style="color: black;">13:00</span>
 					</div>
 				</div>
@@ -386,12 +389,12 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
-						<span class="formlabel">Pet</span>
+						<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>
 						<span class="formlabel" style="color: black;">Simba</span>
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">Service</span>
+						<span class="formlabel">@LangResources["Patient_Label_Service"]</span>
 						<span class="formlabel" style="color: black;">General Check Up</span>
 					</div>
 				</div>
@@ -399,7 +402,7 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
-						<span class="formlabel">Doctor</span>
+						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
 						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
 					</div>
 				</div>

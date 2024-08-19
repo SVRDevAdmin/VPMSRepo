@@ -1,5 +1,7 @@
 ﻿@model VPMS.Lib.Data.Models.Pets;
 @inject IHttpContextAccessor httpContextaccessor
+@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
 
 @{
 	ViewData["Title"] = "Patients Page";
@@ -177,11 +179,11 @@
 
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
 		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/PatientProfile/view/@ViewBag.PatientID'" />
-		<span class="textColor" style="font-size: 2vw;">Patients</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span class="textColor" style="font-size: 2vw;">Patient Profile</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_PatientProfile"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;">@ViewData["PetName"] Profile</span>
+		<span style="font-size: 2vw; color: dodgerblue;">@ViewData["PetName"] @LangResources["Patient_Title_Profile"]</span>
 	</div>
 </div>
 
@@ -189,7 +191,7 @@
 	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
 		
 		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">Pet Information</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
 			<button onclick="editPetInfo(false);" class="btn btn-lg btn-primary petInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-pen-to-square"></i>
 			</button>
@@ -202,32 +204,32 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Pet Name</span>
+					<span class="formlabel">@LangResources["Patient_Label_PetName"]</span>
 					<input type="text" class="form-control form-field inputField petInfoProfile PetName hideContainer" value="@Model.Name" />
 					<span class="formlabel petInfoProfile textColor PetName">@Model.Name</span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Registration No.</span>
+					<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
 					<input type="text" class="form-control form-field inputField petInfoProfile RegistrationNo hideContainer" value="@Model.RegistrationNo" />
 					<span class="formlabel petInfoProfile textColor RegistrationNo">@Model.RegistrationNo</span>
 				</div>
 
 				<div class="field-container">
-					<span class="formlabel">Sex</span>
+					<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
 					<select class="form-control form-field inputField petInfoProfile Sex hideContainer">
-						<option value=""> -- Select Sex --</option>
+						<option value=""> -- @LangResources["Patient_Selection_SelectSex"] --</option>
 						@if (Model.Gender == "M")
 						{
-							<option value="M" selected> Male</option>
-							<option value="F"> Female</option>
-							Model.Gender = "Male";
+							<option value="M" selected> @LangResources["Patient_Selection_Male"]</option>
+							<option value="F"> @LangResources["Patient_Selection_Female"]</option>
+							Model.Gender = @LangResources["Patient_Selection_Male"];
 						}
 						else
 						{
-							<option value="M"> Male</option>
-							<option value="F" selected> Female</option>
-							Model.Gender = "Female";
+							<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+							<option value="F" selected> @LangResources["Patient_Selection_Female"]</option>
+							Model.Gender = @LangResources["Patient_Selection_Female"];
 						}
 					</select>
 					<span class="formlabel petInfoProfile textColor Sex">@Model.Gender</span>
@@ -236,21 +238,21 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Date Of Birth</span>
+					<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
 					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" />
 					<span class="formlabel petInfoProfile textColor DOB">@Model.DOB</span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Age</span>
+					<span class="formlabel">@LangResources["Patient_Label_Age"]</span>
 					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@Model.Age" />
 					<span class="formlabel petInfoProfile textColor Age">@Model.Age</span>
 				</div>
 
 				<div class="field-container">
-					<span class="formlabel">Species</span>
+					<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
 					<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer">
-						<option value=""> -- Select Species --</option>
+						<option value=""> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 						@foreach (var species in ViewData["Species"] as List<string>)
 						{
 							if(species == Model.Species)
@@ -269,23 +271,23 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Breed</span>
+					<span class="formlabel">@LangResources["Patient_Label_Breed"]</span>
 					<select class="form-control form-field inputField petInfoProfile Breed hideContainer">
-						<option value="" selected> -- Select Breed --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
 					</select>
 					<span class="formlabel petInfoProfile textColor Breed">@Model.Breed</span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Allergies</span>
+					<span class="formlabel">@LangResources["Patient_Label_Allergies"]</span>
 					<input type="text" class="form-control form-field inputField petInfoProfile Allergies hideContainer" value="@Model.Allergies" />
 					<span class="formlabel petInfoProfile textColor Allergies">@Model.Allergies</span>
 				</div>
 
 				<div class="field-container">
-					<span class="formlabel">Color</span>
+					<span class="formlabel">@LangResources["Patient_Label_Color"]</span>
 					<select class="form-control form-field inputField petInfoProfile Color hideContainer">
-						<option value=""> -- Select Color --</option>
+						<option value=""> -- @LangResources["Patient_Selection_SelectColor"] --</option>
 						@foreach (var color in ViewData["Color"] as List<string>)
 						{
 							if (color == Model.Color)
@@ -304,67 +306,67 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Height (cm)</span>
+					<span class="formlabel">@LangResources["Patient_Label_Height"] (cm)</span>
 					<input type="text" class="form-control form-field inputField petInfoProfile Height hideContainer" value="@Model.Height" />
 					<span class="formlabel petInfoProfile textColor Height">@Model.Height</span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Weight (kg)</span>
+					<span class="formlabel">@LangResources["Patient_Label_Weight"] (kg)</span>
 					<input type="text" class="form-control form-field inputField petInfoProfile Weight hideContainer" value="@Model.Weight" />
 					<span class="formlabel petInfoProfile textColor Weight">@Model.Weight</span>
 				</div>
 
 				<div class="field-container">
-					<span class="formlabel">Status</span>
+					<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
 					<select class="form-control form-field inputField petInfoProfile Status hideContainer">
-						<option value=""> -- Select Status --</option>
+						<option value=""> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 						@if (Model.Status == 1)
 						{
-							<option value="1" selected> Active</option>
-							<option value="2"> Inactive</option>
+							<option value="1" selected> @LangResources["Patient_Selection_Active"]</option>
+							<option value="2"> @LangResources["Patient_Selection_Inactive"]</option>
 						}
 						else
 						{
-							<option value="1"> Active</option>
-							<option value="2" selected> Inactive</option>
+							<option value="1"> @LangResources["Patient_Selection_Active"]</option>
+							<option value="2" selected> @LangResources["Patient_Selection_Inactive"]</option>
 						}
 					</select>
 					@if (Model.Status == 1)
 					{
-						<span class="formlabel petInfoProfile textColor Status">Active</span>
+						<span class="formlabel petInfoProfile textColor Status">@LangResources["Patient_Selection_Active"]</span>
 					}
 					else
 					{
-						<span class="formlabel petInfoProfile textColor Status">Inactive</span>
+						<span class="formlabel petInfoProfile textColor Status">@LangResources["Patient_Selection_Inactive"]</span>
 					}
 				</div>
 			</div>
 
 			<div style="display: flex; margin-bottom: 1.5vw;" class="petInfoProfile">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Obese?</span>
+					<span class="formlabel">@LangResources["Patient_Label_Obese"]</span>
 					@if (Model.Weight > 0)
 					{
-						<span class="formlabel Obese" style="color: red;">Yes</span>
+						<span class="formlabel Obese" style="color: red;">@LangResources["Patient_Selection_Yes"]</span>
 					}
 					else
 					{
-						<span class="formlabel Obese" style="color: green;">No</span>
+						<span class="formlabel Obese" style="color: green;">@LangResources["Patient_Selection_No"]</span>
 					}
 				</div>
 			</div>
 
 
 			<div class="hideContainer petInfoProfile" style="text-align: end; margin-right: 1.6vw;">
-				<button onclick="editPetInfo(false)" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
-				<button onclick="editPetInfo(true);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Save </button>
+				<button onclick="editPetInfo(false)" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+				<button onclick="editPetInfo(true);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Save"] </button>
 			</div>
 
 		</div>
 
 		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">Medical Record</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_MedicalRecord"]</span>
 			<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-pen-to-square"></i>
 			</button>
@@ -374,7 +376,7 @@
 			<div class="medicalRecordPartition">
 
 				<div class="medicalRecordPartitionTitle">
-					<span class="formlabel" style="color: blue;">Vaccination</span>
+					<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Vaccination"]</span>
 				</div>
 
 				<div id="VaccinationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
@@ -423,7 +425,7 @@
 
 			<div class="medicalRecordPartition">
 				<div class="medicalRecordPartitionTitle">
-					<span class="formlabel" style="color: blue;">Medication</span>
+					<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Medication"]</span>
 				</div>
 
 				<div id="MedicationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
@@ -478,7 +480,7 @@
 
 			<div class="medicalRecordPartition">
 				<div class="medicalRecordPartitionTitle">
-					<span class="formlabel" style="color: blue;">Surgeries</span>
+					<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Surgeries"]</span>
 				</div>
 
 				<div id="SurgeriesContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
@@ -530,18 +532,18 @@
 		<div class="containerBorder textColor" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-radius: 0.5vw; border-style: solid; margin-bottom: 2vw;">
 
 			<div style="margin-bottom: 2vw;">
-				<span style="font-weight: bold;">Pet Growth History</span>
+				<span style="font-weight: bold;">@LangResources["Patient_Title_PetGrowthHistory"]</span>
 			</div>
 
 			<div style="height: 24vw; overflow: auto;">
 				<table class="textColor" style="width: 46vw; margin-bottom: 2vw; font-size: 1vw;">
 					<tr class="containerBackground">
-						<th class="table-content"> Date </th>
-						<th class="table-content"> Age (Year) </th>
-						<th class="table-content"> Height </th>
-						<th class="table-content"> Weight </th>
-						<th class="table-content"> Allergies </th>
-						<th class="table-content"> Obesity </th>
+						<th class="table-content"> @LangResources["Patient_Label_Date"] </th>
+						<th class="table-content"> @LangResources["Patient_Label_AgeYear"] </th>
+						<th class="table-content"> @LangResources["Patient_Label_Height"] </th>
+						<th class="table-content"> @LangResources["Patient_Label_Weight"] </th>
+						<th class="table-content"> @LangResources["Patient_Label_Allergies"] </th>
+						<th class="table-content"> @LangResources["Patient_Label_Obesity"] </th>
 					</tr>
 					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
 						<td class="table-content"> 5/8/2024 </td>
@@ -631,13 +633,13 @@
 		<div class="containerBorder textColor" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-radius: 0.5vw; border-style: solid;">
 
 			<div style="display: flex; justify-content: space-between; margin-bottom: 2vw;">
-				<span style="font-weight: bold;">Pet Growth Trend</span>
+				<span style="font-weight: bold;"> @LangResources["Patient_Title_PetGrowthTrend"]</span>
 				<div class="dropdown">
-					<button class="dropbtn textColor"> <span id="chartSelection">BMI</span> <i class="fa-solid fa-chevron-down dropdown-arrow"></i></button>
+					<button class="dropbtn textColor"> <span id="chartSelection"></span> <i class="fa-solid fa-chevron-down dropdown-arrow"></i></button>
 					<div class="dropdown-content">
-						<a href="#" onclick="changeChart('BMI');">BMI</a>
-						<a href="#" onclick="changeChart('Weight');">Weight</a>
-						<a href="#" onclick="changeChart('Height');">Height</a>
+						<a href="#" onclick="changeChart('BMI', this.innerHTML)">@LangResources["Patient_Label_BMI"]</a>
+						<a href="#" onclick="changeChart('Weight', this.innerHTML);">@LangResources["Patient_Label_Weight"]</a>
+						<a href="#" onclick="changeChart('Height', this.innerHTML);">@LangResources["Patient_Label_Height"]</a>
 					</div>
 				</div>
 			</div>
@@ -653,7 +655,7 @@
 		<div>
 
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">All Pets</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_AllPets"]</span>
 			</div>
 			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
@@ -670,7 +672,7 @@
 			</div>
 
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">Additional Information</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_AdditionalInformation"]</span>
 			</div>
 			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
@@ -679,13 +681,13 @@
 						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-notes-medical"></i>
 						</button>
-						<span class="formlabel textColor" style="text-wrap: nowrap;">Health Card</span>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_HealthCard"]</span>
 					</div>
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
 						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-regular fa-hospital"></i>
 						</button>
-						<span class="formlabel textColor" style="text-wrap: nowrap;">Treatment Plan</span>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TreatmentPlan"]</span>
 					</div>
 				</div>
 
@@ -694,13 +696,13 @@
 						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-receipt"></i>
 						</button>
-						<span class="formlabel textColor" style="text-wrap: nowrap;">Invoice & Billing</span>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_InvoiceBilling"]</span>
 					</div>
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
 						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-flask-vial"></i>
 						</button>
-						<span class="formlabel textColor" style="text-wrap: nowrap;">Test Management</span>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TestManagement"]</span>
 					</div>
 				</div>
 
@@ -710,18 +712,18 @@
 			</div>
 
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">Upcoming Appointment</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
 			</div>
 			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
-						<span class="formlabel">Date</span>
+						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
 						<span class="formlabel" style="color: black;">10/4/2024</span>
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">Time</span>
+						<span class="formlabel">@LangResources["Patient_Label_Time"]</span>
 						<span class="formlabel" style="color: black;">13:00</span>
 					</div>
 				</div>
@@ -729,12 +731,12 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
-						<span class="formlabel">Pet</span>
+						<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>
 						<span class="formlabel" style="color: black;">Simba</span>
 					</div>
 
 					<div class="field-container quaterSize">
-						<span class="formlabel">Service</span>
+						<span class="formlabel">@LangResources["Patient_Label_Service"]</span>
 						<span class="formlabel" style="color: black;">General Check Up</span>
 					</div>
 				</div>
@@ -742,7 +744,7 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
-						<span class="formlabel">Doctor</span>
+						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
 						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
 					</div>
 				</div>
@@ -752,6 +754,11 @@
 
 	</div>
 </div>
+
+<span id="age" hidden>@LangResources["Patient_Label_Age"]</span>
+<span id="bmi" hidden>@LangResources["Patient_Label_BMI"]</span>
+<span id="weight" hidden>@LangResources["Patient_Label_Weight"]</span>
+<span id="height" hidden>@LangResources["Patient_Label_Height"]</span>
 
 <script>
 	const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -763,34 +770,31 @@
 	var borderOpacity = "0.1";
 	var axisColor = "black";
 
-	changeChart("BMI");
+	changeChart("BMI", document.getElementById("bmi").innerHTML);
 
-	function changeChart(name) {
+	function changeChart(name, element) {
 		if (name != "current") {
-			document.getElementById("chartSelection").innerHTML = name;
+			document.getElementById("chartSelection").innerHTML = element;
 		}
 		
 		if (chartElement) {
 			chartElement.chart.destroy();
 		}
 
+		xData = age;
+		xLable = document.getElementById("age").innerHTML;
+
 		if (name == 'Weight') {
-			xData = age;
 			yData = weight;
-			xLable = "Age";
-			yLabel = "Weight (kg)";
+			yLabel = document.getElementById("weight").innerHTML + " (kg)";
 		}
 		else if (name == 'Height') {
-			xData = age;
 			yData = height;
-			xLable = "Age";
-			yLabel = "Height (cm)";
+			yLabel = document.getElementById("height").innerHTML + " (cm)";
 		}
 		else if (name == 'BMI') {
-			xData = age;
 			yData = bmi;
-			xLable = "Age";
-			yLabel = "BMI";
+			yLabel = document.getElementById("bmi").innerHTML;
 		}
 
 		chartElement = new Chart("myChart", {
@@ -806,6 +810,7 @@
 				}]
 			},
 			options: {
+				locale: '@LangResources["Locale"]',
 				legend: { display: false },
 				scales: {
 					yAxes: [{
@@ -833,7 +838,7 @@
 					enabled: true,
 					callbacks: {
 						title: function (tooltipItem, data) {
-							var title = "Year " + tooltipItem[0].xLabel;
+							var title = '@LangResources["Patient_Label_Year"] ' + tooltipItem[0].xLabel;
 							return title;
 						}
 					}

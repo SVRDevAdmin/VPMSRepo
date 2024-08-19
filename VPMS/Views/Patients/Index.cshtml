@@ -1,4 +1,7 @@
-﻿@{
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
 }
@@ -53,13 +56,13 @@
 <div style="display: flex;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">Patients</span>
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
 	</div>
 
 	<div>
 		<button class="btn btn-lg btn-primary" style="right: 0; position: absolute; margin-right: 3vw; display: flex; align-items: center;" onclick="location.href='@Url.Action("CreateNewPatient", "Patients")'">
 			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">New Patient</span>
+			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Patient_Button_NewPatient"]</span>
 		</button>
 	</div>
 
@@ -72,12 +75,12 @@
 
 		<div id="pagination" style="display: flex; justify-content: flex-end;">
 			<div>
-				<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">Prev</button>
+				<button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Patient_Button_Previous"]</button>
 			</div>
 			<div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
 			</div>
 			<div>
-				<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">Next</button>
+				<button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Patient_Button_Next"]</button>
 			</div>
 		</div>
 	</div>
@@ -85,19 +88,19 @@
 		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">Filter</h3>
 
 		<div class="field-container">
-			<span class="form-label">Owner Name</span>
+			<span class="form-label">@LangResources["Patient_Label_OwnerName"]</span>
 			<input id="OwnerName" type="text" class="form-control form-field" />
 		</div>
 
 		<div class="field-container">
-			<span class="form-label">Pet Name</span>
+			<span class="form-label">@LangResources["Patient_Label_PetName"]</span>
 			<input id="PetName" type="text" class="form-control form-field" />
 		</div>
 
 		<div class="field-container">
-			<span class="form-label">Species</span>
+			<span class="form-label">@LangResources["Patient_Label_Species"]</span>
 			<select id="Species" class="form-control form-field" onchange="changeSpecies();">
-				<option value="" selected> -- Select Species --</option>
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 				@foreach (var species in ViewData["Species"] as List<string>)
 				{
 					<option value="@species"> @species</option>
@@ -106,13 +109,13 @@
 		</div>
 
 		<div class="field-container">
-			<span class="form-label">Breed</span>
+			<span class="form-label">@LangResources["Patient_Label_Breed"]</span>
 			<select id="Breed" class="form-control form-field">
-				<option value="" selected> -- Select Breed -- </option>
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] -- </option>
 			</select>
 		</div>
 
-		<button onclick="filter();" class="w-100 btn btn-lg btn-primary" style="font-size: 1vw;">Search</button>
+		<button onclick="filter();" class="w-100 btn btn-lg btn-primary" style="font-size: 1vw;">@LangResources["Patient_Button_Search"]</button>
 	</div>
 </div>
 
@@ -172,18 +175,18 @@
 
 				content.innerHTML = 
 					'<tr class="containerBackground">' +
-						'<th class="table-content" > No </th>' +
-						'<th class="table-content" > Owner Name </th>' +
-						'<th class="table-content" > Pet Name </th>' +
-						'<th class="table-content" > Species </th>' +
-						'<th class="table-content" > Breed </th>' +
-						'<th class="table-content" > Pet Age (Y) </th>' +
-						'<th class="table-content" > Sex </th>' +
-						'<th class="table-content" > Created On </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_PetName"] </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_Species"] </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_Breed"] </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_PetAge"] </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_Sex"] </th>' +
+						'<th class="table-content" > @LangResources["Patient_Label_CreatedOn"] </th>' +
 						'<th class="table-content" > </th>' +
 					'</tr>';
 
-				if (data.totalPatients == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> No record available. <td> </tr>' }
+				if (data.totalPatients == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
 					for (let i = 0; i < data.petsInfo.length; i++) {
 
@@ -210,9 +213,9 @@
 							'<img class="moreIcon" /> ' +
 							'</button>' +
 							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
-							'<a class="dropdown-item" href = "/Patients/PatientProfile/view/' + data.petsInfo[i].patientID + '" > View </a>' +
-							'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].patientID + '" > Edit </a>' +
-							'<a class="dropdown-item" onclick="deletePet(' + data.petsInfo[i].patientID + ',\'' + data.petsInfo[i].name + '\');" > Delete </a>' +
+							'<a class="dropdown-item" href = "/Patients/PatientProfile/view/' + data.petsInfo[i].patientID + '" > @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].patientID + '" > @LangResources["Patient_Button_Edit"] </a>' +
+							'<a class="dropdown-item" onclick="deletePet(' + data.petsInfo[i].patientID + ',\'' + data.petsInfo[i].name + '\');" > @LangResources["Patient_Button_Delete"] </a>' +
 							'</div>' +
 							'</div>' +
 							'</td>' +
@@ -305,7 +308,7 @@
 
 				var element = document.getElementById("Breed");
 
-				element.innerHTML = '<option value="" selected> -- Select Breed -- </option>';
+				element.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"]-- </option>';
 
 				for (let i = 0; i < data.length; i++) {
 					element.innerHTML = element.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';

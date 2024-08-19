@@ -132,6 +132,30 @@
   <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
     <value>选择语言</value>
   </data>
+  <data name="Login_Button_Back" xml:space="preserve">
+    <value>后退</value>
+  </data>
+  <data name="Login_Button_RecoverPassword" xml:space="preserve">
+    <value>找回密码</value>
+  </data>
+  <data name="Login_Link_ForgotPassword" xml:space="preserve">
+    <value>忘记密码？</value>
+  </data>
+  <data name="Login_Placeholder_Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Login_Placeholder_LoginID" xml:space="preserve">
+    <value>登录识别</value>
+  </data>
+  <data name="Login_Placeholder_Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Login_Title_PasswordRecovery" xml:space="preserve">
+    <value>密码恢复</value>
+  </data>
   <data name="MenuBar_Label_AccessControl" xml:space="preserve">
     <value>访问控制</value>
   </data>
@@ -153,6 +177,12 @@
   <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
     <value>发票和收据</value>
   </data>
+  <data name="MenuBar_Label_Logout" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="MenuBar_Label_MyProfile" xml:space="preserve">
+    <value>我的个人资料</value>
+  </data>
   <data name="MenuBar_Label_Organization" xml:space="preserve">
     <value>组织</value>
   </data>
@@ -173,6 +203,300 @@
   </data>
   <data name="MenuBar_Label_StaffListing" xml:space="preserve">
     <value>员工名单</value>
+  </data>
+  <data name="Patient_Button_AddCoOwner" xml:space="preserve">
+    <value>添加共同所有人</value>
+  </data>
+  <data name="Patient_Button_AddNew" xml:space="preserve">
+    <value>添加新</value>
+  </data>
+  <data name="Patient_Button_AddPet" xml:space="preserve">
+    <value>添加宠物</value>
+  </data>
+  <data name="Patient_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Patient_Button_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Patient_Button_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Patient_Button_Finish" xml:space="preserve">
+    <value>结束</value>
+  </data>
+  <data name="Patient_Button_GoBack" xml:space="preserve">
+    <value>回去</value>
+  </data>
+  <data name="Patient_Button_NewPatient" xml:space="preserve">
+    <value>新病人</value>
+  </data>
+  <data name="Patient_Button_Next" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="Patient_Button_NextStep" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Patient_Button_Previous" xml:space="preserve">
+    <value>以前的</value>
+  </data>
+  <data name="Patient_Button_RemoveCoOwner" xml:space="preserve">
+    <value>移除共同所有人</value>
+  </data>
+  <data name="Patient_Button_Save" xml:space="preserve">
+    <value>节省</value>
+  </data>
+  <data name="Patient_Button_SaveMedication" xml:space="preserve">
+    <value>保存药物</value>
+  </data>
+  <data name="Patient_Button_SaveSurgery" xml:space="preserve">
+    <value>挽救手术</value>
+  </data>
+  <data name="Patient_Button_SaveVaccination" xml:space="preserve">
+    <value>保存疫苗接种</value>
+  </data>
+  <data name="Patient_Button_Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Patient_Button_View" xml:space="preserve">
+    <value>看法</value>
+  </data>
+  <data name="Patient_Button_ViewPetProfile" xml:space="preserve">
+    <value>查看宠物资料</value>
+  </data>
+  <data name="Patient_Label_Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="Patient_Label_AddressLine1" xml:space="preserve">
+    <value>地址第一行</value>
+  </data>
+  <data name="Patient_Label_AddressLine2" xml:space="preserve">
+    <value>地址行 2</value>
+  </data>
+  <data name="Patient_Label_Age" xml:space="preserve">
+    <value>年龄</value>
+  </data>
+  <data name="Patient_Label_AgeYear" xml:space="preserve">
+    <value>年龄（岁）</value>
+  </data>
+  <data name="Patient_Label_Allergies" xml:space="preserve">
+    <value>过敏</value>
+  </data>
+  <data name="Patient_Label_BMI" xml:space="preserve">
+    <value>体重指数</value>
+  </data>
+  <data name="Patient_Label_Breed" xml:space="preserve">
+    <value>品种</value>
+  </data>
+  <data name="Patient_Label_City" xml:space="preserve">
+    <value>城市</value>
+  </data>
+  <data name="Patient_Label_Color" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="Patient_Label_ContactNo" xml:space="preserve">
+    <value>联系电话</value>
+  </data>
+  <data name="Patient_Label_CoOwnerInformationOptional" xml:space="preserve">
+    <value>共同所有人信息（可选）</value>
+  </data>
+  <data name="Patient_Label_CoOwnerName" xml:space="preserve">
+    <value>共同所有人姓名</value>
+  </data>
+  <data name="Patient_Label_Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Patient_Label_CreatedOn" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="Patient_Label_Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="Patient_Label_DOB" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Patient_Label_Doctor" xml:space="preserve">
+    <value>医生</value>
+  </data>
+  <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>到期日</value>
+  </data>
+  <data name="Patient_Label_ExpiryDate" xml:space="preserve">
+    <value>到期日</value>
+  </data>
+  <data name="Patient_Label_Gender" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="Patient_Label_HealthCard" xml:space="preserve">
+    <value>健康卡</value>
+  </data>
+  <data name="Patient_Label_Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
+    <value>发票和账单</value>
+  </data>
+  <data name="Patient_Label_Medication" xml:space="preserve">
+    <value>药物</value>
+  </data>
+  <data name="Patient_Label_Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="Patient_Label_Number" xml:space="preserve">
+    <value>不</value>
+  </data>
+  <data name="Patient_Label_Obese" xml:space="preserve">
+    <value>肥胖？</value>
+  </data>
+  <data name="Patient_Label_Obesity" xml:space="preserve">
+    <value>肥胖</value>
+  </data>
+  <data name="Patient_Label_OwnerName" xml:space="preserve">
+    <value>所有者姓名</value>
+  </data>
+  <data name="Patient_Label_Pet" xml:space="preserve">
+    <value>宠物</value>
+  </data>
+  <data name="Patient_Label_PetAge" xml:space="preserve">
+    <value>宠物年龄（年）</value>
+  </data>
+  <data name="Patient_Label_PetName" xml:space="preserve">
+    <value>爱称</value>
+  </data>
+  <data name="Patient_Label_Postcode" xml:space="preserve">
+    <value>邮政编码</value>
+  </data>
+  <data name="Patient_Label_RegistrationNo" xml:space="preserve">
+    <value>注册号码</value>
+  </data>
+  <data name="Patient_Label_Service" xml:space="preserve">
+    <value>服务</value>
+  </data>
+  <data name="Patient_Label_Sex" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="Patient_Label_Species" xml:space="preserve">
+    <value>物种</value>
+  </data>
+  <data name="Patient_Label_State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Patient_Label_Status" xml:space="preserve">
+    <value>地位</value>
+  </data>
+  <data name="Patient_Label_Surgeries" xml:space="preserve">
+    <value>手术</value>
+  </data>
+  <data name="Patient_Label_TestManagement" xml:space="preserve">
+    <value>测试管理</value>
+  </data>
+  <data name="Patient_Label_Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
+    <value>治疗计划</value>
+  </data>
+  <data name="Patient_Label_Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="Patient_Label_Vaccination" xml:space="preserve">
+    <value>疫苗接种</value>
+  </data>
+  <data name="Patient_Label_Weight" xml:space="preserve">
+    <value>重量</value>
+  </data>
+  <data name="Patient_Label_Year" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="Patient_Message_IdleMessage" xml:space="preserve">
+    <value>若继续闲置，您将自动退出。</value>
+  </data>
+  <data name="Patient_Message_NoRecord" xml:space="preserve">
+    <value>没有可用的记录。</value>
+  </data>
+  <data name="Patient_Selection_Active" xml:space="preserve">
+    <value>积极的</value>
+  </data>
+  <data name="Patient_Selection_Female" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="Patient_Selection_Inactive" xml:space="preserve">
+    <value>不活跃</value>
+  </data>
+  <data name="Patient_Selection_Male" xml:space="preserve">
+    <value>男性</value>
+  </data>
+  <data name="Patient_Selection_No" xml:space="preserve">
+    <value>不</value>
+  </data>
+  <data name="Patient_Selection_SelectBreed" xml:space="preserve">
+    <value>选择品种</value>
+  </data>
+  <data name="Patient_Selection_SelectCity" xml:space="preserve">
+    <value>选择城市</value>
+  </data>
+  <data name="Patient_Selection_SelectColor" xml:space="preserve">
+    <value>选择颜色</value>
+  </data>
+  <data name="Patient_Selection_SelectCountry" xml:space="preserve">
+    <value>选择国家</value>
+  </data>
+  <data name="Patient_Selection_SelectGender" xml:space="preserve">
+    <value>选择性别</value>
+  </data>
+  <data name="Patient_Selection_SelectSex" xml:space="preserve">
+    <value>选择性别</value>
+  </data>
+  <data name="Patient_Selection_SelectSpecies" xml:space="preserve">
+    <value>选择物种</value>
+  </data>
+  <data name="Patient_Selection_SelectState" xml:space="preserve">
+    <value>选择州</value>
+  </data>
+  <data name="Patient_Selection_SelectStatus" xml:space="preserve">
+    <value>选择状态</value>
+  </data>
+  <data name="Patient_Selection_Yes" xml:space="preserve">
+    <value>是的</value>
+  </data>
+  <data name="Patient_Title_AdditionalInformation" xml:space="preserve">
+    <value>附加信息</value>
+  </data>
+  <data name="Patient_Title_AllPets" xml:space="preserve">
+    <value>所有宠物</value>
+  </data>
+  <data name="Patient_Title_CoOwnerInfo" xml:space="preserve">
+    <value>共同所有人信息</value>
+  </data>
+  <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
+    <value>创建患者档案</value>
+  </data>
+  <data name="Patient_Title_MedicalRecord" xml:space="preserve">
+    <value>医疗记录</value>
+  </data>
+  <data name="Patient_Title_OwnerInfo" xml:space="preserve">
+    <value>车主信息</value>
+  </data>
+  <data name="Patient_Title_PatientProfile" xml:space="preserve">
+    <value>患者概况</value>
+  </data>
+  <data name="Patient_Title_Patients" xml:space="preserve">
+    <value>患者</value>
+  </data>
+  <data name="Patient_Title_PetGrowthHistory" xml:space="preserve">
+    <value>宠物成长史</value>
+  </data>
+  <data name="Patient_Title_PetGrowthTrend" xml:space="preserve">
+    <value>宠物增长趋势</value>
+  </data>
+  <data name="Patient_Title_PetInfo" xml:space="preserve">
+    <value>宠物信息</value>
+  </data>
+  <data name="Patient_Title_Profile" xml:space="preserve">
+    <value>轮廓</value>
+  </data>
+  <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
+    <value>即将进行的预约</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>shuan yi guan lin</value>
