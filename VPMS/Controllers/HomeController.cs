@@ -49,6 +49,8 @@ namespace VPMSWeb.Controllers
                 Program.LanguageFullNameSelected = ViewData["LanguageFullNameSelected"] as MastercodeModel;
             }
 
+			Program.CurrentPage = "/Home/Index";
+
 			return View();
         }
 

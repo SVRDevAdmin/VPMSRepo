@@ -5,11 +5,14 @@
 
 @{
     string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
+    string userID = httpContextaccessor.HttpContext.Request.Cookies["userid"];
     var LanguageSelected = Program.LanguageSelected;
     var CountrySelected = Program.CountrySelected;
     var LanguageCodeList = Program.LanguageCodeList;
     var CountryList = Program.CountryList;
     var LanguageFullNameSelected = Program.LanguageFullNameSelected;
+
+    var CurrentPage = Program.CurrentPage;
 }
 
 <!DOCTYPE html>
@@ -62,7 +65,7 @@
         /*below are for theme button*/
 
         #theme {
-            z-index: 9998;
+            /* z-index: 9998; */
             position: absolute;
             right: 0.8vw;
         }
@@ -265,7 +268,7 @@
                                         <div style="width: 200px; height: 60px; border: 0px solid black;">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#LanguageModal">
                                                 @{
-                                                                <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
+                                                    <label class="LanguageSelectionFont">@(LanguageFullNameSelected != null ? LanguageFullNameSelected.CodeName : "English") | @(CountrySelected != null ? CountrySelected.ConfigurationValue : "South Korea")</label>
                                                 }
                                             </a>
                                         </div>
@@ -286,7 +289,8 @@
                                                 <label class="ProfileFont">@user</label>
                                             </div>
                                             <div class="dropdown-menu profilemenu">
-                                                <a class="dropdown-item" href="#">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                <a class="dropdown-item" asp-controller="User" asp-action="UserProfile">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                <a class="dropdown-item" asp-controller="Login" asp-action="ChangePassword">Reset Password</a>
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="Logout">@LangResources["MenuBar_Label_Logout"]</a>
                                             </div>
                                         </div>
@@ -372,7 +376,7 @@
                                                 <li class="list-group-item" style="border: 0px">
                                                     <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"
                                                             style="margin-left: 30px; vertical-align: middle;"
-                                                    @(LanguageSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") />
+                                                    @((LanguageSelected != null && LanguageSelected.ConfigurationValue == m.CodeID) ? "checked='true'" : "") />
                                                     <img src=@sFlagPath class="CountryFlag" />
                                                     <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
                                                 </li>
@@ -403,7 +407,7 @@
                                             foreach (var c in CountryList)
                                             {
                                                 String sClassName = "list-group-item list-group-item-action";
-                                                if (CountrySelected.ConfigurationValue == c.CountryName)
+                                                if (CountrySelected != null && CountrySelected.ConfigurationValue == c.CountryName)
                                                 {
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
@@ -461,7 +465,7 @@
 
             if ($country != null && $country.length > 0) {
                 $.post("Configuration/UpdateUserConfiguration", {
-                    UserID: 'd8a3963a-7dda-44c9-9a3b-8fcfb488dff9',
+                    UserID: '@userID',
                     ConfigKey: 'UserSettings_Country',
                     ConfigVal: $country
                 });
@@ -474,7 +478,7 @@
             if ($lang != null && $lang.length > 0) {
                 $.post("/Home/ChangeLanguage", {
                     lang: $lang,
-                    UserID: 'd8a3963a-7dda-44c9-9a3b-8fcfb488dff9'
+                    UserID: '@userID'
                 }).done(function (resp) {
                     updateCountrySettings();
 
@@ -532,7 +536,7 @@
         function updateThemes(themes) {
             $.post("/Theme/SetThemes", {
                 data: themes,
-                userid: 'd8a3963a-7dda-44c9-9a3b-8fcfb488dff9'
+                userid: '@userID'
             }).done(function (resp) {
                 // window.location.reload();
             });

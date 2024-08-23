@@ -1,0 +1,537 @@
+﻿@model VPMS.Lib.Data.Models.Pets;
+@inject IHttpContextAccessor httpContextaccessor
+@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
+	ViewData["Title"] = "Patients Page";
+	ViewBag.SelectedMenu = "patientsMenu";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+	.currentTab {
+		background-color: dodgerblue !important;
+		border: none !important;
+	}
+
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.3vw;
+		font-size: 1vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+		font-size: 1vw;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize {
+		width: 8.5vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
+
+<div style="display: flex;">
+
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/PetProfile/View/@ViewBag.PatientID/@ViewData["PetName"]'" />
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_PatientProfile"]</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span class="textColor" style="font-size: 2vw;">@ViewData["PetName"] @LangResources["Patient_Title_Profile"]</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["Patient_Label_TreatmentPlan"]</span>
+	</div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
+		<div style="background-color: black; border-radius: 0.5vw; display: flex; justify-content: space-between; padding: 0.29vw; margin-right: 1vw;">
+			<button class="btn btn-lg btn-primary tabButton currentTab" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Create Treatment Plan</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Upcoming Treatment</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Outgoing Treatment</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Past Treatment</button>
+		</div>
+
+		<div style="margin-top: 2vw; display: flex; align-items: flex-start;">
+
+			<div class="dropright">
+				<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none;">
+					<span id="container">+</span>
+					<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Treatment</span>
+				</button>
+				<div class="dropdown-menu containerBackground3" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
+					<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
+						<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
+						<input type="text" id="searchTreatment" placeholder="Search Treatment" onkeyup="filterTreatment(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+					</div>
+					<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
+
+						<div style="margin-bottom: 1vw;">
+							<span style="font-weight: bold;">Services</span>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input serviceOption" id="service1" name="service1" value="Routine health checkups">
+								<label class="form-check-label" for="service1"> Routine health checkups</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input serviceOption" id="service2" name="service2" value="Vaccination">
+								<label class="form-check-label" for="service2"> Vaccination</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input serviceOption" id="service3" name="service3" value="Dental care">
+								<label class="form-check-label" for="service3"> Dental care</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input serviceOption" id="service4" name="service4" value="Chronic disease management">
+								<label class="form-check-label" for="service4"> Chronic disease management</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input serviceOption" id="service5" name="service5" value="Michrochipping and identification">
+								<label class="form-check-label" for="service5"> Microchipping and identification</label><br>
+							</div>
+						</div>
+
+						<hr />
+
+						<div>
+							<span style="font-weight: bold;">Products</span>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input productOption" id="product1" name="product1" value="Routine health checkups">
+								<label class="form-check-label" for="product1"> Routine health checkups</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input productOption" id="product2" name="product2" value="Vaccination">
+								<label class="form-check-label" for="product2"> Vaccination</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input productOption" id="product3" name="product3" value="Dental care">
+								<label class="form-check-label" for="product3"> Dental care</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input productOption" id="product4" name="product4" value="Chronic disease management">
+								<label class="form-check-label" for="product4"> Chronic disease management</label><br>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input productOption" id="product5" name="product5" value="Michrochipping and identification">
+								<label class="form-check-label" for="product5"> Microchipping and identification</label><br>
+							</div>
+						</div>
+						
+					</div>
+					<div style="display: flex; justify-content: space-between; align-items: center;">
+						<button class="btn btn-lg btn-primary" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
+							<span style="font-size: 1.2vw; margin-left: 0.5vw;">Clear All</span>
+						</button>
+						<button id="addSelections" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">Add Selections</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 74vh; width: 24vw;">
+		<div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
+			</div>
+			<div class="containerBorder" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 1vw; padding-right: 1vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex;">
+
+				<div>
+					<img src="~/images/Cat profile image.png" style="width: 4vw;" />
+				</div>
+
+				<div>
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_PetName"]</span>
+							<span class="formlabel textColor">@Model.Name</span>
+						</div>
+
+						<div class="field-container">
+							<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
+							<span class="formlabel textColor">@(Model.Gender == "M" ? "Male" : "Female")</span>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
+							<span class="formlabel textColor">@Model.RegistrationNo</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_AdditionalInformation"]</span>
+			</div>
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#healthCardModal" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-notes-medical"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_HealthCard"]</span>
+					</div>
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/TreatmentPlan/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-regular fa-hospital"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TreatmentPlan"]</span>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-receipt"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_InvoiceBilling"]</span>
+					</div>
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+							<i class="fa-solid fa-flask-vial"></i>
+						</button>
+						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TestManagement"]</span>
+					</div>
+				</div>
+
+
+
+
+			</div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
+			</div>
+			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
+						<span class="formlabel" style="color: black;">10/4/2024</span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Time"]</span>
+						<span class="formlabel" style="color: black;">13:00</span>
+					</div>
+				</div>
+
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>
+						<span class="formlabel" style="color: black;">Simba</span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Service"]</span>
+						<span class="formlabel" style="color: black;">General Check Up</span>
+					</div>
+				</div>
+
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
+						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="healthCardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="--bs-modal-width: unset; margin: 2vw auto;">
+
+	<style>
+		.hideContainer {
+			display: none !important;
+		}
+
+		@@media print {
+			/* All your print styles go here */
+			.printFont{
+				font-size: 2vw !important;
+			}
+
+			.printImg {
+				width: 10vw !important;
+			}
+		}
+
+		.modal-content-custom {
+			border: 0.1vw solid !important;
+			padding: 1vw;
+		}
+
+
+	</style>
+
+	<div class="modal-dialog" style="margin: 0 auto; width: fit-content;">
+		<div class="modal-content">
+			<div class="modal-header" style="display: flex; justify-content: flex-end; --bs-modal-header-border-color: none; padding-bottom: 0;">
+				<button type="button" onclick="downloadHealthCard();" style="margin-right: 1vw; display: flex; justify-content: center;  align-items: center; font-size: 1vw; width: 1vw;" class="btn btn-lg btn-primary" data-bs-dismiss="modal">
+					<i class="fa-solid fa-download"></i>
+				</button>
+				<button type="button" onclick="printHealthCard();" style="display: flex; justify-content: center;  align-items: center; font-size: 1vw; width: 1vw;" class="btn btn-lg btn-primary" data-bs-dismiss="modal"><i class="fa-solid fa-print"></i></button>
+			</div>
+			<div class="modal-body" style="display: flex;">
+				<div style="margin: 0 1vw;">
+					<img class="printImg" src="~/images/Cat profile image.png" style="width: 6vw; margin-bottom: 2vw;" />
+
+					<div style="display: flex; flex-direction: column; margin: 1vw 0;">
+						<span class="printFont" style="color: darkgray; font-size: 1vw;">@LangResources["Patient_Label_PetName"]</span>
+						<span class="printFont" style="color: black; font-size: 1vw;">@ViewData["PetName"]</span>
+					</div>
+
+					<div style="display: flex; flex-direction: column; margin: 1vw 0;">
+						<span class="printFont" style="color: darkgray; font-size: 1vw;">@LangResources["Patient_Label_RegistrationNo"]:</span>
+						<span class="printFont" style="color: black; font-size: 1vw;">@Model.RegistrationNo</span>
+					</div>
+				</div>
+
+				<hr style="border: 0.1vw solid black; margin: 0 1vw;">
+
+				<div>
+					<div style="margin-bottom: 2vw; padding: 1vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_VaccinationTreatmentHistory"]</span>
+
+						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+						</table>
+					</div>
+
+					<div style="margin: 2vw 0; padding: 1vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_MedicationHistory"]</span>
+
+						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_MedicationName"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Status"]</th>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Prednisalone Suspension 5mg|10ml</td>
+								<td style="padding: 0 2vw;">Active</td>
+							</tr>
+						</table>
+					</div>
+
+					<div style="margin: 2vw 0; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_UpcomingVaccinationTreatment"]</span>
+
+						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+
+	function downloadHealthCard() {
+		var clone = document.getElementById("healthCardModal").cloneNode(true);
+		clone.querySelector(".modal-header").classList.toggle("hideContainer");
+		clone.querySelector(".modal-content").classList.toggle("modal-content-custom");
+		var element = clone.querySelector(".modal-dialog");
+
+		var opt = {
+			margin: [1, 0],
+			filename: '@ViewData["PetName"] - Health Card.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+		};
+
+		html2pdf().set(opt).from(element).save();
+	}
+
+	function printHealthCard() {
+		var iframe = document.createElement("iframe"); // create the element
+		document.body.appendChild(iframe);  // insert the element to the DOM
+
+		var clone = document.getElementById("healthCardModal").cloneNode(true);
+		clone.querySelector(".modal-header").classList.toggle("hideContainer");
+		clone.querySelector(".modal-content").classList.toggle("modal-content-custom");
+
+		var input = clone.innerHTML;
+
+		iframe.contentWindow.document.write(input); // write the HTML to be printed
+		iframe.contentWindow.print();  // print it
+		document.body.removeChild(iframe); // remove the iframe from the DOM
+	}
+
+	document.querySelector('#addSelections').addEventListener('click', function (event) {
+		if (this.classList.contains("disable")) { event.stopPropagation(); }
+		else{
+
+		}
+	});
+
+	document.querySelector('#clearFilter').addEventListener('click', function (event) {
+		event.stopPropagation();
+
+		const a = document.querySelectorAll(".serviceOption");
+		const b = document.querySelectorAll(".productOption");
+
+		for (let i = 0; i < a.length; i++) {
+			if (a[i].checked) {
+				a[i].checked = false;
+			}
+		}
+
+		for (let i = 0; i < b.length; i++) {
+			if (b[i].checked) {
+				b[i].checked = false;
+			}
+		}
+
+		document.getElementById("searchTreatment").value = "";
+		$('#searchTreatment').keyup();
+
+		var addSelections = document.getElementById("addSelections");
+		if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+
+	});
+
+	var treatments = document.querySelectorAll('.form-check');
+
+	for (let i = 0; i < treatments.length; i++) {
+		treatments[i].addEventListener('click', function (event) {
+			event.stopPropagation();
+
+			const a = document.querySelectorAll(".serviceOption");
+			const b = document.querySelectorAll(".productOption");
+			var disabledFilter = true;
+
+			for (let i = 0; i < a.length; i++) {
+				if (a[i].checked) {
+					disabledFilter = false;
+				}
+			}
+
+			for (let i = 0; i < b.length; i++) {
+				if (b[i].checked) {
+					disabledFilter = false;
+				}
+			}
+
+			var addSelections = document.getElementById("addSelections");
+			if (disabledFilter) {
+				if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+			}
+			else {
+				if (addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+			}
+			
+		});
+	}
+
+	function changeTab(e){
+		var allTab = document.querySelectorAll(".tabButton");
+
+		for (let i = 0; i < allTab.length; i++) {
+			if (allTab[i].classList.contains("currentTab")){ allTab[i].classList.toggle("currentTab"); }
+			if (allTab[i] == e) { allTab[i].classList.toggle("currentTab"); }
+		}
+	}
+
+	function filterTreatment(value) {
+		const filter = value.value.toUpperCase();
+
+		const a = document.querySelectorAll(".serviceOption");
+		const b = document.querySelectorAll(".productOption");
+
+		for (let i = 0; i < a.length; i++) {
+			var treatmentValue = a[i].value;
+			if (treatmentValue.toUpperCase().indexOf(filter) > -1) {
+				a[i].parentElement.style.display = "";
+			} else {
+				a[i].parentElement.style.display = "none";
+			}
+		}
+
+		for (let i = 0; i < a.length; i++) {
+			var treatmentValue = b[i].value;
+			if (treatmentValue.toUpperCase().indexOf(filter) > -1) {
+				b[i].parentElement.style.display = "";
+			} else {
+				b[i].parentElement.style.display = "none";
+			}
+		}
+	}
+</script>

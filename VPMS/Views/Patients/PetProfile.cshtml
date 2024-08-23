@@ -29,6 +29,8 @@
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <style>
 	.field-container {
@@ -69,10 +71,6 @@
 		font-size: 1.5vw;
 		justify-content: center;
 		align-items: center;
-	}
-
-	.hideContainer {
-		display: none !important;
 	}
 
 	.currentPage {
@@ -166,12 +164,24 @@
 			display: block;
 		}
 
-			.dropdown-content a:hover {
+			/* .dropdown-content a:hover {
 				background-color: #ddd;
-			}
+			} */
 
 	.dropdown:hover .dropdown-content {
 		display: block;
+	}
+
+	td, th {
+		padding: 0 1vw;
+	}
+
+	.dropdown:hover .dropdown-arrow {
+		transform: rotate(180deg);
+	}	
+
+	.dropdown-arrow {		
+		transition: 0.6s ease;
 	}
 </style>
 
@@ -197,7 +207,7 @@
 			</button>
 		</div>
 		<div class="containerBorder" style="color: darkgray; width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
-
+			 
 			<input id="PetID" type="text" value="@Model.ID" hidden />
 			<input id="PetCreatedDate" type="text" value="@Model.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")" hidden />
 			<input id="PetCreatedBy" type="text" value="@Model.CreatedBy" hidden />
@@ -211,13 +221,13 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
-					<input type="text" class="form-control form-field inputField petInfoProfile RegistrationNo hideContainer" value="@Model.RegistrationNo" />
+					<input type="text" class="form-control form-field inputField petInfoProfile RegistrationNo hideContainer" value="@Model.RegistrationNo" disabled />
 					<span class="formlabel petInfoProfile textColor RegistrationNo">@Model.RegistrationNo</span>
 				</div>
 
 				<div class="field-container">
 					<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
-					<select class="form-control form-field inputField petInfoProfile Sex hideContainer">
+					<select class="form-control form-field inputField petInfoProfile Sex hideContainer" disabled>
 						<option value=""> -- @LangResources["Patient_Selection_SelectSex"] --</option>
 						@if (Model.Gender == "M")
 						{
@@ -239,19 +249,37 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
-					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" />
+					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" disabled/>
 					<span class="formlabel petInfoProfile textColor DOB">@Model.DOB</span>
 				</div>
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Age"]</span>
-					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@Model.Age" />
-					<span class="formlabel petInfoProfile textColor Age">@Model.Age</span>
+
+					@{
+						var currentDate = DateOnly.FromDateTime(DateTime.Now);
+						var petDOB = Model.DOB;
+						var yearDiffer = currentDate.Year - petDOB.Year;
+						var monthDiffer = currentDate.Month - petDOB.Month + (12 * yearDiffer);
+						var ageText = "";
+
+						if (monthDiffer < 12)
+						{
+							ageText = monthDiffer + " months";
+						}
+						else
+						{
+							ageText = (monthDiffer / 12) + " years";
+						}
+					}
+
+					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@ageText" disabled />
+					<span class="formlabel petInfoProfile textColor Age"> @ageText </span>
 				</div>
 
 				<div class="field-container">
 					<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
-					<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer">
+					<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer" disabled>
 						<option value=""> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 						@foreach (var species in ViewData["Species"] as List<string>)
 						{
@@ -272,7 +300,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Breed"]</span>
-					<select class="form-control form-field inputField petInfoProfile Breed hideContainer">
+					<select class="form-control form-field inputField petInfoProfile Breed hideContainer" disabled>
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
 					</select>
 					<span class="formlabel petInfoProfile textColor Breed">@Model.Breed</span>
@@ -346,14 +374,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;" class="petInfoProfile">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Obese"]</span>
-					@if (Model.Weight > 0)
-					{
-						<span class="formlabel Obese" style="color: red;">@LangResources["Patient_Selection_Yes"]</span>
-					}
-					else
-					{
-						<span class="formlabel Obese" style="color: green;">@LangResources["Patient_Selection_No"]</span>
-					}
+					<span class="formlabel Obese" style="color: @(Model.Weight > 5 ? "red" : "green");">@(Model.Weight > 10 ? LangResources["Patient_Selection_Yes"] : @LangResources["Patient_Selection_No"])</span>
 				</div>
 			</div>
 
@@ -636,10 +657,10 @@
 				<span style="font-weight: bold;"> @LangResources["Patient_Title_PetGrowthTrend"]</span>
 				<div class="dropdown">
 					<button class="dropbtn textColor"> <span id="chartSelection"></span> <i class="fa-solid fa-chevron-down dropdown-arrow"></i></button>
-					<div class="dropdown-content">
-						<a href="#" onclick="changeChart('BMI', this.innerHTML)">@LangResources["Patient_Label_BMI"]</a>
-						<a href="#" onclick="changeChart('Weight', this.innerHTML);">@LangResources["Patient_Label_Weight"]</a>
-						<a href="#" onclick="changeChart('Height', this.innerHTML);">@LangResources["Patient_Label_Height"]</a>
+					<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+						<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="changeChart('BMI', this.innerHTML)">@LangResources["Patient_Label_BMI"]</a>
+						<a href="#" class="textColor" onclick="changeChart('Weight', this.innerHTML);">@LangResources["Patient_Label_Weight"]</a>
+						<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="changeChart('Height', this.innerHTML);">@LangResources["Patient_Label_Height"]</a>
 					</div>
 				</div>
 			</div>
@@ -663,7 +684,7 @@
 					@foreach(string otherPet in otherPets)
 					{
 						<div class="field-container" style="text-align: center;">
-							<img src = "~/images/Cat profile image.png" style = "width: 4vw;" />
+							<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw;" />
 							<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
 						</div>
 					}
@@ -678,13 +699,13 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#healthCardModal" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-notes-medical"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_HealthCard"]</span>
 					</div>
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/TreatmentPlan/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-regular fa-hospital"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TreatmentPlan"]</span>
@@ -693,7 +714,7 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-receipt"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_InvoiceBilling"]</span>
@@ -755,10 +776,135 @@
 	</div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="healthCardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="--bs-modal-width: unset; margin: 2vw auto;">
+
+	<style>
+		.hideContainer {
+			display: none !important;
+		}
+
+		@@media print {
+			/* All your print styles go here */
+			.printFont {
+				font-size: 2vw !important;
+			}
+
+			.printImg {
+				width: 10vw !important;
+			}
+		}
+
+		.modal-content-custom {
+			border: 0.1vw solid !important;
+			padding: 1vw;
+		}
+	</style>
+
+	<div class="modal-dialog" style="margin: 0 auto; width: fit-content;">
+		<div class="modal-content">
+			<div class="modal-header" style="display: flex; justify-content: flex-end; --bs-modal-header-border-color: none; padding-bottom: 0;">
+				<button type="button" onclick="downloadHealthCard();" style="margin-right: 1vw; display: flex; justify-content: center;  align-items: center; font-size: 1vw; width: 1vw;" class="btn btn-lg btn-primary" data-bs-dismiss="modal">
+					<i class="fa-solid fa-download"></i>
+				</button>
+				<button type="button" onclick="printHealthCard();" style="display: flex; justify-content: center;  align-items: center; font-size: 1vw; width: 1vw;" class="btn btn-lg btn-primary" data-bs-dismiss="modal"><i class="fa-solid fa-print"></i></button>
+			</div>
+			<div class="modal-body" style="display: flex;">
+				<div style="margin: 0 1vw;">
+					<img class="printImg" src="~/images/Cat profile image.png" style="width: 6vw; margin-bottom: 2vw;" />
+
+					<div style="display: flex; flex-direction: column; margin: 1vw 0;">
+						<span class="printFont" style="color: darkgray; font-size: 1vw;">@LangResources["Patient_Label_PetName"]</span>
+						<span class="printFont" style="color: black; font-size: 1vw;">@ViewData["PetName"]</span>
+					</div>
+
+					<div style="display: flex; flex-direction: column; margin: 1vw 0;">
+						<span class="printFont" style="color: darkgray; font-size: 1vw;">@LangResources["Patient_Label_RegistrationNo"]:</span>
+						<span class="printFont" style="color: black; font-size: 1vw;">@Model.RegistrationNo</span>
+					</div>
+				</div>
+
+				<hr style="border: 0.1vw solid black; margin: 0 1vw;">
+
+				<div>
+					<div style="margin-bottom: 2vw; padding: 1vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_VaccinationTreatmentHistory"]</span>
+
+						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+						</table>
+					</div>
+
+					<div style="margin: 2vw 0; padding: 1vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_MedicationHistory"]</span>
+
+						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_MedicationName"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Status"]</th>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Prednisalone Suspension 5mg|10ml</td>
+								<td style="padding: 0 2vw;">Active</td>
+							</tr>
+						</table>
+					</div>
+
+					<div style="margin: 2vw 0; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_UpcomingVaccinationTreatment"]</span>
+
+						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <span id="age" hidden>@LangResources["Patient_Label_Age"]</span>
 <span id="bmi" hidden>@LangResources["Patient_Label_BMI"]</span>
 <span id="weight" hidden>@LangResources["Patient_Label_Weight"]</span>
 <span id="height" hidden>@LangResources["Patient_Label_Height"]</span>
+<span id="year" hidden>@LangResources["Patient_Label_Year"]</span>
 
 <script>
 	const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -769,6 +915,7 @@
 	var xData, yData, xLable, yLabel;
 	var borderOpacity = "0.1";
 	var axisColor = "black";
+	var currentGraph = "";
 
 	changeChart("BMI", document.getElementById("bmi").innerHTML);
 
@@ -776,75 +923,81 @@
 		if (name != "current") {
 			document.getElementById("chartSelection").innerHTML = element;
 		}
-		
-		if (chartElement) {
-			chartElement.chart.destroy();
-		}
 
-		xData = age;
-		xLable = document.getElementById("age").innerHTML;
+		if(name != currentGraph){
+			currentGraph = name;
 
-		if (name == 'Weight') {
-			yData = weight;
-			yLabel = document.getElementById("weight").innerHTML + " (kg)";
-		}
-		else if (name == 'Height') {
-			yData = height;
-			yLabel = document.getElementById("height").innerHTML + " (cm)";
-		}
-		else if (name == 'BMI') {
-			yData = bmi;
-			yLabel = document.getElementById("bmi").innerHTML;
-		}
+			if (chartElement) {
+				chartElement.chart.destroy();
+			}
 
-		chartElement = new Chart("myChart", {
-			type: "line",
-			data: {
-				labels: xData,
-				datasets: [{
-					label: yLabel,
-					fill: false,
-					backgroundColor: "rgba(0,0,255,1.0)",
-					borderColor: "rgba(0,0,255," + borderOpacity + ")",
-					data: yData
-				}]
-			},
-			options: {
-				locale: '@LangResources["Locale"]',
-				legend: { display: false },
-				scales: {
-					yAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: yLabel
-						},
-						gridLines: {
-							drawOnChartArea: false
-						},
-						ticks: { beginAtZero: true, fontColor: axisColor }
-					}],
-					xAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: xLable
-						},
-						gridLines: {
-							drawOnChartArea: false
-						},
-						ticks: { fontColor: axisColor }
+			xData = age;
+			xLable = document.getElementById("age").innerHTML;
+
+			if (name == 'Weight') {
+				yData = weight;
+				yLabel = document.getElementById("weight").innerHTML + " (kg)";
+			}
+			else if (name == 'Height') {
+				yData = height;
+				yLabel = document.getElementById("height").innerHTML + " (cm)";
+			}
+			else if (name == 'BMI') {
+				yData = bmi;
+				yLabel = document.getElementById("bmi").innerHTML;
+			}
+
+			chartElement = new Chart("myChart", {
+				type: "line",
+				data: {
+					labels: xData,
+					datasets: [{
+						label: yLabel,
+						fill: false,
+						backgroundColor: "rgba(0,0,255,1.0)",
+						borderColor: "rgba(0,0,255," + borderOpacity + ")",
+						data: yData
 					}]
 				},
-				tooltips: {
-					enabled: true,
-					callbacks: {
-						title: function (tooltipItem, data) {
-							var title = '@LangResources["Patient_Label_Year"] ' + tooltipItem[0].xLabel;
-							return title;
+				options: {
+					locale: '@LangResources["Locale"]',
+					legend: { display: false },
+					scales: {
+						yAxes: [{
+							scaleLabel: {
+								display: true,
+								labelString: yLabel
+							},
+							gridLines: {
+								drawOnChartArea: false
+							},
+							ticks: { beginAtZero: true, fontColor: axisColor }
+						}],
+						xAxes: [{
+							scaleLabel: {
+								display: true,
+								labelString: xLable
+							},
+							gridLines: {
+								drawOnChartArea: false
+							},
+							ticks: { fontColor: axisColor }
+						}]
+					},
+					tooltips: {
+						enabled: true,
+						callbacks: {
+							title: function (tooltipItem, data) {
+								var title = document.getElementById("year").innerHTML + ' ' + tooltipItem[0].xLabel;
+								return title;
+							}
 						}
 					}
 				}
-			}
-		});
+			});
+		}
+		
+		
 	}
 </script>
 
@@ -979,5 +1132,35 @@
 			});
 	}
 
+	function downloadHealthCard() {
+		var clone = document.getElementById("healthCardModal").cloneNode(true);
+		clone.querySelector(".modal-header").classList.toggle("hideContainer");
+		clone.querySelector(".modal-content").classList.toggle("modal-content-custom");
+		var element = clone.querySelector(".modal-dialog");
 
+		var opt = {
+			margin: 1,
+			filename: '@ViewData["PetName"] - Health Card.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+		};
+
+		html2pdf().set(opt).from(element).save();
+	}
+
+	function printHealthCard() {
+		var iframe = document.createElement("iframe"); // create the element
+		document.body.appendChild(iframe);  // insert the element to the DOM
+
+		var clone = document.getElementById("healthCardModal").cloneNode(true);
+		clone.querySelector(".modal-header").classList.toggle("hideContainer");
+		clone.querySelector(".modal-content").classList.toggle("modal-content-custom");
+
+		var input = clone.innerHTML;
+
+		iframe.contentWindow.document.write(input); // write the HTML to be printed
+		iframe.contentWindow.print();  // print it
+		document.body.removeChild(iframe); // remove the iframe from the DOM
+	}
 </script>

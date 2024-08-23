@@ -1,0 +1,190 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@model VPMS.Lib.Data.Models.StaffProfileInfo;
+
+@{
+    ViewData["Title"] = "User Profile Page";
+    Layout = "_Layout";
+}
+
+<style>
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.3vw;
+		font-size: 1vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+		font-size: 1vw;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize {
+		width: 14.3vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.currentPage {
+		background-color: blue !important;
+		color: white !important;
+		border: none;
+		border-style: none !important;
+	}
+
+	.currentPageText {
+		color: black !important;
+	}
+
+	.medicalRecordPartition {
+		width: 26vw;
+		height: 27vw;
+		overflow: auto;
+	}
+
+	.medicalRecordPartitionTitle {
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+		margin-bottom: 1.5vw;
+	}
+</style>
+
+<div style="display: flex;">
+    <div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+        <img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="window.location = '@ViewBag.PreviousPage'" />
+        <span class="textColor" style="font-size: 2vw;">Staff Profile</span>
+    </div>
+</div>
+
+<div>
+	<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
+		<span class="formlabel" style="margin-bottom: 0 !important;">Staff Details</span>
+	</div>
+	<div class="containerBorder" style="width: 77vw; color: darkgray; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+		<input id="OwnerID" type="text" hidden />
+		<input id="OwnerCreatedDate" type="text" hidden />
+		<input id="OwnerCreatedBy" type="text" hidden />
+
+		<div style="display: flex; margin-bottom: 1.5vw;">
+			<div class="field-container halfSize">
+				<span class="formlabel">Surname</span>
+				<input id="Surname" type="text" class="form-control form-field inputField hideContainer staffProfile" />
+				<span id="SurnameText" class="formlabel staffProfile textColor">@Model.Surname</span>
+			</div>
+
+			<div class="field-container halfSize">
+				<span class="formlabel">Last Name</span>
+				<input id="LastName" type="text" class="form-control form-field inputField hideContainer staffProfile" />
+				<span id="LastNameText" class="formlabel staffProfile textColor">@Model.LastName</span>
+			</div>
+
+			<div class="field-container halfSize">
+				<span class="formlabel">Staff ID</span>
+				<input id="StaffID" type="text" class="form-control form-field inputField hideContainer staffProfile" />
+				<span id="StaffIDText" class="formlabel staffProfile textColor">@Model.StaffID</span>
+			</div>
+		</div>
+
+		<div style="display: flex; margin-bottom: 1.5vw;">
+			<div class="field-container halfSize">
+				<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
+				<select id="Gender" class="form-control form-field inputField hideContainer staffProfile">
+					<option value="" selected></option>
+					<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+					<option value="F"> @LangResources["Patient_Selection_Female"]</option>
+				</select>
+				<span id="GenderText" class="formlabel staffProfile textColor">@Model.Gender</span>
+			</div>
+
+			<div class="field-container halfSize">
+				<span class="formlabel">User Role</span>
+				<select id="Role" class="form-control form-field inputField hideContainer staffProfile">
+					<option value="" selected></option>
+				</select>
+				<span id="RoleText" class="formlabel staffProfile textColor">@Model.Role</span>
+			</div>
+
+			<div class="field-container halfSize">
+				<span class="formlabel">Organisation</span>
+				<select id="Organisation" class="form-control form-field inputField hideContainer staffProfile">
+					<option value="" selected></option>
+				</select>
+				<span id="OrganisationText" class="formlabel staffProfile textColor">@Model.Organisation</span>
+			</div>
+		</div>
+
+		<div style="display: flex; margin-bottom: 1.5vw;">
+			<div class="field-container halfSize">
+				<span class="formlabel">Email</span>
+				<input id="Email" type="text" class="form-control form-field inputField hideContainer staffProfile" />
+				<span id="EmailText" class="formlabel staffProfile textColor">@Model.Email</span>
+			</div>
+
+			<div class="field-container halfSize">
+				<span class="formlabel">Branch</span>
+				<select id="Branch" class="form-control form-field inputField hideContainer staffProfile">
+					<option value="" selected></option>
+				</select>
+				<span id="BranchText" class="formlabel staffProfile textColor">@Model.Branch</span>
+			</div>
+
+			<div class="field-container halfSize">
+				<span class="formlabel">Status</span>
+				<select id="Status" class="form-control form-field inputField hideContainer staffProfile">
+					<option value="" selected></option>
+				</select>
+				<span id="StatusText" class="formlabel staffProfile textColor">@Model.Status</span>
+			</div>
+		</div>
+
+
+		<div class="staffProfile" style="text-align: end; margin-right: 1.6vw;">
+			<button onclick="window.location = '@ViewBag.PreviousPage'" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Back </button>
+			<button onclick="editProfile();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Edit </button>
+		</div>
+
+		<div class="hideContainer staffProfile" style="text-align: end; margin-right: 1.6vw;">
+			<button onclick="editProfile();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
+			<button class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Save </button>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	function editProfile() {
+		var elements = document.querySelectorAll(".staffProfile");
+
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].classList.toggle("hideContainer");
+		}
+	}
+</script>

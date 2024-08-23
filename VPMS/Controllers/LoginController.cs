@@ -92,6 +92,7 @@ namespace VPMSWeb.Controllers
                     };
 
                     Response.Cookies.Append("user", userInfo.Name, cookies);
+                    Response.Cookies.Append("userid", userInfo.UserID, cookies);
 
                     //var randomAlphanumeric = GenerateRandomAlphanumeric(32);
                     //var sessionCreatedOn = DateTime.Now;
@@ -241,29 +242,40 @@ namespace VPMSWeb.Controllers
 
         public IActionResult ChangePassword()
         {
+            ViewBag.PreviousPage = Program.CurrentPage;
+
             return View();
         }
 
         public async Task<IActionResult> ChangingPassword(LoginModel changeInfo)
         {
-
-            if (changeInfo != null)
+            if (!ModelState["NewPassword"].Errors.Any())
             {
-                string userId = User.Identity.Name;
-
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-                if (user != null)
+                if (changeInfo != null)
                 {
+                    string userId = User.Identity.Name;
 
-                    var passwordChanged = await _userManager.ChangePasswordAsync(user, changeInfo.Password, changeInfo.NewPassword);
+                    var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                    return RedirectToAction("Login", "Login");
+                    if (user != null)
+                    {
+
+                        var passwordChanged = await _userManager.ChangePasswordAsync(user, changeInfo.Password, changeInfo.NewPassword);
+
+                        if (passwordChanged.Succeeded)
+                        {
+                            await _signInManager.SignOutAsync();
+
+                            return RedirectToAction("Login", "Login");
+                        }
+                    }
+
                 }
+            }
 
-            }           
+            ViewBag.PreviousPage = Program.CurrentPage;
 
-            return View();
+            return View("ChangePassword");
         }
 
         private string RandomPasswordGenerator()

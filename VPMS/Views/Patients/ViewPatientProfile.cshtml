@@ -344,7 +344,7 @@
 
 
 					<div style="text-align: end; margin-right: 1.6vw;">
-						<button class="btn btn-lg btn-primary" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw; --bs-btn-bg: transparent; --bs-btn-color: black; --bs-btn-hover-color: white; --bs-btn-border-color: black;"> @LangResources["Patient_Button_ViewPetProfile"] </button>
+						<button class="btn btn-lg btn-primary customButton" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw; --bs-btn-bg: transparent; --bs-btn-hover-color: white;"> @LangResources["Patient_Button_ViewPetProfile"] </button>
 					</div>
 
 				</div>
@@ -599,7 +599,17 @@
 			element[0].innerHTML = data.pets[i].dob;
 
 			element = clone.querySelectorAll('.Age');
-			element[0].innerHTML = data.pets[i].age;
+
+			var currentDate = new Date();
+			var petDOB = new Date(data.pets[i].dob)
+			var yearDiffer = currentDate.getFullYear() - petDOB.getFullYear();
+			var monthDiffer = currentDate.getMonth() - petDOB.getMonth() + (12 * yearDiffer);
+
+			if (monthDiffer < 12) { element[0].innerHTML = monthDiffer + " months"; }
+			else { 
+				// element[0].innerHTML = (monthDiffer / 12).toFixed(1) + " years"; 
+				element[0].innerHTML = parseInt(monthDiffer / 12) + " years";
+			}
 
 			element = clone.querySelectorAll('.Species');
 			element[0].innerHTML = data.pets[i].species;
@@ -622,9 +632,11 @@
 			element = clone.querySelectorAll('.Status');
 			element[0].innerHTML = data.pets[i].status;
 
+			var link = "location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/" + data.pets[i].name + "'";
+
 			allPetsElement.innerHTML = allPetsElement.innerHTML +
 				'<div class="field-container" style="text-align: center;">' +
-				'<img src="/images/' + data.pets[i].species + ' profile image.png" style = "width: 4vw;" />' +
+				'<img onclick="' + link + '" src="/images/' + data.pets[i].species + ' profile image.png" style = "width: 4vw;" />' +
 				'<a href="/Patients/PetProfile/View/@ViewBag.PatientID/' + data.pets[i].name + '" style="font-size: 1vw;" > ' + data.pets[i].name + ' </a>' +
 				'</div>'
 

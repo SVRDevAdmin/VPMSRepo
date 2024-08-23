@@ -19,4 +19,17 @@ namespace VPMS.Lib.Data.Models
 
         public DateTime? LastLoginDate { get; set; }
     }
+
+    public class StaffProfileInfo
+    {
+        public string Surname { get; set; }
+        public string LastName {  get; set; }
+        public string StaffID { get; set; }
+        public string Gender { get; set; }
+        public string Role { get; set; }
+        public string Organisation {  get; set; }
+		public string Email { get; set; }
+        public string Branch {  get; set; }
+        public int Status { get; set; }
+	}
 }

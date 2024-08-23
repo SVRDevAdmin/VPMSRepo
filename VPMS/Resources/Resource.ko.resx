@@ -339,6 +339,9 @@
   <data name="Patient_Label_Medication" xml:space="preserve">
     <value>약물</value>
   </data>
+  <data name="Patient_Label_MedicationName" xml:space="preserve">
+    <value>약물 이름</value>
+  </data>
   <data name="Patient_Label_Name" xml:space="preserve">
     <value>姓名</value>
   </data>
@@ -401,6 +404,9 @@
   </data>
   <data name="Patient_Label_Vaccination" xml:space="preserve">
     <value>백신 접종</value>
+  </data>
+  <data name="Patient_Label_VaccinationTreatment" xml:space="preserve">
+    <value>예방접종/치료</value>
   </data>
   <data name="Patient_Label_Weight" xml:space="preserve">
     <value>무게</value>
@@ -474,6 +480,9 @@
   <data name="Patient_Title_MedicalRecord" xml:space="preserve">
     <value>의료 기록</value>
   </data>
+  <data name="Patient_Title_MedicationHistory" xml:space="preserve">
+    <value>투약 이력</value>
+  </data>
   <data name="Patient_Title_OwnerInfo" xml:space="preserve">
     <value>소유자 정보</value>
   </data>
@@ -497,5 +506,11 @@
   </data>
   <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
     <value>예정된 약속</value>
+  </data>
+  <data name="Patient_Title_UpcomingVaccinationTreatment" xml:space="preserve">
+    <value>다가오는 백신 접종/치료</value>
+  </data>
+  <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
+    <value>백신 접종/치료 이력</value>
   </data>
 </root>

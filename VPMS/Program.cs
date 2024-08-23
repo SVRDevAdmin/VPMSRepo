@@ -17,7 +17,9 @@ namespace VPMS
         public static List<CountryListModel> CountryList { get; set; }
         public static MastercodeModel LanguageFullNameSelected { get; set; }
 
-        public static void Main(string[] args)
+        public static string CurrentPage { get; set; }
+
+		public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -130,7 +132,6 @@ namespace VPMS
 
             app.MapControllerRoute(
                 name: "default",
-                //pattern: "{controller=Patients}/{action=Index}/{id?}");
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();

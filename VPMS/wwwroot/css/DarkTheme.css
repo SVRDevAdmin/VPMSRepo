@@ -416,6 +416,21 @@ body {
 	transition: color 0.5s;
 }
 
+.containerBackground3 {
+	background-color: transparent !important;
+	color: white !important;
+}
+
+.containerBackground4 {
+	background-color: #1f2e45 !important;
+	color: black !important;
+	border-color: white !important;
+}
+
+.dropdown-content a:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
+
 .textColor {
 	color: white !important;
 
@@ -434,4 +449,11 @@ body {
 /* for profile dropdown button */
 .dropdown-toggle::after {
 	color: white;
+}
+
+.customButton {
+	--bs-btn-color: white;
+	--bs-btn-border-color: white;
+
+	transition: all 0.5s;
 }

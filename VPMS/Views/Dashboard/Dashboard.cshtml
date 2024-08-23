@@ -1,0 +1,13 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
+    ViewData["Title"] = "Dashboard Page";
+    ViewBag.SelectedMenu = "dashboardMenu";
+}
+
+<div>
+    <h1>@LangResources["MenuBar_Label_Dashboard"]</h1>
+</div>
+
+

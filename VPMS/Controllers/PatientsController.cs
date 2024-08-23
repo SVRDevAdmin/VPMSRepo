@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.X509;
+using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 
@@ -16,9 +17,16 @@ namespace VPMSWeb.Controllers
 
 		public IActionResult Index()
         {
+            return RedirectToAction("PatientsList");
+		}
+
+		public IActionResult PatientsList()
+		{
 			ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 
-			return View();
+            Program.CurrentPage = "/Patients/PatientsList";
+
+            return View();
 		}
 
 		[Route("/Patients/PatientProfile/{type}/{patientid}")]
@@ -30,7 +38,9 @@ namespace VPMSWeb.Controllers
 			ViewBag.PatientID = patientid;
 			ViewBag.type = type;
 
-			return View();
+            Program.CurrentPage = "/Patients/PatientProfile/" + type + "/" + patientid;
+
+            return View();
 		}
 
 		[Route("/Patients/PetProfile/{type}/{patientid}/{petname}")]
@@ -45,8 +55,36 @@ namespace VPMSWeb.Controllers
 			ViewData["OtherPets"] = _patientDBContext.Mst_Pets.Where(x => x.PatientID == patientid && x.Name != petname).Select(y => y.Name).ToList();
 
 			var petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
-				
-			return View(petProfile);
+
+            Program.CurrentPage = "/Patients/PetProfile/" + type + "/" + patientid + "/" + petname;
+
+            return View(petProfile);
+		}
+
+		[Route("/Patients/InvoiceBilling/{patientid}/{petname}")]
+		public IActionResult InvoiceBilling(int patientid, string petname)
+		{
+			ViewData["PetName"] = petname;
+			ViewBag.PatientID = patientid;
+
+			var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
+
+            Program.CurrentPage = "/Patients/InvoiceBilling/" + patientid + "/" + petname;
+
+            return View(petInfo);
+		}
+
+		[Route("/Patients/TreatmentPlan/{patientid}/{petname}")]
+		public IActionResult TreatmentPlan(int patientid, string petname)
+		{
+			ViewData["PetName"] = petname;
+			ViewBag.PatientID = patientid;
+
+			var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
+
+            Program.CurrentPage = "/Patients/TreatmentPlan/" + patientid + "/" + petname;
+
+            return View(petInfo);
 		}
 
 		public PatientInfoProfile GetPatientProfile(int patientid)
@@ -65,7 +103,9 @@ namespace VPMSWeb.Controllers
 			ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 			ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
 
-			return View();
+            Program.CurrentPage = "/Patients/CreateNewPatient";
+
+            return View();
 		}
 
 		public PatientsInfo GetPetsInfoList(int rowLimit, int page, string ownername, string petName, string species, string breed)
