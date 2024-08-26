@@ -13,6 +13,7 @@ namespace VPMS.Lib.Data.Models
         [Key]
         public long AppointmentID {  get; set; }
         public String? UniqueIDKey {  get; set; }
+        public int? BranchID { get; set; }
         public DateTime? ApptDate { get; set; }
         public DateTime? ApptStartTime { get; set; }
         public DateTime? ApptEndTime { get; set; }
@@ -27,6 +28,32 @@ namespace VPMS.Lib.Data.Models
         public String? UpdatedBy { get; set; }
     }
 
+    public class AppointmentNewClientModel
+    {
+        public DateTime? ApptDate { get; set; }
+        public DateTime? ApptStartTime { get; set; }
+        public DateTime? ApptEndTime { get; set; }
+        public DateTime? PetDOB {  get; set; }
+        public int? BranchID {  get; set; }
+        public String? OwnerName { get; set; }
+        public String? ContactNo { get; set; }
+        public String? PetName {  get; set; }
+        public String? Species { get; set; }
+        public String? InchargeDoctor { get; set; }
+        public String? EmailAddress {  get; set; }
+        public Boolean? EmailNotify { get; set; }
+    }
+
+    public class AppointmentControllerModel : AppointmentModel
+    {
+        public List<long> ServiceList {  get; set; }
+    }
+
+    public class AppointmentNewClientControllerModel : AppointmentNewClientModel
+    {
+        public List<long> ServiceList { get; set; }
+    }
+
     public class AppointmentServiceModel
     {
         [Key]
@@ -36,8 +63,51 @@ namespace VPMS.Lib.Data.Models
         public bool? IsDeleted { get; set; }
         public DateTime? CreatedDate { get; set; }
         public String? CreatedBy { get; set; }
-        //public DateTime? UpdatedDate { get; set; }
-        //public String? UpdatedBy { get; set; }
+    }
+
+    public class AppointmentPatientsModel
+    {
+        [Key]
+        public long ID { get; set; }
+        public int? BranchID { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public String? CreatedBy { get; set; }
+    }
+    //public class AppointmentPatientOwnerModel 
+    //{
+    //    [Key]
+    //    public long ID { get; set; }
+    //    public long? PatientID {  get; set; }
+    //    public String? Name { get; set; }
+    //    public String? ContactNo { get; set; }
+    //    public DateTime? CreatedDate { get; set; }
+    //    public String? CreatedBy { get; set; }
+    //}
+
+    //public class AppointmentPetModel
+    //{
+    //    [Key]
+    //    public long ID { get; set; }
+    //    public long? PatientID { get; set; }
+    //    public String? Name { get; set; }
+    //    public DateTime? DOB { get; set; }
+    //    public String? Species { get; set; }
+    //    public int? Status { get; set; }
+    //    public DateTime? CreatedDate { get; set; }
+    //    public String? CreatedBy { get; set; }
+    //}
+
+
+    public class AppointmentMonthViewModel
+    {
+        public DateTime? ApptDate { get; set; }
+        public String? ApptStartTimeString { get; set; }
+        public String? ApptEndTimeString { get; set; }
+        public String? ServiceName { get; set; }
+        public String? PetName { get; set; }
+        public String? OwnerName {  get; set; }
+        public String? DoctorName { get; set; }
+        public long? AppointmentID { get; set; }
     }
 
     // temporary

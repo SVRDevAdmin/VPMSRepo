@@ -15,6 +15,7 @@ namespace VPMS.Lib.Data.DBContext
         private readonly IConfiguration config;
         public DbSet<AppointmentModel> mst_appointment {  get; set; }
         public DbSet<AppointmentServiceModel> mst_appointment_services { get; set; }
+        public DbSet<AppointmentPatientsModel> mst_patients {  get; set; }
         public DbSet<PatientOwnerModel> mst_patients_owner { get; set; }
         public DbSet<PetModel> mst_pets { get; set; }
 
