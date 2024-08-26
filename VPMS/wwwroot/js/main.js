@@ -1,24 +1,42 @@
-﻿
-$("#menu-toggle").click(function (e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
+﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// for details on configuring this project to bundle and minify static web assets.
 
-$('.sidebar-nav li').click(function (e) {
-    if ($(this).find('#imgArrow').length > 0) {
-        $(this).find('ul').toggleClass('open');
-        $(this).find('#imgArrow').toggleClass('Up');
-    }
-    else {
-        $('.sidebar-nav').find('span').removeClass('selected');
-        $(this).find('span').toggleClass('selected');
-    }
-})
+// Write your JavaScript code.
 
-$('.sidebar-nav li ul li').click(function (e) {
-    $('.sidebar-nav').find('span').removeClass('selected');
+//setting for idle logout
+// Set timeout variables. 1000 = 1 second.
+var timoutWarning = 300000;
+var timoutNow = 600000;
+var logoutUrl = '/Login/Logout?autoLogout=true'; // URL to logout page.
 
-    $(this).parent().toggleClass('open');
-    $(this).parent().parent().find('#imgArrow').toggleClass('Up');
-    $(this).parent().parent().parent().find('span').toggleClass('selected');
-});
+var warningTimer;
+var timeoutTimer;
+
+// Start timers.
+function StartTimers() {
+    clearTimeout(warningTimer);
+    clearTimeout(timeoutTimer);
+    warningTimer = setTimeout("IdleWarning()", timoutWarning);
+    timeoutTimer = setTimeout("IdleTimeout()", timoutNow);
+}
+
+// Reset timers.
+function ResetTimers() {
+    clearTimeout(warningTimer);
+    clearTimeout(timeoutTimer);
+    StartTimers();
+
+    $("#alert").slideUp(500, function () {
+        $("#alert")[0].style.setProperty('display', 'none', 'important');
+    });
+}
+
+// Show idle timeout warning dialog.
+function IdleWarning() {
+    $("#alert").slideDown(500);
+}
+
+// Logout the user.
+function IdleTimeout() {
+    window.location = logoutUrl;
+}

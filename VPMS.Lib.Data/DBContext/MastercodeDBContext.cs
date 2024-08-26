@@ -10,19 +10,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VPMS.Lib.Data.DBContext
 {
-    public class MastercodeDBContext : DbContext
-    {
-        private readonly IConfiguration config;
-        public DbSet<MastercodeModel> mst_mastercodedata { get; set;  }
+	public class MastercodeDBContext : DbContext
+	{
+		private readonly IConfiguration config;
+		public DbSet<MastercodeModel> mst_mastercodedata { get; set; }
 
-        public MastercodeDBContext(IConfiguration config)
-        {
-            this.config = config;
-        }
+		public MastercodeDBContext(IConfiguration config)
+		{
+			this.config = config;
+		}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection")));
-        }
-    }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection")));
+		}
+	}
 }

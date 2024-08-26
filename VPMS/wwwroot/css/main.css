@@ -1,8 +1,4 @@
-﻿body {
-    overflow-x: hidden;
-}
-
-#wrapper {
+﻿#wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -132,7 +128,7 @@
     background: none;
 }
 
-@@media(min-width:768px) {
+@media(min-width:768px) {
     #wrapper {
         padding-left: 0;
     }

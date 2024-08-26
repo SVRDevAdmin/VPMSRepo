@@ -1,0 +1,252 @@
+﻿/* Sidebar Styles */
+
+/*Dark theme*/
+.bar-menu-bg.darktheme {
+    background-color: #1f2e45;
+}
+
+.sidebar-nav.darktheme {
+    background-color: #1f2e45;
+    list-style: none;
+    position: fixed;
+    top: 88px;
+    width: 310px;
+    height: 100%;
+    margin-left: -15px;
+    padding: 0;
+}
+
+.sidebar-nav li a #imgArrow.darktheme {
+    content: url('../images/down-dark-arrow.png');
+    width: 20px;
+    height: 20px;
+}
+
+.sidebar-nav li a #imgArrow.Up.darktheme {
+    content: url('../images/arrow-dark-up.png');
+    width: 20px;
+    height: 20px;
+}
+
+#imgProfileArrow.darktheme {
+    content: url('../images/down-arrow.png');
+}
+
+.sidebar-nav-font.darktheme {
+    vertical-align: middle;
+    color: white;
+}
+
+.divThemes.darktheme {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-left: 5px;
+    height: 44px;
+    border-radius: 5px;
+    background-color: #1f2e45;
+}
+
+.profilemenu.darktheme {
+    background-color: #1f2e45;
+}
+
+    .profilemenu.darktheme > a {
+        color: white;
+    }
+
+#btnBright.darktheme {
+    background-color: transparent;
+}
+
+#btnDark.darktheme {
+    background-color: #1e76fb;
+}
+
+#imgLogo.darktheme {
+    content: url('../images/vpms_dark_icon.png');
+}
+
+#imgLogoTitle.darktheme {
+    content: url('../images/vpms_dark_logo.png');
+}
+
+#iconPatients.darktheme {
+    content: url('../images/fa_dark_paw_icon.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconHome.darktheme {
+    content: url('../images/home_dark.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconAppt.darktheme {
+    content: url('../images/file_dark_icon.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconReceipt.darktheme {
+    content: url('../images/receipt_dark_icon.png');
+    width: 24px;
+    height: 24px;
+}
+
+#iconAccess.darktheme {
+    content: url('../images/users_dark_icon.png');
+    width: 24px;
+    height: 24px;
+}
+
+#imgTreatment.darktheme {
+    content: url('../images/plan_dark_icon.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconInventory.darktheme {
+    content: url('../images/box_dark_icon.png');
+    width: 32px;
+    height: 32px;
+}
+
+#iconServices.darktheme {
+    content: url('../images/mail_dark_icon.png');
+    width: 24px;
+    height: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Light theme*/
+.bar-menu-bg {
+    background-color: #f7f7f7;
+}
+
+.sidebar-nav {
+    background-color: #f7f7f7;
+    list-style: none;
+    position: fixed;
+    top: 88px;
+    width: 310px;
+    height: 100%;
+    margin-left: -15px;
+    padding: 0;
+}
+
+.sidebar-nav li a #imgArrow {
+    content: url('../images/down-arrow.png');
+    width: 20px;
+    height: 20px;
+}
+
+.sidebar-nav li a #imgArrow.Up {
+    content: url('../images/arrow-up.png');
+    width: 20px;
+    height: 20px;
+}
+
+#imgProfileArrow {
+    content: url('../images/down-arrow.png');
+}
+
+.sidebar-nav-font {
+    vertical-align: middle;
+    color: black;
+}
+
+.divThemes {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-left: 5px;
+    height: 44px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+}
+
+.profilemenu {
+    background-color: transparent;
+}
+
+    .profilemenu > a {
+        color: black;
+    }
+
+#btnBright {
+    background-color: #1e76fb;
+}
+
+#btnDark {
+    background-color: transparent;
+}
+
+#imgLogo {
+    content: url('../images/vpms_logo_icon.png');
+}
+
+#imgLogoTitle {
+    content: url('../images/vpms_logo.png');
+}
+
+#iconPatients {
+    content: url('../images/fa_solid_paw_icon.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconHome {
+    content: url('../images/home.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconAppt {
+    content: url('../images/file_icon.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconReceipt {
+    content: url('../images/receipt_icon.png');
+    width: 24px;
+    height: 24px;
+}
+
+#iconAccess {
+    content: url('../images/users_icon.png');
+    width: 24px;
+    height: 24px;
+}
+
+#imgTreatment {
+    content: url('../images/plan_icon.png');
+    width: 20px;
+    height: 20px;
+}
+
+#iconInventory {
+    content: url('../images/box_icon.png');
+    width: 32px;
+    height: 32px;
+}
+
+#iconServices {
+    content: url('../images/mail_icon.png');
+    width: 24px;
+    height: 24px;
+}

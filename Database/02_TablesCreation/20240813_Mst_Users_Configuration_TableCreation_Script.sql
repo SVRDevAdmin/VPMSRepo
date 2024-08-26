@@ -1,6 +1,6 @@
 CREATE TABLE `mst_users_configuration` (
 	`ID` INT NOT NULL AUTO_INCREMENT,
-	`UserID` VARCHAR(30) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`UserID` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`ConfigurationKey` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`ConfigurationValue` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`CreatedDate` DATETIME NULL DEFAULT NULL,

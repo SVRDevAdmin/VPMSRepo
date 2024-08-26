@@ -11,7 +11,7 @@ using VPMS.Lib.Data.Models;
 
 namespace VPMS.Lib.Data.DBContext
 {
-    public class ConfigurationDBContext  : DbContext
+	public class ConfigurationDBContext : DbContext
     {
         private readonly IConfiguration config;
         public DbSet<ConfigurationModel> mst_users_configuration { get; set; }

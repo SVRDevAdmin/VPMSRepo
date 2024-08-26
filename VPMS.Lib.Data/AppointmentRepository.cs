@@ -241,6 +241,13 @@ namespace VPMS.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Update Appointment Status
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iApptID"></param>
+        /// <param name="iStatus"></param>
+        /// <returns></returns>
         public static Boolean UpdateAppointmentStatus(IConfiguration config, long iApptID, int iStatus)
         {
             Boolean isSuccess = false;

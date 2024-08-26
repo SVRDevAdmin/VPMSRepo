@@ -1,0 +1,671 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
+	ViewData["Title"] = "Patients Page";
+	ViewBag.SelectedMenu = "patientsMenu";
+}
+
+<style>
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.3vw;
+		font-size: 1vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+		font-size: 1vw;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize {
+		width: 14.3vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.currentPage {
+		background-color: blue !important;
+		color: white !important;
+		border: none;
+		border-style: none !important;
+	}
+
+	.currentPageText {
+		color: black !important;
+	}
+
+	.medicalRecordPartition {
+		width: 26vw;
+		height: 27vw;
+		overflow: auto;
+	}
+
+	.medicalRecordPartitionTitle {
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+		margin-bottom: 1.5vw;
+	}
+</style>
+
+<div style="display: flex;">
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("Index", "Patients")'" />
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["Patient_Title_PatientProfile"]</span>
+	</div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 52vw;">
+		<div>
+			<div class="containerBackground2" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_OwnerInfo"]</span>
+				<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-primary ownerInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				</button>
+			</div>
+			<div class="containerBorder" style="width: 50vw; color: darkgray; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<input id="OwnerID" type="text" hidden/>
+				<input id="OwnerCreatedDate" type="text" hidden />
+				<input id="OwnerCreatedBy" type="text" hidden />
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container halfSize">
+						<span class="formlabel">@LangResources["Patient_Label_OwnerName"]</span>
+						<input id="OwnerName" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+						<span id="OwnerNameText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
+						<input id="ContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+						<span id="ContactNoText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
+						<select id="Gender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<option value="" selected></option>
+							<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+							<option value="F"> @LangResources["Patient_Selection_Female"]</option>
+						</select>
+						<span id="GenderText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
+						<select id="Country" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<option value="" selected></option>
+							<option value="Malaysia"> Malaysia</option>
+						</select>
+						<span id="CountryText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_State"]</span>
+						<select id="State" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<option value="" selected></option>
+							<option value="Selangor"> Selangor</option>
+						</select>
+						<span id="StateText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_City"]</span>
+						<select id="City" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<option value="" selected></option>
+							<option value="Shah Alam"> Shah Alam</option>
+						</select>
+						<span id="CityText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container halfSize">
+						<span class="formlabel">@LangResources["Patient_Label_Address"]</span>
+						<input id="Address" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+						<span id="AddressText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
+						<input id="Postcode" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+						<span id="PostcodeText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+				</div>
+
+				<div id="coOwnerInfo">
+					<hr style="margin: 1vw; color: darkgray; border-width: medium;" />
+
+					<div class="field-container halfSize" style="margin-bottom: 1.5vw;">
+						<span class="formlabel hideContainer ownerInfoProfile">@LangResources["Patient_Label_CoOwnerInformationOptional"]</span>
+					</div>
+
+
+					<input id="CoOwnerID" type="text" hidden />
+					<input id="CoOwnerCreatedDate" type="text" hidden />
+					<input id="CoOwnerCreatedBy" type="text" hidden />
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container halfSize">
+							<span class="formlabel">@LangResources["Patient_Label_CoOwnerName"]</span>
+							<input id="CoOwnerName" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+							<span id="CoOwnerNameText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
+							<input id="CoContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+							<span id="CoContactNoText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
+							<select id="CoGender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+								<option value="" selected></option>
+								<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+								<option value="F"> @LangResources["Patient_Selection_Female"]</option>
+							</select>
+							<span id="CoGenderText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
+							<select id="CoCountry" class="form-control form-field inputField hideContainer ownerInfoProfile">
+								<option value="" selected></option>
+								<option value="Malaysia"> Malaysia</option>
+							</select>
+							<span id="CoCountryText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_State"]</span>
+							<select id="CoState" class="form-control form-field inputField hideContainer ownerInfoProfile">
+								<option value="" selected></option>
+								<option value="Selangor"> Selangor</option>
+							</select>
+							<span id="CoStateText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_City"]</span>
+							<select id="CoCity" class="form-control form-field inputField hideContainer ownerInfoProfile">
+								<option value="" selected></option>
+								<option value="Shah Alam"> Shah Alam</option>
+							</select>
+							<span id="CoCityText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container halfSize">
+							<span class="formlabel">@LangResources["Patient_Label_Address"]</span>
+							<input id="CoAddress" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+							<span id="CoAddressText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
+							<input id="CoPostcode" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+							<span id="CoPostcodeText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="hideContainer ownerInfoProfile" style="text-align: end; margin-right: 1.6vw;">
+					<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+					<button onclick="editOwnerInfo(true);" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Save"] </button>
+				</div>
+
+			</div>
+		</div>
+
+		<template id="petInfoTemplate">
+			<div>
+				<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
+					<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
+					<button class="btn btn-lg btn-primary" onclick="goToPetProfile('edit', this.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div class="containerBorder" style="color: darkgray; width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+					<div style="display: flex;">
+						<img class="PetImage" style="height: 5vw; margin-left: 1vw;" />
+
+						<div>
+							<div style="display: flex; margin-bottom: 1.5vw;">
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_PetName"]</span>
+									<span class="formlabel textColor PetName"></span>
+								</div>
+
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
+									<span class="formlabel textColor RegistrationNo"></span>
+								</div>
+
+								<div class="field-container">
+									<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
+									<span class="formlabel textColor Sex"></span>
+								</div>
+							</div>
+
+							<div style="display: flex; margin-bottom: 1.5vw;">
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
+									<span class="formlabel textColor DOB"></span>
+								</div>
+
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_Age"]</span>
+									<span class="formlabel textColor Age"></span>
+								</div>
+
+								<div class="field-container">
+									<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
+									<span class="formlabel textColor Species"></span>
+								</div>
+							</div>
+
+							<div style="display: flex; margin-bottom: 1.5vw;">
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_Breed"]</span>
+									<span class="formlabel textColor Breed"></span>
+								</div>
+
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_Allergies"]</span>
+									<span class="formlabel textColor Allergies"></span>
+								</div>
+
+								<div class="field-container">
+									<span class="formlabel">@LangResources["Patient_Label_Color"]</span>
+									<span class="formlabel textColor Color"></span>
+								</div>
+							</div>
+
+							<div style="display: flex; margin-bottom: 1.5vw;">
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_Height"] (cm)</span>
+									<span class="formlabel textColor Height"></span>
+								</div>
+
+								<div class="field-container quaterSize">
+									<span class="formlabel">@LangResources["Patient_Label_Weight"] (kg)</span>
+									<span class="formlabel textColor Weight"></span>
+								</div>
+
+								<div class="field-container">
+									<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
+									<span class="formlabel textColor Status"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+					
+
+
+					<div style="text-align: end; margin-right: 1.6vw;">
+						<button class="btn btn-lg btn-primary" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw; --bs-btn-bg: transparent; --bs-btn-color: black; --bs-btn-hover-color: white; --bs-btn-border-color: black;"> @LangResources["Patient_Button_ViewPetProfile"] </button>
+					</div>
+
+				</div>
+			</div>
+		</template>
+
+		<div id="petsInfoContent">
+		</div>
+
+	</div>
+
+	<div id="RightInfoContainer" style="margin-left: 1.5vw;">
+		<div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_AllPets"]</span>
+			</div>
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<div id="allPets" style="display: flex; margin-bottom: 1.5vw;">
+				</div>
+
+			</div>
+
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
+			</div>
+			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
+						<span class="formlabel" style="color: black;">10/4/2024</span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Time"]</span>
+						<span class="formlabel" style="color: black;">13:00</span>
+					</div>
+				</div>
+
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>
+						<span class="formlabel" style="color: black;">Simba</span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Service"]</span>
+						<span class="formlabel" style="color: black;">General Check Up</span>
+					</div>
+				</div>
+
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
+						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	if ('@ViewBag.type' == 'edit') {
+		editOwnerInfo(false);
+	}
+
+	getPatientProfile();
+
+	function getPatientProfile() {
+		fetch('/Patients/GetPatientProfile?patientID=@ViewBag.PatientID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				setValue(data);
+				clonePetInfo(data);
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function setValue(data) {
+		document.getElementById("OwnerNameText").innerHTML = data.patient_Owners[0].name;
+		document.getElementById("ContactNoText").innerHTML = data.patient_Owners[0].contactNo;
+		if (data.patient_Owners[0].gender == "M") { document.getElementById("GenderText").innerHTML = "Male"; }
+		else { document.getElementById("GenderText").innerHTML = "Female"; }
+		document.getElementById("CountryText").innerHTML = data.patient_Owners[0].country;
+		document.getElementById("StateText").innerHTML = data.patient_Owners[0].state;
+		document.getElementById("CityText").innerHTML = data.patient_Owners[0].city;
+		document.getElementById("AddressText").innerHTML = data.patient_Owners[0].address;
+		document.getElementById("PostcodeText").innerHTML = data.patient_Owners[0].postCode;
+
+		document.getElementById("OwnerID").value = data.patient_Owners[0].id;
+		document.getElementById("OwnerCreatedDate").value = data.patient_Owners[0].createdDate;
+		document.getElementById("OwnerCreatedBy").value = data.patient_Owners[0].createdBy;
+		document.getElementById("OwnerName").value = data.patient_Owners[0].name;
+		document.getElementById("ContactNo").value = data.patient_Owners[0].contactNo;
+		document.getElementById("Gender").value = data.patient_Owners[0].gender;
+		document.getElementById("Country").value = data.patient_Owners[0].country;
+		document.getElementById("State").value = data.patient_Owners[0].state;
+		document.getElementById("City").value = data.patient_Owners[0].city;
+		document.getElementById("Address").value = data.patient_Owners[0].address;
+		document.getElementById("Postcode").value = data.patient_Owners[0].postCode;
+
+		if (data.patient_Owners.length > 1) {
+			document.getElementById("CoOwnerNameText").innerHTML = data.patient_Owners[1].name;
+			document.getElementById("CoContactNoText").innerHTML = data.patient_Owners[1].contactNo;
+			if (data.patient_Owners[1].gender == "M") { document.getElementById("CoGenderText").innerHTML = "Male"; }
+			else { document.getElementById("CoGenderText").innerHTML = "Female"; }
+			document.getElementById("CoCountryText").innerHTML = data.patient_Owners[1].country;
+			document.getElementById("CoStateText").innerHTML = data.patient_Owners[1].state;
+			document.getElementById("CoCityText").innerHTML = data.patient_Owners[1].city;
+			document.getElementById("CoAddressText").innerHTML = data.patient_Owners[1].address;
+			document.getElementById("CoPostcodeText").innerHTML = data.patient_Owners[1].postCode;
+
+			document.getElementById("CoOwnerID").value = data.patient_Owners[1].id;
+			document.getElementById("CoOwnerCreatedDate").value = data.patient_Owners[1].createdDate;
+			document.getElementById("CoOwnerCreatedBy").value = data.patient_Owners[1].createdBy;
+			document.getElementById("CoOwnerName").value = data.patient_Owners[1].name;
+			document.getElementById("CoContactNo").value = data.patient_Owners[1].contactNo;
+			document.getElementById("CoGender").value = data.patient_Owners[1].gender;
+			document.getElementById("CoCountry").value = data.patient_Owners[1].country;
+			document.getElementById("CoState").value = data.patient_Owners[1].state;
+			document.getElementById("CoCity").value = data.patient_Owners[1].city;
+			document.getElementById("CoAddress").value = data.patient_Owners[1].address;
+			document.getElementById("CoPostcode").value = data.patient_Owners[1].postCode;
+		}
+		else {
+			document.getElementById("coOwnerInfo").classList.toggle("hideContainer");
+		}
+	}
+
+	function updateOwnerInfo() {
+
+		var obj = {
+			ID: document.getElementById("OwnerID").value,
+			PatientID: @ViewBag.PatientID,
+			Name: document.getElementById("OwnerName").value,
+			ContactNo: document.getElementById("ContactNo").value,
+			Gender: document.getElementById("Gender").value,
+			Country: document.getElementById("Country").value,
+			State: document.getElementById("State").value,
+			City: document.getElementById("City").value,
+			PostCode: document.getElementById("Postcode").value,
+			Address: document.getElementById("Address").value,
+			Status: 1,
+			CreatedDate: document.getElementById("OwnerCreatedDate").value,
+			CreatedBy: document.getElementById("OwnerCreatedBy").value,
+			UpdatedDate: new Date(),
+			UpdatedBy: document.getElementById("OwnerName").value
+		};
+
+		sendUpdate(obj);
+
+		if (!document.getElementById("coOwnerInfo").classList.contains("hideContainer")) {
+			var obj = {
+				ID: document.getElementById("CoOwnerID").value,
+				PatientID: @ViewBag.PatientID,
+				Name: document.getElementById("CoOwnerName").value,
+				ContactNo: document.getElementById("CoContactNo").value,
+				Gender: document.getElementById("CoGender").value,
+				Country: document.getElementById("CoCountry").value,
+				State: document.getElementById("CoState").value,
+				City: document.getElementById("CoCity").value,
+				PostCode: document.getElementById("CoPostcode").value,
+				Address: document.getElementById("CoAddress").value,
+				Status: 1,
+				CreatedDate: document.getElementById("CoOwnerCreatedDate").value,
+				CreatedBy: document.getElementById("CoOwnerCreatedBy").value,
+				UpdatedDate: new Date(),
+				UpdatedBy: document.getElementById("CoOwnerName").value
+			};
+
+			sendUpdate(obj);
+		}
+		
+	}
+
+	function sendUpdate(data) {
+		fetch('/Patients/UpdatePatientOwnerInfo', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function editOwnerInfo(save) {
+		var element = document.querySelectorAll('.ownerInfoProfile');
+
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+
+		if (save) {
+			updateOwnerInfo();
+		}
+	}
+
+	function editPetInfo(e) {
+		var element = e.parentElement.parentElement.querySelectorAll('.petInfoProfile');
+
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+	}
+
+	function clonePetInfo(data) {
+		var allPetsElement = document.getElementById("allPets");
+		allPetsElement.innerHTML = "";
+
+		for (let i = 0; i < data.pets.length; i++) {
+
+			const template = document.getElementById("petInfoTemplate");
+			const clone = template.content.cloneNode(1).firstElementChild;
+			var contentElement = document.getElementById("petsInfoContent");
+
+			var element = clone.querySelectorAll('.PetImage');
+			element[0].src = "/images/" + data.pets[i].species + " profile image square.png";
+
+			var element = clone.querySelectorAll('.PetName');
+			element[0].innerHTML = data.pets[i].name;
+
+			element = clone.querySelectorAll('.RegistrationNo');
+			element[0].innerHTML = data.pets[i].registrationNo;
+
+			element = clone.querySelectorAll('.Sex');
+			if (data.pets[i].gender == "M") { element[0].innerHTML = "Male"; }
+			else { element[0].innerHTML = "Female"; }
+
+			element = clone.querySelectorAll('.DOB');
+			element[0].innerHTML = data.pets[i].dob;
+
+			element = clone.querySelectorAll('.Age');
+			element[0].innerHTML = data.pets[i].age;
+
+			element = clone.querySelectorAll('.Species');
+			element[0].innerHTML = data.pets[i].species;
+
+			var breedElement = clone.querySelectorAll('.Breed');
+			breedElement[0].innerHTML = data.pets[i].breed;
+
+			element = clone.querySelectorAll('.Allergies');
+			element[0].innerHTML = data.pets[i].allergies;
+
+			element = clone.querySelectorAll('.Color');
+			element[0].innerHTML = data.pets[i].color;
+
+			element = clone.querySelectorAll('.Height');
+			element[0].innerHTML = data.pets[i].height;
+
+			element = clone.querySelectorAll('.Weight');
+			element[0].innerHTML = data.pets[i].weight;
+
+			element = clone.querySelectorAll('.Status');
+			element[0].innerHTML = data.pets[i].status;
+
+			allPetsElement.innerHTML = allPetsElement.innerHTML +
+				'<div class="field-container" style="text-align: center;">' +
+				'<img src="/images/' + data.pets[i].species + ' profile image.png" style = "width: 4vw;" />' +
+				'<a href="/Patients/PetProfile/View/@ViewBag.PatientID/' + data.pets[i].name + '" style="font-size: 1vw;" > ' + data.pets[i].name + ' </a>' +
+				'</div>'
+
+			contentElement.appendChild(clone);
+		}
+	}
+
+	function breedList(species, breedElement, breedValue) {
+		fetch('/Patients/BreedList?species=' + species)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				if (breedValue != "") {
+					breedElement.innerHTML = '<option value=""> -- Select Breed -- </option>';
+				}
+				else {
+					breedElement.innerHTML = '<option value="" selected> -- Select Breed -- </option>';
+				}
+
+				for (let i = 0; i < data.length; i++) {
+					if (breedValue == data[i].breed) {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '" selected>' + data[i].breed + '</option>';
+					}
+					else {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+					}
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function goToPetProfile(type, e) {
+		var petName = e.querySelector(".PetName").innerHTML;
+		window.location = '/Patients/PetProfile/' + type + '/@ViewBag.PatientID/' + petName;
+	}
+
+</script>

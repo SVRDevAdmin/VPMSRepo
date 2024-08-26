@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VPMS;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
@@ -23,7 +24,9 @@ namespace VPMSWeb.Controllers
 
             if (ConfigurationRepository.UpdateUserConfigurationSettingsByKey(ConfigSettings.GetConfigurationSettings(), sModel))
             {
-                return Ok();
+				Program.LanguageFullNameSelected = Program.LanguageCodeList.Where(x => x.CodeID == ConfigVal).FirstOrDefault();
+
+				return Ok();
             }
             else
             {
