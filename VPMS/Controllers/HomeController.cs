@@ -10,7 +10,7 @@ using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
 {
-    [Authorize(Roles = "Superadmin")]
+    //[Authorize(Roles = "Superadmin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -31,7 +31,7 @@ namespace VPMSWeb.Controllers
 			ViewData["CountryList"] = sCountryList;
             Program.CountryList = sCountryList;
 
-            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), "d8a3963a-7dda-44c9-9a3b-8fcfb488dff9");
+            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), "f70e5db4-893e-46b2-b3ca-001a6cd0f4a7");
 			if (sUserConfigurationSettings != null)
 			{
 				ViewData["LanguageSelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Language").FirstOrDefault();
@@ -42,7 +42,8 @@ namespace VPMSWeb.Controllers
                 Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
             }
 
-			if (ViewData["LanguageSelected"] != null)
+			//if (ViewData["LanguageSelected"] != null)
+			if (Program.LanguageSelected != null)
 			{
 				var sLangSelected = ViewData["LanguageSelected"] as ConfigurationModel;
 				ViewData["LanguageFullNameSelected"] = sMasterCodeObj.Where(x => x.CodeID == sLangSelected.ConfigurationValue).FirstOrDefault();

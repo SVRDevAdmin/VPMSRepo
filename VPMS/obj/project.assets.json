@@ -3542,6 +3542,16 @@
         "runtime": {
           "bin/placeholder/VPMS.Lib.Data.dll": {}
         }
+      },
+      "VPMS.Lib.Helpers/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/VPMS.Lib.Helpers.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/VPMS.Lib.Helpers.dll": {}
+        }
       }
     }
   },
@@ -9642,6 +9652,11 @@
       "type": "project",
       "path": "../VPMS.Lib.Data/VPMS.Lib.Data.csproj",
       "msbuildProject": "../VPMS.Lib.Data/VPMS.Lib.Data.csproj"
+    },
+    "VPMS.Lib.Helpers/1.0.0": {
+      "type": "project",
+      "path": "../Library/VPMS.Lib.Helpers/VPMS.Lib.Helpers.csproj",
+      "msbuildProject": "../Library/VPMS.Lib.Helpers/VPMS.Lib.Helpers.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9651,23 +9666,29 @@
       "Microsoft.AspNetCore.Identity.UI >= 8.0.6",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.6",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.2",
-      "VPMS.Lib.Data >= 1.0.0"
+      "VPMS.Lib.Data >= 1.0.0",
+      "VPMS.Lib.Helpers >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\azwan\\.nuget\\packages\\": {}
+    "C:\\Users\\SVRke\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\VPMSWeb.csproj",
+      "projectUniqueName": "C:\\Dev\\VPMS\\VPMS\\VPMSWeb.csproj",
       "projectName": "VPMSWeb",
-      "projectPath": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\VPMSWeb.csproj",
-      "packagesPath": "C:\\Users\\azwan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\obj\\",
+      "projectPath": "C:\\Dev\\VPMS\\VPMS\\VPMSWeb.csproj",
+      "packagesPath": "C:\\Users\\SVRke\\.nuget\\packages\\",
+      "outputPath": "C:\\Dev\\VPMS\\VPMS\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\azwan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\SVRke\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9682,8 +9703,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj": {
-              "projectPath": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj"
+            "C:\\Dev\\VPMS\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj": {
+              "projectPath": "C:\\Dev\\VPMS\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj"
+            },
+            "C:\\Dev\\VPMS\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj": {
+              "projectPath": "C:\\Dev\\VPMS\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj"
             }
           }
         }

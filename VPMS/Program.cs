@@ -25,6 +25,7 @@ namespace VPMS
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 			builder.Services.AddLocalization(options =>
 			{
@@ -38,12 +39,11 @@ namespace VPMS
 					new CultureInfo("zh-Hans")
 				};
 
-				options.DefaultRequestCulture = new RequestCulture("en-US");
-				options.SupportedCultures = supportedCultures;
-				options.SupportedUICultures = supportedCultures;
-			});
-
-			builder.Services.AddSingleton<VPMSWeb.Interface.IResourcesLocalizer, VPMSWeb.Lib.ResourcesLocalizer>();
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+            builder.Services.AddSingleton<VPMSWeb.Interface.IResourcesLocalizer, VPMSWeb.Lib.ResourcesLocalizer>();
 
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

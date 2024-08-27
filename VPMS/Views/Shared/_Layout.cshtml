@@ -23,6 +23,8 @@
     <title>@ViewData["Title"] - VPMS</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/icons/bootstrap-icons.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/gijgo.min.css" type="text/css" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -30,7 +32,10 @@
     <script src="~/js/main.js" asp-append-version="false"></script>
 
     <script src="~/lib/bootstrap/dist/js/v4.6.2/bootstrap.bundle.min.js"></script>
+    <script src='~/lib/fullcalendar/index.global.min.js'></script>
 
+    <script src="~/lib/datepicker/gijgo.min.js" type="text/javascript"></script>
+   
     @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> *@
     <script src="https://kit.fontawesome.com/16798ef2db.js" crossorigin="anonymous"></script>
 
@@ -165,6 +170,7 @@
             }
     </style>
 </head>
+
 <body onload="StartTimers();" onmousemove="ResetTimers();" onkeydown="ResetTimers();">
 
     <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert" id="alert" style="position: fixed; z-index: 9999;left: 50%; transform: translate(-50%, 0); display: none !important;">
@@ -198,7 +204,7 @@
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="Appointment" asp-action="Index">
+                        <a id="mnAppointment" asp-controller="Appointment" asp-action="Index">
                             <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconAppt" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Appointments"]</strong>
@@ -268,8 +274,21 @@
                                         <div style="width: 200px; height: 60px; border: 0px solid black;">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#LanguageModal">
                                                 @{
-                                                    <label class="LanguageSelectionFont">@(LanguageFullNameSelected != null ? LanguageFullNameSelected.CodeName : "English") | @(CountrySelected != null ? CountrySelected.ConfigurationValue : "South Korea")</label>
-                                                }
+                                                    //var sLanguageFullName = ViewData["LanguageFullNameSelected"] as VPMS.Lib.Data.Models.MastercodeModel;
+                                                    //var sCountryFullName = ViewData["CountrySelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
+
+                                                    //if (sLanguageFullName != null && sCountryFullName != null)
+                                                    if (LanguageFullNameSelected != null && CountrySelected != null)
+                                                    {
+                                                        <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="LanguageSelectionFont">No Configuration Settings</label>
+                                                    }
+                                                }  
+    
+
                                             </a>
                                         </div>
                                     </div>
@@ -280,11 +299,14 @@
                             </div>
                             <div class="col-md-6" style="border: 0px solid black;">
                                 <div style="display: flex; flex-direction: row; margin-top: 10px; width: 280px; height: 60px; position: absolute; right: 5vw;">
-                                    <div style="width: 4vw; height: 4vw; border-radius: 4vw; background-color: cornflowerblue; text-align: center;">
-                                        <img src="~/images/AvatarProfile.png" width="40" height="40" />
+
+                                    <div style="width: 60px; border-radius: 50px; background-color: cornflowerblue; ">
+                                        <!-- text-align: center;-->
+                                        <img src="~/images/AvatarProfile.png" width="60" height="60" />
                                     </div>
                                     <div style="width: 220px; margin-left: 15px;">
-                                        <div class="dropdown" style="margin-top: 10px; width: fit-content;">
+                                        <div class="dropdown" style="margin-top: 10px;">
+                                            <!--  width: fit-content;-->
                                             <div class="dropdown-toggle" data-toggle="dropdown" style="width: 11vw;">
                                                 <label class="ProfileFont">@user</label>
                                             </div>
@@ -342,7 +364,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="border: 0px solid black;">
+                <div id="divContent" class="row" style="border: 0px solid black;">
                     @RenderBody()
                 </div>
 
@@ -367,20 +389,24 @@
 
                                 <ul class="list-group LangListGroup">
                                     @{
-                                        if (LanguageCodeList.Count > 0)
+                                        //var sLangObj = ViewData["LanguageCodeList"] as List<VPMS.Lib.Data.Models.MastercodeModel>;
+                                        //var sLangSelected = ViewData["LanguageSelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
+
+                                        if (LanguageCodeList != null && LanguageCodeList.Count > 0)
                                         {
                                             foreach (var m in LanguageCodeList)
                                             {
-                                                var sFlagPath = "/images/Icons/Country/" + m.CodeID + ".png";
-
-                                                <li class="list-group-item" style="border: 0px">
-                                                    <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"
-                                                            style="margin-left: 30px; vertical-align: middle;"
-                                                    @((LanguageSelected != null && LanguageSelected.ConfigurationValue == m.CodeID) ? "checked='true'" : "") />
-                                                    <img src=@sFlagPath class="CountryFlag" />
-                                                    <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
-                                                </li>
-                                            }
+                                                var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
+                                            
+                                                    <li class="list-group-item" style="border: 0px">
+                                                        <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"  
+                                                               style="margin-left: 30px; vertical-align: middle;" 
+                                                                />
+                                                    <!-- @*(sLangSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") *@-->
+                                                        <img src=@sFlagPath class="CountryFlag" />
+                                                        <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
+                                                    </li>
+                                            }                                           
                                         }
                                         else
                                         {
@@ -402,22 +428,25 @@
                             <div class="row CountryContentRow">
                                 <ul id="countrylist" class="list-group CountryListGroup">
                                     @{
-                                        if (CountryList.Count > 0)
+                                        //var sCountryObj = ViewData["CountryList"] as List<VPMS.Lib.Data.Models.CountryListModel>;
+                                        //var sCountrySelected = ViewData["CountrySelected"] as VPMS.Lib.Data.Models.ConfigurationModel;
+
+                                        if (CountryList != null && CountryList.Count > 0)
                                         {
                                             foreach (var c in CountryList)
                                             {
                                                 String sClassName = "list-group-item list-group-item-action";
-                                                if (CountrySelected != null && CountrySelected.ConfigurationValue == c.CountryName)
-                                                {
-                                                    sClassName = "list-group-item list-group-item-action active";
-                                                }
+                                                //if (CountrySelected.ConfigurationValue == c.CountryName)
+                                                //{
+                                                //    sClassName = "list-group-item list-group-item-action active";
+                                                //}
 
-                                                            <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
-                                            }
+                                                <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                            }                                            
                                         }
                                         else
                                         {
-                                                        <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
+                                            <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
                                         }
                                     }
                                 </ul>
@@ -437,6 +466,35 @@
         </div>
     </div>
 
+    <div id="modalConfirmYesNo" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label id="lblTitleConfirmYesNo" class="modal-title">Confirmation</label>
+                </div>
+                <div class="modal-body">
+                    <p id="lblMsgConfirmYesNo" style="text-align: center;"></p>
+                    <div class="row">
+                        <div class="col-md-2">&nbsp;</div>
+                        <div class="col-md-8" style="text-align: center;">
+                            <button id="btnYesConfirmYesNo"
+                                    type="button" class="btn btn-primary">
+                                Yes
+                            </button>
+                            <button id="btnNoConfirmYesNo"
+                                    type="button" class="btn btn-secondary">
+                                No
+                            </button>
+                        </div>
+                        <div class="col-md-2">&nbsp;</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -593,7 +651,74 @@
             }
         }
 
+        $('#btnSave').on('click', function()
+        {
+            $lang = $("input[type='radio'][name='listgrpradio']:checked").val();
+
+            if ($lang != null && $lang.length > 0)
+            {
+                $.post("/Home/ChangeLanguage", {
+                    lang: $lang,
+                    UserID: 'User A'
+                }).done(function(resp){
+                    updateCountrySettings();
+ 
+                    window.location.reload();
+                });
+            }
+            else
+            {
+                updateCountrySettings();
+ 
+                window.location.reload();
+            }
+        });
+
+        // Confirmation MessageBox
+        function ShowConfirmCancelMsgBox(MsgTitle, MsgContent, YesButtonCallback, NoButtonCallback) {
+            AsyncConfirmYesNo(
+                MsgTitle,
+                MsgContent,
+                YesButtonCallback,
+                NoButtonCallback
+            );
+        }
+
+        function AsyncConfirmYesNo(title, msg, yesFn, noFn) {
+            var $confirm = $("#modalConfirmYesNo");
+            $confirm.modal('show');
+            $("#lblTitleConfirmYesNo").html(title);
+            $("#lblMsgConfirmYesNo").html(msg);
+            $("#btnYesConfirmYesNo").off('click').click(function () {
+                yesFn();
+                $confirm.modal("hide");
+            });
+            $("#btnNoConfirmYesNo").off('click').click(function () {
+                noFn();
+                $confirm.modal("hide");
+            });
+        }
     </script>
+
+@*     @{
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
+        if (theme != null)
+        {
+            if (theme == "dark")
+            {
+                <link rel="stylesheet" href="~/css/DarkTheme.css" />
+            }
+            if (theme == "light")
+            {
+                <link rel="stylesheet" href="~/css/LightTheme.css" />
+            }
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/css/LightTheme.css" />
+        }
+    }
+    </script> *@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

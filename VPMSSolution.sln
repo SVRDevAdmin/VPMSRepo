@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPMSWeb", "VPMS\VPMSWeb.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPMS.Lib.Data", "VPMS.Lib.Data\VPMS.Lib.Data.csproj", "{6E62ABC4-FA94-40ED-B5C1-A641F91AE7B2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPMS.Lib.Helpers", "Library\VPMS.Lib.Helpers\VPMS.Lib.Helpers.csproj", "{AA91DF4C-CEFA-4249-B96B-50F96C288AEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6E62ABC4-FA94-40ED-B5C1-A641F91AE7B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E62ABC4-FA94-40ED-B5C1-A641F91AE7B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E62ABC4-FA94-40ED-B5C1-A641F91AE7B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA91DF4C-CEFA-4249-B96B-50F96C288AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA91DF4C-CEFA-4249-B96B-50F96C288AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA91DF4C-CEFA-4249-B96B-50F96C288AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA91DF4C-CEFA-4249-B96B-50F96C288AEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
