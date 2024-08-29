@@ -5,6 +5,14 @@ body {
 	transition: background-color 1s;
 }
 
+input[type='text'], input[type='password'], button, select, .timePicker {
+	box-shadow: none !important;
+}
+
+input[type='text']:focus, select:focus {
+	box-shadow: none !important;
+}
+
 #content-container {
 	width: 100vw;
 	height: 97vh;
@@ -420,6 +428,38 @@ body {
 	color: black;
 	font-weight: bold;
 }
+
+.apptPageTitle 
+{
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 40px;
+	margin-top: 20px;
+	color: black;
+}
+
+.fc-icon-chevron-left, .fc-icon-chevron-right {
+	color: black !important;
+}
+
+.fc-customButton-button {
+	background-color: transparent !important;
+	color: black !important;
+	font-weight: bold !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+.fc-toolbar-title {
+	font-family: sans-serif !important;
+	font-size: 20px !important;
+	font-weight: bold !important;
+	color: black !important;
+}
+
+/*.fc-customButton-button {
+	color: black !important;
+}*/
 
 .containerBackground {
 	background-color: #f7f7f7;

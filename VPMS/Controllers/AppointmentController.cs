@@ -14,7 +14,7 @@ namespace VPMSWeb.Controllers
             AppointmentViewModel sModel = new AppointmentViewModel();
 
             sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), 1);
-            sModel.PatientSelectionModel = AppointmentRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings());
+            sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings());
             sModel.SpeciesModel = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Species");
             
             ViewData["AppointmentViewModel"] = sModel;
@@ -22,6 +22,16 @@ namespace VPMSWeb.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Get Appointment list by Calendar View
+        /// </summary>
+        /// <param name="sYear"></param>
+        /// <param name="sMonth"></param>
+        /// <param name="searchOwner"></param>
+        /// <param name="searchPet"></param>
+        /// <param name="searchServices"></param>
+        /// <param name="searchDoctor"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetCalendarAppointmentsMonthView(String sYear, String sMonth, String searchOwner, String searchPet, 
                                                               String searchServices, String searchDoctor)
@@ -30,6 +40,11 @@ namespace VPMSWeb.Controllers
             return Json(appViewModel);
         }
 
+        /// <summary>
+        /// Get Appointment Record by AppointmentID
+        /// </summary>
+        /// <param name="ApptID"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetAppointmentByID(String ApptID)
         {
@@ -37,6 +52,14 @@ namespace VPMSWeb.Controllers
             return Json(apptData);
         }
 
+        /// <summary>
+        /// Update Appointment Information
+        /// </summary>
+        /// <param name="ApptDate"></param>
+        /// <param name="ApptStartTime"></param>
+        /// <param name="ApptEndTime"></param>
+        /// <param name="ApptID"></param>
+        /// <returns></returns>
         public IActionResult UpdateAppointment(DateTime ApptDate, DateTime ApptStartTime, DateTime ApptEndTime, long ApptID)
         {
             ResponseResultCode sResp = new ResponseResultCode();
@@ -53,6 +76,12 @@ namespace VPMSWeb.Controllers
             return Json(sResp);
         }
 
+        /// <summary>
+        /// Update Appointment Status
+        /// </summary>
+        /// <param name="ApptID"></param>
+        /// <param name="ApptStatus"></param>
+        /// <returns></returns>
         public IActionResult UpdateAppointmentStatus(long ApptID, int ApptStatus)
         {
             ResponseResultCode sResp = new ResponseResultCode();
@@ -69,6 +98,11 @@ namespace VPMSWeb.Controllers
             return Json(sResp);
         }
 
+        /// <summary>
+        /// Create Appointment
+        /// </summary>
+        /// <param name="sControllerModel"></param>
+        /// <returns></returns>
         public IActionResult CreateAppointment(AppointmentControllerModel sControllerModel)
         {
             ResponseResultCode sResp = new ResponseResultCode();
@@ -137,6 +171,11 @@ namespace VPMSWeb.Controllers
 
         }
 
+        /// <summary>
+        /// Create new client Appointment
+        /// </summary>
+        /// <param name="sControllerModel"></param>
+        /// <returns></returns>
         public IActionResult CreateNewClientAppointment(AppointmentNewClientControllerModel sControllerModel)
         {
             ResponseResultCode sResp = new ResponseResultCode();
@@ -229,15 +268,25 @@ namespace VPMSWeb.Controllers
 
         }
 
+        /// <summary>
+        /// Get Doctor list by services selected
+        /// </summary>
+        /// <param name="ServicesID"></param>
+        /// <returns></returns>
         public IActionResult GetServiceDoctorList(int ServicesID)
         {
             var sServicesDoctorList = TreatmentServicesRepository.GetServicesDoctorList(ConfigSettings.GetConfigurationSettings(), ServicesID);
             return Json(sServicesDoctorList);
         }
-
+        
+        /// <summary>
+        /// Get Pet List By Owner ID
+        /// </summary>
+        /// <param name="PatientID"></param>
+        /// <returns></returns>
         public IActionResult GetPetListByPatientID(long PatientID)
         {
-            List<PetsSelectionModel> sPetList = AppointmentRepository.GetPetListByOwnerID(ConfigSettings.GetConfigurationSettings(), PatientID);
+            List<PetsSelectionModel> sPetList = PatientRepository.GetPetListByOwnerID(ConfigSettings.GetConfigurationSettings(), PatientID);
             return Json(sPetList);
         }
     }

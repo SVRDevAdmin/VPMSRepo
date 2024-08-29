@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 using System.Globalization;
 using VPMS;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMS.Models;
+using VPMSWeb.Interface;
+using VPMSWeb.Lib;
 using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
@@ -14,7 +17,7 @@ namespace VPMSWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-		String sLangCodeGroup = "LanguageSelection";
+        String sLangCodeGroup = "LanguageSelection";
 
 		public HomeController(ILogger<HomeController> logger)
         {
@@ -42,7 +45,6 @@ namespace VPMSWeb.Controllers
                 Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
             }
 
-			//if (ViewData["LanguageSelected"] != null)
 			if (Program.LanguageSelected != null)
 			{
 				var sLangSelected = ViewData["LanguageSelected"] as ConfigurationModel;
@@ -50,7 +52,7 @@ namespace VPMSWeb.Controllers
                 Program.LanguageFullNameSelected = ViewData["LanguageFullNameSelected"] as MastercodeModel;
             }
 
-			return View();
+            return View();
         }
 
         public IActionResult Privacy()
@@ -99,5 +101,6 @@ namespace VPMSWeb.Controllers
 			Response.Cookies.Append("Language", lang);
 			return Redirect(Request.GetTypedHeaders().Referer.ToString());
 		}
+
 	}
 }

@@ -16,6 +16,7 @@ namespace VPMS
         public static List<MastercodeModel> LanguageCodeList { get; set; }
         public static List<CountryListModel> CountryList { get; set; }
         public static MastercodeModel LanguageFullNameSelected { get; set; }
+        public static VPMSWeb.Interface.IResourcesLocalizer _LangResources { get; set; }
 
         public static void Main(string[] args)
         {
