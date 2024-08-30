@@ -1,7 +1,24 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Dev\\VPMS\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|c:\\dev\\vpms\\vpms\\views\\appointment\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|solutionrelative:vpms\\views\\appointment\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|c:\\dev\\vpms\\vpms\\wwwroot\\css\\appointment.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|solutionrelative:vpms\\wwwroot\\css\\appointment.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|c:\\dev\\vpms\\vpms\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|solutionrelative:vpms\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E62ABC4-FA94-40ED-B5C1-A641F91AE7B2}|VPMS.Lib.Data\\VPMS.Lib.Data.csproj|c:\\dev\\vpms\\vpms.lib.data\\appointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E62ABC4-FA94-40ED-B5C1-A641F91AE7B2}|VPMS.Lib.Data\\VPMS.Lib.Data.csproj|solutionrelative:vpms.lib.data\\appointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 284,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,6 +47,58 @@
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Appointment.css",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\css\\Appointment.css",
+              "RelativeDocumentMoniker": "VPMS\\wwwroot\\css\\Appointment.css",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\css\\Appointment.css",
+              "RelativeToolTip": "VPMS\\wwwroot\\css\\Appointment.css",
+              "ViewState": "AQIAAIgAAAAAAAAAAAAAAKAAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-08-30T08:36:13.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMS\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "VPMS\\Controllers\\AppointmentController.cs",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMS\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "VPMS\\Controllers\\AppointmentController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-30T07:45:10.969Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppointmentRepository.cs",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMS.Lib.Data\\AppointmentRepository.cs",
+              "RelativeDocumentMoniker": "VPMS.Lib.Data\\AppointmentRepository.cs",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMS.Lib.Data\\AppointmentRepository.cs",
+              "RelativeToolTip": "VPMS.Lib.Data\\AppointmentRepository.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-30T07:44:56.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMS\\Views\\Appointment\\Index.cshtml",
+              "RelativeDocumentMoniker": "VPMS\\Views\\Appointment\\Index.cshtml",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMS\\Views\\Appointment\\Index.cshtml",
+              "RelativeToolTip": "VPMS\\Views\\Appointment\\Index.cshtml",
+              "ViewState": "AQIAAAUFAAAAAAAAAAAAAEcFAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-30T05:32:43.833Z",
+              "EditorCaption": ""
             }
           ]
         }

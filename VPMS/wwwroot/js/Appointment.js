@@ -1,6 +1,4 @@
-﻿import { LangResources } from './Views/Appointment.cshtml';
-
-var sCalendarView = 'dayGridMonth';
+﻿var sCalendarView = 'dayGridMonth';
 if (sessionStorage.getItem("CalendarView") != null) {
     sCalendarView = sessionStorage.getItem("CalendarView");
 }
@@ -350,6 +348,7 @@ function CalendarViewChanges(calender, viewSelected) {
 }
 
 function PopulateCustomViewsEvent(args, extendedObj) {
+    debugger;
     var sHtmlContent = "<div class='row' style='height: 100% !important; display: flex;'>" +
         "<div class='row' style='border: 0px solid black; margin-top: auto; margin-bottom: auto; vertical-align: middle;'>" +
 
@@ -368,8 +367,8 @@ function PopulateCustomViewsEvent(args, extendedObj) {
 
         "<div style='width: 30%; border-right: 1px solid white;'>" +
         "<div style='margin-left: 20%; margin-right: 10%; margin-top: 5%; margin-bottom: 5%;'>" +
-        "<strong>@Html.Raw(LangResources["Appointment_Label_Pet"]) : " + extendedObj.Pet + "</strong><br />" +
-            "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner +
+        "<strong>" + LangResources['Appointment_Label_Pet'] + " : " + extendedObj.Pet + "</strong><br />" +
+            "@Html.Raw(LangResources['Appointment_Label_Owner']) : " + extendedObj.Owner +
                 "</div>" +
                 "</div>" +
 
@@ -398,8 +397,8 @@ function PopulateWeekViewsEvent(args, extendedObj) {
         "<div style='width: 100%; font-size: 10px;'>" +
         "<strong>" + args.event._def.title + "</strong><br/>" +
         extendedObj.doctor + "<br/>" +
-        "@Html.Raw(LangResources["Appointment_Label_Pet"])  : " + extendedObj.Pet + "<br/>" +
-            "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner + "<br/>" +
+        "@Html.Raw(LangResources['Appointment_Label_Pet'])  : " + extendedObj.Pet + "<br/>" +
+            "@Html.Raw(LangResources['Appointment_Label_Owner']) : " + extendedObj.Owner + "<br/>" +
                 "</div>" +
                 "</div>";
 
@@ -947,7 +946,7 @@ $(document).ready(function () {
 
     $('#btnDirectCancel').on('click', function (ctl) {
 
-        ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Appointment_Title_CancelAppointment"])", "@Html.Raw(LangResources["Appointment_Message_ConfirmCancelAppt"])",
+        ShowConfirmCancelMsgBox("@Html.Raw(LangResources['Appointment_Title_CancelAppointment'])", "@Html.Raw(LangResources['Appointment_Message_ConfirmCancelAppt'])",
             function () {
                 var sApptID = $('#hidApptID').val();
                 var sStatus = 2;
@@ -988,7 +987,7 @@ function btnTimeGridEditClick() {
 }
 
 function btnTimeGridCancelClick() {
-    ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Appointment_Title_CancelAppointment"])", "@Html.Raw(LangResources["Appointment_Message_ConfirmCancelAppt"])",
+    ShowConfirmCancelMsgBox("@Html.Raw(LangResources['Appointment_Title_CancelAppointment'])", "@Html.Raw(LangResources['Appointment_Message_ConfirmCancelAppt'])",
         function () {
             var sApptID = $('#timeGridApptID').val();
             var sStatus = 2;

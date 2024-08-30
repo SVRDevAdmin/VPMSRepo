@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="~/css/font-awesome.min.css">
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="~/css/Appointment.css" />
 <script src="~/lib/moment.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap-datetimepicker.min.js"> </script>
 
@@ -188,137 +189,6 @@
         });
 
         calendar.render();
-
-
-        $('#dtAddAppt').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-        $('#dtNewDOB').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-        $('#dtNewApptDate').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-        $('#dtEditAppt').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-
-
-        $('#strtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            time = "09:00 AM";
-            $(this).data('DateTimePicker').date(time);
-            $(this).data('DateTimePicker').minDate(time);
-        }).on('dp.change', function(){
-            var min_endtime = $(this).val();
-            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $('#endtimePicker').val(min_time);
-        });
-
-        $('#endtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            var starttime = $('#strtimePicker').val();
-            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $(this).data('DateTimePicker').date(min_starttime);
-            $(this).data('DateTimePicker').minDate(min_starttime);
-        });
-
-        $('#newStrtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            time = "09:00 AM";
-            $(this).data('DateTimePicker').date(time);
-            $(this).data('DateTimePicker').minDate(time);
-        }).on('dp.change', function(){
-            var min_endtime = $(this).val();
-            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $('#newEndtimePicker').val(min_time);
-        });
-
-        $('#newEndtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: "fa fa-arrow-up",
-                down: "fa fa-arrow-down"
-            }
-        }).on('dp.show', function () {
-            var starttime = $('#newStrtimePicker').val();
-            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $(this).data('DateTimePicker').date(min_starttime);
-            $(this).data('DateTimePicker').minDate(min_starttime);
-        });
-
-        $('#EditStrttimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            time = "09:00 AM";
-            $(this).data('DateTimePicker').date(time);
-            $(this).data('DateTimePicker').minDate(time);
-        }).on('dp.change', function () {
-            var min_endtime = $(this).val();
-            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $('#EditEndtimePicker').val(min_time);
-        });
-
-        $('#EditEndtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: "fa fa-angle-up",
-                down: "fa fa-angle-down"
-            }
-        }).on('dp.show', function () {
-            var starttime = $('#EditStrttimePicker').val();
-            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $(this).data('DateTimePicker').date(min_starttime);
-            $(this).data('DateTimePicker').minDate(min_starttime);
-        });
-
-
-        $('.dropdown-item').on('click', function (ctl) {
-            var sView = $(this)[0].attributes["data"].value;
-            calendar.changeView(sView);
-
-            sessionStorage.setItem("CalendarView", sView);
-
-            var sTag = $(this)[0].text;
-            $('.fc-customButton-button').text(sTag);
-
-            $('.dropdown-menu').hide();
-        });
     });
 
     function CalendarViewChanges(calender, viewSelected){
@@ -878,7 +748,138 @@
         });
     }
 
-    $(document).ready(function(){
+    $(document).ready(function()
+    {
+        /*------- Initiate Date Picker ------*/
+        $('#dtAddAppt').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtNewDOB').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtNewApptDate').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtEditAppt').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+
+        /*----- initiate TimePicker --------*/
+        $('#strtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#endtimePicker').val(min_time);
+        });
+
+        $('#endtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#strtimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        $('#newStrtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#newEndtimePicker').val(min_time);
+        });
+
+        $('#newEndtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#newStrtimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        $('#EditStrttimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#EditEndtimePicker').val(min_time);
+        });
+
+        $('#EditEndtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: "fa fa-angle-up",
+                down: "fa fa-angle-down"
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#EditStrttimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        /*------- Custom Button OnClick ---------*/
+        $('.dropdown-item').on('click', function (ctl) {
+            var sView = $(this)[0].attributes["data"].value;
+            calendar.changeView(sView);
+
+            sessionStorage.setItem("CalendarView", sView);
+
+            var sTag = $(this)[0].text;
+            $('.fc-customButton-button').text(sTag);
+
+            $('.dropdown-menu').hide();
+        });
 
         $('#btnCreate').on('click', function(ctl){
             $('#divNewAppt').show();
@@ -1128,161 +1129,6 @@
         $('#lbNewError').html('');
     }
 </script>
-<style type="text/css">
-    .errorValidation{
-        border-color: red !important;
-    }
-
-    #dtApp {
-        vertical-align: middle;
-    }
-
-    .btn-outline-secondary {
-        display: none;
-    }
-
-    .bootstrap-datetimepicker-widget {
-        width: 200px !important;
-    }
-
-    .fc-col-header-cell {
-        color: #fff !important;
-        font-size: 12px !important;
-        font-family: sans-serif !important;
-        background-color: black !important;
-    }
-
-    .fc-col-header-cell:first-of-type {
-        border-top-left-radius: 8px !important;
-    }
-
-    .fc-col-header-cell:last-of-type {
-        border-top-right-radius: 8px !important;
-    }
-
-    .fc-col-header-cell.fc-day.fc-day-sun.fc-day-past{
-        border-top-left-radius: 8px !important;
-    }
-
-    .fc-col-header-cell-cushion {
-        color: #fff !important;
-        text-decoration: none !important;
-    }
-
-    .fc-daygrid-day-number {
-        color: #919191 !important;
-        text-decoration: none !important;
-        font-size: 13px !important;
-        font-weight: bold !important;
-    }
-
-    .fc-event {
-        background-color: #1D76FB !important;
-    }
-    .fc-event-title {
-        font-size: 11px !important;
-        font-weight: bold !important;
-        color: #fff !important;
-    }
-
-    .fc-daygrid-event-dot{
-        display: none;
-    }
-
-    .fc-customButton2-button {
-        background-color: transparent !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 0 !important;
-    }
-
-    .fc-prev-button {
-        background-color: transparent !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 0 !important;
-    }
-
-    .fc-next-button {
-        background-color: transparent !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 0 !important;
-    }
-
-    .fc .fc-daygrid-day.fc-day-today {
-        background-color: transparent !important;
-    }
-
-    .fc-timeGridWeek-view > .fc-scrollgrid {
-        border-left-style: none !important;
-        border-top-style: none !important;
-        border-bottom-style: none !important;
-    }
-
-    .fc-timegrid-slot-label-cushion {
-        color: #919191 !important;
-        font-family: sans-serif !important;
-        font-size: 12px !important;
-    }
-
-    .fc-timegrid-axis {
-        background-color: transparent !important;
-        border-bottom: none !important;
-    }
-
-    .fc-customDayGrid-view > .fc-scrollgrid {
-        border-left-style: none !important;
-        border-top-style: none !important;
-        border-bottom-style: none !important;
-    }
-
-    .fc-customDayGrid-view > .fc-scrollgrid td:first-of-type {
-        border-left: none !important;
-        border-top: none !important;
-        border-bottom: none !important;
-    }
-
-    .fc .fc-timegrid-col.fc-day-today {
-        background-color: transparent !important;
-    }
-
-    .fc-timegrid-event-harness > .fc-timegrid-event {
-        inset: 0px !important;
-        position: relative !important;
-    }
-
-    .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
-        box-shadow: 0 0 0 1px #1D76FB !important;
-    }
-
-    .SearchRowTitle{
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 5px;
-    }
-
-    .SearchRowFields{
-        margin-top: 0px;
-        margin-bottom: 20px;
-        margin-left: 7px;
-        margin-right: 5px;
-    }
-
-    .SearchRowButtonSearch{
-        margin-top: 20px;
-        margin-bottom: 10px;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-
-    .SearchRowButtonReset{
-        margin-top: 10px;
-        margin-bottom: 30px;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-</style>
 <div class="row">
     <div class="row">
         <div class="col-md-12">
@@ -1327,11 +1173,9 @@
                     </div>
                     <!-- Owner -->
                     <div class="row SearchRowTitle">
-                        <!-- style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"-->
                         <label class="searchLabel">@LangResources["Appointment_Label_Owner"]</label>
                     </div>
                     <div class="row SearchRowFields">
-                        <!-- style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;"-->
                         <select id="ddlSearchOwner" class="form-select" onchange="ddlSearchOwnerChange(this)">
                             <option value="">@LangResources["Appointment_Selection_SelectOwner"]</option>
 
@@ -1349,22 +1193,18 @@
                     </div>
                     <!-- Patients -->
                     <div class="row SearchRowTitle">
-                        <!--  style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"-->
                         <label class="searchLabel">@LangResources["Appointment_Label_Pet"]</label>
                     </div>
                     <div class="row SearchRowFields">
-                        <!-- style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;"-->
                         <select id="ddlSearchPet" class="form-select">
                             <option value="">@LangResources["Appointment_Selection_SelectPet"]</option>
                         </select>
                     </div>
                     <!-- Services -->
                     <div class="row SearchRowTitle">
-                        <!-- style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"-->
                         <label class="searchLabel">@LangResources["Appointment_Label_Services"]</label>
                     </div>
                     <div class="row SearchRowFields">
-                        <!-- style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;"-->
                         <select id="ddlSearchServices" class="form-select" onchange="ddlSearchServicesChange(this)">
                             <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
 
@@ -1384,24 +1224,20 @@
                     </div>
                     <!-- Doctor Selection -->
                     <div class="row SearchRowTitle">
-                        <!-- style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"-->
                         <label class="searchLabel">@LangResources["Appointment_Label_Doctor"]</label>
                     </div>
                     <div class="row SearchRowFields">
-                        <!-- style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;"-->
                         <select id="ddlSearchDoctor" class="form-select">
                             <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
                         </select>
                     </div>
 
                     <div class="row SearchRowButtonSearch">
-                        <!-- style="margin-top: 20px; margin-bottom: 10px; margin-left: 5px; margin-right: 5px;"-->
                         <button id="btnSearch" type="button" class="btn btn-primary">
                             @LangResources["Appointment_Button_Search"]
                         </button>
                     </div>
                     <div class="row SearchRowButtonReset">
-                        <!-- style="margin-top: 10px; margin-bottom: 30px; margin-left: 5px; margin-right: 5px;"-->
                         <button id="btnReset" type="button" class="btn btn-secondary">
                             @LangResources["Appointment_Button_Reset"]
                         </button>
@@ -1440,10 +1276,10 @@
                     <div class="row" style="height: 30px;">&nbsp;</div>
                     <div class="row" style="border: 0px solid black;">
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_OwnerName"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
                         </div>
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_PetName"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1474,10 +1310,10 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_Services"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
                         <div class="col-md-6">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_DateTime"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1515,7 +1351,7 @@
                     <div class="row">&nbsp;</div>
                     <div action="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_Doctor"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
@@ -1571,10 +1407,10 @@
                     <div class="row" style="height: 30px;">&nbsp;</div>
                     <div class="row" style="border: 0px solid black;">
                         <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_OwnerFullName"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerFullName"]</label>
                         </div>
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_ContactNo"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_ContactNo"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1588,10 +1424,10 @@
                     <div class="row">&nbsp;</div>
                     <div class="row" style="border: 0px solid black;">
                         <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_EmailAddress"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_EmailAddress"]</label>
                         </div>
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_PetName"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1605,10 +1441,10 @@
                     <div class="row">&nbsp;</div>
                     <div class="row" style="border: 0px solid black;">
                         <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_PetDOB"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_PetDOB"]</label>
                         </div>
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_Species"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_Species"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1640,10 +1476,10 @@
                     <div class="row">&nbsp;</div>
                     <div class="row" style="border: 0px solid black;">
                         <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_Services"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_DateTime"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1680,7 +1516,7 @@
                     <div class="row">&nbsp;</div>
                     <div class="row" style="border: 0px solid black;">
                         <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_Doctor"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
                         </div>
                         <div class="col-md-6" style="border: 0px solid black;">
                         </div>
@@ -1731,10 +1567,10 @@
                     <div class="row" style="height: 30px;">&nbsp;</div>
                     <div class="row" style="border: 0px solid black;">
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_OwnerName"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
                         </div>
                         <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_PetName"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1748,10 +1584,10 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_Services"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
                         <div class="col-md-6">
-                            <label style="font-weight: bold;">@LangResources["Appointment_Label_DateTime"]</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -1773,7 +1609,7 @@
                     <div class="row">&nbsp;</div>
                     <div action="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">@LangResources["Appointment_Label_Doctor"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>

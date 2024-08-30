@@ -1,0 +1,163 @@
+﻿.errorValidation {
+    border-color: red !important;
+}
+
+#dtApp {
+    vertical-align: middle;
+}
+
+.btn-outline-secondary {
+    display: none;
+}
+
+.bootstrap-datetimepicker-widget {
+    width: 200px !important;
+}
+
+.fc-col-header-cell {
+    color: #fff !important;
+    font-size: 12px !important;
+    font-family: sans-serif !important;
+    background-color: black !important;
+}
+
+    .fc-col-header-cell:first-of-type {
+        border-top-left-radius: 8px !important;
+    }
+
+    .fc-col-header-cell:last-of-type {
+        border-top-right-radius: 8px !important;
+    }
+
+    .fc-col-header-cell.fc-day.fc-day-sun.fc-day-past {
+        border-top-left-radius: 8px !important;
+    }
+
+.fc-col-header-cell-cushion {
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+.fc-daygrid-day-number {
+    color: #919191 !important;
+    text-decoration: none !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+}
+
+.fc-event {
+    background-color: #1D76FB !important;
+}
+
+.fc-event-title {
+    font-size: 11px !important;
+    font-weight: bold !important;
+    color: #fff !important;
+}
+
+.fc-daygrid-event-dot {
+    display: none;
+}
+
+.fc-customButton2-button {
+    background-color: transparent !important;
+    color: black !important;
+    font-weight: bold !important;
+    border: 0 !important;
+}
+
+.fc-prev-button {
+    background-color: transparent !important;
+    color: black !important;
+    font-weight: bold !important;
+    border: 0 !important;
+}
+
+.fc-next-button {
+    background-color: transparent !important;
+    color: black !important;
+    font-weight: bold !important;
+    border: 0 !important;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: transparent !important;
+}
+
+.fc-timeGridWeek-view > .fc-scrollgrid {
+    border-left-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+}
+
+.fc-timegrid-slot-label-cushion {
+    color: #919191 !important;
+    font-family: sans-serif !important;
+    font-size: 12px !important;
+}
+
+.fc-timegrid-axis {
+    background-color: transparent !important;
+    border-bottom: none !important;
+}
+
+.fc-customDayGrid-view > .fc-scrollgrid {
+    border-left-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+}
+
+    .fc-customDayGrid-view > .fc-scrollgrid td:first-of-type {
+        border-left: none !important;
+        border-top: none !important;
+        border-bottom: none !important;
+    }
+
+.fc .fc-timegrid-col.fc-day-today {
+    background-color: transparent !important;
+}
+
+.fc-timegrid-event-harness > .fc-timegrid-event {
+    inset: 0px !important;
+    position: relative !important;
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
+    box-shadow: 0 0 0 1px #1D76FB !important;
+}
+
+.SearchRowTitle {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.SearchRowFields {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 7px;
+    margin-right: 5px;
+}
+
+.SearchRowButtonSearch {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.SearchRowButtonReset {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.DetailsTitleLeftCol {
+    margin-left: 60px;
+    font-weight: bold;
+}
+
+.DetailsTitleRightCol {
+    font-weight: bold;
+}
