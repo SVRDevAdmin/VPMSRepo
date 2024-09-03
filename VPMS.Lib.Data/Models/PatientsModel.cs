@@ -35,6 +35,18 @@ namespace VPMS.Lib.Data.Models
         public int Status { get; set; }
     }
 
+    public class Pet_Growth : AuditPartialModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public int PetID { get; set; }
+		public int Age { get; set; }
+		public Decimal Height { get; set; }
+		public Decimal Weight { get; set; }
+		public string? Allergies { get; set; }
+		public Decimal BMI { get; set; }
+	}
+
     public class Patient_Owner : AuditModel
     {
         [Key]
@@ -43,7 +55,8 @@ namespace VPMS.Lib.Data.Models
         public string Name { get; set; } = null!;
         public string Gender { get; set; } = null!;
         public string ContactNo { get; set; } = null!;
-        public string Address { get; set; } = null!;
+		public string EmailAddress { get; set; } = null!;
+		public string Address { get; set; } = null!;
         public string PostCode { get; set; } = null!;
         public string City { get; set; } = null!;
         public string State { get; set; } = null!;

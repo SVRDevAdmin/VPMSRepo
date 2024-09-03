@@ -221,13 +221,13 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
-					<input type="text" class="form-control form-field inputField petInfoProfile RegistrationNo hideContainer" value="@Model.RegistrationNo" disabled />
+					<input type="text" class="form-control form-field inputField petInfoProfile RegistrationNo hideContainer" value="@Model.RegistrationNo" />
 					<span class="formlabel petInfoProfile textColor RegistrationNo">@Model.RegistrationNo</span>
 				</div>
 
 				<div class="field-container">
 					<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
-					<select class="form-control form-field inputField petInfoProfile Sex hideContainer" disabled>
+					<select class="form-control form-field inputField petInfoProfile Sex hideContainer">
 						<option value=""> -- @LangResources["Patient_Selection_SelectSex"] --</option>
 						@if (Model.Gender == "M")
 						{
@@ -249,7 +249,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
-					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" disabled/>
+					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" onchange="updateAge(this);"/>
 					<span class="formlabel petInfoProfile textColor DOB">@Model.DOB</span>
 				</div>
 
@@ -259,27 +259,39 @@
 					@{
 						var currentDate = DateOnly.FromDateTime(DateTime.Now);
 						var petDOB = Model.DOB;
+						var dayDiffer = currentDate.DayNumber - petDOB.DayNumber;
 						var yearDiffer = currentDate.Year - petDOB.Year;
 						var monthDiffer = currentDate.Month - petDOB.Month + (12 * yearDiffer);
 						var ageText = "";
+						var yearText = "";
 
-						if (monthDiffer < 12)
+						if (dayDiffer < 30)
 						{
-							ageText = monthDiffer + " months";
+							ageText = dayDiffer + " day";
+							if (dayDiffer > 1) { ageText += "s"; }
+							yearText = "0";
+						}
+						else if (monthDiffer < 12)
+						{
+							ageText = monthDiffer + " month";
+							if (monthDiffer > 1) { ageText += "s"; }
+							yearText = "0";
 						}
 						else
 						{
-							ageText = (monthDiffer / 12) + " years";
+							ageText = (monthDiffer / 12) + " year";
+							if ((monthDiffer / 12) > 1) { ageText += "s"; }
+							yearText = (monthDiffer / 12) + "";
 						}
 					}
 
-					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@ageText" disabled />
+					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@yearText" disabled />
 					<span class="formlabel petInfoProfile textColor Age"> @ageText </span>
 				</div>
 
 				<div class="field-container">
 					<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
-					<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer" disabled>
+					<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer">
 						<option value=""> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 						@foreach (var species in ViewData["Species"] as List<string>)
 						{
@@ -300,7 +312,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Breed"]</span>
-					<select class="form-control form-field inputField petInfoProfile Breed hideContainer" disabled>
+					<select class="form-control form-field inputField petInfoProfile Breed hideContainer">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
 					</select>
 					<span class="formlabel petInfoProfile textColor Breed">@Model.Breed</span>
@@ -374,7 +386,11 @@
 			<div style="display: flex; margin-bottom: 1.5vw;" class="petInfoProfile">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Obese"]</span>
-					<span class="formlabel Obese" style="color: @(Model.Weight > 5 ? "red" : "green");">@(Model.Weight > 10 ? LangResources["Patient_Selection_Yes"] : @LangResources["Patient_Selection_No"])</span>
+					@{
+						var obesity = "";
+						var bmi = (Model.Weight / (Model.Height * Model.Height)) * 10000;
+					}
+					<span class="formlabel Obese" style="color: @(bmi > 30 ? "red" : "green");">@(bmi > 30 ? LangResources["Patient_Selection_Yes"] : @LangResources["Patient_Selection_No"])</span>
 				</div>
 			</div>
 
@@ -388,8 +404,11 @@
 
 		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
 			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_MedicalRecord"]</span>
-			<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+			<button onclick="editMedicalRecord();" class="btn btn-lg btn-primary medicalRecord" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-pen-to-square"></i>
+			</button>
+			<button onclick="editMedicalRecord();" class="btn btn-lg btn-primary medicalRecord hideContainer" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+				<i class="fa-regular fa-floppy-disk"></i>
 			</button>
 		</div>
 		<div class="containerBorder textColor" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
@@ -402,42 +421,138 @@
 
 				<div id="VaccinationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
 					<div style="margin-bottom: 1vw;">
-						<span>Vaccination</span> </br>
-						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+						<div class="medicalRecord">
+							<span>Vaccination</span> </br>
+							<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+							<span style="color: darkgray;">02/04/2023</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<div class="tooltip">
+									<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Need to monitor further.</span>
+								</div>								
 							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+						<div class="medicalRecord hideContainer">
+							<div>
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+									<input type="text" class="form-control form-field inputField TypeVaccination" value="Vaccination"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+									<input id="NameVaccination" type="text" class="form-control form-field inputField NameVaccination" value="Vanguard DHLPP"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+									<input type="date" class="form-control form-field inputField DueDateVaccination" value="2023-06-02"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">Remarks</span>
+									<input type="text" class="form-control form-field inputField RemarksVaccination" value="Need to monitor further."/>
+								</div>
+
+								<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+									<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div style="margin-bottom: 1vw;">
-						<span>Vaccination</span> </br>
-						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+						<div class="medicalRecord">
+							<span>Vaccination</span> </br>
+							<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+							<span style="color: darkgray;">02/04/2023</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<div class="tooltip">
+									<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Need to monitor further.</span>
+								</div>								
 							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+						<div class="medicalRecord hideContainer">
+							<div>
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+									<input type="text" class="form-control form-field inputField TypeVaccination" value="Vaccination"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+									<input id="NameVaccination" type="text" class="form-control form-field inputField NameVaccination" value="Vanguard DHLPP"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+									<input type="date" class="form-control form-field inputField DueDateVaccination" value="2023-06-02"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">Remarks</span>
+									<input type="text" class="form-control form-field inputField RemarksVaccination" value="Need to monitor further."/>
+								</div>
+
+								<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+									<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div style="margin-bottom: 1vw;">
-						<span>Vaccination</span> </br>
-						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+						<div class="medicalRecord">
+							<span>Vaccination</span> </br>
+							<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
+							<span style="color: darkgray;">02/04/2023</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<div class="tooltip">
+									<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Need to monitor further.</span>
+								</div>								
 							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+						</div>
+						<div class="medicalRecord hideContainer">
+							<div>
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+									<input type="text" class="form-control form-field inputField TypeVaccination" value="Vaccination"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+									<input id="NameVaccination" type="text" class="form-control form-field inputField NameVaccination" value="Vanguard DHLPP"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+									<input type="date" class="form-control form-field inputField DueDateVaccination" value="2023-06-02"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">Remarks</span>
+									<input type="text" class="form-control form-field inputField RemarksVaccination" value="Need to monitor further."/>
+								</div>
+
+								<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+									<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -451,49 +566,121 @@
 
 				<div id="MedicationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
 					<div style="margin-bottom: 1vw;">
-						<span>Antifungals</span> </br>
-						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
-						<span style="color: #5e8cd1">Active</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
+						<div class="medicalRecord">
+							<span>Antifungals</span> </br>
+							<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+							<span style="color: #5e8cd1">Active</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
 							<div>
-								<div class="tooltip">
-									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								<div>
+									<div class="tooltip">
+										<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+										<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+									</div>
+									<i class="fa-regular fa-trash-can textcolor"></i>
 								</div>
-								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
 							</div>
 						</div>
+						<div class="medicalRecord hideContainer">
+							<div>
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+									<input type="text" class="form-control form-field inputField TypeMedication" value="Antifungals"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+									<input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" value="Fluconazole 5mg|10ml"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
+									<input type="date" class="form-control form-field inputField DueDateMedication" value="2023-06-02"/>
+								</div>
+
+								<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+									<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+								</div>
+							</div>
+						</div>						
 					</div>
 					<div style="margin-bottom: 1vw;">
-						<span>Antifungals</span> </br>
-						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
-						<span style="color: #5e8cd1">Active</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
+						<div class="medicalRecord">
+							<span>Antifungals</span> </br>
+							<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+							<span style="color: #5e8cd1">Active</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
 							<div>
-								<div class="tooltip">
-									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								<div>
+									<div class="tooltip">
+										<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+										<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+									</div>
+									<i class="fa-regular fa-trash-can textcolor"></i>
 								</div>
-								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
 							</div>
 						</div>
+						<div class="medicalRecord hideContainer">
+							<div>
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+									<input type="text" class="form-control form-field inputField TypeMedication" value="Antifungals"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+									<input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" value="Fluconazole 5mg|10ml"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
+									<input type="date" class="form-control form-field inputField DueDateMedication" value="2023-06-02"/>
+								</div>
+
+								<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+									<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+								</div>
+							</div>
+						</div>						
 					</div>
 					<div style="margin-bottom: 1vw;">
-						<span>Antifungals</span> </br>
-						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
-						<span style="color: #5e8cd1">Active</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
+						<div class="medicalRecord">
+							<span>Antifungals</span> </br>
+							<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
+							<span style="color: #5e8cd1">Active</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
 							<div>
-								<div class="tooltip">
-									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								<div>
+									<div class="tooltip">
+										<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+										<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+									</div>
+									<i class="fa-regular fa-trash-can textcolor"></i>
 								</div>
-								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
 							</div>
 						</div>
+						<div class="medicalRecord hideContainer">
+							<div>
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+									<input type="text" class="form-control form-field inputField TypeMedication" value="Antifungals"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+									<input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" value="Fluconazole 5mg|10ml"/>
+								</div>
+
+								<div class="field-container" style="margin: 0;">
+									<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
+									<input type="date" class="form-control form-field inputField DueDateMedication" value="2023-06-02"/>
+								</div>
+
+								<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+									<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+								</div>
+							</div>
+						</div>						
 					</div>
 				</div>
 
@@ -506,43 +693,139 @@
 
 				<div id="SurgeriesContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
 					<div style="margin-bottom: 1vw;">
-						<span>Spaying</span> </br>
-						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+						<div class="medicalRecord">
+							<span>Spaying</span> </br>
+							<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+							<span style="color: darkgray;">02/04/2023</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<div class="tooltip">
+									<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Need to monitor further.</span>
+								</div>	
 							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
 						</div>
+						<div class="medicalRecord hideContainer">
+								<div>
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+										<input type="text" class="form-control form-field inputField TypeSurgeries" value="Spaying"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+										<input id="NameSurgeries" type="text" class="form-control form-field inputField NameSurgeries" value="Ovariohysterectomy"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+										<input type="date" class="form-control form-field inputField DueDateSurgeries" value="2023-06-02"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">Remarks</span>
+										<input type="text" class="form-control form-field inputField RemarksSurgeries" value="Need to monitor further."/>
+									</div>
+
+									<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+										<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+									</div>
+								</div>
+							</div>
 					</div>
 					<div style="margin-bottom: 1vw;">
-						<span>Spaying</span> </br>
-						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+						<div class="medicalRecord">
+							<span>Spaying</span> </br>
+							<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+							<span style="color: darkgray;">02/04/2023</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<div class="tooltip">
+									<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Need to monitor further.</span>
+								</div>	
 							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
 						</div>
+						<div class="medicalRecord hideContainer">
+								<div>
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+										<input type="text" class="form-control form-field inputField TypeSurgeries" value="Spaying"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+										<input id="NameSurgeries" type="text" class="form-control form-field inputField NameSurgeries" value="Ovariohysterectomy"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+										<input type="date" class="form-control form-field inputField DueDateSurgeries" value="2023-06-02"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">Remarks</span>
+										<input type="text" class="form-control form-field inputField RemarksSurgeries" value="Need to monitor further."/>
+									</div>
+
+									<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+										<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+									</div>
+								</div>
+							</div>
 					</div>
 					<div style="margin-bottom: 1vw;">
-						<span>Spaying</span> </br>
-						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+						<div class="medicalRecord">
+							<span>Spaying</span> </br>
+							<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
+							<span style="color: darkgray;">02/04/2023</span> </br>
+							<span style="color: red;">Due: 02/06/2023</span> </br>
+							<div>
+								<div class="tooltip">
+									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
+								</div>
+								<div class="tooltip">
+									<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+									<span class="tooltiptext">Need to monitor further.</span>
+								</div>	
 							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
 						</div>
+						<div class="medicalRecord hideContainer">
+								<div>
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+										<input type="text" class="form-control form-field inputField TypeSurgeries" value="Spaying"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+										<input id="NameSurgeries" type="text" class="form-control form-field inputField NameSurgeries" value="Ovariohysterectomy"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+										<input type="date" class="form-control form-field inputField DueDateSurgeries" value="2023-06-02"/>
+									</div>
+
+									<div class="field-container" style="margin: 0;">
+										<span class="formlabel">Remarks</span>
+										<input type="text" class="form-control form-field inputField RemarksSurgeries" value="Need to monitor further."/>
+									</div>
+
+									<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+										<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+									</div>
+								</div>
+							</div>
 					</div>
 				</div>
 
@@ -557,7 +840,7 @@
 			</div>
 
 			<div style="height: 24vw; overflow: auto;">
-				<table class="textColor" style="width: 46vw; margin-bottom: 2vw; font-size: 1vw;">
+				<table id="petGrowthTable" class="textColor" style="width: 46vw; margin-bottom: 2vw; font-size: 1vw;">
 					<tr class="containerBackground">
 						<th class="table-content"> @LangResources["Patient_Label_Date"] </th>
 						<th class="table-content"> @LangResources["Patient_Label_AgeYear"] </th>
@@ -566,7 +849,7 @@
 						<th class="table-content"> @LangResources["Patient_Label_Allergies"] </th>
 						<th class="table-content"> @LangResources["Patient_Label_Obesity"] </th>
 					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+					@* <tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
 						<td class="table-content"> 5/8/2024 </td>
 						<td class="table-content"> 5 </td>
 						<td class="table-content"> 50 </td>
@@ -645,7 +928,7 @@
 						<td class="table-content"> 5 </td>
 						<td class="table-content"> N/A </td>
 						<td class="table-content"> No </td>
-					</tr>
+					</tr> *@
 				</table>
 			</div>
 
@@ -907,17 +1190,72 @@
 <span id="year" hidden>@LangResources["Patient_Label_Year"]</span>
 
 <script>
-	const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	const weight = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
-	const height = [17, 18, 18, 19, 19, 19, 10, 11, 14, 14, 15];
-	const bmi = [16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5];
+	// const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	// const weight = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+	// const height = [17, 18, 18, 19, 19, 19, 10, 11, 14, 14, 15];
+	// const bmi = [16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5];
+	var age = [];
+	var weight = [];
+	var height = [];
+	var bmi = [];
 	var chartElement;
 	var xData, yData, xLable, yLabel;
 	var borderOpacity = "0.1";
 	var axisColor = "black";
 	var currentGraph = "";
 
-	changeChart("BMI", document.getElementById("bmi").innerHTML);
+	getPetGrowth();
+
+	function getPetGrowth() {
+		fetch('/Patients/GetPetGrowth?petID=' + document.querySelector("#PetID").value)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				
+				var tableElement = document.getElementById("petGrowthTable");
+
+				for (let i = 0; i < data.length; i++) {
+					var obesity = "No";
+					var color = "green";
+
+					if (data[i].BMI > 30) {
+						obesity = "Yes";
+						color = "red";
+					}
+
+					var date = new Date(data[i].CreatedDate);
+					var dateText = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+
+					age.push(data[i].Age);
+					weight.push(data[i].Weight);
+					height.push(data[i].Height);
+					bmi.push(data[i].BMI);
+
+					var rowContent =
+						'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+						'<td class="table-content" > ' + dateText + ' </td >' +
+						'<td class="table-content"> ' + data[i].Age + ' </td>' +
+						'<td class="table-content"> ' + data[i].Height + ' </td>' +
+						'<td class="table-content"> ' + data[i].Weight + ' </td>' +
+						'<td class="table-content"> ' + data[i].Allergies + ' </td>' +
+						'<td class="table-content" style="color: ' + color + ';"> ' + obesity + ' </td>' +
+						'</tr> ';
+
+					tableElement.innerHTML = tableElement.innerHTML + rowContent;
+				}
+
+				changeChart("BMI", document.getElementById("bmi").innerHTML);
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+	
 
 	function changeChart(name, element) {
 		if (name != "current") {
@@ -1010,6 +1348,19 @@
 		editPetInfo();
 	}
 
+	function updateAge(e){
+		var currentDate = new Date();
+		var petDOB = new Date(e.value);
+		var yearDiffer = currentDate.getFullYear() - petDOB.getFullYear();
+		var monthDiffer = currentDate.getMonth() - petDOB.getMonth() + (12 * yearDiffer);
+		var yearText = "";
+
+		yearText = (monthDiffer / 12) + "";
+
+		var AgeElement = document.querySelectorAll(".Age")
+		AgeElement[0].value = parseInt(yearText);
+	}
+
 	function editPetInfo(submit) {
 		var element = document.querySelectorAll('.petInfoProfile');
 
@@ -1020,6 +1371,18 @@
 		if (submit) {
 			submitPetInfoUpdate();
 		}
+	}
+
+	function editMedicalRecord(){
+		var element = document.querySelectorAll('.medicalRecord');
+
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+	}
+
+	function removeClone(e) {
+		var parent = e.remove();
 	}
 
 	function changeSpecies(e) {
@@ -1045,11 +1408,11 @@
 				}
 
 				for (let i = 0; i < data.length; i++) {
-					if (breedValue == data[i].breed) {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '" selected>' + data[i].breed + '</option>';
+					if (breedValue == data[i].Breed) {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '" selected>' + data[i].Breed + '</option>';
 					}
 					else {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
 					}
 				}
 			})
@@ -1106,31 +1469,33 @@
 					throw new Error('Network response was not ok');
 				}
 
-				PetNameElement[1].innerHTML = PetNameElement[0].value;
-				RegistrationNoElement[1].innerHTML = RegistrationNoElement[0].value;
+				location.reload();
 
-				if (GenderElement[0].value == "M") { GenderElement[1].innerHTML = "Male"; }
-				else { GenderElement[1].innerHTML = "Female"; }
+				// // PetNameElement[1].innerHTML = PetNameElement[0].value;
+				// RegistrationNoElement[1].innerHTML = RegistrationNoElement[0].value;
+
+				// if (GenderElement[0].value == "M") { GenderElement[1].innerHTML = "Male"; }
+				// else { GenderElement[1].innerHTML = "Female"; }
 				
-				var date = new Date(DOBElement[0].value);
-				DOBElement[1].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+				// // var date = new Date(DOBElement[0].value);
+				// // DOBElement[1].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
-				AgeElement[1].innerHTML = AgeElement[0].value;
-				SpeciesElement[1].innerHTML = SpeciesElement[0].value;
-				BreedElement[1].innerHTML = BreedElement[0].value;
-				ColorElement[1].innerHTML = ColorElement[0].value;
-				AllergiesElement[1].innerHTML = AllergiesElement[0].value;
-				WeightElement[1].innerHTML = WeightElement[0].value;
-				HeightElement[1].innerHTML = HeightElement[0].value;
+				// // AgeElement[1].innerHTML = AgeElement[0].value;
+				// // SpeciesElement[1].innerHTML = SpeciesElement[0].value;
+				// BreedElement[1].innerHTML = BreedElement[0].value;
+				// ColorElement[1].innerHTML = ColorElement[0].value;
+				// AllergiesElement[1].innerHTML = AllergiesElement[0].value;
+				// WeightElement[1].innerHTML = WeightElement[0].value;
+				// HeightElement[1].innerHTML = HeightElement[0].value;
 
-				if (StatusElement[0].value == 1) { StatusElement[1].innerHTML = "Active"; }
-				else { StatusElement[1].innerHTML = "Inactive"; }
+				// if (StatusElement[0].value == 1) { StatusElement[1].innerHTML = "Active"; }
+				// else { StatusElement[1].innerHTML = "Inactive"; }
 
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
-	}
+	}	
 
 	function downloadHealthCard() {
 		var clone = document.getElementById("healthCardModal").cloneNode(true);

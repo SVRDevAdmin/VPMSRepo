@@ -212,13 +212,13 @@
                     </li>
                     <li>
                         <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <span id="patientServicesMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="imgTreatment" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_PatientServices"]</strong>
-                            <img id="imgArrow" style="margin-left: 20px;" />
-                            <ul>
-                                <li>@LangResources["MenuBar_Label_PatientTreatmentPlan"]</li>
-                                <li>@LangResources["MenuBar_Label_Service"]</li>
+                            <img id="imgArrow" class="patientServicesMenuArrow" style="margin-left: 20px;" />
+                            <ul class="patientServicesMenuList">
+                                <li id="patientTreatmentPlan" onclick="location.href='@Url.Action("TreatmentPlanList", "PatientServices")'"> @LangResources["MenuBar_Label_PatientTreatmentPlan"] </li>
+                                <li id="service" onclick="location.href='@Url.Action("ServiceList", "PatientServices")'">@LangResources["MenuBar_Label_Service"]</li>
                             </ul>
                         </a>
                     </li>
@@ -230,8 +230,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <a asp-controller="Inventory" asp-action="Index">
+                            <span id="inventoryMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconInventory" style="margin-left: 16px; margin-right: 16px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Inventory"]</strong>
                         </a>
@@ -396,13 +396,13 @@
                                         {
                                             foreach (var m in LanguageCodeList)
                                             {
-                                                var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
+                                                var sFlagPath = "/images/Icons/Country/" + m.CodeID + ".png";
                                             
                                                     <li class="list-group-item" style="border: 0px">
                                                         <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"  
-                                                               style="margin-left: 30px; vertical-align: middle;" 
-                                                                />
-                                                    <!-- @*(sLangSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") *@-->
+                                                               style="margin-left: 30px; vertical-align: middle;"
+                                                    @(LanguageSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") />
+                                                    
                                                         <img src=@sFlagPath class="CountryFlag" />
                                                         <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
                                                     </li>
@@ -436,10 +436,10 @@
                                             foreach (var c in CountryList)
                                             {
                                                 String sClassName = "list-group-item list-group-item-action";
-                                                //if (CountrySelected.ConfigurationValue == c.CountryName)
-                                                //{
-                                                //    sClassName = "list-group-item list-group-item-action active";
-                                                //}
+                                                if (CountrySelected.ConfigurationValue == c.CountryName)
+                                                {
+                                                   sClassName = "list-group-item list-group-item-action active";
+                                                }
 
                                                 <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
                                             }                                            
@@ -494,7 +494,7 @@
         </div>
     </div>
 
-    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    @*<script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -643,7 +643,7 @@
                 else {
                     var head = document.getElementsByTagName('head')[0];
                     var link = document.createElement('link');
-                    link.id = "themeCss"
+                    link.Id = "themeCss"
                     link.rel = 'stylesheet';
                     link.href = theme;
                     head.appendChild(link);
@@ -651,28 +651,28 @@
             }
         }
 
-        $('#btnSave').on('click', function()
-        {
-            $lang = $("input[type='radio'][name='listgrpradio']:checked").val();
+        // $('#btnSave').on('click', function()
+        // {
+        //     $lang = $("input[type='radio'][name='listgrpradio']:checked").val();
 
-            if ($lang != null && $lang.length > 0)
-            {
-                $.post("/Home/ChangeLanguage", {
-                    lang: $lang,
-                    UserID: 'User A'
-                }).done(function(resp){
-                    updateCountrySettings();
+        //     if ($lang != null && $lang.length > 0)
+        //     {
+        //         $.post("/Home/ChangeLanguage", {
+        //             lang: $lang,
+        //             UserID: '@userID'
+        //         }).done(function(resp){
+        //             updateCountrySettings();
  
-                    window.location.reload();
-                });
-            }
-            else
-            {
-                updateCountrySettings();
+        //             window.location.reload();
+        //         });
+        //     }
+        //     else
+        //     {
+        //         updateCountrySettings();
  
-                window.location.reload();
-            }
-        });
+        //         window.location.reload();
+        //     }
+        // });
 
         // Confirmation MessageBox
         function ShowConfirmCancelMsgBox(MsgTitle, MsgContent, YesButtonCallback, NoButtonCallback) {

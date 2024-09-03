@@ -1,4 +1,4 @@
-CREATE TABLE `mst_organization` (
+CREATE TABLE `mst_organisation` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(200) NOT NULL,
   `TotalStaff` int NOT NULL,

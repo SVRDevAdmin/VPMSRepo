@@ -1,0 +1,382 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+	ViewData["Title"] = "Create New Treatment Plan Page";
+	ViewBag.SelectedMenu = "patientServicesMenu";
+}
+
+<style>
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1.5vw;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.3vw;
+		font-size: 1vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+		font-size: 1vw;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize {
+		width: 16.5vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.currentPage {
+		background-color: blue !important;
+		color: white !important;
+		border: none;
+		border-style: none !important;
+	}
+
+	.currentPageText {
+		color: black !important;
+	}
+
+	.medicalRecordPartition {
+		width: 26vw;
+		/* height: 31vw;
+			overflow: auto; */
+	}
+
+	.medicalRecordPartitionTitle {
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+		margin-bottom: 1.5vw;
+	}
+
+	#service {
+		color: dodgerblue !important;
+	}
+</style>
+
+<div style="display: flex;">
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("ServiceList", "PatientServices")'" />
+		<span class="textColor" style="font-size: 2vw;">Service</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;">Create Service</span>
+	</div>
+</div>
+
+<div id="ownerInfoContainer">
+	<div>
+		<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Service Details</span>
+		</div>
+		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Service Name</span>
+					<input id="ServiceName" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Category</span>
+					<select id="Category" class="form-control form-field inputField">
+						<option value="" selected> -- Select Category --</option>
+						@foreach (var category in ViewData["Category"] as IEnumerable<VPMS.Lib.Data.Models.ServiceCategory>)
+						{
+							<option value="@category.ID"> @category.Name - @category.SubCategoryName</option>
+						}						
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Price ($)</span>
+					<input id="Price" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Doctor</span>
+					@* <select id="Doctor" class="form-control form-field inputField">
+						<option value="" selected> -- Select Doctor --</option>
+						<option value="Dr. Kim Do-yeon"> Dr. Kim Do-yeon</option>
+					</select> *@
+					<div class="dropright" style="display: flex;">
+						<input id="Doctor" type="text" class="form-control form-field inputField" style="border-right: none; background-color: white;     border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
+						<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: white; color: black; border-left: none; display: flex; align-items: center; box-shadow: none; border-top-left-radius: 0; border-bottom-left-radius: 0; font-size: 1vw; border-color: black; padding: 0; padding-right: 0.5vw;">
+							<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+						</button>
+						<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
+							<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
+								<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
+								<input type="text" id="searchDoctor" placeholder="Search Treatment" onkeyup="filterDoctor(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+							</div>
+							<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
+
+								<div style="margin-bottom: 1vw;">
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input doctorOption" id="doctor1" name="doctor1" value="Dr. park Ji-hoon">
+										<label class="form-check-label" for="doctor1"> Dr. park Ji-hoon</label><br>
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input doctorOption" id="doctor2" name="doctor2" value="Dr. Lee Soo-jin">
+										<label class="form-check-label" for="doctor2"> Dr. Lee Soo-jin</label><br>
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input doctorOption" id="doctor3" name="doctor3" value="Dr. Choi Eun-woo">
+										<label class="form-check-label" for="doctor3"> Dr. Choi Eun-woo</label><br>
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input doctorOption" id="doctor4" name="doctor4" value="Dr. Jung Hye-jin">
+										<label class="form-check-label" for="doctor4"> Dr. Jung Hye-jin</label><br>
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input doctorOption" id="doctor5" name="doctor5" value="Dr. Hang Dong-hyun">
+										<label class="form-check-label" for="doctor5"> Dr. Hang Dong-hyun</label><br>
+									</div>
+								</div>
+
+							</div>
+							<div style="display: flex; justify-content: space-between; align-items: center;">
+								<button class="btn btn-lg btn-primary" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
+									<span style="font-size: 1.2vw; margin-left: 0.5vw;">Clear All</span>
+								</button>
+								<button id="addSelections" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">Add Selections</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="display: flex; margin-bottom: 1.5vw;">
+				<div class="field-container quaterSize">
+					<span class="formlabel">Organisation</span>
+					<select id="Organisation" class="form-control form-field inputField" onchange="getBranch(this.value);">
+						<option value="" selected> -- Select Organisation --</option>
+						@foreach (var organisation in ViewData["Organisation"] as IEnumerable<VPMS.Lib.Data.Models.OrganisationModel>)
+						{
+							<option value="@organisation.Id"> @organisation.Name</option>
+						}
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Branch</span>
+					<select id="Branch" class="form-control form-field inputField">
+						<option value="" selected> -- Select Branch --</option>
+					</select>
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Time of Service (Hr)</span>
+					<input id="TimeOfService" min="0" type="number" onchange="parseFloat(parseFloat(this.value).toFixed(1));" step="0.5" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">Status</span>
+					<select id="Status" class="form-control form-field inputField">
+						<option value="" selected> -- Select Status --</option>
+						<option value="1"> Active</option>
+						<option value="2"> Inactive</option>
+					</select>
+				</div>
+			</div>
+
+			<div style="margin-bottom: 1.5vw;">
+				<div class="field-container">
+					<span class="formlabel">Description</span>
+					<textarea id="Description" rows="5" class="form-control form-field inputField" style="width: 100%;"></textarea>
+				</div>
+			</div>
+
+			<div style="margin-bottom: 1.5vw;">
+				<div class="field-container">
+					<span class="formlabel">Precaution</span>
+					<textarea id="Precaution" rows="5" class="form-control form-field inputField" style="width: 100%;"></textarea>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div style="text-align: end; margin-right: 1.6vw;">
+		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;" onclick="location.href='@Url.Action("ServiceList", "PatientServices")'"> @LangResources["Patient_Button_Cancel"] </button>
+		<button class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;" onclick="submitServiceInfo();"> Create </button>
+	</div>
+
+</div>
+
+<script>
+	$(".patientServicesMenuList").toggleClass('open');
+	$('.patientServicesMenuArrow').toggleClass('Up');
+
+	document.querySelector('#addSelections').addEventListener('click', function (event) {
+		if (this.classList.contains("disable")) { event.stopPropagation(); }
+		else {
+			const a = document.querySelectorAll(".doctorOption");
+			var doctorList = ""
+
+			for (let i = 0; i < a.length; i++) {
+				if (a[i].checked) {
+					doctorList += a[i].value + ";";
+				}
+			}
+
+			document.getElementById("Doctor").value = doctorList;
+
+		}
+	});
+
+	document.querySelector('#clearFilter').addEventListener('click', function (event) {
+		event.stopPropagation();
+
+		const a = document.querySelectorAll(".doctorOption");
+
+		for (let i = 0; i < a.length; i++) {
+			if (a[i].checked) {
+				a[i].checked = false;
+			}
+		}
+
+		document.getElementById("searchDoctor").value = "";
+		$('#searchDoctor').keyup();
+
+		var addSelections = document.getElementById("addSelections");
+		if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+
+	});
+
+	var selections = document.querySelectorAll('.form-check');
+
+	for (let i = 0; i < selections.length; i++) {
+		selections[i].addEventListener('click', function (event) {
+			event.stopPropagation();
+
+			const a = document.querySelectorAll(".doctorOption");
+			var disabledFilter = true;
+
+			for (let i = 0; i < a.length; i++) {
+				if (a[i].checked) {
+					disabledFilter = false;
+				}
+			}
+
+			var addSelections = document.getElementById("addSelections");
+			if (disabledFilter) {
+				if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+			}
+			else {
+				if (addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+			}
+
+		});
+	}
+
+	function filterDoctor(value) {
+		const filter = value.value.toUpperCase();
+
+		const a = document.querySelectorAll(".doctorOption");
+
+		for (let i = 0; i < a.length; i++) {
+			var doctorValue = a[i].value;
+			if (doctorValue.toUpperCase().indexOf(filter) > -1) {
+				a[i].parentElement.style.display = "";
+			} else {
+				a[i].parentElement.style.display = "none";
+			}
+		}
+	}
+
+	function getBranch(organisationID) {
+		fetch('/PatientServices/GetBranchList?organisationID=' + organisationID)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				var element = document.getElementById("Branch");
+
+				element.innerHTML = '<option value="" selected> -- Select Branch-- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '">' + data[i].Name + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function submitServiceInfo() {
+		var ServiceName = document.getElementById("ServiceName").value
+		var Category = document.getElementById("Category").value
+		var Price = document.getElementById("Price").value
+		var Doctor = document.getElementById("Doctor").value
+		var Organisation = document.getElementById("Organisation").value
+		var Branch = document.getElementById("Branch").value
+		var TimeOfService = document.getElementById("TimeOfService").value
+		var Status = document.getElementById("Status").value
+		var Description = document.getElementById("Description").value
+		var Precaution = document.getElementById("Precaution").value
+
+		var obj = {
+			Name: ServiceName,
+			CategoryID: Category,
+			Prices: Price,
+			DoctorInCharge: Doctor,
+			BranchID: Branch,
+			Duration: TimeOfService,
+			Status: Status,
+			Description: Description,
+			Precaution: Precaution
+		};
+
+		fetch('/PatientServices/InsertService', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if(data){
+					window.location = "/PatientServices/ServiceList";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+
+	}
+</script>

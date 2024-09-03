@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Globalization;
@@ -10,8 +11,8 @@ using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
 {
-    //[Authorize(Roles = "Superadmin")]
-    public class HomeController : Controller
+	[Authorize]
+	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 		String sLangCodeGroup = "LanguageSelection";
@@ -31,7 +32,7 @@ namespace VPMSWeb.Controllers
 			ViewData["CountryList"] = sCountryList;
             Program.CountryList = sCountryList;
 
-            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), "f70e5db4-893e-46b2-b3ca-001a6cd0f4a7");
+            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), Request.Cookies["userid"]);
 			if (sUserConfigurationSettings != null)
 			{
 				ViewData["LanguageSelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Language").FirstOrDefault();

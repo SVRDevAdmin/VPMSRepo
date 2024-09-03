@@ -1,0 +1,284 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+	ViewData["Title"] = "Inventory Page";
+	ViewBag.SelectedMenu = "inventoryMenu";
+}
+
+<style>
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1.5vw;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.3vw;
+		font-size: 1vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+		font-size: 1vw;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize {
+		width: 16.5vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.currentPage {
+		background-color: blue !important;
+		color: white !important;
+		border: none;
+		border-style: none !important;
+	}
+
+	.currentPageText {
+		color: black !important;
+	}
+
+	.medicalRecordPartition {
+		width: 26vw;
+		/* height: 31vw;
+			overflow: auto; */
+	}
+
+	.medicalRecordPartitionTitle {
+		margin-left: 1.5vw;
+		margin-right: 1.5vw;
+		margin-bottom: 1.5vw;
+	}
+</style>
+
+<div style="display: flex;">
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("InventoryList", "Inventory")'" />
+		<span class="textColor" style="font-size: 2vw;">Inventory</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;">Create Inventory</span>
+	</div>
+</div>
+
+<div id="ownerInfoContainer">
+	<div>
+		<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+			<span class="formlabel" style="margin-bottom: 0 !important;">Inventory Details</span>
+		</div>
+		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+			<div style="display: flex;">
+				<div>
+					<input type="file" placeholder="Upload Image" id="inventoryImgFile" accept="image/*" hidden>
+					<label for="inventoryImgFile" id="inventoryImgLabel" style="border: 0.1vw solid; border-radius: 0.5vw; width: 18vw; height: 18vw; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+						<i class="fa-regular fa-image inventoryImg" style="opacity: 0.2; font-size: 3vw;"></i>
+						<span class="inventoryImg" style="opacity: 0.2; font-size: 1vw;">Upload Image</span>
+						<img id="inventoryImg" style="width: 13vw;" />
+					</label>
+				</div>
+
+				<div>
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">Inventory Name</span>
+							<input id="InventoryName" type="text" class="form-control form-field inputField" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">SKU</span>
+							<input id="SKU" type="text" class="form-control form-field inputField" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Product Type</span>
+							<select id="ProductType" class="form-control form-field inputField">
+								<option value="" selected> -- Select Product Type --</option>
+								<option value="1"> Vaccination</option>
+								<option value="2"> Medication</option>
+							</select>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">Product Name</span>
+							<input id="ProductName" type="text" class="form-control form-field inputField" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Species</span>
+							<select id="Species" class="form-control form-field inputField">
+								<option value="" selected> -- Select Species --</option>
+								<option value="Cat"> Cat</option>
+								<option value="Dog"> Dog</option>
+							</select>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Status</span>
+							<select id="Status" class="form-control form-field inputField">
+								<option value="" selected> -- Select Status --</option>
+								<option value="1"> In Stock</option>
+								<option value="2"> Out of Stock</option>
+							</select>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">Expiry Date</span>
+							<input id="ExpiryDate" type="date" class="form-control form-field inputField" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Organisation</span>
+							<select id="Organisation" class="form-control form-field inputField">
+								<option value="" selected> -- Select Organisation --</option>
+								<option value="1"> Itaewon Animal Hospital</option>
+							</select>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Branch</span>
+							<select id="Branch" class="form-control form-field inputField">
+								<option value="" selected> -- Select Branch --</option>
+								<option value="1">HQ</option>
+							</select>
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container quaterSize">
+							<span class="formlabel">Recommended Breed</span>
+							<select id="RecommendedBreed" class="form-control form-field inputField">
+								<option value="" selected> -- Select Recommended Breed --</option>
+								<option value="Siamese Cat">Siamese Cat</option>
+							</select>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Recommended Weight</span>
+							<input id="RecommendedWeight" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Price ($) Per Qty</span>
+							<input id="PricePerQty" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField" />
+						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container halfSize">
+							<span class="formlabel">Usage</span>
+							<input id="Usage" type="text" class="form-control form-field inputField" />
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">Quantity</span>
+							<input id="Quantity" type="number" min="0" onchange="parseInt(this.value);" class="form-control form-field inputField" />
+						</div>
+					</div>
+
+					<div style="margin-bottom: 1.5vw;">
+						<div class="field-container">
+							<span class="formlabel">Description</span>
+							<textarea id="Description" rows="5" class="form-control form-field inputField" style="width: 100%;"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+
+		</div>
+	</div>
+
+	<div style="text-align: end; margin-right: 1.6vw;">
+		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;" onclick="location.href='@Url.Action("InventoryList", "Inventory")'"> @LangResources["Patient_Button_Cancel"] </button>
+		<button class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;" onclick="submitInventory();"> Create </button>
+	</div>
+
+</div>
+
+<script>
+	const input_file = document.getElementById('inventoryImgFile');
+	const input_label = document.getElementById('inventoryImgLabel')
+
+	const convert_to_base64 = file => new Promise((response) => {
+		const file_reader = new FileReader();
+		file_reader.readAsDataURL(file);
+		file_reader.onload = () => response(file_reader.result);
+	});
+
+	input_file.addEventListener('change', async function () {
+		const file = document.querySelector('#inventoryImgFile').files;
+		const my_image = await convert_to_base64(file[0]);
+
+		var element = document.querySelectorAll(".inventoryImg");
+		for (let i = 0; i < element.length; i++) { 
+			element[i].hidden = true;
+		}
+
+		document.querySelector('#inventoryImg').src = my_image;
+	})
+
+	function submitInventory() {
+		var data = {
+			ImageFile: document.querySelector('#inventoryImg').src,
+			ImageFileName: document.getElementById("ProductName").value,
+			InventoryName: document.getElementById("InventoryName").value,
+			SKU: document.getElementById("SKU").value,
+			ProductTypeID: document.getElementById("ProductType").value,
+			Name: document.getElementById("ProductName").value,
+			Species: document.getElementById("Species").value,
+			StockStatus: document.getElementById("Status").value,
+			ExpiryDate: document.getElementById("ExpiryDate").value,
+			BranchID: document.getElementById("Branch").value,
+			RecommendedBreed: document.getElementById("RecommendedBreed").value,
+			RecommendedWeight: document.getElementById("RecommendedWeight").value,
+			PricePerQty: document.getElementById("PricePerQty").value,
+			Usage: document.getElementById("Usage").value,
+			Quantity: document.getElementById("Quantity").value,
+			Description: document.getElementById("Description").value
+		};
+
+		fetch('/Inventory/InsertInventory', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+</script>

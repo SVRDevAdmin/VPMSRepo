@@ -4,6 +4,7 @@ CREATE TABLE `mst_patients_owner` (
   `Name` varchar(200) NOT NULL,
   `Gender` varchar(2) NOT NULL,
   `ContactNo` varchar(15) NOT NULL,
+  `EmailAddress` varchar(50) NOT NULL,
   `Address` varchar(200) NOT NULL,
   `PostCode` varchar(20) NOT NULL,
   `City` varchar(100) NOT NULL,

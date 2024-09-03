@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.X509;
 using VPMS;
 using VPMS.Lib.Data.DBContext;
@@ -142,7 +143,8 @@ namespace VPMSWeb.Controllers
 
 		public void UpdatePatientOwnerInfo([FromBody] Patient_Owner patientOwner)
 		{
-			_patientDBContext.Update(patientOwner);
+			if(patientOwner.ID != 0) { _patientDBContext.Update(patientOwner); }
+			else { _patientDBContext.Mst_Patients_Owner.Add(patientOwner); }
 
 			_patientDBContext.SaveChanges();
 		}
@@ -151,14 +153,55 @@ namespace VPMSWeb.Controllers
 		{
 			_patientDBContext.Mst_Pets.Add(pets);
 
+			var bmi = (pets.Weight / (pets.Height * pets.Height)) * 10000;
+
+			_patientDBContext.SaveChanges();
+
+			Pet_Growth pet_Growth = new Pet_Growth()
+			{
+				PetID = pets.ID,
+				Age = pets.Age,
+				Allergies = pets.Allergies,
+				Height = pets.Height,
+				Weight = pets.Weight,
+				BMI = bmi,
+				CreatedDate = pets.CreatedDate,
+				CreatedBy = pets.CreatedBy
+			};
+
+			_patientDBContext.Mst_Pet_Growth.Add(pet_Growth);
+
 			_patientDBContext.SaveChanges();
 		}
 
 		public void UpdatePetInfo([FromBody] Pets pets)
 		{
+			var currentPetInfo = _patientDBContext.Mst_Pets.AsNoTracking().FirstOrDefault(p => p.ID == pets.ID);
+
 			_patientDBContext.Update(pets);
 
 			_patientDBContext.SaveChanges();
+
+			if (currentPetInfo.Height != pets.Height || currentPetInfo.Weight != pets.Weight || currentPetInfo.Allergies != pets.Allergies || currentPetInfo.Age != pets.Age)
+			{
+				var bmi = (pets.Weight / (pets.Height * pets.Height)) * 10000;
+
+				Pet_Growth pet_Growth = new Pet_Growth()
+				{
+					PetID = currentPetInfo.ID,
+					Age = pets.Age,
+					Height = pets.Height,
+					Weight = pets.Weight,
+					Allergies = pets.Allergies,
+					BMI = bmi,
+					CreatedDate = DateTime.Now,
+					CreatedBy = "System"
+				};
+
+				_patientDBContext.Mst_Pet_Growth.Add(pet_Growth);
+
+				_patientDBContext.SaveChanges();
+			}
 		}
 		
 		public void DeletePetInfo(int patientid, string petname)
@@ -171,6 +214,11 @@ namespace VPMSWeb.Controllers
 
 				_patientDBContext.SaveChanges();
 			}
+		}
+
+		public List<Pet_Growth> GetPetGrowth(int petID)
+		{
+			return _patientDBContext.Mst_Pet_Growth.Where(x => x.PetID == petID).ToList(); ;
 		}
 	}
 }

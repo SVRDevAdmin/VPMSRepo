@@ -111,6 +111,14 @@
 						<input id="ContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 						<span id="ContactNoText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container halfSize">
+						<span class="formlabel">@LangResources["Login_Placeholder_Email"]</span>
+						<input id="OwnerEmail" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+						<span id="OwnerEmailText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
@@ -122,6 +130,30 @@
 						<span id="GenderText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
 				</div>
+
+				@* <div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container halfSize">
+						<span class="formlabel">@LangResources["Patient_Label_OwnerName"]</span>
+						<input id="OwnerName" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+						<span id="OwnerNameText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
+						<input id="ContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+						<span id="ContactNoText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+
+					<div class="field-container quaterSize">
+						<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
+						<select id="Gender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<option value="" selected></option>
+							<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+							<option value="F"> @LangResources["Patient_Selection_Female"]</option>
+						</select>
+						<span id="GenderText" class="formlabel ownerInfoProfile textColor"></span>
+					</div>
+				</div> *@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
@@ -190,6 +222,14 @@
 							<input id="CoContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
 							<span id="CoContactNoText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
+					</div>
+
+					<div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container halfSize">
+							<span class="formlabel">@LangResources["Login_Placeholder_Email"]</span>
+							<input id="CoOwnerEmail" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+							<span id="CoOwnerEmailText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
@@ -201,6 +241,30 @@
 							<span id="CoGenderText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
 					</div>
+
+					@* <div style="display: flex; margin-bottom: 1.5vw;">
+						<div class="field-container halfSize">
+							<span class="formlabel">@LangResources["Patient_Label_CoOwnerName"]</span>
+							<input id="CoOwnerName" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+							<span id="CoOwnerNameText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
+							<input id="CoContactNo" type="text" class="form-control form-field inputField hideContainer ownerInfoProfile" />
+							<span id="CoContactNoText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+
+						<div class="field-container quaterSize">
+							<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
+							<select id="CoGender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+								<option value="" selected></option>
+								<option value="M"> @LangResources["Patient_Selection_Male"]</option>
+								<option value="F"> @LangResources["Patient_Selection_Female"]</option>
+							</select>
+							<span id="CoGenderText" class="formlabel ownerInfoProfile textColor"></span>
+						</div>
+					</div> *@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
@@ -415,6 +479,8 @@
 
 <script type="text/javascript">
 
+	var coOwnerExist = false;
+
 	if ('@ViewBag.type' == 'edit') {
 		editOwnerInfo(false);
 	}
@@ -440,50 +506,56 @@
 	}
 
 	function setValue(data) {
-		document.getElementById("OwnerNameText").innerHTML = data.patient_Owners[0].name;
-		document.getElementById("ContactNoText").innerHTML = data.patient_Owners[0].contactNo;
-		if (data.patient_Owners[0].gender == "M") { document.getElementById("GenderText").innerHTML = "Male"; }
+		document.getElementById("OwnerNameText").innerHTML = data.patient_Owners[0].Name;
+		document.getElementById("ContactNoText").innerHTML = data.patient_Owners[0].ContactNo;
+		document.getElementById("OwnerEmailText").innerHTML = data.patient_Owners[0].EmailAddress;
+		if (data.patient_Owners[0].Gender == "M") { document.getElementById("GenderText").innerHTML = "Male"; }
 		else { document.getElementById("GenderText").innerHTML = "Female"; }
-		document.getElementById("CountryText").innerHTML = data.patient_Owners[0].country;
-		document.getElementById("StateText").innerHTML = data.patient_Owners[0].state;
-		document.getElementById("CityText").innerHTML = data.patient_Owners[0].city;
-		document.getElementById("AddressText").innerHTML = data.patient_Owners[0].address;
-		document.getElementById("PostcodeText").innerHTML = data.patient_Owners[0].postCode;
+		document.getElementById("CountryText").innerHTML = data.patient_Owners[0].Country;
+		document.getElementById("StateText").innerHTML = data.patient_Owners[0].State;
+		document.getElementById("CityText").innerHTML = data.patient_Owners[0].City;
+		document.getElementById("AddressText").innerHTML = data.patient_Owners[0].Address;
+		document.getElementById("PostcodeText").innerHTML = data.patient_Owners[0].PostCode;
 
-		document.getElementById("OwnerID").value = data.patient_Owners[0].id;
-		document.getElementById("OwnerCreatedDate").value = data.patient_Owners[0].createdDate;
-		document.getElementById("OwnerCreatedBy").value = data.patient_Owners[0].createdBy;
-		document.getElementById("OwnerName").value = data.patient_Owners[0].name;
-		document.getElementById("ContactNo").value = data.patient_Owners[0].contactNo;
-		document.getElementById("Gender").value = data.patient_Owners[0].gender;
-		document.getElementById("Country").value = data.patient_Owners[0].country;
-		document.getElementById("State").value = data.patient_Owners[0].state;
-		document.getElementById("City").value = data.patient_Owners[0].city;
-		document.getElementById("Address").value = data.patient_Owners[0].address;
-		document.getElementById("Postcode").value = data.patient_Owners[0].postCode;
+		document.getElementById("OwnerID").value = data.patient_Owners[0].ID;
+		document.getElementById("OwnerCreatedDate").value = data.patient_Owners[0].CreatedDate;
+		document.getElementById("OwnerCreatedBy").value = data.patient_Owners[0].CreatedBy;
+		document.getElementById("OwnerName").value = data.patient_Owners[0].Name;
+		document.getElementById("ContactNo").value = data.patient_Owners[0].ContactNo;
+		document.getElementById("OwnerEmail").value = data.patient_Owners[0].EmailAddress;
+		document.getElementById("Gender").value = data.patient_Owners[0].Gender;
+		document.getElementById("Country").value = data.patient_Owners[0].Country;
+		document.getElementById("State").value = data.patient_Owners[0].State;
+		document.getElementById("City").value = data.patient_Owners[0].City;
+		document.getElementById("Address").value = data.patient_Owners[0].Address;
+		document.getElementById("Postcode").value = data.patient_Owners[0].PostCode;
 
 		if (data.patient_Owners.length > 1) {
-			document.getElementById("CoOwnerNameText").innerHTML = data.patient_Owners[1].name;
-			document.getElementById("CoContactNoText").innerHTML = data.patient_Owners[1].contactNo;
-			if (data.patient_Owners[1].gender == "M") { document.getElementById("CoGenderText").innerHTML = "Male"; }
+			document.getElementById("CoOwnerNameText").innerHTML = data.patient_Owners[1].Name;
+			document.getElementById("CoContactNoText").innerHTML = data.patient_Owners[1].ContactNo;
+			document.getElementById("CoOwnerEmailText").innerHTML = data.patient_Owners[1].EmailAddress;
+			if (data.patient_Owners[1].Gender == "M") { document.getElementById("CoGenderText").innerHTML = "Male"; }
 			else { document.getElementById("CoGenderText").innerHTML = "Female"; }
-			document.getElementById("CoCountryText").innerHTML = data.patient_Owners[1].country;
-			document.getElementById("CoStateText").innerHTML = data.patient_Owners[1].state;
-			document.getElementById("CoCityText").innerHTML = data.patient_Owners[1].city;
-			document.getElementById("CoAddressText").innerHTML = data.patient_Owners[1].address;
-			document.getElementById("CoPostcodeText").innerHTML = data.patient_Owners[1].postCode;
+			document.getElementById("CoCountryText").innerHTML = data.patient_Owners[1].Country;
+			document.getElementById("CoStateText").innerHTML = data.patient_Owners[1].State;
+			document.getElementById("CoCityText").innerHTML = data.patient_Owners[1].City;
+			document.getElementById("CoAddressText").innerHTML = data.patient_Owners[1].Address;
+			document.getElementById("CoPostcodeText").innerHTML = data.patient_Owners[1].PostCode;
 
-			document.getElementById("CoOwnerID").value = data.patient_Owners[1].id;
-			document.getElementById("CoOwnerCreatedDate").value = data.patient_Owners[1].createdDate;
-			document.getElementById("CoOwnerCreatedBy").value = data.patient_Owners[1].createdBy;
-			document.getElementById("CoOwnerName").value = data.patient_Owners[1].name;
-			document.getElementById("CoContactNo").value = data.patient_Owners[1].contactNo;
-			document.getElementById("CoGender").value = data.patient_Owners[1].gender;
-			document.getElementById("CoCountry").value = data.patient_Owners[1].country;
-			document.getElementById("CoState").value = data.patient_Owners[1].state;
-			document.getElementById("CoCity").value = data.patient_Owners[1].city;
-			document.getElementById("CoAddress").value = data.patient_Owners[1].address;
-			document.getElementById("CoPostcode").value = data.patient_Owners[1].postCode;
+			document.getElementById("CoOwnerID").value = data.patient_Owners[1].ID;
+			document.getElementById("CoOwnerCreatedDate").value = data.patient_Owners[1].CreatedDate;
+			document.getElementById("CoOwnerCreatedBy").value = data.patient_Owners[1].CreatedBy;
+			document.getElementById("CoOwnerName").value = data.patient_Owners[1].Name;
+			document.getElementById("CoContactNo").value = data.patient_Owners[1].ContactNo;
+			document.getElementById("CoOwnerEmail").value = data.patient_Owners[1].EmailAddress;
+			document.getElementById("CoGender").value = data.patient_Owners[1].Gender;
+			document.getElementById("CoCountry").value = data.patient_Owners[1].Country;
+			document.getElementById("CoState").value = data.patient_Owners[1].State;
+			document.getElementById("CoCity").value = data.patient_Owners[1].City;
+			document.getElementById("CoAddress").value = data.patient_Owners[1].Address;
+			document.getElementById("CoPostcode").value = data.patient_Owners[1].PostCode;
+
+			coOwnerExist = true;
 		}
 		else {
 			document.getElementById("coOwnerInfo").classList.toggle("hideContainer");
@@ -497,6 +569,7 @@
 			PatientID: @ViewBag.PatientID,
 			Name: document.getElementById("OwnerName").value,
 			ContactNo: document.getElementById("ContactNo").value,
+			EmailAddress: document.getElementById("OwnerEmail").value,
 			Gender: document.getElementById("Gender").value,
 			Country: document.getElementById("Country").value,
 			State: document.getElementById("State").value,
@@ -512,12 +585,27 @@
 
 		sendUpdate(obj);
 
-		if (!document.getElementById("coOwnerInfo").classList.contains("hideContainer")) {
+		document.getElementById("OwnerNameText").innerHTML = document.getElementById("OwnerName").value;
+		document.getElementById("ContactNoText").innerHTML = document.getElementById("ContactNo").value;
+		document.getElementById("OwnerEmailText").innerHTML = document.getElementById("OwnerEmail").value;
+		if (document.getElementById("Gender").value == "M") { document.getElementById("GenderText").innerHTML = "Male"; }
+		else { document.getElementById("GenderText").innerHTML = "Female"; }
+		document.getElementById("CountryText").innerHTML = document.getElementById("Country").value;
+		document.getElementById("StateText").innerHTML = document.getElementById("State").value;
+		document.getElementById("CityText").innerHTML = document.getElementById("City").value;
+		document.getElementById("AddressText").innerHTML = document.getElementById("Address").value;
+		document.getElementById("PostcodeText").innerHTML = document.getElementById("Postcode").value;
+
+		if (document.getElementById("CoOwnerName").value != "") {
+
+			var id = document.getElementById("CoOwnerID").value != "" ? document.getElementById("CoOwnerID").value : 0;
+
 			var obj = {
-				ID: document.getElementById("CoOwnerID").value,
+				ID: id,
 				PatientID: @ViewBag.PatientID,
 				Name: document.getElementById("CoOwnerName").value,
 				ContactNo: document.getElementById("CoContactNo").value,
+				EmailAddress: document.getElementById("CoOwnerEmail").value,
 				Gender: document.getElementById("CoGender").value,
 				Country: document.getElementById("CoCountry").value,
 				State: document.getElementById("CoState").value,
@@ -525,13 +613,24 @@
 				PostCode: document.getElementById("CoPostcode").value,
 				Address: document.getElementById("CoAddress").value,
 				Status: 1,
-				CreatedDate: document.getElementById("CoOwnerCreatedDate").value,
-				CreatedBy: document.getElementById("CoOwnerCreatedBy").value,
-				UpdatedDate: new Date(),
-				UpdatedBy: document.getElementById("CoOwnerName").value
+				CreatedDate: (id != 0 ? document.getElementById("CoOwnerCreatedDate").value : new Date()),
+				CreatedBy: (id != 0 ? document.getElementById("CoOwnerCreatedBy").value : "System"),
+				UpdatedDate: (id != 0 ? new Date() : null),
+				UpdatedBy: (id != 0 ? document.getElementById("CoOwnerName").value : null)
 			};
 
 			sendUpdate(obj);
+
+			document.getElementById("CoOwnerNameText").innerHTML = document.getElementById("CoOwnerName").value;
+			document.getElementById("CoContactNoText").innerHTML = document.getElementById("CoContactNo").value;
+			document.getElementById("CoOwnerEmailText").innerHTML = document.getElementById("CoOwnerEmail").value;
+			if (document.getElementById("CoGender").value == "M") { document.getElementById("CoGenderText").innerHTML = "Male"; }
+			else { document.getElementById("CoGenderText").innerHTML = "Female"; }
+			document.getElementById("CoCountryText").innerHTML = document.getElementById("CoCountry").value;
+			document.getElementById("CoStateText").innerHTML = document.getElementById("CoState").value;
+			document.getElementById("CoCityText").innerHTML = document.getElementById("CoCity").value;
+			document.getElementById("CoAddressText").innerHTML = document.getElementById("CoAddress").value;
+			document.getElementById("CoPostcodeText").innerHTML = document.getElementById("CoPostcode").value;
 		}
 		
 	}
@@ -559,6 +658,8 @@
 			element[i].classList.toggle("hideContainer");
 		}
 
+		if (!coOwnerExist) { document.getElementById("coOwnerInfo").classList.toggle("hideContainer"); }
+
 		if (save) {
 			updateOwnerInfo();
 		}
@@ -576,32 +677,32 @@
 		var allPetsElement = document.getElementById("allPets");
 		allPetsElement.innerHTML = "";
 
-		for (let i = 0; i < data.pets.length; i++) {
+		for (let i = 0; i < data.Pets.length; i++) {
 
 			const template = document.getElementById("petInfoTemplate");
 			const clone = template.content.cloneNode(1).firstElementChild;
 			var contentElement = document.getElementById("petsInfoContent");
 
 			var element = clone.querySelectorAll('.PetImage');
-			element[0].src = "/images/" + data.pets[i].species + " profile image square.png";
+			element[0].src = "/images/" + data.Pets[i].Species + " profile image square.png";
 
 			var element = clone.querySelectorAll('.PetName');
-			element[0].innerHTML = data.pets[i].name;
+			element[0].innerHTML = data.Pets[i].Name;
 
 			element = clone.querySelectorAll('.RegistrationNo');
-			element[0].innerHTML = data.pets[i].registrationNo;
+			element[0].innerHTML = data.Pets[i].RegistrationNo;
 
 			element = clone.querySelectorAll('.Sex');
-			if (data.pets[i].gender == "M") { element[0].innerHTML = "Male"; }
+			if (data.Pets[i].Gender == "M") { element[0].innerHTML = "Male"; }
 			else { element[0].innerHTML = "Female"; }
 
 			element = clone.querySelectorAll('.DOB');
-			element[0].innerHTML = data.pets[i].dob;
+			element[0].innerHTML = data.Pets[i].DOB;
 
 			element = clone.querySelectorAll('.Age');
 
 			var currentDate = new Date();
-			var petDOB = new Date(data.pets[i].dob)
+			var petDOB = new Date(data.Pets[i].DOB)
 			var yearDiffer = currentDate.getFullYear() - petDOB.getFullYear();
 			var monthDiffer = currentDate.getMonth() - petDOB.getMonth() + (12 * yearDiffer);
 
@@ -612,32 +713,32 @@
 			}
 
 			element = clone.querySelectorAll('.Species');
-			element[0].innerHTML = data.pets[i].species;
+			element[0].innerHTML = data.Pets[i].Species;
 
 			var breedElement = clone.querySelectorAll('.Breed');
-			breedElement[0].innerHTML = data.pets[i].breed;
+			breedElement[0].innerHTML = data.Pets[i].Breed;
 
 			element = clone.querySelectorAll('.Allergies');
-			element[0].innerHTML = data.pets[i].allergies;
+			element[0].innerHTML = data.Pets[i].Allergies;
 
 			element = clone.querySelectorAll('.Color');
-			element[0].innerHTML = data.pets[i].color;
+			element[0].innerHTML = data.Pets[i].Color;
 
 			element = clone.querySelectorAll('.Height');
-			element[0].innerHTML = data.pets[i].height;
+			element[0].innerHTML = data.Pets[i].Height;
 
 			element = clone.querySelectorAll('.Weight');
-			element[0].innerHTML = data.pets[i].weight;
+			element[0].innerHTML = data.Pets[i].Weight;
 
 			element = clone.querySelectorAll('.Status');
-			element[0].innerHTML = data.pets[i].status;
+			element[0].innerHTML = data.Pets[i].Status;
 
-			var link = "location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/" + data.pets[i].name + "'";
+			var link = "location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/" + data.Pets[i].Name + "'";
 
 			allPetsElement.innerHTML = allPetsElement.innerHTML +
 				'<div class="field-container" style="text-align: center;">' +
-				'<img onclick="' + link + '" src="/images/' + data.pets[i].species + ' profile image.png" style = "width: 4vw;" />' +
-				'<a href="/Patients/PetProfile/View/@ViewBag.PatientID/' + data.pets[i].name + '" style="font-size: 1vw;" > ' + data.pets[i].name + ' </a>' +
+				'<img onclick="' + link + '" src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw;" />' +
+				'<a href="/Patients/PetProfile/View/@ViewBag.PatientID/' + data.Pets[i].Name + '" style="font-size: 1vw;" > ' + data.Pets[i].Name + ' </a>' +
 				'</div>'
 
 			contentElement.appendChild(clone);
@@ -662,11 +763,11 @@
 				}
 
 				for (let i = 0; i < data.length; i++) {
-					if (breedValue == data[i].breed) {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '" selected>' + data[i].breed + '</option>';
+					if (breedValue == data[i].Breed) {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '" selected>' + data[i].Breed + '</option>';
 					}
 					else {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
 					}
 				}
 			})

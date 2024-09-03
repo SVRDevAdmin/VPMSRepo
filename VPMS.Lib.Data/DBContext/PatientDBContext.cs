@@ -15,6 +15,7 @@ namespace VPMS.Lib.Data.DBContext
         public DbSet<Pets> Mst_Pets { get; set; }
         public DbSet<Patient_Owner> Mst_Patients_Owner { get; set; }
         public DbSet<Pets_Breed> Mst_Pets_Breed { get; set; }
+		public DbSet<Pet_Growth> Mst_Pet_Growth { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 			options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
@@ -24,23 +25,21 @@ namespace VPMS.Lib.Data.DBContext
             ObservableCollection<PetsInfo> sList = new ObservableCollection<PetsInfo>();
             int No = start + 1;
 			totalPets = 0;
+            
+            var filter = "WHERE b.Name like '%" + ownerName + "%' AND a.Name like '%"+ petName + "%' AND a.Species like '%" + species + "%' AND a.Breed like '%" + breed + "%' ";
 
+            var totalPetsQuery = "(select Count(a.Name) from mst_pets a join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " + filter + ")";
 
-
-			var filter = "WHERE b.Name like '%" + ownerName + "%' AND a.Name like '%"+ petName + "%' AND a.Species like '%" + species + "%' AND a.Breed like '%" + breed + "%' ";
-
-            var query1 = "select a.PatientID, a.ID, a.Name, b.Name AS 'OwnerName', a.Gender, a.Age, a.DOB, a.Species, a.Breed, a.CreatedDate from mst_pets a " +
+            var completeQuery = "select a.PatientID, a.ID, a.Name, b.Name AS 'OwnerName', a.Gender, a.Age, a.DOB, a.Species, a.Breed, a.CreatedDate, "+ totalPetsQuery + " as 'TotalPets' from mst_pets a " +
 				"join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " + filter +
-                "Order by a.ID LIMIT " + start + ", " + total + ";";
-
-            var query2 = "select Count(a.Name) as 'TotalPets' from mst_pets a join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " + filter + ";";
-
+				"Order by a.ID LIMIT " + start + ", " + total + ";";
+			
 			try
             {
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(query1, conn);
+                    MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -59,7 +58,9 @@ namespace VPMS.Lib.Data.DBContext
                                 Breed = reader["Breed"].ToString(),
                                 CreatedOn = DateTime.Parse(reader["CreatedDate"].ToString())
 							});
-                        }
+
+                            totalPets = Convert.ToInt32(reader["TotalPets"]);
+						}
                     }
                 }
             }
@@ -67,29 +68,6 @@ namespace VPMS.Lib.Data.DBContext
             {
 
             }
-
-			try
-			{
-				using (MySqlConnection conn = new MySqlConnection(connectionString))
-				{
-					conn.Open();
-					MySqlCommand cmd = new MySqlCommand(query2, conn);
-
-					using (var reader = cmd.ExecuteReader())
-					{
-						while (reader.Read())
-						{
-                            totalPets = Convert.ToInt32(reader["TotalPets"]);
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-
-			}
-
-			//totalPets = Mst_Pets.Count();
 
 			return sList;
         }

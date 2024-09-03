@@ -190,7 +190,7 @@
 				else {
 					for (let i = 0; i < data.petsInfo.length; i++) {
 
-						var date = new Date(data.petsInfo[i].createdOn);
+						var date = new Date(data.petsInfo[i].CreatedOn);
 						var dateString = [
 							('0' + date.getDate()).slice(-2),
 							('0' + (date.getMonth() + 1)).slice(-2),
@@ -199,13 +199,13 @@
 
 						content.innerHTML = content.innerHTML +
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
-							'<td class="table-content" >' + data.petsInfo[i].no + '</td>' +
-							'<td class="table-content" > ' + data.petsInfo[i].ownerName + '</td>' +
-							'<td class="table-content" > ' + data.petsInfo[i].name + '</td>' +
-							'<td class="table-content" > ' + data.petsInfo[i].species + '</td>' +
-							'<td class="table-content" > ' + data.petsInfo[i].breed + '</td>' +
-							'<td class="table-content" >  ' + data.petsInfo[i].age + '</td>' +
-							'<td class="table-content" >  ' + data.petsInfo[i].gender + '</td>' +
+							'<td class="table-content" >' + data.petsInfo[i].No + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].OwnerName + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].Name + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].Species + '</td>' +
+							'<td class="table-content" > ' + data.petsInfo[i].Breed + '</td>' +
+							'<td class="table-content" >  ' + data.petsInfo[i].Age + '</td>' +
+							'<td class="table-content" >  ' + data.petsInfo[i].Gender + '</td>' +
 							'<td class="table-content" >  ' + dateString + '</td>' +
 							'<td class="table-content" style = "width: 0;" > ' +
 							'<div class="dropleft" > ' +
@@ -213,9 +213,9 @@
 							'<img class="moreIcon" /> ' +
 							'</button>' +
 							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
-							'<a class="dropdown-item" href = "/Patients/PatientProfile/view/' + data.petsInfo[i].patientID + '" > @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].patientID + '" > @LangResources["Patient_Button_Edit"] </a>' +
-							// '<a class="dropdown-item" onclick="deletePet(' + data.petsInfo[i].patientID + ',\'' + data.petsInfo[i].name + '\');" > @LangResources["Patient_Button_Delete"] </a>' +
+							'<a class="dropdown-item" href = "/Patients/PatientProfile/view/' + data.petsInfo[i].PatientID + '" > @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].PatientID + '" > @LangResources["Patient_Button_Edit"] </a>' +
+							// '<a class="dropdown-item" onclick="deletePet(' + data.petsInfo[i].PatientID + ',\'' + data.petsInfo[i].Name + '\');" > @LangResources["Patient_Button_Delete"] </a>' +
 							// '<a class="dropdown-item" href="#" > @LangResources["Patient_Button_Delete"] </a>' +
 							'</div>' +
 							'</div>' +
@@ -312,7 +312,7 @@
 				element.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"]-- </option>';
 
 				for (let i = 0; i < data.length; i++) {
-					element.innerHTML = element.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
 				}
 			})
 			.catch(error => {
