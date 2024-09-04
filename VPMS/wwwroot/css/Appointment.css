@@ -1,4 +1,8 @@
-﻿.errorValidation {
+﻿select, .timePicker, input[type='text'], input[data-type='datepicker'], input[type='checkbox'] {
+    cursor: pointer !important;
+}
+
+.errorValidation {
     border-color: red !important;
 }
 
@@ -21,17 +25,17 @@
     background-color: black !important;
 }
 
-    .fc-col-header-cell:first-of-type {
-        border-top-left-radius: 8px !important;
-    }
+.fc-col-header-cell:first-of-type {
+    border-top-left-radius: 8px !important;
+}
 
-    .fc-col-header-cell:last-of-type {
-        border-top-right-radius: 8px !important;
-    }
+.fc-col-header-cell:last-of-type {
+    border-top-right-radius: 8px !important;
+}
 
-    .fc-col-header-cell.fc-day.fc-day-sun.fc-day-past {
-        border-top-left-radius: 8px !important;
-    }
+.fc-col-header-cell.fc-day.fc-day-sun.fc-day-past {
+    border-top-left-radius: 8px !important;
+}
 
 .fc-col-header-cell-cushion {
     color: #fff !important;
@@ -47,6 +51,14 @@
 
 .fc-event {
     background-color: #1D76FB !important;
+}
+
+.fc-event:hover {
+    cursor: pointer !important;
+}
+
+.fc-event-title:hover {
+    cursor: pointer !important;
 }
 
 .fc-event-title {
@@ -107,11 +119,11 @@
     border-bottom-style: none !important;
 }
 
-    .fc-customDayGrid-view > .fc-scrollgrid td:first-of-type {
-        border-left: none !important;
-        border-top: none !important;
-        border-bottom: none !important;
-    }
+.fc-customDayGrid-view > .fc-scrollgrid td:first-of-type {
+    border-left: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
 
 .fc .fc-timegrid-col.fc-day-today {
     background-color: transparent !important;
@@ -160,4 +172,159 @@
 
 .DetailsTitleRightCol {
     font-weight: bold;
+}
+
+.ControlsLeftCol {
+    width: 80%;
+    height: 45px;
+    margin-left: 60px;
+    margin-top: 5px;
+    border: 1px solid black;
+}
+
+.ControlsRightCol {
+    width: 80%;
+    height: 45px;
+    margin-top: 5px;
+    border: 1px solid black;
+}
+
+.DatePickerLeftCol {
+    width: 35%;
+    height: 45px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    margin-top: 5px;
+    border: 1px solid black;
+}
+
+.DatePickerRightCol {
+    display: flex;
+    flex-direction: row;
+    width: 45%;
+    height: 45px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-top: 5px;
+    border: 1px solid black
+}
+
+.dataPickerDOB {
+    width: 80%;
+    height: 45px;
+    border-radius: 6px;
+    margin-left: 60px;
+    margin-top: 5px;
+    border: 1px solid black;
+}
+
+.datePickerCalendar {
+    position: absolute;
+    z-index: 2;
+    margin-left: 3px;
+    margin-top: 10px;
+}
+
+.datePickerSeparator {
+    width: 10%;
+    height: 45px;
+    margin-top: 10px;
+    text-align: center;
+    color: grey;
+}
+
+.datePickerControl {
+    width: 50% !important;
+    height: 40px !important;
+    margin-left: 23px !important;
+    margin-top: 2px !important;
+    border: 0px solid black !important;
+    background-color: transparent !important;
+}
+
+.timePicker {
+    width: 45%;
+    height: 45px;
+    background-color: transparent;
+    text-align: center;
+    border: 0px solid black;
+}
+
+.timePicker:focus {
+    background-color: transparent;
+}
+
+.errorMsgStyle {
+    color: red;
+    font-weight: bold;
+    visibility: hidden;
+    margin-left: 60px;
+    margin-top: 5px;
+}
+
+.errorMsgViewAppt {
+    color: red;
+    font-weight: bold;
+    visibility: hidden;
+    margin-left: 20px;
+}
+
+.notifyCheckBox {
+    margin-left: 60px;
+    border: 1px solid black;
+    box-shadow: none;
+}
+
+.popupTitleLeftCol {
+    margin-left: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.popupTitleRightCol {
+    margin-right: 90px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.popupTitleHyperlink {
+    font-weight: bold;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+}
+
+.popupAppointment {
+    width: 100%; 
+    height: auto; 
+    background-color: #f7f7f7
+}
+
+.popupEvent {
+    width: 300px;
+    height: auto;
+    background-color: #f7f7f7;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.createApptRow {
+    text-align: right;
+    margin-top: 5px;
+}
+
+.calendarBorder {
+    height: auto;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.divSearchBorder {
+    border-radius: 5px;
+}
+
+.searchTitleBox {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 5px;
 }

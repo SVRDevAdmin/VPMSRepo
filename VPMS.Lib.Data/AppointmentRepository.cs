@@ -410,54 +410,6 @@ namespace VPMS.Lib.Data
                 return null;
             }
         }
-
-        // --- Temporary sit here --- //
-        //public static List<PatientSelectionModel> GetPatientOwnerList(IConfiguration config)
-        //{
-        //    try
-        //    {
-        //        using (var ctx = new AppointmentDBContext(config))
-        //        {
-        //            return ctx.mst_patients_owner
-        //                      .Where(x => x.Status == 1)
-        //                      .OrderBy(x => x.Name)
-        //                      .Select(x => new PatientSelectionModel
-        //                      {
-        //                          ID = x.ID,
-        //                          Name = x.Name,
-        //                          PatientID = x.PatientID
-
-        //                      }).ToList();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        //public static List<PetsSelectionModel> GetPetListByOwnerID(IConfiguration config, long patientID)
-        //{
-        //    try
-        //    {
-        //        using (var ctx = new AppointmentDBContext(config))
-        //        {
-        //            return ctx.mst_pets
-        //                      .Where(x => x.PatientID == patientID && x.Status == 1)
-        //                      .OrderBy(x => x.Name)
-        //                      .Select(x => new PetsSelectionModel
-        //                      {
-        //                          ID = x.ID,
-        //                          Name = x.Name
-        //                      })
-        //                      .ToList();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
     }
 
 }

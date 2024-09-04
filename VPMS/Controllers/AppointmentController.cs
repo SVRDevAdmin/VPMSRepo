@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualStudio.Web.CodeGeneration.Design;
+using Microsoft.VisualStudio.Web.CodeGeneration.Templating;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Runtime.CompilerServices;
+using VPMS.Lib;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
@@ -9,6 +13,10 @@ namespace VPMSWeb.Controllers
 {
     public class AppointmentController : Controller
     {
+        /// <summary>
+        /// Index
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             AppointmentViewModel sModel = new AppointmentViewModel();
@@ -134,8 +142,26 @@ namespace VPMSWeb.Controllers
                     bool sResult = AppointmentRepository.CreateAppointment(ConfigSettings.GetConfigurationSettings(), sModel, sServices);
                     if (sResult)
                     {
-                        //todo : send email
+                        if (sModel.EmailNotify == true)
+                        {
+                            List<String> sRecipientList = new List<string>();
+                            sRecipientList.Add("kenny@svrtech.com.my");
 
+                            string sApptOwnerName = "";
+                            String sApptPetName = "";
+                            PatientPetInfo sPatientOwner = PatientRepository.GetPatientPetProfileByOwnerPetID(ConfigSettings.GetConfigurationSettings(), sModel.OwnerID.Value, sModel.PetID.Value);
+                            if (sPatientOwner != null)
+                            {
+                                sApptOwnerName = (sPatientOwner != null) ? sPatientOwner.Name : "";
+                                sApptPetName = (sPatientOwner != null) ? sPatientOwner.PetName : "";
+                                //sRecipietnList.Add(sPatientOwner.Email);
+                            }
+
+                            SendNotificationEmail(sApptOwnerName, sApptPetName, sModel.InchargeDoctor, sModel.ApptDate, sModel.ApptStartTime,
+                                                  sModel.ApptEndTime, sRecipientList, sServices);
+                        }
+
+                        
                         sResp.StatusCode = (int)StatusCodes.Status200OK;
                         sResp.isDoctApptOverlap = false;
                         sResp.isPatientAppOverlap = false;
@@ -242,6 +268,18 @@ namespace VPMSWeb.Controllers
                                                                             sPatient, sPatientOwner, sPet, sModel, sServices);
                 if (sResult)
                 {
+                    if (sModel.EmailNotify == true)
+                    {
+                        List<String> sRecipientList = new List<string>();
+                        if (sControllerModel.EmailAddress.Length > 0)
+                        {
+                            sRecipientList.Add(sControllerModel.EmailAddress);
+                        }
+
+                        SendNotificationEmail(sPatientOwner.Name, sPet.Name, sModel.InchargeDoctor, sModel.ApptDate, sModel.ApptStartTime,
+                                              sModel.ApptEndTime, sRecipientList, sServices);
+                    }
+
                     sResp.StatusCode = (int)StatusCodes.Status200OK;
                     sResp.isDoctApptOverlap = false;
                     sResp.isPatientAppOverlap = false;
@@ -288,6 +326,79 @@ namespace VPMSWeb.Controllers
         {
             List<PetsSelectionModel> sPetList = PatientRepository.GetPetListByOwnerID(ConfigSettings.GetConfigurationSettings(), PatientID);
             return Json(sPetList);
+        }
+
+        /// <summary>
+        /// Populate email content
+        /// </summary>
+        /// <param name="OwnerName"></param>
+        /// <param name="PetName"></param>
+        /// <param name="DoctorName"></param>
+        /// <param name="ApptDate"></param>
+        /// <param name="ApptStartTime"></param>
+        /// <param name="ApptEndTime"></param>
+        /// <param name="sRecipientList"></param>
+        /// <param name="sServices"></param>
+        public void SendNotificationEmail(String OwnerName, String PetName, String DoctorName, DateTime? ApptDate, 
+                                          DateTime? ApptStartTime, DateTime? ApptEndTime, List<String> sRecipientList,
+                                          List<long> sServices)
+        {
+            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+            String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+            int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+            String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+            String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+            String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+
+            String sServicesFullName = "";
+            if (sServices.Count > 0)
+            {
+                foreach (var s in sServices)
+                {
+                    var sServiceObj = TreatmentServicesRepository.GetServicesInfoByID(ConfigSettings.GetConfigurationSettings(), s);
+                    if (sServiceObj != null)
+                    {
+                        if (sServicesFullName.Length > 0)
+                        {
+                            sServicesFullName += "<br/>";
+                        }
+                        sServicesFullName += sServiceObj.Name;
+                    }
+                }
+            }
+
+            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN001", "en");
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<appointmetdate>###", ApptDate.Value.ToString("dd/MM/yyyy"))
+                                                                         .Replace("###<appointmenttime>###", ApptStartTime.Value.ToString("HH:mm") +
+                                                                                                            " ~ " + 
+                                                                                                            ApptEndTime.Value.ToString("HH:mm"))
+                                                                         .Replace("###<petname>###", PetName)
+                                                                         .Replace("###<services>###", sServicesFullName)
+                                                                         .Replace("###<doctorname>###", DoctorName)
+                                                                         .Replace("###<customer>###", OwnerName);
+
+            try
+            {
+                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = sRecipientList;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
+
+                String sErrorMessage = "";
+                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+            }
+            catch (Exception ex)
+            {
+                //todo:
+            }
         }
     }
 

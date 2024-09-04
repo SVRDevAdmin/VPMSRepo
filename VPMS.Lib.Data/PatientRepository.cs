@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using VPMS.Lib.Data.DBContext;
@@ -61,6 +62,68 @@ namespace VPMS.Lib.Data
                                   Name = x.Name
                               })
                               .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Patient Information by Owner ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="ownerID"></param>
+        /// <returns></returns>
+        public static PatientOwnerModel GetPatientOwnerByOwnerID(IConfiguration config, long ownerID)
+        {
+            try
+            {
+                using (var ctx = new AppointmentDBContext(config))
+                {
+                    return ctx.mst_patients_owner.Where(x => x.ID == ownerID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Patient Information by Owner ID + Pet ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="ownerID"></param>
+        /// <param name="PetID"></param>
+        /// <returns></returns>
+        public static PatientPetInfo GetPatientPetProfileByOwnerPetID(IConfiguration config, long ownerID, long PetID)
+        {
+            try
+            {
+                using (var ctx = new AppointmentDBContext(config))
+                {
+                    var sResult = (from A in ctx.mst_patients_owner
+                                   join B in ctx.mst_pets on A.PatientID equals B.PatientID
+                                   where A.ID == ownerID && B.ID == PetID
+
+                                   select new PatientPetInfo
+                                   {
+                                       OwnerID = A.ID,
+                                       PatientID = A.PatientID,
+                                       Name = A.Name,
+                                       Gender = A.Gender,
+                                       Address = A.Address,
+                                       PostCode = A.PostCode,
+                                       State = A.State,
+                                       Country = A.Country,
+                                       PetID = B.ID,
+                                       PetName = B.Name,
+                                       PetDOB = B.DOB
+                                   }).FirstOrDefault();
+
+                    return sResult;
                 }
             }
             catch (Exception ex)

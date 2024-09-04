@@ -1129,6 +1129,8 @@
         $('#lbNewError').html('');
     }
 </script>
+
+
 <div class="row">
     <div class="row">
         <div class="col-md-12">
@@ -1136,15 +1138,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9" style="height: auto; border: 0px solid black;">
-            <div class="row" style="height: auto; border: 0px solid black;">
+        <div class="col-md-9" style="height: auto;">
+            <div class="row" style="height: auto;">
                 <div class="col-md-12">&nbsp;</div>
             </div>
         </div>
-        <div class="col-md-3" style="height: auto; border: 0px solid black;">
-            <div clsas="row" style="height: auto; border: 0px solid black;">
-                <div class="col-md-12" style="text-align: right; margin-top: 5px;">
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="box-shadow: none;">
+        <div class="col-md-3" style="height: auto;">
+            <div clsas="row" style="height: auto;">
+                <div class="col-md-12 createApptRow">
+                    <button id="btnCreate" type="button" class="btn btn-primary" >
                         <i class="bi bi-plus-circle"></i>
                         @LangResources["Appointment_Button_NewAppointment"]
                     </button>
@@ -1153,8 +1155,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9" style="height: auto; border: 0px solid black;">
-            <div class="row" style="height: auto; border: 0px solid black; margin-top: 15px; margin-left: 10px; margin-right: 5px;">
+        <div class="col-md-9" style="height: auto;">
+            <div class="row calendarBorder">
                 <div id="apptCalendar">
                 </div>
 
@@ -1165,10 +1167,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3" style="height: auto; border: 0px solid black">
-            <div id="divSearch" class="row" style="height: auto; border: 0px solid black; ">
-                <div class="col-md-12" style="border-radius: 5px; border: 0px solid black">
-                    <div class="row" style="margin-top: 30px; margin-bottom: 30px; margin-left: 5px;">
+        <div class="col-md-3" style="height: auto;">
+            <div id="divSearch" class="row" style="height: auto;">
+                <div class="col-md-12 divSearchBorder" >
+                    <div class="row searchTitleBox">
                         <label class="searchTitle">@LangResources["Appointment_Title_Filter"]</label>
                     </div>
                     <!-- Owner -->
@@ -1216,7 +1218,7 @@
                                 {
                                     foreach (var ss in sSearchServicesObj.TreatmentServicesModel)
                                     {
-                                                                                                                                                                            <option value=@ss.ID>@ss.Name</option>
+                                        <option value=@ss.ID>@ss.Name</option>
                                     }
                                 }
                             }
@@ -1251,7 +1253,7 @@
 
 <div id="AppointmentModal" class="modal fade modal-xl" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="width: 100%; height: auto; background-color: #f7f7f7">
+        <div class="modal-content popupAppointment">
             <div class="modal-header" style="border-bottom: 0px;">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -1260,31 +1262,31 @@
                 <div id="divNewAppt" class="row apptClss">
                     <div class="row" style="width: 100%;">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;">
+                            <label class="popupTitleLeftCol">
                                 @LangResources["Appointment_Title_CreateAppointment"]
                             </label>
                         </div>
                         <div class="col-md-6" style="text-align: right;">
-                            <label style="margin-right: 90px; font-size: 16px; vertical-align: middle;">
+                            <label class="popupTitleRightCol">
                                 @LangResources["Appointment_Label_NewClient"] 
-                                <a href="javascript:;" onclick="switchAppt('divNewClientAppt')" style="font-weight: bold; text-decoration-color: black; text-decoration-line: underline;">
+                                <a href="javascript:;" onclick="switchAppt('divNewClientAppt')" class="popupTitleHyperlink">
                                     @LangResources["Appointment_Label_SwitchQuickAppt"]
                                 </a>
                             </label>
                         </div>
                     </div>
                     <div class="row" style="height: 30px;">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black;">
+                    <div class="row">
+                        <div class="col-md-6">
                             <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
+                        <div class="col-md-6">
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlAddOwner" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlAddOwnerchanges(this);" required>
+                        <div class="col-md-6">
+                            <select id="ddlAddOwner" class="form-select ControlsLeftCol" onchange="ddlAddOwnerchanges(this);" required>
                                 <option value="">@LangResources["Appointment_Selection_SelectOwner"]</option>
 
                                 @{
@@ -1301,8 +1303,8 @@
                                 }
                             </select>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlAddPet" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
+                        <div class="col-md-6">
+                            <select id="ddlAddPet" class="form-select ControlsRightCol">
                                 <option value="">@LangResources["Appointment_Selection_SelectPet"]</option>
                             </select>
                         </div>
@@ -1318,7 +1320,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlAddServices" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlServicesChanges(this)">
+                            <select id="ddlAddServices" class="form-select ControlsLeftCol" onchange="ddlServicesChanges(this)">
                                 <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
 
                                 @{
@@ -1336,14 +1338,14 @@
                             </select>
                         </div>
                         <div class="col-md-6" style="display: flex; flex-direction: row;">
-                            <div id="divdtAddAppt" style="width: 35%; height:45px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; margin-top: 5px; border: 1px solid black;">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-top: 10px; margin-left: 3px;">event</i>
-                                <input id="dtAddAppt" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                            <div id="divdtAddAppt" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtAddAppt" class="form-control datePickerControl" />
                             </div>
-                            <div id="divtimePicker" style="display: flex; flex-direction: row; width: 45%; height: 45px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; margin-top: 5px; border: 1px solid black">
-                                <input id="strtimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
-                                <div style="width: 10%; height: 45px; margin-top: 10px; text-align: center; color: grey;">--</div>
-                                <input id="endtimePicker" class="form-contorl timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" /> 
+                            <div id="divtimePicker" class="DatePickerRightCol">
+                                <input id="strtimePicker" class="form-control timePicker" />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="endtimePicker" class="form-control timePicker"  /> 
                             </div>
               
                         </div>
@@ -1357,7 +1359,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlAddDoctor" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
+                            <select id="ddlAddDoctor" class="form-select ControlsLeftCol">
                                 <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
                             </select>
                         </div>
@@ -1366,9 +1368,9 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="chkNotify" class="form-check-input" type="checkbox" style="margin-left: 60px; border: 1px solid black; box-shadow: none;" />
+                            <input id="chkNotify" class="form-check-input notifyCheckBox" type="checkbox"  />
                             <label style="margin-left: 10px;">@LangResources["Appointment_Label_NotifyMeEmail"]</label><br/>
-                            <label id="lbError" style="color: red; font-weight: bold; visibility: hidden; margin-left: 60px; margin-top: 5px;">*Mandatory fields required.</label>
+                            <label id="lbError" class="errorMsgStyle">*Mandatory fields required.</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
@@ -1391,71 +1393,71 @@
                 <div id="divNewClientAppt" class="row apptClss" style="display: none;">
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;">
+                            <label class="popupTitleLeftCol">
                                 @LangResources["Appointment_Title_NewApptNewClient"]
                             </label>
                         </div>
                         <div class="col-md-6" style="text-align: right;">
-                            <label style="margin-right: 90px; font-size: 16px; vertical-align: middle;">
+                            <label class="popupTitleRightCol">
                                 @LangResources["Appointment_Label_ExistingClient"] 
-                                <a href="javascript:;" onclick="switchAppt('divNewAppt')" style="font-weight: bold; text-decoration-color: black; text-decoration-line: underline;">
+                                <a href="javascript:;" onclick="switchAppt('divNewAppt')" class="popupTitleHyperlink">
                                     @LangResources["Appointment_Label_SwitchAppointment"]
                                 </a>
                             </label>
                         </div>
                     </div>
                     <div class="row" style="height: 30px;">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
+                    <div class="row">
+                        <div class="col-md-6">
                             <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerFullName"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
+                        <div class="col-md-6">
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_ContactNo"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewOwnerfullName" type="text" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewOwnerfullName" type="text" class="form-control ControlsLeftCol" />
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewContactNo" type="text" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewContactNo" type="text" class="form-control ControlsRightCol" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
+                    <div class="row">
+                        <div class="col-md-6">
                             <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_EmailAddress"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
+                        <div class="col-md-6">
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewEmail" type="text" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewEmail" type="text" class="form-control ControlsLeftCol" />
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewPetName" type="text" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewPetName" type="text" class="form-control ControlsRightCol" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
+                    <div class="row">
+                        <div class="col-md-6">
                             <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_PetDOB"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
+                        <div class="col-md-6">
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_Species"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <div id="divNewDOB" style="width:80%; height: 45px; border-radius: 6px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-left: 3px; margin-top: 10px;">event</i>
-                                <input id="dtNewDOB" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                        <div class="col-md-6">
+                            <div id="divNewDOB" class="dataPickerDOB">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtNewDOB" class="form-control datePickerControl"  />
                             </div>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlNewSpecies" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
+                        <div class="col-md-6">
+                            <select id="ddlNewSpecies" class="form-select ControlsRightCol" >
                                 <option value="">@LangResources["Appointment_Selection_SelectSpecies"]</option>
 
                                 @{
@@ -1474,17 +1476,17 @@
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
+                    <div class="row">
+                        <div class="col-md-6">
                             <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
+                        <div class="col-md-6">
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlNewAddServices" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlNewServicesChanges(this)">
+                        <div class="col-md-6">
+                            <select id="ddlNewAddServices" class="form-select ControlsLeftCol" onchange="ddlNewServicesChanges(this)">
                                 <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
 
                                 @{
@@ -1501,41 +1503,41 @@
                                 }
                             </select>
                         </div>
-                        <div class="col-md-6" style="display: flex; flex-direction: row; border: 0px solid black;">
-                            <div id="divNewDateTime" style="width: 35%; height: 45px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; margin-top: 5px; border: 1px solid black">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-top: 10px; margin-left: 3px;">event</i>
-                                <input id="dtNewApptDate" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                        <div class="col-md-6" style="display: flex; flex-direction: row;">
+                            <div id="divNewDateTime" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtNewApptDate" class="form-control datePickerControl" />
                             </div>
-                            <div id="divNewTimePicker" style="display: flex; flex-direction: row; width: 45%; height: 45px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; margin-top: 5px; border: 1px solid black;">
-                                <input id="newStrtimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
-                                <div style="width: 10%; height: 45px; margin-top: 10px; text-align: center; color: grey;">--</div>
-                                <input id="newEndtimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" /> 
+                            <div id="divNewTimePicker" class="DatePickerRightCol">
+                                <input id="newStrtimePicker" class="form-control timePicker" />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="newEndtimePicker" class="form-control timePicker" /> 
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
-                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
-                        </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlNewDoctor" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
-                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="chkNewNotify" class="form-check-input" type="checkbox" style="margin-left: 60px; border: 1px solid black; box-shadow: none;" />
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlNewDoctor" class="form-select ControlsLeftCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="chkNewNotify" class="form-check-input notifyCheckBox" type="checkbox" />
                             <label style="margin-left: 10px;">@LangResources["Appointment_Label_NotifyMeEmail"]</label><br/>
-                            <label id="lbNewError" style="color: red; font-weight: bold; visibility: hidden; margin-left: 60px; margin-top: 5px;">@LangResources["Appointment_Label_MandatoryFields"]</label>
+                            <label id="lbNewError" class="errorMsgStyle">@LangResources["Appointment_Label_MandatoryFields"]</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
@@ -1558,27 +1560,27 @@
                 <div id="divEditAppt" class="row apptClss" style="display: none;">
                     <div class="row" style="width: 100%">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;"></label>
+                            <label class="popupTitleLeftCol"></label>
                         </div>
                         <div class="col-md-6">&nbsp;
                             <input id="hidEditID" type="text" style="visibility: hidden;" />
                         </div>
                     </div>
                     <div class="row" style="height: 30px;">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black;">
+                    <div class="row" >
+                        <div class="col-md-6">
                             <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
+                        <div class="col-md-6" >
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtOwner" type="text" class="form-control" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" disabled />
+                        <div class="col-md-6">
+                            <input id="txtOwner" type="text" class="form-control ControlsLeftCol" disabled />
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtPet" type="text" class="form-control" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" disabled />
+                        <div class="col-md-6">
+                            <input id="txtPet" type="text" class="form-control ControlsRightCol" disabled />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
@@ -1592,17 +1594,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="txtServices" class="form-control" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" disabled />
+                            <input id="txtServices" class="form-control ControlsLeftCol" disabled />
                         </div>
                         <div class="col-md-6" style="display: flex; flex-direction: row;">
-                            <div id="divdtAddAppt" style="width: 35%; height:45px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; margin-top: 5px; border: 1px solid black;">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-top: 10px; margin-left: 3px;">event</i>
-                                <input id="dtEditAppt" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                            <div id="divdtAddAppt" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtEditAppt" class="form-control datePickerControl" />
                             </div>
-                            <div id="divtimePicker" style="display: flex; flex-direction: row; width: 45%; height: 45px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; margin-top: 5px; border: 1px solid black">
-                                <input id="EditStrttimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
-                                <div style="width: 10%; height: 45px; margin-top: 10px; text-align: center; color: grey;">--</div>
-                                <input id="EditEndtimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
+                            <div id="divtimePicker" class="DatePickerRightCol">
+                                <input id="EditStrttimePicker" class="form-control timePicker"  />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="EditEndtimePicker" class="form-control timePicker" />
                             </div>
                         </div>
                     </div>
@@ -1615,14 +1617,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="txtDoctor" class="form-control" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" disabled />
+                            <input id="txtDoctor" class="form-control ControlsLeftCol" disabled />
                         </div>
                         <div action="col-md-6"></div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label id="lbEditError" style="color: red; font-weight: bold; visibility: hidden; margin-left: 60px; margin-top: 5px;"></label>
+                            <label id="lbEditError" class="errorMsgStyle"></label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
@@ -1647,7 +1649,7 @@
 
 <div id="EventModal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="width: 300px; height: auto; background-color: #f7f7f7; font-family: sans-serif; font-size: 14px;">
+        <div class="modal-content popupEvent">
             <div class="modal-header" style="border-bottom: 0px; text-align: right !important;">
                 <button id="btnEditAppt" type="button" class="bi bi-pencil-fill" style="border: 0px; background-color: transparent; margin-left: 70%;"></button>
                 <button id="btnDirectCancel" type="button" class="bi bi-trash3" style="border: 0px; background-color: transparent; margin-left: 5px;"></button>
@@ -1691,7 +1693,7 @@
                 </div>
                 <div class="row" style="height: 20px;">
                     <div class="col-md-12">
-                        <label id="lbEventError" style="color:red; font-weight: bold; visibility: hidden; margin-left: 20px;"></label>
+                        <label id="lbEventError" class="errorMsgViewAppt"></label>
                     </div>
                 </div>
                 <div class="row" style="height: 20px;">
