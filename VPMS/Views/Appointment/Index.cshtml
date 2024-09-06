@@ -3,7 +3,7 @@
 @model List<VPMSWeb.Controllers.AppointmentViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Appointment";
     ViewData["SelectedMenu"] = "appointmentMenu";
 }
 
@@ -1134,13 +1134,15 @@
 <div class="row">
     <div class="row">
         <div class="col-md-12">
-            <label class="apptPageTitle">@LangResources["Appointment_Title_Appointment"]</label>
+            &nbsp;
         </div>
     </div>
     <div class="row">
         <div class="col-md-9" style="height: auto;">
             <div class="row" style="height: auto;">
-                <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-12">
+                    <label class="apptPageTitle">@LangResources["Appointment_Title_Appointment"]</label>
+                </div>
             </div>
         </div>
         <div class="col-md-3" style="height: auto;">

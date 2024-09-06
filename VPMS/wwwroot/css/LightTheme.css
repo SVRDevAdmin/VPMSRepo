@@ -71,9 +71,61 @@ input[type='text']:focus, select:focus {
 
 /* Sidebar Styles */
 .bar-menu-bg {
-	/*background-color: #f7f7f7;*/
+	background-color: #f7f7f7;
 }
 
+#leftBar {
+	width: 20vw !important;
+}
+
+#menu li ul {
+	margin-left: 5.5rem;
+	padding-left: 1.25rem;
+	border-left-style: solid;
+	border-left-color: #707B7C;
+	border-left-width: thin;
+}
+
+#menu li ul li a {
+	color: black;
+}
+
+#menu li ul li:first-child {
+	margin-top: 0px;
+}
+
+#menu li ul li:last-child {
+	margin-bottom: 0px;
+}
+
+#menu li a #imgArrow {
+	content: url('../images/down-arrow.png');
+	width: 1vw;
+}
+
+#menu li .spanMenuBlue.selected {
+	background-color: rgb(30, 118, 251);
+	display: inline-block;
+}
+
+#menu li a #imgArrow.Up {
+	content: url('../images/arrow-up.png');
+	width: 1vw;
+}
+
+.spanMenuBlue {
+	background-color: none;
+	width: 20px;
+	height: 35px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.menuIcons {
+	margin-left: 0.75rem;
+	margin-right: 1.25rem;
+}
+/*
 .sidebar-nav {
 	background-color: #f7f7f7;
 	list-style: none;
@@ -84,7 +136,6 @@ input[type='text']:focus, select:focus {
 	margin-left: -15px;
 	padding: 0;
 	font-size: 1vw;
-
 	transition: background-color 1s;
 }
 
@@ -157,7 +208,7 @@ input[type='text']:focus, select:focus {
 	content: url('../images/arrow-up.png');
 	width: 1vw;
 }
-
+*/
 #imgProfileArrow {
 	content: url('../images/down-arrow.png');
 }
@@ -165,7 +216,7 @@ input[type='text']:focus, select:focus {
 #imgBackArrow {
 	content: url('../images/BackArrow.png');
 }
-
+/*
 .sidebar-nav > .sidebar-brand {
 	height: 65px;
 	font-size: 18px;
@@ -180,10 +231,11 @@ input[type='text']:focus, select:focus {
 	color: #fff;
 	background: none;
 }
-
+*/
 .sidebar-nav-font {
 	vertical-align: middle;
 	color: black;
+	font-weight: bold;
 }
 
 .divThemes {
@@ -239,8 +291,8 @@ input[type='text']:focus, select:focus {
 
 #iconPatients {
 	content: url('../images/fa_solid_paw_icon.png');
-	width: 18px;
-	height: 18px;
+	width: 22px;
+	height: 20px;
 }
 
 #iconHome {
@@ -250,9 +302,9 @@ input[type='text']:focus, select:focus {
 }
 
 #iconAppt {
-	content: url('../images/appt_icon.png');
-	width: 24px;
-	height: 24px;
+	content: url('../images/calendar_icon.png');
+	width: 20px;
+	height: 20px;
 }
 
 #iconReceipt{
@@ -274,9 +326,9 @@ input[type='text']:focus, select:focus {
 }
 
 #iconInventory {
-	content: url('../images/box_icon.png');
-	width: 32px;
-	height: 32px;
+	content: url('../images/boxes.png');
+	width: 24px;
+	height: 24px;
 }
 
 #iconServices {
@@ -383,7 +435,52 @@ input[type='text']:focus, select:focus {
 	/*-webkit-box-shadow: inset 0 0 6px rgba(90,90,90,0.7);*/
 }
 
-@@media(min-width:768px) {
+@media(max-width:767px) {
+	#leftBar {
+		width: 70px !important;
+		padding-top: 70px !important;
+	}
+
+	#divLogo{
+		top: 16px !important;
+		left: 7px !important;
+	}
+
+	#imgLogo {
+		width: 4vw !important;
+	}
+
+	.spanMenuBlue {
+		display: none !important;
+	}
+
+	#imgLogoTitle {
+		display: none !important;
+	}
+
+	.sidebar-nav-font {
+		display: none !important;
+	}
+
+	#menu li ul {
+		margin-left: 1rem;
+		padding-left: 1.25rem;
+		border-left-style: none;
+		border-left-color: #707B7C;
+		border-left-width: thin;
+	}
+	/*
+	#SubMenuServices {
+		display: none !important;
+	}
+
+	#SubMenuAccess {
+		display: none !important;
+	}
+	*/
+}
+
+@media(min-width:768px) {
 	#wrapper {
 		padding-left: 0;
 	}
@@ -409,6 +506,18 @@ input[type='text']:focus, select:focus {
 		position: relative;
 		margin-right: 0;
 	}
+
+	.sidebar-nav-font {
+		visibility: visible !important;
+	}
+	/*
+	#SubMenuServices {
+		visibility: visible !important;
+	}
+
+	#SubMenuAccess {
+		visibility: visible !important;
+	}*/
 }
 
 /* ----- Appointment -------*/
