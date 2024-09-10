@@ -33,7 +33,7 @@ namespace VPMSWeb.Controllers
             Program.CountryList = sCountryList;
 
             var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), Request.Cookies["userid"]);
-			if (sUserConfigurationSettings != null)
+			if (sUserConfigurationSettings != null && sUserConfigurationSettings.Count != 0)
 			{
 				ViewData["LanguageSelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Language").FirstOrDefault();
 				ViewData["CountrySelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Country").FirstOrDefault();
@@ -42,6 +42,23 @@ namespace VPMSWeb.Controllers
                 Program.LanguageSelected = ViewData["LanguageSelected"] as ConfigurationModel;
                 Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
             }
+			else
+			{
+				ViewData["LanguageSelected"] = new ConfigurationModel()
+				{
+					ConfigurationKey = "UserSettings_Language", 
+					ConfigurationValue = "en"
+				};
+				ViewData["CountrySelected"] = new ConfigurationModel()
+				{
+					ConfigurationKey = "UserSettings_Country",
+					ConfigurationValue = "South Korea"
+				};
+
+
+				Program.LanguageSelected = ViewData["LanguageSelected"] as ConfigurationModel;
+				Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
+			}
 
 			//if (ViewData["LanguageSelected"] != null)
 			if (Program.LanguageSelected != null)
@@ -67,7 +84,43 @@ namespace VPMSWeb.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-		public IActionResult ChangeLanguage(String lang, String UserID)
+		//public IActionResult ChangeLanguage(String lang, String UserID)
+		//{
+		//	if (!String.IsNullOrEmpty(lang))
+		//	{
+		//		ConfigurationModel sModel = new ConfigurationModel();
+		//		sModel.UserID = UserID;
+		//		sModel.ConfigurationKey = "UserSettings_Language";
+		//		sModel.ConfigurationValue = lang;
+		//		sModel.CreatedDate = DateTime.Now;
+		//		sModel.CreatedBy = UserID;
+
+		//		if (ConfigurationRepository.UpdateUserConfigurationSettingsByKey(ConfigSettings.GetConfigurationSettings(), sModel))
+		//		{
+		//			Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
+		//			Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+
+		//                  Program.LanguageFullNameSelected = Program.LanguageCodeList.Where(x => x.CodeID == lang).FirstOrDefault();
+		//			Program.LanguageSelected = sModel;
+
+		//		}
+		//		else
+		//		{
+		//			//todo:
+		//		}
+		//	}
+		//	else
+		//	{
+		//		Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en");
+		//		Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+		//		lang = "en";
+		//	}
+
+		//	Response.Cookies.Append("Language", lang);
+		//	return Redirect(Request.GetTypedHeaders().Referer.ToString());
+		//}
+
+		public bool ChangeLanguage(String lang, String UserID)
 		{
 			if (!String.IsNullOrEmpty(lang))
 			{
@@ -83,7 +136,7 @@ namespace VPMSWeb.Controllers
 					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
 
-                    Program.LanguageFullNameSelected = Program.LanguageCodeList.Where(x => x.CodeID == lang).FirstOrDefault();
+					Program.LanguageFullNameSelected = Program.LanguageCodeList.Where(x => x.CodeID == lang).FirstOrDefault();
 					Program.LanguageSelected = sModel;
 
 				}
@@ -100,7 +153,7 @@ namespace VPMSWeb.Controllers
 			}
 
 			Response.Cookies.Append("Language", lang);
-			return Redirect(Request.GetTypedHeaders().Referer.ToString());
+			return true;
 		}
 	}
 }

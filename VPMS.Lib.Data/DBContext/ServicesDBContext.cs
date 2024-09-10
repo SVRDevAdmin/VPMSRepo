@@ -19,6 +19,7 @@ namespace VPMS.Lib.Data.DBContext
 
 		public DbSet<ServicesModel> Mst_Services { get; set; }
 		public DbSet<ServiceCategory> Mst_ServicesCategory { get; set; }
+		public DbSet<ServiceDoctor> Mst_Service_Doctor { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 		options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
@@ -32,26 +33,34 @@ namespace VPMS.Lib.Data.DBContext
 
 
 			var filter = "WHERE a.name like '%" + search + "%' OR b.name like '%" + search + "%' OR a.DoctorInCharge like '%" + search + "%' ";
-
-			var query1 = "select a.Name, a.ID, b.SubCategoryName as 'Category', a.Prices, a.DoctorInCharge, d.Name as 'Organisation', c.Name as 'Branch', a.Duration, a.Status from mst_services a " +
+			var joinQuery = 
 				"join mst_servicescategory b on b.ID = a.CategoryID " +
 				"join mst_branch c on c.ID = a.BranchID " +
-				"join mst_organisation d on d.ID = c.OrganizationID " +
-				filter +
-				"Order by a.ID LIMIT " + start + ", " + total + ";";
+				"join mst_organisation d on d.ID = c.OrganizationID ";
 
-			var query2 = "select Count(a.Name) as 'TotalServices' from mst_services a " +
-				"join mst_servicescategory b on b.ID = a.CategoryID " +
-				"join mst_branch c on c.ID = a.BranchID " +
-				"join mst_organisation d on d.ID = c.OrganizationID " +
-				filter + ";";
+			//var query1 = "select a.Name, a.ID, b.SubCategoryName as 'Category', a.Prices, a.DoctorInCharge, d.Name as 'Organisation', c.Name as 'Branch', a.Duration, a.Status from mst_services a " +
+			//	"join mst_servicescategory b on b.ID = a.CategoryID " +
+			//	"join mst_branch c on c.ID = a.BranchID " +
+			//	"join mst_organisation d on d.ID = c.OrganizationID " +
+			//	filter +
+			//	"Order by a.ID LIMIT " + start + ", " + total + ";";
+
+			//var query2 = "select Count(a.Name) as 'TotalServices' from mst_services a " +
+			//	"join mst_servicescategory b on b.ID = a.CategoryID " +
+			//	"join mst_branch c on c.ID = a.BranchID " +
+			//	"join mst_organisation d on d.ID = c.OrganizationID " +
+			//	filter + ";";
+
+			var totalServiceQuery = "(select Count(a.Name) from mst_services a "+ joinQuery + filter + ")";
+			var completeQuery = "select a.Name, a.ID, b.SubCategoryName as 'Category', a.Prices, a.DoctorInCharge, d.Name as 'Organisation', c.Name as 'Branch', a.Duration, a.Status, "+ totalServiceQuery + " as 'TotalServices' from mst_services a " +
+				joinQuery + filter + "Order by a.ID LIMIT " + start + ", " + total + ";";
 
 			try
 			{
 				using (MySqlConnection conn = new MySqlConnection(connectionString))
 				{
 					conn.Open();
-					MySqlCommand cmd = new MySqlCommand(query1, conn);
+					MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
 
 					using (var reader = cmd.ExecuteReader())
 					{
@@ -71,26 +80,7 @@ namespace VPMS.Lib.Data.DBContext
 								Duration = float.Parse(reader["Duration"].ToString()),
 								Status = int.Parse(reader["Status"].ToString())
 							});
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
 
-			}
-
-			try
-			{
-				using (MySqlConnection conn = new MySqlConnection(connectionString))
-				{
-					conn.Open();
-					MySqlCommand cmd = new MySqlCommand(query2, conn);
-
-					using (var reader = cmd.ExecuteReader())
-					{
-						while (reader.Read())
-						{
 							totalServices = Convert.ToInt32(reader["TotalServices"]);
 						}
 					}
@@ -100,6 +90,27 @@ namespace VPMS.Lib.Data.DBContext
 			{
 
 			}
+
+			//try
+			//{
+			//	using (MySqlConnection conn = new MySqlConnection(connectionString))
+			//	{
+			//		conn.Open();
+			//		MySqlCommand cmd = new MySqlCommand(query2, conn);
+
+			//		using (var reader = cmd.ExecuteReader())
+			//		{
+			//			while (reader.Read())
+			//			{
+			//				totalServices = Convert.ToInt32(reader["TotalServices"]);
+			//			}
+			//		}
+			//	}
+			//}
+			//catch (Exception ex)
+			//{
+
+			//}
 
 			return sList;
 		}

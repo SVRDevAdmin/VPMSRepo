@@ -13,6 +13,9 @@ namespace VPMSWeb.Controllers
     {
         private readonly PatientDBContext _patientDBContext = new PatientDBContext();
 		private readonly MasterCodeDataDBContext _masterCodeDataDBContext = new MasterCodeDataDBContext();
+		private readonly ServicesDBContext _servicesDBContext = new ServicesDBContext();
+		private readonly TreatmentPlanDBContext _treatmentPlanDBContext = new TreatmentPlanDBContext();
+
 
 		int totalPets;
 
@@ -83,7 +86,10 @@ namespace VPMSWeb.Controllers
 
 			var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 
-            Program.CurrentPage = "/Patients/TreatmentPlan/" + patientid + "/" + petname;
+			ViewData["TreatmentPlans"] = _treatmentPlanDBContext.Mst_TreatmentPlan.ToList();
+
+
+			Program.CurrentPage = "/Patients/TreatmentPlan/" + patientid + "/" + petname;
 
             return View(petInfo);
 		}
@@ -103,6 +109,8 @@ namespace VPMSWeb.Controllers
 		{
 			ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 			ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
+			ViewData["VaccinationList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Vaccination").ToList();
+			ViewData["SurgeryList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Surgery").ToList();
 
             Program.CurrentPage = "/Patients/CreateNewPatient";
 

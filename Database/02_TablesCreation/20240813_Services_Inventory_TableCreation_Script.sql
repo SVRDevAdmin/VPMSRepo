@@ -23,7 +23,7 @@ CREATE TABLE `mst_services` (
 	`Description` TEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`Precaution` TEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`BranchID` INT NULL DEFAULT NULL,
-	`DoctorInCharge` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`DoctorInCharge` TEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`CreatedDate` DATETIME NULL DEFAULT NULL,
 	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`UpdatedDate` DATETIME NULL DEFAULT NULL,
@@ -79,6 +79,7 @@ CREATE TABLE `mst_product_status` (
 	`StockStatus` INT NULL DEFAULT NULL,
 	`QtyInStores` INT NULL DEFAULT NULL,
 	`LowStockThreshold` INT NULL DEFAULT NULL,
+	`ExpiryDate` DATETIME NULL DEFAULT NULL,
 	`UpdatedDate` DATETIME NULL DEFAULT NULL,
 	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	PRIMARY KEY (`ID`) USING BTREE

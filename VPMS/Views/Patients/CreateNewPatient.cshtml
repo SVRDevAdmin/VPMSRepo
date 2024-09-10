@@ -282,12 +282,22 @@
 	<div>
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-			<input type="text" class="form-control form-field inputField TypeVaccination" />
+			@* <input type="text" class="form-control form-field inputField TypeVaccination" /> *@
+			<select class="form-control form-field inputField TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination');">
+				<option value="" selected> -- Select Vaccination Type --</option>
+				@foreach (var vaccination in ViewData["VaccinationList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
+				{
+					<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
+				}
+			</select>
 		</div>
 
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-			<input type="text" class="form-control form-field inputField NameVaccination" />
+			@* <input type="text" class="form-control form-field inputField NameVaccination" /> *@
+			<select class="form-control form-field inputField NameVaccination">
+				<option value="" selected> -- Select Vaccination --</option>
+			</select>
 		</div>
 
 		<div class="field-container">
@@ -335,12 +345,22 @@
 	<div>
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-			<input type="text" class="form-control form-field inputField TypeSurgeries" />
+			@* <input type="text" class="form-control form-field inputField TypeSurgeries" /> *@
+			<select class="form-control form-field inputField TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery');">
+				<option value="" selected> -- Select Surgery Type --</option>
+				@foreach (var vaccination in ViewData["SurgeryList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
+				{
+					<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
+				}
+			</select>
 		</div>
 
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-			<input type="text" class="form-control form-field inputField NameSurgeries" />
+			@* <input type="text" class="form-control form-field inputField NameSurgeries" /> *@
+			<select class="form-control form-field inputField NameSurgeries">
+				<option value="" selected> -- Select Surgery --</option>
+			</select>
 		</div>
 
 		<div class="field-container">
@@ -578,7 +598,6 @@
 		AgeElement[0].value = parseInt(yearText);
 	}
 
-
 	function changeSpecies(e) {
 		var breedElement = e.parentElement.parentElement.querySelector('.Breed');
 		breedList(e.value, breedElement);
@@ -598,6 +617,27 @@
 
 				for (let i = 0; i < data.length; i++) {
 					breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function serviceList(id, element, name){
+		fetch('/PatientServices/GetServiceByCategory?categoryID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				element.innerHTML = '<option value="" selected> -- Select ' + name + ' -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '">' + data[i].Name + '</option>';
 				}
 			})
 			.catch(error => {

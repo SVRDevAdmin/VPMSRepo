@@ -84,16 +84,16 @@
 <div style="display: flex;">
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
 		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("ServiceList", "PatientServices")'" />
-		<span class="textColor" style="font-size: 2vw;">Service</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Service"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;"><span class="serviceInfo">View</span><span class="serviceInfo hideContainer">Edit</span> Service</span>
+		<span style="font-size: 2vw; color: dodgerblue;"><span class="inventoryInfo">@LangResources["Patient_Button_View"]</span><span class="inventoryInfo hideContainer">@LangResources["Patient_Button_Edit"]</span> @LangResources["MenuBar_Label_Service"]</span>
 	</div>
 </div>
 
 <div id="ownerInfoContainer">
 	<div>
 		<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">Service Details</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Service_Label_ServiceDetails"]</span>
 		</div>
 		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
@@ -103,15 +103,15 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Service Name</span>
+					<span class="formlabel">@LangResources["Service_Label_ServiceName"]</span>
 					<input id="ServiceName" type="text" class="form-control form-field inputField serviceInfo hideContainer" value="@serviceInfo.Name" />
 					<span id="ServiceNameText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.Name</span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Category</span>
+					<span class="formlabel">@LangResources["Inventory_Label_Category"]</span>
 					<select id="Category" class="form-control form-field inputField serviceInfo hideContainer">
-						<option value=""> -- Select Category --</option>
+						<option value=""> -- @LangResources["Service_Label_SelectCategory"] --</option>
 
 						@{
 							var categoryName = "";
@@ -134,27 +134,45 @@
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Price ($)</span>
+					<span class="formlabel">@LangResources["Patient_Label_Price"] ($)</span>
 					<input id="Price" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField serviceInfo hideContainer" value="@serviceInfo.Prices" />
 					<span id="PriceText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.Prices</span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Doctor</span>
+					<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
 					<div class="dropright serviceInfo hideContainer" style="display: flex;">
-						<input id="Doctor" type="text" class="form-control form-field inputField" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" value="@serviceInfo.DoctorInCharge" disabled />
+						<input id="Doctor" type="text" class="form-control form-field inputField" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
 						<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: white; color: black; border-left: none; display: flex; align-items: center; box-shadow: none; border-top-left-radius: 0; border-bottom-left-radius: 0; font-size: 1vw; border-color: black; padding: 0; padding-right: 0.5vw;">
 							<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
 						</button>
 						<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
 							<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
 								<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
-								<input type="text" id="searchDoctor" placeholder="Search Treatment" onkeyup="filterDoctor(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+								<input type="text" id="searchDoctor" placeholder="@LangResources["Service_Label_SearchDoctor"]" onkeyup="filterDoctor(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
 							</div>
 							<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
 
 								<div style="margin-bottom: 1vw;">
-									<div class="form-check">
+
+									@{
+										int indexNo = 1;
+										string index = "";
+
+										foreach (var doctor in ViewData["DoctorList"] as List<VPMS.Lib.Data.Models.DoctorModel>)
+										{
+											index = "doctor" + indexNo;
+
+											<div class="form-check">
+												<input type="checkbox" class="form-check-input doctorOption" id="@index" name="@index" data-id="@doctor.ID" value="Dr. @doctor.Name" @(serviceInfo.DoctorInCharge.Contains(doctor.Name) ? "checked='true'" : "")>
+												<label class="form-check-label" for="@index"> Dr. @doctor.Name</label><br>
+											</div>
+
+											indexNo++;
+										}
+									}
+
+									@* <div class="form-check">
 										<input type="checkbox" class="form-check-input doctorOption" id="doctor1" name="doctor1" value="Dr. Park Ji-hoon" @(serviceInfo.DoctorInCharge.Contains("Dr. Park Ji-hoon") ? "checked='true'" : "")>
 										<label class="form-check-label" for="doctor1"> Dr. park Ji-hoon</label><br>
 									</div>
@@ -173,15 +191,15 @@
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input doctorOption" id="doctor5" name="doctor5" value="Dr. Hang Dong-hyun" @(serviceInfo.DoctorInCharge.Contains("Dr. Hang Dong-hyun") ? "checked='true'" : "")>
 										<label class="form-check-label" for="doctor5"> Dr. Hang Dong-hyun</label><br>
-									</div>
+									</div> *@
 								</div>
 
 							</div>
 							<div style="display: flex; justify-content: space-between; align-items: center;">
 								<button class="btn btn-lg btn-primary" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
-									<span style="font-size: 1.2vw; margin-left: 0.5vw;">Clear All</span>
+									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
 								</button>
-								<button id="addSelections" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">Add Selections</button>
+								<button id="addSelections" class="btn btn-lg btn-primary" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
 							</div>
 						</div>
 					</div>
@@ -191,9 +209,9 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">Organisation</span>
+					<span class="formlabel">@LangResources["Inventory_Label_Organisation"]</span>
 					<select id="Organisation" class="form-control form-field inputField serviceInfo hideContainer" onchange="getBranch(this.value, false);">
-						<option value="" selected> -- Select Organisation --</option>
+						<option value="" selected> -- @LangResources["Inventory_Label_SelectOrganisation"] --</option>
 						@{
 							var organisationName = "";
 							foreach (var organisation in ViewData["Organisation"] as IEnumerable<VPMS.Lib.Data.Models.OrganisationModel>)
@@ -215,36 +233,36 @@
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Branch</span>
+					<span class="formlabel">@LangResources["Inventory_Label_Branch"]</span>
 					<select id="Branch" class="form-control form-field inputField serviceInfo hideContainer">
-						<option value="" selected> -- Select Branch --</option>
+						<option value="" selected> -- @LangResources["Inventory_Label_SelectBranch"] --</option>
 					</select>
 					<span id="BranchText" class="formlabel serviceInfo" style="font-weight: normal;"></span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Time of Service (Hr)</span>
+					<span class="formlabel">@LangResources["Service_Label_TimeOfServiceHr"]</span>
 					<input id="TimeOfService" min="0" type="number" onchange="parseFloat(parseFloat(this.value).toFixed(1));" step="0.5" class="form-control form-field inputField serviceInfo hideContainer" value="@serviceInfo.Duration" />
 					<span id="TimeOfServiceText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.Duration</span>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">Status</span>
+					<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
 					<select id="Status" class="form-control form-field inputField serviceInfo hideContainer">
-						<option value=""> -- Select Status --</option>
+						<option value=""> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 						@{
 							var statusName = "";
 							if(serviceInfo.Status == 1)
 							{
-								statusName = "Active";
-											<option value="1" selected> Active</option>
-											<option value="2"> Inactive</option>
+								statusName = LangResources["Patient_Selection_Active"];
+								<option value="1" selected> @LangResources["Patient_Selection_Active"]</option>
+								<option value="2"> @LangResources["Patient_Selection_Inactive"]</option>
 							}
 							else
 							{
-								statusName = "Inactive";
-											<option value="1"> Active</option>
-											<option value="2" selected> Inactive</option>
+								statusName = LangResources["Patient_Selection_Inactive"];
+								<option value="1"> @LangResources["Patient_Selection_Active"]</option>
+								<option value="2" selected> @LangResources["Patient_Selection_Inactive"]</option>
 							}
 						}
 					</select>
@@ -254,7 +272,7 @@
 
 			<div style="margin-bottom: 1.5vw;">
 				<div class="field-container">
-					<span class="formlabel">Description</span>
+					<span class="formlabel">@LangResources["Inventory_Label_Description"]</span>
 					<textarea id="Description" rows="5" class="form-control form-field inputField serviceInfo hideContainer" style="width: 100%;">@serviceInfo.Description</textarea>
 					<span id="DescriptionText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.Description</span>
 				</div>
@@ -262,7 +280,7 @@
 
 			<div style="margin-bottom: 1.5vw;">
 				<div class="field-container">
-					<span class="formlabel">Precaution</span>
+					<span class="formlabel">@LangResources["Service_Label_Precaution"]</span>
 					<textarea id="Precaution" rows="5" class="form-control form-field inputField serviceInfo hideContainer" style="width: 100%;">@serviceInfo.Precaution</textarea>
 					<span id="PrecautionText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.Precaution</span>
 				</div>
@@ -273,13 +291,17 @@
 
 	<div style="text-align: end; margin-right: 1.6vw;">
 		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;" onclick="location.href='@Url.Action("ServiceList", "PatientServices")'"> @LangResources["Patient_Button_Cancel"] </button>
-		<button class="btn btn-lg btn-primary serviceInfo" style="width: 11vw; font-size: 1vw;" onclick="editServiceInfo();"> Edit </button>
-		<button class="btn btn-lg btn-primary serviceInfo hideContainer" style="width: 11vw; font-size: 1vw;" onclick="saveServiceInfo();"> Save </button>
+		<button class="btn btn-lg btn-primary serviceInfo" style="width: 11vw; font-size: 1vw;" onclick="editServiceInfo();"> @LangResources["Patient_Button_Edit"] </button>
+		<button class="btn btn-lg btn-primary serviceInfo hideContainer" style="width: 11vw; font-size: 1vw;" onclick="saveServiceInfo();"> @LangResources["Patient_Button_Save"] </button>
 	</div>
 
 </div>
 
 <script>
+	var doctorListIDGlobal = [];
+	updateDoctors();
+	getBranch(@ViewData["OrganisationID"], true);
+
 	if ("@ViewData["Type"]" == "Edit") {
 		editServiceInfo();
 	}
@@ -293,19 +315,37 @@
 	document.querySelector('#addSelections').addEventListener('click', function (event) {
 		if (this.classList.contains("disable")) { event.stopPropagation(); }
 		else {
-			const a = document.querySelectorAll(".doctorOption");
-			var doctorList = ""
+			// const a = document.querySelectorAll(".doctorOption");
+			// var doctorList = ""
 
-			for (let i = 0; i < a.length; i++) {
-				if (a[i].checked) {
-					doctorList += a[i].value + ";";
-				}
-			}
+			// for (let i = 0; i < a.length; i++) {
+			// 	if (a[i].checked) {
+			// 		doctorList += a[i].value + ";";
+			// 	}
+			// }
 
-			document.getElementById("Doctor").value = doctorList;
+			// document.getElementById("Doctor").value = doctorList;
+
+			updateDoctors();
 
 		}
 	});
+
+	function updateDoctors(){
+		const a = document.querySelectorAll(".doctorOption");
+		var doctorList = "";
+		var doctorListID = [];
+
+		for (let i = 0; i < a.length; i++) {
+			if (a[i].checked) {
+				doctorList += a[i].value + ";";
+				doctorListID.push(a[i].getAttribute('data-id'));
+			}
+		}
+
+		doctorListIDGlobal = doctorListID;
+		document.getElementById("Doctor").value = doctorList;
+	}
 
 	document.querySelector('#clearFilter').addEventListener('click', function (event) {
 		event.stopPropagation();
@@ -387,7 +427,7 @@
 				}
 
 				for (let i = 0; i < data.length; i++) {
-					if (selected && data[i].ID == "@serviceInfo.BranchID") {
+					if (selected && data[i].ID == @serviceInfo.BranchID) {
 						element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '" selected>' + data[i].Name + '</option>';
 						document.getElementById("BranchText").innerHTML = data[i].Name;
 					}
@@ -439,6 +479,8 @@
 			CreatedBy: CreatedBy
 		};
 
+		var test = doctorListIDGlobal;
+
 		fetch('/PatientServices/UpdateService', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
@@ -451,13 +493,39 @@
 				return response.json();
 			})
 			.then(data => {
-				if(data){
-					window.location = "/PatientServices/ServiceList";
+				if(data != 0){
+					// window.location = "/PatientServices/ServiceList";
+					var test = doctorListIDGlobal;
+					saveDoctorList(ID);
 				}
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
 
+	}
+
+	function saveDoctorList(id) {
+		var test = doctorListIDGlobal;
+
+		fetch('/PatientServices/UpdateServiceDoctor?serviceID=' + id, {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(doctorListIDGlobal)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data) {
+					window.location = "/PatientServices/ServiceList";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 </script>

@@ -55,7 +55,115 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+	.table-content {
+		height: 2vw;
+	}
+
+	.table-row-content {
+		padding: 1vw 0;
+	}
+
+	table th:first-child {
+		border-radius: 0.2vw 0 0 0.2vw;
+	}
+
+	table th:last-child {
+		border-radius: 0 0.2vw 0.2vw 0;
+	}
 </style>
+
+<template id="treatmentPlanTemplate">
+	<div class="textColor" style="border-style: dashed; border-radius: 1vw; padding: 1vw; font-size: 1vw; margin-right: 1vw;">
+		<div style="display: flex; justify-content: space-between;">
+			<div>
+				<span id="treatmentPlanName" style="font-weight: bold;"></span>
+			</div>
+			<div style="display: flex; align-items: center;">
+				<span style="color: red;">Pending Confirmation</span>
+				<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
+				<button onclick="removeTreatmentPlan(this);" class="btn btn-lg btn-danger" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-xmark"></i></button>
+				<button class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-regular fa-pen-to-square"></i></button>
+			</div>
+		</div>
+		<span>@LangResources["Patient_Label_TreatmentPeriod"] : 10/04/2024 - 15/04/2024</span>
+
+		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
+			<table class="textColor" id="serviceList" style="width:100%; font-size: 1vw;">
+				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
+					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["MenuBar_Label_Service"] </th>
+					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</th>
+				</tr>
+				<tr>
+					<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
+					<th class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </th>
+				</tr>
+			</table>
+		</div>
+
+		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
+			<table class="textColor" id="productList" style="width:100%; font-size: 1vw;">
+				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
+					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Product"] </th>
+					<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
+					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</th>
+				</tr>
+				<tr>
+					<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
+					<th class="table-content">0</th>
+					<th class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </th>
+				</tr>
+			</table>
+		</div>
+
+		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
+			<table class="textColor" id="totalList" style="width:100%; font-size: 1vw;">
+				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
+					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Payment"] </th>
+					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</th>
+				</tr>
+				<tr>
+					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
+					<th class="table-content" id="totalCost" style="width: 3vw; padding-right: 0.5vw;"> $0 </th>
+				</tr>
+				<tr>
+					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Tax"] 6% </th>
+					<th class="table-content" id="tax" style="width: 3vw; padding-right: 0.5vw;"> $0 </th>
+				</tr>
+				<tr style="background-color: #c8dcfc; color: black;">
+					<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_GrandTotal"] </th>
+					<th class="table-content" id="grandTotal" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </th>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</template>
+
+<template id="serviceTemplate">
+	<tr>
+		<th class="table-content serviceName" style="padding-left: 0.5vw;"></th>
+		<th class="table-content servicePrice" style="width: 3vw; padding-right: 0.5vw;"></th>
+	</tr>
+	<tr>
+		<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
+		<th class="table-content totalCost" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"></th>
+	</tr>
+</template>
+
+<template id="productTemplate">
+	<tr>
+		<th class="table-content productName" style="padding-left: 0.5vw;"></th>
+		<th class="table-content productUnit"></th>
+		<th class="table-content productOriginalPrice" hidden></th>
+		<th class="table-content productPrice" style="width: 3vw; padding-right: 0.5vw;"></th>
+	</tr>
+	<tr>
+		<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
+		<th class="table-content"></th>
+		<th class="table-content totalCost" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"></th>
+	</tr>
+</template>
 
 <div style="display: flex;">
 
@@ -74,85 +182,58 @@
 <div style="display: flex; justify-content: center;">
 	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
 		<div style="background-color: black; border-radius: 0.5vw; display: flex; justify-content: space-between; padding: 0.29vw; margin-right: 1vw;">
-			<button class="btn btn-lg btn-primary tabButton currentTab" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Create Treatment Plan</button>
-			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Upcoming Treatment</button>
-			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Outgoing Treatment</button>
-			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">Past Treatment</button>
+			<button class="btn btn-lg btn-primary tabButton currentTab" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_CreateTreatmentPlan"]</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_UpcomingTreatment"]</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_OutgoingTreatment"]</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_PastTreatment"]</button>
 		</div>
 
 		<div style="margin-top: 2vw; display: flex; align-items: flex-start;">
 
-			<div class="dropright">
+			<div id="treatmentPlanList" class="dropright">
 				<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none;">
 					<span id="container">+</span>
-					<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Treatment</span>
+					<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_AddTreatment"]</span>
 				</button>
 				<div class="dropdown-menu containerBackground3" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
 					<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
 						<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
-						<input type="text" id="searchTreatment" placeholder="Search Treatment" onkeyup="filterTreatment(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+						<input type="text" id="searchTreatment" placeholder="@LangResources["Patient_Label_SearchTreatment"]" onkeyup="filterTreatment(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
 					</div>
 					<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
 
 						<div style="margin-bottom: 1vw;">
-							<span style="font-weight: bold;">Services</span>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input serviceOption" id="service1" name="service1" value="Routine health checkups">
-								<label class="form-check-label" for="service1"> Routine health checkups</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input serviceOption" id="service2" name="service2" value="Vaccination">
-								<label class="form-check-label" for="service2"> Vaccination</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input serviceOption" id="service3" name="service3" value="Dental care">
-								<label class="form-check-label" for="service3"> Dental care</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input serviceOption" id="service4" name="service4" value="Chronic disease management">
-								<label class="form-check-label" for="service4"> Chronic disease management</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input serviceOption" id="service5" name="service5" value="Michrochipping and identification">
-								<label class="form-check-label" for="service5"> Microchipping and identification</label><br>
-							</div>
-						</div>
+							@{
+								int indexNo = 1;
+								string index = "";
 
-						<hr />
+								foreach (var treatmentPlan in ViewData["TreatmentPlans"] as List<VPMS.Lib.Data.Models.TreatmentPlanModel>)
+								{
+									index = "service" + indexNo;
 
-						<div>
-							<span style="font-weight: bold;">Products</span>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input productOption" id="product1" name="product1" value="Routine health checkups">
-								<label class="form-check-label" for="product1"> Routine health checkups</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input productOption" id="product2" name="product2" value="Vaccination">
-								<label class="form-check-label" for="product2"> Vaccination</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input productOption" id="product3" name="product3" value="Dental care">
-								<label class="form-check-label" for="product3"> Dental care</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input productOption" id="product4" name="product4" value="Chronic disease management">
-								<label class="form-check-label" for="product4"> Chronic disease management</label><br>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input productOption" id="product5" name="product5" value="Michrochipping and identification">
-								<label class="form-check-label" for="product5"> Microchipping and identification</label><br>
-							</div>
+												<div class="form-check">
+													<input type="checkbox" class="form-check-input treatmentPlanOption" id="@index" name="@index" data-id="@treatmentPlan.ID" value="@treatmentPlan.Name">
+													<label class="form-check-label" for="@index">@treatmentPlan.Name</label><br>
+												</div>
+
+									indexNo++;
+								}
+							}
 						</div>
 						
 					</div>
 					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<button class="btn btn-lg btn-primary" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
-							<span style="font-size: 1.2vw; margin-left: 0.5vw;">Clear All</span>
+							<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
 						</button>
-						<button id="addSelections" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">Add Selections</button>
+						<button id="addSelections" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
 					</div>
 				</div>
 			</div>
+
+			<div class ="hideContainer" id="treatmentPlanContainer" style="width: 100%;">
+			</div>
+			
 
 		</div>
 	</div>
@@ -438,26 +519,40 @@
 	document.querySelector('#addSelections').addEventListener('click', function (event) {
 		if (this.classList.contains("disable")) { event.stopPropagation(); }
 		else{
+			var treatmentNameElement = document.getElementById("treatmentPlanContainer");
+			var template = document.getElementById("treatmentPlanTemplate");
+			const clone = template.content.cloneNode(true);
+			treatmentNameElement.appendChild(clone);
 
+			var treatmentNameElement = document.getElementById("treatmentPlanName");
+			var checkboxes = document.getElementsByClassName("treatmentPlanOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+
+			for (let i = 0; i < selectedCboxes.length; i++) {
+				treatmentNameElement.innerHTML = selectedCboxes[i].value;
+				getServiceListByPlan(selectedCboxes[i].getAttribute('data-id'));
+				getProductListByPlan(selectedCboxes[i].getAttribute('data-id'));
+			}
+
+			// cloneElement(true, "serviceTemplate", "serviceList", "serviceID", 0, "serviceName", "Surgery", "servicePrice", "500", false, 0, 0);
+			// cloneElement(true, "productTemplate", "productList", "productID", 0, "productName", "Actogain 45 plus", "productPrice", "100", true, 10, "100");
+
+			var dropdownElement = document.getElementById("treatmentPlanList");
+			dropdownElement.classList.toggle("hideContainer");
+
+			var element = document.getElementById("treatmentPlanContainer");
+			element.classList.toggle("hideContainer");
 		}
 	});
 
 	document.querySelector('#clearFilter').addEventListener('click', function (event) {
 		event.stopPropagation();
 
-		const a = document.querySelectorAll(".serviceOption");
-		const b = document.querySelectorAll(".productOption");
+		var checkboxes = document.getElementsByClassName("treatmentPlanOption");
+		var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
 
-		for (let i = 0; i < a.length; i++) {
-			if (a[i].checked) {
-				a[i].checked = false;
-			}
-		}
-
-		for (let i = 0; i < b.length; i++) {
-			if (b[i].checked) {
-				b[i].checked = false;
-			}
+		for (let i = 0; i < selectedCboxes.length; i++) {
+			selectedCboxes[i].checked = false;
 		}
 
 		document.getElementById("searchTreatment").value = "";
@@ -474,20 +569,13 @@
 		treatments[i].addEventListener('click', function (event) {
 			event.stopPropagation();
 
-			const a = document.querySelectorAll(".serviceOption");
-			const b = document.querySelectorAll(".productOption");
-			var disabledFilter = true;
+			disabledFilter = true;
 
-			for (let i = 0; i < a.length; i++) {
-				if (a[i].checked) {
-					disabledFilter = false;
-				}
-			}
+			var checkboxes = document.getElementsByClassName("treatmentPlanOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
 
-			for (let i = 0; i < b.length; i++) {
-				if (b[i].checked) {
-					disabledFilter = false;
-				}
+			if (selectedCboxes.length > 0) {
+				disabledFilter = false;
 			}
 
 			var addSelections = document.getElementById("addSelections");
@@ -513,8 +601,7 @@
 	function filterTreatment(value) {
 		const filter = value.value.toUpperCase();
 
-		const a = document.querySelectorAll(".serviceOption");
-		const b = document.querySelectorAll(".productOption");
+		const a = document.querySelectorAll(".treatmentPlanOption");
 
 		for (let i = 0; i < a.length; i++) {
 			var treatmentValue = a[i].value;
@@ -524,14 +611,103 @@
 				a[i].parentElement.style.display = "none";
 			}
 		}
+	}
 
-		for (let i = 0; i < a.length; i++) {
-			var treatmentValue = b[i].value;
-			if (treatmentValue.toUpperCase().indexOf(filter) > -1) {
-				b[i].parentElement.style.display = "";
-			} else {
-				b[i].parentElement.style.display = "none";
-			}
+	function cloneElement(edit, templateId, elementId, idElement, id, nameElement, name, priceElement, price, productGroup, units, originalPrice) {
+		const template = document.getElementById(templateId);
+		const element = document.getElementById(elementId);
+		var allElement = element.querySelectorAll("tr");
+		allElement[allElement.length - 1].remove();
+		const clone = template.content.cloneNode(true);
+		var notExisted = true;
+		var totalCost = 0;
+
+		// clone.querySelector("." + idElement).innerHTML = id;
+		clone.querySelector("." + nameElement).innerHTML = name;
+		clone.querySelector("." + priceElement).innerHTML = "$" + price;
+
+		if (productGroup) {
+			clone.querySelector(".productOriginalPrice").innerHTML = originalPrice;
+			clone.querySelector(".productUnit").innerHTML = units;
 		}
+
+		element.appendChild(clone);
+
+		var priceElements = element.querySelectorAll("." + priceElement);
+
+		for (let i = 0; i < priceElements.length; i++) {
+			totalCost += parseInt(priceElements[i].innerHTML.replace("$", ""));
+		}
+
+		element.querySelector(".totalCost").innerHTML = "$" + totalCost;
+
+		calculateTotal();
+	}
+
+	function calculateTotal() {
+		var totalElement = document.getElementById("totalCost");
+		var taxElement = document.getElementById("tax");
+		var grandTotalElement = document.getElementById("grandTotal");
+		var totalCostList = document.querySelectorAll(".totalCost");
+		var totalCost = 0;
+		var tax = 0;
+
+		for (let i = 0; i < totalCostList.length; i++) {
+			totalCost += parseInt(totalCostList[i].innerHTML.replace("$", ""));
+		}
+
+		tax = totalCost * (6 / 100);
+
+		totalElement.innerHTML = "$" + totalCost;
+		taxElement.innerHTML = "$" + tax;
+		grandTotalElement.innerHTML = "$" + (totalCost + tax);
+	}
+
+	function removeTreatmentPlan(element) {
+		element.parentElement.parentElement.parentElement.remove();
+
+		var dropdownElement = document.getElementById("treatmentPlanList");
+		dropdownElement.classList.toggle("hideContainer");
+
+		var element = document.getElementById("treatmentPlanContainer");
+		element.classList.toggle("hideContainer");
+	}
+
+	function getServiceListByPlan(id) {
+		fetch('/PatientServices/GetTreatmentPlanServicesList?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				for (let i = 0; i < data.length; i++) {
+					cloneElement(true, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getProductListByPlan(id) {
+		fetch('/PatientServices/GetTreatmentPlanProductsList?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				for (let i = 0; i < data.length; i++) {
+					cloneElement(true, "productTemplate", "productList", "productID", data[i].ProductID, "productName", data[i].ProductName, "productPrice", data[i].TotalPrice, true, data[i].Units, data[i].PricePerQty);
+				}
+				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 </script>

@@ -79,14 +79,14 @@
 <div style="display: flex; justify-content: space-between;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">Treatment Plans</span>
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["TreatmentPlan_Label_TreatmentPlans"]</span>
 	</div>
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<input id="SearchTreatmentPlan" type="text" class="form-control form-field inputField" placeholder="Search service" onkeyup="searchFilter(this.value);" />
-		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 17vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewTreatment", "PatientServices")'">
+		<input id="SearchTreatmentPlan" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" onkeyup="searchFilter(this.value);" />
+		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 19vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewTreatment", "PatientServices")'">
 			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">New Treatment</span>
+			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_NewTreatment"]</span>
 		</button>
 	</div>
 
@@ -94,65 +94,6 @@
 
 <div>
 	<table class="textColor" id="treatmentPlanList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
-		<tr class="containerBackground">
-			<th class="table-content"> @LangResources["Patient_Label_Number"] </th>
-			<th class="table-content"> Treatment Name </th>
-			<th class="table-content"> Date Created </th>
-			<th class="table-content"> Created By </th>
-			<th class="table-content"> Cost ($) </th>
-			<th class="table-content"> Status </th>
-			<th class="table-content">  </th>
-		</tr>
-
-		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-			<td class="table-content"> 1 </td>
-			<td class="table-content"> General Health Checkup </td>
-			<td class="table-content"> 02/04/2024 </td>
-			<td class="table-content"> Dr. Kim Do-yeon </td>
-			<td class="table-content"> 120 </td>
-			<td class="table-content">
-				<div style="color: #57baa5; background-color: #c3f7ec; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">
-					Active
-				</div>
-			</td>
-			<td class="table-content" style="width: 0;">
-				<div class="dropleft">
-					<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">
-						<img class="moreIcon" />
-					</button>
-					<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">
-						<a class="dropdown-item" href="#"> @LangResources["Patient_Button_View"] </a>
-						<a class="dropdown-item" href="#"> @LangResources["Patient_Button_Edit"] </a>
-						<a class="dropdown-item" href="#"> Make Inactive </a>
-					</div>
-				</div>
-			</td>
-		</tr>
-
-		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-			<td class="table-content"> 2 </td>
-			<td class="table-content"> General Health Checkup </td>
-			<td class="table-content"> 02/04/2024 </td>
-			<td class="table-content"> Dr. Kim Do-yeon </td>
-			<td class="table-content"> 120 </td>
-			<td class="table-content">
-				<div style="color: #ff2c29; background-color: #ffc5c4; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">
-					Inactive
-				</div>				
-			</td>
-			<td class="table-content" style="width: 0;">
-				<div class="dropleft">
-					<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">
-						<img class="moreIcon" />
-					</button>
-					<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">
-						<a class="dropdown-item" href="#"> @LangResources["Patient_Button_View"] </a>
-						<a class="dropdown-item" href="#"> @LangResources["Patient_Button_Edit"] </a>
-						<a class="dropdown-item" href="#"> Make Active </a>
-					</div>
-				</div>
-			</td>
-		</tr>
 	</table>
 
 	<div id="pagination" style="display: flex; justify-content: flex-end;">
@@ -174,7 +115,182 @@
 	var endPagination = 0;
 	var totalPagination = 0;
 	var currentPage = 1;
+	var search = "";
 
 	$(".patientServicesMenuList").toggleClass('open');
 	$('.patientServicesMenuArrow').toggleClass('Up');
+
+	filter();
+
+	function getServicesList(page, search, reset) {
+		fetch('/PatientServices/GetTreatmentPlanList?rowLimit=' + rowLimit + '&page=' + page + '&search=' + search)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				let total = data.totalTreatmentPlan;
+
+				if (reset) {
+					if (total == 0) { document.getElementById("pagination").hidden = true; }
+					else {
+						document.getElementById("pagination").hidden = false;
+
+						var totalPage = parseInt(total / rowLimit);
+
+						if (totalPage == 0) { totalPage = totalPage + 1; }
+
+						if ((total > rowLimit) && (total % rowLimit) != 0) { totalPage = totalPage + 1; }
+
+						totalPagination = totalPage;
+
+						if (totalPage > paginationLimit) { endPagination = paginationLimit }
+						else { endPagination = totalPage; }
+
+						pagination(startPagination, endPagination);
+					}
+				}
+
+
+				if (currentPage == totalPagination) { document.getElementById("nextButton").hidden = true; }
+				else { document.getElementById("nextButton").hidden = false; }
+				if (currentPage == 1) { document.getElementById("prevButton").hidden = true; }
+				else { document.getElementById("prevButton").hidden = false; }
+
+				var content = document.getElementById("treatmentPlanList");
+
+
+
+				content.innerHTML =
+					'<tr class="containerBackground">' +
+					'<th class="table-content"> @LangResources["Patient_Label_Number"] </th>' +
+					'<th class="table-content" > @LangResources["TreatmentPlan_Label_TreatmentName"] </th >' +
+					'<th class="table-content"> @LangResources["TreatmentPlan_Label_DateCreated"] </th>' +
+					'<th class="table-content"> @LangResources["TreatmentPlan_Label_CreatedBy"] </th>' +
+					'<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"] ($) </th>' +
+					'<th class="table-content"> @LangResources["Patient_Label_Status"] </th>' +
+					'<th class="table-content">  </th>' +
+					'</tr>';
+
+				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				else {
+
+					var index = ((currentPage - 1) * rowLimit) + 1;
+
+					for(let i = 0; i < data.treatmentPlans.length; i++) {
+
+						var status, color, background, toggleStatus;
+
+						if (data.treatmentPlans[i].Status == 1) {
+							status = "@LangResources["Patient_Selection_Active"]";
+							color = "#57baa5";
+							background = "#c3f7ec";
+							toggleStatus = "@LangResources["TreatmentPlan_Label_MakeInactive"]";
+						}
+						else {
+							status = "@LangResources["Patient_Selection_Inactive"]";
+							color = "#ff2c29";
+							background = "#ffc5c4";
+							toggleStatus = "@LangResources["TreatmentPlan_Label_MakeActive"]";
+						}
+
+						content.innerHTML = content.innerHTML +
+							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+							'<td class="table-content" > ' + index + ' </td>' +
+							'<td class="table-content"> ' + data.treatmentPlans[i].Name + ' </td>' +
+							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedDate + ' </td>' +
+							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedBy + ' </td>' +
+							'<td class="table-content"> ' + data.treatmentPlans[i].TotalPrice + ' </td>' +
+							'<td class="table-content">' +
+							'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">' +
+							status +
+							'</div>' +
+							'</td>' +
+							'<td class="table-content" style="width: 0;">' +
+							'<div class="dropleft">' +
+							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">' +
+							'<img class="moreIcon" />' +
+							'</button>' +
+							'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+							'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/View/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="#"> @LangResources["Patient_Button_Edit"] </a>' +
+							'<a class="dropdown-item" href="#"> ' + toggleStatus + ' </a>' +
+							'</div>' +
+							'</div>' +
+							'</td>' +
+							'</tr > ';
+					}
+				}
+
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function pagination(start, end) {
+
+		var element = document.getElementById("paginationNumbering");
+
+		element.innerHTML = "";
+
+		for (let i = start; i < end + 1; i++) {
+			var color = "";
+			if (currentPage == i) { background = "#1e76fb"; color = "white" }
+			else { background = "transparent"; color = "#1e76fb"; }
+
+			element.innerHTML = element.innerHTML +
+				'<div>' +
+				'<button onclick="changePage(this);" data-page="' + i + '" style="width: 3vw; height: 3vw; background-color: ' + background + '; color: ' + color + '; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border: 0.1vw solid; border-color: #1e76fb; font-weight: bold;"> ' + ('0' + i).slice(-2) + ' </button>' +
+				'</div>';
+		}
+
+	}
+
+	function prev() {
+		currentPage = currentPage - 1;
+
+		getServicesList(currentPage, search, false);
+
+		if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+	}
+
+	function next() {
+		currentPage = currentPage + 1;
+
+		getServicesList(currentPage, search, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		pagination(startPagination, endPagination);
+	}
+
+	function changePage(page) {
+		let pageNum = page.getAttribute("data-page");
+
+		currentPage = Number(pageNum);
+
+		getServicesList(currentPage, search, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		else if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+
+
+	}
+
+	function searchFilter(searchData) {
+		search = searchData;
+		filter();
+	}
+
+	function filter() {
+		currentPage = 1;
+
+		getServicesList(1, search, true);
+	}
 </script>

@@ -80,32 +80,32 @@
 <div style="display: flex;">
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
 		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("InventoryList", "Inventory")'" />
-		<span class="textColor" style="font-size: 2vw;">Inventory</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Inventory"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;">Create Inventory</span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["Inventory_Label_Create"] @LangResources["MenuBar_Label_Inventory"]</span>
 	</div>
 </div>
 
 <div id="ownerInfoContainer">
 	<div>
 		<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">Inventory Details</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Inventory_Label_InventoryDetails"]</span>
 		</div>
 		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 			<div style="display: flex;">
 				<div>
-					<input type="file" placeholder="Upload Image" id="inventoryImgFile" accept="image/*" hidden>
+					<input type="file" placeholder="@LangResources["Inventory_Label_UploadImage"]" id="inventoryImgFile" accept="image/*" hidden>
 					<label for="inventoryImgFile" id="inventoryImgLabel" style="border: 0.1vw solid; border-radius: 0.5vw; width: 18vw; height: 18vw; display: flex; flex-direction: column; justify-content: center; align-items: center;">
 						<i class="fa-regular fa-image inventoryImg" style="opacity: 0.2; font-size: 3vw;"></i>
-						<span class="inventoryImg" style="opacity: 0.2; font-size: 1vw;">Upload Image</span>
-						<img id="inventoryImg" style="width: 13vw;" />
+						<span class="inventoryImg" style="opacity: 0.2; font-size: 1vw;">@LangResources["Inventory_Label_UploadImage"]</span>
+						<img id="inventoryImg" style="height: 18vw;" class="hideContainer" />
 					</label>
 				</div>
 
 				<div>
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Inventory Name</span>
+							<span class="formlabel">@LangResources["Inventory_Label_InventoryName"]</span>
 							<input id="InventoryName" type="text" class="form-control form-field inputField" />
 						</div>
 
@@ -115,98 +115,168 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Product Type</span>
+							<span class="formlabel">@LangResources["Inventory_Label_ProductType"]</span>
 							<select id="ProductType" class="form-control form-field inputField">
-								<option value="" selected> -- Select Product Type --</option>
-								<option value="1"> Vaccination</option>
-								<option value="2"> Medication</option>
+								<option value="" selected> -- @LangResources["Inventory_Label_SelectProductType"] --</option>
+								@foreach (var category in ViewData["Category"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
+								{
+									<option value="@category.ID"> @category.TypeName</option>
+								}
 							</select>
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Product Name</span>
+							<span class="formlabel">@LangResources["Inventory_Label_ProductName"]</span>
 							<input id="ProductName" type="text" class="form-control form-field inputField" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Species</span>
-							<select id="Species" class="form-control form-field inputField">
-								<option value="" selected> -- Select Species --</option>
-								<option value="Cat"> Cat</option>
-								<option value="Dog"> Dog</option>
-							</select>
+							<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
+							@* <select id="Species" onchange="changeSpecies(this.value);" class="form-control form-field inputField">
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
+								@foreach (var species in ViewData["Species"] as List<string>)
+								{
+									<option value="@species"> @species</option>
+								}
+							</select> *@
+							<div class="dropright" style="display: flex;">
+								<input id="Species" type="text" class="form-control form-field inputField" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
+								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: white; color: black; border-left: none; display: flex; align-items: center; box-shadow: none; border-top-left-radius: 0; border-bottom-left-radius: 0; font-size: 1vw; border-color: black; padding: 0; padding-right: 0.5vw;">
+									<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+								</button>
+								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
+									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
+										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
+										<input type="text" id="searchSpecies" placeholder="@LangResources["Inventory_Label_SearchSpecies"]" onkeyup="filterSpecies(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+									</div>
+									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
+
+										<div style="margin-bottom: 1vw;">
+											@{
+												int indexNo = 1;
+												string index = "";
+
+												foreach (var species in ViewData["Species"] as List<string>)
+												{
+													index = "species" + indexNo;
+
+																<div class="form-check">
+																	<input type="checkbox" class="form-check-input speciesOption" id="@index" name="@index" value="@species" onchange="checkboxValidation('speciesOption', 'Species');">
+																	<label class="form-check-label" for="@index"> @species</label><br>
+																</div>
+
+													indexNo++;
+												}
+											}
+										</div>
+
+									</div>
+									<div style="display: flex; justify-content: space-between; align-items: center;">
+										<button class="btn btn-lg btn-primary" onclick="clearAllFilter('speciesOption', 'Species');" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
+											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
+										</button>
+										<button id="addSelectionsSpecies" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Status</span>
+							<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
 							<select id="Status" class="form-control form-field inputField">
-								<option value="" selected> -- Select Status --</option>
-								<option value="1"> In Stock</option>
-								<option value="2"> Out of Stock</option>
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
+								<option value="1"> @LangResources["Inventory_Label_InStock"]</option>
+								<option value="2"> @LangResources["Inventory_Label_OutOfStock"]</option>
 							</select>
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Expiry Date</span>
+							<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
 							<input id="ExpiryDate" type="date" class="form-control form-field inputField" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Organisation</span>
-							<select id="Organisation" class="form-control form-field inputField">
-								<option value="" selected> -- Select Organisation --</option>
-								<option value="1"> Itaewon Animal Hospital</option>
+							<span class="formlabel">@LangResources["Inventory_Label_Organisation"]</span>
+							<select id="Organisation" class="form-control form-field inputField" onchange="getBranch(this.value);">
+								<option value="" selected> -- @LangResources["Inventory_Label_SelectOrganisation"] --</option>
+								@foreach (var organisation in ViewData["Organisation"] as IEnumerable<VPMS.Lib.Data.Models.OrganisationModel>)
+								{
+									<option value="@organisation.Id"> @organisation.Name</option>
+								}
 							</select>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Branch</span>
+							<span class="formlabel">@LangResources["Inventory_Label_Branch"]</span>
 							<select id="Branch" class="form-control form-field inputField">
-								<option value="" selected> -- Select Branch --</option>
-								<option value="1">HQ</option>
+								<option value="" selected> -- @LangResources["Inventory_Label_SelectBranch"] --</option>
 							</select>
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">Recommended Breed</span>
-							<select id="RecommendedBreed" class="form-control form-field inputField">
-								<option value="" selected> -- Select Recommended Breed --</option>
-								<option value="Siamese Cat">Siamese Cat</option>
-							</select>
+							<span class="formlabel">@LangResources["Inventory_Label_RecommendedBreed"]</span>
+							@* <select id="RecommendedBreed" class="form-control form-field inputField">
+								<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
+							</select> *@
+							<div class="dropright" style="display: flex;">
+								<input id="RecommendedBreed" type="text" class="form-control form-field inputField" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
+								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: white; color: black; border-left: none; display: flex; align-items: center; box-shadow: none; border-top-left-radius: 0; border-bottom-left-radius: 0; font-size: 1vw; border-color: black; padding: 0; padding-right: 0.5vw;">
+									<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+								</button>
+								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
+									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
+										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
+										<input type="text" id="searchBreed" placeholder="@LangResources["Inventory_Label_SearchBreed"]" onkeyup="filterBreed(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+									</div>
+									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
+
+										<div style="margin-bottom: 1vw;" id="RecommendedBreedList">
+											
+										</div>
+
+									</div>
+									<div style="display: flex; justify-content: space-between; align-items: center;">
+										<button class="btn btn-lg btn-primary" onclick="clearAllFilter('breedOption', 'Breed');" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
+											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
+										</button>
+										<button id="addSelectionsBreed" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Recommended Weight</span>
+							<span class="formlabel">@LangResources["Inventory_Label_RecommendedWeight"]</span>
 							<input id="RecommendedWeight" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Price ($) Per Qty</span>
+							<span class="formlabel">@LangResources["Inventory_Label_PricePerQty"]</span>
 							<input id="PricePerQty" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField" />
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container halfSize">
-							<span class="formlabel">Usage</span>
+							<span class="formlabel">@LangResources["Inventory_Label_Usage"]</span>
 							<input id="Usage" type="text" class="form-control form-field inputField" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">Quantity</span>
+							<span class="formlabel">@LangResources["Inventory_Label_Quantity"]</span>
 							<input id="Quantity" type="number" min="0" onchange="parseInt(this.value);" class="form-control form-field inputField" />
 						</div>
 					</div>
 
 					<div style="margin-bottom: 1.5vw;">
 						<div class="field-container">
-							<span class="formlabel">Description</span>
+							<span class="formlabel">@LangResources["Inventory_Label_Description"]</span>
 							<textarea id="Description" rows="5" class="form-control form-field inputField" style="width: 100%;"></textarea>
 						</div>
 					</div>
@@ -220,12 +290,16 @@
 
 	<div style="text-align: end; margin-right: 1.6vw;">
 		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;" onclick="location.href='@Url.Action("InventoryList", "Inventory")'"> @LangResources["Patient_Button_Cancel"] </button>
-		<button class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;" onclick="submitInventory();"> Create </button>
+		<button class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;" onclick="submitInventory();"> @LangResources["Inventory_Label_Create"] </button>
 	</div>
 
 </div>
 
 <script>
+	var speciesListNameGlobal = [];
+	disablePropagation('.form-check');
+	disablePropagation('#clearFilter');
+
 	const input_file = document.getElementById('inventoryImgFile');
 	const input_label = document.getElementById('inventoryImgLabel')
 
@@ -245,7 +319,208 @@
 		}
 
 		document.querySelector('#inventoryImg').src = my_image;
+		document.querySelector('#inventoryImg').classList.remove("hideContainer");
 	})
+
+	function disablePropagation(selection) {
+		var selections = document.querySelectorAll(selection);
+
+		for (let i = 0; i < selections.length; i++) {
+			selections[i].addEventListener('click', function (event) {
+				event.stopPropagation();
+			});
+		}
+	}
+
+	function clearAllFilter(optionName, optionType) {
+		const a = document.querySelectorAll("." + optionName);
+
+		for (let i = 0; i < a.length; i++) {
+			if (a[i].checked) {
+				a[i].checked = false;
+			}
+		}
+
+		document.getElementById("search" + optionType).value = "";
+		$('#search' + optionType).keyup();
+
+		var addSelections = document.getElementById("addSelections" + optionType);
+		if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+	}
+
+	function checkboxValidation(optionName, optionType) {
+		const a = document.querySelectorAll("." + optionName);
+		var disabledFilter = true;
+
+		for (let i = 0; i < a.length; i++) {
+			if (a[i].checked) {
+				disabledFilter = false;
+			}
+		}
+
+		var addSelections = document.getElementById("addSelections" + optionType);
+		if (disabledFilter) {
+			if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+		}
+		else {
+			if (addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+		}
+	}
+
+	function filterSpecies(value) {
+		const filter = value.value.toUpperCase();
+
+		const a = document.querySelectorAll(".speciesOption");
+
+		for (let i = 0; i < a.length; i++) {
+			var speciesValue = a[i].value;
+			if (speciesValue.toUpperCase().indexOf(filter) > -1) {
+				a[i].parentElement.style.display = "";
+			} else {
+				a[i].parentElement.style.display = "none";
+			}
+		}
+	}
+
+	function filterBreed(value) {
+		const filter = value.value.toUpperCase();
+
+		const a = document.querySelectorAll(".breedOption");
+
+		for (let i = 0; i < a.length; i++) {
+			var breedValue = a[i].value;
+			if (breedValue.toUpperCase().indexOf(filter) > -1) {
+				a[i].parentElement.style.display = "";
+			} else {
+				a[i].parentElement.style.display = "none";
+			}
+		}
+	}
+
+	document.querySelector('#addSelectionsSpecies').addEventListener('click', function (event) {
+		if (this.classList.contains("disable")) { event.stopPropagation(); }
+		else {
+			var checkboxes = document.getElementsByClassName("speciesOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+			var speciesList = ""
+			var speciesListName = [];
+
+			for (let i = 0; i < selectedCboxes.length; i++) {
+				speciesList += selectedCboxes[i].value;
+				if ((i + 1) != selectedCboxes.length) { speciesList += ","; }
+				speciesListName.push(selectedCboxes[i].value);
+			}
+
+			speciesListNameGlobal = speciesListName;
+			document.getElementById("Species").value = speciesList;
+
+			updateBreedList();
+
+		}
+	});
+
+	document.querySelector('#addSelectionsBreed').addEventListener('click', function (event) {
+		if (this.classList.contains("disable")) { event.stopPropagation(); }
+		else {
+			var checkboxes = document.getElementsByClassName("breedOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+			var breedList = "";
+
+			for (let i = 0; i < selectedCboxes.length; i++) {
+				breedList += selectedCboxes[i].value;
+				if ((i + 1) != selectedCboxes.length) { breedList += ","; }
+			}
+
+			document.getElementById("RecommendedBreed").value = breedList;
+
+		}
+	});
+
+	function updateBreedList(){
+		var breedElement = document.getElementById("RecommendedBreedList");
+		breedElement.innerHTML = "";
+
+		for (let i = 0; i < speciesListNameGlobal.length; i++) {
+			getBreedBySpecies(speciesListNameGlobal[i]);
+		}
+	}
+
+	function getBreedBySpecies(species) {
+		fetch('/Patients/BreedList?species=' + species)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				var breedElement = document.getElementById("RecommendedBreedList");
+				var index = "";
+
+				breedElement.innerHTML = breedElement.innerHTML + '<div><span style="font-weight: bold;">' + species + '</span>';
+
+				for (let i = 0; i < data.length; i++) {
+					index = species + i;
+					breedElement.innerHTML = breedElement.innerHTML +
+						'<div class="form-check">' +
+						'<input type="checkbox" class="form-check-input breedOption" onchange="checkboxValidation(\'breedOption\', \'Breed\');" id="' + index + '" name="' + index + '" value="' + data[i].Breed + '" >' +
+						'<label class="form-check-label" for="' + index + '"> ' + data[i].Breed + '</label><br>' +
+						'</div>';
+				}
+
+				breedElement.innerHTML = breedElement.innerHTML + "</div><hr />";
+
+				disablePropagation('.form-check');
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function changeSpecies(species) {
+		fetch('/Patients/BreedList?species=' + species)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				var breedElement = document.getElementById("RecommendedBreed");
+
+				breedElement.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getBranch(organisationID) {
+		fetch('/PatientServices/GetBranchList?organisationID=' + organisationID)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				var element = document.getElementById("Branch");
+
+				element.innerHTML = '<option value="" selected> -- Select Branch-- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '">' + data[i].Name + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
 
 	function submitInventory() {
 		var data = {
@@ -276,6 +551,7 @@
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
 				}
+				window.location = "/Inventory/InventoryList";
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);

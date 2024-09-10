@@ -31,6 +31,15 @@ namespace VPMS.Lib.Data.Models
 		public int Status { get; set; }
 	}
 
+	public class ServiceDoctor : AuditModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public int ServiceID { get; set; }
+		public int DoctorID { get; set; }
+		public int IsDeleted { get; set; }
+	}
+
 	public class ServiceList
 	{
 		public int No { get; set; }

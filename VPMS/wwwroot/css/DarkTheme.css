@@ -332,7 +332,7 @@ body {
 .CountryFlag {
 	width: 32px;
 	height: 32px;
-	margin-left: 15px;
+	/*margin-left: 15px;*/
 	border-radius: 15px;
 }
 
@@ -472,4 +472,21 @@ body {
 	--bs-btn-border-color: white;
 
 	transition: all 0.5s;
+}
+
+/* for static end button */
+.headcol {
+	position: sticky;
+	right: 0;
+	top: auto;
+	background-color: #1f2e45;
+	padding: 0 !important;
+}
+
+.rowcol {
+	position: sticky;
+	right: 0;
+	top: auto;
+	background-color: #172232; 
+	padding: 0 !important;
 }

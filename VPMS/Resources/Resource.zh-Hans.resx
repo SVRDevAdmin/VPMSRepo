@@ -117,6 +117,81 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Inventory_Button_NewInventory" xml:space="preserve">
+    <value>新库存</value>
+  </data>
+  <data name="Inventory_Label_Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Inventory_Label_Category" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="Inventory_Label_Create" xml:space="preserve">
+    <value>创造</value>
+  </data>
+  <data name="Inventory_Label_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Inventory_Label_Image" xml:space="preserve">
+    <value>图像</value>
+  </data>
+  <data name="Inventory_Label_InStock" xml:space="preserve">
+    <value>有货</value>
+  </data>
+  <data name="Inventory_Label_InventoryDetails" xml:space="preserve">
+    <value>库存详情</value>
+  </data>
+  <data name="Inventory_Label_InventoryName" xml:space="preserve">
+    <value>库存名称</value>
+  </data>
+  <data name="Inventory_Label_Organisation" xml:space="preserve">
+    <value>组织</value>
+  </data>
+  <data name="Inventory_Label_OutOfStock" xml:space="preserve">
+    <value>缺货</value>
+  </data>
+  <data name="Inventory_Label_PricePerQty" xml:space="preserve">
+    <value>每件价格 （$）</value>
+  </data>
+  <data name="Inventory_Label_ProductName" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="Inventory_Label_ProductType" xml:space="preserve">
+    <value>产品类型</value>
+  </data>
+  <data name="Inventory_Label_Quantity" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="Inventory_Label_RecommendedBreed" xml:space="preserve">
+    <value>推荐品种</value>
+  </data>
+  <data name="Inventory_Label_RecommendedWeight" xml:space="preserve">
+    <value>建议重量</value>
+  </data>
+  <data name="Inventory_Label_SearchBreed" xml:space="preserve">
+    <value>搜索品种</value>
+  </data>
+  <data name="Inventory_Label_SearchInventory" xml:space="preserve">
+    <value>搜索广告资源</value>
+  </data>
+  <data name="Inventory_Label_SearchSpecies" xml:space="preserve">
+    <value>搜索物种</value>
+  </data>
+  <data name="Inventory_Label_SelectBranch" xml:space="preserve">
+    <value>选择分支</value>
+  </data>
+  <data name="Inventory_Label_SelectOrganisation" xml:space="preserve">
+    <value>选择组织</value>
+  </data>
+  <data name="Inventory_Label_SelectProductType" xml:space="preserve">
+    <value>选择产品类型</value>
+  </data>
+  <data name="Inventory_Label_UploadImage" xml:space="preserve">
+    <value>上传图片</value>
+  </data>
+  <data name="Inventory_Label_Usage" xml:space="preserve">
+    <value>用法</value>
+  </data>
   <data name="LanguageCountry_Button_Save" xml:space="preserve">
     <value>保存</value>
   </data>
@@ -213,8 +288,20 @@
   <data name="Patient_Button_AddPet" xml:space="preserve">
     <value>添加宠物</value>
   </data>
+  <data name="Patient_Button_AddSelections" xml:space="preserve">
+    <value>添加选择</value>
+  </data>
+  <data name="Patient_Button_AddTreatment" xml:space="preserve">
+    <value>添加处理</value>
+  </data>
   <data name="Patient_Button_Cancel" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="Patient_Button_ClearAll" xml:space="preserve">
+    <value>全部清除</value>
+  </data>
+  <data name="Patient_Button_CreateTreatmentPlan" xml:space="preserve">
+    <value>制定治疗计划</value>
   </data>
   <data name="Patient_Button_Delete" xml:space="preserve">
     <value>删除</value>
@@ -237,6 +324,12 @@
   <data name="Patient_Button_NextStep" xml:space="preserve">
     <value>下一步</value>
   </data>
+  <data name="Patient_Button_OutgoingTreatment" xml:space="preserve">
+    <value>外发治疗</value>
+  </data>
+  <data name="Patient_Button_PastTreatment" xml:space="preserve">
+    <value>既往治疗</value>
+  </data>
   <data name="Patient_Button_Previous" xml:space="preserve">
     <value>以前的</value>
   </data>
@@ -257,6 +350,9 @@
   </data>
   <data name="Patient_Button_Search" xml:space="preserve">
     <value>搜索</value>
+  </data>
+  <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
+    <value>即将到来的治疗</value>
   </data>
   <data name="Patient_Button_View" xml:space="preserve">
     <value>看法</value>
@@ -327,6 +423,9 @@
   <data name="Patient_Label_Gender" xml:space="preserve">
     <value>性别</value>
   </data>
+  <data name="Patient_Label_GrandTotal" xml:space="preserve">
+    <value>总计</value>
+  </data>
   <data name="Patient_Label_HealthCard" xml:space="preserve">
     <value>健康卡</value>
   </data>
@@ -357,6 +456,9 @@
   <data name="Patient_Label_OwnerName" xml:space="preserve">
     <value>所有者姓名</value>
   </data>
+  <data name="Patient_Label_Payment" xml:space="preserve">
+    <value>付款</value>
+  </data>
   <data name="Patient_Label_Pet" xml:space="preserve">
     <value>宠物</value>
   </data>
@@ -369,8 +471,17 @@
   <data name="Patient_Label_Postcode" xml:space="preserve">
     <value>邮政编码</value>
   </data>
+  <data name="Patient_Label_Price" xml:space="preserve">
+    <value>价格</value>
+  </data>
+  <data name="Patient_Label_Product" xml:space="preserve">
+    <value>产品</value>
+  </data>
   <data name="Patient_Label_RegistrationNo" xml:space="preserve">
     <value>注册号码</value>
+  </data>
+  <data name="Patient_Label_SearchTreatment" xml:space="preserve">
+    <value>搜索处理</value>
   </data>
   <data name="Patient_Label_Service" xml:space="preserve">
     <value>服务</value>
@@ -390,17 +501,29 @@
   <data name="Patient_Label_Surgeries" xml:space="preserve">
     <value>手术</value>
   </data>
+  <data name="Patient_Label_Tax" xml:space="preserve">
+    <value>税</value>
+  </data>
   <data name="Patient_Label_TestManagement" xml:space="preserve">
     <value>测试管理</value>
   </data>
   <data name="Patient_Label_Time" xml:space="preserve">
     <value>时间</value>
   </data>
+  <data name="Patient_Label_TotalCost" xml:space="preserve">
+    <value>总成本</value>
+  </data>
+  <data name="Patient_Label_TreatmentPeriod" xml:space="preserve">
+    <value>治疗期</value>
+  </data>
   <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
     <value>治疗计划</value>
   </data>
   <data name="Patient_Label_Type" xml:space="preserve">
     <value>类型</value>
+  </data>
+  <data name="Patient_Label_Unit" xml:space="preserve">
+    <value>单位</value>
   </data>
   <data name="Patient_Label_Vaccination" xml:space="preserve">
     <value>疫苗接种</value>
@@ -512,6 +635,84 @@
   </data>
   <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
     <value>疫苗接种/治疗史</value>
+  </data>
+  <data name="Service_Button_NewService" xml:space="preserve">
+    <value>搜索服务</value>
+  </data>
+  <data name="Service_Label_DoctorInCharge" xml:space="preserve">
+    <value>主治医生</value>
+  </data>
+  <data name="Service_Label_DurationHr" xml:space="preserve">
+    <value>持续时间 （小时）</value>
+  </data>
+  <data name="Service_Label_Precaution" xml:space="preserve">
+    <value>预防</value>
+  </data>
+  <data name="Service_Label_SearchDoctor" xml:space="preserve">
+    <value>搜索医生</value>
+  </data>
+  <data name="Service_Label_SearchService" xml:space="preserve">
+    <value>搜索服务</value>
+  </data>
+  <data name="Service_Label_SelectCategory" xml:space="preserve">
+    <value>选择类别</value>
+  </data>
+  <data name="Service_Label_ServiceDetails" xml:space="preserve">
+    <value>服务详情</value>
+  </data>
+  <data name="Service_Label_ServiceName" xml:space="preserve">
+    <value>服务名称</value>
+  </data>
+  <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
+    <value>服务时间 （小时）</value>
+  </data>
+  <data name="TreatmentPlan_Label_Add" xml:space="preserve">
+    <value>加</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
+    <value>添加服务</value>
+  </data>
+  <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
+    <value>成本</value>
+  </data>
+  <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
+    <value>创建者</value>
+  </data>
+  <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
+    <value>激活</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeInactive" xml:space="preserve">
+    <value>设为非活动状态</value>
+  </data>
+  <data name="TreatmentPlan_Label_NewTreatment" xml:space="preserve">
+    <value>新疗法</value>
+  </data>
+  <data name="TreatmentPlan_Label_Remarks" xml:space="preserve">
+    <value>言论</value>
+  </data>
+  <data name="TreatmentPlan_Label_SearchService" xml:space="preserve">
+    <value>搜索服务</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
+    <value>选择用户</value>
+  </data>
+  <data name="TreatmentPlan_Label_Total" xml:space="preserve">
+    <value>总</value>
+  </data>
+  <data name="TreatmentPlan_Label_Treatment" xml:space="preserve">
+    <value>治疗</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentDetails" xml:space="preserve">
+    <value>治疗详情</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentName" xml:space="preserve">
+    <value>治疗名称</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
+    <value>治疗计划</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>shuan yi guan lin</value>

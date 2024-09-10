@@ -399,12 +399,13 @@
                                                 var sFlagPath = "/images/Icons/Country/" + m.CodeID + ".png";
                                             
                                                     <li class="list-group-item" style="border: 0px">
-                                                        <input id="chkFirst" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"  
-                                                               style="margin-left: 30px; vertical-align: middle;"
+                                                        <input id="@m.CodeID" class="form-check-input me-1 border-secondary" type="radio" value=@m.CodeID name="listgrpradio"  
+                                                               style="margin-left: 30px; vertical-align: middle; margin-top: 0;"
                                                     @(LanguageSelected.ConfigurationValue == m.CodeID ? "checked='true'" : "") />
                                                     
-                                                        <img src=@sFlagPath class="CountryFlag" />
-                                                        <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
+                                                        @*<img src=@sFlagPath class="CountryFlag" />
+                                                        <label for="@m.CodeID" class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>*@
+                                                        <label for="@m.CodeID" class="form-check-label" style="margin-left: 10px;"><img src=@sFlagPath class="CountryFlag" /> @m.CodeName</label>
                                                     </li>
                                             }                                           
                                         }
@@ -528,6 +529,8 @@
                     ConfigVal: $country
                 });
             }
+
+            window.location.reload();
         }
 
         $('#btnSave').on('click', function () {
@@ -540,13 +543,13 @@
                 }).done(function (resp) {
                     updateCountrySettings();
 
-                    window.location.reload();
+                    // window.location.reload();
                 });
             }
             else {
                 updateCountrySettings();
 
-                window.location.reload();
+                // window.location.reload();
             }
         });
 

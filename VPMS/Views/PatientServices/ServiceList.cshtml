@@ -3,7 +3,7 @@
 @model List<VPMS.Lib.Data.Models.ServiceList>
 
 @{
-	ViewData["Title"] = "Treatment Plan Page";
+	ViewData["Title"] = "Service Page";
 	ViewBag.SelectedMenu = "patientServicesMenu";
 }
 
@@ -69,14 +69,14 @@
 <div style="display: flex; justify-content: space-between;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">Service</span>
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Service"]</span>
 	</div>
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="Search service" onkeyup="searchFilter(this.value);"/>
+		<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["Service_Label_SearchService"]" onkeyup="searchFilter(this.value);" />
 		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 17vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
 			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">New Service</span>
+			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Service_Button_NewService"]</span>
 		</button>
 	</div>
 
@@ -156,31 +156,31 @@
 
 				content.innerHTML =
 					'<tr class="containerBackground">' +
-					'<th class="table-content" > No </th>' +
-					'<th class="table-content" > Name </th>' +
-					'<th class="table-content" > Category </th>' +
-					'<th class="table-content" > Price ($) </th>' +
-					'<th class="table-content" > Doctor In Charge </th>' +
-					'<th class="table-content" > Organisation </th>' +
-					'<th class="table-content" > Branch </th>' +
-					'<th class="table-content table-content-center" > Duration (Hr) </th>' +
-					'<th class="table-content table-content-center" > Status </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_Name"] </th>' +
+					'<th class="table-content" > @LangResources["Inventory_Label_Category"] </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_Price"] ($) </th>' +
+					'<th class="table-content" > @LangResources["Service_Label_DoctorInCharge"] </th>' +
+					'<th class="table-content" > @LangResources["Inventory_Label_Organisation"] </th>' +
+					'<th class="table-content" > @LangResources["Inventory_Label_Branch"] </th>' +
+					'<th class="table-content table-content-center" > @LangResources["Service_Label_DurationHr"] </th>' +
+					'<th class="table-content table-content-center" > @LangResources["Patient_Label_Status"] </th>' +
 					'<th class="table-content" > </th>' +
 					'</tr>';
 
-				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
 					for (let i = 0; i < data.ServiceList.length; i++) {
 
 						var status, color, background;
 
 						if (data.ServiceList[i].Status == 1) {
-							status = "Active";
+							status = "@LangResources["Patient_Selection_Active"]";
 							color = "#57baa5";
 							background = "#c3f7ec";
 						}
 						else {
-							status = "Inactive";
+							status = "@LangResources["Patient_Selection_Inactive"]";
 							color = "#ff2c29";
 							background = "#ffc5c4";
 						}
@@ -208,8 +208,8 @@
 							'<img class="moreIcon" /> ' +
 							'</button>' +
 							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
-							'<a class="dropdown-item" href = "/PatientServices/ViewEditService/View/' + data.ServiceList[i].ID + '" > @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="#" > @LangResources["Patient_Button_Edit"] </a>' +
+							'<a class="dropdown-item" href="/PatientServices/ViewEditService/View/' + data.ServiceList[i].ID + '" > @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="/PatientServices/ViewEditService/Edit/' + data.ServiceList[i].ID + '"  > @LangResources["Patient_Button_Edit"] </a>' +
 							'</div>' +
 							'</div>' +
 							'</td>' +

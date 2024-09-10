@@ -59,19 +59,24 @@
 	#patientTreatmentPlan {
 		color: dodgerblue !important;
 	}
+
+	.hideContainer {
+		display: none !important;
+	}
 </style>
 
 <div style="display: flex;">
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
 		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("TreatmentPlanList", "PatientServices")'" />
-		<span class="textColor" style="font-size: 2vw;">Treatment Plan</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["TreatmentPlan_Label_TreatmentPlans"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;">New Treatment</span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["TreatmentPlan_Label_NewTreatment"]</span>
 	</div>
 </div>
 
 <template id="serviceTemplate">
-	<tr style="height: 3.3vw;">
+	<tr style="height: 3.3vw;" class="serviceGroup">
+		<td class="table-content table-row-content serviceID" hidden>  </td>
 		<td class="table-content table-row-content serviceName">  </td>
 		<td class="table-content table-row-content servicePrice">  </td>
 		<td class="table-content table-row-content" style="width: 7vw;">
@@ -84,12 +89,14 @@
 </template>
 
 <template id="medicationProductTemplate">
-	<tr style="height: 3.3vw;">
+	<tr style="height: 3.3vw;" class="productGroup">
+		<td class="table-content table-row-content medicationProductID" hidden>  </td>
 		<td class="table-content table-row-content medicationProductName">  </td>
 		<td class="table-content table-row-content">
-			<input type="number" min="1" style="width: 5vw;" />
+			<input class="medicationProductUnits" type="number" min="1" style="width: 5vw;" value="1" onchange="calculateMedicationPrice(this.value, this.parentElement.parentElement);" />
 		</td>
 		<td class="table-content table-row-content medicationProductPrice"> </td>
+		<td class="table-content table-row-content medicationProductPriceOriginal" hidden> </td>
 		<td class="table-content table-row-content" style="width: 7vw;">
 			<div style="display: flex; justify-content: space-between;">
 				<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-eye"></i></button>
@@ -103,45 +110,45 @@
 	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 52vw;">
 		<div>
 			<div class="containerBackground2" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">Treatment Details</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["TreatmentPlan_Label_TreatmentDetails"]</span>
 			</div>
 			<div class="containerBorder" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container" style="width: 100%;">
-						<span class="formlabel textColor">Treatment Name</span>
+						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_TreatmentName"]</span>
 						<input id="TreatmentName" type="text" class="form-control form-field inputField" />
 					</div>
 				</div>
 
 				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw;">
 					<div class="field-container" style="width: 45%;">
-						<span class="formlabel textColor">Created By</span>
+						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_CreatedBy"]</span>
 						<select id="CreatedBy" class="form-control form-field inputField">
-							<option value="" selected> -- Select Admin -- </option>
+							<option value="" selected> -- @LangResources["TreatmentPlan_Label_SelectUser"] -- </option>
 							<option value="Admin1"> Admin1 </option>
 							<option value="Admin2"> Admin2 </option>
 						</select>
 					</div>
 
 					<div class="field-container" style="width: 45%;">
-						<span class="formlabel textColor">Status</span>
+						<span class="formlabel textColor">@LangResources["Patient_Label_Status"]</span>
 						<select id="Status" class="form-control form-field inputField">
-							<option value="" selected> -- Select Status -- </option>
-							<option value="Active"> Active </option>
-							<option value="Inactive"> Inactive </option>
+							<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] -- </option>
+							<option value="1"> @LangResources["Patient_Selection_Active"] </option>
+							<option value="2"> @LangResources["Patient_Selection_Inactive"] </option>
 						</select>
 					</div>
 				</div>
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container" style="width: 100%;">
-						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">Service</span>
+						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">@LangResources["MenuBar_Label_Service"]</span>
 						<div style=" padding: 1vw;" class="containerBackground">
 							<table class="textColor" id="serviceList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
 								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
-									<th class="table-content"> Service </th>
-									<th class="table-content"> Price ($) </th>
+									<th class="table-content"> @LangResources["MenuBar_Label_Service"] </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
 									<th class="table-content">  </th>
 								</tr>
 							</table>
@@ -149,44 +156,40 @@
 							<div class="dropright">
 								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding: 0;">
 									<span id="container">+</span>
-									<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Service</span>
+									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_AddService"]</span>
 								</button>
 								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
 									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
 										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
-										<input type="text" id="searchServices" placeholder="Search Service" onkeyup="filter(this,'serviceOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+										<input type="text" id="searchServices" placeholder="@LangResources["Service_Label_SearchService"]" onkeyup="filter(this,'serviceOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
 									</div>
 									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
 
 										<div style="margin-bottom: 1vw;">
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input serviceOption" id="service1" name="service1" value="Routine health checkups" onchange="checkSelected('serviceOption', 'addServices');">
-												<label class="form-check-label" for="service1"> Routine health checkups</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input serviceOption" id="service2" name="service2" value="Vaccination" onchange="checkSelected('serviceOption', 'addServices');">
-												<label class="form-check-label" for="service2"> Vaccination</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input serviceOption" id="service3" name="service3" value="Dental care" onchange="checkSelected('serviceOption', 'addServices');">
-												<label class="form-check-label" for="service3"> Dental care</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input serviceOption" id="service4" name="service4" value="Chronic disease management" onchange="checkSelected('serviceOption', 'addServices');">
-												<label class="form-check-label" for="service4"> Chronic disease management</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input serviceOption" id="service5" name="service5" value="Michrochipping and identification" onchange="checkSelected('serviceOption', 'addServices');">
-												<label class="form-check-label" for="service5"> Microchipping and identification</label><br>
-											</div>
+											@{
+												int indexNo = 1;
+												string index = "";
+
+												foreach (var service in ViewData["Services"] as List<VPMS.Lib.Data.Models.ServicesModel>)
+												{
+													index = "service" + indexNo;
+
+																					<div class="form-check">
+																			<input type="checkbox" class="form-check-input serviceOption" id="@index" name="@index" data-id="@service.ID" value="@service.Name" onchange="checkSelected('serviceOption', 'addServices');">
+																						<label class="form-check-label" for="@index">@service.Name</label><br>
+																					</div>
+
+													indexNo++;
+												}
+											}
 										</div>
 
 									</div>
 									<div style="display: flex; justify-content: space-between; align-items: center;">
 										<button class="btn btn-lg btn-primary" name="service" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
-											<span style="font-size: 1.2vw; margin-left: 0.5vw;">Clear All</span>
+											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
 										</button>
-										<button id="addServices" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">Add Selections</button>
+										<button id="addServices" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
 									</div>
 								</div>
 							</div>
@@ -196,13 +199,13 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container" style="width: 100%;">
-						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">Medication / Product</span>
+						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">@LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
 						<div style=" padding: 1vw;" class="containerBackground">
 							<table class="textColor" id="medicationProductList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
 								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
-									<th class="table-content"> Medication/Product Name </th>
-									<th class="table-content"> Unit </th>
-									<th class="table-content"> Price ($) </th>
+									<th class="table-content"> @LangResources["Patient_Label_Medication"] / @LangResources["Inventory_Label_ProductName"] </th>
+									<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
 									<th class="table-content">  </th>
 								</tr>
 							</table>
@@ -210,44 +213,40 @@
 							<div class="dropright">
 								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding: 0;">
 									<span id="container">+</span>
-									<span style="font-size: 1.2vw; margin-left: 0.5vw;">Add Medication/Product</span>
+									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_Add"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
 								</button>
 								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw; background-color: white !important;">
 									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
 										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
-										<input type="text" id="searchMedicationProduct" placeholder="Search Medication/Product" onkeyup="filter(this, 'productOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+										<input type="text" id="searchMedicationProduct" placeholder="@LangResources["Patient_Button_Search"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]" onkeyup="filter(this, 'productOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
 									</div>
 									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
 
 										<div style="margin-bottom: 1vw;">
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input productOption" id="product1" name="product1" value="Routine health checkups" onchange="checkSelected('productOption', 'addMedicationProduct');">
-												<label class="form-check-label" for="product1"> Prednisalone Suspension 5mg | 10ml</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input productOption" id="product2" name="product2" value="Vaccination" onchange="checkSelected('productOption', 'addMedicationProduct');">
-												<label class="form-check-label" for="product2"> Cefpodoxime (Simplicef)</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input productOption" id="product3" name="product3" value="Dental care" onchange="checkSelected('productOption', 'addMedicationProduct');">
-												<label class="form-check-label" for="product3"> Enrofloxacin (Baytril)</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input productOption" id="product4" name="product4" value="Chronic disease management" onchange="checkSelected('productOption', 'addMedicationProduct');">
-												<label class="form-check-label" for="product4"> Metronidazole</label><br>
-											</div>
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input productOption" id="product5" name="product5" value="Michrochipping and identification" onchange="checkSelected('productOption', 'addMedicationProduct');">
-												<label class="form-check-label" for="product5"> Carprofen (Rimadyl)</label><br>
-											</div>
+											@{
+												indexNo = 1;
+												index = "";
+
+												foreach (var inventory in ViewData["Inventories"] as List<VPMS.Lib.Data.Models.InventoryModel>)
+												{
+													index = "product" + indexNo;
+
+																		<div class="form-check">
+																			<input type="checkbox" class="form-check-input productOption" id="@index" name="@index" data-id="@inventory.ID" value="@inventory.Name" onchange="checkSelected('productOption', 'addMedicationProduct');">
+																			<label class="form-check-label" for="@index">@inventory.Name</label><br>
+																		</div>
+
+													indexNo++;
+												}
+											}
 										</div>
 
 									</div>
 									<div style="display: flex; justify-content: space-between; align-items: center;">
 										<button class="btn btn-lg btn-primary" name="medicationProduct" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
-											<span style="font-size: 1.2vw; margin-left: 0.5vw;">Clear All</span>
+											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
 										</button>
-										<button id="addMedicationProduct" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">Add Selections</button>
+										<button id="addMedicationProduct" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
 									</div>
 								</div>
 							</div>
@@ -257,7 +256,7 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container" style="width: 100%;">
-						<span class="formlabel textColor">Remarks</span>
+						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_Remarks"]</span>
 						<input id="Remarks" type="text" class="form-control form-field inputField" />
 					</div>
 				</div>
@@ -269,13 +268,13 @@
 	<div id="RightInfoContainer" style="margin-left: 1.5vw;">
 		<div>
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
-				<span class="formlabel" style="margin-bottom: 0 !important;">Total Cost</span>
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Label_TotalCost"]</span>
 			</div>
 			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw; padding: 0 1vw;">
 					<div class="field-container quaterSize" style="margin-bottom: unset;">
-						<span class="formlabel">Services</span>
+						<span class="formlabel">@LangResources["MenuBar_Label_Service"]</span>
 					</div>
 
 					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
@@ -285,7 +284,7 @@
 
 				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw; padding: 0 1vw;">
 					<div class="field-container quaterSize" style="margin-bottom: unset;">
-						<span class="formlabel">Medication/Products</span>
+						<span class="formlabel">@LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
 					</div>
 
 					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
@@ -295,7 +294,7 @@
 
 				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw; background-color: #c8dcfc; padding: 0 1vw;">
 					<div class="field-container quaterSize" style="margin-bottom: unset;">
-						<span class="formlabel">Total</span>
+						<span class="formlabel">@LangResources["TreatmentPlan_Label_Total"]</span>
 					</div>
 
 					<div class="field-container quaterSize" style="flex-direction: row; margin-bottom: unset;">
@@ -307,35 +306,76 @@
 		</div>
 
 		<div style="text-align: end; display: flex; justify-content: space-between;">
-			<button onclick="location.href='@Url.Action("TreatmentPlanList", "PatientServices")'" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Back </button>
-			<button class="btn btn-lg btn-primary" id="saveButton" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Save"] </button>
+			<button onclick="location.href='@Url.Action("TreatmentPlanList", "PatientServices")'" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+			<button class="btn btn-lg btn-primary" id="saveButton" style="width: 11vw; font-size: 1vw;" onclick="submitTreatmentPlan();"> @LangResources["Inventory_Label_Create"] </button>
 		</div>
 
 	</div>
 </div>
 
 <script>
+	$(".patientServicesMenuList").toggleClass('open');
+	$('.patientServicesMenuArrow').toggleClass('Up');
 
 	calculateTotal();
 
 	document.querySelector('#addServices').addEventListener('click', function (event) {
 		if (this.classList.contains("disable")) { event.stopPropagation(); }
 		else {
-			cloneElement("serviceTemplate", "serviceList", "serviceName", "Surgery", "servicePrice", "800");
-			cloneElement("serviceTemplate", "serviceList", "serviceName", "Preventive Care", "servicePrice", "15");
+			var checkboxes = document.getElementsByClassName("serviceOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
 
-			calculateTotal();
+			for (let i = 0; i < selectedCboxes.length; i++) {
+				getServiceInfo(selectedCboxes[i].getAttribute('data-id'));
+			}
 		}
 	});
+
+	function getServiceInfo(id) {
+		fetch('/PatientServices/GetServiceById?id=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				cloneElement("serviceTemplate", "serviceList", "serviceID", data.ID, "serviceName", data.Name, "servicePrice", data.Prices, false);
+				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
 
 	document.querySelector('#addMedicationProduct').addEventListener('click', function (event) {
 		if (this.classList.contains("disable")) { event.stopPropagation(); }
 		else {
-			cloneElement("medicationProductTemplate", "medicationProductList", "medicationProductName", "Prednisalone Suspension 5mg | 10ml", "medicationProductPrice", "100");
+			var checkboxes = document.getElementsByClassName("productOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
 
-			calculateTotal();
+			for (let i = 0; i < selectedCboxes.length; i++) {
+				getInventoryInfo(selectedCboxes[i].getAttribute('data-id'));
+			}			
 		}
 	});
+
+	function getInventoryInfo(id) {
+		fetch('/Inventory/GetInventoryById?id=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				cloneElement("medicationProductTemplate", "medicationProductList", "medicationProductID", data.ID, "medicationProductName", data.Name, "medicationProductPrice", data.PricePerQty, true);
+				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
 
 	var treatments = document.querySelectorAll('.form-check');
 
@@ -396,15 +436,50 @@
 		}
 	}
 
-	function cloneElement(templateId, elementId, nameElement, name, priceElement, price) {
+	function cloneElement(templateId, elementId, idElement, id, nameElement, name, priceElement, price, originalPrice) {
 		const template = document.getElementById(templateId);
 		const element = document.getElementById(elementId);
 		const clone = template.content.cloneNode(true);
+		var notExisted = true;
 
+		clone.querySelector("." + idElement).innerHTML = id;
 		clone.querySelector("." + nameElement).innerHTML = name;
 		clone.querySelector("." + priceElement).innerHTML = price;
 
-		element.appendChild(clone);
+		if (originalPrice) {
+			clone.querySelector(".medicationProductPriceOriginal").innerHTML = price;
+		}
+
+		if (nameElement.includes("medication")) {
+			var currentElementList = document.querySelectorAll(".productGroup");
+			for (let i = 0; i < currentElementList.length; i++) {
+				if (currentElementList[i].querySelector("." + idElement).innerHTML == id) {
+					notExisted = false;
+				}
+			}
+		} else {
+			var currentElementList = document.querySelectorAll(".serviceGroup");
+			for (let i = 0; i < currentElementList.length; i++) {
+				if (currentElementList[i].querySelector("." + idElement).innerHTML == id) {
+					notExisted = false;
+				}
+			}
+		}
+
+		if (notExisted) {
+			element.appendChild(clone);
+		}
+	}
+
+	function calculateMedicationPrice(value, element){
+		var originalPriceElement = element.querySelector(".medicationProductPriceOriginal");
+		var priceElement = element.querySelector(".medicationProductPrice");
+
+		var test = parseInt(originalPriceElement.innerHTML);
+
+		priceElement.innerHTML = parseInt(originalPriceElement.innerHTML) * parseInt(value);
+
+		calculateTotal();
 	}
 
 	function filter(element, target) {
@@ -448,5 +523,125 @@
 		if (total == 0) { document.getElementById("saveButton").disabled = true; }
 		else { document.getElementById("saveButton").disabled = false; }
 
+	}
+
+	function submitTreatmentPlan(){
+		var name = document.getElementById("TreatmentName");
+		var createdBy = document.getElementById("CreatedBy");
+		var status = document.getElementById("Status");
+		var remarks = document.getElementById("Remarks");
+		var totalPrice = document.getElementById("total");
+
+		var data = {
+			Name: name.value,
+			Remarks: remarks.value,
+			CreatedBy: createdBy.value,
+			Status: status.value,
+			TotalPrice: totalPrice.innerHTML,
+			BranchID: 1,
+			IsDeleted: 0
+		}
+
+		fetch('/PatientServices/InsertTreatmentPlan', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data != 0) {
+					submitTreatmentPlanServices(data);
+					submitTreatmentPlanProducts(data);
+					// window.location = "/PatientServices/ServiceList";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function submitTreatmentPlanServices(id) {
+		var serviceGroupElement = document.querySelectorAll(".serviceGroup");
+		var data = [];
+
+		for (let i = 0; i < serviceGroupElement.length; i++) {
+			var obj = {
+				PlanID: id,
+				ServiceID: serviceGroupElement[i].querySelector(".serviceID").innerHTML,
+				ServiceName: serviceGroupElement[i].querySelector(".serviceName").innerHTML,
+				Price: serviceGroupElement[i].querySelector(".servicePrice").innerHTML,
+				IsDeleted: 0,
+				CreatedDate: new Date(),
+				CreatedBy: document.getElementById("CreatedBy").value
+			}
+
+			data.push(obj);
+		}
+
+		fetch('/PatientServices/InsertTreatmentPlanServices', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data) {
+					// window.location = "/PatientServices/ServiceList";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function submitTreatmentPlanProducts(id) {
+		var productGroupElement = document.querySelectorAll(".productGroup");
+		var data = [];
+
+		for (let i = 0; i < productGroupElement.length; i++) {
+			var obj = {
+				PlanID: id,
+				ProductID: productGroupElement[i].querySelector(".medicationProductID").innerHTML,
+				ProductName: productGroupElement[i].querySelector(".medicationProductName").innerHTML,
+				Units: productGroupElement[i].querySelector(".medicationProductUnits").value,
+				PricePerQty: productGroupElement[i].querySelector(".medicationProductPriceOriginal").innerHTML,
+				TotalPrice: productGroupElement[i].querySelector(".medicationProductPrice").innerHTML,
+				IsDeleted: 0,
+				CreatedDate: new Date(),
+				CreatedBy: document.getElementById("CreatedBy").value
+			}
+
+			data.push(obj);
+		}
+
+		fetch('/PatientServices/InsertTreatmentPlanProducts', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data) {
+					// window.location = "/PatientServices/ServiceList";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 </script>

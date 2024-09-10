@@ -93,9 +93,23 @@ namespace VPMS.Lib.Data.Models
         public string Breed { get; set; } = null!;
         public DateTime CreatedOn { get; set; }
 	}
+
 	public class PatientInfoProfile
 	{
 		public List<Patient_Owner> patient_Owners { set; get; }
 		public List<Pets> Pets { set; get; }
+	}
+
+    public class PatientTreatmentPlan : AuditModel
+    {
+        [Key]
+        public int ID { get; set; }
+        public int PetID { get; set; }
+        public int PlanID { get; set; }
+        public string PlanName { get; set; } = null!;
+        public DateOnly TreatmentStart { get; set; }
+        public DateOnly TreatmentEnd { get; set; }
+        public float TotalCost { get; set; }
+		public int Status { get; set; }
 	}
 }

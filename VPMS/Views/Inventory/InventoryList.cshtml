@@ -1,9 +1,12 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
 	ViewData["Title"] = "Inventory Page";
 	ViewBag.SelectedMenu = "inventoryMenu";
+
+	string reload = httpContextaccessor.HttpContext.Request.Cookies["reload"];
 }
 
 <style>
@@ -59,28 +62,19 @@
 		justify-content: center;
 		align-items: center;
 	}
-
-	/* for static end button */
-	.headcol {
-		position: sticky;
-		right: 0;
-		top: auto;
-		background: white;
-		padding: 0 !important;
-	}
 </style>
 
 <div style="display: flex; justify-content: space-between;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">Inventory</span>
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Inventory"]</span>
 	</div>
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="Search inventory" />
+		<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["Inventory_Label_SearchInventory"]" />
 		<button class="btn btn-lg btn-primary" style="display: flex; align-items: center; width: 21vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewInventory", "Inventory")'">
 			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">New Inventory</span>
+			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Inventory_Button_NewInventory"]</span>
 		</button>
 		<button class="btn btn-lg btn-primary" style="display: flex; justify-content: center; align-items: center; margin-left: 1vw;">
 			<i class="fa-solid fa-download"></i>
@@ -93,85 +87,6 @@
 <div>
 	<div style="overflow:auto; width: 78vw;">
 		<table class="textColor" id="inventoryList" style="width: max-content; margin-bottom: 2vw; font-size: 1vw;">
-			<tr class="containerBackground">
-				<th class="table-content" style="padding: 0 1vw;"> No </th>
-				<th class="table-content"> Inventory Name </th>
-				<th class="table-content"> Category </th>
-				<th class="table-content"> Usage </th>
-				<th class="table-content"> Product Name </th>
-				<th class="table-content table-content-center"> Image </th>
-				<th class="table-content"> SKU </th>
-				<th class="table-content"> Qty </th>
-				<th class="table-content table-content-center"> Price ($) per Qty </th>
-				<th class="table-content"> Organisation </th>
-				<th class="table-content"> Branch </th>
-				<th class="table-content table-content-center"> Status </th>
-				<th class="table-content headcol">  </th>
-			</tr>
-
-			<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-				<td class="table-content" style="padding: 0 1vw;"> 1 </td>
-				<td class="table-content"> Prednisalone Suspension 5mg | 10ml </td>
-				<td class="table-content"> Vaccination </td>
-				<td class="table-content"> Vaccination for cat </td>
-				<td class="table-content"> Feline Viral Rhinotracheitis (FVR) </td>
-				<td class="table-content table-content-center">
-					<img src="~/images/Inventory/Prednisolone.png" style="width: 3vw;" />
-				</td>
-				<td class="table-content"> 6368 </td>
-				<td class="table-content"> 1000 </td>
-				<td class="table-content table-content-center"> 10 </td>
-				<td class="table-content"> Itaewon Animal Hospital </td>
-				<td class="table-content"> HQ </td>
-				<td class="table-content table-content-center">
-					<div style="color: #57baa5; background-color: #c3f7ec;font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 8vw; margin: auto;">
-						In Stock
-					</div>
-				</td>
-				<td class="table-content headcol" style="width: 0;">
-					<div class="dropleft">
-						<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false" style="padding: 0;">
-							<img class="moreIcon" />
-						</button>
-						<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">
-							<a class="dropdown-item" href="#"> View </a>
-							<a class="dropdown-item" href="#"> Edit </a>
-						</div>
-					</div>
-				</td>
-			</tr>
-
-			<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-				<td class="table-content" style="padding: 0 1vw;"> 2 </td>
-				<td class="table-content"> Prednisalone Suspension 5mg | 10ml </td>
-				<td class="table-content"> Vaccination </td>
-				<td class="table-content"> Vaccination for cat </td>
-				<td class="table-content"> Feline Calicivirus (FCV) </td>
-				<td class="table-content table-content-center">
-					<img src="~/images/Inventory/Prednisolone.png" style="width: 3vw;" />
-				</td>
-				<td class="table-content"> 6353 </td>
-				<td class="table-content"> 500 </td>
-				<td class="table-content table-content-center"> 30 </td>
-				<td class="table-content"> Itaewon Animal Hospital </td>
-				<td class="table-content"> HQ </td>
-				<td class="table-content table-content-center">
-					<div style="color: #ff2c29; background-color: #ffc5c4;font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 8vw; margin: auto;">
-						Out of Stock
-					</div>
-				</td>
-				<td class="table-content headcol" style="width: 0;">
-					<div class="dropleft">
-						<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false" style="padding: 0;">
-							<img class="moreIcon" />
-						</button>
-						<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">
-							<a class="dropdown-item" href="#"> View </a>
-							<a class="dropdown-item" href="#"> Edit </a>
-						</div>
-					</div>
-				</td>
-			</tr>
 		</table>
 	</div>
 	
@@ -189,11 +104,211 @@
 </div>
 
 <script>
+
+	if ("@reload" == "true") {
+		fetch('/Inventory/UpdateReload')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data) {
+					location.reload(true); 
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
 	var paginationLimit = 5;
-	var rowLimit = 8;
+	var rowLimit = 9;
 	var startPagination = 1;
 	var endPagination = 0;
 	var totalPagination = 0;
 	var currentPage = 1;
 	var search = "";
+
+	filter();
+
+	function getInventoryList(page, search, reset) {
+		fetch('/Inventory/GetInventoryList?rowLimit=' + rowLimit + '&page=' + page + '&search=' + search)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				let total = data.totalInventory;
+
+				if (reset) {
+					if (total == 0) { document.getElementById("pagination").hidden = true; }
+					else {
+						document.getElementById("pagination").hidden = false;
+
+						var totalPage = parseInt(total / rowLimit);
+
+						if (totalPage == 0) { totalPage = totalPage + 1; }
+
+						if ((total > rowLimit) && (total % rowLimit) != 0) { totalPage = totalPage + 1; }
+
+						totalPagination = totalPage;
+
+						if (totalPage > paginationLimit) { endPagination = paginationLimit }
+						else { endPagination = totalPage; }
+
+						pagination(startPagination, endPagination);
+					}
+				}
+
+
+				if (currentPage == totalPagination) { document.getElementById("nextButton").hidden = true; }
+				else { document.getElementById("nextButton").hidden = false; }
+				if (currentPage == 1) { document.getElementById("prevButton").hidden = true; }
+				else { document.getElementById("prevButton").hidden = false; }
+
+				var content = document.getElementById("inventoryList");
+
+
+				content.innerHTML = 
+				'<tr class="containerBackground">' +
+					'<th class="table-content" style = "padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
+					'<th class="table-content"> @LangResources["Inventory_Label_InventoryName"] </th>' +
+					'<th class="table-content"> @LangResources["Inventory_Label_Category"] </th>' +
+					'<th class="table-content"> @LangResources["Inventory_Label_Usage"] </th>' +
+					'<th class="table-content"> @LangResources["Inventory_Label_ProductName"] </th>' +
+					'<th class="table-content table-content-center"> @LangResources["Inventory_Label_Image"] </th>' +
+					'<th class="table-content"> SKU </th>' +
+					'<th class="table-content"> @LangResources["Inventory_Label_Quantity"] </th>' +
+					'<th class="table-content table-content-center"> @LangResources["Inventory_Label_PricePerQty"] </th>' +
+					'<th class="table-content"> @LangResources["Inventory_Label_Organisation"] </th>' +
+					'<th class="table-content"> @LangResources["Inventory_Label_Branch"] </th>' +
+					'<th class="table-content table-content-center"> @LangResources["Patient_Label_Status"] </th>' +
+					'<th class="table-content headcol">  </th>' +
+				'</tr> ';
+
+				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				else {
+					for (let i = 0; i < data.InventoryInfoList.length; i++) {
+
+						var status, color, background;
+
+						if (data.InventoryInfoList[i].StockStatus == 1) {
+							status = "@LangResources["Inventory_Label_InStock"]";
+							color = "#57baa5";
+							background = "#c3f7ec";
+						}
+						else {
+							status = "@LangResources["Inventory_Label_OutOfStock"]";
+							color = "#ff2c29";
+							background = "#ffc5c4";
+						}
+
+						content.innerHTML = content.innerHTML +
+							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+							'<td class="table-content" style = "padding: 0 1vw;" > ' + data.InventoryInfoList[i].No + ' </td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].InventoryName + ' </td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].Category + ' </td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].Usage + ' </td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].ProductName + ' </td>' +
+							'<td class="table-content table-content-center">' +
+							'<img src="/images/Inventory/' + data.InventoryInfoList[i].Image + '" style="height: 3vw;" />' +
+							'</td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].SKU + ' </td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].Quantity + ' </td>' +
+							'<td class="table-content table-content-center"> ' + data.InventoryInfoList[i].PricePerQty + ' </td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].Organisation + ' </td>' +
+							'<td class="table-content"> ' + data.InventoryInfoList[i].Branch + ' </td>' +
+							'<td class="table-content table-content-center">' +
+							'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 8vw; margin: auto; ">' +
+							status +
+							'</div>' +
+							'</td>' +
+							'<td class="table-content rowcol" style="width: 0;">' +
+							'<div class="dropleft">' +
+							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false" style="padding: 0;">' +
+							'<img class="moreIcon" />' +
+							'</button>' +
+							'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+							'<a class="dropdown-item" href="/Inventory/ViewEditInventory/View/' + data.InventoryInfoList[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="#"> @LangResources["Patient_Button_Edit"] </a>' +
+							'</div>' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+				}
+
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function pagination(start, end) {
+
+		var element = document.getElementById("paginationNumbering");
+
+		element.innerHTML = "";
+
+		for (let i = start; i < end + 1; i++) {
+			var color = "";
+			if (currentPage == i) { background = "#1e76fb"; color = "white" }
+			else { background = "transparent"; color = "#1e76fb"; }
+
+			element.innerHTML = element.innerHTML +
+				'<div>' +
+				'<button onclick="changePage(this);" data-page="' + i + '" style="width: 3vw; height: 3vw; background-color: ' + background + '; color: ' + color + '; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border: 0.1vw solid; border-color: #1e76fb; font-weight: bold;"> ' + ('0' + i).slice(-2) + ' </button>' +
+				'</div>';
+		}
+
+	}
+
+	function prev() {
+		currentPage = currentPage - 1;
+
+		getInventoryList(currentPage, search, false);
+
+		if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+	}
+
+	function next() {
+		currentPage = currentPage + 1;
+
+		getInventoryList(currentPage, search, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		pagination(startPagination, endPagination);
+	}
+
+	function changePage(page) {
+		let pageNum = page.getAttribute("data-page");
+
+		currentPage = Number(pageNum);
+
+		getInventoryList(currentPage, search, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		else if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+
+
+	}
+
+	function searchFilter(searchData) {
+		search = searchData;
+		filter();
+	}
+
+	function filter() {
+		currentPage = 1;
+
+		getInventoryList(1, search, true);
+	}
 </script>

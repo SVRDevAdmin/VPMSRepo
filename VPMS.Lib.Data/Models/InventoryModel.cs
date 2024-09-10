@@ -16,8 +16,8 @@ namespace VPMS.Lib.Data.Models
         public string SKU { get; set; } = null!;
         public string InventoryName { get; set; } = null!;
         public string Name { get; set; } = null!;
-		public Decimal RecommendedWeight { get; set; }
-		public Decimal PricePerQty { get; set; }
+		public float RecommendedWeight { get; set; }
+		public float PricePerQty { get; set; }
 		public string Species { get; set; } = null!;
 		public string RecommendedBreed { get; set; } = null!;
 		public string Usage { get; set; } = null!;
@@ -35,11 +35,21 @@ namespace VPMS.Lib.Data.Models
 		public int StockStatus { get; set; }
 		public int QtyInStores { get; set; }
 		public int LowStockThreshold { get; set; }
+		public DateOnly ExpiryDate { get; set; }
 
 	}
 
-    public class InventoryInfo
+	public class InventoryCategory : AuditModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public string TypeName { get; set; }
+		public int Status { get; set; }
+	}
+
+    public class InventoryInfo : AuditModel
     {
+		public int ID { get; set; }
 		public string ImageFile {  get; set; }
 		public string ImageFileName { get; set; }
 		public string InventoryName { get; set; } = null!;
@@ -49,13 +59,38 @@ namespace VPMS.Lib.Data.Models
 		public string Species { get; set; } = null!;
 		public int StockStatus { get; set; }
 		public DateOnly ExpiryDate { get; set; }
+		public int OrganisationID { get; set; }
 		public int BranchID { get; set; }
 		public string RecommendedBreed { get; set; } = null!;
-		public Decimal RecommendedWeight { get; set; }
-		public Decimal PricePerQty { get; set; }
+		public float RecommendedWeight { get; set; }
+		public float PricePerQty { get; set; }
 		public string Usage { get; set; } = null!;
 		public int Quantity { get; set; }
 		public string Description { get; set; } = null!;
+
+	}
+
+	public class InventoryInfoLists
+	{
+		public List<InventoryInfoList> InventoryInfoList { get; set; }
+		public int totalInventory {  get; set; }
+	}
+
+	public class InventoryInfoList
+	{
+		public int No {  get; set; }
+		public int ID { get; set; }
+		public string InventoryName { get; set; } = null!;
+		public string Category { get; set; } = null!;
+		public string Usage { get; set; } = null!;
+		public string ProductName { get; set; } = null!;
+		public string Image { get; set; }
+		public string SKU { get; set; } = null!;
+		public int Quantity { get; set; }
+		public float PricePerQty { get; set; }
+		public string Organisation { get; set; }
+		public string Branch { get; set; }
+		public int StockStatus { get; set; }
 
 	}
 }
