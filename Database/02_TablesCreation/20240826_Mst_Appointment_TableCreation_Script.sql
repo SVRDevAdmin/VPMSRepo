@@ -50,3 +50,12 @@ ON mst_appointment (ApptStartTime);
 CREATE INDEX IX_AppointmentView_Services
 ON mst_appointment_Services (ServicesID, IsDeleted);
 
+CREATE INDEX IX_API_ApptByCreatedDate
+ON mst_appointment (AppointmentID, PetID, OwnerID, CreatedDate, UpdatedDate);
+
+CREATE INDEX IX_API_ApptByCreatedDate
+ON mst_appointment (AppointmentID, PetID, OwnerID, CreatedDate, UpdatedDate);
+
+CREATE INDEX IX_API_ApptByUniqueID
+ON mst_appointment (AppointmentID, PetID, OwnerID, UniqueIDKey);
+
