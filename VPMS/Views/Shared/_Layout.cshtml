@@ -4,6 +4,8 @@
 
 @{
     string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
+    var sessionUserID = httpContextaccessor.HttpContext.Request.Cookies["UserID"];
+
     var LanguageSelected = Program.LanguageSelected;
     var CountrySelected = Program.CountrySelected;
     var LanguageCodeList = Program.LanguageCodeList;
@@ -494,7 +496,7 @@
                                                 var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
 
                                                 var sFlagChecked = "";
-                                                if (@LanguageSelected.ConfigurationValue == @m.CodeID)
+                                                if (LanguageSelected != null && @LanguageSelected.ConfigurationValue == @m.CodeID)
                                                 {
                                                     sFlagChecked = "checked='true'";
                                                 }
@@ -536,7 +538,7 @@
                                             foreach (var c in CountryList)
                                             {
                                                 String sClassName = "list-group-item list-group-item-action";
-                                                if (CountrySelected.ConfigurationValue == c.CountryName)
+                                                if (CountrySelected != null && CountrySelected.ConfigurationValue == c.CountryName)
                                                 {
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
@@ -623,7 +625,7 @@
 
             if ($country != null && $country.length > 0) {
                 $.post("Configuration/UpdateUserConfiguration", {
-                    UserID: 'd8a3963a-7dda-44c9-9a3b-8fcfb488dff9',
+                    userid: '@sessionUserID',
                     ConfigKey: 'UserSettings_Country',
                     ConfigVal: $country
                 });
@@ -636,7 +638,7 @@
             if ($lang != null && $lang.length > 0) {
                 $.post("/Home/ChangeLanguage", {
                     lang: $lang,
-                    UserID: 'd8a3963a-7dda-44c9-9a3b-8fcfb488dff9'
+                    UserID: '@sessionUserID'
                 }).done(function (resp) {
                     updateCountrySettings();
 
@@ -722,7 +724,7 @@
         function updateThemes(themes) {
             $.post("/Theme/SetThemes", {
                 data: themes,
-                userid: 'd8a3963a-7dda-44c9-9a3b-8fcfb488dff9'
+                userid: '@sessionUserID'
             }).done(function (resp) {
                 // window.location.reload();
             });
@@ -778,29 +780,6 @@
                 }
             }
         }
-
-        $('#btnSave').on('click', function()
-        {
-            $lang = $("input[type='radio'][name='listgrpradio']:checked").val();
-
-            if ($lang != null && $lang.length > 0)
-            {
-                $.post("/Home/ChangeLanguage", {
-                    lang: $lang,
-                    UserID: 'User A'
-                }).done(function(resp){
-                    updateCountrySettings();
- 
-                    window.location.reload();
-                });
-            }
-            else
-            {
-                updateCountrySettings();
- 
-                window.location.reload();
-            }
-        });
 
         // Confirmation MessageBox
         function ShowConfirmCancelMsgBox(MsgTitle, MsgContent, YesButtonCallback, NoButtonCallback) {

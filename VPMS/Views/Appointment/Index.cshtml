@@ -5,6 +5,9 @@
 @{
     ViewData["Title"] = "Appointment";
     ViewData["SelectedMenu"] = "appointmentMenu";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Request.Cookies["BranchID"];
+    var sessionUserID = httpContextaccessor.HttpContext.Request.Cookies["UserID"];
 }
 
 <link rel="stylesheet" href="~/css/font-awesome.min.css">
@@ -398,7 +401,8 @@
                 ApptDate: sAppDate,
                 ApptStartTime: sAppStrDate,
                 ApptEndTime: sAppEndDate,
-                BranchID: 1,
+                //BranchID: 1,
+                BranchID: @sessionBranchID,
                 OwnerID: $('#ddlAddOwner').val(),
                 PetID: $('#ddlAddPet').val(),
                 InchargeDoctor: $('#ddlAddDoctor').val(),
@@ -541,7 +545,8 @@
                 ApptStartTime: sNewAppStrDate,
                 ApptEndTime: sNewAppEndDate,
                 PetDOB: sNewPetDOB, 
-                BranchID : 1,
+                //BranchID : 1,
+                BranchID: @sessionBranchID,
                 OwnerName: $('#txtNewOwnerfullName').val(),
                 ContactNo: $('#txtNewContactNo').val(),
                 PetName: $('#txtNewPetName').val(),

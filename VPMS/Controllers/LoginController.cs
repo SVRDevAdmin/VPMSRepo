@@ -93,6 +93,9 @@ namespace VPMSWeb.Controllers
 
                     Response.Cookies.Append("user", userInfo.Name, cookies);
 
+                    Response.Cookies.Append("BranchID", userInfo.BranchID.ToString(), cookies);
+                    Response.Cookies.Append("RoleID", userInfo.RoleID, cookies);
+                    Response.Cookies.Append("UserID", userInfo.UserID, cookies);
                     //var randomAlphanumeric = GenerateRandomAlphanumeric(32);
                     //var sessionCreatedOn = DateTime.Now;
                     //var sessionExpiredOn = DateTime.Now.AddMinutes(5);
