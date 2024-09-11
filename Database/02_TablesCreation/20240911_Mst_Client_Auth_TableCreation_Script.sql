@@ -1,0 +1,36 @@
+CREATE TABLE `mst_client` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`Name` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`Description` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`Status` INT NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`UpdatedDate` DATETIME NULL DEFAULT NULL,
+	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
+
+
+CREATE TABLE `mst_client_auth` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`ClientID` INT NULL DEFAULT NULL,
+	`ClientKey` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`StartDate` DATE NULL DEFAULT NULL,
+	`EndDate` DATE NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`UpdatedDate` DATETIME NULL DEFAULT NULL,
+	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
+
+CREATE INDEX IX_ClientKey
+ON mst_client_auth (ClientKey);
+
+

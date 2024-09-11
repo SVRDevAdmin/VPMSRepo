@@ -85,4 +85,14 @@ namespace VPMS.Lib.Data.Models
         public String? DoctorName { get; set; }
         public long? AppointmentID { get; set; }
     }
+
+    public class AppointmentListModel : AppointmentModel
+    {
+        public String? Services { get; set;  }
+        public String? ServiceName { get; set; }
+        public String? PetName { get; set; }
+        public String? DoctorName { get; set;  }
+        public String? OwnerName { get; set; }
+        public long? PatientID { get; set; }
+    }
 }
