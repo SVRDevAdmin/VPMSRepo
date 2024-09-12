@@ -6,8 +6,8 @@
     ViewData["Title"] = "Appointment";
     ViewData["SelectedMenu"] = "appointmentMenu";
 
-    var sessionBranchID = httpContextaccessor.HttpContext.Request.Cookies["BranchID"];
-    var sessionUserID = httpContextaccessor.HttpContext.Request.Cookies["UserID"];
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
 }
 
 <link rel="stylesheet" href="~/css/font-awesome.min.css">

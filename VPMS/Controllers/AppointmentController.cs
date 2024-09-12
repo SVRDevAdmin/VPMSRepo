@@ -19,16 +19,15 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            int cookieBranchID = 0;
-            if (Request.Cookies["BranchID"] != null)
+            int sessionBranchID = 0;
+            if (HttpContext.Session.GetString("BranchID") != null)
             {
-                cookieBranchID = Convert.ToInt32(Request.Cookies["BranchID"]);
+                sessionBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
             }
 
             AppointmentViewModel sModel = new AppointmentViewModel();
 
-            //sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), 1);
-            sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), cookieBranchID);
+            sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), sessionBranchID);
             sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings());
             sModel.SpeciesModel = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Species");
             

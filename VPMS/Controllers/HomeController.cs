@@ -26,8 +26,18 @@ namespace VPMSWeb.Controllers
 
         public IActionResult Index()
         {
-			var cookieUserID = Request.Cookies["UserID"];
-			var cookieBranchID = Request.Cookies["BranchID"];
+			String sessionUserID = "";
+			String sessionBranchID = "";
+
+            if (HttpContext.Session.GetString("UserID") != null)
+			{
+                sessionUserID = HttpContext.Session.GetString("UserID");
+            }
+			if (HttpContext.Session.GetString("BranchID") != null)
+			{
+                sessionBranchID = HttpContext.Session.GetString("BranchID");
+            }
+			
 
 			var sMasterCodeObj = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), sLangCodeGroup);
 			ViewData["LanguageCodeList"] = sMasterCodeObj;
@@ -37,8 +47,7 @@ namespace VPMSWeb.Controllers
 			ViewData["CountryList"] = sCountryList;
             Program.CountryList = sCountryList;
 
-            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), cookieUserID);
-            //var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), "f70e5db4-893e-46b2-b3ca-001a6cd0f4a7");
+            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), sessionUserID);
 			if (sUserConfigurationSettings != null)
 			{
 				ViewData["LanguageSelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Language").FirstOrDefault();

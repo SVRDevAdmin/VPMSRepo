@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
+using System.Web;
 
 namespace VPMSWeb.Controllers
 {
@@ -93,9 +94,9 @@ namespace VPMSWeb.Controllers
 
                     Response.Cookies.Append("user", userInfo.Name, cookies);
 
-                    Response.Cookies.Append("BranchID", userInfo.BranchID.ToString(), cookies);
-                    Response.Cookies.Append("RoleID", userInfo.RoleID, cookies);
-                    Response.Cookies.Append("UserID", userInfo.UserID, cookies);
+                    HttpContext.Session.SetString("BranchID", userInfo.BranchID.ToString());
+                    HttpContext.Session.SetString("RoleID", userInfo.RoleID);
+                    HttpContext.Session.SetString("UserID", userInfo.UserID);
                     //var randomAlphanumeric = GenerateRandomAlphanumeric(32);
                     //var sessionCreatedOn = DateTime.Now;
                     //var sessionExpiredOn = DateTime.Now.AddMinutes(5);

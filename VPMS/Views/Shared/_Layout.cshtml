@@ -4,7 +4,7 @@
 
 @{
     string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
-    var sessionUserID = httpContextaccessor.HttpContext.Request.Cookies["UserID"];
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
 
     var LanguageSelected = Program.LanguageSelected;
     var CountrySelected = Program.CountrySelected;
