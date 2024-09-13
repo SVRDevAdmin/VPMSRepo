@@ -63,6 +63,11 @@ namespace VPMSWeb.Controllers
 			return inventoryInfo;
 		}
 
+		public List<InventoryModel> GetInventoryByCategory(int categoryID)
+		{
+			return _inventoryDBContext.Mst_Product.Where(x => x.ProductTypeID == categoryID).ToList();
+		}
+
 		public InventoryModel GetInventoryById(int id)
 		{
 			return _inventoryDBContext.Mst_Product.FirstOrDefault(x => x.ID == id);

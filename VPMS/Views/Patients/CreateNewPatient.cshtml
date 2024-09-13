@@ -279,7 +279,7 @@
 </div>
 
 <template id="VaccinationTemplate">
-	<div>
+	<div class="VaccinationGroup">
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 			@* <input type="text" class="form-control form-field inputField TypeVaccination" /> *@
@@ -318,15 +318,25 @@
 </template>
 
 <template id="MedicationTemplate">
-	<div>
+	<div class="MedicationGroup">
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-			<input type="text" class="form-control form-field inputField TypeMedication" />
+			@* <input type="text" class="form-control form-field inputField TypeMedication" /> *@
+			<select class="form-control form-field inputField TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication');">
+				<option value="" selected> -- Select Medication Type --</option>
+				@foreach (var medication in ViewData["MedicationList"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
+				{
+					<option value="@medication.ID"> @medication.TypeName</option>
+				}
+			</select>
 		</div>
 
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-			<input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" />
+			@* <input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" /> *@
+			<select class="form-control form-field inputField NameMedication">
+				<option value="" selected> -- Select Medication --</option>
+			</select>
 		</div>
 
 		<div class="field-container">
@@ -342,7 +352,7 @@
 </template>
 
 <template id="SurgeriesTemplate">
-	<div>
+	<div class="SurgeryGroup">
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 			@* <input type="text" class="form-control form-field inputField TypeSurgeries" /> *@
@@ -637,7 +647,28 @@
 				element.innerHTML = '<option value="" selected> -- Select ' + name + ' -- </option>';
 
 				for (let i = 0; i < data.length; i++) {
-					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '">' + data[i].Name + '</option>';
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function medicationList(id, element) {
+		fetch('/Inventory/GetInventoryByCategory?categoryID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				element.innerHTML = '<option value="" selected> -- Select Medication -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';
 				}
 			})
 			.catch(error => {
@@ -727,8 +758,6 @@
 				}
 
 				createPetsInfo(data);
-
-				window.location = "/Patients/Index";
 
 			})
 			.catch(error => {
@@ -843,10 +872,95 @@
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					}
+					return response.json();
+				})
+				.then(data => {
+					var vaccinations = document.querySelectorAll(".VaccinationGroup");
+					var surgeries = document.querySelectorAll(".SurgeryGroup");
+					var medications = document.querySelectorAll(".MedicationGroup");
+
+					for (let i = 0; i < vaccinations.length; i++) {
+						createMedicalRecordService(data, "Vaccination", vaccinations[i], 1);
+					}
+
+					for (let i = 0; i < surgeries.length; i++) {
+						createMedicalRecordService(data, "Surgeries", surgeries[i], 2);
+					}
+
+					for (let i = 0; i < medications.length; i++) {
+						createMedicalRecordMedication(data, medications[i]);
+					}					
+
+					window.location = "/Patients/Index";
+
 				})
 				.catch(error => {
 					console.error('There was a problem with the fetch operation:', error);
 				});
 		}
+	}
+
+	function createMedicalRecordService(petID, name ,element, type){
+		var serviceElement = element.querySelector(".Name" + name);
+		var selected = serviceElement.options[serviceElement.selectedIndex];
+		var description = selected.getAttribute('data-description');
+
+		var obj = {
+			PetID: petID,
+			CategoryID: element.querySelector(".Type" + name).value,
+			ServiceID: serviceElement.value,
+			Type: type,
+			DueDate: element.querySelector(".DueDate" + name).value,
+			Description: description,
+			Remarks: element.querySelector(".Remarks" + name).value,
+			IsDeleted: 0,
+			CreatedDate: new Date(),
+			CreatedBy: "System",
+		};
+
+		fetch('/Patients/InsertMedicalRecordService', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function createMedicalRecordMedication(petID, element) {
+		var productElement = element.querySelector(".NameMedication");
+		var selected = productElement.options[productElement.selectedIndex];
+		var description = selected.getAttribute('data-description');
+
+		var obj = {
+			PetID: petID,
+			CategoryID: element.querySelector(".TypeMedication").value,
+			ProductID: productElement.value,
+			ExpiryDate: element.querySelector(".DueDateMedication").value,
+			Status: 1,
+			Description: description,
+			CreatedDate: new Date(),
+			CreatedBy: "System",
+		};
+
+		fetch('/Patients/InsertMedicalRecordMedication', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 </script>

@@ -56,6 +56,19 @@
 		align-items: center;
 	}
 
+	.containerCircle {
+		width: 1.2vw;
+		height: 1.2vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1vw;
+		justify-content: center;
+		align-items: center;
+	}
+
 	.table-content {
 		height: 2vw;
 	}
@@ -71,22 +84,28 @@
 	table th:last-child {
 		border-radius: 0 0.2vw 0.2vw 0;
 	}
+
+	.hideContainer {
+		display: none !important;
+	}
 </style>
 
 <template id="treatmentPlanTemplate">
 	<div class="textColor" style="border-style: dashed; border-radius: 1vw; padding: 1vw; font-size: 1vw; margin-right: 1vw;">
 		<div style="display: flex; justify-content: space-between;">
 			<div>
+				<input type="text" class="treatmentPlanID" hidden/>
 				<span id="treatmentPlanName" style="font-weight: bold;"></span>
 			</div>
 			<div style="display: flex; align-items: center;">
 				<span style="color: red;">Pending Confirmation</span>
-				<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
+				<button onclick="submitTreatmentPlan();" class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
 				<button onclick="removeTreatmentPlan(this);" class="btn btn-lg btn-danger" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-xmark"></i></button>
-				<button class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-regular fa-pen-to-square"></i></button>
+				<button onclick="editTreatmentPlan();" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-regular fa-pen-to-square"></i></button>
 			</div>
 		</div>
-		<span>@LangResources["Patient_Label_TreatmentPeriod"] : 10/04/2024 - 15/04/2024</span>
+		<span class="treatmentPlanInfo hideContainer"> @LangResources["Patient_Label_TreatmentPeriod"] : <input type="date" class="treatmentPeriodStart" value="2024-04-10" onchange="updatePeriod(this);" /> - <input type="date" class="treatmentPeriodEnd" value="2024-04-15" onchange="updatePeriod(this);" /> </span>
+		<span class="treatmentPlanInfo">@LangResources["Patient_Label_TreatmentPeriod"] : <span class="treatmentPeriod">10/04/2024 - 15/04/2024</span></span>
 
 		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
 			<table class="textColor" id="serviceList" style="width:100%; font-size: 1vw;">
@@ -95,25 +114,33 @@
 					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</th>
 				</tr>
 				<tr>
-					<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
-					<th class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </th>
+					<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
+					<td class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </td>
 				</tr>
 			</table>
+			<button onclick="cloneElement(document.getElementById('treatmentPlanContainer'), true, 'serviceTemplate' , 'serviceList' , 'serviceID' , 0, 'serviceName' , '' , 'servicePrice' , '' , false, 0, 0);" class="btn btn-lg btn-primary treatmentPlanInfo hideContainer" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding-left: 0;">
+				<span class="containerCircle">+</span>
+				<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_AddService"]</span>
+			</button>
 		</div>
 
 		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
 			<table class="textColor" id="productList" style="width:100%; font-size: 1vw;">
 				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
-					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Product"] </th>
-					<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
-					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</th>
+					<td class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Product"] </td>
+					<td class="table-content"> @LangResources["Patient_Label_Unit"] </td>
+					<td class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</td>
 				</tr>
 				<tr>
-					<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
-					<th class="table-content">0</th>
-					<th class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </th>
+					<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
+					<td class="table-content">0</td>
+					<td class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </td>
 				</tr>
 			</table>
+			<button onclick="cloneElement(document.getElementById('treatmentPlanContainer'), true, 'productTemplate', 'productList', 'productID', 0, 'productName', '', 'productPrice', 0, true, 1, 0);;" class="btn btn-lg btn-primary treatmentPlanInfo hideContainer" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding-left: 0;">
+				<span class="containerCircle">+</span>
+				<span style="font-size: 1vw; margin-left: 0.5vw;">Add Product</span>
+			</button>
 		</div>
 
 		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
@@ -123,16 +150,16 @@
 					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</th>
 				</tr>
 				<tr>
-					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
-					<th class="table-content" id="totalCost" style="width: 3vw; padding-right: 0.5vw;"> $0 </th>
+					<td class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
+					<td class="table-content" id="totalCost" style="width: 3vw; padding-right: 0.5vw;"> $0 </td>
 				</tr>
 				<tr>
-					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Tax"] 6% </th>
-					<th class="table-content" id="tax" style="width: 3vw; padding-right: 0.5vw;"> $0 </th>
+					<td class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Tax"] 6% </td>
+					<td class="table-content" id="tax" style="width: 3vw; padding-right: 0.5vw;"> $0 </td>
 				</tr>
 				<tr style="background-color: #c8dcfc; color: black;">
-					<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_GrandTotal"] </th>
-					<th class="table-content" id="grandTotal" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </th>
+					<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_GrandTotal"] </td>
+					<td class="table-content" id="grandTotal" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </td>
 				</tr>
 			</table>
 		</div>
@@ -141,27 +168,46 @@
 </template>
 
 <template id="serviceTemplate">
-	<tr>
-		<th class="table-content serviceName" style="padding-left: 0.5vw;"></th>
-		<th class="table-content servicePrice" style="width: 3vw; padding-right: 0.5vw;"></th>
+	<tr class="serviceGroup">
+		<td class="table-content treatmentPlanInfo serviceName" style="padding-left: 0.5vw;"></td>
+		<td class="table-content treatmentPlanInfo hideContainer" style="padding-left: 0.5vw;">
+			<select class="serviceID" onchange="updateCost(this, 'servicePrice', 'serviceName');">
+				@foreach (var service in ViewData["Services"] as List<VPMS.Lib.Data.Models.ServicesModel>)
+				{
+					<option value="@service.ID" data-price="@service.Prices"> @service.Name </option>
+				}
+			</select>
+		</td>
+		<td class="table-content servicePrice" style="width: 3vw; padding-right: 0.5vw;"></td>
 	</tr>
 	<tr>
-		<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
-		<th class="table-content totalCost" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"></th>
+		<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
+		<td class="table-content totalCost" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"></td>
 	</tr>
 </template>
 
 <template id="productTemplate">
-	<tr>
-		<th class="table-content productName" style="padding-left: 0.5vw;"></th>
-		<th class="table-content productUnit"></th>
-		<th class="table-content productOriginalPrice" hidden></th>
-		<th class="table-content productPrice" style="width: 3vw; padding-right: 0.5vw;"></th>
+	<tr class="productGroup">
+		<td class="table-content treatmentPlanInfo productName" style="padding-left: 0.5vw;"></td>
+		<td class="table-content treatmentPlanInfo hideContainer" style="padding-left: 0.5vw;">
+			<select class="productID" onchange="updateCost(this, 'productPrice', 'productName');">
+				@foreach (var product in ViewData["Inventories"] as List<VPMS.Lib.Data.Models.InventoryModel>)
+				{
+					<option value="@product.ID" data-price="@product.PricePerQty"> @product.Name </option>
+				}
+			</select>
+		</td>
+		<td class="table-content treatmentPlanInfo productUnit"></td>
+		<td class="table-content treatmentPlanInfo hideContainer">
+			<input class="productUnitInput" style="width: 3vw;" type="number" value="0" min="1" onchange="updateUnitCost(this, 'productPrice', 'productID', 'productUnit');" />
+		</td>
+		<td class="table-content productOriginalPrice" hidden></td>
+		<td class="table-content productPrice" style="width: 3vw; padding-right: 0.5vw;"></td>
 	</tr>
 	<tr>
-		<th class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </th>
-		<th class="table-content"></th>
-		<th class="table-content totalCost" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"></th>
+		<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
+		<td class="table-content"></td>
+		<td class="table-content totalCost" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"></td>
 	</tr>
 </template>
 
@@ -182,15 +228,15 @@
 <div style="display: flex; justify-content: center;">
 	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
 		<div style="background-color: black; border-radius: 0.5vw; display: flex; justify-content: space-between; padding: 0.29vw; margin-right: 1vw;">
-			<button class="btn btn-lg btn-primary tabButton currentTab" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_CreateTreatmentPlan"]</button>
-			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_UpcomingTreatment"]</button>
-			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_OutgoingTreatment"]</button>
-			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this);" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_PastTreatment"]</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this, 'treatmentPlanContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_CreateTreatmentPlan"]</button>
+			<button class="btn btn-lg btn-primary tabButton currentTab" onclick="changeTab(this, 'treatmentPlanViewContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_UpcomingTreatment"]</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this, 'treatmentPlanOutgoingContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_OutgoingTreatment"]</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this, 'treatmentPlanPastContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_PastTreatment"]</button>
 		</div>
 
 		<div style="margin-top: 2vw; display: flex; align-items: flex-start;">
 
-			<div id="treatmentPlanList" class="dropright">
+			<div id="treatmentPlanList" class="dropright hideContainer">
 				<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none;">
 					<span id="container">+</span>
 					<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_AddTreatment"]</span>
@@ -211,10 +257,10 @@
 								{
 									index = "service" + indexNo;
 
-												<div class="form-check">
-													<input type="checkbox" class="form-check-input treatmentPlanOption" id="@index" name="@index" data-id="@treatmentPlan.ID" value="@treatmentPlan.Name">
-													<label class="form-check-label" for="@index">@treatmentPlan.Name</label><br>
-												</div>
+																<div class="form-check">
+																	<input type="checkbox" class="form-check-input treatmentPlanOption" id="@index" name="@index" data-id="@treatmentPlan.ID" value="@treatmentPlan.Name">
+																	<label class="form-check-label" for="@index">@treatmentPlan.Name</label><br>
+																</div>
 
 									indexNo++;
 								}
@@ -231,7 +277,10 @@
 				</div>
 			</div>
 
-			<div class ="hideContainer" id="treatmentPlanContainer" style="width: 100%;">
+			<div class="treatmentPlanContainer hideContainer" id="treatmentPlanContainer" style="width: 100%;">
+			</div>
+
+			<div class="treatmentPlanContainer" id="treatmentPlanViewContainer" style="width: 100%;">
 			</div>
 			
 
@@ -484,6 +533,11 @@
 
 <script>
 
+	var treatmentPlanContainer = document.getElementById("treatmentPlanContainer");
+	var treatmentPlanViewContainer = document.getElementById("treatmentPlanViewContainer");
+
+	getUpcomingTreatmentPlan();
+
 	function downloadHealthCard() {
 		var clone = document.getElementById("healthCardModal").cloneNode(true);
 		clone.querySelector(".modal-header").classList.toggle("hideContainer");
@@ -519,29 +573,26 @@
 	document.querySelector('#addSelections').addEventListener('click', function (event) {
 		if (this.classList.contains("disable")) { event.stopPropagation(); }
 		else{
-			var treatmentNameElement = document.getElementById("treatmentPlanContainer");
 			var template = document.getElementById("treatmentPlanTemplate");
 			const clone = template.content.cloneNode(true);
-			treatmentNameElement.appendChild(clone);
+			treatmentPlanContainer.appendChild(clone);
 
-			var treatmentNameElement = document.getElementById("treatmentPlanName");
+			var treatmentNameElement = treatmentPlanContainer.querySelector("#treatmentPlanName");
+			var treatmentIDElement = treatmentPlanContainer.querySelector(".treatmentPlanID");
 			var checkboxes = document.getElementsByClassName("treatmentPlanOption");
 			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
 
 			for (let i = 0; i < selectedCboxes.length; i++) {
 				treatmentNameElement.innerHTML = selectedCboxes[i].value;
+				treatmentIDElement.value = selectedCboxes[i].getAttribute('data-id');
 				getServiceListByPlan(selectedCboxes[i].getAttribute('data-id'));
 				getProductListByPlan(selectedCboxes[i].getAttribute('data-id'));
 			}
 
-			// cloneElement(true, "serviceTemplate", "serviceList", "serviceID", 0, "serviceName", "Surgery", "servicePrice", "500", false, 0, 0);
-			// cloneElement(true, "productTemplate", "productList", "productID", 0, "productName", "Actogain 45 plus", "productPrice", "100", true, 10, "100");
-
 			var dropdownElement = document.getElementById("treatmentPlanList");
 			dropdownElement.classList.toggle("hideContainer");
 
-			var element = document.getElementById("treatmentPlanContainer");
-			element.classList.toggle("hideContainer");
+			treatmentPlanContainer.classList.toggle("hideContainer");
 		}
 	});
 
@@ -589,12 +640,125 @@
 		});
 	}
 
-	function changeTab(e){
+	function editTreatmentPlan(){
+		var element = treatmentPlanContainer.querySelectorAll(".treatmentPlanInfo");
+
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+	}
+
+	function updatePeriod(e){
+		var parent = e.parentElement.parentElement;
+		var startPeriod = parent.querySelector(".treatmentPeriodStart").value;
+		var endPeriod = parent.querySelector(".treatmentPeriodEnd").value;
+		var periodTextElement = parent.querySelector(".treatmentPeriod");
+
+		var startPeriodDate = new Date(startPeriod);
+		var endPeriodDate = new Date(endPeriod);
+
+		var startPeriodText = [
+			('0' + startPeriodDate.getDate()).slice(-2),
+			('0' + (startPeriodDate.getMonth() + 1)).slice(-2),
+			startPeriodDate.getFullYear()
+		].join('/');
+
+		var endPeriodText = [
+			('0' + endPeriodDate.getDate()).slice(-2),
+			('0' + (endPeriodDate.getMonth() + 1)).slice(-2),
+			endPeriodDate.getFullYear()
+		].join('/');
+
+		periodTextElement.innerHTML = startPeriodText + " - " + endPeriodText;
+	}
+
+	function updateCost(e, priceElementName, productServiceName){
+		var parent = e.parentElement.parentElement;
+		var priceElement = parent.querySelector("." + priceElementName);
+		var productServiceNameElement = parent.querySelector("." + productServiceName);
+		var selected = e.options[e.selectedIndex];
+		var price = selected.getAttribute('data-price');
+		var totalCost = 0;
+
+		var productUnitElement = parent.querySelector(".productUnitInput");
+
+		if(productUnitElement) {
+			price = productUnitElement.value * price;
+		}
+
+		priceElement.innerHTML = "$" + price;
+		productServiceNameElement.innerHTML = selected.innerHTML;
+
+		var priceElements = parent.parentElement.querySelectorAll("." + priceElementName);
+
+		for (let i = 0; i < priceElements.length; i++) {
+			totalCost += parseInt(priceElements[i].innerHTML.replace("$", ""));
+		}
+
+		parent.parentElement.querySelector(".totalCost").innerHTML = "$" + totalCost;
+
+		calculateTotal();
+	}
+
+	function updateUnitCost(e, priceElementName, productElementName, unitElementName) {
+		var parent = e.parentElement.parentElement;
+		var priceElement = parent.querySelector("." + priceElementName);
+		var unitElement = parent.querySelector("." + unitElementName);
+		var product = parent.querySelector("." + productElementName);
+		var selected = product.options[product.selectedIndex];
+		var price = selected.getAttribute('data-price');
+		price = e.value * price;
+		var totalCost = 0;
+
+		priceElement.innerHTML = "$" + price;
+
+		var priceElements = parent.parentElement.querySelectorAll("." + priceElementName);
+
+		for (let i = 0; i < priceElements.length; i++) {
+			totalCost += parseInt(priceElements[i].innerHTML.replace("$", ""));
+		}
+
+		parent.parentElement.querySelector(".totalCost").innerHTML = "$" + totalCost;
+		unitElement.innerHTML = e.value;
+
+		calculateTotal();
+	}
+
+	function changeTab(e, selected){
 		var allTab = document.querySelectorAll(".tabButton");
+		var allContainer = document.querySelectorAll(".treatmentPlanContainer");
+		var selectedContainer = document.getElementById(selected);
+		var dropdownElement = document.getElementById("treatmentPlanList");
+
+		if (selectedContainer && selectedContainer.id == "treatmentPlanContainer"){
+			if (dropdownElement.classList.contains("hideContainer")) {
+				dropdownElement.classList.toggle("hideContainer");
+			}
+		}
+		else{
+			if (!dropdownElement.classList.contains("hideContainer")) {
+				dropdownElement.classList.toggle("hideContainer");
+			}
+
+			treatmentPlanContainer.innerHTML = "";
+		}
 
 		for (let i = 0; i < allTab.length; i++) {
 			if (allTab[i].classList.contains("currentTab")){ allTab[i].classList.toggle("currentTab"); }
 			if (allTab[i] == e) { allTab[i].classList.toggle("currentTab"); }
+		}
+
+		for (let i = 0; i < allContainer.length; i++) {
+			if (allContainer[i] == selectedContainer && selectedContainer.id != "treatmentPlanContainer") {
+				if (selectedContainer.classList.contains("hideContainer")) {
+					selectedContainer.classList.toggle("hideContainer");
+				}
+			}
+			else{
+				if (!allContainer[i].classList.contains("hideContainer")) {
+					allContainer[i].classList.toggle("hideContainer");
+				}
+			}
 		}
 	}
 
@@ -613,22 +777,45 @@
 		}
 	}
 
-	function cloneElement(edit, templateId, elementId, idElement, id, nameElement, name, priceElement, price, productGroup, units, originalPrice) {
+	function cloneElement(e, edit, templateId, elementId, idElement, id, nameElement, name, priceElement, price, productGroup, units, originalPrice) {
 		const template = document.getElementById(templateId);
-		const element = document.getElementById(elementId);
+		const element = e.querySelector("#" + elementId);
 		var allElement = element.querySelectorAll("tr");
 		allElement[allElement.length - 1].remove();
 		const clone = template.content.cloneNode(true);
 		var notExisted = true;
 		var totalCost = 0;
+		var priceData = 0;
 
-		// clone.querySelector("." + idElement).innerHTML = id;
-		clone.querySelector("." + nameElement).innerHTML = name;
-		clone.querySelector("." + priceElement).innerHTML = "$" + price;
+		var idElement = clone.querySelector("." + idElement);
+
+		if(id == 0) {
+			idElement.selectedIndex = id;
+			clone.querySelector("." + nameElement).innerHTML = idElement.options[idElement.selectedIndex].innerHTML;
+			priceData = idElement.options[idElement.selectedIndex].getAttribute('data-price');
+			originalPrice = priceData;
+			units = 1;
+		} else {
+			idElement.value = id;
+			clone.querySelector("." + nameElement).innerHTML = name;
+			priceData = price;
+		}
+
+		clone.querySelector("." + priceElement).innerHTML = "$" + priceData;
+
+		if(edit){
+			var treatmentPlanInfoElement = clone.querySelectorAll(".treatmentPlanInfo");
+
+			for (let i = 0; i < treatmentPlanInfoElement.length; i++) {
+				treatmentPlanInfoElement[i].classList.toggle("hideContainer");
+			}
+		}
+
 
 		if (productGroup) {
 			clone.querySelector(".productOriginalPrice").innerHTML = originalPrice;
 			clone.querySelector(".productUnit").innerHTML = units;
+			clone.querySelector(".productUnitInput").value = units;
 		}
 
 		element.appendChild(clone);
@@ -645,10 +832,10 @@
 	}
 
 	function calculateTotal() {
-		var totalElement = document.getElementById("totalCost");
-		var taxElement = document.getElementById("tax");
-		var grandTotalElement = document.getElementById("grandTotal");
-		var totalCostList = document.querySelectorAll(".totalCost");
+		var totalElement = treatmentPlanContainer.querySelector("#totalCost");
+		var taxElement = treatmentPlanContainer.querySelector("#tax");
+		var grandTotalElement = treatmentPlanContainer.querySelector("#grandTotal");
+		var totalCostList = treatmentPlanContainer.querySelectorAll(".totalCost");
 		var totalCost = 0;
 		var tax = 0;
 
@@ -658,9 +845,12 @@
 
 		tax = totalCost * (6 / 100);
 
-		totalElement.innerHTML = "$" + totalCost;
-		taxElement.innerHTML = "$" + tax;
-		grandTotalElement.innerHTML = "$" + (totalCost + tax);
+		if (totalElement) {
+			totalElement.innerHTML = "$" + totalCost;
+			taxElement.innerHTML = "$" + tax;
+			grandTotalElement.innerHTML = "$" + (totalCost + tax);
+		}
+
 	}
 
 	function removeTreatmentPlan(element) {
@@ -669,8 +859,104 @@
 		var dropdownElement = document.getElementById("treatmentPlanList");
 		dropdownElement.classList.toggle("hideContainer");
 
-		var element = document.getElementById("treatmentPlanContainer");
-		element.classList.toggle("hideContainer");
+		treatmentPlanContainer.classList.toggle("hideContainer");
+	}
+
+	function getUpcomingTreatmentPlan() {
+		fetch('/Patients/GetUpcomingTreatmentPlan?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				if (data.ID == 0) {
+					treatmentPlanViewContainer.innerHTML = '<div style="width: 100%; text-align: center; margin-right: 1vw; padding: 1vw;">No Upcoming Treatment<div>';
+				}
+				else{
+					var template = document.getElementById("treatmentPlanTemplate");
+					const clone = template.content.cloneNode(true);
+					treatmentPlanViewContainer.appendChild(clone);
+
+					treatmentPlanViewContainer.querySelector(".treatmentPeriodStart").value = data.TreatmentStart;
+					treatmentPlanViewContainer.querySelector(".treatmentPeriodEnd").value = data.TreatmentEnd;
+					var periodTextElement = treatmentPlanViewContainer.querySelector(".treatmentPeriod");
+
+					var startPeriodDate = new Date(data.TreatmentStart);
+					var endPeriodDate = new Date(data.TreatmentEnd);
+
+					var startPeriodText = [
+						('0' + startPeriodDate.getDate()).slice(-2),
+						('0' + (startPeriodDate.getMonth() + 1)).slice(-2),
+						startPeriodDate.getFullYear()
+					].join('/');
+
+					var endPeriodText = [
+						('0' + endPeriodDate.getDate()).slice(-2),
+						('0' + (endPeriodDate.getMonth() + 1)).slice(-2),
+						endPeriodDate.getFullYear()
+					].join('/');
+
+					periodTextElement.innerHTML = startPeriodText + " - " + endPeriodText;
+
+					var allElementParent = treatmentPlanViewContainer.querySelector("div");
+					var allElement = allElementParent.querySelectorAll("div");
+					var allButtonElement = allElement[0].querySelectorAll("div");
+					allElement[allElement.length - 1].remove();
+					allButtonElement[allButtonElement.length - 1].remove();
+
+					var treatmentNameElement = treatmentPlanViewContainer.querySelector("#treatmentPlanName");
+					var treatmentIDElement = treatmentPlanViewContainer.querySelector(".treatmentPlanID");
+
+					treatmentNameElement.innerHTML = data.PlanName;
+					treatmentIDElement.value = data.TreatmentPlanID;
+
+					getUpcomingTreatmentPlanServices(data.ID);
+					getUpcomingTreatmentPlanProducts(data.ID);
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getUpcomingTreatmentPlanServices(id) {
+		fetch('/Patients/GetUpcomingTreatmentPlanServices?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				for (let i = 0; i < data.length; i++) {
+					cloneElement(treatmentPlanViewContainer, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getUpcomingTreatmentPlanProducts(id) {
+		fetch('/Patients/GetUpcomingTreatmentPlanProducts?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				for (let i = 0; i < data.length; i++) {
+					cloneElement(treatmentPlanViewContainer, false, "productTemplate", "productList", "productID", data[i].ProductID, "productName", data[i].ProductName, "productPrice", data[i].TotalPrice, true, data[i].Units, data[i].PricePerQty);
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 
 	function getServiceListByPlan(id) {
@@ -683,7 +969,7 @@
 			})
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
-					cloneElement(true, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+					cloneElement(treatmentPlanContainer, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
 				}
 			})
 			.catch(error => {
@@ -702,9 +988,127 @@
 			.then(data => {
 
 				for (let i = 0; i < data.length; i++) {
-					cloneElement(true, "productTemplate", "productList", "productID", data[i].ProductID, "productName", data[i].ProductName, "productPrice", data[i].TotalPrice, true, data[i].Units, data[i].PricePerQty);
+					cloneElement(treatmentPlanContainer, false, "productTemplate", "productList", "productID", data[i].ProductID, "productName", data[i].ProductName, "productPrice", data[i].TotalPrice, true, data[i].Units, data[i].PricePerQty);
 				}
 				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function submitTreatmentPlan() {
+
+		var treatmentName = treatmentPlanContainer.querySelector("#treatmentPlanName").innerHTML;
+		var treatmentID = treatmentPlanContainer.querySelector(".treatmentPlanID").value;
+		var treatmentPeriodStart = treatmentPlanContainer.querySelector(".treatmentPeriodStart").value;
+		var treatmentPeriodEnd = treatmentPlanContainer.querySelector(".treatmentPeriodEnd").value;
+		var totalCost = treatmentPlanContainer.querySelector("#grandTotal").innerHTML.replace("$", "");
+
+		var obj = {
+			PetID: "@Model.ID",
+			TreatmentPlanID: treatmentID,
+			PlanName: treatmentName,
+			TreatmentStart: treatmentPeriodStart,
+			TreatmentEnd: treatmentPeriodEnd,
+			TotalCost: totalCost,
+			Status: 1,
+			CreatedDate: new Date(),
+			CreatedBy: "System"
+		};
+
+		fetch('/Patients/InsertPatientTreatmentPlan', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				var serviceGroup = document.querySelectorAll(".serviceGroup");
+				var productGroup = document.querySelectorAll(".productGroup");
+
+				for (let i = 0; i < serviceGroup.length; i++){
+					submitTreatmentPlanService(serviceGroup[i], data);
+				}
+
+				for (let i = 0; i < productGroup.length; i++) {
+					submitTreatmentPlanProduct(productGroup[i], data);
+				}
+
+				location.reload();
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+
+	}
+
+	function submitTreatmentPlanService(e, planID) {
+
+		var serviceID = treatmentPlanContainer.querySelector(".serviceID").value;
+		var serviceName = treatmentPlanContainer.querySelector(".serviceName").innerHTML;
+		var price = treatmentPlanContainer.querySelector(".servicePrice").innerHTML.replace("$", "");
+
+		var obj = {
+			PlanID: planID,
+			ServiceID: serviceID,
+			ServiceName: serviceName,
+			Price: price,
+			IsDeleted: 0,
+			CreatedDate: new Date(),
+			CreatedBy: "System"
+		};
+
+		fetch('/Patients/InsertPatientTreatmentPlanService', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function submitTreatmentPlanProduct(e, planID) {
+
+		var productID = treatmentPlanContainer.querySelector(".productID").value;
+		var productName = treatmentPlanContainer.querySelector(".productName").innerHTML;
+		var units = treatmentPlanContainer.querySelector(".productUnitInput").value;
+		var originalPrice = treatmentPlanContainer.querySelector(".productOriginalPrice").innerHTML;
+		var price = treatmentPlanContainer.querySelector(".productPrice").innerHTML.replace("$", "");
+
+		var obj = {
+			PlanID: planID,
+			ProductID: productID,
+			ProductName: productName,
+			Units: units,
+			PricePerQty: originalPrice,
+			TotalPrice: price,
+			IsDeleted: 0,
+			CreatedDate: new Date(),
+			CreatedBy: "System"
+		};
+
+		fetch('/Patients/InsertPatientTreatmentPlanProduct', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);

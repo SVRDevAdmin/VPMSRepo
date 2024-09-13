@@ -12,6 +12,11 @@ namespace VPMS.Lib.Data.Models
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
-        public int IsDeleted { get; set; }
+		public string Gender { get; set; }
+		public string LicenseNo { get; set; }
+		public string Designation { get; set; }
+		public string Specialty { get; set; }
+		public string System_ID { get; set; }
+		public int IsDeleted { get; set; }
     }
 }

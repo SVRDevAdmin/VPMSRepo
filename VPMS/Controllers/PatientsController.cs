@@ -15,6 +15,7 @@ namespace VPMSWeb.Controllers
 		private readonly MasterCodeDataDBContext _masterCodeDataDBContext = new MasterCodeDataDBContext();
 		private readonly ServicesDBContext _servicesDBContext = new ServicesDBContext();
 		private readonly TreatmentPlanDBContext _treatmentPlanDBContext = new TreatmentPlanDBContext();
+		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
 
 
 		int totalPets;
@@ -57,6 +58,9 @@ namespace VPMSWeb.Controllers
 			ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 			ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
 			ViewData["OtherPets"] = _patientDBContext.Mst_Pets.Where(x => x.PatientID == patientid && x.Name != petname).Select(y => y.Name).ToList();
+			ViewData["VaccinationList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Vaccination").ToList();
+			ViewData["SurgeryList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Surgery").ToList();
+			ViewData["MedicationList"] = _inventoryDBContext.Mst_ProductType.ToList();
 
 			var petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 
@@ -88,10 +92,52 @@ namespace VPMSWeb.Controllers
 
 			ViewData["TreatmentPlans"] = _treatmentPlanDBContext.Mst_TreatmentPlan.ToList();
 
+			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
+			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
+
 
 			Program.CurrentPage = "/Patients/TreatmentPlan/" + patientid + "/" + petname;
 
             return View(petInfo);
+		}
+
+		public PatientTreatmentPlan GetUpcomingTreatmentPlan(int petID) 
+		{
+			var upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart > DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).FirstOrDefault();
+
+			if(upcomingTreatmentPlan == null) { return new PatientTreatmentPlan(); }
+
+			return upcomingTreatmentPlan;
+		}
+
+		public List<PatientTreatmentPlanServices> getUpcomingTreatmentPlanServices(int planID)
+		{
+			return _patientDBContext.Txn_TreatmentPlan_Services.Where(x => x.PlanID == planID).ToList();
+		}
+
+		public List<PatientTreatmentPlanProducts> getUpcomingTreatmentPlanProducts(int planID)
+		{
+			return _patientDBContext.Txn_TreatmentPlan_Products.Where(x => x.PlanID == planID).ToList();
+		}
+
+		public int InsertPatientTreatmentPlan([FromBody] PatientTreatmentPlan patientTreatmentPlan)
+		{
+			_patientDBContext.Txn_TreatmentPlan.Add(patientTreatmentPlan);
+			_patientDBContext.SaveChanges();
+
+			return patientTreatmentPlan.ID;
+		}
+
+		public void InsertPatientTreatmentPlanService([FromBody] PatientTreatmentPlanServices patientTreatmentPlanService)
+		{
+			_patientDBContext.Txn_TreatmentPlan_Services.Add(patientTreatmentPlanService);
+			_patientDBContext.SaveChanges();
+		}
+
+		public void InsertPatientTreatmentPlanProduct([FromBody] PatientTreatmentPlanProducts patientTreatmentPlanProducts)
+		{
+			_patientDBContext.Txn_TreatmentPlan_Products.Add(patientTreatmentPlanProducts);
+			_patientDBContext.SaveChanges();
 		}
 
 		public PatientInfoProfile GetPatientProfile(int patientid)
@@ -111,8 +157,9 @@ namespace VPMSWeb.Controllers
 			ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
 			ViewData["VaccinationList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Vaccination").ToList();
 			ViewData["SurgeryList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Surgery").ToList();
+			ViewData["MedicationList"] = _inventoryDBContext.Mst_ProductType.ToList();
 
-            Program.CurrentPage = "/Patients/CreateNewPatient";
+			Program.CurrentPage = "/Patients/CreateNewPatient";
 
             return View();
 		}
@@ -126,6 +173,16 @@ namespace VPMSWeb.Controllers
 			var patientsInfo = new PatientsInfo() { petsInfo = petsInfoList, totalPatients = totalPets };
 
 			return patientsInfo;
+		}
+
+		public List<PatientMedicalRecordService> GetMedicalRecordServicesByPetID(int petID)
+		{
+			return _patientDBContext.Mst_MedicalRecord_VaccinationSurgery.Where(x => x.PetID == petID && x.IsDeleted != 1).ToList();
+		}
+
+		public List<PatientMedicalRecordMedication> GetMedicalRecordMedicationByPetID(int petID)
+		{
+			return _patientDBContext.Mst_MedicalRecord_Medication.Where(x => x.PetID== petID && x.Status != 3).ToList();
 		}
 
 		public List<Pets_Breed> BreedList (string species)
@@ -157,7 +214,7 @@ namespace VPMSWeb.Controllers
 			_patientDBContext.SaveChanges();
 		}
 
-		public void InsertPetsInfo([FromBody] Pets pets)
+		public int InsertPetsInfo([FromBody] Pets pets)
 		{
 			_patientDBContext.Mst_Pets.Add(pets);
 
@@ -180,9 +237,11 @@ namespace VPMSWeb.Controllers
 			_patientDBContext.Mst_Pet_Growth.Add(pet_Growth);
 
 			_patientDBContext.SaveChanges();
+
+			return pets.ID;
 		}
 
-		public void UpdatePetInfo([FromBody] Pets pets)
+		public int UpdatePetInfo([FromBody] Pets pets)
 		{
 			var currentPetInfo = _patientDBContext.Mst_Pets.AsNoTracking().FirstOrDefault(p => p.ID == pets.ID);
 
@@ -210,6 +269,8 @@ namespace VPMSWeb.Controllers
 
 				_patientDBContext.SaveChanges();
 			}
+
+			return pets.ID;
 		}
 		
 		public void DeletePetInfo(int patientid, string petname)
@@ -222,6 +283,73 @@ namespace VPMSWeb.Controllers
 
 				_patientDBContext.SaveChanges();
 			}
+		}
+
+		public bool InsertMedicalRecordService([FromBody] PatientMedicalRecordService patientMedicalRecordService)
+		{
+			_patientDBContext.Add(patientMedicalRecordService);
+			_patientDBContext.SaveChanges();
+
+			return true;
+		}
+
+		public bool InsertMedicalRecordMedication([FromBody] PatientMedicalRecordMedication patientMedicalRecordMedication)
+		{
+			_patientDBContext.Add(patientMedicalRecordMedication);
+			_patientDBContext.SaveChanges();
+
+			return true;
+		}
+
+		public bool UpdateMedicalRecordService([FromBody] PatientMedicalRecordService patientMedicalRecordService)
+		{
+			if(patientMedicalRecordService.CategoryID != 0)
+			{
+				_patientDBContext.Update(patientMedicalRecordService);
+				_patientDBContext.SaveChanges();
+			}
+			else
+			{
+				var allServices = _patientDBContext.Mst_MedicalRecord_VaccinationSurgery.AsNoTracking().Where(x => x.PetID == patientMedicalRecordService.PetID && x.Type == patientMedicalRecordService.Type).ToList();
+
+				foreach (var service in allServices) 
+				{
+					service.IsDeleted = 1;
+					service.UpdatedDate = DateTime.Now;
+					service.UpdatedBy = "System";
+
+					_patientDBContext.Update(service);
+					_patientDBContext.SaveChanges();
+				}
+			}
+
+
+			return true;
+		}
+
+		public bool UpdateMedicalRecordMedication([FromBody] PatientMedicalRecordMedication patientMedicalRecordMedication)
+		{
+			if (patientMedicalRecordMedication.CategoryID != 0)
+			{
+				_patientDBContext.Update(patientMedicalRecordMedication);
+				_patientDBContext.SaveChanges();
+			}
+			else
+			{
+				var allMedications = _patientDBContext.Mst_MedicalRecord_Medication.AsNoTracking().Where(x => x.PetID == patientMedicalRecordMedication.PetID).ToList();
+
+				foreach (var medications in allMedications)
+				{
+					medications.Status = 3;
+					medications.UpdatedDate = DateTime.Now;
+					medications.UpdatedBy = "System";
+
+					_patientDBContext.Update(medications);
+					_patientDBContext.SaveChanges();
+				}
+			}
+
+			return true;
 		}
 
 		public List<Pet_Growth> GetPetGrowth(int petID)

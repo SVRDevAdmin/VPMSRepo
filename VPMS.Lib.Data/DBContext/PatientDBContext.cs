@@ -16,6 +16,11 @@ namespace VPMS.Lib.Data.DBContext
         public DbSet<Patient_Owner> Mst_Patients_Owner { get; set; }
         public DbSet<Pets_Breed> Mst_Pets_Breed { get; set; }
 		public DbSet<Pet_Growth> Mst_Pet_Growth { get; set; }
+		public DbSet<PatientTreatmentPlan> Txn_TreatmentPlan { get; set; }
+		public DbSet<PatientTreatmentPlanServices> Txn_TreatmentPlan_Services { get; set; }
+		public DbSet<PatientTreatmentPlanProducts> Txn_TreatmentPlan_Products { get; set; }
+		public DbSet<PatientMedicalRecordService> Mst_MedicalRecord_VaccinationSurgery { get; set; }
+		public DbSet<PatientMedicalRecordMedication> Mst_MedicalRecord_Medication { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 			options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));

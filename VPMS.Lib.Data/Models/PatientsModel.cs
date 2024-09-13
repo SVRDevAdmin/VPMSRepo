@@ -105,11 +105,61 @@ namespace VPMS.Lib.Data.Models
         [Key]
         public int ID { get; set; }
         public int PetID { get; set; }
-        public int PlanID { get; set; }
+        public int TreatmentPlanID { get; set; }
         public string PlanName { get; set; } = null!;
         public DateOnly TreatmentStart { get; set; }
         public DateOnly TreatmentEnd { get; set; }
         public float TotalCost { get; set; }
 		public int Status { get; set; }
+	}
+
+	public class PatientTreatmentPlanServices : AuditModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public int PlanID { get; set; }
+		public int ServiceID { get; set; }
+		public string ServiceName { get; set; }
+		public float Price { get; set; }
+		public int IsDeleted { get; set; }
+	}
+
+	public class PatientTreatmentPlanProducts : AuditModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public int PlanID { get; set; }
+		public int ProductID { get; set; }
+		public string ProductName { get; set; }
+		public int Units { get; set; }
+		public float PricePerQty { get; set; }
+		public float TotalPrice { get; set; }
+		public int IsDeleted { get; set; }
+	}
+
+	public class PatientMedicalRecordService : AuditModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public int PetID { get; set; }
+		public int CategoryID { get; set; }
+		public int ServiceID { get; set; }
+		public int Type { get; set; }
+		public DateOnly DueDate { get; set; }
+		public string Description { get; set; } = null!;
+		public string Remarks { get; set; } = null!;
+		public int IsDeleted { get; set; }
+	}
+
+	public class PatientMedicalRecordMedication : AuditModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public int PetID { get; set; }
+		public int CategoryID { get; set; }
+		public int ProductID { get; set; }
+		public DateOnly ExpiryDate { get; set; }
+		public int Status { get; set; }
+		public string Description { get; set; } = null!;
 	}
 }
