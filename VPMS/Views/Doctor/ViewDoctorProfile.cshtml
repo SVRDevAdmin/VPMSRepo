@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewData["Title"] = "ViewDoctorProfile";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    loadGenderDropdownlist();
+
+    function loadGenderDropdownlist()
+    {
+        $.getJSON("/Doctor/GetGenderListDropdown")
+            .done(function (result) {
+                if (result.length > 0) {
+                    
+                    $('#ddlGender').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++){
+                        var opt = new Option(result[i].CodeName, result[i].CodeID);
+                        $('#ddlGender').append(opt);
+                    }
+
+                }
+                else{
+                    $('#ddlGender').find("option:not(:first)").remove();
+                }
+            })
+    }
+
+    $(document).ready(function () {
+        $('#btnCreate').on('click', function (ctl) {
+            
+            var sNewDoctorObj = {
+                doctorName: $('#txtName').val(),
+                doctorGender: $('#ddlGender').val(),
+                licenseNo: $('#txtLicenseNo').val(),
+                systemID: $('#txtSystemID').val(),
+                designation: $('#txtDesignation').val(),
+                specialty: $('#txtSpecialty').val()
+            }
+
+            $.post("/Doctor/AddDoctor", 
+                sNewDoctorObj
+            ).done(function (result) {
+                if (result.StatusCode == 200) {
+                    alert('success');
+                }
+                else{
+                    alert('failed');
+                }
+            });
+        });
+    });
+</script>
+<div class="row" style="margin-left: 5px; margin-right: 5px;">
+    <!--
+    <div class="row">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    -->
+    <div class="row" style="height: 45px;">&nbsp;</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row" style="margin-left: 10px; margin-right: 10px; border-radius: 6px; border: 1px solid black;">
+                <div class="col-md-12" style="height: 40px; background-color: black;">
+                    <label style="margin-left: 10px; font-weight: bold; margin-top: 5px; color: white;">Doctor Details</label>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-6">
+                            <label style="margin-left: 10px; font-weight: bold">Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="margin-left: 10px; font-weight: bold">Gender</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtName" type="text" class="form-control" style="width: 80%; height: 45px; margin-left: 10px; margin-top: 5px; margin-bottom: 5px; border: 1px solid black;" />
+                        </div>
+                        <div class="col-md-6">
+                            <select id="ddlGender" class="form-select" style="width: 80%; height: 45px; margin-left: 5px; margin-top: 5px; margin-bottom: 5px; border: 1px solid black;">
+                                <option value="">Please select gender</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="font-weight: bold; margin-left: 10px;">License No.</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="font-weight: bold; margin-left: 5px;">System ID</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtLicenseNo" type="text" class="form-control" style="width: 80%; height: 45px; margin-left: 10px; margin-top: 5px; margin-bottom: 5px; border: 1px solid black;" />
+                        </div>
+                        <div class="col-md-6">
+                            <input id="txtSystemID" type="text" class="form-control" style="width: 80%; height: 45px; margin-left: 5px; margin-top: 5px; margin-bottom: 5px; border: 1px solid black;" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label style="font-weight: bold; margin-left: 5px;">Designation</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="txtDesignation" type="text" class="form-control" maxlength="200" style="width: 90%; height: 45px; margin-left: 10px; border: 1px solid black;" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label style="font-weight: bold; margin-left: 5px;">Specialty</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="txtSpecialty" type="text" class="form-control" maxlength="200" style="width: 90%; height: 45px; margin-left: 10px; border: 1px solid black;" />
+                        </div>
+                    </div>
+                    <div class="row" style="height: 45px;">&nbsp;</div>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 10px; margin-right: 5px;">
+                <div class="col-md-12" style="text-align: right; margin-right: 15px; margin-top: 15px; margin-bottom: 10px;">
+                    <button id="btnCancel" type="button" class="btn btn-secondary" style="width: 150px; height: 45px;">Cancel</button>
+                    <button id="btnCreate" type="button" class="btn btn-primary" style="width: 150px; height: 45px;">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

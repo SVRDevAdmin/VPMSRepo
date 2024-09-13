@@ -1,0 +1,127 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.getJSON("/Doctor/GetDoctorViewList")
+            .done(function (result) {
+                if (result.length > 0)
+                {
+                    $('#tblDoctor').bootstrapTable({
+                        data: result
+                    });
+                }
+            })
+    });
+
+    function populateHideMenu(value, row){
+        var hideMenuHtml = '<button type="button" class="btn" data-toggle="dropdown">' +
+                           '<img src="/images/more_icon.png" width="20" height="20" />' +
+                           '</button>' +
+
+                           '<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+                           '<a class="dropdown-item" href="/Doctor/ViewDoctorProfile">View</a>' +
+                           '<a class="dropdown-item">Edit</a>' +
+                           '<a class="dropdown-item">Delete</a>' +
+                           '</div>';
+        return hideMenuHtml;
+    }
+</script>
+<div class="row">
+    <!--
+    <div class="row">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    -->
+    <div class="row">
+        <div class="col-md-12" style="height: auto;">
+            <div class="row" style="height: auto;">
+                <div class="col-md-12">
+                    <label class="doctorPageTitle">Doctor</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 25px;">&nbsp;</div>
+    <div class="row">
+        <div class="col-md-1" style="height: 50px; border: 0px solid black;">
+            <div class="row" style="height: 50px; border: 0px solid black;">
+                <label style="font-weight: bold; margin-top: 13px;">Doctor :</label>
+            </div>
+        </div>
+        <div class="col-md-4" style="height: 50px; border: 0px solid black;">
+            <div class="row" style="height: 50px; border: 0px solid black;">
+                <input id="txtSearch" type="text" class="form-control" style="margin: 5px; border: 1px solid black;" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="row" style="margin-left: 5px; border: 0px solid black;">
+                <button id="btnSearch" type="button" class="btn btn-primary" style="margin: 5px;">
+                    Search
+                </button>
+            </div>
+        </div>
+        <div class="col-md-4" style="height: 50px; border: 0px solid black;">
+            <div class="row">&nbsp;</div>
+        </div>
+
+        <div class="col-md-2" style="height: 50px; border: 0px solid black;">
+            <div class="row" style="height: 50px; border: 0px solid black;">
+                <div class="col-md-12">
+                    <button id="btnCreate" type="button" class="btn btn-primary" style="margin: 5px;" 
+                        onclick="location.href='@Url.Action("ViewDoctorProfile", "Doctor")'">
+                        <i class="bi bi-plus-circle"></i>
+                        New Doctor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="height: 20px;">&nbsp;</div>
+        <div class="col-md-12">
+            <table id="tblDoctor" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="ID" class="text-center" style="width: 5%;">No.</th>
+                        <th scope="col" data-field="Name" class="text-center" style="width: 20%;">Name</th>
+                        <th scope="col" data-field="GenderName" class="text-center" style="width: 10%;">Gender</th>
+                        <th scope="col" data-field="LicenseNo" class="text-center" style="width: 10%;">License No.</th>
+                        <th scope="col" data-field="Designation" class="text-center" style="width: 25%;">Designation</th>
+                        <th scope="col" data-field="Specialty" class="text-center" style="width: 25%;">Specialty</th>
+                        <th scope="col" data-field="ID" data-formatter="populateHideMenu" class="text-center" style="width: 5%;"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+.table {
+    border: 0px !important;
+}
+
+#tblDoctor > thead > tr > th {
+    border: 0px;
+    background-color: #f7f7f7;
+    color: black;
+}
+
+#tblDoctor > tbody > tr > td {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    color: black;
+}
+</style>

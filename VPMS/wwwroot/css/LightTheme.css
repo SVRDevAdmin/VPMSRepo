@@ -325,6 +325,12 @@ input[type='text']:focus, select:focus {
 	height: 20px;
 }
 
+#iconDoctor {
+	content: url('../images/doctor_icons.png');
+	width: 24px;
+	height: 24px;
+}
+
 #iconInventory {
 	content: url('../images/boxes.png');
 	width: 24px;
@@ -599,5 +605,13 @@ input[type='text']:focus, select:focus {
 
 /* for profile dropdown button */
 .dropdown-toggle::after {
+	color: black;
+}
+
+.doctorPageTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 40px;
+	margin-top: 20px;
 	color: black;
 }
