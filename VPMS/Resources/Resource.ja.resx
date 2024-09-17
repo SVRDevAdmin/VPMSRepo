@@ -117,6 +117,141 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Appointment_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
+    <value>予約をキャンセル</value>
+  </data>
+  <data name="Appointment_Button_Confirm" xml:space="preserve">
+    <value>確認する</value>
+  </data>
+  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
+    <value>新しい予定</value>
+  </data>
+  <data name="Appointment_Button_Reset" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="Appointment_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Appointment_Button_Update" xml:space="preserve">
+    <value>アップデート</value>
+  </data>
+  <data name="Appointment_Label_ContactNo" xml:space="preserve">
+    <value>連絡先番号</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>予約日時</value>
+  </data>
+  <data name="Appointment_Label_Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>ドクター</value>
+  </data>
+  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
+    <value>予定を編集</value>
+  </data>
+  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
+    <value>電子メールアドレス</value>
+  </data>
+  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
+    <value>既存の顧客ですか?</value>
+  </data>
+  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
+    <value>*必須項目です。</value>
+  </data>
+  <data name="Appointment_Label_Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Appointment_Label_NewClient" xml:space="preserve">
+    <value>新しい顧客ですか？</value>
+  </data>
+  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
+    <value>メールで通知する</value>
+  </data>
+  <data name="Appointment_Label_Owner" xml:space="preserve">
+    <value>オーナー</value>
+  </data>
+  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
+    <value>ペットの飼い主の氏名</value>
+  </data>
+  <data name="Appointment_Label_OwnerName" xml:space="preserve">
+    <value>ペットの所有者名</value>
+  </data>
+  <data name="Appointment_Label_Pet" xml:space="preserve">
+    <value>ペット</value>
+  </data>
+  <data name="Appointment_Label_PetDOB" xml:space="preserve">
+    <value>ペットの生年月日</value>
+  </data>
+  <data name="Appointment_Label_PetName" xml:space="preserve">
+    <value>ペットネーム</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>サービス</value>
+  </data>
+  <data name="Appointment_Label_Species" xml:space="preserve">
+    <value>種族</value>
+  </data>
+  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
+    <value>予約に戻る</value>
+  </data>
+  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
+    <value>クイック予約に切り替える</value>
+  </data>
+  <data name="Appointment_Label_Week" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
+    <value>予約がキャンセルされました。更新されました。</value>
+  </data>
+  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>この予約をキャンセルしますか?</value>
+  </data>
+  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
+    <value>*上記の予約日時は医師の診察ができません。</value>
+  </data>
+  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
+    <value>*システム内に同じ患者の予約が存在します。</value>
+  </data>
+  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
+    <value>予約を更新できませんでした。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>更新に成功しました。</value>
+  </data>
+  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
+    <value>医師を選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
+    <value>所有者を選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
+    <value>ペットを選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
+    <value>サービスを選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
+    <value>ペットの種類を選択してください</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>予定</value>
+  </data>
+  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
+    <value>予約をキャンセル</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>予約を作成</value>
+  </data>
+  <data name="Appointment_Title_Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
+    <value>予約の作成（新規クライアント）</value>
+  </data>
   <data name="LanguageCountry_Button_Save" xml:space="preserve">
     <value>保存された</value>
   </data>

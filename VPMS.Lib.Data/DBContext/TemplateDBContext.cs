@@ -1,22 +1,22 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using VPMS.Lib.Data.Models;
 
 namespace VPMS.Lib.Data.DBContext
 {
-    public class TestingDBContext : DbContext
+    public class TemplateDBContext : DbContext
     {
         private readonly IConfiguration config;
-        public DbSet<TestingModel> msttesting { get; set;  }
+        public DbSet<TemplateModel> mst_template { get; set;  }
+        public DbSet<TemplateDetailsModel> mst_template_details { get; set; }
 
-        public TestingDBContext(IConfiguration config)
+        public TemplateDBContext(IConfiguration config)
         {
             this.config = config;
         }

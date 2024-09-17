@@ -1,12 +1,18 @@
-﻿@model List<VPMSWeb.Controllers.AppointmentViewModel>
+﻿@inject IHttpContextAccessor httpContextaccessor
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@model List<VPMSWeb.Controllers.AppointmentViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Appointment";
     ViewData["SelectedMenu"] = "appointmentMenu";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
 }
 
 <link rel="stylesheet" href="~/css/font-awesome.min.css">
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="~/css/Appointment.css" />
 <script src="~/lib/moment.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap-datetimepicker.min.js"> </script>
 
@@ -23,7 +29,11 @@
         var viewDropdownMenu = document.getElementById('viewDropdownMenu');
 
         calendar = new FullCalendar.Calendar(calendarEl, {
-            headerToolbar: { left: '', center: 'title', right: 'prev,next,customButton' },
+            headerToolbar: { 
+                left: '', 
+                center: 'title', 
+                right: 'prev,next,customButton' 
+            },
             initialView: 'dayGridMonth',
             views: {
                 dayGridMonth: {
@@ -50,7 +60,8 @@
                         var extendedObj = args.event._def.extendedProps;
                         $('#hidApptID').val(extendedObj.apptid);
                         $('#lbTitle').html(args.event._def.title);
-                        $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' + moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
+                        $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' + 
+                                          moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
                         $('#lbDoctor').html(extendedObj.doctor);
                         $('#lbPet').html(extendedObj.Pet);
                         $('#lbOwner').html(extendedObj.Owner);
@@ -104,7 +115,8 @@
                         var extendedObj = args.event._def.extendedProps;
                         $('#hidApptID').val(extendedObj.apptid);
                         $('#lbTitle').html(args.event._def.title);
-                        $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' + moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
+                        $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' + 
+                                          moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
                         $('#lbDoctor').html(extendedObj.doctor);
                         $('#lbPet').html(extendedObj.Pet);
                         $('#lbOwner').html(extendedObj.Owner);
@@ -143,7 +155,7 @@
             },
             customButtons: {
                 customButton: {
-                    text: 'Month',
+                    text: '@Html.Raw(LangResources["Appointment_Label_Month"])',
                     click: function (event) {
                         var rect = event.target.getBoundingClientRect();
                         viewDropdownMenu.style.display = 'block';
@@ -180,137 +192,6 @@
         });
 
         calendar.render();
-
-
-        $('#dtAddAppt').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-        $('#dtNewDOB').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-        $('#dtNewApptDate').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-        $('#dtEditAppt').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
-        });
-
-
-        $('#strtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            time = "09:00 AM";
-            $(this).data('DateTimePicker').date(time);
-            $(this).data('DateTimePicker').minDate(time);
-        }).on('dp.change', function(){
-            var min_endtime = $(this).val();
-            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $('#endtimePicker').val(min_time);
-        });
-
-        $('#endtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            var starttime = $('#strtimePicker').val();
-            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $(this).data('DateTimePicker').date(min_starttime);
-            $(this).data('DateTimePicker').minDate(min_starttime);
-        });
-
-        $('#newStrtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            time = "09:00 AM";
-            $(this).data('DateTimePicker').date(time);
-            $(this).data('DateTimePicker').minDate(time);
-        }).on('dp.change', function(){
-            var min_endtime = $(this).val();
-            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $('#newEndtimePicker').val(min_time);
-        });
-
-        $('#newEndtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: "fa fa-arrow-up",
-                down: "fa fa-arrow-down"
-            }
-        }).on('dp.show', function () {
-            var starttime = $('#newStrtimePicker').val();
-            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $(this).data('DateTimePicker').date(min_starttime);
-            $(this).data('DateTimePicker').minDate(min_starttime);
-        });
-
-        $('#EditStrttimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: 'fa fa-angle-up',
-                down: 'fa fa-angle-down'
-            }
-        }).on('dp.show', function () {
-            time = "09:00 AM";
-            $(this).data('DateTimePicker').date(time);
-            $(this).data('DateTimePicker').minDate(time);
-        }).on('dp.change', function () {
-            var min_endtime = $(this).val();
-            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $('#EditEndtimePicker').val(min_time);
-        });
-
-        $('#EditEndtimePicker').datetimepicker({
-            useCurrent: false,
-            format: 'HH:mm',
-            icons: {
-                up: "fa fa-arrow-up",
-                down: "fa fa-arrow-down"
-            }
-        }).on('dp.show', function () {
-            var starttime = $('#EditStrttimePicker').val();
-            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
-
-            $(this).data('DateTimePicker').date(min_starttime);
-            $(this).data('DateTimePicker').minDate(min_starttime);
-        });
-
-
-        $('.dropdown-item').on('click', function (ctl) {
-            var sView = $(this)[0].attributes["data"].value;
-            calendar.changeView(sView);
-
-            sessionStorage.setItem("CalendarView", sView);
-
-            var sTag = $(this)[0].attributes["tags"].value;
-            $('.fc-customButton-button').text(sTag);
-
-            $('.dropdown-menu').hide();
-        });
     });
 
     function CalendarViewChanges(calender, viewSelected){
@@ -375,8 +256,8 @@
 
                             "<div style='width: 30%; border-right: 1px solid white;'>" +
                             "<div style='margin-left: 20%; margin-right: 10%; margin-top: 5%; margin-bottom: 5%;'>" +
-                            "<strong>Pet: " + extendedObj.Pet + "</strong><br />" +
-                            "Owner: " + extendedObj.Owner +
+                            "<strong>@Html.Raw(LangResources["Appointment_Label_Pet"]) : " + extendedObj.Pet + "</strong><br />" +
+                            "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner +
                             "</div>" +
                             "</div>" +
 
@@ -406,8 +287,8 @@
                             "<div style='width: 100%; font-size: 10px;'>" +
                             "<strong>" + args.event._def.title + "</strong><br/>" +
                             extendedObj.doctor + "<br/>" +
-                            "Pet : " + extendedObj.Pet + "<br/>" +
-                            "Owner : " + extendedObj.Owner + "<br/>" +
+                            "@Html.Raw(LangResources["Appointment_Label_Pet"])  : " + extendedObj.Pet + "<br/>" +
+                            "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner + "<br/>" +
                             "</div>" +
                             "</div>";
 
@@ -459,20 +340,18 @@
         });
     }
 
-    function loadddlDoctor(data) { 
-        $('#ddlAddDoctor').empty();
-        $('#ddlAddDoctor').append(new Option('Please select doctor', ''));
-
+    function loadddlDoctor(data) 
+    { 
+        $('#ddlAddDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
             var opt = new Option(data[i].DoctorInCharge, data[i].DoctorInCharge);
             $('#ddlAddDoctor').append(opt);
         }
     }
 
-    function loadddlNewDoctor(data){
-        $('#ddlNewDoctor').empty();
-        $('#ddlNewDoctor').append(new Option('Please select doctor', ''));
-
+    function loadddlNewDoctor(data)
+    {
+        $('#ddlNewDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
             var opt = new Option(data[i].DoctorInCharge, data[i].DoctorInCharge);
             $('#ddlNewDoctor').append(opt);
@@ -481,19 +360,16 @@
 
     function loadddlSearchDoctor(data)
     {
-        $('#ddlSearchDoctor').empty();
-        $('#ddlSearchDoctor').append(new Option('Please select doctor', ''));
-
+        $('#ddlSearchDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
             var opt = new Option(data[i].DoctorInCharge, data[i].DoctorInCharge);
             $('#ddlSearchDoctor').append(opt);
         }
     }
 
-    function loadddlPet(data) {
-        $('#ddlAddPet').empty();
-        $('#ddlAddPet').append(new Option('Please select pet', ''));
-        
+    function loadddlPet(data) 
+    {
+        $('#ddlAddPet').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++) {
             var opt = new Option(data[i].Name, data[i].Id);
             $('#ddlAddPet').append(opt);
@@ -502,10 +378,9 @@
         $('#ddlAddPet').val('');
     }
 
-    function loadddlSearchPet(data){
-        $('#ddlSearchPet').empty();
-        $('#ddlSearchPet').append(new Option('Please select pet', ''));
-        
+    function loadddlSearchPet(data)
+    {
+        $('#ddlSearchPet').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++) {
             var opt = new Option(data[i].Name, data[i].Id);
             $('#ddlSearchPet').append(opt);
@@ -516,8 +391,7 @@
 
     function AddAppointment()
     {
-        if (AddAppointmentValidation())
-        {
+        if (AddAppointmentValidation()) {
             var sAppDate = moment($('#dtAddAppt').val(), "DD/MM/YYYY").format('YYYY-MM-DD');
             var sAppStrDate = $('#strtimePicker').val();
             var sAppEndDate = $('#endtimePicker').val();
@@ -527,7 +401,8 @@
                 ApptDate: sAppDate,
                 ApptStartTime: sAppStrDate,
                 ApptEndTime: sAppEndDate,
-                BranchID : 1,
+                //BranchID: 1,
+                BranchID: @sessionBranchID,
                 OwnerID: $('#ddlAddOwner').val(),
                 PetID: $('#ddlAddPet').val(),
                 InchargeDoctor: $('#ddlAddDoctor').val(),
@@ -535,26 +410,22 @@
                 ServiceList: [sServicesLit]
             };
 
-            $.post("/Appointment/CreateAppointment", 
-                sApptObj, 
-            ).done(function(result){
-                if (result.StatusCode == 200) 
-                {
+            $.post("/Appointment/CreateAppointment",
+                sApptObj,
+            ).done(function (result) {
+                if (result.StatusCode == 200) {
                     $('#AppointmentModal').modal('hide');
                     window.location.reload();
                 }
-                else
-                {
-                    if (result.isDoctApptOverlap && !result.isPatientAppOverlap)
-                    {
-                        $('#lbError').html('*Doctor not available for the appointment date & time above.');
+                else {
+                    if (result.isDoctApptOverlap && !result.isPatientAppOverlap) {
+                        $('#lbError').html('@Html.Raw(LangResources["Appointment_Message_DoctorNotAvailable"])');
                         $('#divdtAddAppt').addClass("errorValidation");
                         $('#divtimePicker').addClass("errorValidation");
                     }
 
-                    if (!result.isDoctApptOverlap && result.isPatientAppOverlap)
-                    {
-                        $('#lbError').html('*Same patient appointment existis in system.');
+                    if (!result.isDoctApptOverlap && result.isPatientAppOverlap) {
+                        $('#lbError').html('@Html.Raw(LangResources["Appointment_Message_SamePatientAppointment"])');
                         $('#divdtAddAppt').addClass("errorValidation");
                         $('#divtimePicker').addClass("errorValidation");
                     }
@@ -563,8 +434,8 @@
                 }
             });
         }
-        else{ 
-            $('#lbError').html('*Mandatory fields required.');
+        else {
+            $('#lbError').html('@Html.Raw(LangResources["Appointment_Label_MandatoryFields"].ToString())');
             $('#lbError').css('visibility', 'visible');
         }
     }
@@ -674,7 +545,8 @@
                 ApptStartTime: sNewAppStrDate,
                 ApptEndTime: sNewAppEndDate,
                 PetDOB: sNewPetDOB, 
-                BranchID : 1,
+                //BranchID : 1,
+                BranchID: @sessionBranchID,
                 OwnerName: $('#txtNewOwnerfullName').val(),
                 ContactNo: $('#txtNewContactNo').val(),
                 PetName: $('#txtNewPetName').val(),
@@ -696,7 +568,7 @@
                 else{ 
                       if (result.isDoctApptOverlap && !result.isPatientAppOverlap)
                       {
-                          $('#lbNewError').html('*Doctor not available for the appointment date & time above.');
+                          $('#lbNewError').html('@Html.Raw(LangResources["Appointment_Message_DoctorNotAvailable"])');
                           $('#divNewDateTime').addClass("errorValidation");
                           $('#divNewTimePicker').addClass("errorValidation");
                       }
@@ -706,7 +578,7 @@
             });
         }
         else { 
-            $('#lbNewError').html('*Mandatory fields required.');
+            $('#lbNewError').html('@Html.Raw(LangResources["Appointment_Label_MandatoryFields"].ToString())');
             $('#lbNewError').css('visibility', 'visible');
         }
 
@@ -845,7 +717,7 @@
             isValid = false;
         } else 
         { 
-            $('#ddlNewDoctor').addClass("errorValidation");
+            $('#ddlNewDoctor').removeClass("errorValidation");
         }
 
         return isValid;
@@ -853,8 +725,6 @@
 
     function loadAppointmentData(sID)
     {
-        //var sID = $('#hidApptID').val();
-
         $.getJSON("/Appointment/GetAppointmentByID", { 
             ApptID: sID
         })
@@ -883,7 +753,138 @@
         });
     }
 
-    $(document).ready(function(){
+    $(document).ready(function()
+    {
+        /*------- Initiate Date Picker ------*/
+        $('#dtAddAppt').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtNewDOB').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtNewApptDate').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtEditAppt').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+
+        /*----- initiate TimePicker --------*/
+        $('#strtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#endtimePicker').val(min_time);
+        });
+
+        $('#endtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#strtimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        $('#newStrtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#newEndtimePicker').val(min_time);
+        });
+
+        $('#newEndtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#newStrtimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        $('#EditStrttimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#EditEndtimePicker').val(min_time);
+        });
+
+        $('#EditEndtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: "fa fa-angle-up",
+                down: "fa fa-angle-down"
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#EditStrttimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        /*------- Custom Button OnClick ---------*/
+        $('.dropdown-item').on('click', function (ctl) {
+            var sView = $(this)[0].attributes["data"].value;
+            calendar.changeView(sView);
+
+            sessionStorage.setItem("CalendarView", sView);
+
+            var sTag = $(this)[0].text;
+            $('.fc-customButton-button').text(sTag);
+
+            $('.dropdown-menu').hide();
+        });
 
         $('#btnCreate').on('click', function(ctl){
             $('#divNewAppt').show();
@@ -900,17 +901,17 @@
             CalendarViewChanges(calendar, 'dayGridMonth');
         });
 
-        $('#btnReset').on('click', function (ctl){ 
+        $('#btnReset').on('click', function (ctl) {
             $('#ddlSearchOwner').val($('#ddlSearchOwner option:first').val());
 
             $('#ddlSearchPet').empty();
-            $('#ddlSearchPet').append(new Option('Please select pet', ''));
+            $('#ddlSearchPet').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectPet"])', ''));
             $('#ddlSearchPet').val($('#ddlSearchPet option:first').val());
 
             $('#ddlSearchServices').val($('#ddlSearchServices option:first').val());
 
             $('#ddlSearchDoctor').empty();
-            $('#ddlSearchDoctor').append(new Option('Please select doctor', ''));
+            $('#ddlSearchDoctor').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectDoctor"])', ''));
             $('#ddlSearchDoctor').val($('#ddlSearchDoctor option:first').val());
         });
 
@@ -941,7 +942,7 @@
                 ApptID: sApptEditID
             }).done(function (result) {
                 if (result.StatusCode == 200) {
-                    $('#lbEditError').html('Update Successfully.');
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_UpdateSuccessfully"])');
                     $('#lbEditError').css('visibility', 'visible');
 
                     setTimeout(function () {
@@ -950,7 +951,7 @@
                     }, 1500);
                 }
                 else {
-                    $('#lbEditError').html('Failed to update appointment, please try again later.');
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
                     $('#lbEditError').css('visibility', 'visible');
                 }
             });
@@ -965,7 +966,7 @@
                 ApptStatus: sStatus
             }).done(function (result) {
                 if (result.StatusCode == 200) {
-                    $('#lbEditError').html('Appointment Cancelled Updated.');
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_ApptCancelUpdated"])');
                     $('#lbEditError').css('visibility', 'visible');
 
                     setTimeout(function () {
@@ -975,7 +976,7 @@
                     }, 2500);
                 }
                 else {
-                    $('#lbEditError').html('Failed to update appointment, please try again later.');
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
                     $('#lbEditError').css('visibility', 'visible');
                 }
             });
@@ -998,7 +999,7 @@
 
         $('#btnDirectCancel').on('click', function (ctl) {
 
-            ShowConfirmCancelMsgBox("Cancel Appointment", "Confirm to cancel this appointment ?",
+            ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Appointment_Title_CancelAppointment"])", "@Html.Raw(LangResources["Appointment_Message_ConfirmCancelAppt"])",
                 function () {
                     var sApptID = $('#hidApptID').val();
                     var sStatus = 2;
@@ -1008,7 +1009,7 @@
                         ApptStatus: sStatus
                     }).done(function (result) {
                         if (result.StatusCode == 200) {
-                            $('#lbEventError').html('Appointment Cancelled Updated.');
+                            $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_ApptCancelUpdated"])');
                             $('#lbEventError').css('visibility', 'visible');
 
                             setTimeout(function () {
@@ -1017,7 +1018,7 @@
                             }, 2000);
                         }
                         else {
-                            $('#lbEventError').html('Failed to update appointment, please try again later.');
+                            $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
                             $('#lbEventError').css('visibility', 'visible');
                         }
                     });
@@ -1040,7 +1041,7 @@
 
     function btnTimeGridCancelClick() 
     {
-        ShowConfirmCancelMsgBox("Cancel Appointment", "Confirm to cancel this appointment ?",
+        ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Appointment_Title_CancelAppointment"])", "@Html.Raw(LangResources["Appointment_Message_ConfirmCancelAppt"])",
             function () {
                 var sApptID = $('#timeGridApptID').val();
                 var sStatus = 2;
@@ -1073,7 +1074,7 @@
         $('#ddlAddOwner').removeClass("errorValidation");
 
         $('#ddlAddPet').empty();
-        $('#ddlAddPet').append(new Option('Please select pet', ''));
+        $('#ddlAddPet').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectPet"])', ''));
         $('#ddlAddPet').val($('#ddlAddPet option:first').val());
         $('#ddlAddPet').removeClass("errorValidation");
 
@@ -1081,7 +1082,7 @@
         $('#ddlAddServices').removeClass("errorValidation");
 
         $('#ddlAddDoctor').empty();
-        $('#ddlAddDoctor').append(new Option('Please select doctor', ''));
+        $('#ddlAddDoctor').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectDoctor"])', ''));
         $('#ddlAddDoctor').val($('#ddlAddDoctor option:first').val());
         $('#ddlAddDoctor').removeClass("errorValidation");
 
@@ -1133,202 +1134,59 @@
         $('#lbNewError').html('');
     }
 </script>
-<style type="text/css">
-    .errorValidation{
-        border-color: red !important;
-        box-shadow: none !important;
-    }
 
-    #dtApp {
-        vertical-align: middle;
-    }
-
-    .btn-outline-secondary {
-        display: none;
-    }
-
-    .bootstrap-datetimepicker-widget {
-        width: 200px !important;
-    }
-
-    .fc-toolbar-title {
-        font-family: sans-serif !important;
-        font-size: 20px !important;
-        font-weight: bold !important;
-    }
-
-    .fc-col-header-cell {
-        color: #fff !important;
-        font-size: 12px !important;
-        font-family: sans-serif !important;
-        background-color: black !important;
-    }
-
-    .fc-col-header-cell:first-of-type {
-        border-top-left-radius: 8px !important;
-    }
-
-    .fc-col-header-cell:last-of-type {
-        border-top-right-radius: 8px !important;
-    }
-
-    .fc-col-header-cell.fc-day.fc-day-sun.fc-day-past{
-        border-top-left-radius: 8px !important;
-    }
-
-    .fc-col-header-cell-cushion {
-        color: #fff !important;
-        text-decoration: none !important;
-    }
-
-    .fc-daygrid-day-number {
-        color: #919191 !important;
-        text-decoration: none !important;
-        font-size: 13px !important;
-        font-weight: bold !important;
-    }
-
-    .fc-event {
-        background-color: #1D76FB !important;
-    }
-    .fc-event-title {
-        font-size: 11px !important;
-        font-weight: bold !important;
-        color: #fff !important;
-    }
-
-    .fc-daygrid-event-dot{
-        display: none;
-    }
-
-    .fc-customButton-button {
-        background-color: transparent !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 0 !important;
-        box-shadow: none !important;
-    }
-
-    .fc-customButton2-button {
-        background-color: transparent !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 0 !important;
-        box-shadow: none !important;
-    }
-
-    .fc-prev-button {
-        background-color: transparent !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 0 !important;
-        box-shadow: none !important;
-    }
-
-    .fc-next-button {
-        background-color: transparent !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 0 !important;
-        box-shadow: none !important;
-    }
-
-    .fc .fc-daygrid-day.fc-day-today {
-        background-color: transparent !important;
-    }
-
-    .fc-timeGridWeek-view > .fc-scrollgrid {
-        border-left-style: none !important;
-        border-top-style: none !important;
-        border-bottom-style: none !important;
-    }
-
-    .fc-timegrid-slot-label-cushion {
-        color: #919191 !important;
-        font-family: sans-serif !important;
-        font-size: 12px !important;
-    }
-
-    .fc-timegrid-axis {
-        background-color: transparent !important;
-        border-bottom: none !important;
-    }
-
-    .fc-customDayGrid-view > .fc-scrollgrid {
-        border-left-style: none !important;
-        border-top-style: none !important;
-        border-bottom-style: none !important;
-    }
-
-    .fc-customDayGrid-view > .fc-scrollgrid td:first-of-type {
-        border-left: none !important;
-        border-top: none !important;
-        border-bottom: none !important;
-    }
-
-    .fc .fc-timegrid-col.fc-day-today {
-        background-color: transparent !important;
-    }
-
-    #btnSearch, #btnCreate, #btnReset, #btnConfirm, #btnCancel, #btnNewConfirm, #btnNewCancel {
-        box-shadow: none !important;
-    }
-
-    .fc-timegrid-event-harness > .fc-timegrid-event {
-        inset: 0px !important;
-        position: relative !important;
-    }
-</style>
 
 <div class="row">
     <div class="row">
         <div class="col-md-12">
-            <label style="font-size: 24px; font-weight: bold; margin-left: 40px; margin-top: 20px;">Appointment</label>
+            &nbsp;
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9" style="height: auto; border: 0px solid black;">
-            <div class="row" style="height: auto; border: 0px solid black;">
-                <div class="col-md-12">&nbsp;</div>
+        <div class="col-md-9" style="height: auto;">
+            <div class="row" style="height: auto;">
+                <div class="col-md-12">
+                    <label class="apptPageTitle">@LangResources["Appointment_Title_Appointment"]</label>
+                </div>
             </div>
         </div>
-        <div class="col-md-3" style="height: auto; border: 0px solid black;">
-            <div clsas="row" style="height: auto; border: 0px solid black;">
-                <div class="col-md-12" style="text-align: right; margin-top: 5px;">
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="box-shadow: none;">
+        <div class="col-md-3" style="height: auto;">
+            <div clsas="row" style="height: auto;">
+                <div class="col-md-12 createApptRow">
+                    <button id="btnCreate" type="button" class="btn btn-primary" >
                         <i class="bi bi-plus-circle"></i>
-                        New Appointment
+                        @LangResources["Appointment_Button_NewAppointment"]
                     </button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9" style="height: auto; border: 0px solid black;">
-            <div class="row" style="height: auto; border: 0px solid black; margin-top: 15px; margin-left: 10px; margin-right: 5px;">
+        <div class="col-md-9" style="height: auto;">
+            <div class="row calendarBorder">
                 <div id="apptCalendar">
                 </div>
 
                 <div id="viewDropdownMenu" class="dropdown-menu" style="width: 120px; border-radius: 10px;">
-                    <a class="dropdown-item" data="customDayGrid" tags="Day">Day</a>
-                    <a class="dropdown-item" data="timeGridWeek" tags="Week">Week</a>
-                    <a class="dropdown-item" data="dayGridMonth" tags="Month">Month</a>
+                    <a class="dropdown-item" data="customDayGrid" tags="Day">@LangResources["Appointment_Label_Day"]</a>
+                    <a class="dropdown-item" data="timeGridWeek" tags="Week">@LangResources["Appointment_Label_Week"]</a>
+                    <a class="dropdown-item" data="dayGridMonth" tags="Month">@LangResources["Appointment_Label_Month"]</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3" style="height: auto; border: 0px solid black">
-            <div id="divSearch" class="row" style="height: auto; border: 0px solid black; ">
-                <div class="col-md-12" style="border-radius: 5px; border: 0px solid black">
-                    <div class="row" style="margin-top: 30px; margin-bottom: 30px; margin-left: 5px;">
-                        <label class="searchTitle">Filter</label>
+        <div class="col-md-3" style="height: auto;">
+            <div id="divSearch" class="row" style="height: auto;">
+                <div class="col-md-12 divSearchBorder" >
+                    <div class="row searchTitleBox">
+                        <label class="searchTitle">@LangResources["Appointment_Title_Filter"]</label>
                     </div>
                     <!-- Owner -->
-                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
-                        <label class="searchLabel">Owner</label>
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Owner"]</label>
                     </div>
-                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                    <div class="row SearchRowFields">
                         <select id="ddlSearchOwner" class="form-select" onchange="ddlSearchOwnerChange(this)">
-                            <option value="">Please select owner</option>
+                            <option value="">@LangResources["Appointment_Selection_SelectOwner"]</option>
 
                             @{
                                 var sSearchOwnerViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
@@ -1337,29 +1195,27 @@
                                     sSearchOwnerViewObj.PatientSelectionModel.Count > 0)
                                 {
                                     foreach (var p in sSearchOwnerViewObj.PatientSelectionModel)
-                                    {
-                                        <option value=@p.ID>@p.Name</option>
-                                    }
+                                    { <option value=@p.ID>@p.Name</option>}
                                 }
                             }
                         </select>
                     </div>
                     <!-- Patients -->
-                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
-                        <label class="searchLabel">Pet</label>
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Pet"]</label>
                     </div>
-                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                    <div class="row SearchRowFields">
                         <select id="ddlSearchPet" class="form-select">
-                            <option value="">Please select pet</option>
+                            <option value="">@LangResources["Appointment_Selection_SelectPet"]</option>
                         </select>
                     </div>
                     <!-- Services -->
-                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
-                        <label class="searchLabel">Services</label>
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Services"]</label>
                     </div>
-                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                    <div class="row SearchRowFields">
                         <select id="ddlSearchServices" class="form-select" onchange="ddlSearchServicesChange(this)">
-                            <option value="">Please select services</option>
+                            <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
 
                             @{
                                 var sSearchServicesObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
@@ -1369,27 +1225,31 @@
                                 {
                                     foreach (var ss in sSearchServicesObj.TreatmentServicesModel)
                                     {
-                                                                                                                                                                <option value=@ss.ID>@ss.Name</option>
+                                        <option value=@ss.ID>@ss.Name</option>
                                     }
                                 }
                             }
                         </select>
                     </div>
                     <!-- Doctor Selection -->
-                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
-                        <label class="searchLabel">Doctor</label>
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Doctor"]</label>
                     </div>
-                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                    <div class="row SearchRowFields">
                         <select id="ddlSearchDoctor" class="form-select">
-                            <option value="">Please select doctor</option>
+                            <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
                         </select>
                     </div>
 
-                    <div class="row" style="margin-top: 20px; margin-bottom: 10px; margin-left: 5px; margin-right: 5px;">
-                        <button id="btnSearch" type="button" class="btn btn-primary">Search</button>
+                    <div class="row SearchRowButtonSearch">
+                        <button id="btnSearch" type="button" class="btn btn-primary">
+                            @LangResources["Appointment_Button_Search"]
+                        </button>
                     </div>
-                    <div class="row" style="margin-top: 10px; margin-bottom: 30px; margin-left: 5px; margin-right: 5px;">
-                        <button id="btnReset" type="button" class="btn btn-secondary">Reset</button>
+                    <div class="row SearchRowButtonReset">
+                        <button id="btnReset" type="button" class="btn btn-secondary">
+                            @LangResources["Appointment_Button_Reset"]
+                        </button>
                     </div>
                     <div class="row" style="height: 20px">&nbsp;</div>
                 </div>
@@ -1400,7 +1260,7 @@
 
 <div id="AppointmentModal" class="modal fade modal-xl" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="width: 100%; height: auto; background-color: #f7f7f7">
+        <div class="modal-content popupAppointment">
             <div class="modal-header" style="border-bottom: 0px;">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -1409,27 +1269,32 @@
                 <div id="divNewAppt" class="row apptClss">
                     <div class="row" style="width: 100%;">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;">Create Appointment</label>
+                            <label class="popupTitleLeftCol">
+                                @LangResources["Appointment_Title_CreateAppointment"]
+                            </label>
                         </div>
                         <div class="col-md-6" style="text-align: right;">
-                            <label style="margin-right: 90px; font-size: 16px; vertical-align: middle;">
-                                New Client? <a href="javascript:;" onclick="switchAppt('divNewClientAppt')" style="font-weight: bold; text-decoration-color: black; text-decoration-line: underline;">Switch to quick appointment</a>
+                            <label class="popupTitleRightCol">
+                                @LangResources["Appointment_Label_NewClient"] 
+                                <a href="javascript:;" onclick="switchAppt('divNewClientAppt')" class="popupTitleHyperlink">
+                                    @LangResources["Appointment_Label_SwitchQuickAppt"]
+                                </a>
                             </label>
                         </div>
                     </div>
                     <div class="row" style="height: 30px;">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="margin-left: 60px; font-weight: bold;">Owner Name</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">Pet Name</label>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlAddOwner" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlAddOwnerchanges(this);" required>
-                                <option value="">Please select owner</option>
+                        <div class="col-md-6">
+                            <select id="ddlAddOwner" class="form-select ControlsLeftCol" onchange="ddlAddOwnerchanges(this);" required>
+                                <option value="">@LangResources["Appointment_Selection_SelectOwner"]</option>
 
                                 @{
                                     var sAddOwnerViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
@@ -1445,25 +1310,25 @@
                                 }
                             </select>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlAddPet" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
-                                <option value="">Please select pet</option>
+                        <div class="col-md-6">
+                            <select id="ddlAddPet" class="form-select ControlsRightCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectPet"]</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">Services</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
                         <div class="col-md-6">
-                            <label style="font-weight: bold;">Date & Time</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlAddServices" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlServicesChanges(this)">
-                                <option value="">Please select services</option>
+                            <select id="ddlAddServices" class="form-select ControlsLeftCol" onchange="ddlServicesChanges(this)">
+                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
 
                                 @{
                                     var sAppointmentViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
@@ -1480,14 +1345,14 @@
                             </select>
                         </div>
                         <div class="col-md-6" style="display: flex; flex-direction: row;">
-                            <div id="divdtAddAppt" style="width: 35%; height:45px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; margin-top: 5px; border: 1px solid black;">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-top: 10px; margin-left: 3px;">event</i>
-                                <input id="dtAddAppt" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                            <div id="divdtAddAppt" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtAddAppt" class="form-control datePickerControl" />
                             </div>
-                            <div id="divtimePicker" style="display: flex; flex-direction: row; width: 45%; height: 45px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; margin-top: 5px; border: 1px solid black">
-                                <input id="strtimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
-                                <div style="width: 10%; height: 45px; margin-top: 10px; text-align: center; color: grey;">--</div>
-                                <input id="endtimePicker" class="form-contorl timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" /> 
+                            <div id="divtimePicker" class="DatePickerRightCol">
+                                <input id="strtimePicker" class="form-control timePicker" />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="endtimePicker" class="form-control timePicker"  /> 
                             </div>
               
                         </div>
@@ -1495,14 +1360,14 @@
                     <div class="row">&nbsp;</div>
                     <div action="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">Doctor</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlAddDoctor" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
-                                <option value="">Please select doctor</option>
+                            <select id="ddlAddDoctor" class="form-select ControlsLeftCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
                             </select>
                         </div>
                         <div action="col-md-6"></div>
@@ -1510,17 +1375,21 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="chkNotify" class="form-check-input" type="checkbox" style="margin-left: 60px; border: 1px solid black; box-shadow: none;" />
-                            <label style="margin-left: 10px;">Notify me via Email</label><br/>
-                            <label id="lbError" style="color: red; font-weight: bold; visibility: hidden; margin-left: 60px; margin-top: 5px;">*Mandatory fields required.</label>
+                            <input id="chkNotify" class="form-check-input notifyCheckBox" type="checkbox"  />
+                            <label style="margin-left: 10px;">@LangResources["Appointment_Label_NotifyMeEmail"]</label><br/>
+                            <label id="lbError" class="errorMsgStyle">*Mandatory fields required.</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-12" style="text-align: right;">
-                            <button id="btnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">Cancel</button>
-                            <button id="btnConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;" onclick="AddAppointment();">Confirm</button>
+                            <button id="btnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">
+                                @LangResources["Appointment_Button_Cancel"]
+                            </button>
+                            <button id="btnConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;" onclick="AddAppointment();">
+                                @LangResources["Appointment_Button_Confirm"]
+                            </button>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
@@ -1531,67 +1400,72 @@
                 <div id="divNewClientAppt" class="row apptClss" style="display: none;">
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;">Create Appointment (New Client)</label>
+                            <label class="popupTitleLeftCol">
+                                @LangResources["Appointment_Title_NewApptNewClient"]
+                            </label>
                         </div>
                         <div class="col-md-6" style="text-align: right;">
-                            <label style="margin-right: 90px; font-size: 16px; vertical-align: middle;">
-                                Existing Client? <a href="javascript:;" onclick="switchAppt('divNewAppt')" style="font-weight: bold; text-decoration-color: black; text-decoration-line: underline;">Switch back to appointment</a>
+                            <label class="popupTitleRightCol">
+                                @LangResources["Appointment_Label_ExistingClient"] 
+                                <a href="javascript:;" onclick="switchAppt('divNewAppt')" class="popupTitleHyperlink">
+                                    @LangResources["Appointment_Label_SwitchAppointment"]
+                                </a>
                             </label>
                         </div>
                     </div>
                     <div class="row" style="height: 30px;">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">Owner's Full Name</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerFullName"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">Contact No.</label>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_ContactNo"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewOwnerfullName" type="text" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewOwnerfullName" type="text" class="form-control ControlsLeftCol" />
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewContactNo" type="text" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewContactNo" type="text" class="form-control ControlsRightCol" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">Email Address</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_EmailAddress"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">Pet Name</label>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewEmail" type="text" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewEmail" type="text" class="form-control ControlsLeftCol" />
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtNewPetName" type="text" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" class="form-control" />
+                        <div class="col-md-6">
+                            <input id="txtNewPetName" type="text" class="form-control ControlsRightCol" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">Pet's Date of Birth</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_PetDOB"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">Species</label>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_Species"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <div id="divNewDOB" style="width:80%; height: 45px; border-radius: 6px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-left: 3px; margin-top: 10px;">event</i>
-                                <input id="dtNewDOB" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                        <div class="col-md-6">
+                            <div id="divNewDOB" class="dataPickerDOB">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtNewDOB" class="form-control datePickerControl"  />
                             </div>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlNewSpecies" class="form-select" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;">
-                                <option value="">Please select pet species</option>
+                        <div class="col-md-6">
+                            <select id="ddlNewSpecies" class="form-select ControlsRightCol" >
+                                <option value="">@LangResources["Appointment_Selection_SelectSpecies"]</option>
 
                                 @{
                                     var sApptViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
@@ -1609,18 +1483,18 @@
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">Services</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">Date & Time</label>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlNewAddServices" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" onchange="ddlNewServicesChanges(this)">
-                                <option value="">Please select services</option>
+                        <div class="col-md-6">
+                            <select id="ddlNewAddServices" class="form-select ControlsLeftCol" onchange="ddlNewServicesChanges(this)">
+                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
 
                                 @{
                                     var sServicesViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
@@ -1636,49 +1510,53 @@
                                 }
                             </select>
                         </div>
-                        <div class="col-md-6" style="display: flex; flex-direction: row; border: 0px solid black;">
-                            <div id="divNewDateTime" style="width: 35%; height: 45px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; margin-top: 5px; border: 1px solid black">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-top: 10px; margin-left: 3px;">event</i>
-                                <input id="dtNewApptDate" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                        <div class="col-md-6" style="display: flex; flex-direction: row;">
+                            <div id="divNewDateTime" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtNewApptDate" class="form-control datePickerControl" />
                             </div>
-                            <div id="divNewTimePicker" style="display: flex; flex-direction: row; width: 45%; height: 45px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; margin-top: 5px; border: 1px solid black;">
-                                <input id="newStrtimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
-                                <div style="width: 10%; height: 45px; margin-top: 10px; text-align: center; color: grey;">--</div>
-                                <input id="newEndtimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" /> 
+                            <div id="divNewTimePicker" class="DatePickerRightCol">
+                                <input id="newStrtimePicker" class="form-control timePicker" />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="newEndtimePicker" class="form-control timePicker" /> 
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black">
-                            <label style="margin-left: 60px; font-weight: bold;">Doctor</label>
-                        </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <select id="ddlNewDoctor" class="form-select" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;">
-                                <option value="">Please select doctor</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="chkNewNotify" class="form-check-input" type="checkbox" style="margin-left: 60px; border: 1px solid black; box-shadow: none;" />
-                            <label style="margin-left: 10px;">Notify me via Email</label><br/>
-                            <label id="lbNewError" style="color: red; font-weight: bold; visibility: hidden; margin-left: 60px; margin-top: 5px;">*Mandatory fields required.</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlNewDoctor" class="form-select ControlsLeftCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="chkNewNotify" class="form-check-input notifyCheckBox" type="checkbox" />
+                            <label style="margin-left: 10px;">@LangResources["Appointment_Label_NotifyMeEmail"]</label><br/>
+                            <label id="lbNewError" class="errorMsgStyle">@LangResources["Appointment_Label_MandatoryFields"]</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-12" style="text-align: right;">
-                            <button id="btnNewCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">Cancel</button>
-                            <button id="btnNewConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;" onclick="AddNewAppointment();">Confirm</button>
+                            <button id="btnNewCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">
+                                @LangResources["Appointment_Button_Cancel"]
+                            </button>
+                            <button id="btnNewConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;" onclick="AddNewAppointment();">
+                                @LangResources["Appointment_Button_Confirm"]
+                            </button>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
@@ -1689,79 +1567,83 @@
                 <div id="divEditAppt" class="row apptClss" style="display: none;">
                     <div class="row" style="width: 100%">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-size: 20px; font-weight: bold;">Edit Appointment</label>
+                            <label class="popupTitleLeftCol"></label>
                         </div>
                         <div class="col-md-6">&nbsp;
                             <input id="hidEditID" type="text" style="visibility: hidden;" />
                         </div>
                     </div>
                     <div class="row" style="height: 30px;">&nbsp;</div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="margin-left: 60px; font-weight: bold;">Owner Name</label>
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <label style="font-weight: bold;">Pet Name</label>
+                        <div class="col-md-6" >
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtOwner" type="text" class="form-control" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" disabled />
+                        <div class="col-md-6">
+                            <input id="txtOwner" type="text" class="form-control ControlsLeftCol" disabled />
                         </div>
-                        <div class="col-md-6" style="border: 0px solid black;">
-                            <input id="txtPet" type="text" class="form-control" style="width: 80%; height: 45px; margin-top: 5px; border: 1px solid black;" disabled />
+                        <div class="col-md-6">
+                            <input id="txtPet" type="text" class="form-control ControlsRightCol" disabled />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">Services</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
                         <div class="col-md-6">
-                            <label style="font-weight: bold;">Date & Time</label>
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="txtServices" class="form-control" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" disabled />
+                            <input id="txtServices" class="form-control ControlsLeftCol" disabled />
                         </div>
                         <div class="col-md-6" style="display: flex; flex-direction: row;">
-                            <div id="divdtAddAppt" style="width: 35%; height:45px; border-top-left-radius: 6px; border-bottom-left-radius: 6px; margin-top: 5px; border: 1px solid black;">
-                                <i class="gj-icon" style="position: absolute; z-index: 2; margin-top: 10px; margin-left: 3px;">event</i>
-                                <input id="dtEditAppt" class="form-control" style="width: 50%; height: 40px; margin-left: 23px; margin-top: 2px; border: 0px solid black; background-color: transparent;" />
+                            <div id="divdtAddAppt" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtEditAppt" class="form-control datePickerControl" />
                             </div>
-                            <div id="divtimePicker" style="display: flex; flex-direction: row; width: 45%; height: 45px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; margin-top: 5px; border: 1px solid black">
-                                <input id="EditStrttimePicker" class="form-control timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
-                                <div style="width: 10%; height: 45px; margin-top: 10px; text-align: center; color: grey;">--</div>
-                                <input id="EditEndtimePicker" class="form-contorl timePicker" style="width: 45%; height: 45px; background-color: transparent; text-align: center; border: 0px solid black;" />
+                            <div id="divtimePicker" class="DatePickerRightCol">
+                                <input id="EditStrttimePicker" class="form-control timePicker"  />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="EditEndtimePicker" class="form-control timePicker" />
                             </div>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div action="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 60px; font-weight: bold;">Doctor</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input id="txtDoctor" class="form-control" style="width: 80%; height: 45px; margin-left: 60px; margin-top: 5px; border: 1px solid black;" disabled />
+                            <input id="txtDoctor" class="form-control ControlsLeftCol" disabled />
                         </div>
                         <div action="col-md-6"></div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label id="lbEditError" style="color: red; font-weight: bold; visibility: hidden; margin-left: 60px; margin-top: 5px;"></label>
+                            <label id="lbEditError" class="errorMsgStyle"></label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-12" style="text-align: right;">
-                            <button id="btnCancelAppt" type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">Cancel Appt</button>
-                            <button id="btnUpdateAppt" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;">Update</button>
+                            <button id="btnCancelAppt" type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">
+                                @LangResources["Appointment_Button_CancelAppointment"]
+                            </button>
+                            <button id="btnUpdateAppt" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;">
+                                @LangResources["Appointment_Button_Update"]
+                            </button>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
@@ -1774,7 +1656,7 @@
 
 <div id="EventModal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="width: 300px; height: auto; background-color: #f7f7f7; font-family: sans-serif; font-size: 14px;">
+        <div class="modal-content popupEvent">
             <div class="modal-header" style="border-bottom: 0px; text-align: right !important;">
                 <button id="btnEditAppt" type="button" class="bi bi-pencil-fill" style="border: 0px; background-color: transparent; margin-left: 70%;"></button>
                 <button id="btnDirectCancel" type="button" class="bi bi-trash3" style="border: 0px; background-color: transparent; margin-left: 5px;"></button>
@@ -1804,13 +1686,13 @@
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        Pet :<label id="lbPet">&nbsp;</label>
+                        @LangResources["Appointment_Label_Pet"] :<label id="lbPet">&nbsp;</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        Owner :<label id="lbOwner">&nbsp;</label>
+                        @LangResources["Appointment_Label_Owner"] :<label id="lbOwner">&nbsp;</label>
                     </div>
                 </div>
                 <div class="row" style="height: 10px;">
@@ -1818,7 +1700,7 @@
                 </div>
                 <div class="row" style="height: 20px;">
                     <div class="col-md-12">
-                        <label id="lbEventError" style="color:red; font-weight: bold; visibility: hidden; margin-left: 20px;"></label>
+                        <label id="lbEventError" class="errorMsgViewAppt"></label>
                     </div>
                 </div>
                 <div class="row" style="height: 20px;">

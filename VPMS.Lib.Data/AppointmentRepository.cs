@@ -411,24 +411,78 @@ namespace VPMS.Lib.Data
             }
         }
 
-        // --- Temporary sit here --- //
-        public static List<PatientSelectionModel> GetPatientOwnerList(IConfiguration config)
+        /// <summary>
+        /// Get Appointment Details by UniqueIDKey
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="uniqueID"></param>
+        /// <returns></returns>
+        public static AppointmentListModel GetAppointmentByUniqueID(IConfiguration config, String uniqueID)
         {
+            AppointmentListModel AppointmentObj = new AppointmentListModel();
+
             try
             {
                 using (var ctx = new AppointmentDBContext(config))
                 {
-                    return ctx.mst_patients_owner
-                              .Where(x => x.Status == 1)
-                              .OrderBy(x => x.Name)
-                              .Select(x => new PatientSelectionModel
-                              {
-                                  ID = x.ID,
-                                  Name = x.Name,
-                                  PatientID = x.PatientID
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
 
-                              }).ToList();
+                    String sSelectCommand = "SELECT A.*, P.Name AS 'PetName', PA.Name AS 'OwnerName', b.ServicesID, C.Name AS 'ServiceName', PP.ID AS 'PatientID' " +
+                                            "FROM mst_appointment AS A INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
+                                            "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " +
+                                            "LEFT JOIN mst_pets AS P ON P.ID = A.PetID " +
+                                            "LEFT JOIN mst_patients_owner AS PA ON PA.ID = A.OwnerID " +
+                                            "LEFT JOIN mst_patients AS PP ON PP.ID = PA.PatientID " +
+                                            "WHERE A.UniqueIDKey = '" + uniqueID  + "' and B.IsDeleted = 0";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            if (sReader.HasRows)
+                            {
+                                while (sReader.Read())
+                                {
+                                    AppointmentObj.UniqueIDKey = sReader["UniqueIDKey"].ToString();
+                                    AppointmentObj.AppointmentID = Convert.ToInt64(sReader["AppointmentID"]);
+                                    AppointmentObj.ApptDate = Convert.ToDateTime(sReader["ApptDate"]);
+
+                                    TimeSpan tmStart = (TimeSpan)sReader["ApptStartTime"];
+                                    AppointmentObj.ApptStartTime = DateTime.Now.Add(tmStart);
+
+                                    TimeSpan tmEnd = (TimeSpan)sReader["ApptEndTime"];
+                                    AppointmentObj.ApptEndTime = DateTime.Now.Add(tmEnd);
+
+                                    AppointmentObj.ServiceName = sReader["ServiceName"].ToString();
+                                    AppointmentObj.PatientID = Convert.ToInt64(sReader["PatientID"]);
+                                    AppointmentObj.PetID = Convert.ToInt64(sReader["PetID"]);
+                                    AppointmentObj.PetName = sReader["PetName"].ToString();
+                                    AppointmentObj.DoctorName = sReader["InchargeDoctor"].ToString();
+                                    AppointmentObj.OwnerID = Convert.ToInt64(sReader["OwnerID"]);
+                                    AppointmentObj.OwnerName = sReader["OwnerName"].ToString();
+                                    AppointmentObj.BranchID = Convert.ToInt32(sReader["BranchID"]);
+
+                                    if (sReader["CreatedDate"] != null && !String.IsNullOrEmpty(sReader["CreatedDate"].ToString()))
+                                    {
+                                        AppointmentObj.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                    }
+                                    AppointmentObj.CreatedBy = sReader["CreatedBy"].ToString();
+
+                                    if (sReader["UpdatedDate"] != null && !String.IsNullOrEmpty(sReader["UpdatedDate"].ToString()))
+                                    {
+                                        AppointmentObj.UpdatedDate = Convert.ToDateTime(sReader["UpdatedDate"]);
+                                    }
+                                    AppointmentObj.UpdatedBy = sReader["UpdatedBy"].ToString();
+                                }
+                            }
+                        }
+                    }
+                    sConn.Close();
+
                 }
+
+                return AppointmentObj;
             }
             catch (Exception ex)
             {
@@ -436,21 +490,90 @@ namespace VPMS.Lib.Data
             }
         }
 
-        public static List<PetsSelectionModel> GetPetListByOwnerID(IConfiguration config, long patientID)
+        /// <summary>
+        /// Get Appointment list by Created Date or Updated Date
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="isNewAppt"></param>
+        /// <param name="sStart"></param>
+        /// <param name="sEnd"></param>
+        /// <returns></returns>
+        public static List<AppointmentListModel> GetAppointmentByDateRange(IConfiguration config, Boolean isNewAppt, DateTime sStart, DateTime sEnd)
         {
+            List<AppointmentListModel> AppointmentList = new List<AppointmentListModel>();
+
             try
             {
                 using (var ctx = new AppointmentDBContext(config))
                 {
-                    return ctx.mst_pets
-                              .Where(x => x.PatientID == patientID && x.Status == 1)
-                              .OrderBy(x => x.Name)
-                              .Select(x => new PetsSelectionModel
-                              {
-                                  ID = x.ID,
-                                  Name = x.Name
-                              })
-                              .ToList();
+                    MySqlConnection sConn = new MySql.Data.MySqlClient.MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String selectCommand = "SELECT A.*, P.Name AS 'PetName', PA.Name AS 'OwnerName', b.ServicesID, C.Name AS 'ServiceName', PP.ID AS 'PatientID' " +
+                                           "FROM mst_appointment AS A " +
+                                           "INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
+                                           "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " +
+                                           "LEFT JOIN mst_pets AS P ON P.ID = A.PetID " +
+                                           "LEFT JOIN mst_patients_owner AS PA ON PA.ID = A.OwnerID " +
+                                           "LEFT JOIN mst_patients AS PP ON PP.ID = PA.PatientID " +
+                                           "WHERE (" + (isNewAppt == true) + " AND A.CreatedDate >= '" + sStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND A.CreatedDate <= '" + sEnd.ToString("yyyy-MM-dd HH:mm:ss") + "' AND A.UpdatedDate Is Null) OR " +
+                                           "      (" + (isNewAppt == false) + " AND A.UpdatedDate >= '" + sStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND A.UpdatedDate <= '" + sEnd.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(selectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            if (sReader.HasRows)
+                            {
+                                while (sReader.Read())
+                                {
+                                    TimeSpan tmStart = (TimeSpan)sReader["ApptStartTime"];
+                                    TimeSpan tmEnd = (TimeSpan)sReader["ApptEndTime"];
+
+                                    DateTime sCreatedDate = DateTime.MinValue;
+                                    if (sReader["CreatedDate"] != null && !String.IsNullOrEmpty(sReader["CreatedDate"].ToString()))
+                                    {
+                                        sCreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                    }
+
+                                    DateTime sUpdatedDate = DateTime.MinValue;
+                                    if (sReader["UpdatedDate"] != null && !String.IsNullOrEmpty(sReader["UpdatedDate"].ToString()))
+                                    {
+                                        sUpdatedDate = Convert.ToDateTime(sReader["UpdatedDate"]);
+                                    }
+
+                                    AppointmentList.Add(new AppointmentListModel
+                                    {
+                                        UniqueIDKey = sReader["UniqueIDKey"].ToString(),
+                                        AppointmentID = Convert.ToInt64(sReader["AppointmentID"]),
+                                        ApptDate = Convert.ToDateTime(sReader["ApptDate"]),
+                                        ApptStartTime = DateTime.Now.Add(tmStart),
+                                        ApptEndTime = DateTime.Now.Add(tmEnd),
+                                        ServiceName = sReader["ServiceName"].ToString(),
+                                        PatientID = Convert.ToInt64(sReader["PatientID"]),
+                                        PetID = Convert.ToInt64(sReader["PetID"]),
+                                        PetName = sReader["PetName"].ToString(),
+                                        DoctorName = sReader["InchargeDoctor"].ToString(),
+                                        OwnerID = Convert.ToInt64(sReader["OwnerID"]),
+                                        OwnerName = sReader["OwnerName"].ToString(),
+                                        BranchID = Convert.ToInt32(sReader["BranchID"]),
+                                        CreatedDate = (sCreatedDate != DateTime.MinValue) ? 
+                                                        sCreatedDate : 
+                                                        null,
+                                        CreatedBy = sReader["CreatedBy"].ToString(),
+                                        UpdatedDate = (sUpdatedDate != DateTime.MinValue) ? 
+                                                        sUpdatedDate : 
+                                                        null,
+                                        UpdatedBy = sReader["UpdatedBy"].ToString()
+                                    });
+                                }
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+
+                    return AppointmentList;
                 }
             }
             catch (Exception ex)

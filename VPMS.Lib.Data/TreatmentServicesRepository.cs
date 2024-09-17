@@ -11,6 +11,12 @@ namespace VPMS.Lib.Data
 {
     public class TreatmentServicesRepository
     {
+        /// <summary>
+        /// Get Treatment Services list
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="branchID"></param>
+        /// <returns></returns>
         public static List<TreatmentServicesModel> GetTreatmentServicesList(IConfiguration config, int branchID)
         {
             try
@@ -26,6 +32,12 @@ namespace VPMS.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Doctor available
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
         public static List<TreatmentServicesModel> GetServicesDoctorList(IConfiguration config, int serviceID)
         {
             try
@@ -33,6 +45,27 @@ namespace VPMS.Lib.Data
                 using (var ctx = new TreatmentServicesDBContext(config))
                 {
                     return ctx.mst_services.Where(x => x.ID == serviceID && x.Status == 1).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Treatment Service Info by ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
+        public static TreatmentServicesModel GetServicesInfoByID(IConfiguration config, long serviceID)
+        {
+            try
+            {
+                using (var ctx = new TreatmentServicesDBContext(config))
+                {
+                    return ctx.mst_services.Where(x => x.ID == serviceID && x.Status == 1).FirstOrDefault();
                 }
             }
             catch (Exception ex)

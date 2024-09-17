@@ -117,6 +117,141 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Appointment_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
+    <value>取消預約</value>
+  </data>
+  <data name="Appointment_Button_Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
+    <value>新的預約</value>
+  </data>
+  <data name="Appointment_Button_Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Appointment_Button_Search" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="Appointment_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Appointment_Label_ContactNo" xml:space="preserve">
+    <value>聯絡號碼</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>預約日期和時間</value>
+  </data>
+  <data name="Appointment_Label_Day" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>醫生</value>
+  </data>
+  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
+    <value>編輯預約</value>
+  </data>
+  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
+    <value>現有客戶？</value>
+  </data>
+  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
+    <value>*必填欄位。</value>
+  </data>
+  <data name="Appointment_Label_Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Appointment_Label_NewClient" xml:space="preserve">
+    <value>新客戶？</value>
+  </data>
+  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
+    <value>透過電子郵件通知我</value>
+  </data>
+  <data name="Appointment_Label_Owner" xml:space="preserve">
+    <value>擁有者</value>
+  </data>
+  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
+    <value>主人全名</value>
+  </data>
+  <data name="Appointment_Label_OwnerName" xml:space="preserve">
+    <value>主人姓名</value>
+  </data>
+  <data name="Appointment_Label_Pet" xml:space="preserve">
+    <value>寵物</value>
+  </data>
+  <data name="Appointment_Label_PetDOB" xml:space="preserve">
+    <value>寵物出生日期</value>
+  </data>
+  <data name="Appointment_Label_PetName" xml:space="preserve">
+    <value>寵物名字</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>服務</value>
+  </data>
+  <data name="Appointment_Label_Species" xml:space="preserve">
+    <value>物種</value>
+  </data>
+  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
+    <value>切換回預約</value>
+  </data>
+  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
+    <value>切換到快速預約</value>
+  </data>
+  <data name="Appointment_Label_Week" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
+    <value>預約已取消已更新。</value>
+  </data>
+  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>確認取消此預約嗎？</value>
+  </data>
+  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
+    <value>*醫生無法在上述預約日期和時間提供服務。</value>
+  </data>
+  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
+    <value>*系統中存在相同的患者預約。</value>
+  </data>
+  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
+    <value>更新預約失敗，請稍後再試。</value>
+  </data>
+  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>更新成功。</value>
+  </data>
+  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
+    <value>請選擇醫生</value>
+  </data>
+  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
+    <value>請選擇所有者</value>
+  </data>
+  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
+    <value>請選擇寵物</value>
+  </data>
+  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
+    <value>請選擇服務</value>
+  </data>
+  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
+    <value>請選擇寵物種類</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>预约</value>
+  </data>
+  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
+    <value>取消預約</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>新的預約</value>
+  </data>
+  <data name="Appointment_Title_Filter" xml:space="preserve">
+    <value>篩選</value>
+  </data>
+  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
+    <value>新的預約（新客戶）</value>
+  </data>
   <data name="Inventory_Button_NewInventory" xml:space="preserve">
     <value>新庫存</value>
   </data>

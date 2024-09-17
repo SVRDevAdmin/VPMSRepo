@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 using System.Globalization;
 using VPMS;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMS.Models;
+using VPMSWeb.Interface;
+using VPMSWeb.Lib;
 using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
@@ -15,7 +18,7 @@ namespace VPMSWeb.Controllers
 	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-		String sLangCodeGroup = "LanguageSelection";
+        String sLangCodeGroup = "LanguageSelection";
 
 		public HomeController(ILogger<HomeController> logger)
         {
@@ -24,6 +27,19 @@ namespace VPMSWeb.Controllers
 
         public IActionResult Index()
         {
+			String sessionUserID = "";
+			String sessionBranchID = "";
+
+            if (HttpContext.Session.GetString("UserID") != null)
+			{
+                sessionUserID = HttpContext.Session.GetString("UserID");
+            }
+			if (HttpContext.Session.GetString("BranchID") != null)
+			{
+                sessionBranchID = HttpContext.Session.GetString("BranchID");
+            }
+			
+
 			var sMasterCodeObj = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), sLangCodeGroup);
 			ViewData["LanguageCodeList"] = sMasterCodeObj;
 			Program.LanguageCodeList = sMasterCodeObj;
@@ -60,7 +76,6 @@ namespace VPMSWeb.Controllers
 				Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
 			}
 
-			//if (ViewData["LanguageSelected"] != null)
 			if (Program.LanguageSelected != null)
 			{
 				var sLangSelected = ViewData["LanguageSelected"] as ConfigurationModel;
@@ -155,5 +170,6 @@ namespace VPMSWeb.Controllers
 			Response.Cookies.Append("Language", lang);
 			return true;
 		}
+
 	}
 }

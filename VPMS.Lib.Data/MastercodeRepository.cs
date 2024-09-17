@@ -6,6 +6,12 @@ namespace VPMS.Lib.Data
 {
 	public class MastercodeRepository
 	{
+		/// <summary>
+		/// Get Master code list by Group Name
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sGroup"></param>
+		/// <returns></returns>
 		public static List<MastercodeModel> GetMastercodeByGroup(IConfiguration config, String sGroup)
 		{
 			try

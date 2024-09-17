@@ -73,30 +73,6 @@ namespace VPMS.Lib.Data.Models
         public DateTime? CreatedDate { get; set; }
         public String? CreatedBy { get; set; }
     }
-    //public class AppointmentPatientOwnerModel 
-    //{
-    //    [Key]
-    //    public long ID { get; set; }
-    //    public long? PatientID {  get; set; }
-    //    public String? Name { get; set; }
-    //    public String? ContactNo { get; set; }
-    //    public DateTime? CreatedDate { get; set; }
-    //    public String? CreatedBy { get; set; }
-    //}
-
-    //public class AppointmentPetModel
-    //{
-    //    [Key]
-    //    public long ID { get; set; }
-    //    public long? PatientID { get; set; }
-    //    public String? Name { get; set; }
-    //    public DateTime? DOB { get; set; }
-    //    public String? Species { get; set; }
-    //    public int? Status { get; set; }
-    //    public DateTime? CreatedDate { get; set; }
-    //    public String? CreatedBy { get; set; }
-    //}
-
 
     public class AppointmentMonthViewModel
     {
@@ -110,64 +86,13 @@ namespace VPMS.Lib.Data.Models
         public long? AppointmentID { get; set; }
     }
 
-    // temporary
-    public class PatientSelectionModel 
+    public class AppointmentListModel : AppointmentModel
     {
-        [Key]
-        public long ID { get; set;  }
-        public long PatientID { get; set; }
-        public String? Name { get; set; }
-    }
-
-    public  class PetsSelectionModel
-    {
-        [Key]
-        public long ID { get; set; }
-        public String? Name { get; set; }
-    }
-
-    public class PatientOwnerModel
-    {
-        [Key]
-        public long ID { get; set; }
-        public long PatientID { get; set; }
-        public String? Name { get; set; }
-        public String? Gender { get; set; }
-        public String? ContactNo { get; set; }
-        public String? Address { get; set; }
-        public String? PostCode { get; set; }
-        public String? City { get; set; }
-        public String? State { get; set; }
-        public String? Country { get; set; }
-        public int? Status { get; set; }  
-        public DateTime CreatedDate { get; set; }
-        public String? CreatedBy { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public String? UpdatedBy { get; set; }
-    }
-
-    public class PetModel
-    {
-        [Key]
-        public long ID { get; set; }
+        public String? Services { get; set;  }
+        public String? ServiceName { get; set; }
+        public String? PetName { get; set; }
+        public String? DoctorName { get; set;  }
+        public String? OwnerName { get; set; }
         public long? PatientID { get; set; }
-        public String? Name { get; set; }
-        public String? RegistrationNo { get; set; }
-        public String? Gender { get; set; }
-        public DateTime? DOB { get; set; }
-        public int? Age { get; set; }
-        public String? Species { get; set; }
-        public String? Breed { get; set; }
-        public String? Color { get; set; }
-        public String? Allergies { get; set; }
-        public decimal? Weight { get; set; }
-        public String? WeightUnit { get; set; }
-        public decimal? Height { get; set; }
-        public String? HeightUnit { get; set; }
-        public int? Status { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public String? CreatedBy { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public String? UpdatedBy { get; set; }
     }
 }
