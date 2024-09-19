@@ -1,127 +1,248 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
 @{
     ViewData["Title"] = "Index";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["SelectedMenu"] = "doctorMenu";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
 }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/css/Doctor.css" />
+<script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
 
 <script>
+    var paginationLimit = 5;
+    var pageSize = 10;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
     $(document).ready(function () {
-        $.getJSON("/Doctor/GetDoctorViewList")
-            .done(function (result) {
-                if (result.length > 0)
-                {
-                    $('#tblDoctor').bootstrapTable({
-                        data: result
-                    });
-                }
-            })
+        loadDoctorList('');
+
+        $('#btnSearch').on('click', function (ctl) {
+            loadDoctorList($('#txtSearch').val());
+        });
     });
+
+    function loadDoctorList(searchKeyword) 
+    {
+        $('#lbDocListingError').css('visibility', 'hidden');
+
+        $.getJSON("/Doctor/GetDoctorViewList", {
+            sKeyword: searchKeyword,
+            branchID: @sessionBranchID,
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function (result) {
+            if (result.data != null & result.data.length > 0) {
+                $('#tblDoctor').bootstrapTable('destroy');
+                $('#tblDoctor').bootstrapTable({
+                    data: result.data
+                });
+
+                /*--- Pagination ------*/
+                populatePagingControl(result.totalRecord);
+            }
+            else
+            {
+                $('#tblDoctor').bootstrapTable('destroy');
+                document.getElementById("pagination").hidden = true;
+            }
+        });
+    }
+
+    function mnDeleteOnClick(id) 
+    {
+        ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Doctor_Title_DeleteDoctorRecord"])", 
+                                "@Html.Raw(LangResources["Doctor_Message_ConfirmDeleteDoctor"])",
+            function () {
+                $.post("/Doctor/DeleteDoctor", {
+                    iDoctorID: id
+                }).done(function (result) {
+                    if (result.StatusCode == 200){
+                        window.location.reload();
+                    }
+                    else{
+                        $('#lbDocListingError').html("@Html.Raw(LangResources["Doctor_Message_FailedToDeleteRecord"])");
+                        $('#lbDocListingError').css('visibility', 'visible');
+                    }
+                });
+            },
+            function () { }
+        );
+    }
 
     function populateHideMenu(value, row){
         var hideMenuHtml = '<button type="button" class="btn" data-toggle="dropdown">' +
-                           '<img src="/images/more_icon.png" width="20" height="20" />' +
+                           '<img class="doctorListingMoreIcon"  />' +
                            '</button>' +
 
                            '<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
-                           '<a class="dropdown-item" href="/Doctor/ViewDoctorProfile">View</a>' +
-                           '<a class="dropdown-item">Edit</a>' +
-                           '<a class="dropdown-item">Delete</a>' +
+                           '<a class="dropdown-item" href="/Doctor/ViewDoctorProfile/' + value + '/View">' + '@Html.Raw(LangResources["Doctor_Menu_View"])' + '</a>' +
+                           '<a class="dropdown-item" href="/Doctor/ViewDoctorProfile/' + value + '/Edit">' + '@Html.Raw(LangResources["Doctor_Menu_Edit"])' + '</a>' +
+                           '<a class="dropdown-item" onclick="mnDeleteOnClick(' + value + ')">' + '@Html.Raw(LangResources["Doctor_Menu_Delete"])' + '</a>' +
                            '</div>';
         return hideMenuHtml;
     }
+
+    function populatePagingControl(totalRecord) 
+    {
+        let total = totalRecord;
+        if (total == 0) 
+        { 
+            document.getElementById("pagination").hidden = true; 
+        }
+        else 
+        {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) { 
+                totalPage = totalPage + 1; 
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) { 
+                totalPage = totalPage + 1; 
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) { 
+                endPagination = paginationLimit 
+            }
+            else { 
+                endPagination = totalPage; 
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) { 
+            document.getElementById("nextButton").hidden = true; 
+        }
+        else { 
+            document.getElementById("nextButton").hidden = false; 
+        }
+        if (currentPage == 1) { 
+            document.getElementById("prevButton").hidden = true;
+        }
+        else { 
+            document.getElementById("prevButton").hidden = false; 
+        }
+    }
+
+    function pagination(start, end) 
+    {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) { 
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        loadDoctorList($('#txtSearch').val());
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+
+        loadDoctorList($('#txtSearch').val());
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        loadDoctorList($('#txtSearch').val());
+    }
 </script>
 <div class="row">
-    <!--
-    <div class="row">
-        <div class="col-md-12">&nbsp;</div>
-    </div>
-    -->
     <div class="row">
         <div class="col-md-12" style="height: auto;">
             <div class="row" style="height: auto;">
                 <div class="col-md-12">
-                    <label class="doctorPageTitle">Doctor</label>
+                    <label class="doctorPageTitle">@LangResources["Doctor_Title_Doctor"]</label>
                 </div>
             </div>
         </div>
     </div>
     <div class="row" style="height: 25px;">&nbsp;</div>
-    <div class="row">
-        <div class="col-md-1" style="height: 50px; border: 0px solid black;">
-            <div class="row" style="height: 50px; border: 0px solid black;">
-                <label style="font-weight: bold; margin-top: 13px;">Doctor :</label>
-            </div>
-        </div>
-        <div class="col-md-4" style="height: 50px; border: 0px solid black;">
-            <div class="row" style="height: 50px; border: 0px solid black;">
-                <input id="txtSearch" type="text" class="form-control" style="margin: 5px; border: 1px solid black;" />
+    <div class="row" style="margin-left: 5px;">
+        <div class="col-md-5 searchRowHeight" >
+            <div class="row searchRowHeight" >
+                <input id="txtSearch" type="text" class="form-control searchFields" placeholder="@LangResources["Doctor_Label_SearchByDoctorName"]" />
             </div>
         </div>
         <div class="col-md-1">
-            <div class="row" style="margin-left: 5px; border: 0px solid black;">
+            <div class="row rowSearchMargin" >
                 <button id="btnSearch" type="button" class="btn btn-primary" style="margin: 5px;">
-                    Search
+                    @LangResources["Doctor_Button_Search"]
                 </button>
             </div>
         </div>
-        <div class="col-md-4" style="height: 50px; border: 0px solid black;">
+        <div class="col-md-4 searchRowHeight" >
             <div class="row">&nbsp;</div>
         </div>
-
-        <div class="col-md-2" style="height: 50px; border: 0px solid black;">
-            <div class="row" style="height: 50px; border: 0px solid black;">
+        <div class="col-md-2 text-end searchRowHeight" >
+            <div class="row searchRowHeight" >
                 <div class="col-md-12">
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="margin: 5px;" 
-                        onclick="location.href='@Url.Action("ViewDoctorProfile", "Doctor")'">
+                    <button id="btnCreate" type="button" class="btn btn-primary" style="margin: 5px;"
+                            onclick="location.href='@Url.Action("ViewDoctorProfile", "Doctor")'">
                         <i class="bi bi-plus-circle"></i>
-                        New Doctor
+                        @LangResources["Doctor_Button_NewDoctor"]
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12" style="height: 20px;">&nbsp;</div>
+    <div class="row rowTableMargin" >
+        <div class="col-md-12" style="height: 30px;">
+            <label id="lbDocListingError"></label>
+        </div>
         <div class="col-md-12">
             <table id="tblDoctor" class="table">
                 <thead>
                     <tr>
-                        <th scope="col" data-field="ID" class="text-center" style="width: 5%;">No.</th>
-                        <th scope="col" data-field="Name" class="text-center" style="width: 20%;">Name</th>
-                        <th scope="col" data-field="GenderName" class="text-center" style="width: 10%;">Gender</th>
-                        <th scope="col" data-field="LicenseNo" class="text-center" style="width: 10%;">License No.</th>
-                        <th scope="col" data-field="Designation" class="text-center" style="width: 25%;">Designation</th>
-                        <th scope="col" data-field="Specialty" class="text-center" style="width: 25%;">Specialty</th>
+                        <th scope="col" data-field="ID" class="text-center" style="width: 5%;">@LangResources["Doctor_Label_ColumnID"]</th>
+                        <th scope="col" data-field="Name" class="text-center" style="width: 20%;">@LangResources["Doctor_Label_ColumnName"]</th>
+                        <th scope="col" data-field="GenderName" class="text-center" style="width: 10%;">@LangResources["Doctor_Label_ColumnGender"]</th>
+                        <th scope="col" data-field="LicenseNo" class="text-center" style="width: 10%;">@LangResources["Doctor_Label_ColumnLicenseNo"]</th>
+                        <th scope="col" data-field="Designation" class="text-center" style="width: 25%;">@LangResources["Doctor_Label_ColumnDesignation"]</th>
+                        <th scope="col" data-field="Specialty" class="text-center" style="width: 25%;">@LangResources["Doctor_Label_Specialty"]</th>
                         <th scope="col" data-field="ID" data-formatter="populateHideMenu" class="text-center" style="width: 5%;"></th>
                     </tr>
                 </thead>
             </table>
+            <div class="row">
+                <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <div>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Doctor_Button_Prev"]</button>
+                    </div>
+                    <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                    </div>
+                    <div>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Doctor_Button_Next"]</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-
-<style type="text/css">
-.table {
-    border: 0px !important;
-}
-
-#tblDoctor > thead > tr > th {
-    border: 0px;
-    background-color: #f7f7f7;
-    color: black;
-}
-
-#tblDoctor > tbody > tr > td {
-    border-left: 0px;
-    border-right: 0px;
-    border-top: 0px;
-    border-bottom: 1px solid #ddd;
-    background-color: transparent;
-    color: black;
-}
-</style>

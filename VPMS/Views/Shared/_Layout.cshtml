@@ -41,18 +41,18 @@
         {
             if (theme == "dark")
             {
-                        <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+                                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
                 ViewBag.DarkTheme = "Dark";
             }
             if (theme == "light")
             {
-                        <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
                 ViewBag.DarkTheme = "Light";
             }
         }
         else
         {
-                    <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
             ViewBag.DarkTheme = "Light";
             /* temp */
         }
@@ -240,8 +240,8 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
-                                <span class="spanMenuBlue"></span>
+                            <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
+                                <span id="doctorMenu" class="spanMenuBlue"></span>
                                 <img id="iconDoctor" class="menuIcons" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Doctor"]</span>
                             </a>
@@ -388,11 +388,11 @@
                                                 @{
                                                     if (LanguageFullNameSelected != null && CountrySelected != null)
                                                     {
-                                                        <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
+                                                                <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
                                                     }
                                                     else
                                                     {
-                                                        <label class="LanguageSelectionFont">No Configuration Settings</label>
+                                                                <label class="LanguageSelectionFont">No Configuration Settings</label>
                                                     }
                                                 }  
     
@@ -508,23 +508,23 @@
                                                     sFlagChecked = "checked='true'";
                                                 }
 
-                                                <li class="list-group-item" style="border: 0px">
-                                                    <input id="chkFirst" name="listgrpradio" type="radio"
-                                                           class="form-check-input me-1 border-secondary"
-                                                           style="margin-left: 30px; vertical-align: middle;"
-                                                           value=@m.CodeID
-                                                           @sFlagChecked />
+                                                        <li class="list-group-item" style="border: 0px">
+                                                            <input id="chkFirst" name="listgrpradio" type="radio"
+                                                                   class="form-check-input me-1 border-secondary"
+                                                                   style="margin-left: 30px; vertical-align: middle;"
+                                                                   value=@m.CodeID
+                                                                   @sFlagChecked />
 
-                                                    <img src=@sFlagPath class="CountryFlag" />
-                                                    <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
-                                                </li>
+                                                            <img src=@sFlagPath class="CountryFlag" />
+                                                            <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
+                                                        </li>
                                             }                                           
                                         }
                                         else
                                         {
-                                            <li class="list-group-item" style="border: 0px">
-                                                <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
-                                            </li>
+                                                    <li class="list-group-item" style="border: 0px">
+                                                        <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
+                                                    </li>
                                         }
                                     }
                                 </ul>
@@ -550,12 +550,12 @@
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
 
-                                                <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                                        <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
                                             }                                            
                                         }
                                         else
                                         {
-                                            <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
+                                                    <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
                                         }
                                     }
                                 </ul>
@@ -597,6 +597,26 @@
                         </div>
                         <div class="col-md-2">&nbsp;</div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalSuccess" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label id="lbTitleSuccess" class="modal-title">Success</label>
+                </div>
+                <div class="modal-body">
+                    <p id="lbMsgSuccess" style="text-align: center;"></p>
+                    <div class="row">
+                        <div class="col-md-5">&nbsp;</div>
+                        <div class="col-md-2">
+                            <button id="btnOK" type="button" class="btn btn-primary">OK</button>
+                        </div>
+                        <div class="col-md-5">&nbsp;</div>
                     </div>
                 </div>
             </div>
@@ -810,6 +830,26 @@
             $("#btnNoConfirmYesNo").off('click').click(function () {
                 noFn();
                 $confirm.modal("hide");
+            });
+        }
+
+        function ShowSuccessMsgBox(MsgTitle, MsgContent, ButtonCallback)
+        {
+            AsyncSuccess(
+                MsgTitle, 
+                MsgContent, 
+                ButtonCallback
+            );
+        }
+
+        function AsyncSuccess(title, msg, btnFn) {
+            var $success = $("#modalSuccess");
+            $success.modal('show');
+            $("#lbTitleSuccess").html(title);
+            $("#lbMsgSuccess").html(msg);
+            $("#btnOK").off('click').click(function () {
+                btnFn();
+                $success.modal("hide");
             });
         }
     </script>

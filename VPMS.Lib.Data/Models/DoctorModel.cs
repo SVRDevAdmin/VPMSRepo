@@ -22,6 +22,7 @@ namespace VPMS.Lib.Data.Models
         public String? CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public String? UpdatedBy { get; set; }
+        public int? BranchID { get; set; }
     }
 
     public class DoctorExtendedModel  : DoctorModel
@@ -31,11 +32,13 @@ namespace VPMS.Lib.Data.Models
 
     public class NewDoctorControllerModel
     {
+        public int? ID { get; set; }
         public String? doctorName {  get; set; }
         public String? doctorGender { get; set; }
         public String? licenseNo { get; set; }
         public String? systemID { get; set; }
         public String? designation { get; set; }
         public String? specialty { get; set; }
+        public int? branchID { get; set; }
     }
 }

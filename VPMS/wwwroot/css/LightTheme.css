@@ -526,6 +526,10 @@ input[type='text']:focus, select:focus {
 	}*/
 }
 
+.errorValidation {
+	border-color: red !important;
+}
+
 /* ----- Appointment -------*/
 #divSearch {
 	margin-top: 15px;
@@ -608,10 +612,108 @@ input[type='text']:focus, select:focus {
 	color: black;
 }
 
+/*------ Doctor ---------*/
 .doctorPageTitle {
 	font-size: 24px;
 	font-weight: bold;
-	margin-left: 40px;
+	margin-left: 26px;
 	margin-top: 20px;
 	color: black;
+}
+
+#tblDoctor {
+	border: 0px !important;
+}
+
+#tblDoctor > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	color: black;
+}
+
+#tblDoctor > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+}
+
+.frameStyle {
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 6px;
+	border: 1px solid black;
+}
+
+.frameHeader {
+	height: 40px;
+	background-color: black;
+}
+
+.frameHeaderLabel {
+	margin-left: 10px;
+	font-weight: bold;
+	margin-top: 5px;
+	color: white;
+}
+
+.searchFields {
+	margin: 5px;
+	border: 1px solid black;
+	color: black;
+}
+
+.searchFields:focus {
+	background-color: transparent;
+	color: black;
+	box-shadow: none;
+}
+
+.searchFields::placeholder {
+	color: #ddd;
+}
+
+.doctorLeftColLabel {
+	margin-left: 10px;
+	font-weight: bold;
+	color: black;
+}
+
+.doctorRightColLabel {
+	margin-left: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.doctorLeftColControl {
+	width: 80%;
+	height: 45px;
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid black;
+}
+
+.doctorRightColControl {
+	width: 80%;
+	height: 45px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid black;
+}
+
+.doctorComboColControl {
+	width: 90%;
+	height: 45px;
+	margin-left: 10px;
+	border: 1px solid black;
+}
+
+.doctorListingMoreIcon {
+	content: url('../images/more_icon.png');
+	width: 20px;
+	height: 20px;
 }

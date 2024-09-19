@@ -6,3 +6,6 @@ On Mst_MastercodeData (CodeGroup, CodeID);
 
 CREATE INDEX IX_CodeGroup_CodeID_IsActive
 On Mst_MastercodeData (CodeGroup, CodeID, IsActive);
+
+CREATE INDEX IX_CodeGroup
+On Mst_MastercodeData (CodeGroup);
