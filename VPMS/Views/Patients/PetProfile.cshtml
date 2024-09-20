@@ -212,7 +212,7 @@
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 					<select class="form-control form-field inputField TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination', false, '', '');">
-						<option value="" selected> -- Select Vaccination Type --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccinationType"] --</option>
 						@foreach (var vaccination in ViewData["VaccinationList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 						{
 							<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
@@ -223,7 +223,7 @@
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
 					<select class="form-control form-field inputField NameVaccination">
-						<option value="" selected> -- Select Vaccination --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccination"] --</option>
 					</select>
 				</div>
 
@@ -270,7 +270,7 @@
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 					<select class="form-control form-field inputField TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication', false, '', '');">
-						<option value="" selected> -- Select Medication Type --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectMedicationType"] --</option>
 						@foreach (var medication in ViewData["MedicationList"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
 						{
 							<option value="@medication.ID"> @medication.TypeName</option>
@@ -281,7 +281,7 @@
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
 					<select class="form-control form-field inputField NameMedication">
-						<option value="" selected> -- Select Medication --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] --</option>
 					</select>
 				</div>
 
@@ -324,7 +324,7 @@
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
 					<select class="form-control form-field inputField TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery', false, '', '');">
-						<option value="" selected> -- Select Surgery Type --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgeryType"] --</option>
 						@foreach (var vaccination in ViewData["SurgeryList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 						{
 							<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
@@ -335,7 +335,7 @@
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
 					<select class="form-control form-field inputField NameSurgeries">
-						<option value="" selected> -- Select Surgery --</option>
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgery"] --</option>
 					</select>
 				</div>
 
@@ -345,7 +345,7 @@
 				</div>
 
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">Remarks</span>
+					<span class="formlabel">@LangResources["TreatmentPlan_Label_Remarks"]</span>
 					<input type="text" class="form-control form-field inputField RemarksSurgeries" value="Need to monitor further."/>
 				</div>
 
@@ -372,8 +372,20 @@
 <div style="display: flex; justify-content: center;">
 	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
 		
+		@{
+			var updatedOn = "";
+			if(Model.UpdatedDate == null)
+			{
+				updatedOn = Model.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss");
+			}
+			else
+			{
+				updatedOn = Model.UpdatedDate?.ToString("dd/MM/yyyy HH:mm:ss");
+			}
+		}
+
 		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"] (@LangResources["Patient_Label_UpdatedOn"] : @updatedOn)</span>
 			<button onclick="editPetInfo(false);" class="btn btn-lg btn-primary petInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-pen-to-square"></i>
 			</button>
@@ -803,41 +815,7 @@
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
 			</div>
-			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
-						<span class="formlabel" style="color: black;">10/4/2024</span>
-					</div>
-
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Time"]</span>
-						<span class="formlabel" style="color: black;">13:00</span>
-					</div>
-				</div>
-
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>
-						<span class="formlabel" style="color: black;">Simba</span>
-					</div>
-
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Service"]</span>
-						<span class="formlabel" style="color: black;">General Check Up</span>
-					</div>
-				</div>
-
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
-						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
-					</div>
-				</div>
-
+			<div class="containerBorder" id="UpcomingAppointment" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 			</div>
 		</div>
 
@@ -898,13 +876,13 @@
 					<div style="margin-bottom: 2vw; padding: 1vw;">
 						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_VaccinationTreatmentHistory"]</span>
 
-						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+						<table class="printFont" id="HealthCardHistory" style="font-size: 1vw; margin-top: 1vw;">
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
 							</tr>
-							<tr>
+							@* <tr>
 								<td style="padding: 0 2vw;">01/09/2023</td>
 								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
 								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
@@ -923,41 +901,41 @@
 								<td style="padding: 0 2vw;">01/09/2023</td>
 								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
 								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
-							</tr>
+							</tr> *@
 						</table>
 					</div>
 
 					<div style="margin: 2vw 0; padding: 1vw;">
 						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_MedicationHistory"]</span>
 
-						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+						<table class="printFont" id="HealthCardMedication" style="font-size: 1vw; margin-top: 1vw;">
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_MedicationName"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Status"]</th>
 							</tr>
-							<tr>
+							@* <tr>
 								<td style="padding: 0 2vw;">01/09/2023</td>
 								<td style="padding: 0 2vw;">Prednisalone Suspension 5mg|10ml</td>
 								<td style="padding: 0 2vw;">Active</td>
-							</tr>
+							</tr> *@
 						</table>
 					</div>
 
 					<div style="margin: 2vw 0; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
 						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_UpcomingVaccinationTreatment"]</span>
 
-						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+						<table class="printFont" id="HealthCardUpcoming" style="font-size: 1vw; margin-top: 1vw;">
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
 							</tr>
-							<tr>
+							@* <tr>
 								<td style="padding: 0 2vw;">01/09/2023</td>
 								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
 								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
-							</tr>
+							</tr> *@
 						</table>
 					</div>
 
@@ -1130,6 +1108,10 @@
 	breedList(species, breedElement, '@ViewBag.Breed');
 
 	getMedicalRecord();
+	getUpcomingTreatmentPlan();
+	GetVaccinationTreatmentList(0, false);
+	GetHealthCardMedicationList();
+	GetUpcomingAppointment();
 
 	if ('@ViewBag.type' == 'edit') {
 		editPetInfo();
@@ -1206,7 +1188,7 @@
 			date.getFullYear()
 		].join('/');
 		clone.querySelector('.CreatedOn' + name + 'Text').innerHTML = createdOnText;
-		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "Due: " + dueDateText;
+		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Due"]: " + dueDateText;
 		clone.querySelector('.DueDate' + name).value = dueDate;
 		clone.querySelector('.Description' + name + 'Text').innerHTML = description;
 		clone.querySelector('.Remarks' + name + 'Text').innerHTML = remarks;
@@ -1240,7 +1222,7 @@
 			date.getFullYear()
 		].join('/');
 		clone.querySelector('.Status' + name + 'Text').innerHTML = (status == 1 ? "Active" : "Inactive");
-		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "Due: " + dueDateText;
+		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Expiry"]: " + dueDateText;
 		clone.querySelector('.DueDate' + name).value = dueDate;
 		clone.querySelector('.Description' + name + 'Text').innerHTML = description;
 
@@ -1396,6 +1378,180 @@
 						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
 					}
 				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getUpcomingTreatmentPlan() {
+		fetch('/Patients/GetUpcomingTreatmentPlan?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				GetVaccinationTreatmentList(data.ID, true);
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetVaccinationTreatmentList(id, upcoming) {
+		fetch('/Patients/GetVaccinationTreatmentList?planID=' + id + '&upcoming=' + upcoming + '&petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				var tableElement;
+
+				if (upcoming) {
+					tableElement = document.getElementById("HealthCardUpcoming");
+				}
+				else {
+					tableElement = document.getElementById("HealthCardHistory");
+				}
+
+
+				if (data.length == 0) {
+					tableElement.innerHTML = tableElement.innerHTML + '<tr> <td colspan="3" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>';
+				}
+				else {
+					for (let i = 0; i < data.length; i++) {
+						var date = new Date(data[i].Date);
+
+						var dateText = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						tableElement.innerHTML = tableElement.innerHTML +
+							'<tr>' +
+							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].CategoryName + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].ServiceName + '</td>' +
+							'</tr > '
+					}
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetHealthCardMedicationList() {
+		fetch('/Patients/GetHealthCardMedicationList?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				var tableElement = document.getElementById("HealthCardMedication");
+
+
+				if (data.length == 0) {
+					tableElement.innerHTML = tableElement.innerHTML + '<tr> <td colspan="3" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>';
+				}
+				else {
+					for (let i = 0; i < data.length; i++) {
+						var date = new Date(data[i].Date);
+
+						var dateText = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						var status = data[i].Status == 1 ? "Active" : "Inactive";
+
+						tableElement.innerHTML = tableElement.innerHTML +
+							'<tr>' +
+							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].Name + '</td>' +
+							'<td style="padding: 0 2vw;">' + status + '</td>' +
+							'</tr > '
+					}
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetUpcomingAppointment() {
+		fetch('/Appointment/GetUpcomingAppointment?ownerID=0&petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				var element = document.getElementById("UpcomingAppointment");
+
+				if (data.PetName == null) {
+					element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">@LangResources["Patient_Label_NoUpcomingAppointment"]</div>'
+				}else{
+
+					var date = new Date(data.ApptDate);
+
+					var dateText = [
+						('0' + date.getDate()).slice(-2),
+						('0' + (date.getMonth() + 1)).slice(-2),
+						date.getFullYear()
+					].join('/');
+
+					var time = data.ApptStartTime.slice(0, -3) + " - " + data.ApptEndTime.slice(0, -3)
+
+					element.innerHTML =
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize" >' +
+						'<span class="formlabel">@LangResources["Patient_Label_Date"]</span>' +
+						'<span class="formlabel" style="color: black;">' + dateText + '</span>' +
+						'</div >' +
+
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Time"]</span>' +
+						'<span class="formlabel" style="color: black;">' + time + '</span>' +
+						'</div>' +
+						'</div >' +
+
+
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.PetName + '</span>' +
+						'</div>' +
+
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Service"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.Service + '</span>' +
+						'</div>' +
+						'</div>' +
+
+
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.Doctor + '</span>' +
+						'</div>' +
+						'</div>';
+				}
+
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);

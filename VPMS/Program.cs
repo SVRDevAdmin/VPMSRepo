@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using System.Globalization;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Middleware;
+
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]
 
 namespace VPMS
 {
@@ -20,9 +23,11 @@ namespace VPMS
 
         public static string CurrentPage { get; set; }
 
+		public static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+			var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -92,7 +97,12 @@ namespace VPMS
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
 
-            var app = builder.Build();
+			builder.Services.AddMvc(options =>
+			{
+				options.Filters.Add(new ErrorHandlingFilter());
+			});
+
+			var app = builder.Build();
 
 			app.UseRequestLocalization();
 
@@ -110,7 +120,14 @@ namespace VPMS
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+			app.UseStaticFiles(new StaticFileOptions()
+			{
+				FileProvider = new PhysicalFileProvider(
+		        Path.Combine(Directory.GetCurrentDirectory(), @"InventoryImages")),
+				RequestPath = new PathString("/InventoryImages")
+			});
+
+			app.UseRouting();
 
 			app.Use(async (context, next) =>
 			{

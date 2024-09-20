@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
 using VPMS.Lib.Data.Models;
 
 namespace VPMS.Lib.Data.DBContext
@@ -10,8 +11,9 @@ namespace VPMS.Lib.Data.DBContext
     public class PatientDBContext : DbContext
     {
         private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public DbSet<PatientsModel> Mst_Patients { get; set; }
+		public DbSet<PatientsModel> Mst_Patients { get; set; }
         public DbSet<Pets> Mst_Pets { get; set; }
         public DbSet<Patient_Owner> Mst_Patients_Owner { get; set; }
         public DbSet<Pets_Breed> Mst_Pets_Breed { get; set; }
@@ -71,10 +73,96 @@ namespace VPMS.Lib.Data.DBContext
             }
             catch (Exception ex)
             {
-
-            }
+				logger.Error("Database Error >> ", ex);
+			}
 
 			return sList;
         }
-    }
+
+		public ObservableCollection<PatientVaccinationTreatments> GetVaccinationTreatmentList(int planID, bool upcoming, int petID)
+		{
+			ObservableCollection<PatientVaccinationTreatments> sList = new ObservableCollection<PatientVaccinationTreatments>();
+
+			var completeQuery = "select d.TreatmentStart as 'Date', b.name as 'ServiceName', c.SubCategoryName as 'CategoryName' from txn_treatmentplan_services a " +
+				"inner join mst_services b on b.ID = a.ServiceID " +
+				"inner join mst_servicescategory c on b.CategoryID = c.ID " +
+				"inner join txn_treatmentplan d on d.ID = a.PlanID " +
+				"where c.Name in ('Vaccination', 'Treatment') AND ";
+
+			if (upcoming)
+			{
+				completeQuery = completeQuery + "d.TreatmentStart > now() AND d.ID = " + planID + " Order by d.TreatmentStart Limit 0,1;";
+			}
+			else
+			{
+				completeQuery = completeQuery + "d.TreatmentEnd < now() AND d.PetID = " + petID + " Order by d.TreatmentStart;";
+			}
+
+			try
+			{
+				using (MySqlConnection conn = new MySqlConnection(connectionString))
+				{
+					conn.Open();
+					MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							sList.Add(new PatientVaccinationTreatments()
+							{
+								CategoryName = reader["CategoryName"].ToString(),
+								ServiceName = reader["ServiceName"].ToString(),
+								Date = DateOnly.FromDateTime(DateTime.Parse(reader["Date"].ToString())),
+							});
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.Error("Database Error >> ", ex);
+			}
+
+			return sList;
+		}
+
+		public ObservableCollection<PatientHealthCardMedication> GetHealthCardMedicationList(int petID)
+		{
+			ObservableCollection<PatientHealthCardMedication> sList = new ObservableCollection<PatientHealthCardMedication>();
+
+			var completeQuery =
+				"SELECT a.CreatedDate as 'Date', c.Name as 'ProductName', a.Status FROM vpmsdb.mst_medicalrecord_medication a " +
+				"inner join mst_product c on c.ID = a.ProductID " +
+				"where a.PetID = " + petID + ";";
+
+			try
+			{
+				using (MySqlConnection conn = new MySqlConnection(connectionString))
+				{
+					conn.Open();
+					MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							sList.Add(new PatientHealthCardMedication()
+							{
+								Date = DateOnly.FromDateTime(DateTime.Parse(reader["Date"].ToString())),
+								Name = reader["ProductName"].ToString(),
+								Status = Convert.ToInt32(reader["Status"])
+							});
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.Error("Database Error >> ", ex);
+			}
+
+			return sList;
+		}
+	}
 }

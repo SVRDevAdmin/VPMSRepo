@@ -15,6 +15,7 @@ namespace VPMS.Lib.Data.DBContext
 	public class InventoryDBContext : DbContext
 	{
 		private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
+		private readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public DbSet<InventoryModel> Mst_Product { get; set; }
 		public DbSet<InventoryStatus> Mst_Product_Status { get; set; }
@@ -79,7 +80,7 @@ namespace VPMS.Lib.Data.DBContext
 			}
 			catch (Exception ex)
 			{
-
+				logger.Error("Database Error >> ", ex);
 			}
 
 			return sList;

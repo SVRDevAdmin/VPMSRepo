@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.VisualStudio.Web.CodeGeneration.Design;
-using Microsoft.VisualStudio.Web.CodeGeneration.Templating;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using System.Runtime.CompilerServices;
-using VPMS.Lib;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
+using VPMS;
 
 namespace VPMSWeb.Controllers
 {
@@ -19,19 +14,26 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            int sessionBranchID = 0;
-            if (HttpContext.Session.GetString("BranchID") != null)
-            {
-                sessionBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+			try
+			{
+				int sessionBranchID = 0;
+				if (HttpContext.Session.GetString("BranchID") != null)
+				{
+					sessionBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+				}
+
+				AppointmentViewModel sModel = new AppointmentViewModel();
+
+				sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), sessionBranchID);
+				sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings());
+				sModel.SpeciesModel = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Species");
+
+				ViewData["AppointmentViewModel"] = sModel;
+			}
+			catch (Exception ex)
+			{
+                Program.logger.Error("Controller Error >> ", ex);
             }
-
-            AppointmentViewModel sModel = new AppointmentViewModel();
-
-            sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), sessionBranchID);
-            sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings());
-            sModel.SpeciesModel = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Species");
-            
-            ViewData["AppointmentViewModel"] = sModel;
 
             return View();
         }
@@ -349,7 +351,7 @@ namespace VPMSWeb.Controllers
                                           DateTime? ApptStartTime, DateTime? ApptEndTime, List<String> sRecipientList,
                                           List<long> sServices)
         {
-            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+			var sEmailConfig = ConfigSettings.GetConfigurationSettings();
             String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
             int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
             String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
@@ -385,26 +387,38 @@ namespace VPMSWeb.Controllers
 
             try
             {
-                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
-                sEmailObj.SenderEmail = sSender;
-                sEmailObj.RecipientEmail = sRecipientList;
-                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
-                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
-                sEmailObj.SMTPHost = sHost;
-                sEmailObj.PortNo = sPortNo.Value;
-                sEmailObj.HostUsername = sUsername;
-                sEmailObj.HostPassword = sPassword;
-                sEmailObj.EnableSsl = true;
-                sEmailObj.UseDefaultCredentials = false;
-                sEmailObj.IsHtml = true;
+                //VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                //sEmailObj.SenderEmail = sSender;
+                //sEmailObj.RecipientEmail = sRecipientList;
+                //sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                //sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                //sEmailObj.SMTPHost = sHost;
+                //sEmailObj.PortNo = sPortNo.Value;
+                //sEmailObj.HostUsername = sUsername;
+                //sEmailObj.HostPassword = sPassword;
+                //sEmailObj.EnableSsl = true;
+                //sEmailObj.UseDefaultCredentials = false;
+                //sEmailObj.IsHtml = true;
 
-                String sErrorMessage = "";
-                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+                //String sErrorMessage = "";
+                //EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
             }
             catch (Exception ex)
             {
-                //todo:
-            }
+				Program.logger.Error("Controller Error >> ", ex);
+			}
+        }
+
+		/// <summary>
+		/// Get Upcoming Appointment by Owner ID or Pet ID
+		/// </summary>
+		/// <param name="ownerID"></param>
+		/// <param name="petID"></param>
+		public UpcomingAppointment GetUpcomingAppointment(int ownerID, int petID)
+        {
+            var upcomingAppointment = AppointmentRepository.GetUpcomingAppointment(ConfigSettings.GetConfigurationSettings(), ownerID, petID);
+
+            return upcomingAppointment;
         }
     }
 

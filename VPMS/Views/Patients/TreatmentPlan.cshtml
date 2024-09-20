@@ -6,6 +6,9 @@
 @{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
+
+	var startDate = DateOnly.FromDateTime(DateTime.Now);
+	var endDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5));
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -85,27 +88,55 @@
 		border-radius: 0 0.2vw 0.2vw 0;
 	}
 
-	.hideContainer {
-		display: none !important;
+	.dropdown-arrow.showInfo {
+		transform: rotate(180deg);
+	}
+
+	.dropdown-arrow {
+		transition: 0.6s ease;
 	}
 </style>
 
 <template id="treatmentPlanTemplate">
-	<div class="textColor" style="border-style: dashed; border-radius: 1vw; padding: 1vw; font-size: 1vw; margin-right: 1vw;">
+	<div class="textColor treatmentPlanGroup" style="border-style: dashed; border-radius: 1vw; padding: 1vw; font-size: 1vw; margin-right: 1vw; margin-bottom: 1vw;">
+		@* <div style="display: flex; justify-content: space-between;">
+			<div>
+				<div style="display: flex; justify-content: space-between;">
+					<div>
+						<input type="text" class="treatmentPlanID" hidden />
+						<span id="treatmentPlanName" style="font-weight: bold;"></span>
+					</div>
+					<div style="display: flex; align-items: center;">
+						<span style="color: red;">Pending Confirmation</span>
+						<button onclick="submitTreatmentPlan();" class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
+						<button onclick="removeTreatmentPlan(this);" class="btn btn-lg btn-danger" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-xmark"></i></button>
+						<button onclick="editTreatmentPlan();" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-regular fa-pen-to-square"></i></button>
+					</div>
+				</div>
+				<span class="treatmentPlanInfo hideContainer"> @LangResources["Patient_Label_TreatmentPeriod"] : <input type="date" class="form-control form-field treatmentPeriodStart" value="2024-04-10" onchange="updatePeriod(this);" style="width: unset; display: unset;" /> - <input type="date" class="form-control form-field treatmentPeriodEnd" value="2024-04-15" onchange="updatePeriod(this);" style="width: unset; display: unset;" /> </span>
+				<span class="treatmentPlanInfo">@LangResources["Patient_Label_TreatmentPeriod"] : <span class="treatmentPeriod">10/04/2024 - 15/04/2024</span></span>
+			</div>
+			<button class="textColor viewButton hideContainer" onclick="showPastInfo(this);" style="background: transparent; border: none;">
+				<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+			</button>
+		</div> *@
 		<div style="display: flex; justify-content: space-between;">
 			<div>
 				<input type="text" class="treatmentPlanID" hidden/>
 				<span id="treatmentPlanName" style="font-weight: bold;"></span>
 			</div>
 			<div style="display: flex; align-items: center;">
-				<span style="color: red;">Pending Confirmation</span>
+				<span style="color: red;">@LangResources["TreatmentPlan_Message_PendingConfirmation"]</span>
 				<button onclick="submitTreatmentPlan();" class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
 				<button onclick="removeTreatmentPlan(this);" class="btn btn-lg btn-danger" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-xmark"></i></button>
 				<button onclick="editTreatmentPlan();" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-regular fa-pen-to-square"></i></button>
 			</div>
+			<button class="textColor viewButton hideContainer" onclick="showPastInfo(this);" style="background: transparent; border: none;">
+				<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+			</button>
 		</div>
-		<span class="treatmentPlanInfo hideContainer"> @LangResources["Patient_Label_TreatmentPeriod"] : <input type="date" class="treatmentPeriodStart" value="2024-04-10" onchange="updatePeriod(this);" /> - <input type="date" class="treatmentPeriodEnd" value="2024-04-15" onchange="updatePeriod(this);" /> </span>
-		<span class="treatmentPlanInfo">@LangResources["Patient_Label_TreatmentPeriod"] : <span class="treatmentPeriod">10/04/2024 - 15/04/2024</span></span>
+		<span class="treatmentPlanInfo hideContainer"> @LangResources["Patient_Label_TreatmentPeriod"] : <input type="date" class="form-control form-field treatmentPeriodStart" value="@startDate.ToString("yyyy-MM-dd")" min="@startDate.ToString("yyyy-MM-dd")" onchange="updatePeriod(this);" style="width: unset; display: unset; font-size: 1vw" /> - <input type="date" class="form-control form-field treatmentPeriodEnd" value="@endDate.ToString("yyyy-MM-dd")" min="@startDate.ToString("yyyy-MM-dd")" onchange="updatePeriod(this);" style="width: unset; display: unset; font-size: 1vw" /> </span>
+		<span class="treatmentPlanInfo">@LangResources["Patient_Label_TreatmentPeriod"] : <span class="treatmentPeriod">@startDate.ToString("dd/MM/yyyy") - @endDate.ToString("dd/MM/yyyy")</span></span>
 
 		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
 			<table class="textColor" id="serviceList" style="width:100%; font-size: 1vw;">
@@ -139,7 +170,7 @@
 			</table>
 			<button onclick="cloneElement(document.getElementById('treatmentPlanContainer'), true, 'productTemplate', 'productList', 'productID', 0, 'productName', '', 'productPrice', 0, true, 1, 0);;" class="btn btn-lg btn-primary treatmentPlanInfo hideContainer" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding-left: 0;">
 				<span class="containerCircle">+</span>
-				<span style="font-size: 1vw; margin-left: 0.5vw;">Add Product</span>
+				<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_AddProduct"]</span>
 			</button>
 		</div>
 
@@ -171,7 +202,7 @@
 	<tr class="serviceGroup">
 		<td class="table-content treatmentPlanInfo serviceName" style="padding-left: 0.5vw;"></td>
 		<td class="table-content treatmentPlanInfo hideContainer" style="padding-left: 0.5vw;">
-			<select class="serviceID" onchange="updateCost(this, 'servicePrice', 'serviceName');">
+			<select class="form-control form-field serviceID" onchange="updateCost(this, 'servicePrice', 'serviceName');" style="width: unset; font-size: 1vw">
 				@foreach (var service in ViewData["Services"] as List<VPMS.Lib.Data.Models.ServicesModel>)
 				{
 					<option value="@service.ID" data-price="@service.Prices"> @service.Name </option>
@@ -190,7 +221,7 @@
 	<tr class="productGroup">
 		<td class="table-content treatmentPlanInfo productName" style="padding-left: 0.5vw;"></td>
 		<td class="table-content treatmentPlanInfo hideContainer" style="padding-left: 0.5vw;">
-			<select class="productID" onchange="updateCost(this, 'productPrice', 'productName');">
+			<select class="form-control form-field productID" onchange="updateCost(this, 'productPrice', 'productName');" style="width: unset; font-size: 1vw">
 				@foreach (var product in ViewData["Inventories"] as List<VPMS.Lib.Data.Models.InventoryModel>)
 				{
 					<option value="@product.ID" data-price="@product.PricePerQty"> @product.Name </option>
@@ -199,7 +230,7 @@
 		</td>
 		<td class="table-content treatmentPlanInfo productUnit"></td>
 		<td class="table-content treatmentPlanInfo hideContainer">
-			<input class="productUnitInput" style="width: 3vw;" type="number" value="0" min="1" onchange="updateUnitCost(this, 'productPrice', 'productID', 'productUnit');" />
+			<input class="form-control form-field productUnitInput" style="width: 4vw; padding-right: 0; padding-left: 0.5vw; font-size: 1vw;" type="number" value="0" min="1" onchange="updateUnitCost(this, 'productPrice', 'productID', 'productUnit');" />
 		</td>
 		<td class="table-content productOriginalPrice" hidden></td>
 		<td class="table-content productPrice" style="width: 3vw; padding-right: 0.5vw;"></td>
@@ -230,7 +261,7 @@
 		<div style="background-color: black; border-radius: 0.5vw; display: flex; justify-content: space-between; padding: 0.29vw; margin-right: 1vw;">
 			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this, 'treatmentPlanContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_CreateTreatmentPlan"]</button>
 			<button class="btn btn-lg btn-primary tabButton currentTab" onclick="changeTab(this, 'treatmentPlanViewContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_UpcomingTreatment"]</button>
-			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this, 'treatmentPlanOutgoingContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_OutgoingTreatment"]</button>
+			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this, 'treatmentPlanOngoingContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_OngoingTreatment"]</button>
 			<button class="btn btn-lg btn-primary tabButton" onclick="changeTab(this, 'treatmentPlanPastContainer');" style="background-color: black; border: none; font-size: 1vw;">@LangResources["Patient_Button_PastTreatment"]</button>
 		</div>
 
@@ -257,10 +288,10 @@
 								{
 									index = "service" + indexNo;
 
-																<div class="form-check">
-																	<input type="checkbox" class="form-check-input treatmentPlanOption" id="@index" name="@index" data-id="@treatmentPlan.ID" value="@treatmentPlan.Name">
-																	<label class="form-check-label" for="@index">@treatmentPlan.Name</label><br>
-																</div>
+																				<div class="form-check">
+																					<input type="checkbox" class="form-check-input treatmentPlanOption" id="@index" name="@index" data-id="@treatmentPlan.ID" value="@treatmentPlan.Name">
+																					<label class="form-check-label" for="@index">@treatmentPlan.Name</label><br>
+																				</div>
 
 									indexNo++;
 								}
@@ -281,6 +312,12 @@
 			</div>
 
 			<div class="treatmentPlanContainer" id="treatmentPlanViewContainer" style="width: 100%;">
+			</div>
+
+			<div class="treatmentPlanContainer hideContainer" id="treatmentPlanOngoingContainer" style="width: 100%;">
+			</div>
+
+			<div class="treatmentPlanContainer hideContainer" id="treatmentPlanPastContainer" style="width: 100%;">
 			</div>
 			
 
@@ -365,41 +402,7 @@
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
 			</div>
-			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
-						<span class="formlabel" style="color: black;">10/4/2024</span>
-					</div>
-
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Time"]</span>
-						<span class="formlabel" style="color: black;">13:00</span>
-					</div>
-				</div>
-
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>
-						<span class="formlabel" style="color: black;">Simba</span>
-					</div>
-
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Service"]</span>
-						<span class="formlabel" style="color: black;">General Check Up</span>
-					</div>
-				</div>
-
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
-						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
-					</div>
-				</div>
-
+			<div class="containerBorder" id="UpcomingAppointment" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 			</div>
 		</div>
 	</div>
@@ -461,13 +464,13 @@
 					<div style="margin-bottom: 2vw; padding: 1vw;">
 						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_VaccinationTreatmentHistory"]</span>
 
-						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+						<table class="printFont" id="HealthCardHistory" style="font-size: 1vw; margin-top: 1vw;">
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
 							</tr>
-							<tr>
+							@* <tr>
 								<td style="padding: 0 2vw;">01/09/2023</td>
 								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
 								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
@@ -486,40 +489,35 @@
 								<td style="padding: 0 2vw;">01/09/2023</td>
 								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
 								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
-							</tr>
+							</tr> *@
 						</table>
 					</div>
 
 					<div style="margin: 2vw 0; padding: 1vw;">
 						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_MedicationHistory"]</span>
 
-						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+						<table class="printFont" id="HealthCardMedication" style="font-size: 1vw; margin-top: 1vw;">
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_MedicationName"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Status"]</th>
 							</tr>
-							<tr>
+							@* <tr>
 								<td style="padding: 0 2vw;">01/09/2023</td>
 								<td style="padding: 0 2vw;">Prednisalone Suspension 5mg|10ml</td>
 								<td style="padding: 0 2vw;">Active</td>
-							</tr>
+							</tr> *@
 						</table>
 					</div>
 
 					<div style="margin: 2vw 0; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
 						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_UpcomingVaccinationTreatment"]</span>
 
-						<table class="printFont" style="font-size: 1vw; margin-top: 1vw;">
+						<table class="printFont" id="HealthCardUpcoming" style="font-size: 1vw; margin-top: 1vw;">
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
-							</tr>
-							<tr>
-								<td style="padding: 0 2vw;">01/09/2023</td>
-								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
-								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
 							</tr>
 						</table>
 					</div>
@@ -535,8 +533,15 @@
 
 	var treatmentPlanContainer = document.getElementById("treatmentPlanContainer");
 	var treatmentPlanViewContainer = document.getElementById("treatmentPlanViewContainer");
+	var treatmentPlanOngoingContainer = document.getElementById("treatmentPlanOngoingContainer");
+	var treatmentPlanPastContainer = document.getElementById("treatmentPlanPastContainer");
 
 	getUpcomingTreatmentPlan();
+	getOngoingTreatmentPlan();
+	getPastTreatmentPlan();
+	GetVaccinationTreatmentList(0, false);
+	GetHealthCardMedicationList();
+	GetUpcomingAppointment();
 
 	function downloadHealthCard() {
 		var clone = document.getElementById("healthCardModal").cloneNode(true);
@@ -651,8 +656,16 @@
 	function updatePeriod(e){
 		var parent = e.parentElement.parentElement;
 		var startPeriod = parent.querySelector(".treatmentPeriodStart").value;
-		var endPeriod = parent.querySelector(".treatmentPeriodEnd").value;
+		var endPeriodElement = parent.querySelector(".treatmentPeriodEnd");
 		var periodTextElement = parent.querySelector(".treatmentPeriod");
+		
+		if(new Date(startPeriod) > new Date(endPeriodElement.value)){
+			endPeriodElement.value = startPeriod;
+		}
+		
+		var endPeriod = endPeriodElement.value;
+		$(".treatmentPeriodEnd").attr("min", startPeriod);
+
 
 		var startPeriodDate = new Date(startPeriod);
 		var endPeriodDate = new Date(endPeriod);
@@ -777,6 +790,17 @@
 		}
 	}
 
+	function showPastInfo(e){
+		var parent = e.parentElement.parentElement;
+		var arrowElement = parent.querySelector(".dropdown-arrow").classList.toggle("showInfo")
+
+		var table = parent.querySelectorAll(".containerBackground");
+
+		for (let i = 0; i < table.length; i++) {
+			table[i].classList.toggle("hideContainer");
+		}
+	}
+
 	function cloneElement(e, edit, templateId, elementId, idElement, id, nameElement, name, priceElement, price, productGroup, units, originalPrice) {
 		const template = document.getElementById(templateId);
 		const element = e.querySelector("#" + elementId);
@@ -826,7 +850,7 @@
 			totalCost += parseInt(priceElements[i].innerHTML.replace("$", ""));
 		}
 
-		element.querySelector(".totalCost").innerHTML = "$" + totalCost;
+		element.querySelector(".totalCost").innerHTML = "$" + (totalCost).toFixed(2).replace(/[.,]00$/, "");;
 
 		calculateTotal();
 	}
@@ -843,12 +867,13 @@
 			totalCost += parseInt(totalCostList[i].innerHTML.replace("$", ""));
 		}
 
-		tax = totalCost * (6 / 100);
+		tax = (totalCost * (6 / 100)).toFixed(2).replace(/[.,]00$/, "");
+		
 
 		if (totalElement) {
-			totalElement.innerHTML = "$" + totalCost;
+			totalElement.innerHTML = "$" + (totalCost).toFixed(2).replace(/[.,]00$/, "");
 			taxElement.innerHTML = "$" + tax;
-			grandTotalElement.innerHTML = "$" + (totalCost + tax);
+			grandTotalElement.innerHTML = "$" + (Number(totalCost) + Number(tax)).toFixed(2).replace(/[.,]00$/, "");
 		}
 
 	}
@@ -873,7 +898,7 @@
 			})
 			.then(data => {
 				if (data.ID == 0) {
-					treatmentPlanViewContainer.innerHTML = '<div style="width: 100%; text-align: center; margin-right: 1vw; padding: 1vw;">No Upcoming Treatment<div>';
+					treatmentPlanViewContainer.innerHTML = '<div class="textColor" style="width: 100%; text-align: center; margin-right: 1vw; padding: 1vw;">@LangResources["Patient_Label_NoUpcomingTreatment"]<div>';
 				}
 				else{
 					var template = document.getElementById("treatmentPlanTemplate");
@@ -913,8 +938,71 @@
 					treatmentNameElement.innerHTML = data.PlanName;
 					treatmentIDElement.value = data.TreatmentPlanID;
 
-					getUpcomingTreatmentPlanServices(data.ID);
-					getUpcomingTreatmentPlanProducts(data.ID);
+					getUpcomingTreatmentPlanServices(treatmentPlanViewContainer, data.ID);
+					getUpcomingTreatmentPlanProducts(treatmentPlanViewContainer, data.ID);
+				}
+
+				GetVaccinationTreatmentList(data.ID, true);
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getOngoingTreatmentPlan() {
+		fetch('/Patients/GetOngoingTreatmentPlan?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				if (data.ID == 0) {
+					treatmentPlanOngoingContainer.innerHTML = '<div class="textColor" style="width: 100%; text-align: center; margin-right: 1vw; padding: 1vw;">@LangResources["Patient_Label_NoOngoingTreatment"]<div>';
+				}
+				else {
+					var template = document.getElementById("treatmentPlanTemplate");
+					const clone = template.content.cloneNode(true);
+					treatmentPlanOngoingContainer.appendChild(clone);
+
+					treatmentPlanOngoingContainer.querySelector(".treatmentPeriodStart").value = data.TreatmentStart;
+					treatmentPlanOngoingContainer.querySelector(".treatmentPeriodEnd").value = data.TreatmentEnd;
+					var periodTextElement = treatmentPlanOngoingContainer.querySelector(".treatmentPeriod");
+
+					var startPeriodDate = new Date(data.TreatmentStart);
+					var endPeriodDate = new Date(data.TreatmentEnd);
+
+					var startPeriodText = [
+						('0' + startPeriodDate.getDate()).slice(-2),
+						('0' + (startPeriodDate.getMonth() + 1)).slice(-2),
+						startPeriodDate.getFullYear()
+					].join('/');
+
+					var endPeriodText = [
+						('0' + endPeriodDate.getDate()).slice(-2),
+						('0' + (endPeriodDate.getMonth() + 1)).slice(-2),
+						endPeriodDate.getFullYear()
+					].join('/');
+
+					periodTextElement.innerHTML = startPeriodText + " - " + endPeriodText;
+
+					var allElementParent = treatmentPlanOngoingContainer.querySelector("div");
+					var allElement = allElementParent.querySelectorAll("div");
+					var allButtonElement = allElement[0].querySelectorAll("div");
+					allElement[allElement.length - 1].remove();
+					allButtonElement[allButtonElement.length - 1].remove();
+
+					var treatmentNameElement = treatmentPlanOngoingContainer.querySelector("#treatmentPlanName");
+					var treatmentIDElement = treatmentPlanOngoingContainer.querySelector(".treatmentPlanID");
+
+					treatmentNameElement.innerHTML = data.PlanName;
+					treatmentIDElement.value = data.TreatmentPlanID;
+
+					getUpcomingTreatmentPlanServices(treatmentPlanOngoingContainer, data.ID);
+					getUpcomingTreatmentPlanProducts(treatmentPlanOngoingContainer, data.ID);
 				}
 
 			})
@@ -923,7 +1011,81 @@
 			});
 	}
 
-	function getUpcomingTreatmentPlanServices(id) {
+	function getPastTreatmentPlan() {
+		fetch('/Patients/GetPastTreatmentPlan?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				if (data.length == 0) {
+					treatmentPlanPastContainer.innerHTML = '<div class="textColor" style="width: 100%; text-align: center; margin-right: 1vw; padding: 1vw;">@LangResources["Patient_Label_NoPastTreatment"]<div>';
+				}
+				else{
+					for (let i = 0; i < data.length; i++) {
+						var template = document.getElementById("treatmentPlanTemplate");
+						const clone = template.content.cloneNode(true);
+
+						clone.querySelector(".treatmentPeriodStart").value = data[i].TreatmentStart;
+						clone.querySelector(".treatmentPeriodEnd").value = data[i].TreatmentEnd;
+						var periodTextElement = clone.querySelector(".treatmentPeriod");
+
+						var startPeriodDate = new Date(data[i].TreatmentStart);
+						var endPeriodDate = new Date(data[i].TreatmentEnd);
+
+						var startPeriodText = [
+							('0' + startPeriodDate.getDate()).slice(-2),
+							('0' + (startPeriodDate.getMonth() + 1)).slice(-2),
+							startPeriodDate.getFullYear()
+						].join('/');
+
+						var endPeriodText = [
+							('0' + endPeriodDate.getDate()).slice(-2),
+							('0' + (endPeriodDate.getMonth() + 1)).slice(-2),
+							endPeriodDate.getFullYear()
+						].join('/');
+
+						periodTextElement.innerHTML = startPeriodText + " - " + endPeriodText;
+
+						var allElementParent = clone.querySelector("div");
+						var allElement = allElementParent.querySelectorAll("div");
+						var allButtonElement = allElement[0].querySelectorAll("div");
+						allElement[allElement.length - 1].remove();
+						allButtonElement[allButtonElement.length - 1].remove();
+
+						var treatmentNameElement = clone.querySelector("#treatmentPlanName");
+						var treatmentIDElement = clone.querySelector(".treatmentPlanID");
+
+						treatmentNameElement.innerHTML = data[i].PlanName;
+						treatmentIDElement.value = data[i].TreatmentPlanID;
+
+						clone.querySelector(".viewButton").classList.toggle("hideContainer");
+
+						var table = clone.querySelectorAll(".containerBackground");
+
+						for (let i = 0; i < table.length; i++) {
+							table[i].classList.toggle("hideContainer");
+						}
+
+						treatmentPlanPastContainer.appendChild(clone);
+
+						allElementParent = treatmentPlanPastContainer.querySelectorAll(".treatmentPlanGroup");
+
+						getUpcomingTreatmentPlanServices(allElementParent[allElementParent.length - 1], data[i].ID);
+						getUpcomingTreatmentPlanProducts(allElementParent[allElementParent.length - 1], data[i].ID);
+					}
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getUpcomingTreatmentPlanServices(e, id) {
 		fetch('/Patients/GetUpcomingTreatmentPlanServices?planID=' + id)
 			.then(response => {
 				if (!response.ok) {
@@ -933,7 +1095,7 @@
 			})
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
-					cloneElement(treatmentPlanViewContainer, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+					cloneElement(e, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
 				}
 			})
 			.catch(error => {
@@ -941,7 +1103,7 @@
 			});
 	}
 
-	function getUpcomingTreatmentPlanProducts(id) {
+	function getUpcomingTreatmentPlanProducts(e, id) {
 		fetch('/Patients/GetUpcomingTreatmentPlanProducts?planID=' + id)
 			.then(response => {
 				if (!response.ok) {
@@ -951,7 +1113,7 @@
 			})
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
-					cloneElement(treatmentPlanViewContainer, false, "productTemplate", "productList", "productID", data[i].ProductID, "productName", data[i].ProductName, "productPrice", data[i].TotalPrice, true, data[i].Units, data[i].PricePerQty);
+					cloneElement(e, false, "productTemplate", "productList", "productID", data[i].ProductID, "productName", data[i].ProductName, "productPrice", data[i].TotalPrice, true, data[i].Units, data[i].PricePerQty);
 				}
 			})
 			.catch(error => {
@@ -997,6 +1159,163 @@
 			});
 	}
 
+	function GetVaccinationTreatmentList(id, upcoming) {
+		fetch('/Patients/GetVaccinationTreatmentList?planID=' + id + '&upcoming=' + upcoming + '&petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				var tableElement;
+
+				if (upcoming) {
+					tableElement = document.getElementById("HealthCardUpcoming");
+				}
+				else {
+					tableElement = document.getElementById("HealthCardHistory");
+				}
+
+
+				if (data.length == 0) {
+					tableElement.innerHTML = tableElement.innerHTML + '<tr> <td colspan="3" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>';
+				}
+				else {
+					for (let i = 0; i < data.length; i++) {
+						var date = new Date(data[i].Date);
+
+						var dateText = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						tableElement.innerHTML = tableElement.innerHTML +
+							'<tr>' +
+							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].CategoryName + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].ServiceName + '</td>' +
+							'</tr > '
+					}
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetHealthCardMedicationList() {
+		fetch('/Patients/GetHealthCardMedicationList?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				var tableElement = document.getElementById("HealthCardMedication");
+
+
+				if (data.length == 0) {
+					tableElement.innerHTML = tableElement.innerHTML + '<tr> <td colspan="3" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>';
+				}
+				else {
+					for (let i = 0; i < data.length; i++) {
+						var date = new Date(data[i].Date);
+
+						var dateText = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						var status = data[i].Status == 1 ? "Active" : "Inactive";
+
+						tableElement.innerHTML = tableElement.innerHTML +
+							'<tr>' +
+							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].Name + '</td>' +
+							'<td style="padding: 0 2vw;">' + status + '</td>' +
+							'</tr > '
+					}
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetUpcomingAppointment() {
+	fetch('/Appointment/GetUpcomingAppointment?ownerID=0&petID=@Model.ID')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+		.then(data => {
+			var element = document.getElementById("UpcomingAppointment");
+
+			if (data.PetName == null) {
+				element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">No Upcoming Appointment</div>'
+			}else{
+
+				var date = new Date(data.ApptDate);
+
+				var dateText = [
+					('0' + date.getDate()).slice(-2),
+					('0' + (date.getMonth() + 1)).slice(-2),
+					date.getFullYear()
+				].join('/');
+
+				var time = data.ApptStartTime.slice(0, -3) + " - " + data.ApptEndTime.slice(0, -3)
+
+				element.innerHTML =
+					'<div style="display: flex; margin-bottom: 1.5vw;">' +
+					'<div class="field-container quaterSize" >' +
+					'<span class="formlabel">@LangResources["Patient_Label_Date"]</span>' +
+					'<span class="formlabel" style="color: black;">' + dateText + '</span>' +
+					'</div >' +
+
+					'<div class="field-container quaterSize">' +
+					'<span class="formlabel">@LangResources["Patient_Label_Time"]</span>' +
+					'<span class="formlabel" style="color: black;">' + time + '</span>' +
+					'</div>' +
+					'</div >' +
+
+
+					'<div style="display: flex; margin-bottom: 1.5vw;">' +
+					'<div class="field-container quaterSize">' +
+					'<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>' +
+					'<span class="formlabel" style="color: black;">' + data.PetName + '</span>' +
+					'</div>' +
+
+					'<div class="field-container quaterSize">' +
+					'<span class="formlabel">@LangResources["Patient_Label_Service"]</span>' +
+					'<span class="formlabel" style="color: black;">' + data.Service + '</span>' +
+					'</div>' +
+					'</div>' +
+
+
+					'<div style="display: flex; margin-bottom: 1.5vw;">' +
+					'<div class="field-container quaterSize">' +
+					'<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>' +
+					'<span class="formlabel" style="color: black;">' + data.Doctor + '</span>' +
+					'</div>' +
+					'</div>';
+			}
+
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+}
+
 	function submitTreatmentPlan() {
 
 		var treatmentName = treatmentPlanContainer.querySelector("#treatmentPlanName").innerHTML;
@@ -1029,8 +1348,8 @@
 				return response.json();
 			})
 			.then(data => {
-				var serviceGroup = document.querySelectorAll(".serviceGroup");
-				var productGroup = document.querySelectorAll(".productGroup");
+				var serviceGroup = treatmentPlanContainer.querySelectorAll(".serviceGroup");
+				var productGroup = treatmentPlanContainer.querySelectorAll(".productGroup");
 
 				for (let i = 0; i < serviceGroup.length; i++){
 					submitTreatmentPlanService(serviceGroup[i], data);

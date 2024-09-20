@@ -58,6 +58,7 @@ namespace VPMSWeb.Controllers
 			ViewData["TreatmentPlan"] = treatmentInfo;
 			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
 			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
+			ViewData["Type"] = type;
 			return View();
 		}
 

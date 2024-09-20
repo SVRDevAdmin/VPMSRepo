@@ -154,8 +154,6 @@ namespace VPMS.Lib.Data.Models
         public String? UpdatedBy { get; set; }
     }
 
-    public class PatientInfoProfile
-
 	public class PatientInfoProfile
 	{
 		public List<Patient_Owner> patient_Owners { set; get; }
@@ -213,6 +211,20 @@ namespace VPMS.Lib.Data.Models
 		public float PricePerQty { get; set; }
 		public float TotalPrice { get; set; }
 		public int IsDeleted { get; set; }
+	}
+
+    public class PatientVaccinationTreatments
+	{
+		public DateOnly Date { get; set; }
+		public string CategoryName { get; set; } = null!;
+		public string ServiceName { get; set; }
+	}
+
+	public class PatientHealthCardMedication
+	{
+		public DateOnly Date { get; set; }
+		public string Name { get; set; } = null!;
+		public int Status { get; set; }
 	}
 
 	public class PatientMedicalRecordService : AuditModel

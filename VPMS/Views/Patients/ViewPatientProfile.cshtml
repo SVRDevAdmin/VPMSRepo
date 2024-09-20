@@ -436,9 +436,9 @@
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
 			</div>
-			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
+			<div class="containerBorder" id="UpcomingAppointment" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 
-				<div style="display: flex; margin-bottom: 1.5vw;">
+				@* <div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
 						<span class="formlabel" style="color: black;">10/4/2024</span>
@@ -469,7 +469,7 @@
 						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
 						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
 					</div>
-				</div>
+				</div> *@
 
 			</div>
 		</div>
@@ -479,6 +479,7 @@
 
 <script type="text/javascript">
 
+	GetUpcomingAppointment();
 	var coOwnerExist = false;
 
 	if ('@ViewBag.type' == 'edit') {
@@ -770,6 +771,72 @@
 						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
 					}
 				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetUpcomingAppointment() {
+		fetch('/Appointment/GetUpcomingAppointment?ownerID=@ViewBag.PatientID&petID=0')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				var element = document.getElementById("UpcomingAppointment");
+
+				if (data.PetName == null) {
+					element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">No Upcoming Appointment</div>'
+				}else{
+
+					var date = new Date(data.ApptDate);
+
+					var dateText = [
+						('0' + date.getDate()).slice(-2),
+						('0' + (date.getMonth() + 1)).slice(-2),
+						date.getFullYear()
+					].join('/');
+
+					var time = data.ApptStartTime.slice(0, -3) + " - " + data.ApptEndTime.slice(0, -3)
+
+					element.innerHTML =
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize" >' +
+						'<span class="formlabel">@LangResources["Patient_Label_Date"]</span>' +
+						'<span class="formlabel" style="color: black;">' + dateText + '</span>' +
+						'</div >' +
+
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Time"]</span>' +
+						'<span class="formlabel" style="color: black;">' + time + '</span>' +
+						'</div>' +
+						'</div >' +
+
+
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.PetName + '</span>' +
+						'</div>' +
+
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Service"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.Service + '</span>' +
+						'</div>' +
+						'</div>' +
+
+
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.Doctor + '</span>' +
+						'</div>' +
+						'</div>';
+				}
+
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);

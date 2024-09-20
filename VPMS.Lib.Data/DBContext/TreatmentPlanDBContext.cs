@@ -15,6 +15,7 @@ namespace VPMS.Lib.Data.DBContext
     public class TreatmentPlanDBContext : DbContext
 	{
 		private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public DbSet<TreatmentPlanModel> Mst_TreatmentPlan { get; set; }
 		public DbSet<TreatmentPlanService> Mst_TreatmentPlan_Services { get; set; }
@@ -25,9 +26,22 @@ namespace VPMS.Lib.Data.DBContext
 
 		public List<TreatmentPlanModel> GetTreatmentPlanList(int start, int total, out int totalTreatmentPlan, string search = "")
 		{
-			var sResult = Mst_TreatmentPlan.Where(x => x.Name.Contains(search) || x.Remarks.Contains(search) || x.CreatedBy.Contains(search)).ToList();
-			totalTreatmentPlan = sResult.Count();
-			return sResult.Skip(start).Take(total).ToList();
+			List<TreatmentPlanModel> sResult = new List<TreatmentPlanModel>();
+			totalTreatmentPlan = 0;
+
+			try
+			{
+				sResult = Mst_TreatmentPlan.Where(x => x.Name.Contains(search) || x.Remarks.Contains(search) || x.CreatedBy.Contains(search)).ToList();
+				totalTreatmentPlan = sResult.Count();
+
+				sResult = sResult.Skip(start).Take(total).ToList();
+			}
+			catch (Exception ex)
+			{
+				logger.Error("Database Error >> ", ex);
+			}
+
+			return sResult;
 		}
 	}
 }

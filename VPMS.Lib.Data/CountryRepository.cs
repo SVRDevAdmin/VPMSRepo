@@ -6,6 +6,8 @@ namespace VPMS.Lib.Data
 {
 	public class CountryRepository
 	{
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		public static List<CountryListModel> GetCountryList(IConfiguration config)
 		{
 			try
@@ -19,6 +21,7 @@ namespace VPMS.Lib.Data
 			}
 			catch (Exception ex)
 			{
+				logger.Error("Database Error >> ", ex);
 				return null;
 			}
 		}

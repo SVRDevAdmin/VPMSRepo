@@ -384,8 +384,8 @@
   <data name="Patient_Button_NextStep" xml:space="preserve">
     <value>次のステップ</value>
   </data>
-  <data name="Patient_Button_OutgoingTreatment" xml:space="preserve">
-    <value>発信治療</value>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>継続的な治療</value>
   </data>
   <data name="Patient_Button_PastTreatment" xml:space="preserve">
     <value>過去の治療</value>
@@ -848,5 +848,62 @@
   </data>
   <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
     <value>治療計画</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>製品の追加</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>確認待ち</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>パスワードを認証する</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>新しいパスワード</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>以前のパスワード</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>パスワードのリセット</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>薬の選択</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>薬の種類を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>手術を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>手術の種類を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>予防接種を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>予防接種の種類を選択してください</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>期限</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>有効期限</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>継続的な治療なし</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>過去の治療なし</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>今後の予定はありません</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>今後の治療はありません</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>更新日</value>
   </data>
 </root>

@@ -19,7 +19,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="InventoryImages\Feline Viral Rhinotracheitis (FVR).png" />
+    <None Remove="InventoryImages\Panleukopenia (FPV).png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\images\vpms_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="InventoryImages\Feline Viral Rhinotracheitis (FVR).png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="InventoryImages\Panleukopenia (FPV).png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="log4net" Version="3.0.0" />
+    <PackageReference Include="log4net.Ext.Json" Version="2.0.10.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.39" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />

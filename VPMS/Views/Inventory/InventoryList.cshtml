@@ -71,8 +71,11 @@
 	</div>
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["Inventory_Label_SearchInventory"]" />
-		<button class="btn btn-lg btn-primary" style="display: flex; align-items: center; width: 21vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewInventory", "Inventory")'">
+		<div style="display: flex;">
+			<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
+			<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
+		</div>
+		<button class="btn btn-lg btn-primary" style="display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewInventory", "Inventory")'">
 			<span id="container">+</span>
 			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Inventory_Button_NewInventory"]</span>
 		</button>
@@ -105,23 +108,23 @@
 
 <script>
 
-	if ("@reload" == "true") {
-		fetch('/Inventory/UpdateReload')
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				return response.json();
-			})
-			.then(data => {
-				if (data) {
-					location.reload(true); 
-				}
-			})
-			.catch(error => {
-				console.error('There was a problem with the fetch operation:', error);
-			});
-	}
+	// if ("@reload" == "true") {
+	// 	fetch('/Inventory/UpdateReload')
+	// 		.then(response => {
+	// 			if (!response.ok) {
+	// 				throw new Error('Network response was not ok');
+	// 			}
+	// 			return response.json();
+	// 		})
+	// 		.then(data => {
+	// 			if (data) {
+	// 				location.reload(true); 
+	// 			}
+	// 		})
+	// 		.catch(error => {
+	// 			console.error('There was a problem with the fetch operation:', error);
+	// 		});
+	// }
 
 	var paginationLimit = 5;
 	var rowLimit = 9;
@@ -216,7 +219,7 @@
 							'<td class="table-content"> ' + data.InventoryInfoList[i].Usage + ' </td>' +
 							'<td class="table-content"> ' + data.InventoryInfoList[i].ProductName + ' </td>' +
 							'<td class="table-content table-content-center">' +
-							'<img src="/images/Inventory/' + data.InventoryInfoList[i].Image + '" style="height: 3vw;" />' +
+							'<img src="/InventoryImages/' + data.InventoryInfoList[i].Image + '" style="height: 3vw;" />' +
 							'</td>' +
 							'<td class="table-content"> ' + data.InventoryInfoList[i].SKU + ' </td>' +
 							'<td class="table-content"> ' + data.InventoryInfoList[i].Quantity + ' </td>' +
@@ -235,15 +238,13 @@
 							'</button>' +
 							'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
 							'<a class="dropdown-item" href="/Inventory/ViewEditInventory/View/' + data.InventoryInfoList[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="#"> @LangResources["Patient_Button_Edit"] </a>' +
+							'<a class="dropdown-item" href="/Inventory/ViewEditInventory/Edit/' + data.InventoryInfoList[i].ID + '"> @LangResources["Patient_Button_Edit"] </a>' +
 							'</div>' +
 							'</div>' +
 							'</td>' +
 							'</tr>';
 					}
 				}
-
-
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);

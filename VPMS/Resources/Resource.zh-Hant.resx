@@ -348,6 +348,18 @@
   <data name="Login_Button_RecoverPassword" xml:space="preserve">
     <value>找回密碼</value>
   </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>確認密碼</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>新密碼</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>舊密碼</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>重設密碼</value>
+  </data>
   <data name="Login_Link_ForgotPassword" xml:space="preserve">
     <value>忘記密碼？</value>
   </data>
@@ -459,8 +471,8 @@
   <data name="Patient_Button_NextStep" xml:space="preserve">
     <value>下一步</value>
   </data>
-  <data name="Patient_Button_OutgoingTreatment" xml:space="preserve">
-    <value>外發治療</value>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>持續治療</value>
   </data>
   <data name="Patient_Button_PastTreatment" xml:space="preserve">
     <value>既往治療</value>
@@ -549,7 +561,13 @@
   <data name="Patient_Label_Doctor" xml:space="preserve">
     <value>醫生</value>
   </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>到期的</value>
+  </data>
   <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>到期日</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
     <value>到期日</value>
   </data>
   <data name="Patient_Label_ExpiryDate" xml:space="preserve">
@@ -578,6 +596,18 @@
   </data>
   <data name="Patient_Label_Name" xml:space="preserve">
     <value>姓名</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>沒有持續治療</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>過去沒有治療過</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>沒有即將到來的約會</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>沒有即將進行的治療</value>
   </data>
   <data name="Patient_Label_Number" xml:space="preserve">
     <value>不</value>
@@ -660,6 +690,9 @@
   <data name="Patient_Label_Unit" xml:space="preserve">
     <value>單位</value>
   </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>更新於</value>
+  </data>
   <data name="Patient_Label_Vaccination" xml:space="preserve">
     <value>疫苗接種</value>
   </data>
@@ -708,6 +741,12 @@
   <data name="Patient_Selection_SelectGender" xml:space="preserve">
     <value>選擇性別</value>
   </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>選擇藥物</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>選擇藥物類型</value>
+  </data>
   <data name="Patient_Selection_SelectSex" xml:space="preserve">
     <value>選擇性別</value>
   </data>
@@ -719,6 +758,18 @@
   </data>
   <data name="Patient_Selection_SelectStatus" xml:space="preserve">
     <value>選擇狀態</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>選擇手術</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>選擇手術類型</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>選擇疫苗接種</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>選擇疫苗接種類型</value>
   </data>
   <data name="Patient_Selection_Yes" xml:space="preserve">
     <value>是的</value>
@@ -804,6 +855,9 @@
   <data name="TreatmentPlan_Label_Add" xml:space="preserve">
     <value>加</value>
   </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>添加產品</value>
+  </data>
   <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
     <value>添加服務</value>
   </data>
@@ -848,5 +902,8 @@
   </data>
   <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
     <value>治療計劃</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>待確認</value>
   </data>
 </root>

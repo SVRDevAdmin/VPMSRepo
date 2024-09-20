@@ -384,8 +384,8 @@
   <data name="Patient_Button_NextStep" xml:space="preserve">
     <value>다음 단계</value>
   </data>
-  <data name="Patient_Button_OutgoingTreatment" xml:space="preserve">
-    <value>외향적 치료</value>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>지속적인 치료</value>
   </data>
   <data name="Patient_Button_PastTreatment" xml:space="preserve">
     <value>과거 치료</value>
@@ -848,5 +848,62 @@
   </data>
   <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
     <value>치료 계획</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>제품 추가</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>확인 보류 중</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>비밀번호 확인</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>새 비밀번호</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>이전 비밀번호</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>비밀번호 재설정</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>약물 선택</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>약물 유형 선택</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>수술 선택</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>수술 유형 선택</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>예방접종 선택</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>예방접종 유형 선택</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>~로 인한</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>만료</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>지속적인 치료 없음</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>과거 치료 없음</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>예정된 약속이 없습니다.</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>다가오는 치료 없음</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>업데이트 날짜</value>
   </data>
 </root>

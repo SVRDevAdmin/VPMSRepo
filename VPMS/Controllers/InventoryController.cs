@@ -47,7 +47,8 @@ namespace VPMSWeb.Controllers
 			ViewData["Quantity"] = productStatus.QtyInStores;
 			ViewData["ExpiryDate"] = productStatus.ExpiryDate.ToString();
 			ViewData["OrganisationID"] = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == inventoryInfo.BranchID).OrganizationID;
-			ViewData["ImageFile"] = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\Inventory", inventoryInfo.ImageFileName);
+			ViewData["ImageFile"] = Path.Combine(Directory.GetCurrentDirectory(), @"InventoryImages", inventoryInfo.ImageFileName);
+			ViewData["Type"] = type;
 
 			return View();
 		}
@@ -76,10 +77,10 @@ namespace VPMSWeb.Controllers
 		public bool InsertInventory([FromBody] InventoryInfo inventoryInfo)
 		{
 			//var ImageFilePath = "InventoryImage/";
-			var ImageFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\Inventory");
+			var ImageFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"InventoryImages");
 			var ImageFileName = inventoryInfo.ImageFileName + ".png";
 
-			var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\Inventory", ImageFileName);
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"InventoryImages", ImageFileName);
 
 
 			try
@@ -150,10 +151,10 @@ namespace VPMSWeb.Controllers
 
 		public bool UpdateInventory([FromBody] InventoryInfo inventoryInfo)
 		{
-			var ImageFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\Inventory");
+			var ImageFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"InventoryImages");
 			var ImageFileName = inventoryInfo.ImageFileName + ".png";
 
-			var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\Inventory", ImageFileName);
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"InventoryImages", ImageFileName);
 
 
 			try
@@ -219,7 +220,7 @@ namespace VPMSWeb.Controllers
 
 			_inventoryDBContext.SaveChanges();
 
-			Response.Cookies.Append("reload", "true");
+			//Response.Cookies.Append("reload", "true");
 
 			return true;
 		}

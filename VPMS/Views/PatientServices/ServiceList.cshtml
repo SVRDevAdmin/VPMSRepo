@@ -73,8 +73,11 @@
 	</div>
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["Service_Label_SearchService"]" onkeyup="searchFilter(this.value);" />
-		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 17vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
+		<div style="display: flex;">
+			<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
+			<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
+		</div>		
+		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
 			<span id="container">+</span>
 			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Service_Button_NewService"]</span>
 		</button>
@@ -107,8 +110,8 @@
 	var currentPage = 1;
 	var search = "";
 
-	$(".patientServicesMenuList").toggleClass('open');
-	$('.patientServicesMenuArrow').toggleClass('Up');
+	$("#SubMenuServices").toggleClass('show');
+	document.querySelector("#SubMenuServicesParent").querySelector("#imgArrow").classList.toggle("Up");
 
 	filter();
 

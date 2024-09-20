@@ -367,6 +367,10 @@
 </div>
 
 <script>
+	if ("@ViewData["Type"]" == "Edit") {
+		editInventoryInfo();
+	}
+
 	getBranch(@ViewData["OrganisationID"], true);
 	var speciesListNameGlobal = [];
 	disablePropagation('.form-check');
@@ -592,10 +596,10 @@
 				var branchTextElement = element.parentElement.querySelectorAll(".inventoryInfo")[1];
 
 				if (selected) {
-					element.innerHTML = '<option value="" > -- Select Branch-- </option>';
+					element.innerHTML = '<option value="" > -- @LangResources["Inventory_Label_SelectBranch"] -- </option>';
 				}
 				else {
-					element.innerHTML = '<option value="" selected> -- Select Branch-- </option>';
+					element.innerHTML = '<option value="" selected> -- @LangResources["Inventory_Label_SelectBranch"] -- </option>';
 				}
 
 				for (let i = 0; i < data.length; i++) {

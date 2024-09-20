@@ -8,6 +8,7 @@ using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using System.Web;
+using System.Data;
 
 namespace VPMSWeb.Controllers
 {
@@ -46,9 +47,16 @@ namespace VPMSWeb.Controllers
 
         public IActionResult Login()
         {
-            var test = HttpContext.Session.GetString("SessionID");
+            var anyPersonExist = false;
 
-            var anyPersonExist = _userManager.Users.Any();
+			try
+			{
+				anyPersonExist = _userManager.Users.Any();
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
 
             if (anyPersonExist)
             {
@@ -72,133 +80,166 @@ namespace VPMSWeb.Controllers
 
 		public async Task<IActionResult> SignIn(LoginModel loginInfo)
         {
-            var user = await _userManager.FindByNameAsync(loginInfo.Username);
+			try
+			{
+				var user = await _userManager.FindByNameAsync(loginInfo.Username);
 
-            if (user != null)
-            {
-                var result = await _signInManager.PasswordSignInAsync(loginInfo.Username,
-                            loginInfo.Password, false, lockoutOnFailure: false);
+				if (user != null)
+				{
+					var result = await _signInManager.PasswordSignInAsync(loginInfo.Username,
+								loginInfo.Password, false, lockoutOnFailure: false);
 
-                if (result.Succeeded)
-                {
-                    var userInfo = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == user.Id);
+					if (result.Succeeded)
+					{
+						var userInfo = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == user.Id);
 
-                    if (userInfo != null) { userInfo.LastLoginDate = DateTime.Now; }
+						if (userInfo != null) { userInfo.LastLoginDate = DateTime.Now; }
 
-                    _userDBContext.SaveChanges();
+						_userDBContext.SaveChanges();
 
-                    CookieOptions cookies = new CookieOptions
-                    {
-                        Expires = DateTime.Now.AddHours(1)
-                    };
+						CookieOptions cookies = new CookieOptions
+						{
+							Expires = DateTime.Now.AddHours(1)
+						};
 
-                    Response.Cookies.Append("user", userInfo.Name, cookies);
-                    Response.Cookies.Append("userid", userInfo.UserID, cookies);
+						Response.Cookies.Append("user", userInfo.Name, cookies);
+						Response.Cookies.Append("userid", userInfo.UserID, cookies);
 
-                    HttpContext.Session.SetString("BranchID", userInfo.BranchID.ToString());
-                    HttpContext.Session.SetString("RoleID", userInfo.RoleID);
-                    HttpContext.Session.SetString("UserID", userInfo.UserID);
-                    //var randomAlphanumeric = GenerateRandomAlphanumeric(32);
-                    //var sessionCreatedOn = DateTime.Now;
-                    //var sessionExpiredOn = DateTime.Now.AddMinutes(5);
+						HttpContext.Session.SetString("BranchID", userInfo.BranchID.ToString());
+						HttpContext.Session.SetString("RoleID", userInfo.RoleID);
+						HttpContext.Session.SetString("UserID", userInfo.UserID);
+						//var randomAlphanumeric = GenerateRandomAlphanumeric(32);
+						//var sessionCreatedOn = DateTime.Now;
+						//var sessionExpiredOn = DateTime.Now.AddMinutes(5);
 
-                    //_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { UserID = user.Id ,LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
+						//_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { UserID = user.Id ,LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
 
-                    //_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric, ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
+						//_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric, ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
 
-                    //_loginSessionDBContext.SaveChanges();
+						//_loginSessionDBContext.SaveChanges();
 
-                    //HttpContext.Session.SetString("SessionID", randomAlphanumeric);
+						//HttpContext.Session.SetString("SessionID", randomAlphanumeric);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else if (result.IsLockedOut)
-                {
-                    ViewData["alert"] = "The account are locked. Please contact administrator.";
+						return RedirectToAction("Index", "Home");
+					}
+					else if (result.IsLockedOut)
+					{
+						ViewData["alert"] = "The account are locked. Please contact administrator.";
 
-                    return View("Login");
-                }
-                else if (result.IsNotAllowed)
-                {
-                    ViewData["alert"] = "The account are have not confirmed yet. Please confirm the account through email and try again.";
+						return View("Login");
+					}
+					else if (result.IsNotAllowed)
+					{
+						ViewData["alert"] = "The account are have not confirmed yet. Please confirm the account through email and try again.";
 
-                    return View("Login");
-                }
-                else
-                {
-                    var attempLeft = maxLoginAttempt - user.AccessFailedCount;
+						return View("Login");
+					}
+					else
+					{
+						var attempLeft = maxLoginAttempt - user.AccessFailedCount;
 
-                    //ViewData["alert"] = "Wrong password. " + attempLeft + " attemp[s] left before the account is locked.";
-                    ViewData["alert"] = "Wrong password or username.";
+						//ViewData["alert"] = "Wrong password. " + attempLeft + " attemp[s] left before the account is locked.";
+						ViewData["alert"] = "Wrong password or username.";
 
-                    return View("Login");
-                }
-            }
-            else
-            {
-                ViewData["alert"] = "Account not found based on the username. Please check and try again.";
+						return View("Login");
+					}
+				}
+				else
+				{
+					ViewData["alert"] = "Account not found based on the username. Please check and try again.";
 
-                return View("Login");
-            }
+					return View("Login");
+				}
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
 
+				ViewData["alert"] = "Error occur. Please try again later.";
+
+				return View("Login");
+			}
         }
 
         public IActionResult FirstRegister()
         {
-            var Roles = _roleDBContext.Mst_Roles.ToList();
-            var Branches = _branchDBContext.Mst_Branch.ToList();
+			try
+			{
+				var Roles = _roleDBContext.Mst_Roles.ToList();
+				var Branches = _branchDBContext.Mst_Branch.ToList();
 
-            return View(new RegisterModel() { Roles = Roles, Branches = Branches });
+				return View(new RegisterModel() { Roles = Roles, Branches = Branches });
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+				return View(new RegisterModel());
+			}
         }
 
         public async Task<IActionResult> SignUp(RegisterModel registerInfo)
         {
-            var user = await _userManager.FindByNameAsync(registerInfo.Username);
+			try
+			{
+				var user = await _userManager.FindByNameAsync(registerInfo.Username);
 
-            if (user == null)
-            {
-                user = Activator.CreateInstance<IdentityUser>();
+				if (user == null)
+				{
+					user = Activator.CreateInstance<IdentityUser>();
 
-                await _userStore.SetUserNameAsync(user, registerInfo.Username, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, registerInfo.Email, CancellationToken.None);
+					await _userStore.SetUserNameAsync(user, registerInfo.Username, CancellationToken.None);
+					await _emailStore.SetEmailAsync(user, registerInfo.Email, CancellationToken.None);
 
-                var generatedPassword = RandomPasswordGenerator();
+					var generatedPassword = RandomPasswordGenerator();
 
-                var result = await _userManager.CreateAsync(user, "Abcd@1234");
+					var result = await _userManager.CreateAsync(user, generatedPassword);
 
-                if (result.Succeeded)
-                {
-                    _userDBContext.Add(new UserModel() { UserID = user.Id, Name = registerInfo.Name, EmailAddress = registerInfo.Email, Status = 1, RoleID = registerInfo.Role, BranchID = registerInfo.Branch, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+					if (result.Succeeded)
+					{
+						_userDBContext.Add(new UserModel() { UserID = user.Id, Name = registerInfo.Name, EmailAddress = registerInfo.Email, Status = 1, RoleID = registerInfo.Role, BranchID = registerInfo.Branch, CreatedDate = DateTime.Now, CreatedBy = "System" });
 
-                    _userDBContext.SaveChanges();
+						_userDBContext.SaveChanges();
 
-                    var addclaim = await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("Fullname", registerInfo.Name));
+						var addclaim = await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("Fullname", registerInfo.Name));
 
-                    var role = await _roleManager.FindByIdAsync(registerInfo.Role);
+						var role = await _roleManager.FindByIdAsync(registerInfo.Role);
 
-                    var roleResult = await _userManager.AddToRoleAsync(user, role.Name);
+						var roleResult = await _userManager.AddToRoleAsync(user, role.Name);
 
-                    return View("Login");
-                }
-            }
+						return View("Login");
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
 
-            return View("FirstRegister");
-        }
+			return View("FirstRegister");
+		}
 
         public async Task<IActionResult> Logout(bool autoLogout = false)
         {
-            await _signInManager.SignOutAsync();
+			try
+			{
+				await _signInManager.SignOutAsync();
 
-            //var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
+				//var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
 
-            //var newLoginSessionLog = new LoginSessionLogModel() { SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
+				//var newLoginSessionLog = new LoginSessionLogModel() { SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
 
-            //if (autoLogout) { newLoginSessionLog.ActionType = "expired-logout"; }
-            //else { newLoginSessionLog.ActionType = "user-logout"; }
+				//if (autoLogout) { newLoginSessionLog.ActionType = "expired-logout"; }
+				//else { newLoginSessionLog.ActionType = "user-logout"; }
 
-            //_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
+				//_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
 
-            //_loginSessionDBContext.SaveChanges();
+				//_loginSessionDBContext.SaveChanges();
+
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
 
             return RedirectToAction("Login", "Login");
         }
@@ -215,31 +256,39 @@ namespace VPMSWeb.Controllers
 
         public async Task<IActionResult> RecoverPasswordAsync(RegisterModel recoverInfo)
         {
-            var user = await _userManager.FindByNameAsync(recoverInfo.Username);
+			try
+			{
+				var user = await _userManager.FindByNameAsync(recoverInfo.Username);
 
-            if (user != null)
-            {
-                var userEmail = await _userManager.GetEmailAsync(user);
+				if (user != null)
+				{
+					var userEmail = await _userManager.GetEmailAsync(user);
 
-                if(userEmail != null && _userManager.NormalizeEmail(userEmail) == _userManager.NormalizeEmail(recoverInfo.Email))
-                {
-                    var newPassword = RandomPasswordGenerator();
+					if (userEmail != null && _userManager.NormalizeEmail(userEmail) == _userManager.NormalizeEmail(recoverInfo.Email))
+					{
+						var newPassword = RandomPasswordGenerator();
 
-                    var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+						var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-                    var setNewPassword = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
+						var setNewPassword = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
 
-                    return RedirectToAction("Login", "Login");
-                }
-                else
-                {
-                    ViewData["alert"] = "Wrong email. Please check and try again.";
-                }
-            }
-            else
-            {
-                ViewData["alert"] = "Account not found based on the username. Please check and try again.";
-            }
+						return RedirectToAction("Login", "Login");
+					}
+					else
+					{
+						ViewData["alert"] = "Wrong email. Please check and try again.";
+					}
+				}
+				else
+				{
+					ViewData["alert"] = "Account not found based on the username. Please check and try again.";
+				}
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+				ViewData["alert"] = "Error occur. Please try again later.";
+			}
 
             return View("PasswordRecovery");
         }
@@ -253,29 +302,36 @@ namespace VPMSWeb.Controllers
 
         public async Task<IActionResult> ChangingPassword(LoginModel changeInfo)
         {
-            if (!ModelState["NewPassword"].Errors.Any())
-            {
-                if (changeInfo != null)
-                {
-                    string userId = User.Identity.Name;
+			try
+			{
+				if (!ModelState["NewPassword"].Errors.Any())
+				{
+					if (changeInfo != null)
+					{
+						string userId = User.Identity.Name;
 
-                    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+						var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                    if (user != null)
-                    {
+						if (user != null)
+						{
 
-                        var passwordChanged = await _userManager.ChangePasswordAsync(user, changeInfo.Password, changeInfo.NewPassword);
+							var passwordChanged = await _userManager.ChangePasswordAsync(user, changeInfo.Password, changeInfo.NewPassword);
 
-                        if (passwordChanged.Succeeded)
-                        {
-                            await _signInManager.SignOutAsync();
+							if (passwordChanged.Succeeded)
+							{
+								await _signInManager.SignOutAsync();
 
-                            return RedirectToAction("Login", "Login");
-                        }
-                    }
+								return RedirectToAction("Login", "Login");
+							}
+						}
 
-                }
-            }
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
 
             ViewBag.PreviousPage = Program.CurrentPage;
 
@@ -327,75 +383,89 @@ namespace VPMSWeb.Controllers
 
         public async Task RolesAsync()
         {
-            var roles = _roleManager.Roles.ToList();
-            IdentityRole role = new IdentityRole();
+			try
+			{
+				var roles = _roleManager.Roles.ToList();
+				IdentityRole role = new IdentityRole();
 
 
-            if (!roles.Where(x => x.Name == "Superadmin").Any())
-            {
-                role = new IdentityRole("Superadmin");
-                var roleCreated = await _roleManager.CreateAsync(role);
-                if (roleCreated.Succeeded)
-                {
-                    _roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 999, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+				if (!roles.Where(x => x.Name == "Superadmin").Any())
+				{
+					role = new IdentityRole("Superadmin");
+					var roleCreated = await _roleManager.CreateAsync(role);
+					if (roleCreated.Succeeded)
+					{
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 999, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
 
-                    _roleDBContext.SaveChanges();
-                }
-            }
-
-
-            if (!roles.Where(x => x.Name == "Doctor").Any())
-            {
-                role = new IdentityRole("Doctor");
-                var roleCreated = await _roleManager.CreateAsync(role);
-                if (roleCreated.Succeeded)
-                {
-                    _roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 1, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
-
-                    _roleDBContext.SaveChanges();
-                }
-            }
+						_roleDBContext.SaveChanges();
+					}
+				}
 
 
-            if (!roles.Where(x => x.Name == "Clinic Admin").Any())
-            {
-                role = new IdentityRole("Clinic Admin");
-                var roleCreated = await _roleManager.CreateAsync(role);
-                if (roleCreated.Succeeded)
-                {
-                    _roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 2, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+				if (!roles.Where(x => x.Name == "Doctor").Any())
+				{
+					role = new IdentityRole("Doctor");
+					var roleCreated = await _roleManager.CreateAsync(role);
+					if (roleCreated.Succeeded)
+					{
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 1, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
 
-                    _roleDBContext.SaveChanges();
-                }
-            }
+						_roleDBContext.SaveChanges();
+					}
+				}
 
 
-            if (!roles.Where(x => x.Name == "User").Any())
-            {
-                role = new IdentityRole("User");
-                var roleCreated = await _roleManager.CreateAsync(role);
-                if (roleCreated.Succeeded)
-                {
-                    _roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 3, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+				if (!roles.Where(x => x.Name == "Clinic Admin").Any())
+				{
+					role = new IdentityRole("Clinic Admin");
+					var roleCreated = await _roleManager.CreateAsync(role);
+					if (roleCreated.Succeeded)
+					{
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 2, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
 
-                    _roleDBContext.SaveChanges();
-                }
-            }
+						_roleDBContext.SaveChanges();
+					}
+				}
 
-            var test = _roleDBContext.Mst_Roles;
+
+				if (!roles.Where(x => x.Name == "User").Any())
+				{
+					role = new IdentityRole("User");
+					var roleCreated = await _roleManager.CreateAsync(role);
+					if (roleCreated.Succeeded)
+					{
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 3, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+
+						_roleDBContext.SaveChanges();
+					}
+				}
+
+				var test = _roleDBContext.Mst_Roles;
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}			
         }
 
         public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+			try
+			{
+				var user = await _userManager.FindByIdAsync(id);
 
-            await _userManager.DeleteAsync(user);
+				await _userManager.DeleteAsync(user);
 
-            var userInfo = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == id);
+				var userInfo = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == id);
 
-            _userDBContext.Mst_User.Remove(userInfo);
+				_userDBContext.Mst_User.Remove(userInfo);
 
-            _userDBContext.SaveChanges();
+				_userDBContext.SaveChanges();
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
 
             return View("Login");
         }
