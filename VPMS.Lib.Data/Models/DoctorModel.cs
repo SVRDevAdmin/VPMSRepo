@@ -18,8 +18,10 @@ namespace VPMS.Lib.Data.Models
         public String? Specialty { get; set; }
         public String? System_ID { get; set; }
         public int? IsDeleted {  get; set; }
+        public DateTime? CreatedDateTimestamp { get; set; }
         public DateTime? CreatedDate { get; set; }
         public String? CreatedBy { get; set; }
+        public DateTime? UpdatedDateTimestamp { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public String? UpdatedBy { get; set; }
         public int? BranchID { get; set; }

@@ -46,6 +46,7 @@ namespace VPMSWeb.Controllers
         public IActionResult AddDoctor(NewDoctorControllerModel sDoctorModel)
         {
             VPMSWeb.Models.ResponseStatusObject sResp = new VPMSWeb.Models.ResponseStatusObject();
+            DateTime sNow = DateTime.Now;
 
             DoctorModel sNewDoctor = new DoctorModel();
             sNewDoctor.Name = sDoctorModel.doctorName;
@@ -55,7 +56,8 @@ namespace VPMSWeb.Controllers
             sNewDoctor.Designation = sDoctorModel.designation;
             sNewDoctor.Specialty = sDoctorModel.specialty;
             sNewDoctor.IsDeleted = 0;
-            sNewDoctor.CreatedDate = DateTime.Now;
+            sNewDoctor.CreatedDateTimestamp = sNow.ToUniversalTime();
+            sNewDoctor.CreatedDate = sNow;
             sNewDoctor.CreatedBy = "SYSTEM";
             sNewDoctor.BranchID = sDoctorModel.branchID;
 
