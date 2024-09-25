@@ -51,11 +51,11 @@ namespace VPMSWeb.Controllers
                                 isNewType = true;
                             }
 
-                            DateTime dtStart = DateTime.ParseExact(sRequest.body.startdate, "yyyyMMdd",
+                            DateTime dtStart = DateTime.ParseExact(sRequest.body.startdate, "yyyyMMddHHmmss",
                                                                    System.Globalization.CultureInfo.InvariantCulture);
-                            DateTime dtEnd = DateTime.ParseExact(sRequest.body.enddate, "yyyyMMdd",
+                            DateTime dtEnd = DateTime.ParseExact(sRequest.body.enddate, "yyyyMMddHHmmss",
                                                                 System.Globalization.CultureInfo.InvariantCulture);
-                            dtEnd = dtEnd.AddDays(1).AddMinutes(-1);
+                            //dtEnd = dtEnd.AddDays(1).AddMinutes(-1);
 
 
                             var appointList = new List<VPMSWeb.Lib.API.General.AppointmentResultObject>();
@@ -364,7 +364,8 @@ namespace VPMSWeb.Controllers
             int timeoutPlusMins = 15;
             int timeoutMinusMins = -15;
 
-            TimeSpan ts = DateTime.UtcNow.Subtract(sMessageTimeStamp);
+            //TimeSpan ts = DateTime.UtcNow.Subtract(sMessageTimeStamp);
+            TimeSpan ts = DateTime.Now.Subtract(sMessageTimeStamp);
             if (ts.TotalMinutes < timeoutMinusMins || ts.TotalMinutes > timeoutPlusMins)
             {
                 isValid = false;
