@@ -644,7 +644,9 @@
 			})
 			.then(data => {
 
-				element.innerHTML = '<option value="" selected> -- Select ' + name + ' -- </option>';
+				if (name == "Surgery") { name = '@LangResources["Patient_Selection_SelectSurgery"]'; }
+				else { name = '@LangResources["Patient_Selection_SelectVaccination"]'; }
+				element.innerHTML = '<option value="" selected> -- ' + name + ' -- </option>';
 
 				for (let i = 0; i < data.length; i++) {
 					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';
@@ -665,7 +667,7 @@
 			})
 			.then(data => {
 
-				element.innerHTML = '<option value="" selected> -- Select Medication -- </option>';
+				element.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] -- </option>';
 
 				for (let i = 0; i < data.length; i++) {
 					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';

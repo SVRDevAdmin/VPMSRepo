@@ -350,8 +350,8 @@
 		editTreatmentPlanInfo();
 	}
 
-	$(".patientServicesMenuList").toggleClass('open');
-	$('.patientServicesMenuArrow').toggleClass('Up');
+	$("#SubMenuServices").toggleClass('show');
+	document.querySelector("#SubMenuServicesParent").querySelector("#imgArrow").classList.toggle("Up");
 
 	getServiceListByPlan("@treatmentPlanInfo.ID");
 	getProductListByPlan("@treatmentPlanInfo.ID");

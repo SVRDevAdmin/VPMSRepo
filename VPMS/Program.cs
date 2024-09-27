@@ -66,7 +66,7 @@ namespace VPMS
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
-                options.Password.RequireNonAlphanumeric = identitySettings.GetValue<bool>("RequireNonAlphanumeric"); ;
+                options.Password.RequireNonAlphanumeric = identitySettings.GetValue<bool>("RequireNonAlphanumeric");
                 options.Password.RequiredLength = identitySettings.GetValue<int>("RequireLength");
 
                 //Lockedout setting

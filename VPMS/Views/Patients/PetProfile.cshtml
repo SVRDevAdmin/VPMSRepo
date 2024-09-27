@@ -761,13 +761,25 @@
 			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 				<div id="allPets" style="display: flex; margin-bottom: 1.5vw;">
-					@foreach(string otherPet in otherPets)
-					{
-						<div class="field-container" style="text-align: center;">
-							<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw;" />
-							<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
-						</div>
+					@{
+						if (otherPets.Count > 0)
+						{
+							foreach (string otherPet in otherPets)
+							{
+								<div class="field-container" style="text-align: center;">
+									<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw;" />
+									<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
+								</div>
+							}
+						}
+						else
+						{
+							<div class="field-container" style="text-align: center; width: 100%;">
+								<span class="textColor">@LangResources["Patient_Label_NoOtherPet"]</span>
+							</div>
+						}
 					}
+					
 				</div>
 
 			</div>
@@ -1221,7 +1233,7 @@
 			('0' + (date.getMonth() + 1)).slice(-2),
 			date.getFullYear()
 		].join('/');
-		clone.querySelector('.Status' + name + 'Text').innerHTML = (status == 1 ? "Active" : "Inactive");
+		clone.querySelector('.Status' + name + 'Text').innerHTML = (status == 1 ? "@LangResources["Patient_Selection_Active"]" : "@LangResources["Patient_Selection_Inactive"]");
 		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Expiry"]: " + dueDateText;
 		clone.querySelector('.DueDate' + name).value = dueDate;
 		clone.querySelector('.Description' + name + 'Text').innerHTML = description;

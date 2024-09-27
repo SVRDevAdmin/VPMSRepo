@@ -703,11 +703,13 @@
 			element = clone.querySelectorAll('.Age');
 
 			var currentDate = new Date();
-			var petDOB = new Date(data.Pets[i].DOB)
+			var petDOB = new Date(data.Pets[i].DOB);
+			var dayDiffer = Math.round((currentDate.getTime() - petDOB.getTime()) / (1000 * 3600 * 24));
 			var yearDiffer = currentDate.getFullYear() - petDOB.getFullYear();
 			var monthDiffer = currentDate.getMonth() - petDOB.getMonth() + (12 * yearDiffer);
 
-			if (monthDiffer < 12) { element[0].innerHTML = monthDiffer + " months"; }
+			if (dayDiffer < 30) { element[0].innerHTML = dayDiffer + " days"; }
+			else if (monthDiffer < 12) { element[0].innerHTML = monthDiffer + " months"; }
 			else { 
 				// element[0].innerHTML = (monthDiffer / 12).toFixed(1) + " years"; 
 				element[0].innerHTML = parseInt(monthDiffer / 12) + " years";

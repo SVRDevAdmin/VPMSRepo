@@ -1,9 +1,12 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
 	ViewData["Title"] = "Treatment Plan Page";
 	ViewBag.SelectedMenu = "patientServicesMenu";
+
+	var currency = httpContextaccessor.HttpContext.Session.GetString("Currency");
 }
 
 <style>
@@ -120,7 +123,7 @@
 	var currentPage = 1;
 	var search = "";
 
-	$("#SubMenuServices").toggleClass('collapse');
+	$("#SubMenuServices").toggleClass('show');
 	document.querySelector("#SubMenuServicesParent").querySelector("#imgArrow").classList.toggle("Up");
 
 	filter();
@@ -177,6 +180,17 @@
 					'<th class="table-content"> @LangResources["Patient_Label_Status"] </th>' +
 					'<th class="table-content">  </th>' +
 					'</tr>';
+
+				// content.innerHTML =
+				// 	'<tr class="containerBackground">' +
+				// 	'<th class="table-content"> @LangResources["Patient_Label_Number"] </th>' +
+				// 	'<th class="table-content" > @LangResources["TreatmentPlan_Label_TreatmentName"] </th >' +
+				// 	'<th class="table-content"> @LangResources["TreatmentPlan_Label_DateCreated"] </th>' +
+				// 	'<th class="table-content"> @LangResources["TreatmentPlan_Label_CreatedBy"] </th>' +
+				// 	'<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"] (@currency) </th>' +
+				// 	'<th class="table-content"> @LangResources["Patient_Label_Status"] </th>' +
+				// 	'<th class="table-content">  </th>' +
+				// 	'</tr>';
 
 				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
