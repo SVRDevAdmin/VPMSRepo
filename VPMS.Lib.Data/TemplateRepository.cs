@@ -42,7 +42,6 @@ namespace VPMS.Lib.Data
                         {
                             while (sReader.Read())
                             {
-                                //sTemplateObj
                                 sTemplateObj.TemplateID = Convert.ToInt32(sReader["TemplateID"]);
                                 sTemplateObj.TemplateType = sReader["TemplateType"].ToString();
                                 sTemplateObj.TemplateCode = sReader["TemplateCode"].ToString();

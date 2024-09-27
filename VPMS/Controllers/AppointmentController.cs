@@ -2,6 +2,7 @@
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
+using VPMSWeb.Models;
 using VPMS;
 
 namespace VPMSWeb.Controllers
@@ -78,7 +79,7 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult UpdateAppointment(DateTime ApptDate, DateTime ApptStartTime, DateTime ApptEndTime, long ApptID)
         {
-            ResponseResultCode sResp = new ResponseResultCode();
+            ResponseStatusObject sResp = new ResponseStatusObject();
 
             if (AppointmentRepository.UpdatedAppointment(ConfigSettings.GetConfigurationSettings(), ApptDate, ApptStartTime, ApptEndTime, ApptID))
             {
@@ -100,7 +101,7 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult UpdateAppointmentStatus(long ApptID, int ApptStatus)
         {
-            ResponseResultCode sResp = new ResponseResultCode();
+            ResponseStatusObject sResp = new ResponseStatusObject();
 
             if (AppointmentRepository.UpdateAppointmentStatus(ConfigSettings.GetConfigurationSettings(), ApptID, ApptStatus))
             {
@@ -121,7 +122,7 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult CreateAppointment(AppointmentControllerModel sControllerModel)
         {
-            ResponseResultCode sResp = new ResponseResultCode();
+            ResponseStatusObject sResp = new ResponseStatusObject();
 
             AppointmentModel sModel = new AppointmentModel();
             sModel.BranchID = sControllerModel.BranchID;
@@ -212,7 +213,7 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult CreateNewClientAppointment(AppointmentNewClientControllerModel sControllerModel)
         {
-            ResponseResultCode sResp = new ResponseResultCode();
+            ResponseStatusObject sResp = new ResponseStatusObject();
             DateTime sNow = DateTime.Now;
 
             AppointmentPatientsModel sPatient = new AppointmentPatientsModel();
@@ -429,10 +430,10 @@ namespace VPMSWeb.Controllers
         public List<MastercodeModel> SpeciesModel { get; set; }
     }
 
-    public class ResponseResultCode
-    {
-        public int? StatusCode { get; set; }
-        public Boolean? isDoctApptOverlap { get; set; }
-        public Boolean? isPatientAppOverlap { get; set; }
-    }
+    //public class ResponseResultCode
+    //{
+    //    public int? StatusCode { get; set; }
+    //    public Boolean? isDoctApptOverlap { get; set; }
+    //    public Boolean? isPatientAppOverlap { get; set; }
+    //}
 }

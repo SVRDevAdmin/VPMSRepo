@@ -1,0 +1,345 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+@model VPMS.Lib.Data.Models.DoctorModel
+
+@{
+    ViewData["Title"] = "ViewDoctorProfile";
+    ViewData["SelectedMenu"] = "doctorMenu";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+
+    var sDoctorObj = new VPMS.Lib.Data.Models.DoctorModel();
+    if (ViewData["DoctorProfile"] != null)
+    {
+        sDoctorObj = ViewData["DoctorProfile"] as VPMS.Lib.Data.Models.DoctorModel;
+    }
+
+    var sViewType = ViewData["ViewType"] as String;
+}
+
+<link rel="stylesheet" href="~/css/Doctor.css" />
+
+<script>
+    loadGenderDropdownlist();
+
+    $(document).ready(function () {
+        /*---- Add Button -------*/
+        $('#btnCreate').on('click', function (ctl) {
+            
+            if (DoctorFieldsValidation()) 
+            {
+                var sNewDoctorObj = {
+                    doctorName: $('#txtName').val(),
+                    doctorGender: $('#ddlGender').val(),
+                    licenseNo: $('#txtLicenseNo').val(),
+                    systemID: $('#txtSystemID').val(),
+                    designation: $('#txtDesignation').val(),
+                    specialty: $('#txtSpecialty').val(),
+                    branchID: @sessionBranchID
+                }
+
+                $.post("/Doctor/AddDoctor",
+                    sNewDoctorObj
+                ).done(function (result) {
+                    if (result.StatusCode == 200) {
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["DoctorProfile_Title_AddDoctor"])", 
+                                          "@Html.Raw(LangResources["DoctorProfile_Message_DoctorAddedSuccessfully"])",
+                            function () {
+                                window.location.href = '/Doctor/Index';
+                            }
+                        )
+                    }
+                    else {
+                        $('#lbError').html('@Html.Raw(LangResources["DoctorProfile_Message_FailedToAddDoctor"])');
+                        $('#lbError').css('visibility', 'visible');
+                    }
+                });
+            }
+            else{
+                $('#lbError').html('@Html.Raw(LangResources["DoctorProfile_Message_MandatoryFieldRequired"])');
+                $('#lbError').css('visibility', 'visible');
+            }
+
+        });
+
+        /*------- Cancel Button ------*/
+        $('#btnCancel').on('click', function (ctl) {
+            //clearFields();
+            window.location.href = '/Doctor/Index';
+        });
+
+        /*-------- Update Button -------*/
+        $('#btnUpdate').on('click', function (ctl) {
+
+            if (DoctorFieldsValidation())
+            {
+                var sUpdateDoctorObj = {
+                    doctorName: $('#txtName').val(),
+                    doctorGender: $('#ddlGender').val(),
+                    licenseNo: $('#txtLicenseNo').val(),
+                    systemID: $('#txtSystemID').val(),
+                    designation: $('#txtDesignation').val(),
+                    specialty: $('#txtSpecialty').val(),
+                    ID: $('#hidID').val()
+                }
+
+                $.post("/Doctor/UpdateDoctor",
+                    sUpdateDoctorObj
+                ).done(function (result) {
+                    if (result.StatusCode == 200) {
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["DoctorProfile_Title_UpdateDoctor"])", 
+                                          "@Html.Raw(LangResources["DoctorProfile_Message_UpdateDoctorSuccessfully"])",
+                            function () {
+                                window.location.href = '/Doctor/Index';
+                            }
+                        )
+                    }
+                    else {
+                        $('#lbError').html('@Html.Raw(LangResources["DoctorProfile_Message_FailedToUpdateDoctor"])');
+                        $('#lbError').css('visibility', 'visible');
+                    }
+                });
+            }
+            else{
+                $('#lbError').html('@Html.Raw(LangResources["DoctorProfile_Message_MandatoryFieldRequired"])');
+                $('#lbError').css('visibility', 'visible');
+            }
+        });
+
+        /*------- Back Button ----------*/
+        $('#btnBack').on('click', function (ctl) {
+            window.location.href = '/Doctor/Index';
+        });
+
+        /*---- If contain variable --------*/
+        if ('@ViewData["DoctorProfile"]' != '') {
+            $('#txtName').val('@sDoctorObj.Name');
+
+            //$("#ddlGender").find("option[value='@sDoctorObj.Gender']").attr('selected', 'selected');
+            $("#ddlGender").val('@sDoctorObj.Gender');
+            $("#ddlGender").trigger('changes');
+
+            $('#txtLicenseNo').val('@sDoctorObj.LicenseNo');
+            $('#txtSystemID').val('@sDoctorObj.System_ID');
+            $('#txtDesignation').val('@sDoctorObj.Designation');
+            $('#txtSpecialty').val('@sDoctorObj.Specialty');
+            $('#hidID').val('@sDoctorObj.ID');
+
+            $('#btnUpdate').show();
+            $('#btnBack').show();
+
+            $('#btnCreate').hide();
+            $('#btnCancel').hide();
+
+            if ('@sViewType' == "View") {
+                $('#txtName').prop('disabled', true);
+                $("#ddlGender").prop('disabled', true);
+                $('#txtLicenseNo').prop('disabled', true);
+                $('#txtSystemID').prop('disabled', true);
+                $('#txtDesignation').prop('disabled', true);
+                $('#txtSpecialty').prop('disabled', true);
+
+                $('#btnUpdate').hide();
+            }
+        }
+    });
+
+    function loadGenderDropdownlist() {
+        $.getJSON("/Doctor/GetGenderListDropdown")
+            .done(function (result) {
+                if (result.length > 0) {
+
+                    $('#ddlGender').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].CodeName, result[i].CodeID);
+                        $('#ddlGender').append(opt);
+                    }
+
+                }
+                else {
+                    $('#ddlGender').find("option:not(:first)").remove();
+                }
+            })
+    }
+
+    function DoctorFieldsValidation(){
+        $('#lbError').css('visiblity', 'hidden');
+        let isValid = true;
+
+        /*-------- Name Field --------*/
+        if ($('#txtName').val() == ''){
+            $('#txtName').addClass("errorValidation");
+            $('#txtName').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtName').removeClass("errorValidation");
+        }
+
+        /*------- Gender Selection -------*/
+        if ($('#ddlGender').val() == '') {
+            $('#ddlGender').addClass("errorValidation");
+            $('#ddlGender').focus();
+
+            isValid = false;
+        }
+        else 
+        { 
+            $('#ddlGender').removeClass("errorValidation");
+        }
+
+        /*------ license No. Field ---------*/
+        if ($('#txtLicenseNo').val() == '')
+        {
+            $('#txtLicenseNo').addClass("errorValidation");
+            $('#txtLicenseNo').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#txtLicenseNo').removeClass("errorValidation");
+        }
+
+        /*------- Designation Field -------*/
+        if ($('#txtDesignation').val() == '') {
+            $('#txtDesignation').addClass("errorValidation");
+            $('#txtDesignation').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtDesignation').removeClass("errorValidation");
+        }
+
+        /*------- Specialty Field -----*/
+        if ($('#txtSpecialty').val() == '') {
+            $('#txtSpecialty').addClass("errorValidation");
+            $('#txtSpecialty').focus();
+
+            isValid = false;
+        }
+        else { 
+            $('#txtSpecialty').removeClass("errorValidation");
+        }
+
+        return isValid;
+    }
+
+    function clearFields()
+    {
+        $('#txtName').val('');
+        $('#txtName').removeClass("errorValidation");
+
+        $('#ddlGender').val($('#ddlGender option:first').val());
+        $('#ddlGender').removeClass("errorValidation");
+
+        $('#txtLicenseNo').val('');
+        $('#txtLicenseNo').removeClass("errorValidation");
+
+        $('#txtSystemID').val('');
+        $('#txtSystemID').removeClass("errorValidation");
+
+        $('#txtDesignation').val('');
+        $('#txtDesignation').removeClass("errorValidation");
+
+        $('#txtSpecialty').val('');
+        $('#txtSpecialty').removeClass("errorValidation");
+
+        $('#lbError').html('');
+    }
+</script>
+
+<div class="row" style="margin-left: 5px; margin-right: 5px;">
+    <div class="row" style="height: 45px;">&nbsp;</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row frameStyle">
+                <div class="col-md-12 frameHeader">
+                    <label class="frameHeaderLabel">
+                        @LangResources["DoctorProfile_Title_DoctorDetails"]
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Name"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Gender"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtName" type="text" class="form-control doctorLeftColControl" />
+                        </div>
+                        <div class="col-md-6">
+                            <select id="ddlGender" class="form-select doctorRightColControl" >
+                                <option value="">@LangResources["DoctorProfile_Label_PleaseSelectGender"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_LicenseNo"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="doctorRightColLabel">@LangResources["DoctorProfile_Label_SystemID"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtLicenseNo" type="text" class="form-control doctorLeftColControl"  />
+                        </div>
+                        <div class="col-md-6">
+                            <input id="txtSystemID" type="text" class="form-control doctorRightColControl"  />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Designation"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="txtDesignation" type="text" class="form-control doctorComboColControl" maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Specialty"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="txtSpecialty" type="text" class="form-control doctorComboColControl" maxlength="200"  />
+                        </div>
+                    </div>
+                    <div class="row" style="height: 45px;">&nbsp;
+                        <label id="lbError"></label>
+                        <input id="hidID" type="text" style="visibility: hidden;" />
+                    </div>
+                    <div class="row" style="height: 30px;">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="row doctorButtonRow" >
+                <div class="col-md-12 doctorButtonBox" >
+                    <button id="btnCancel" type="button" class="btn btn-secondary">@LangResources["DoctorProfile_Button_Cancel"]</button>
+                    <button id="btnCreate" type="button" class="btn btn-primary">@LangResources["DoctorProfile_Button_Create"]</button>
+                    <button id="btnBack" type="button" class="btn btn-secondary">@LangResources["DoctorProfile_Button_Back"]</button>
+                    <button id="btnUpdate" type="button" class="btn btn-primary">@LangResources["DoctorProfile_Button_Update"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

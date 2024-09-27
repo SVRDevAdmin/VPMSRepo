@@ -1,0 +1,12 @@
+CREATE TABLE `mst_timezone` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`TimezoneID` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`Location` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`IsActive` INT NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;

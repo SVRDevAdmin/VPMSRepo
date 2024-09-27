@@ -8,6 +8,11 @@ namespace VPMS.Lib.Data
 	{
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+		/// <summary>
+		/// Get Country Listing
+		/// </summary>
+		/// <param name="config"></param>
+		/// <returns></returns>
 		public static List<CountryListModel> GetCountryList(IConfiguration config)
 		{
 			try

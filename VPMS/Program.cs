@@ -50,7 +50,6 @@ namespace VPMS
                 options.SupportedUICultures = supportedCultures;
             });
             builder.Services.AddSingleton<VPMSWeb.Interface.IResourcesLocalizer, VPMSWeb.Lib.ResourcesLocalizer>();
-
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

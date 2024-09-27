@@ -1,0 +1,209 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["SelectedMenu"] = "dashboardMenu";
+}
+
+<link rel="stylesheet" href="~/css/Notification.css" />
+<script src="~/lib/moment.min.js"></script>
+
+<script>
+    var paginationLimit = 5;
+    var pageSize = 5;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+    var pageTab = "";
+
+    $(document).ready(function () {
+        pageTab = "";
+        loadNotificationList(pageTab);
+    });
+    debugger;
+    function tabSelected(tab){
+        pageTab = tab;
+        currentPage = 1;
+
+        loadNotificationList(tab);
+    }
+
+    function loadNotificationList(selectedGroup)
+    {
+        $.getJSON("/Notification/GetNotificationList", {
+            sGroup: selectedGroup,
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function (result) {
+            if (result.data != null && result.data.length > 0){
+                $('#tblNotification').empty();
+
+                for (i = 0; i < result.data.length; i++)
+                {
+                    var dtCreate = moment(result.data[i].CreatedDate);
+
+                    var sHtml = '<tr>' +
+                                '<td class="tdContent">' +
+
+                                '<table class="notificationContent">' +
+                                '<tr>' +
+                                '<td class="rowNotificationType" colspan="3">' + result.data[i].NotificationType + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td class="rowNotificationMessage">' + result.data[i].Content + '</td>' +
+                                '<td class="rowDivider">&nbsp;</td>' +
+                                '<td class="rowNotificationDate">' + dtCreate.format('D MMMM YYYY HH:mm') + '</td>' +
+                                '</tr>' +
+                                '</table>' + 
+
+                                '</td>' +           
+                                '</tr>';
+
+                    $('#tblNotification').append(sHtml);
+                }
+
+                populatePagingControl(result.totalRecord);
+            }
+            else{
+                $('#tblNotification').empty();
+            }
+        });
+    }
+
+    function populatePagingControl(totalRecord) {
+        let total = totalRecord;
+        if (total == 0) {
+            document.getElementById("pagination").hidden = true;
+        }
+        else {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end) {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        loadNotificationList(pageTab);
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+        loadNotificationList(pageTab);
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        loadNotificationList(pageTab);
+    }
+</script>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="height: auto;">
+            <label class="NotificationTitle">
+                @LangResources["Notification_Title_Notification"]
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row contentRow">
+            <div class="col-md-12 contentBorder">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button id="pills-all-tab" class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="true" onclick="tabSelected('')">@LangResources["Notification_Label_All"]</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button id="pills-message-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Messages')">@LangResources["Notification_Label_Messages"]</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button id="pills-inventory-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Inventory')">@LangResources["Notification_Label_Inventory"]</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div id="pills-content" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-home-tab">
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="tblNotification" class="table">
+                                </table>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                        <div>
+                            <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notification_Label_Prev"]</button>
+                        </div>
+                        <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                        </div>
+                        <div>
+                            <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notification_Label_Next"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

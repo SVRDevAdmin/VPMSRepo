@@ -261,6 +261,13 @@
                             </a>
                         </li>
                         <li>
+                            <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
+                                <span id="doctorMenu" class="spanMenuBlue"></span>
+                                <img id="iconDoctor" class="menuIcons" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Doctor"]</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#SubMenuAccess" class="nav-link align-middle px-0" data-toggle="collapse">
                                 <span class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
@@ -402,11 +409,11 @@
                                                 @{
                                                     if (LanguageFullNameSelected != null && CountrySelected != null)
                                                     {
-                                                        <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
+                                                                <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
                                                     }
                                                     else
                                                     {
-                                                        <label class="LanguageSelectionFont">No Configuration Settings</label>
+                                                                <label class="LanguageSelectionFont">No Configuration Settings</label>
                                                     }
                                                 }  
     
@@ -415,7 +422,9 @@
                                         </div>
                                     </div>
                                     <div style="width: 50px; height: 60px;  border: 0px solid black;">
-                                        <img id="imgBell" style="margin-top: 1vw; margin-left: 8px; " />
+                                        <a asp-controller="Notification" asp-action="Index">
+                                            <img id="imgBell" style="margin-top: 1vw; margin-left: 8px; " />
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -653,6 +662,20 @@
         </div>
     </div>
 
+    @section pagination
+    {
+        <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+            <div>
+                <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notification_Label_Prev"]</button>
+            </div>
+            <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+            </div>
+            <div>
+                <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notification_Label_Next"]</button>
+            </div>
+        </div>
+    }
+
     <div id="modalConfirmYesNo" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -675,6 +698,26 @@
                         </div>
                         <div class="col-md-2">&nbsp;</div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalSuccess" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label id="lbTitleSuccess" class="modal-title">Success</label>
+                </div>
+                <div class="modal-body">
+                    <p id="lbMsgSuccess" style="text-align: center;"></p>
+                    <div class="row">
+                        <div class="col-md-5">&nbsp;</div>
+                        <div class="col-md-2">
+                            <button id="btnOK" type="button" class="btn btn-primary">OK</button>
+                        </div>
+                        <div class="col-md-5">&nbsp;</div>
                     </div>
                 </div>
             </div>
@@ -899,6 +942,26 @@
             $("#btnNoConfirmYesNo").off('click').click(function () {
                 noFn();
                 $confirm.modal("hide");
+            });
+        }
+
+        function ShowSuccessMsgBox(MsgTitle, MsgContent, ButtonCallback)
+        {
+            AsyncSuccess(
+                MsgTitle, 
+                MsgContent, 
+                ButtonCallback
+            );
+        }
+
+        function AsyncSuccess(title, msg, btnFn) {
+            var $success = $("#modalSuccess");
+            $success.modal('show');
+            $("#lbTitleSuccess").html(title);
+            $("#lbMsgSuccess").html(msg);
+            $("#btnOK").off('click').click(function () {
+                btnFn();
+                $success.modal("hide");
             });
         }
     </script>

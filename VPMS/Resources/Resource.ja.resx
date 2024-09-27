@@ -252,6 +252,117 @@
   <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
     <value>予約の作成（新規クライアント）</value>
   </data>
+  <data name="DoctorProfile_Button_Back" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="DoctorProfile_Button_Create" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="DoctorProfile_Button_Update" xml:space="preserve">
+    <value>アップデート</value>
+  </data>
+  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
+    <value>指定</value>
+  </data>
+  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
+    <value>ジェンダー</value>
+  </data>
+  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
+    <value>ライセンス番号</value>
+  </data>
+  <data name="DoctorProfile_Label_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
+    <value>性別を選択してください</value>
+  </data>
+  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
+    <value>専門</value>
+  </data>
+  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
+    <value>システムID</value>
+  </data>
+  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
+    <value>医師が追加されました</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
+    <value>*医師を追加できませんでした。後でもう一度お試しください。</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
+    <value>*医師情報を更新できませんでした。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
+    <value>*必須フィールドです。</value>
+  </data>
+  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
+    <value>更新に成功しました</value>
+  </data>
+  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
+    <value>医師を追加</value>
+  </data>
+  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
+    <value>医師の詳細</value>
+  </data>
+  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
+    <value>ドクターアップデート</value>
+  </data>
+  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
+    <value>医師を追加</value>
+  </data>
+  <data name="Doctor_Button_Next" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="Doctor_Button_Prev" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="Doctor_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
+    <value>指定</value>
+  </data>
+  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
+    <value>ジェンダー</value>
+  </data>
+  <data name="Doctor_Label_ColumnID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
+    <value>ライセンス番号</value>
+  </data>
+  <data name="Doctor_Label_ColumnName" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
+    <value>名前で医師を検索</value>
+  </data>
+  <data name="Doctor_Label_Specialty" xml:space="preserve">
+    <value>専門</value>
+  </data>
+  <data name="Doctor_Menu_Delete" xml:space="preserve">
+    <value>消去</value>
+  </data>
+  <data name="Doctor_Menu_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Doctor_Menu_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
+    <value>医師の記録を削除しますか?</value>
+  </data>
+  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
+    <value>レコードの削除に失敗しました。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
+    <value>医師の記録を削除する</value>
+  </data>
+  <data name="Doctor_Title_Doctor" xml:space="preserve">
+    <value>ドクター</value>
+  </data>
   <data name="LanguageCountry_Button_Save" xml:space="preserve">
     <value>保存された</value>
   </data>
@@ -303,6 +414,9 @@
   <data name="MenuBar_Label_Dashboard" xml:space="preserve">
     <value>ダッシュボード</value>
   </data>
+  <data name="MenuBar_Label_Doctor" xml:space="preserve">
+    <value>ドクター</value>
+  </data>
   <data name="MenuBar_Label_Integration" xml:space="preserve">
     <value>統合</value>
   </data>
@@ -338,6 +452,24 @@
   </data>
   <data name="MenuBar_Label_StaffListing" xml:space="preserve">
     <value>スタッフ一覧</value>
+  </data>
+  <data name="Notification_Label_All" xml:space="preserve">
+    <value>全て</value>
+  </data>
+  <data name="Notification_Label_Inventory" xml:space="preserve">
+    <value>インベントリー</value>
+  </data>
+  <data name="Notification_Label_Messages" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="Notification_Label_Next" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="Notification_Label_Prev" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="Notification_Title_Notification" xml:space="preserve">
+    <value>お知らせ</value>
   </data>
   <data name="Patient_Button_AddCoOwner" xml:space="preserve">
     <value>共同所有者を追加</value>
