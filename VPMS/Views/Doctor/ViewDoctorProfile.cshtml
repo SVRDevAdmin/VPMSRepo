@@ -114,7 +114,11 @@
         /*---- If contain variable --------*/
         if ('@ViewData["DoctorProfile"]' != '') {
             $('#txtName').val('@sDoctorObj.Name');
-            $("#ddlGender").find("option[value='@sDoctorObj.Gender']").attr('selected', 'selected');
+
+            //$("#ddlGender").find("option[value='@sDoctorObj.Gender']").attr('selected', 'selected');
+            $("#ddlGender").val('@sDoctorObj.Gender');
+            $("#ddlGender").trigger('changes');
+
             $('#txtLicenseNo').val('@sDoctorObj.LicenseNo');
             $('#txtSystemID').val('@sDoctorObj.System_ID');
             $('#txtDesignation').val('@sDoctorObj.Designation');

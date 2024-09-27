@@ -6,6 +6,11 @@ namespace VPMS.Lib.Data
 {
 	public class CountryRepository
 	{
+		/// <summary>
+		/// Get Country Listing
+		/// </summary>
+		/// <param name="config"></param>
+		/// <returns></returns>
 		public static List<CountryListModel> GetCountryList(IConfiguration config)
 		{
 			try

@@ -28,7 +28,10 @@ ENGINE=InnoDB
 ;
 
 CREATE INDEX IX_NotiGroup_CreatedDate
-On Txn_Notifications (NotificationGroup, CreatedDate);
+On Txn_Notifications (NotificationGroup, CreatedDate DESC);
 
 CREATE INDEX IX_NotiGroup
 On Txn_Notifications (NotificationGroup);
+
+CREATE INDEX IX_Notification_OrderSorting
+On Txn_Notifications (CreatedDate DESC);

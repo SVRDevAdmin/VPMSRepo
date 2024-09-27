@@ -502,7 +502,8 @@
                                         {
                                             foreach (var m in LanguageCodeList)
                                             {
-                                                var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
+                                                //var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
+                                                var sFlagPath = "/images/Icons/Country/" + m.CodeID + ".png";
 
                                                 var sFlagChecked = "";
                                                 if (LanguageSelected != null && @LanguageSelected.ConfigurationValue == @m.CodeID)
@@ -576,6 +577,20 @@
             </div>
         </div>
     </div>
+
+    @section pagination
+    {
+        <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+            <div>
+                <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notification_Label_Prev"]</button>
+            </div>
+            <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+            </div>
+            <div>
+                <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notification_Label_Next"]</button>
+            </div>
+        </div>
+    }
 
     <div id="modalConfirmYesNo" class="modal fade">
         <div class="modal-dialog">

@@ -25,6 +25,8 @@
         loadDoctorList('');
 
         $('#btnSearch').on('click', function (ctl) {
+            currentPage = 1;
+
             loadDoctorList($('#txtSearch').val());
         });
     });

@@ -6,6 +6,10 @@ namespace VPMSWeb.Controllers
 {
     public class NotificationController : Controller
     {
+        /// <summary>
+        /// Index Page
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();

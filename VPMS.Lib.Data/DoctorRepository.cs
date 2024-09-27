@@ -35,12 +35,15 @@ namespace VPMS.Lib.Data
                     MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
                     sConn.Open();
 
-                    String sSelectCommnd = "SELECT D.ID, D.Name, D.Gender, M.CodeName AS 'GenderName', D.LicenseNo, D.Designation, D.Specialty, D.IsDeleted, D.CreatedDate, D.CreatedBy " +
+                    String sSelectCommnd = "SELECT D.ID, D.Name, D.Gender, M.CodeName AS 'GenderName', D.LicenseNo, D.Designation, " + 
+                                           "D.Specialty, D.IsDeleted, D.CreatedDate, D.CreatedBy, Count(*) OVER() as 'TotalRows' " +
                                            "FROM Mst_Doctor as D " +
                                            "LEFT JOIN (SELECT * FROM mst_mastercodedata WHERE CodeGroup='Gender') AS M ON M.CodeID = D.Gender " +
                                            "WHERE D.IsDeleted = '0' AND D.BranchID ='" + branchID  + "' AND " +
                                            "(" + (sSearchKeyword == null) + " OR D.Name LIKE '%" + sSearchKeyword + "%' )" +
-                                           "ORDER BY D.ID, D.Name ";
+                                           "ORDER BY D.ID, D.Name " +
+                                           "LIMIT " + pageSize + " " +
+                                           "OFFSET " + ((pageIndex - 1) * pageSize);
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommnd, sConn))
                     {
@@ -60,14 +63,15 @@ namespace VPMS.Lib.Data
                                     CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]),
                                     CreatedBy = sReader["CreatedBy"].ToString()
                                 });
+
+                                totalRecords = Convert.ToInt32(sReader["TotalRows"]);
                             }
                         }
                     }
 
                     sConn.Close();
 
-                    totalRecords = sDoctorList.Count();
-                    return sDoctorList.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                    return sDoctorList;
                 }
             }
             catch (Exception ex)

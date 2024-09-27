@@ -34,10 +34,13 @@ namespace VPMS.Lib.Data
                     MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
                     sConn.Open();
 
-                    String sSelectCommand = "SELECT ID, NotificationType, Title, Content, CreatedDate, CreatedBy " +
+                    String sSelectCommand = "SELECT ID, NotificationType, Title, Content, CreatedDate, CreatedBy, " +
+                                            "Count(*) OVER() as 'TotalRows' " +
                                             "FROM Txn_Notifications " +
                                             "WHERE (" +  (sGroup == null) + " OR NotificationGroup ='" + sGroup + "') " +
-                                            "ORDER BY CreatedDate DESC";
+                                            "ORDER BY CreatedDate DESC " +
+                                            "LIMIT " + pageSize  + " " +
+                                            "OFFSET " + ((pageIndex - 1) * pageSize);
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
                     {
@@ -54,6 +57,8 @@ namespace VPMS.Lib.Data
                                     CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]),
                                     CreatedBy = sReader["CreatedBy"].ToString()
                                 });
+
+                                totalRecords = Convert.ToInt32(sReader["TotalRows"]);
                             }
                         }
                     }
@@ -67,9 +72,7 @@ namespace VPMS.Lib.Data
                 return null;
             }
 
-            totalRecords = sNotificationList.Count();
-
-            return sNotificationList.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return sNotificationList;
         }
     }
 }
