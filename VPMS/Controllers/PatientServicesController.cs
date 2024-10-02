@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
+using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
 {
@@ -13,7 +14,7 @@ namespace VPMSWeb.Controllers
 		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
 		private readonly OrganisationDBContext _organisationDBContext = new OrganisationDBContext();
 		private readonly BranchDBContext _branchDBContext = new BranchDBContext();
-		private readonly DoctorDBContext _doctorDBContext = new DoctorDBContext();
+		private readonly DoctorDBContext _doctorDBContext = new DoctorDBContext(ConfigSettings.GetConfigurationSettings());
 		private readonly TreatmentPlanDBContext _treatmentPlanDBContext = new TreatmentPlanDBContext();
 
 		int totalServices;
@@ -44,9 +45,9 @@ namespace VPMSWeb.Controllers
 
 		public IActionResult CreateNewService()
 		{
-			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.ToList();
+			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1).ToList();
 			ViewData["Category"] = _servicesDBContext.Mst_ServicesCategory.ToList();
-			ViewData["DoctorList"] = _doctorDBContext.Mst_Doctor.ToList();
+			ViewData["DoctorList"] = _doctorDBContext.mst_doctor.ToList();
 
 			return View();
 		}
@@ -65,8 +66,8 @@ namespace VPMSWeb.Controllers
 		[Route("/PatientServices/ViewEditService/{type}/{serviceId}")]
 		public IActionResult ViewEditService(string type, int serviceID)
 		{
-			ViewData["DoctorList"] = _doctorDBContext.Mst_Doctor.ToList();
-			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.ToList();
+			ViewData["DoctorList"] = _doctorDBContext.mst_doctor.ToList();
+			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1).ToList();
 			ViewData["Category"] = _servicesDBContext.Mst_ServicesCategory.ToList();
 			var serviceInfo = _servicesDBContext.Mst_Services.FirstOrDefault(x => x.ID == serviceID);
 			ViewData["Service"] = serviceInfo;

@@ -3,6 +3,8 @@ CREATE TABLE `mst_roles` (
   `RoleName` varchar(100) NOT NULL,
   `RoleType` int NOT NULL,
   `Status` int NOT NULL,
+  `IsAdmin` int NOT NULL,
+  `IsDoctor` int NOT NULL,
   `CreatedDate` datetime NOT NULL,
   `CreatedBy` varchar(50) NOT NULL,
   `UpdatedDate` datetime DEFAULT NULL,

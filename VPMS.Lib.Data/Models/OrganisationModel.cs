@@ -11,6 +11,8 @@ namespace VPMS.Lib.Data.Models
 	{
 		[Key]
 		public int Id { get; set; }
+		public int Level { get; set; }
+		public int ParentID { get; set; }
 		public string Name { get; set; }
 		public int TotalStaff { get; set; }
 		public int Status { get; set; }

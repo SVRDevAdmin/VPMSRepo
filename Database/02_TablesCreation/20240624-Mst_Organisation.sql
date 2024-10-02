@@ -1,5 +1,7 @@
 CREATE TABLE `mst_organisation` (
   `ID` int NOT NULL AUTO_INCREMENT,
+  `Level` int NOT NULL,
+  `ParentID` int NOT NULL,
   `Name` varchar(200) NOT NULL,
   `TotalStaff` int NOT NULL,
   `Status` int NOT NULL,

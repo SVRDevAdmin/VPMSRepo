@@ -370,7 +370,7 @@
 </div>
 
 <div style="display: flex; justify-content: center;">
-	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 75.2vh; margin-right: 1vw; width: 51vw;">
 		
 		@{
 			var updatedOn = "";
@@ -752,7 +752,7 @@
 
 	</div>
 
-	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 74vh; width: 24vw;">
+	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 75.2vh; width: 24vw;">
 		<div>
 
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
@@ -806,13 +806,13 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" disabled>
 							<i class="fa-solid fa-receipt"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_InvoiceBilling"]</span>
 					</div>
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" disabled>
 							<i class="fa-solid fa-flask-vial"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TestManagement"]</span>

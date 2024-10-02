@@ -28,7 +28,7 @@ namespace VPMSWeb.Controllers
 		public IActionResult CreateNewInventory()
 		{
 			ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
-			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.ToList();
+			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1).ToList();
 			ViewData["Category"] = _inventoryDBContext.Mst_ProductType.ToList();
 
 			return View();
@@ -38,7 +38,7 @@ namespace VPMSWeb.Controllers
 		public IActionResult ViewEditInventory(string type, int inventoryId)
 		{
 			ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
-			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.ToList();
+			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1).ToList();
 			ViewData["Category"] = _inventoryDBContext.Mst_ProductType.ToList();
 			var inventoryInfo = _inventoryDBContext.Mst_Product.FirstOrDefault(x => x.ID == inventoryId);
 			var productStatus = _inventoryDBContext.Mst_Product_Status.FirstOrDefault(x => x.ProductID == inventoryInfo.ID);

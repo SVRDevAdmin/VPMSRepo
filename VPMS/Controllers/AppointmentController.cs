@@ -4,9 +4,11 @@ using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
 using VPMSWeb.Models;
 using VPMS;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VPMSWeb.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         /// <summary>

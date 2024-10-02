@@ -108,17 +108,17 @@ namespace VPMSWeb.Controllers
 						HttpContext.Session.SetString("BranchID", userInfo.BranchID.ToString());
 						HttpContext.Session.SetString("RoleID", userInfo.RoleID);
 						HttpContext.Session.SetString("UserID", userInfo.UserID);
-						//var randomAlphanumeric = GenerateRandomAlphanumeric(32);
-						//var sessionCreatedOn = DateTime.Now;
-						//var sessionExpiredOn = DateTime.Now.AddMinutes(5);
+						var randomAlphanumeric = GenerateRandomAlphanumeric(32);
+						var sessionCreatedOn = DateTime.Now;
+						var sessionExpiredOn = DateTime.Now.AddMinutes(5);
 
-						//_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { UserID = user.Id ,LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
+						_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
 
-						//_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric, ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
+						_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric, ActionType = "user-login", CreatedDate = DateTime.Now, CreatedBy = user.UserName });
 
-						//_loginSessionDBContext.SaveChanges();
+						_loginSessionDBContext.SaveChanges();
 
-						//HttpContext.Session.SetString("SessionID", randomAlphanumeric);
+						HttpContext.Session.SetString("SessionID", randomAlphanumeric);
 
 						return RedirectToAction("Index", "Home");
 					}
@@ -224,16 +224,16 @@ namespace VPMSWeb.Controllers
 			{
 				await _signInManager.SignOutAsync();
 
-				//var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
+				var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
 
-				//var newLoginSessionLog = new LoginSessionLogModel() { SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
+				var newLoginSessionLog = new LoginSessionLogModel() { SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
 
-				//if (autoLogout) { newLoginSessionLog.ActionType = "expired-logout"; }
-				//else { newLoginSessionLog.ActionType = "user-logout"; }
+				if (autoLogout) { newLoginSessionLog.ActionType = "expired-logout"; }
+				else { newLoginSessionLog.ActionType = "user-logout"; }
 
-				//_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
+				_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
 
-				//_loginSessionDBContext.SaveChanges();
+				_loginSessionDBContext.SaveChanges();
 
 			}
 			catch (Exception ex)
@@ -395,7 +395,7 @@ namespace VPMSWeb.Controllers
 					var roleCreated = await _roleManager.CreateAsync(role);
 					if (roleCreated.Succeeded)
 					{
-						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 999, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 999, Status = 1, IsAdmin = 1, IsDoctor = 0, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
 
 						_roleDBContext.SaveChanges();
 					}
@@ -408,7 +408,7 @@ namespace VPMSWeb.Controllers
 					var roleCreated = await _roleManager.CreateAsync(role);
 					if (roleCreated.Succeeded)
 					{
-						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 1, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 1, Status = 1, IsAdmin = 0, IsDoctor = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
 
 						_roleDBContext.SaveChanges();
 					}
@@ -421,7 +421,7 @@ namespace VPMSWeb.Controllers
 					var roleCreated = await _roleManager.CreateAsync(role);
 					if (roleCreated.Succeeded)
 					{
-						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 2, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 2, Status = 1, IsAdmin = 1, IsDoctor = 0, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
 
 						_roleDBContext.SaveChanges();
 					}
@@ -434,7 +434,20 @@ namespace VPMSWeb.Controllers
 					var roleCreated = await _roleManager.CreateAsync(role);
 					if (roleCreated.Succeeded)
 					{
-						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 3, Status = 1, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 3, Status = 1, IsAdmin = 0, IsDoctor = 0, CreatedDate = DateTime.Now, CreatedBy = "Admin" });
+
+						_roleDBContext.SaveChanges();
+					}
+				}
+
+
+				if (!roles.Where(x => x.Name == "Superuser").Any())
+				{
+					role = new IdentityRole("Superuser");
+					var roleCreated = await _roleManager.CreateAsync(role);
+					if (roleCreated.Succeeded)
+					{
+						_roleDBContext.Add(new RoleModel { RoleID = role.Id, RoleName = role.Name, RoleType = 998, Status = 1, IsAdmin = 1, IsDoctor = 0, CreatedDate = DateTime.Now, CreatedBy = "System" });
 
 						_roleDBContext.SaveChanges();
 					}
