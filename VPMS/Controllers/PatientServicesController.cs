@@ -16,6 +16,7 @@ namespace VPMSWeb.Controllers
 		private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 		private readonly DoctorDBContext _doctorDBContext = new DoctorDBContext(ConfigSettings.GetConfigurationSettings());
 		private readonly TreatmentPlanDBContext _treatmentPlanDBContext = new TreatmentPlanDBContext();
+		private readonly UserDBContext _userDBContext = new UserDBContext();
 
 		int totalServices;
 		int totalTreatmentPlan;
@@ -39,6 +40,7 @@ namespace VPMSWeb.Controllers
 		{
 			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
 			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
+			ViewData["UserList"] = _userDBContext.Mst_User.Where(x => x.BranchID == int.Parse(HttpContext.Session.GetString("BranchID"))).ToList();
 
 			return View();
 		}
@@ -60,6 +62,7 @@ namespace VPMSWeb.Controllers
 			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
 			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
 			ViewData["Type"] = type;
+			ViewData["UserList"] = _userDBContext.Mst_User.Where(x => x.BranchID == int.Parse(HttpContext.Session.GetString("BranchID"))).ToList();
 			return View();
 		}
 
@@ -81,7 +84,11 @@ namespace VPMSWeb.Controllers
 		{
 			int start = (page - 1) * rowLimit;
 
-			var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, out totalTreatmentPlan, search).ToList();
+            var role = HttpContext.Session.GetString("RoleName");
+            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+            var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, branch, organisation, out totalTreatmentPlan, search).ToList();
 
 			var treatmentPlansInfos = new TreatmentPlanInfos() {  treatmentPlans = treatmentPlanList, totalTreatmentPlan = totalTreatmentPlan };
 
@@ -114,7 +121,11 @@ namespace VPMSWeb.Controllers
 		{
 			int start = (page - 1) * rowLimit;
 
-			var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, out totalServices, search).ToList();
+            var role = HttpContext.Session.GetString("RoleName");
+            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+            var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, branch, organisation, out totalServices, search).ToList();
 
 			var servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
 

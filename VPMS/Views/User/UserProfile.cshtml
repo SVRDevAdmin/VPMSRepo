@@ -121,7 +121,7 @@
 					<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 					<option value="F"> @LangResources["Patient_Selection_Female"]</option>
 				</select>
-				<span id="GenderText" class="formlabel staffProfile textColor">@Model.Gender</span>
+				<span id="GenderText" class="formlabel staffProfile textColor">@(Model.Gender == "M" ? LangResources["Patient_Selection_Male"] : LangResources["Patient_Selection_Female"])</span>
 			</div>
 
 			<div class="field-container halfSize">
@@ -163,19 +163,18 @@
 				</select>
 				<span id="StatusText" class="formlabel staffProfile textColor">@Model.Status</span>
 			</div>
-		</div>
+		</div>	
 
+	</div>
 
-		<div class="staffProfile" style="text-align: end; margin-right: 1.6vw;">
-			<button onclick="window.location = '@ViewBag.PreviousPage'" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Back </button>
-			<button onclick="editProfile();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Edit </button>
-		</div>
+	<div class="staffProfile" style="text-align: end; margin-right: 1.6vw;">
+		<button onclick="window.location = '@ViewBag.PreviousPage'" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Back </button>
+		<button onclick="editProfile();" class="btn btn-lg btn-primary hideContainer" style="width: 11vw; font-size: 1vw;"> Edit </button>
+	</div>
 
-		<div class="hideContainer staffProfile" style="text-align: end; margin-right: 1.6vw;">
-			<button onclick="editProfile();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
-			<button class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Save </button>
-		</div>
-
+	<div class="hideContainer staffProfile" style="text-align: end; margin-right: 1.6vw;">
+		<button onclick="editProfile();" class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> Cancel </button>
+		<button class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> Save </button>
 	</div>
 </div>
 

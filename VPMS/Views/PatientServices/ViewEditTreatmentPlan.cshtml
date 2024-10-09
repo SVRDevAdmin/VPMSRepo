@@ -1,4 +1,5 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
+@using VPMS.Lib.Data.Models
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
 
 @{
@@ -132,8 +133,19 @@
 					<div class="field-container" style="width: 45%;">
 						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_CreatedBy"]</span>
 						<select id="CreatedBy" class="form-control form-field inputField treatmentPlanInfo hideContainer">
-							<option value="" selected> -- @LangResources["TreatmentPlan_Label_SelectUser"] -- </option>
-							@if (@treatmentPlanInfo.CreatedBy == "Admin1")
+							<option value=""> -- @LangResources["TreatmentPlan_Label_SelectUser"] -- </option>
+
+							@foreach (var user in ViewData["UserList"] as List<UserModel>)
+							{
+								var name = user.Surname + " " + user.LastName;
+
+								if (treatmentPlanInfo.CreatedBy == name)
+								{
+									<option value="@name" selected> @name </option>
+								}
+							}
+
+							@* @if (@treatmentPlanInfo.CreatedBy == "Admin1")
 							{
 								<option value="Admin1" selected> Admin1 </option>
 								<option value="Admin2"> Admin2 </option>
@@ -142,7 +154,7 @@
 							{
 								<option value="Admin1"> Admin1 </option>
 								<option value="Admin2" selected> Admin2 </option>
-							}
+							} *@
 						</select>
 						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.CreatedBy</span>
 					</div>

@@ -4,6 +4,8 @@
 @{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
+
+	var CountryList = Program.CountryList;
 }
 
 <style>
@@ -158,18 +160,22 @@
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-						<select id="Country" class="form-control form-field inputField hideContainer ownerInfoProfile">
-							<option value="" selected></option>
-							<option value="Malaysia"> Malaysia</option>
+						<select id="Country" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'country', '', '');">
+							<option value="" selected>@LangResources["Patient_Selection_SelectCountry"]</option>
+							@foreach (var country in CountryList)
+							{
+								<option value="@country.CountryName" data-id="@country.ID">@country.CountryName</option>
+							}
+							@* <option value="Malaysia"> Malaysia</option> *@
 						</select>
 						<span id="CountryText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-						<select id="State" class="form-control form-field inputField hideContainer ownerInfoProfile">
-							<option value="" selected></option>
-							<option value="Selangor"> Selangor</option>
+						<select id="State" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'state', '', '');">
+							<option value="" selected>@LangResources["Patient_Selection_SelectState"]</option>
+							@* <option value="Selangor"> Selangor</option> *@
 						</select>
 						<span id="StateText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
@@ -177,8 +183,8 @@
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 						<select id="City" class="form-control form-field inputField hideContainer ownerInfoProfile">
-							<option value="" selected></option>
-							<option value="Shah Alam"> Shah Alam</option>
+							<option value="" selected>@LangResources["Patient_Selection_SelectCity"]</option>
+							@* <option value="Shah Alam"> Shah Alam</option> *@
 						</select>
 						<span id="CityText" class="formlabel ownerInfoProfile textColor"></span>
 					</div>
@@ -269,18 +275,22 @@
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-							<select id="CoCountry" class="form-control form-field inputField hideContainer ownerInfoProfile">
-								<option value="" selected></option>
-								<option value="Malaysia"> Malaysia</option>
+							<select id="CoCountry" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'country', '', '');">
+								<option value="" selected>@LangResources["Patient_Selection_SelectCountry"]</option>
+								@foreach (var country in CountryList)
+								{
+									<option value="@country.CountryName" data-id="@country.ID">@country.CountryName</option>
+								}
+								@* <option value="Malaysia"> Malaysia</option> *@
 							</select>
 							<span id="CoCountryText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-							<select id="CoState" class="form-control form-field inputField hideContainer ownerInfoProfile">
-								<option value="" selected></option>
-								<option value="Selangor"> Selangor</option>
+							<select id="CoState" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'state', '', '');">
+								<option value="" selected>@LangResources["Patient_Selection_SelectState"]</option>
+								@* <option value="Selangor"> Selangor</option> *@
 							</select>
 							<span id="CoStateText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
@@ -288,8 +298,8 @@
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 							<select id="CoCity" class="form-control form-field inputField hideContainer ownerInfoProfile">
-								<option value="" selected></option>
-								<option value="Shah Alam"> Shah Alam</option>
+								<option value="" selected>@LangResources["Patient_Selection_SelectCity"]</option>
+								@* <option value="Shah Alam"> Shah Alam</option> *@
 							</select>
 							<span id="CoCityText" class="formlabel ownerInfoProfile textColor"></span>
 						</div>
@@ -513,7 +523,13 @@
 		if (data.patient_Owners[0].Gender == "M") { document.getElementById("GenderText").innerHTML = "Male"; }
 		else { document.getElementById("GenderText").innerHTML = "Female"; }
 		document.getElementById("CountryText").innerHTML = data.patient_Owners[0].Country;
+
+		changeCountryState(document.getElementById("Country"), "country", data.patient_Owners[0].Country, data.patient_Owners[0].State);
+
 		document.getElementById("StateText").innerHTML = data.patient_Owners[0].State;
+
+		changeCountryState(document.getElementById("State"), "state", data.patient_Owners[0].State, data.patient_Owners[0].City);
+
 		document.getElementById("CityText").innerHTML = data.patient_Owners[0].City;
 		document.getElementById("AddressText").innerHTML = data.patient_Owners[0].Address;
 		document.getElementById("PostcodeText").innerHTML = data.patient_Owners[0].PostCode;
@@ -526,8 +542,8 @@
 		document.getElementById("OwnerEmail").value = data.patient_Owners[0].EmailAddress;
 		document.getElementById("Gender").value = data.patient_Owners[0].Gender;
 		document.getElementById("Country").value = data.patient_Owners[0].Country;
-		document.getElementById("State").value = data.patient_Owners[0].State;
-		document.getElementById("City").value = data.patient_Owners[0].City;
+		// document.getElementById("State").value = data.patient_Owners[0].State;
+		// document.getElementById("City").value = data.patient_Owners[0].City;
 		document.getElementById("Address").value = data.patient_Owners[0].Address;
 		document.getElementById("Postcode").value = data.patient_Owners[0].PostCode;
 
@@ -538,7 +554,13 @@
 			if (data.patient_Owners[1].Gender == "M") { document.getElementById("CoGenderText").innerHTML = "Male"; }
 			else { document.getElementById("CoGenderText").innerHTML = "Female"; }
 			document.getElementById("CoCountryText").innerHTML = data.patient_Owners[1].Country;
+
+			changeCountryState(document.getElementById("CoCountry"), "country", data.patient_Owners[1].Country, data.patient_Owners[1].State);
+
 			document.getElementById("CoStateText").innerHTML = data.patient_Owners[1].State;
+
+			changeCountryState(document.getElementById("CoState"), "state", data.patient_Owners[1].State, data.patient_Owners[1].City);
+
 			document.getElementById("CoCityText").innerHTML = data.patient_Owners[1].City;
 			document.getElementById("CoAddressText").innerHTML = data.patient_Owners[1].Address;
 			document.getElementById("CoPostcodeText").innerHTML = data.patient_Owners[1].PostCode;
@@ -551,8 +573,8 @@
 			document.getElementById("CoOwnerEmail").value = data.patient_Owners[1].EmailAddress;
 			document.getElementById("CoGender").value = data.patient_Owners[1].Gender;
 			document.getElementById("CoCountry").value = data.patient_Owners[1].Country;
-			document.getElementById("CoState").value = data.patient_Owners[1].State;
-			document.getElementById("CoCity").value = data.patient_Owners[1].City;
+			// document.getElementById("CoState").value = data.patient_Owners[1].State;
+			// document.getElementById("CoCity").value = data.patient_Owners[1].City;
 			document.getElementById("CoAddress").value = data.patient_Owners[1].Address;
 			document.getElementById("CoPostcode").value = data.patient_Owners[1].PostCode;
 
@@ -561,6 +583,83 @@
 		else {
 			document.getElementById("coOwnerInfo").classList.toggle("hideContainer");
 		}
+	}
+
+	function changeCountryState(e, type, name, childName){
+		var option = e.options[e.selectedIndex];
+		var dataID = (name != "") ? 0 : option.getAttribute("data-id");
+		var parent = e.parentElement.parentElement;
+
+		if(type == "country"){
+			setState(parent, dataID, name, childName);
+		}
+		else{
+			setCity(parent, dataID, name, childName);
+		}
+	}
+
+
+	function setState(e, id, countryName, stateName) {
+
+		var parent = e.querySelector("#State");
+
+		if (parent == null) {
+			parent = e.querySelector("#CoState");
+		}
+
+		setCity(e, 0, "", "");
+
+		fetch('/Patients/GetState?countryID=' + id + "&countryName=" + countryName)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				parent.innerHTML = '<option value=""> -- @LangResources["Patient_Selection_SelectState"] -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					parent.innerHTML = parent.innerHTML + '<option value="' + data[i].State + '" data-id="' + data[i].ID + '">' + data[i].State + '</option>';
+				}
+
+				parent.value = stateName;
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+
+	function setCity(e, id, stateName, cityName) {
+
+		var parent = e.querySelector("#City");
+
+		if (parent == null) {
+			parent = e.querySelector("#CoCity");
+		}
+
+		fetch('/Patients/GetCity?stateID=' + id + "&stateName=" + stateName)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				parent.innerHTML = '<option value=""> -- @LangResources["Patient_Selection_SelectCity"] -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					parent.innerHTML = parent.innerHTML + '<option value="' + data[i].City + '" data-id="' + data[i].ID + '">' + data[i].City + '</option>';
+				}
+
+				parent.value = cityName;
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 
 	function updateOwnerInfo() {

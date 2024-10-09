@@ -25,13 +25,23 @@ namespace VPMS.Lib.Data.DBContext
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 		options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
-		public ObservableCollection<ServiceList> GetServiceList(int start, int total, out int totalServices, string search = "")
+		public ObservableCollection<ServiceList> GetServiceList(int start, int total, int branch, int organisation, out int totalServices, string search = "")
 		{
 			ObservableCollection<ServiceList> sList = new ObservableCollection<ServiceList>();
 			int No = start + 1;
 			totalServices = 0;
+            var roleFilter = "";
 
-			var filter = "WHERE a.name like '%" + search + "%' OR b.name like '%" + search + "%' OR a.DoctorInCharge like '%" + search + "%' ";
+            if (branch != 0)
+            {
+                roleFilter += "AND c.ID = " + branch + " ";
+            }
+            else if (organisation != 0)
+            {
+                roleFilter += "AND d.ID = " + organisation + " ";
+            }
+
+            var filter = "WHERE (a.name like '%" + search + "%' OR b.name like '%" + search + "%' OR a.DoctorInCharge like '%" + search + "%') "+ roleFilter + " ";
 			var joinQuery = 
 				"join mst_servicescategory b on b.ID = a.CategoryID " +
 				"join mst_branch c on c.ID = a.BranchID " +

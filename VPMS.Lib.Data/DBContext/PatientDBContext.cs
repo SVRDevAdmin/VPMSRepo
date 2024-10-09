@@ -27,18 +27,35 @@ namespace VPMS.Lib.Data.DBContext
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 			options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
-		public ObservableCollection<PetsInfo> GetPetsInfoList(int start, int total, string ownerName, string petName, string species, string breed, out int totalPets)
+		public ObservableCollection<PetsInfo> GetPetsInfoList(int start, int total, string ownerName, string petName, string species, string breed, int branch, int organisation, out int totalPets)
         {
             ObservableCollection<PetsInfo> sList = new ObservableCollection<PetsInfo>();
             int No = start + 1;
 			totalPets = 0;
-            
-            var filter = "WHERE b.Name like '%" + ownerName + "%' AND a.Name like '%"+ petName + "%' AND a.Species like '%" + species + "%' AND a.Breed like '%" + breed + "%' ";
 
-            var totalPetsQuery = "(select Count(a.Name) from mst_pets a join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " + filter + ")";
+			var roleFilter = "";
+
+			if(branch != 0)
+			{
+				roleFilter += "AND d.ID = " + branch + " ";
+            }
+            else if (organisation != 0)
+            {
+                roleFilter += "AND e.ID = " + organisation + " ";
+            }
+
+            var joinQuery =
+                "join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " +
+                "join mst_patients c on c.ID = a.PatientID " +
+                "join mst_branch d on d.ID = c.BranchID " +
+                "join mst_organisation e on e.ID = d.OrganizationID ";
+
+            var filter = "WHERE b.Name like '%" + ownerName + "%' AND a.Name like '%"+ petName + "%' AND a.Species like '%" + species + "%' AND a.Breed like '%" + breed + "%' " + roleFilter;
+
+            var totalPetsQuery = "(select Count(a.Name) from mst_pets a " + joinQuery + filter + ")";
 
             var completeQuery = "select a.PatientID, a.ID, a.Name, b.Name AS 'OwnerName', a.Gender, a.Age, a.DOB, a.Species, a.Breed, a.CreatedDate, "+ totalPetsQuery + " as 'TotalPets' from mst_pets a " +
-				"join mst_patients_owner b on b.PatientID = a.PatientID AND b.ID = (SELECT MIN(ID) FROM mst_patients_owner WHERE PatientID = a.PatientID) " + filter +
+                joinQuery + filter +
 				"Order by a.ID LIMIT " + start + ", " + total + ";";
 			
 			try

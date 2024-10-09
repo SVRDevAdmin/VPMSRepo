@@ -7,6 +7,7 @@ using System.Numerics;
 using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
+using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
 {
@@ -18,6 +19,7 @@ namespace VPMSWeb.Controllers
 		private readonly ServicesDBContext _servicesDBContext = new ServicesDBContext();
 		private readonly TreatmentPlanDBContext _treatmentPlanDBContext = new TreatmentPlanDBContext();
 		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
+		private readonly CountryDBContext _countryDBContext = new CountryDBContext(ConfigSettings.GetConfigurationSettings());
 
 		int totalPets;
 
@@ -326,9 +328,13 @@ namespace VPMSWeb.Controllers
 
 			int start = (page - 1) * rowLimit;
 
-			try
+			var role = HttpContext.Session.GetString("RoleName");
+            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+            try
 			{
-				var petsInfoList = _patientDBContext.GetPetsInfoList(start, rowLimit, ownername, petName, species, breed, out totalPets).ToList();
+				var petsInfoList = _patientDBContext.GetPetsInfoList(start, rowLimit, ownername, petName, species, breed, branch, organisation, out totalPets).ToList();
 
 				patientsInfo = new PatientsInfo() { petsInfo = petsInfoList, totalPatients = totalPets };
 			}
@@ -641,6 +647,27 @@ namespace VPMSWeb.Controllers
 			}
 
 			return pet_Growths;
+		}
+
+		public List<StateModel> GetState(int countryID, string countryName = "")
+		{
+			if(countryName != "")
+			{
+				countryID = _countryDBContext.mst_countrylist.FirstOrDefault(x => x.CountryName == countryName).ID;
+			}
+
+			return _countryDBContext.mst_state.Where(x => x.CountryID == countryID).ToList();
+
+		}
+
+		public List<CityModel> GetCity(int stateID, string stateName = "")
+		{
+			if (stateName != "")
+			{
+				stateID = _countryDBContext.mst_state.FirstOrDefault(x => x.State == stateName).ID;
+			}
+
+			return _countryDBContext.mst_city.Where(x => x.StateID == stateID).ToList();
 		}
 	}
 }

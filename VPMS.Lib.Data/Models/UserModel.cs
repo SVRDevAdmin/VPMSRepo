@@ -7,9 +7,15 @@ namespace VPMS.Lib.Data.Models
         [Key]
         public string UserID { get; set; } = null!;
 
-        public string Name { get; set; } = null!;
+        public string Surname { get; set; } = null!;
 
-        public string EmailAddress { get; set; } = null!;
+		public string LastName { get; set; } = null!;
+
+		public string StaffID { get; set; } = null!;
+
+		public string Gender { get; set; } = null!;
+
+		public string EmailAddress { get; set; } = null!;
 
         public int Status { get; set; }
 
@@ -21,8 +27,9 @@ namespace VPMS.Lib.Data.Models
     }
 
     public class StaffProfileInfo
-    {
-        public string Surname { get; set; }
+	{
+		public string UserID { get; set; } = null!;
+		public string Surname { get; set; }
         public string LastName {  get; set; }
         public string StaffID { get; set; }
         public string Gender { get; set; }

@@ -47,7 +47,7 @@ namespace VPMSWeb.Controllers
 			ViewData["CountryList"] = sCountryList;
             Program.CountryList = sCountryList;
 
-            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), Request.Cookies["userid"]);
+            var sUserConfigurationSettings = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), sessionUserID);
 			if (sUserConfigurationSettings != null && sUserConfigurationSettings.Count != 0)
 			{
 				ViewData["LanguageSelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Language").FirstOrDefault();
@@ -146,15 +146,16 @@ namespace VPMSWeb.Controllers
 					sModel.CreatedDate = DateTime.Now;
 					sModel.CreatedBy = UserID;
 
-					if (ConfigurationRepository.UpdateUserConfigurationSettingsByKey(ConfigSettings.GetConfigurationSettings(), sModel))
-					{
-						Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
-						Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
 
+                    if (ConfigurationRepository.UpdateUserConfigurationSettingsByKey(ConfigSettings.GetConfigurationSettings(), sModel))
+					{
 						Program.LanguageFullNameSelected = Program.LanguageCodeList.Where(x => x.CodeID == lang).FirstOrDefault();
 						Program.LanguageSelected = sModel;
 
-					}
+                        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
+                        Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+
+                    }
 					else
 					{
 						//todo:

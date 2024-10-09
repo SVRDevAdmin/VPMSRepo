@@ -9,6 +9,7 @@ using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using System.Web;
 using System.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace VPMSWeb.Controllers
 {
@@ -100,15 +101,20 @@ namespace VPMSWeb.Controllers
 						CookieOptions cookies = new CookieOptions
 						{
 							Expires = DateTime.Now.AddHours(1)
-						};
+						};						
 
-						Response.Cookies.Append("user", userInfo.Name, cookies);
+                        Response.Cookies.Append("user", userInfo.Surname +" "+ userInfo.LastName, cookies);
 						Response.Cookies.Append("userid", userInfo.UserID, cookies);
 
 						HttpContext.Session.SetString("BranchID", userInfo.BranchID.ToString());
 						HttpContext.Session.SetString("RoleID", userInfo.RoleID);
 						HttpContext.Session.SetString("UserID", userInfo.UserID);
-						var randomAlphanumeric = GenerateRandomAlphanumeric(32);
+
+                        var userRole = await _userManager.GetRolesAsync(user);
+                        HttpContext.Session.SetString("RoleName", userRole.First());
+                        HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
+
+                        var randomAlphanumeric = GenerateRandomAlphanumeric(32);
 						var sessionCreatedOn = DateTime.Now;
 						var sessionExpiredOn = DateTime.Now.AddMinutes(5);
 
@@ -192,15 +198,16 @@ namespace VPMSWeb.Controllers
 
 					var generatedPassword = RandomPasswordGenerator();
 
-					var result = await _userManager.CreateAsync(user, generatedPassword);
+					//var result = await _userManager.CreateAsync(user, generatedPassword);
+					var result = await _userManager.CreateAsync(user, "Abcd@1234");
 
-					if (result.Succeeded)
+                    if (result.Succeeded)
 					{
-						_userDBContext.Add(new UserModel() { UserID = user.Id, Name = registerInfo.Name, EmailAddress = registerInfo.Email, Status = 1, RoleID = registerInfo.Role, BranchID = registerInfo.Branch, CreatedDate = DateTime.Now, CreatedBy = "System" });
+						_userDBContext.Add(new UserModel() { UserID = user.Id, Surname = registerInfo.Surname, LastName = registerInfo.LastName, StaffID = "ABC1234567", Gender = "M", EmailAddress = registerInfo.Email, Status = 1, RoleID = registerInfo.Role, BranchID = registerInfo.Branch, CreatedDate = DateTime.Now, CreatedBy = "System" });
 
 						_userDBContext.SaveChanges();
 
-						var addclaim = await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("Fullname", registerInfo.Name));
+						//var addclaim = await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("Fullname", registerInfo.Name));
 
 						var role = await _roleManager.FindByIdAsync(registerInfo.Role);
 

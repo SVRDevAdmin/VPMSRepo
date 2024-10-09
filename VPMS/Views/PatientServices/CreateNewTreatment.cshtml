@@ -1,9 +1,13 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
+@using VPMS.Lib.Data.Models
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
 	ViewData["Title"] = "Create New Treatment Plan Page";
 	ViewBag.SelectedMenu = "patientServicesMenu";
+
+	var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
 }
 
 <style>
@@ -126,8 +130,14 @@
 						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_CreatedBy"]</span>
 						<select id="CreatedBy" class="form-control form-field inputField">
 							<option value="" selected> -- @LangResources["TreatmentPlan_Label_SelectUser"] -- </option>
-							<option value="Admin1"> Admin1 </option>
-							<option value="Admin2"> Admin2 </option>
+							@foreach (var user in ViewData["UserList"] as List<UserModel>)
+							{
+								var name = user.Surname +" "+ user.LastName;
+
+								<option value="@name"> @name </option>
+							}
+							@* <option value="Admin1"> Admin1 </option>
+							<option value="Admin2"> Admin2 </option> *@
 						</select>
 					</div>
 
@@ -538,7 +548,7 @@
 			CreatedBy: createdBy.value,
 			Status: status.value,
 			TotalPrice: totalPrice.innerHTML,
-			BranchID: 1,
+			BranchID: @sessionBranchID,
 			IsDeleted: 0
 		}
 

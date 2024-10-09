@@ -104,3 +104,15 @@ CREATE TABLE `txn_stock_transaction` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+
+INSERT INTO `mst_servicescategory`
+(`Name`,`SubCategoryName`,`Status`,`CreatedDate`,`CreatedBy`)
+VALUES
+('Surgery','Spaying',1,now(),'System'),
+('Surgery','Dental',1,now(),'System'),
+('Surgery','Ear',1,now(),'System'),
+('Vaccination','Vaccination',1,now(),'System'),
+('Vaccination','Deworming',1,now(),'System'),
+('Vaccination','Rabbits Vaccination',1,now(),'System'),
+('Consultation','Consultation',1,now(),'System'),
+('Treatment','Flea Treatment',1,now(),'System');

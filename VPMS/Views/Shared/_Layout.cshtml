@@ -263,11 +263,10 @@
                             </a>
                         </li>
                         <li>
-                            @* <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0"> *@
-                            <a id="mnDoctor" href="#" class="nav-link align-middle px-0">
+                            <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
                                 <span id="doctorMenu" class="spanMenuBlue"></span>
                                 <img id="iconDoctor" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Doctor"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Doctor"]</span>
                             </a>
                         </li>
                         <li>
@@ -739,7 +738,9 @@
         }
 
         var pageName = '@ViewBag.SelectedMenu';
-        $("#" + pageName).toggleClass('selected')
+        if(pageName != ""){
+            $("#" + pageName).toggleClass('selected')
+        }
 
         $(document).ready(function () {
             $('#txtfilter').on('keyup', function () {
@@ -754,8 +755,11 @@
         function updateCountrySettings() {
             $country = $('.list-group-item.active').text();
 
+            var test1 = '@sessionUserID';
+            var test2 = $country;
+
             if ($country != null && $country.length > 0) {
-                $.post("Configuration/UpdateUserConfiguration", {
+                $.post("/Configuration/UpdateUserConfiguration", {
                     userid: '@sessionUserID',
                     ConfigKey: 'UserSettings_Country',
                     ConfigVal: $country
