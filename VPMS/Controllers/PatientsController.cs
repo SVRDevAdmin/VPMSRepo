@@ -20,8 +20,9 @@ namespace VPMSWeb.Controllers
 		private readonly TreatmentPlanDBContext _treatmentPlanDBContext = new TreatmentPlanDBContext();
 		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
 		private readonly CountryDBContext _countryDBContext = new CountryDBContext(ConfigSettings.GetConfigurationSettings());
+        private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 
-		int totalPets;
+        int totalPets;
 
 		public IActionResult Index()
         {
@@ -46,9 +47,36 @@ namespace VPMSWeb.Controllers
 		[Route("/Patients/PatientProfile/{type}/{patientid}")]
 		public IActionResult ViewPatientProfile(string type, int patientid)
 		{
-			try
+			List<int> patientList = new List<int>();
+
+
+            try
 			{
-				ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
+                var role = HttpContext.Session.GetString("RoleName");
+                var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+                var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+				if (role == "Superadmin")
+				{
+                    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+                }
+				else if(organisation != 0)
+				{
+					List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+                    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+                }
+				else if(branch != 0)
+				{
+                    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+                }
+
+				if (!patientList.Contains(patientid))
+				{
+                    return RedirectToAction("PatientsList", "Patients");
+                }
+
+                ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 				ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
 			}
 			catch (Exception ex)
@@ -68,10 +96,35 @@ namespace VPMSWeb.Controllers
 		public IActionResult PetProfile(string type,int patientid, string petname)
 		{
 			Pets petProfile = new Pets();
+            List<int> patientList = new List<int>();
 
-			try
+            try
 			{
-				ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
+                var role = HttpContext.Session.GetString("RoleName");
+                var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+                var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+                if (role == "Superadmin")
+                {
+                    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+                }
+                else if (organisation != 0)
+                {
+                    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+                    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+                }
+                else if (branch != 0)
+                {
+                    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+                }
+
+                if (!patientList.Contains(patientid))
+                {
+                    return RedirectToAction("PatientsList", "Patients");
+                }
+
+                ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 				ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
 				ViewData["OtherPets"] = _patientDBContext.Mst_Pets.Where(x => x.PatientID == patientid && x.Name != petname).Select(y => y.Name).ToList();
 				ViewData["VaccinationList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Vaccination").ToList();
@@ -118,10 +171,35 @@ namespace VPMSWeb.Controllers
 		public IActionResult TreatmentPlan(int patientid, string petname)
 		{
 			Pets petInfo = new Pets();
+            List<int> patientList = new List<int>();
 
-			try
+            try
 			{
-				petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
+                var role = HttpContext.Session.GetString("RoleName");
+                var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+                var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+                if (role == "Superadmin")
+                {
+                    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+                }
+                else if (organisation != 0)
+                {
+                    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+                    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+                }
+                else if (branch != 0)
+                {
+                    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+                }
+
+                if (!patientList.Contains(patientid))
+                {
+                    return RedirectToAction("PatientsList", "Patients");
+                }
+
+                petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 			}
 			catch (Exception ex)
 			{
@@ -324,7 +402,10 @@ namespace VPMSWeb.Controllers
 
 		public PatientsInfo GetPetsInfoList(int rowLimit, int page, string ownername, string petName, string species, string breed)
         {
-			var patientsInfo = new PatientsInfo();
+			var patientsInfo = new PatientsInfo()
+			{
+				petsInfo = new List<PetsInfo>(), totalPatients = 0
+			};
 
 			int start = (page - 1) * rowLimit;
 
@@ -332,16 +413,19 @@ namespace VPMSWeb.Controllers
             var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
             var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-            try
+			if(role != "User")
 			{
-				var petsInfoList = _patientDBContext.GetPetsInfoList(start, rowLimit, ownername, petName, species, breed, branch, organisation, out totalPets).ToList();
+                try
+                {
+                    var petsInfoList = _patientDBContext.GetPetsInfoList(start, rowLimit, ownername, petName, species, breed, branch, organisation, out totalPets).ToList();
 
-				patientsInfo = new PatientsInfo() { petsInfo = petsInfoList, totalPatients = totalPets };
-			}
-			catch (Exception ex)
-			{
-				Program.logger.Error("Controller Error >> ", ex);
-			}
+                    patientsInfo = new PatientsInfo() { petsInfo = petsInfoList, totalPatients = totalPets };
+                }
+                catch (Exception ex)
+                {
+                    Program.logger.Error("Controller Error >> ", ex);
+                }
+            }
 
 			return patientsInfo;
 		}

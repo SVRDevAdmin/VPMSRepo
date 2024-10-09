@@ -57,7 +57,33 @@ namespace VPMSWeb.Controllers
 		[Route("/PatientServices/ViewEditTreatmentPlan/{type}/{treatmentPlanId}")]
 		public IActionResult ViewEditTreatmentPlan(string type, int treatmentPlanId)
 		{
-			var treatmentInfo = _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == treatmentPlanId);
+            List<int> treatmentPlanList = new List<int>();
+
+            var role = HttpContext.Session.GetString("RoleName");
+            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+            if (role == "Superadmin")
+            {
+                treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Select(y => y.ID).ToList();
+            }
+            else if (organisation != 0)
+            {
+                List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+                treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+            }
+            else if (branch != 0)
+            {
+                treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+            }
+
+            if (!treatmentPlanList.Contains(treatmentPlanId))
+            {
+                return RedirectToAction("TreatmentPlanList", "PatientServices");
+            }
+
+            var treatmentInfo = _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == treatmentPlanId);
 			ViewData["TreatmentPlan"] = treatmentInfo;
 			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
 			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
@@ -69,7 +95,33 @@ namespace VPMSWeb.Controllers
 		[Route("/PatientServices/ViewEditService/{type}/{serviceId}")]
 		public IActionResult ViewEditService(string type, int serviceID)
 		{
-			ViewData["DoctorList"] = _doctorDBContext.mst_doctor.ToList();
+			List<int> serviceList = new List<int>();
+
+            var role = HttpContext.Session.GetString("RoleName");
+            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+            if (role == "Superadmin")
+            {
+                serviceList = _servicesDBContext.Mst_Services.Select(y => y.ID).ToList();
+            }
+            else if (organisation != 0)
+            {
+                List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+                serviceList = _servicesDBContext.Mst_Services.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+            }
+            else if (branch != 0)
+            {
+                serviceList = _servicesDBContext.Mst_Services.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+            }
+
+            if (!serviceList.Contains(serviceID))
+            {
+                return RedirectToAction("ServiceList", "PatientServices");
+            }
+
+            ViewData["DoctorList"] = _doctorDBContext.mst_doctor.ToList();
 			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1).ToList();
 			ViewData["Category"] = _servicesDBContext.Mst_ServicesCategory.ToList();
 			var serviceInfo = _servicesDBContext.Mst_Services.FirstOrDefault(x => x.ID == serviceID);
@@ -83,14 +135,18 @@ namespace VPMSWeb.Controllers
 		public TreatmentPlanInfos GetTreatmentPlanList(int rowLimit, int page, string search = "")
 		{
 			int start = (page - 1) * rowLimit;
+			var treatmentPlansInfos = new TreatmentPlanInfos() { totalTreatmentPlan = 0, treatmentPlans = new List<TreatmentPlanModel>() };
 
             var role = HttpContext.Session.GetString("RoleName");
             var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
             var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-            var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, branch, organisation, out totalTreatmentPlan, search).ToList();
+            if (role != "User")
+            {
+                var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, branch, organisation, out totalTreatmentPlan, search).ToList();
 
-			var treatmentPlansInfos = new TreatmentPlanInfos() {  treatmentPlans = treatmentPlanList, totalTreatmentPlan = totalTreatmentPlan };
+                treatmentPlansInfos = new TreatmentPlanInfos() { treatmentPlans = treatmentPlanList, totalTreatmentPlan = totalTreatmentPlan };
+            }
 
 			return treatmentPlansInfos;
 		}
@@ -120,14 +176,18 @@ namespace VPMSWeb.Controllers
 		public ServicesInfo GetServiceList(int rowLimit, int page, string search = "")
 		{
 			int start = (page - 1) * rowLimit;
+            ServicesInfo servicesInfo = new ServicesInfo() { ServiceList = new List<ServiceList>(), totalServices = 0 };
 
             var role = HttpContext.Session.GetString("RoleName");
             var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
             var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-            var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, branch, organisation, out totalServices, search).ToList();
+            if (role != "User")
+            {
+                var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, branch, organisation, out totalServices, search).ToList();
 
-			var servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
+                servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
+            }
 
 			return servicesInfo;
 		}
