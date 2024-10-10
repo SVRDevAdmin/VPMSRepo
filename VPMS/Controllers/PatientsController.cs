@@ -380,7 +380,8 @@ namespace VPMSWeb.Controllers
 			return patientInfo;
 		}
 
-		public IActionResult CreateNewPatient()
+        [Authorize(Roles = "Superadmin,Superuser,Clinic Admin,Doctor")]
+        public IActionResult CreateNewPatient()
 		{
 			try
 			{
