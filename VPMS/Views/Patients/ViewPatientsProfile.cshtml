@@ -449,43 +449,43 @@
 
 	function setValue(data) {
 		document.getElementById("OwnerNameText").innerHTML = data.patient_Owners[0].name;
-		document.getElementById("ContactNoText").innerHTML = data.patient_Owners[0].contactNo;
-		if (data.patient_Owners[0].gender == "M") { document.getElementById("GenderText").innerHTML = "Male"; }
+		document.getElementById("ContactNoText").innerHTML = data.patient_Owners[0].ContactNo;
+		if (data.patient_Owners[0].Gender == "M") { document.getElementById("GenderText").innerHTML = "Male"; }
 		else { document.getElementById("GenderText").innerHTML = "Female"; }
-		document.getElementById("CountryText").innerHTML = data.patient_Owners[0].country;
-		document.getElementById("StateText").innerHTML = data.patient_Owners[0].state;
-		document.getElementById("CityText").innerHTML = data.patient_Owners[0].city;
-		document.getElementById("AddressText").innerHTML = data.patient_Owners[0].address;
-		document.getElementById("PostcodeText").innerHTML = data.patient_Owners[0].postCode;
+		document.getElementById("CountryText").innerHTML = data.patient_Owners[0].Country;
+		document.getElementById("StateText").innerHTML = data.patient_Owners[0].State;
+		document.getElementById("CityText").innerHTML = data.patient_Owners[0].City;
+		document.getElementById("AddressText").innerHTML = data.patient_Owners[0].Address;
+		document.getElementById("PostcodeText").innerHTML = data.patient_Owners[0].PostCode;
 
 		document.getElementById("OwnerName").value = data.patient_Owners[0].name;
-		document.getElementById("ContactNo").value = data.patient_Owners[0].contactNo;
-		document.getElementById("Gender").value = data.patient_Owners[0].gender;
-		document.getElementById("Country").value = data.patient_Owners[0].country;
-		document.getElementById("State").value = data.patient_Owners[0].state;
-		document.getElementById("City").value = data.patient_Owners[0].city;
-		document.getElementById("Address").value = data.patient_Owners[0].address;
-		document.getElementById("Postcode").value = data.patient_Owners[0].postCode;
+		document.getElementById("ContactNo").value = data.patient_Owners[0].ContactNo;
+		document.getElementById("Gender").value = data.patient_Owners[0].Gender;
+		document.getElementById("Country").value = data.patient_Owners[0].Country;
+		document.getElementById("State").value = data.patient_Owners[0].State;
+		document.getElementById("City").value = data.patient_Owners[0].City;
+		document.getElementById("Address").value = data.patient_Owners[0].Address;
+		document.getElementById("Postcode").value = data.patient_Owners[0].PostCode;
 
 		if (data.patient_Owners.length > 1) {
 			document.getElementById("CoOwnerNameText").innerHTML = data.patient_Owners[1].name;
-			document.getElementById("CoContactNoText").innerHTML = data.patient_Owners[1].contactNo;
-			if (data.patient_Owners[1].gender == "M") { document.getElementById("CoGenderText").innerHTML = "Male"; }
+			document.getElementById("CoContactNoText").innerHTML = data.patient_Owners[1].ContactNo;
+			if (data.patient_Owners[1].Gender == "M") { document.getElementById("CoGenderText").innerHTML = "Male"; }
 			else { document.getElementById("CoGenderText").innerHTML = "Female"; }
-			document.getElementById("CoCountryText").innerHTML = data.patient_Owners[1].country;
-			document.getElementById("CoStateText").innerHTML = data.patient_Owners[1].state;
-			document.getElementById("CoCityText").innerHTML = data.patient_Owners[1].city;
-			document.getElementById("CoAddressText").innerHTML = data.patient_Owners[1].address;
-			document.getElementById("CoPostcodeText").innerHTML = data.patient_Owners[1].postCode;
+			document.getElementById("CoCountryText").innerHTML = data.patient_Owners[1].Country;
+			document.getElementById("CoStateText").innerHTML = data.patient_Owners[1].State;
+			document.getElementById("CoCityText").innerHTML = data.patient_Owners[1].City;
+			document.getElementById("CoAddressText").innerHTML = data.patient_Owners[1].Address;
+			document.getElementById("CoPostcodeText").innerHTML = data.patient_Owners[1].PostCode;
 
 			document.getElementById("CoOwnerName").value = data.patient_Owners[1].name;
-			document.getElementById("CoContactNo").value = data.patient_Owners[1].contactNo;
-			document.getElementById("CoGender").value = data.patient_Owners[1].gender;
-			document.getElementById("CoCountry").value = data.patient_Owners[1].country;
-			document.getElementById("CoState").value = data.patient_Owners[1].state;
-			document.getElementById("CoCity").value = data.patient_Owners[1].city;
-			document.getElementById("CoAddress").value = data.patient_Owners[1].address;
-			document.getElementById("CoPostcode").value = data.patient_Owners[1].postCode;
+			document.getElementById("CoContactNo").value = data.patient_Owners[1].ContactNo;
+			document.getElementById("CoGender").value = data.patient_Owners[1].Gender;
+			document.getElementById("CoCountry").value = data.patient_Owners[1].Country;
+			document.getElementById("CoState").value = data.patient_Owners[1].State;
+			document.getElementById("CoCity").value = data.patient_Owners[1].City;
+			document.getElementById("CoAddress").value = data.patient_Owners[1].Address;
+			document.getElementById("CoPostcode").value = data.patient_Owners[1].PostCode;
 		}
 		else {
 			document.getElementById("coOwnerInfo").classList.toggle("hideContainer");
@@ -523,17 +523,17 @@
 			element[1].innerHTML = data.pets[i].name;
 
 			element = clone.querySelectorAll('.RegistrationNo');
-			element[0].value = data.pets[i].registrationNo;
-			element[1].innerHTML = data.pets[i].registrationNo;
+			element[0].value = data.pets[i].RegistrationNo;
+			element[1].innerHTML = data.pets[i].RegistrationNo;
 
 			element = clone.querySelectorAll('.Sex');
-			element[0].value = data.pets[i].gender;
-			if (data.pets[i].gender == "M") { element[1].innerHTML = "Male"; }
+			element[0].value = data.pets[i].Gender;
+			if (data.pets[i].Gender == "M") { element[1].innerHTML = "Male"; }
 			else { element[1].innerHTML = "Female"; }
 
 			element = clone.querySelectorAll('.DOB');
-			element[0].value = data.pets[i].dob;
-			element[1].innerHTML = data.pets[i].dob;
+			element[0].value = data.pets[i].DOB;
+			element[1].innerHTML = data.pets[i].DOB;
 
 			element = clone.querySelectorAll('.Age');
 			element[0].value = data.pets[i].age;
@@ -544,29 +544,29 @@
 			element[1].innerHTML = data.pets[i].species;
 
 			var breedElement = clone.querySelectorAll('.Breed');
-			breedList(data.pets[i].species, breedElement[0], data.pets[i].breed);
-			// breedElement[0].value = data.pets[i].breed;
-			breedElement[1].innerHTML = data.pets[i].breed;
+			breedList(data.pets[i].species, breedElement[0], data.pets[i].Breed);
+			// breedElement[0].value = data.pets[i].Breed;
+			breedElement[1].innerHTML = data.pets[i].Breed;
 
 			element = clone.querySelectorAll('.Allergies');
-			element[0].value = data.pets[i].allergies;
-			element[1].innerHTML = data.pets[i].allergies;
+			element[0].value = data.pets[i].Allergies;
+			element[1].innerHTML = data.pets[i].Allergies;
 
 			element = clone.querySelectorAll('.Color');
-			element[0].value = data.pets[i].color;
-			element[1].innerHTML = data.pets[i].color;
+			element[0].value = data.pets[i].Color;
+			element[1].innerHTML = data.pets[i].Color;
 
 			element = clone.querySelectorAll('.Height');
-			element[0].value = data.pets[i].height;
-			element[1].innerHTML = data.pets[i].height;
+			element[0].value = data.pets[i].Height;
+			element[1].innerHTML = data.pets[i].Height;
 
 			element = clone.querySelectorAll('.Weight');
-			element[0].value = data.pets[i].weight;
-			element[1].innerHTML = data.pets[i].weight;
+			element[0].value = data.pets[i].Weight;
+			element[1].innerHTML = data.pets[i].Weight;
 
 			element = clone.querySelectorAll('.Status');
-			element[0].value = data.pets[i].status;
-			element[1].innerHTML = data.pets[i].status;
+			element[0].value = data.pets[i].Status;
+			element[1].innerHTML = data.pets[i].Status;
 
 			allPetsElement.innerHTML = allPetsElement.innerHTML +
 				'<div class="field-container" style="text-align: center;">' +
@@ -596,11 +596,11 @@
 				}
 
 				for (let i = 0; i < data.length; i++) {
-					if (breedValue == data[i].breed) {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '" selected>' + data[i].breed + '</option>';
+					if (breedValue == data[i].Breed) {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '" selected>' + data[i].Breed + '</option>';
 					}
 					else {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
 					}					
 				}
 			})

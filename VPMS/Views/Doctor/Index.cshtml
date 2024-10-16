@@ -189,12 +189,12 @@
     <div class="row" style="margin-left: 5px;">
         <div class="col-md-5 searchRowHeight" >
             <div class="row searchRowHeight" >
-                <input id="txtSearch" type="text" class="form-control searchFields" placeholder="@LangResources["Doctor_Label_SearchByDoctorName"]" />
+                <input id="txtSearch" type="text" class="form-control searchFields" placeholder="@LangResources["Doctor_Label_SearchByDoctorName"]" style=" font-size: 1vw;" />
             </div>
         </div>
         <div class="col-md-1">
             <div class="row rowSearchMargin" >
-                <button id="btnSearch" type="button" class="btn btn-primary" style="margin: 5px;">
+                <button id="btnSearch" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw;">
                     @LangResources["Doctor_Button_Search"]
                 </button>
             </div>
@@ -205,7 +205,7 @@
         <div class="col-md-2 text-end searchRowHeight" >
             <div class="row searchRowHeight" >
                 <div class="col-md-12">
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="margin: 5px;"
+                    <button id="btnCreate" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw;"
                             onclick="location.href='@Url.Action("ViewDoctorProfile", "Doctor")'">
                         <i class="bi bi-plus-circle"></i>
                         @LangResources["Doctor_Button_NewDoctor"]
@@ -219,7 +219,7 @@
             <label id="lbDocListingError"></label>
         </div>
         <div class="col-md-12">
-            <table id="tblDoctor" class="table">
+            <table id="tblDoctor" class="table" style="font-size: 1vw;">
                 <thead>
                     <tr>
                         <th scope="col" data-field="ID" class="text-center" style="width: 5%;">@LangResources["Doctor_Label_ColumnID"]</th>
@@ -235,12 +235,12 @@
             <div class="row">
                 <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
                     <div>
-                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Doctor_Button_Prev"]</button>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Prev"]</button>
                     </div>
                     <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
                     </div>
                     <div>
-                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Doctor_Button_Next"]</button>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Next"]</button>
                     </div>
                 </div>
             </div>

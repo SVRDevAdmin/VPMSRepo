@@ -5,7 +5,7 @@ body {
 	transition: background-color 1s;
 }
 
-input[type='text'], input[type='password'], button, select, .timePicker {
+input[type='text'], input[type='password'], input[type='email'], button, select, .timePicker {
 	box-shadow: none !important;
 }
 
@@ -70,12 +70,12 @@ input[type='text']:focus, select:focus {
 }
 
 #leftBar {
-	width: 18vw !important;
+	width: 20vw !important;
 }
 
 
 #menu li ul {
-	margin-left: 5.5rem;
+	margin-left: 5rem;
 	padding-left: 1.25rem;
 	border-left-style: solid;
 	border-left-color: #707B7C;
@@ -97,6 +97,11 @@ input[type='text']:focus, select:focus {
 #menu li a #imgArrow {
 	content: url('../images/down-dark-arrow.png');
 	width: 1vw;
+}
+
+#menu li .spanMenuBlue.selected {
+	background-color: rgb(30, 118, 251);
+	display: inline-block;
 }
 
 #menu li a #imgArrow.Up {
@@ -234,10 +239,13 @@ input[type='text']:focus, select:focus {
 .divThemes {
 	/* display: flex; */
 	/* flex-direction: row; */
-	margin-top: 1vw;
-	margin-left: 0vw;
-	width: 6vw;
-	height: 3.2vw;
+	/*margin-top: 1vw;*/
+	margin-top: 11px;
+	/*margin-left: 0vw;*/
+	/*width: 6vw;*/
+	width: 74px;
+	/*height: 3.2vw;*/
+	height: 40px;
 	border-radius: 0.5vw;
 	background-color: #1f2e45;
 }
@@ -251,10 +259,9 @@ input[type='text']:focus, select:focus {
 }
 
 .LanguageSelectionFont {
-	font-size: 16px;
-	text-align: center;
+	font-size: 12.3px;
 	color: white;
-	margin-top: 1vw;
+	margin-top: 9px;
 	margin-left: 5px;
 }
 
@@ -397,7 +404,7 @@ input[type='text']:focus, select:focus {
 .CountryFlag {
 	width: 32px;
 	height: 32px;
-	margin-left: 15px;
+	/*margin-left: 15px;*/
 	border-radius: 15px;
 }
 
@@ -454,6 +461,10 @@ input[type='text']:focus, select:focus {
 		display: none !important;
 	}
 
+	#imgLogoTitle {
+		display: none !important;
+	}
+
 	.sidebar-nav-font {
 		display: none !important;
 	}
@@ -464,6 +475,18 @@ input[type='text']:focus, select:focus {
 		border-left-style: none;
 		border-left-color: #707B7C;
 		border-left-width: thin;
+	}
+
+	.LanguageSelectionFont {
+		display: none !important;
+	}
+
+	.LanguageSelectionContainer {
+		display: none !important;
+	}
+
+	.ProfileFont {
+		display: none !important;
 	}
 	/*
 	#SubMenuServices {
@@ -584,6 +607,21 @@ input[type='text']:focus, select:focus {
 	transition: color 0.5s;
 }
 
+.containerBackground3 {
+	background-color: transparent !important;
+	color: white !important;
+}
+
+.containerBackground4 {
+	background-color: #1f2e45 !important;
+	color: white !important;
+	border-color: white !important;
+}
+
+.dropdown-content a:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
+
 .textColor {
 	color: white !important;
 
@@ -649,7 +687,8 @@ input[type='text']:focus, select:focus {
 }
 
 .frameHeader {
-	height: 40px;
+	/*height: 40px;*/
+	height: 28px;
 	background-color: #1f2e45;
 }
 
@@ -691,7 +730,7 @@ input[type='text']:focus, select:focus {
 
 .doctorLeftColControl {
 	width: 80%;
-	height: 45px;
+	/*height: 45px;*/
 	margin-left: 10px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -700,7 +739,7 @@ input[type='text']:focus, select:focus {
 
 .doctorRightColControl {
 	width: 80%;
-	height: 45px;
+	/*height: 45px;*/
 	margin-left: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -709,7 +748,7 @@ input[type='text']:focus, select:focus {
 
 .doctorComboColControl {
 	width: 90%;
-	height: 45px;
+	/*height: 45px;*/
 	margin-left: 10px;
 	border: 1px solid black;
 }
@@ -789,3 +828,31 @@ input[type='text']:focus, select:focus {
 	text-align: center;
 }
 
+.customButton {
+	--bs-btn-color: white;
+	--bs-btn-border-color: white;
+
+	transition: all 0.5s;
+}
+
+/* for static end button */
+.headcol {
+	position: sticky;
+	right: 0;
+	top: auto;
+	background-color: #1f2e45;
+	padding: 0 !important;
+}
+
+.rowcol {
+	position: sticky;
+	right: 0;
+	top: auto;
+	background-color: #172232; 
+	padding: 0 !important;
+}
+
+a {
+	color: white !important;
+	text-decoration: unset;
+}

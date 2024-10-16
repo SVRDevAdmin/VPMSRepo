@@ -10,18 +10,21 @@ using MySql.Data.MySqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Org.BouncyCastle.Asn1.X509;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace VPMS.Lib.Data
 {
     public class AppointmentRepository
     {
-        /// <summary>
-        /// Verify new appointment crash with any doctor's existing appointment
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="sModel"></param>
-        /// <returns></returns>
-        public static Boolean ValidateAppointmentByDoctor(IConfiguration config, AppointmentModel sModel)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Verify new appointment crash with any doctor's existing appointment
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sModel"></param>
+		/// <returns></returns>
+		public static Boolean ValidateAppointmentByDoctor(IConfiguration config, AppointmentModel sModel)
         {
             Boolean isOverlap = false;
 
@@ -47,7 +50,8 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isOverlap = false;
-            }
+				logger.Error("Database Error >> ", ex);
+			}
 
             return isOverlap;
         }
@@ -85,7 +89,8 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isOverlap = false;
-            }
+				logger.Error("Database Error >> ", ex);
+			}
 
             return isOverlap;
         }
@@ -128,7 +133,8 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-            }
+				logger.Error("Database Error >> ", ex);
+			}
 
             return isSuccess;
         }
@@ -188,7 +194,8 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-            }
+				logger.Error("Database Error >> ", ex);
+			}
 
             return isSuccess;
         }
@@ -236,7 +243,8 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-            }
+				logger.Error("Database Error >> ", ex);
+			}
 
             return isSuccess;
         }
@@ -280,7 +288,8 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-            }
+				logger.Error("Database Error >> ", ex);
+			}
 
             return isSuccess;
         }
@@ -348,7 +357,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -407,7 +417,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -486,7 +497,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -578,8 +590,77 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
+        }
+
+		/// <summary>
+		/// Get Upcoming Appointment by Owner ID or Pet ID
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="ownerID"></param>
+		/// <param name="petID"></param>
+		/// <returns></returns>
+		public static UpcomingAppointment GetUpcomingAppointment(IConfiguration config, int ownerID, int petID)
+        {
+            UpcomingAppointment upcomingAppointment = new UpcomingAppointment();
+
+            string queryFilter;
+
+            if (ownerID != 0)
+            {
+                queryFilter = "AND a.OwnerID = " + ownerID + " ";
+            }
+            else
+            {
+                queryFilter = "AND a.PetID = " + petID + " ";
+            }
+
+            var selectCommand =
+				"select a.ApptDate as 'Date', a.ApptStartTime as 'StartTime', a.ApptEndTime as 'EndTime', c.Name as 'PetName', d.name as 'ServiceName', a.InchargeDoctor from mst_appointment a " +
+                "inner join mst_appointment_services b on b.ApptID = a.AppointmentID " +
+                "inner join mst_pets c on a.PetID = c.ID " +
+                "inner join mst_services d on d.ID = b.ServicesID " +
+				"where (a.ApptDate > current_date() OR (a.ApptDate = current_date() AND a.ApptStartTime > current_time())) " + queryFilter +
+                "Order By a.ApptDate, a.ApptStartTime " +
+                "LIMIT 0,1;";
+
+            try
+            {
+                using (var ctx = new AppointmentDBContext(config))
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    using (MySqlCommand sCommand = new MySqlCommand(selectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            if (sReader.HasRows)
+                            {
+                                while (sReader.Read())
+                                {
+                                    upcomingAppointment.ApptDate = DateOnly.FromDateTime(DateTime.Parse(sReader["Date"].ToString()));
+                                    upcomingAppointment.ApptStartTime = TimeOnly.FromDateTime(DateTime.Parse(sReader["StartTime"].ToString()));
+									upcomingAppointment.ApptEndTime = TimeOnly.FromDateTime(DateTime.Parse(sReader["EndTime"].ToString()));
+									upcomingAppointment.PetName = sReader["PetName"].ToString();
+                                    upcomingAppointment.Service = sReader["ServiceName"].ToString();
+                                    upcomingAppointment.Doctor = sReader["InchargeDoctor"].ToString();
+                                }
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+				logger.Error("Database Error >> ", ex);
+			}
+
+            return upcomingAppointment;
         }
     }
 

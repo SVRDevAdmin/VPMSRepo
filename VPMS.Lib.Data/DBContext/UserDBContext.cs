@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Collections.ObjectModel;
 using VPMS.Lib.Data.Models;
 
 namespace VPMS.Lib.Data.DBContext
@@ -13,5 +14,5 @@ namespace VPMS.Lib.Data.DBContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-    }
+	}
 }

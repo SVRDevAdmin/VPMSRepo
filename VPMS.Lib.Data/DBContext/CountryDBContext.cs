@@ -8,6 +8,8 @@ namespace VPMS.Lib.Data.DBContext
 	{
 		private readonly IConfiguration config;
 		public DbSet<CountryListModel> mst_countrylist { get; set; }
+		public DbSet<StateModel> mst_state { get; set; }
+		public DbSet<CityModel> mst_city{ get; set; }
 
 		public CountryDBContext(IConfiguration config)
 		{
