@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using VPMS.Lib.Data.Models;
+using System.Collections.ObjectModel;
 
 namespace VPMS.Lib.Data.DBContext
 {

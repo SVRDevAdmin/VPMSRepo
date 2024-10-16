@@ -371,7 +371,7 @@
     {
         $('#ddlAddPet').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++) {
-            var opt = new Option(data[i].Name, data[i].ID);
+            var opt = new Option(data[i].Name, data[i].Id);
             $('#ddlAddPet').append(opt);
         }
 
@@ -382,7 +382,7 @@
     {
         $('#ddlSearchPet').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++) {
-            var opt = new Option(data[i].Name, data[i].ID);
+            var opt = new Option(data[i].Name, data[i].Id);
             $('#ddlSearchPet').append(opt);
         }
 
@@ -1144,8 +1144,11 @@
     <div class="row">
         <div class="col-md-9" style="height: auto;">
             <div class="row" style="height: auto;">
-                <div class="col-md-12">
+                @* <div class="col-md-12">
                     <label class="apptPageTitle">@LangResources["Appointment_Title_Appointment"]</label>
+                </div> *@
+                <div class="col-md-12" style="display: flex; align-items: center; margin-bottom: 3vw;">
+                    <img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["Appointment_Title_Appointment"]</span>
                 </div>
             </div>
         </div>
@@ -1303,7 +1306,7 @@
                                     {
                                         foreach (var p in sAddOwnerViewObj.PatientSelectionModel)
                                         {
-                                                <option value=@p.ID>@p.Name</option>
+                                            <option value=@p.ID>@p.Name</option>
                                         }
                                     }
                                 }
@@ -1337,7 +1340,7 @@
                                     {
                                         foreach (var s in sAppointmentViewObj.TreatmentServicesModel)
                                         {
-                                                <option value=@s.ID>@s.Name</option>
+                                            <option value=@s.ID>@s.Name</option>
                                         }
                                     }
                                 }
@@ -1474,7 +1477,7 @@
                                     {
                                         foreach(var s in sApptViewObj.SpeciesModel)
                                         {
-                                                    <option value=@s.CodeID>@s.CodeName</option>
+                                            <option value="@s.CodeName">@s.CodeName</option>
                                         }
                                     }
                                 }

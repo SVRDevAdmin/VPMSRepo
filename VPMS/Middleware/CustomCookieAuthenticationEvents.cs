@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 
@@ -12,53 +14,71 @@ namespace VPMSWeb.Middleware
 
         public override async Task SigningIn(CookieSigningInContext context)
         {
-            context.Properties.SetString(
-                TicketIssuedTicks,
-                DateTimeOffset.UtcNow.Ticks.ToString());
+			try
+			{
+				context.Properties.SetString(TicketIssuedTicks, DateTimeOffset.UtcNow.Ticks.ToString());
 
-            await base.SigningIn(context);
+				await base.SigningIn(context);
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Middleware Error >> ", ex);
+			}
         }
 
-        public override async Task ValidatePrincipal(
-            CookieValidatePrincipalContext context)
+        public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
         {
-            var ticketIssuedTicksValue = context
-                .Properties.GetString(TicketIssuedTicks);
-            var idleSessionCheck = context.Properties.IssuedUtc;
+			try
+			{
+				var ticketIssuedTicksValue = context.Properties.GetString(TicketIssuedTicks);
+				var idleSessionCheck = context.Properties.IssuedUtc;
 
-            if (ticketIssuedTicksValue is null ||
-                !long.TryParse(ticketIssuedTicksValue, out var ticketIssuedTicks))
-            {
-                await RejectPrincipalAsync(context);
-                return;
-            }
+				var session = context.HttpContext.Session.GetString("UserID");
 
-            var ticketIssuedUtc =
-                new DateTimeOffset(ticketIssuedTicks, TimeSpan.FromHours(0));
+				if (ticketIssuedTicksValue is null || !long.TryParse(ticketIssuedTicksValue, out var ticketIssuedTicks) || session == null)
+				{
+					await RejectPrincipalAsync(context);
+					return;
+				}
 
-            if ((DateTimeOffset.UtcNow - ticketIssuedUtc > TimeSpan.FromHours(1)) /*|| (DateTimeOffset.UtcNow - idleSessionCheck > TimeSpan.FromMinutes(5))*/)
-            {
-                //var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == context.Principal.Identity.Name);
+				var ticketIssuedUtc = new DateTimeOffset(ticketIssuedTicks, TimeSpan.FromHours(0));
 
-                //var newLoginSessionLog = new LoginSessionLogModel() { ActionType = "expired-logout", SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
+				if ((DateTimeOffset.UtcNow - ticketIssuedUtc > TimeSpan.FromHours(1)) /*|| (DateTimeOffset.UtcNow - idleSessionCheck > TimeSpan.FromMinutes(5))*/)
+				{
+					var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == context.Principal.Identity.Name);
 
-                //_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
+					var newLoginSessionLog = new LoginSessionLogModel() { ActionType = "expired-logout", SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
 
-                //_loginSessionDBContext.SaveChanges();
+					_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
 
+					_loginSessionDBContext.SaveChanges();
 
-                await RejectPrincipalAsync(context);
-                return;
-            }
+					await RejectPrincipalAsync(context);
+					return;
+				}
 
-            await base.ValidatePrincipal(context);
+				await base.ValidatePrincipal(context);
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Middleware Error >> ", ex);
+				await RejectPrincipalAsync(context);
+				return;
+			}
+			
         }
 
-        private static async Task RejectPrincipalAsync(
-            CookieValidatePrincipalContext context)
+        private static async Task RejectPrincipalAsync(CookieValidatePrincipalContext context)
         {
-            context.RejectPrincipal();
-            await context.HttpContext.SignOutAsync();
+			try
+			{
+				context.RejectPrincipal();
+				await context.HttpContext.SignOutAsync();
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Middleware Error >> ", ex);
+			}
         }
     }
 }

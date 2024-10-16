@@ -29,6 +29,8 @@
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <style>
 	.field-container {
@@ -71,10 +73,6 @@
 		align-items: center;
 	}
 
-	.hideContainer {
-		display: none !important;
-	}
-
 	.currentPage {
 		background-color: blue !important;
 		color: white !important;
@@ -104,6 +102,7 @@
 		position: relative;
 		display: inline-block;
 		opacity: 1;
+		z-index: 1;
 	}
 
 		/* Tooltip text */
@@ -166,14 +165,197 @@
 			display: block;
 		}
 
-			.dropdown-content a:hover {
+			/* .dropdown-content a:hover {
 				background-color: #ddd;
-			}
+			} */
 
 	.dropdown:hover .dropdown-content {
 		display: block;
 	}
+
+	td, th {
+		padding: 0 1vw;
+	}
+
+	.dropdown:hover .dropdown-arrow {
+		transform: rotate(180deg);
+	}	
+
+	.dropdown-arrow {		
+		transition: 0.6s ease;
+	}
 </style>
+
+<template id="VaccinationTemplate">
+	<div class="VaccinationGroup" style="margin-bottom: 1vw;">
+		<input class="IDVaccination" type="text" hidden/>
+		<input class="CreatedDateVaccination" type="text" hidden/>
+		<input class="CreatedByVaccination" type="text" hidden/>
+		<div class="medicalRecord">
+			<span class="TypeVaccinationText"></span> </br>
+			<span class="NameVaccinationText" style="font-weight:bold;"></span> </br>
+			<span class="CreatedOnVaccinationText" style="color: darkgray;"></span> </br>
+			<span class="DueDateVaccinationText" style="color: red;"></span> </br>
+			<div>
+				<div class="tooltip">
+					<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+					<span class="tooltiptext DescriptionVaccinationText"></span>
+				</div>
+				<div class="tooltip">
+					<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+					<span class="tooltiptext RemarksVaccinationText"></span>
+				</div>
+			</div>
+		</div>
+		<div class="medicalRecord hideContainer">
+			<div>
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+					<select class="form-control form-field inputField TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination', false, '', '');">
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccinationType"] --</option>
+						@foreach (var vaccination in ViewData["VaccinationList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
+						{
+							<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
+						}
+					</select>
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+					<select class="form-control form-field inputField NameVaccination">
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccination"] --</option>
+					</select>
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+					<input type="date" class="form-control form-field inputField DueDateVaccination" value="2023-06-02" />
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["TreatmentPlan_Label_Remarks"]</span>
+					<input type="text" class="form-control form-field inputField RemarksVaccination" value="Need to monitor further." />
+				</div>
+
+				<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+					<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template id="MedicationTemplate">
+	<div class="MedicationGroup" style="margin-bottom: 1vw;">
+		<input class="IDMedication" type="text" hidden/>
+		<input class="CreatedDateMedication" type="text" hidden/>
+		<input class="CreatedByMedication" type="text" hidden/>
+		<div class="medicalRecord">
+			<span class="TypeMedicationText"></span> </br>
+			<span class="NameMedicationText" style="font-weight:bold;"></span> </br>
+			<span class="StatusMedicationText" style="color: #5e8cd1"></span> </br>
+			<span class="DueDateMedicationText" style="color: red;"></span> </br>
+			<div>
+				<div>
+					<div class="tooltip">
+						<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+						<span class="tooltiptext DescriptionMedicationText"></span>
+					</div>
+					<i class="fa-regular fa-trash-can textcolor"></i>
+				</div>
+			</div>
+		</div>
+		<div class="medicalRecord hideContainer">
+			<div>
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+					<select class="form-control form-field inputField TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication', false, '', '');">
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectMedicationType"] --</option>
+						@foreach (var medication in ViewData["MedicationList"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
+						{
+							<option value="@medication.ID"> @medication.TypeName</option>
+						}
+					</select>
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+					<select class="form-control form-field inputField NameMedication">
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] --</option>
+					</select>
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
+					<input type="date" class="form-control form-field inputField DueDateMedication" value="2023-06-02"/>
+				</div>
+
+				<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+					<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+				</div>
+			</div>
+		</div>						
+	</div>
+</template>
+
+<template id="SurgeriesTemplate">
+	<div class="SurgeryGroup" style="margin-bottom: 1vw;">
+		<input class="IDSurgeries" type="text" hidden/>
+		<input class="CreatedDateSurgeries" type="text" hidden/>
+		<input class="CreatedBySurgeries" type="text" hidden/>
+		<div class="medicalRecord">
+			<span class="TypeSurgeriesText"></span> </br>
+			<span class="NameSurgeriesText" style="font-weight:bold;"></span> </br>
+			<span class="CreatedOnSurgeriesText" style="color: darkgray;"></span> </br>
+			<span class="DueDateSurgeriesText" style="color: red;"></span> </br>
+			<div>
+				<div class="tooltip">
+					<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
+					<span class="tooltiptext DescriptionSurgeriesText"></span>
+				</div>
+				<div class="tooltip">
+					<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
+					<span class="tooltiptext RemarksSurgeriesText"></span>
+				</div>	
+			</div>
+		</div>
+		<div class="medicalRecord hideContainer">
+			<div>
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+					<select class="form-control form-field inputField TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery', false, '', '');">
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgeryType"] --</option>
+						@foreach (var vaccination in ViewData["SurgeryList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
+						{
+							<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
+						}
+					</select>
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+					<select class="form-control form-field inputField NameSurgeries">
+						<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgery"] --</option>
+					</select>
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
+					<input type="date" class="form-control form-field inputField DueDateSurgeries" value="2023-06-02"/>
+				</div>
+
+				<div class="field-container" style="margin: 0;">
+					<span class="formlabel">@LangResources["TreatmentPlan_Label_Remarks"]</span>
+					<input type="text" class="form-control form-field inputField RemarksSurgeries" value="Need to monitor further."/>
+				</div>
+
+				<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
+					<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
 
 <div style="display: flex;">
 
@@ -188,16 +370,28 @@
 </div>
 
 <div style="display: flex; justify-content: center;">
-	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 75.2vh; margin-right: 1vw; width: 51vw;">
 		
+		@{
+			var updatedOn = "";
+			if(Model.UpdatedDate == null)
+			{
+				updatedOn = Model.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss");
+			}
+			else
+			{
+				updatedOn = Model.UpdatedDate?.ToString("dd/MM/yyyy HH:mm:ss");
+			}
+		}
+
 		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
-			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
+			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"] (@LangResources["Patient_Label_UpdatedOn"] : @updatedOn)</span>
 			<button onclick="editPetInfo(false);" class="btn btn-lg btn-primary petInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-pen-to-square"></i>
 			</button>
 		</div>
 		<div class="containerBorder" style="color: darkgray; width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
-
+			 
 			<input id="PetID" type="text" value="@Model.ID" hidden />
 			<input id="PetCreatedDate" type="text" value="@Model.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")" hidden />
 			<input id="PetCreatedBy" type="text" value="@Model.CreatedBy" hidden />
@@ -239,14 +433,44 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
-					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" />
+					<input type="date" class="form-control form-field inputField petInfoProfile DOB hideContainer" value="@Model.DOB.ToString("yyyy-MM-dd")" onchange="updateAge(this);"/>
 					<span class="formlabel petInfoProfile textColor DOB">@Model.DOB</span>
 				</div>
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Age"]</span>
-					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@Model.Age" />
-					<span class="formlabel petInfoProfile textColor Age">@Model.Age</span>
+
+					@{
+						var currentDate = DateOnly.FromDateTime(DateTime.Now);
+						var petDOB = Model.DOB;
+						var dayDiffer = currentDate.DayNumber - petDOB.DayNumber;
+						var yearDiffer = currentDate.Year - petDOB.Year;
+						var monthDiffer = currentDate.Month - petDOB.Month + (12 * yearDiffer);
+						var ageText = "";
+						var yearText = "";
+
+						if (dayDiffer < 30)
+						{
+							ageText = dayDiffer + " day";
+							if (dayDiffer > 1) { ageText += "s"; }
+							yearText = "0";
+						}
+						else if (monthDiffer < 12)
+						{
+							ageText = monthDiffer + " month";
+							if (monthDiffer > 1) { ageText += "s"; }
+							yearText = "0";
+						}
+						else
+						{
+							ageText = (monthDiffer / 12) + " year";
+							if ((monthDiffer / 12) > 1) { ageText += "s"; }
+							yearText = (monthDiffer / 12) + "";
+						}
+					}
+
+					<input type="text" class="form-control form-field inputField petInfoProfile Age hideContainer" value="@yearText" disabled />
+					<span class="formlabel petInfoProfile textColor Age"> @ageText </span>
 				</div>
 
 				<div class="field-container">
@@ -346,14 +570,11 @@
 			<div style="display: flex; margin-bottom: 1.5vw;" class="petInfoProfile">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Obese"]</span>
-					@if (Model.Weight > 0)
-					{
-						<span class="formlabel Obese" style="color: red;">@LangResources["Patient_Selection_Yes"]</span>
+					@{
+						var obesity = "";
+						var bmi = (Model.Weight / (Model.Height * Model.Height)) * 10000;
 					}
-					else
-					{
-						<span class="formlabel Obese" style="color: green;">@LangResources["Patient_Selection_No"]</span>
-					}
+					<span class="formlabel Obese" style="color: @(bmi > 30 ? "red" : "green");">@(bmi > 30 ? LangResources["Patient_Selection_Yes"] : @LangResources["Patient_Selection_No"])</span>
 				</div>
 			</div>
 
@@ -367,8 +588,11 @@
 
 		<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
 			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_MedicalRecord"]</span>
-			<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+			<button onclick="editMedicalRecord();" class="btn btn-lg btn-primary medicalRecord" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-pen-to-square"></i>
+			</button>
+			<button onclick="submitMedicalRecord();" class="btn btn-lg btn-primary medicalRecord hideContainer" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+				<i class="fa-regular fa-floppy-disk"></i>
 			</button>
 		</div>
 		<div class="containerBorder textColor" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
@@ -380,45 +604,6 @@
 				</div>
 
 				<div id="VaccinationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
-					<div style="margin-bottom: 1vw;">
-						<span>Vaccination</span> </br>
-						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
-						</div>
-					</div>
-					<div style="margin-bottom: 1vw;">
-						<span>Vaccination</span> </br>
-						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
-						</div>
-					</div>
-					<div style="margin-bottom: 1vw;">
-						<span>Vaccination</span> </br>
-						<span style="font-weight:bold;">Vanguard DHLPP</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
-						</div>
-					</div>
 				</div>
 
 			</div>
@@ -429,51 +614,6 @@
 				</div>
 
 				<div id="MedicationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
-					<div style="margin-bottom: 1vw;">
-						<span>Antifungals</span> </br>
-						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
-						<span style="color: #5e8cd1">Active</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div>
-								<div class="tooltip">
-									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-								</div>
-								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
-							</div>
-						</div>
-					</div>
-					<div style="margin-bottom: 1vw;">
-						<span>Antifungals</span> </br>
-						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
-						<span style="color: #5e8cd1">Active</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div>
-								<div class="tooltip">
-									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-								</div>
-								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
-							</div>
-						</div>
-					</div>
-					<div style="margin-bottom: 1vw;">
-						<span>Antifungals</span> </br>
-						<span style="font-weight:bold;">Fluconazole 5mg|10ml</span> </br>
-						<span style="color: #5e8cd1">Active</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div>
-								<div class="tooltip">
-									<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-									<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-								</div>
-								<i class="fa fa-trash-o textcolor" aria-hidden="true"></i>
-							</div>
-						</div>
-					</div>
 				</div>
 
 			</div>
@@ -484,45 +624,6 @@
 				</div>
 
 				<div id="SurgeriesContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
-					<div style="margin-bottom: 1vw;">
-						<span>Spaying</span> </br>
-						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
-						</div>
-					</div>
-					<div style="margin-bottom: 1vw;">
-						<span>Spaying</span> </br>
-						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
-						</div>
-					</div>
-					<div style="margin-bottom: 1vw;">
-						<span>Spaying</span> </br>
-						<span style="font-weight:bold;">Ovariohysterectomy</span> </br>
-						<span style="color: darkgray;">02/04/2023</span> </br>
-						<span style="color: red;">Due: 02/06/2023</span> </br>
-						<div>
-							<div class="tooltip">
-								<i class="fa fa-commenting-o textcolor" aria-hidden="true"></i>
-								<span class="tooltiptext">Give 0.5ml by mouth every 12 hours until finish. </br> 01/06/2024 - 14/06/2024</span>
-							</div>
-							<i class="fa fa-exclamation-circle textcolor" aria-hidden="true"></i>
-						</div>
-					</div>
 				</div>
 
 			</div>
@@ -536,7 +637,7 @@
 			</div>
 
 			<div style="height: 24vw; overflow: auto;">
-				<table class="textColor" style="width: 46vw; margin-bottom: 2vw; font-size: 1vw;">
+				<table id="petGrowthTable" class="textColor" style="width: 46vw; margin-bottom: 2vw; font-size: 1vw;">
 					<tr class="containerBackground">
 						<th class="table-content"> @LangResources["Patient_Label_Date"] </th>
 						<th class="table-content"> @LangResources["Patient_Label_AgeYear"] </th>
@@ -545,7 +646,7 @@
 						<th class="table-content"> @LangResources["Patient_Label_Allergies"] </th>
 						<th class="table-content"> @LangResources["Patient_Label_Obesity"] </th>
 					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+					@* <tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
 						<td class="table-content"> 5/8/2024 </td>
 						<td class="table-content"> 5 </td>
 						<td class="table-content"> 50 </td>
@@ -624,7 +725,7 @@
 						<td class="table-content"> 5 </td>
 						<td class="table-content"> N/A </td>
 						<td class="table-content"> No </td>
-					</tr>
+					</tr> *@
 				</table>
 			</div>
 
@@ -636,10 +737,10 @@
 				<span style="font-weight: bold;"> @LangResources["Patient_Title_PetGrowthTrend"]</span>
 				<div class="dropdown">
 					<button class="dropbtn textColor"> <span id="chartSelection"></span> <i class="fa-solid fa-chevron-down dropdown-arrow"></i></button>
-					<div class="dropdown-content">
-						<a href="#" onclick="changeChart('BMI', this.innerHTML)">@LangResources["Patient_Label_BMI"]</a>
-						<a href="#" onclick="changeChart('Weight', this.innerHTML);">@LangResources["Patient_Label_Weight"]</a>
-						<a href="#" onclick="changeChart('Height', this.innerHTML);">@LangResources["Patient_Label_Height"]</a>
+					<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+						<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="changeChart('BMI', this.innerHTML)">@LangResources["Patient_Label_BMI"]</a>
+						<a href="#" class="textColor" onclick="changeChart('Weight', this.innerHTML);">@LangResources["Patient_Label_Weight"]</a>
+						<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="changeChart('Height', this.innerHTML);">@LangResources["Patient_Label_Height"]</a>
 					</div>
 				</div>
 			</div>
@@ -651,7 +752,7 @@
 
 	</div>
 
-	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 74vh; width: 24vw;">
+	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 75.2vh; width: 24vw;">
 		<div>
 
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
@@ -660,13 +761,25 @@
 			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 				<div id="allPets" style="display: flex; margin-bottom: 1.5vw;">
-					@foreach(string otherPet in otherPets)
-					{
-						<div class="field-container" style="text-align: center;">
-							<img src = "~/images/Cat profile image.png" style = "width: 4vw;" />
-							<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
-						</div>
+					@{
+						if (otherPets.Count > 0)
+						{
+							foreach (string otherPet in otherPets)
+							{
+								<div class="field-container" style="text-align: center;">
+									<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw;" />
+									<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
+								</div>
+							}
+						}
+						else
+						{
+							<div class="field-container" style="text-align: center; width: 100%;">
+								<span class="textColor">@LangResources["Patient_Label_NoOtherPet"]</span>
+							</div>
+						}
 					}
+					
 				</div>
 
 			</div>
@@ -678,13 +791,13 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#healthCardModal" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-notes-medical"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_HealthCard"]</span>
 					</div>
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/TreatmentPlan/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-regular fa-hospital"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TreatmentPlan"]</span>
@@ -693,13 +806,13 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" disabled>
 							<i class="fa-solid fa-receipt"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_InvoiceBilling"]</span>
 					</div>
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" disabled>
 							<i class="fa-solid fa-flask-vial"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TestManagement"]</span>
@@ -714,137 +827,290 @@
 			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
 			</div>
-			<div class="containerBorder" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Date"]</span>
-						<span class="formlabel" style="color: black;">10/4/2024</span>
-					</div>
-
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Time"]</span>
-						<span class="formlabel" style="color: black;">13:00</span>
-					</div>
-				</div>
-
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>
-						<span class="formlabel" style="color: black;">Simba</span>
-					</div>
-
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Service"]</span>
-						<span class="formlabel" style="color: black;">General Check Up</span>
-					</div>
-				</div>
-
-
-				<div style="display: flex; margin-bottom: 1.5vw;">
-					<div class="field-container quaterSize">
-						<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
-						<span class="formlabel" style="color: black;">Dr. Kim Soo Jun</span>
-					</div>
-				</div>
-
+			<div class="containerBorder" id="UpcomingAppointment" style="background-color: #c8dcfc; color: darkgray; width: 23vw; border-style: none; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.4vw;">
 			</div>
 		</div>
 
 	</div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="healthCardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="--bs-modal-width: unset; margin: 2vw auto;">
+
+	<style>
+		.hideContainer {
+			display: none !important;
+		}
+
+		@@media print {
+			/* All your print styles go here */
+			.printFont {
+				font-size: 2vw !important;
+			}
+
+			.printImg {
+				width: 10vw !important;
+			}
+		}
+
+		.modal-content-custom {
+			border: 0.1vw solid !important;
+			padding: 1vw;
+		}
+	</style>
+
+	<div class="modal-dialog" style="margin: 0 auto; width: fit-content;">
+		<div class="modal-content">
+			<div class="modal-header" style="display: flex; justify-content: flex-end; --bs-modal-header-border-color: none; padding-bottom: 0;">
+				<button type="button" onclick="downloadHealthCard();" style="margin-right: 1vw; display: flex; justify-content: center;  align-items: center; font-size: 1vw; width: 1vw;" class="btn btn-lg btn-primary" data-bs-dismiss="modal">
+					<i class="fa-solid fa-download"></i>
+				</button>
+				<button type="button" onclick="printHealthCard();" style="display: flex; justify-content: center;  align-items: center; font-size: 1vw; width: 1vw;" class="btn btn-lg btn-primary" data-bs-dismiss="modal"><i class="fa-solid fa-print"></i></button>
+			</div>
+			<div class="modal-body" style="display: flex;">
+				<div style="margin: 0 1vw;">
+					<img class="printImg" src="~/images/Cat profile image.png" style="width: 6vw; margin-bottom: 2vw;" />
+
+					<div style="display: flex; flex-direction: column; margin: 1vw 0;">
+						<span class="printFont" style="color: darkgray; font-size: 1vw;">@LangResources["Patient_Label_PetName"]</span>
+						<span class="printFont" style="color: black; font-size: 1vw;">@ViewData["PetName"]</span>
+					</div>
+
+					<div style="display: flex; flex-direction: column; margin: 1vw 0;">
+						<span class="printFont" style="color: darkgray; font-size: 1vw;">@LangResources["Patient_Label_RegistrationNo"]:</span>
+						<span class="printFont" style="color: black; font-size: 1vw;">@Model.RegistrationNo</span>
+					</div>
+				</div>
+
+				<hr style="border: 0.1vw solid black; margin: 0 1vw;">
+
+				<div>
+					<div style="margin-bottom: 2vw; padding: 1vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_VaccinationTreatmentHistory"]</span>
+
+						<table class="printFont" id="HealthCardHistory" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
+							</tr>
+							@* <tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr>
+							<tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr> *@
+						</table>
+					</div>
+
+					<div style="margin: 2vw 0; padding: 1vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_MedicationHistory"]</span>
+
+						<table class="printFont" id="HealthCardMedication" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_MedicationName"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Status"]</th>
+							</tr>
+							@* <tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Prednisalone Suspension 5mg|10ml</td>
+								<td style="padding: 0 2vw;">Active</td>
+							</tr> *@
+						</table>
+					</div>
+
+					<div style="margin: 2vw 0; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
+						<span class="printFont" style="font-weight: bold; font-size: 1vw; padding: 0 2vw;">@LangResources["Patient_Title_UpcomingVaccinationTreatment"]</span>
+
+						<table class="printFont" id="HealthCardUpcoming" style="font-size: 1vw; margin-top: 1vw;">
+							<tr>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_VaccinationTreatment"]</th>
+								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Name"]</th>
+							</tr>
+							@* <tr>
+								<td style="padding: 0 2vw;">01/09/2023</td>
+								<td style="padding: 0 2vw;">Rabbies Vaccinations</td>
+								<td style="padding: 0 2vw;">Defensor 1 - Rabies</td>
+							</tr> *@
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <span id="age" hidden>@LangResources["Patient_Label_Age"]</span>
 <span id="bmi" hidden>@LangResources["Patient_Label_BMI"]</span>
 <span id="weight" hidden>@LangResources["Patient_Label_Weight"]</span>
 <span id="height" hidden>@LangResources["Patient_Label_Height"]</span>
+<span id="year" hidden>@LangResources["Patient_Label_Year"]</span>
 
 <script>
-	const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	const weight = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
-	const height = [17, 18, 18, 19, 19, 19, 10, 11, 14, 14, 15];
-	const bmi = [16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5];
+	// const age = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	// const weight = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+	// const height = [17, 18, 18, 19, 19, 19, 10, 11, 14, 14, 15];
+	// const bmi = [16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5, 27.4, 16.5];
+	var age = [];
+	var weight = [];
+	var height = [];
+	var bmi = [];
 	var chartElement;
 	var xData, yData, xLable, yLabel;
 	var borderOpacity = "0.1";
 	var axisColor = "black";
+	var currentGraph = "";
 
-	changeChart("BMI", document.getElementById("bmi").innerHTML);
+	getPetGrowth();
+
+	function getPetGrowth() {
+		fetch('/Patients/GetPetGrowth?petID=' + document.querySelector("#PetID").value)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				
+				var tableElement = document.getElementById("petGrowthTable");
+
+				for (let i = 0; i < data.length; i++) {
+					var obesity = "No";
+					var color = "green";
+
+					if (data[i].BMI > 30) {
+						obesity = "Yes";
+						color = "red";
+					}
+
+					var date = new Date(data[i].CreatedDate);
+					var dateText = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+
+					age.push(data[i].Age);
+					weight.push(data[i].Weight);
+					height.push(data[i].Height);
+					bmi.push(data[i].BMI);
+
+					var rowContent =
+						'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+						'<td class="table-content" > ' + dateText + ' </td >' +
+						'<td class="table-content"> ' + data[i].Age + ' </td>' +
+						'<td class="table-content"> ' + data[i].Height + ' </td>' +
+						'<td class="table-content"> ' + data[i].Weight + ' </td>' +
+						'<td class="table-content"> ' + data[i].Allergies + ' </td>' +
+						'<td class="table-content" style="color: ' + color + ';"> ' + obesity + ' </td>' +
+						'</tr> ';
+
+					tableElement.innerHTML = tableElement.innerHTML + rowContent;
+				}
+
+				changeChart("BMI", document.getElementById("bmi").innerHTML);
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+	
 
 	function changeChart(name, element) {
 		if (name != "current") {
 			document.getElementById("chartSelection").innerHTML = element;
 		}
-		
-		if (chartElement) {
-			chartElement.chart.destroy();
-		}
 
-		xData = age;
-		xLable = document.getElementById("age").innerHTML;
+		if(name != currentGraph){
+			currentGraph = name;
 
-		if (name == 'Weight') {
-			yData = weight;
-			yLabel = document.getElementById("weight").innerHTML + " (kg)";
-		}
-		else if (name == 'Height') {
-			yData = height;
-			yLabel = document.getElementById("height").innerHTML + " (cm)";
-		}
-		else if (name == 'BMI') {
-			yData = bmi;
-			yLabel = document.getElementById("bmi").innerHTML;
-		}
+			if (chartElement) {
+				chartElement.chart.destroy();
+			}
 
-		chartElement = new Chart("myChart", {
-			type: "line",
-			data: {
-				labels: xData,
-				datasets: [{
-					label: yLabel,
-					fill: false,
-					backgroundColor: "rgba(0,0,255,1.0)",
-					borderColor: "rgba(0,0,255," + borderOpacity + ")",
-					data: yData
-				}]
-			},
-			options: {
-				locale: '@LangResources["Locale"]',
-				legend: { display: false },
-				scales: {
-					yAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: yLabel
-						},
-						gridLines: {
-							drawOnChartArea: false
-						},
-						ticks: { beginAtZero: true, fontColor: axisColor }
-					}],
-					xAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: xLable
-						},
-						gridLines: {
-							drawOnChartArea: false
-						},
-						ticks: { fontColor: axisColor }
+			xData = age;
+			xLable = document.getElementById("age").innerHTML;
+
+			if (name == 'Weight') {
+				yData = weight;
+				yLabel = document.getElementById("weight").innerHTML + " (kg)";
+			}
+			else if (name == 'Height') {
+				yData = height;
+				yLabel = document.getElementById("height").innerHTML + " (cm)";
+			}
+			else if (name == 'BMI') {
+				yData = bmi;
+				yLabel = document.getElementById("bmi").innerHTML;
+			}
+
+			chartElement = new Chart("myChart", {
+				type: "line",
+				data: {
+					labels: xData,
+					datasets: [{
+						label: yLabel,
+						fill: false,
+						backgroundColor: "rgba(0,0,255,1.0)",
+						borderColor: "rgba(0,0,255," + borderOpacity + ")",
+						data: yData
 					}]
 				},
-				tooltips: {
-					enabled: true,
-					callbacks: {
-						title: function (tooltipItem, data) {
-							var title = '@LangResources["Patient_Label_Year"] ' + tooltipItem[0].xLabel;
-							return title;
+				options: {
+					locale: '@LangResources["Locale"]',
+					legend: { display: false },
+					scales: {
+						yAxes: [{
+							scaleLabel: {
+								display: true,
+								labelString: yLabel
+							},
+							gridLines: {
+								drawOnChartArea: false
+							},
+							ticks: { beginAtZero: true, fontColor: axisColor }
+						}],
+						xAxes: [{
+							scaleLabel: {
+								display: true,
+								labelString: xLable
+							},
+							gridLines: {
+								drawOnChartArea: false
+							},
+							ticks: { fontColor: axisColor }
+						}]
+					},
+					tooltips: {
+						enabled: true,
+						callbacks: {
+							title: function (tooltipItem, data) {
+								var title = document.getElementById("year").innerHTML + ' ' + tooltipItem[0].xLabel;
+								return title;
+							}
 						}
 					}
 				}
-			}
-		});
+			});
+		}
+		
+		
 	}
 </script>
 
@@ -853,8 +1119,27 @@
 	var breedElement = document.querySelector(".Breed");
 	breedList(species, breedElement, '@ViewBag.Breed');
 
+	getMedicalRecord();
+	getUpcomingTreatmentPlan();
+	GetVaccinationTreatmentList(0, false);
+	GetHealthCardMedicationList();
+	GetUpcomingAppointment();
+
 	if ('@ViewBag.type' == 'edit') {
 		editPetInfo();
+	}
+
+	function updateAge(e){
+		var currentDate = new Date();
+		var petDOB = new Date(e.value);
+		var yearDiffer = currentDate.getFullYear() - petDOB.getFullYear();
+		var monthDiffer = currentDate.getMonth() - petDOB.getMonth() + (12 * yearDiffer);
+		var yearText = "";
+
+		yearText = (monthDiffer / 12) + "";
+
+		var AgeElement = document.querySelectorAll(".Age")
+		AgeElement[0].value = parseInt(yearText);
 	}
 
 	function editPetInfo(submit) {
@@ -869,9 +1154,215 @@
 		}
 	}
 
+	function editMedicalRecord(){
+		var element = document.querySelectorAll('.medicalRecord');
+
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+	}
+
+	function cloneElement(templateId, contentId) {
+		const template = document.getElementById(templateId)
+		const clone = template.content.cloneNode(1).firstElementChild
+
+		var element = document.querySelector('#' + contentId);
+		element.appendChild(clone);
+	}
+
+	function cloneServices(templateId, contentId, name, medicalRecordID, typeId, serviceId, createdOn, dueDate, description, remarks, createdBy) {
+		const template = document.getElementById(templateId)
+		const clone = template.content.cloneNode(1).firstElementChild;
+		
+		clone.querySelector('.ID' + name).value = medicalRecordID;
+		clone.querySelector('.CreatedDate' + name).value = createdOn;
+		clone.querySelector('.CreatedBy' + name).value = createdBy;
+
+		var serviceTypeElement = clone.querySelector('.Type' + name);
+		serviceTypeElement.value = typeId;
+		var selectedServiceType = serviceTypeElement.options[serviceTypeElement.selectedIndex];
+		clone.querySelector('.Type' + name + 'Text').innerHTML = selectedServiceType.innerHTML;
+
+		var serviceElement = clone.querySelector('.Name' + name);
+		var serviceElementText = clone.querySelector('.Name' + name + 'Text');
+		serviceList(typeId, serviceElement, name, true, serviceId, serviceElementText);
+
+		var date = new Date(createdOn);
+		var createdOnText = [
+			('0' + date.getDate()).slice(-2),
+			('0' + (date.getMonth() + 1)).slice(-2),
+			date.getFullYear()
+		].join('/');
+		date = new Date(dueDate);
+		var dueDateText = [
+			('0' + date.getDate()).slice(-2),
+			('0' + (date.getMonth() + 1)).slice(-2),
+			date.getFullYear()
+		].join('/');
+		clone.querySelector('.CreatedOn' + name + 'Text').innerHTML = createdOnText;
+		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Due"]: " + dueDateText;
+		clone.querySelector('.DueDate' + name).value = dueDate;
+		clone.querySelector('.Description' + name + 'Text').innerHTML = description;
+		clone.querySelector('.Remarks' + name + 'Text').innerHTML = remarks;
+		clone.querySelector('.Remarks' + name).value = remarks;
+
+		var element = document.querySelector('#' + contentId);
+		element.appendChild(clone);
+	}
+
+	function cloneMedication(templateId, contentId, name, medicalRecordID, typeId, productId, status, dueDate, description, createdDate, createdBy) {
+		const template = document.getElementById(templateId)
+		const clone = template.content.cloneNode(1).firstElementChild;
+		
+		clone.querySelector('.ID' + name).value = medicalRecordID;
+		clone.querySelector('.CreatedDate' + name).value = createdDate;
+		clone.querySelector('.CreatedBy' + name).value = createdBy;
+
+		var productTypeElement = clone.querySelector('.Type' + name);
+		productTypeElement.value = typeId;
+		var selectedProductType = productTypeElement.options[productTypeElement.selectedIndex];
+		clone.querySelector('.Type' + name + 'Text').innerHTML = selectedProductType.innerHTML;
+
+		var productElement = clone.querySelector('.Name' + name);
+		var productElementText = clone.querySelector('.Name' + name + 'Text');
+		medicationList(typeId, productElement, true, productId, productElementText);
+
+		date = new Date(dueDate);
+		var dueDateText = [
+			('0' + date.getDate()).slice(-2),
+			('0' + (date.getMonth() + 1)).slice(-2),
+			date.getFullYear()
+		].join('/');
+		clone.querySelector('.Status' + name + 'Text').innerHTML = (status == 1 ? "@LangResources["Patient_Selection_Active"]" : "@LangResources["Patient_Selection_Inactive"]");
+		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Expiry"]: " + dueDateText;
+		clone.querySelector('.DueDate' + name).value = dueDate;
+		clone.querySelector('.Description' + name + 'Text').innerHTML = description;
+
+		var element = document.querySelector('#' + contentId);
+		element.appendChild(clone);
+	}
+
+	function removeClone(e) {
+		var parent = e.remove();
+	}
+
 	function changeSpecies(e) {
 		var breedElement = document.querySelector(".Breed");
 		breedList(e.value, breedElement, "");
+	}
+
+	function getMedicalRecord(){
+		fetch('/Patients/GetMedicalRecordServicesByPetID?petID=' + document.querySelector("#PetID").value)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				for(let i = 0; i < data.length; i++){
+					if(data[i].Type == 1){
+						cloneServices("VaccinationTemplate", "VaccinationContent", "Vaccination", data[i].ID, data[i].CategoryID, data[i].ServiceID, data[i].CreatedDate, data[i].DueDate, data[i].Description, data[i].Remarks, data[i].CreatedBy);
+					}
+					else{
+						cloneServices("SurgeriesTemplate", "SurgeriesContent", "Surgeries", data[i].ID, data[i].CategoryID, data[i].ServiceID, data[i].CreatedDate, data[i].DueDate, data[i].Description, data[i].Remarks, data[i].CreatedBy);
+					}					
+				}
+
+				
+				
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+
+
+		fetch('/Patients/GetMedicalRecordMedicationByPetID?petID=' + document.querySelector("#PetID").value)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				for(let i = 0; i < data.length; i++){
+					cloneMedication("MedicationTemplate", "MedicationContent", "Medication", data[i].ID, data[i].CategoryID, data[i].ProductID, data[i].Status, data[i].ExpiryDate, data[i].Description, data[i].CreatedDate, data[i].CreatedBy);				
+				}
+
+				
+				
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function serviceList(id, element, name, selected, serviceID, textElement){
+		fetch('/PatientServices/GetServiceByCategory?categoryID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				if(selected){
+					element.innerHTML = '<option value=""> -- Select ' + name + ' -- </option>';
+				}
+				else{					
+					element.innerHTML = '<option value="" selected> -- Select ' + name + ' -- </option>';
+				}
+
+
+				for (let i = 0; i < data.length; i++) {
+					if(selected && data[i].ID == serviceID){
+						element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '" selected>' + data[i].Name + '</option>';
+						textElement.innerHTML = data[i].Name;
+					}
+					else{
+						element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';
+					}
+					
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function medicationList(id, element, selected, productID, textElement) {
+		fetch('/Inventory/GetInventoryByCategory?categoryID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				if(selected){
+					element.innerHTML = '<option value=""> -- Select Medication -- </option>';
+				}
+				else{
+					element.innerHTML = '<option value="" selected> -- Select Medication -- </option>';
+				}
+
+				for (let i = 0; i < data.length; i++) {
+					if(selected && data[i].ID == productID){
+						element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '" selected>' + data[i].Name + '</option>';
+						textElement.innerHTML = data[i].Name;
+					}
+					else{
+						element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';
+					}
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 
 	function breedList(species, breedElement, breedValue) {
@@ -892,13 +1383,187 @@
 				}
 
 				for (let i = 0; i < data.length; i++) {
-					if (breedValue == data[i].breed) {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '" selected>' + data[i].breed + '</option>';
+					if (breedValue == data[i].Breed) {
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '" selected>' + data[i].Breed + '</option>';
 					}
 					else {
-						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+						breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
 					}
 				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getUpcomingTreatmentPlan() {
+		fetch('/Patients/GetUpcomingTreatmentPlan?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				GetVaccinationTreatmentList(data.ID, true);
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetVaccinationTreatmentList(id, upcoming) {
+		fetch('/Patients/GetVaccinationTreatmentList?planID=' + id + '&upcoming=' + upcoming + '&petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				var tableElement;
+
+				if (upcoming) {
+					tableElement = document.getElementById("HealthCardUpcoming");
+				}
+				else {
+					tableElement = document.getElementById("HealthCardHistory");
+				}
+
+
+				if (data.length == 0) {
+					tableElement.innerHTML = tableElement.innerHTML + '<tr> <td colspan="3" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>';
+				}
+				else {
+					for (let i = 0; i < data.length; i++) {
+						var date = new Date(data[i].Date);
+
+						var dateText = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						tableElement.innerHTML = tableElement.innerHTML +
+							'<tr>' +
+							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].CategoryName + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].ServiceName + '</td>' +
+							'</tr > '
+					}
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetHealthCardMedicationList() {
+		fetch('/Patients/GetHealthCardMedicationList?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				var tableElement = document.getElementById("HealthCardMedication");
+
+
+				if (data.length == 0) {
+					tableElement.innerHTML = tableElement.innerHTML + '<tr> <td colspan="3" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>';
+				}
+				else {
+					for (let i = 0; i < data.length; i++) {
+						var date = new Date(data[i].Date);
+
+						var dateText = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						var status = data[i].Status == 1 ? "Active" : "Inactive";
+
+						tableElement.innerHTML = tableElement.innerHTML +
+							'<tr>' +
+							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
+							'<td style="padding: 0 2vw;">' + data[i].Name + '</td>' +
+							'<td style="padding: 0 2vw;">' + status + '</td>' +
+							'</tr > '
+					}
+				}
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function GetUpcomingAppointment() {
+		fetch('/Appointment/GetUpcomingAppointment?ownerID=0&petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				var element = document.getElementById("UpcomingAppointment");
+
+				if (data.PetName == null) {
+					element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">@LangResources["Patient_Label_NoUpcomingAppointment"]</div>'
+				}else{
+
+					var date = new Date(data.ApptDate);
+
+					var dateText = [
+						('0' + date.getDate()).slice(-2),
+						('0' + (date.getMonth() + 1)).slice(-2),
+						date.getFullYear()
+					].join('/');
+
+					var time = data.ApptStartTime.slice(0, -3) + " - " + data.ApptEndTime.slice(0, -3)
+
+					element.innerHTML =
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize" >' +
+						'<span class="formlabel">@LangResources["Patient_Label_Date"]</span>' +
+						'<span class="formlabel" style="color: black;">' + dateText + '</span>' +
+						'</div >' +
+
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Time"]</span>' +
+						'<span class="formlabel" style="color: black;">' + time + '</span>' +
+						'</div>' +
+						'</div >' +
+
+
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.PetName + '</span>' +
+						'</div>' +
+
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Service"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.Service + '</span>' +
+						'</div>' +
+						'</div>' +
+
+
+						'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize">' +
+						'<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>' +
+						'<span class="formlabel" style="color: black;">' + data.Doctor + '</span>' +
+						'</div>' +
+						'</div>';
+				}
+
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
@@ -953,31 +1618,195 @@
 					throw new Error('Network response was not ok');
 				}
 
-				PetNameElement[1].innerHTML = PetNameElement[0].value;
-				RegistrationNoElement[1].innerHTML = RegistrationNoElement[0].value;
+				location.reload();
 
-				if (GenderElement[0].value == "M") { GenderElement[1].innerHTML = "Male"; }
-				else { GenderElement[1].innerHTML = "Female"; }
+				// // PetNameElement[1].innerHTML = PetNameElement[0].value;
+				// RegistrationNoElement[1].innerHTML = RegistrationNoElement[0].value;
+
+				// if (GenderElement[0].value == "M") { GenderElement[1].innerHTML = "Male"; }
+				// else { GenderElement[1].innerHTML = "Female"; }
 				
-				var date = new Date(DOBElement[0].value);
-				DOBElement[1].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+				// // var date = new Date(DOBElement[0].value);
+				// // DOBElement[1].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
-				AgeElement[1].innerHTML = AgeElement[0].value;
-				SpeciesElement[1].innerHTML = SpeciesElement[0].value;
-				BreedElement[1].innerHTML = BreedElement[0].value;
-				ColorElement[1].innerHTML = ColorElement[0].value;
-				AllergiesElement[1].innerHTML = AllergiesElement[0].value;
-				WeightElement[1].innerHTML = WeightElement[0].value;
-				HeightElement[1].innerHTML = HeightElement[0].value;
+				// // AgeElement[1].innerHTML = AgeElement[0].value;
+				// // SpeciesElement[1].innerHTML = SpeciesElement[0].value;
+				// BreedElement[1].innerHTML = BreedElement[0].value;
+				// ColorElement[1].innerHTML = ColorElement[0].value;
+				// AllergiesElement[1].innerHTML = AllergiesElement[0].value;
+				// WeightElement[1].innerHTML = WeightElement[0].value;
+				// HeightElement[1].innerHTML = HeightElement[0].value;
 
-				if (StatusElement[0].value == 1) { StatusElement[1].innerHTML = "Active"; }
-				else { StatusElement[1].innerHTML = "Inactive"; }
+				// if (StatusElement[0].value == 1) { StatusElement[1].innerHTML = "Active"; }
+				// else { StatusElement[1].innerHTML = "Inactive"; }
 
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}	
+
+	function submitMedicalRecord(){
+		var vaccinations = document.querySelectorAll(".VaccinationGroup");
+		var surgeries = document.querySelectorAll(".SurgeryGroup");
+		var medications = document.querySelectorAll(".MedicationGroup");
+
+		if(vaccinations.length == 0){
+			saveMedicalRecordService(document.querySelector("#PetID").value, "deleted", "", 1);
+		}
+		else{
+			for (let i = 0; i < vaccinations.length; i++) {
+				saveMedicalRecordService(document.querySelector("#PetID").value, "Vaccination", vaccinations[i], 1);
+			}
+		}
+
+		if(surgeries.length == 0){
+			saveMedicalRecordService(document.querySelector("#PetID").value, "deleted", "", 2);
+		}
+		else{
+			for (let i = 0; i < surgeries.length; i++) {
+				saveMedicalRecordService(document.querySelector("#PetID").value, "Surgeries", surgeries[i], 2);
+			}
+		}
+
+		if(medications.length == 0){
+				saveMedicalRecordMedication(document.querySelector("#PetID").value, "deleted");
+		}
+		else{
+			for (let i = 0; i < medications.length; i++) {
+				saveMedicalRecordMedication(document.querySelector("#PetID").value, medications[i]);
+			}
+		}
+
+		
+
+				
+	}
+
+	function saveMedicalRecordService(petID, name ,element, type){
+
+		var obj = {};
+
+		if(name == "deleted"){
+			obj = {
+				PetID: petID,
+				Type: type
+			}
+		}
+		else{
+			var serviceElement = element.querySelector(".Name" + name);
+			var selected = serviceElement.options[serviceElement.selectedIndex];
+			var description = selected.getAttribute('data-description');
+
+			obj = {
+				ID: element.querySelector(".ID" + name).value,
+				PetID: petID,
+				CategoryID: element.querySelector(".Type" + name).value,
+				ServiceID: serviceElement.value,
+				Type: type,
+				DueDate: element.querySelector(".DueDate" + name).value,
+				Description: description,
+				Remarks: element.querySelector(".Remarks" + name).value,
+				IsDeleted: 0,
+				CreatedDate: element.querySelector(".CreatedDate" + name).value,
+				CreatedBy: element.querySelector(".CreatedBy" + name).value,
+				UpdatedDate: new Date(),
+				UpdatedBy: "System"
+			};
+		}
+
+		fetch('/Patients/UpdateMedicalRecordService', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
 	}
 
+	function saveMedicalRecordMedication(petID, element) {
 
+		var obj = {};
+
+		if(element == "deleted"){
+			obj = {
+				PetID: petID
+			}
+		}
+		else{
+			var productElement = element.querySelector(".NameMedication");
+			var selected = productElement.options[productElement.selectedIndex];
+			var description = selected.getAttribute('data-description');
+
+			obj = {
+				ID: element.querySelector(".IDMedication").value,
+				PetID: petID,
+				CategoryID: element.querySelector(".TypeMedication").value,
+				ProductID: productElement.value,
+				ExpiryDate: element.querySelector(".DueDateMedication").value,
+				Status: 1,
+				Description: description,
+				CreatedDate: element.querySelector(".CreatedDateMedication").value,
+				CreatedBy: element.querySelector(".CreatedByMedication").value,
+				UpdatedDate: new Date(),
+				UpdatedBy: "System"
+			};
+		}
+
+		
+
+		fetch('/Patients/UpdateMedicalRecordMedication', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				location.reload();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function downloadHealthCard() {
+		var clone = document.getElementById("healthCardModal").cloneNode(true);
+		clone.querySelector(".modal-header").classList.toggle("hideContainer");
+		clone.querySelector(".modal-content").classList.toggle("modal-content-custom");
+		var element = clone.querySelector(".modal-dialog");
+
+		var opt = {
+			margin: 1,
+			filename: '@ViewData["PetName"] - Health Card.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+		};
+
+		html2pdf().set(opt).from(element).save();
+	}
+
+	function printHealthCard() {
+		var iframe = document.createElement("iframe"); // create the element
+		document.body.appendChild(iframe);  // insert the element to the DOM
+
+		var clone = document.getElementById("healthCardModal").cloneNode(true);
+		clone.querySelector(".modal-header").classList.toggle("hideContainer");
+		clone.querySelector(".modal-content").classList.toggle("modal-content-custom");
+
+		var input = clone.innerHTML;
+
+		iframe.contentWindow.document.write(input); // write the HTML to be printed
+		iframe.contentWindow.print();  // print it
+		document.body.removeChild(iframe); // remove the iframe from the DOM
+	}
 </script>

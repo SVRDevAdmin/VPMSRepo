@@ -12,12 +12,14 @@ namespace VPMS.Lib.Data
 {
     public class PatientRepository
     {
-        /// <summary>
-        /// Get Patient Owner List
-        /// </summary>
-        /// <param name="config"></param>
-        /// <returns></returns>
-        public static List<PatientSelectionModel> GetPatientOwnerList(IConfiguration config)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Patient Owner List
+		/// </summary>
+		/// <param name="config"></param>
+		/// <returns></returns>
+		public static List<PatientSelectionModel> GetPatientOwnerList(IConfiguration config)
         {
             try
             {
@@ -37,7 +39,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -66,7 +69,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -87,7 +91,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -128,7 +133,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
     }

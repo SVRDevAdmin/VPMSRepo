@@ -1,6 +1,9 @@
 CREATE TABLE `vpmsdb`.`mst_user` (
   `UserID` VARCHAR(255) NOT NULL,
-  `Name` VARCHAR(200) NOT NULL,
+  `Surname` VARCHAR(200) NOT NULL,
+  `LastName` VARCHAR(200) NOT NULL,
+  `StaffID` VARCHAR(200) NOT NULL,
+  `Gender` varchar(2) NOT NULL,
   `EmailAddress` VARCHAR(100) NOT NULL,
   `Status` INT NOT NULL,
   `RoleID` VARCHAR(255) NOT NULL,

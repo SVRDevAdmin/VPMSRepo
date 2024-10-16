@@ -95,4 +95,14 @@ namespace VPMS.Lib.Data.Models
         public String? OwnerName { get; set; }
         public long? PatientID { get; set; }
     }
+
+    public class UpcomingAppointment
+    {
+        public DateOnly? ApptDate { get; set; }
+        public TimeOnly ApptStartTime { get; set; }
+		public TimeOnly ApptEndTime { get; set; }
+		public string PetName { get; set; }
+        public string Service { get; set; }
+        public string Doctor { get; set; }
+    }
 }

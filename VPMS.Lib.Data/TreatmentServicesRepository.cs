@@ -11,13 +11,15 @@ namespace VPMS.Lib.Data
 {
     public class TreatmentServicesRepository
     {
-        /// <summary>
-        /// Get Treatment Services list
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="branchID"></param>
-        /// <returns></returns>
-        public static List<TreatmentServicesModel> GetTreatmentServicesList(IConfiguration config, int branchID)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Treatment Services list
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="branchID"></param>
+		/// <returns></returns>
+		public static List<TreatmentServicesModel> GetTreatmentServicesList(IConfiguration config, int branchID)
         {
             try
             {
@@ -28,7 +30,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -49,7 +52,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
 
@@ -70,7 +74,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
     }

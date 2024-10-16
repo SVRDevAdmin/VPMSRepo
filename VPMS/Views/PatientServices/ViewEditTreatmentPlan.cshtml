@@ -1,0 +1,776 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@using VPMS.Lib.Data.Models
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+
+@{
+	ViewData["Title"] = "View/Edit Treatment Plan Page";
+	ViewBag.SelectedMenu = "patientServicesMenu";
+
+	var treatmentPlanInfo = ViewData["TreatmentPlan"] as VPMS.Lib.Data.Models.TreatmentPlanModel;
+}
+
+<style>
+	.table-content {
+		/* text-align: center; */
+		height: 2vw;
+	}
+
+	.table-row-content {
+		padding: 1vw 0;
+	}
+
+	table th:first-child {
+		border-radius: 0.2vw 0 0 0.2vw;
+	}
+
+	table th:last-child {
+		border-radius: 0 0.2vw 0.2vw 0;
+	}
+
+	.form-field {
+		border-style: solid;
+		border-color: black;
+		font-size: 1vw;
+	}
+
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2vw;
+		font-size: 1vw;
+	}
+
+	.form-label {
+		font-weight: bold;
+		margin-bottom: 0.7vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#patientTreatmentPlan {
+		color: dodgerblue !important;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+</style>
+
+<div style="display: flex;">
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("TreatmentPlanList", "PatientServices")'" />
+		<span class="textColor" style="font-size: 2vw;">@LangResources["TreatmentPlan_Label_TreatmentPlans"]</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;"><span class="inventoryInfo">@LangResources["Patient_Button_View"]</span><span class="inventoryInfo hideContainer">@LangResources["Patient_Button_Edit"]</span> @LangResources["TreatmentPlan_Label_Treatment"]</span>
+	</div>
+</div>
+
+<template id="serviceTemplate">
+	<tr style="height: 3.3vw;" class="serviceGroup">
+		<td class="table-content table-row-content serviceID" hidden>  </td>
+		<td class="table-content table-row-content serviceName">  </td>
+		<td class="table-content table-row-content servicePrice">  </td>
+		<td class="table-content table-row-content" style="width: 7vw;">
+			<div style="display: flex; justify-content: space-between;">
+				<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-eye"></i></button>
+				<button onclick="this.parentElement.parentElement.parentElement.remove(); calculateTotal();" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-trash-can"></i></button>
+			</div>
+		</td>
+	</tr>
+</template>
+
+<template id="medicationProductTemplate">
+	<tr style="height: 3.3vw;" class="productGroup">
+		<td class="table-content table-row-content medicationProductID" hidden>  </td>
+		<td class="table-content table-row-content medicationProductName">  </td>
+		<td class="table-content table-row-content">
+			<input class="medicationProductUnits treatmentPlanInfo hideContainer" type="number" min="1" style="width: 5vw;" value="1" onchange="calculateMedicationPrice(this.value, this.parentElement.parentElement);" />
+			<span class="formlabel medicationProductUnitsText treatmentPlanInfo" style="font-weight: normal;"></span>
+		</td>
+		<td class="table-content table-row-content medicationProductPrice"> </td>
+		<td class="table-content table-row-content medicationProductPriceOriginal" hidden> </td>
+		<td class="table-content table-row-content" style="width: 7vw;">
+			<div style="display: flex; justify-content: space-between;">
+				<button class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-eye"></i></button>
+				<button onclick="this.parentElement.parentElement.parentElement.remove(); calculateTotal();" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-trash-can"></i></button>
+			</div>
+		</td>
+	</tr>
+</template>
+
+<div style="display: flex; justify-content: center;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 71vh; margin-right: 1vw; width: 52vw;">
+		<div>
+			<div class="containerBackground2" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["TreatmentPlan_Label_TreatmentDetails"]</span>
+			</div>
+			<div class="containerBorder" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<input id="TreatmentPlanID" type="text" value="@treatmentPlanInfo.ID" hidden />
+				<input id="TreatmentPlanCreatedDate" type="text" value="@treatmentPlanInfo.CreatedDate.ToString("yyyy-MM-ddThh:mm:ss")" hidden />
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container" style="width: 100%;">
+						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_TreatmentName"]</span>
+						<input id="TreatmentName" type="text" class="form-control form-field inputField treatmentPlanInfo hideContainer" value="@treatmentPlanInfo.Name" />
+						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.Name</span>
+					</div>
+				</div>
+
+				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw;">
+					<div class="field-container" style="width: 45%;">
+						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_CreatedBy"]</span>
+						<select id="CreatedBy" class="form-control form-field inputField treatmentPlanInfo hideContainer">
+							<option value=""> -- @LangResources["TreatmentPlan_Label_SelectUser"] -- </option>
+
+							@foreach (var user in ViewData["UserList"] as List<UserModel>)
+							{
+								var name = user.Surname + " " + user.LastName;
+
+								if (treatmentPlanInfo.CreatedBy == name)
+								{
+									<option value="@name" selected> @name </option>
+								}
+							}
+
+							@* @if (@treatmentPlanInfo.CreatedBy == "Admin1")
+							{
+								<option value="Admin1" selected> Admin1 </option>
+								<option value="Admin2"> Admin2 </option>
+							}
+							else
+							{
+								<option value="Admin1"> Admin1 </option>
+								<option value="Admin2" selected> Admin2 </option>
+							} *@
+						</select>
+						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.CreatedBy</span>
+					</div>
+
+					<div class="field-container" style="width: 45%;">
+						<span class="formlabel textColor">@LangResources["Patient_Label_Status"]</span>
+						<select id="Status" class="form-control form-field inputField treatmentPlanInfo hideContainer">
+							<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] -- </option>
+							@{
+								var status = "";
+								if (treatmentPlanInfo.Status == 1)
+								{
+									<option value="1" selected> @LangResources["Patient_Selection_Active"] </option>
+									<option value="2"> @LangResources["Patient_Selection_Inactive"] </option>
+									status = LangResources["Patient_Selection_Active"];
+								}
+								else
+								{
+									<option value="1"> @LangResources["Patient_Selection_Active"] </option>
+									<option value="2" selected> @LangResources["Patient_Selection_Inactive"] </option>
+									status = LangResources["Patient_Selection_Inactive"];
+								}
+							}							
+						</select>
+						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@status</span>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container" style="width: 100%;">
+						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">@LangResources["MenuBar_Label_Service"]</span>
+						<div style=" padding: 1vw;" class="containerBackground">
+							<table class="textColor" id="serviceList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
+								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
+									<th class="table-content"> @LangResources["MenuBar_Label_Service"] </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
+									<th class="table-content">  </th>
+								</tr>
+							</table>
+
+							<div class="dropright treatmentPlanInfo hideContainer">
+								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding: 0;">
+									<span id="container">+</span>
+									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_AddService"]</span>
+								</button>
+								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
+									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
+										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
+										<input type="text" id="searchServices" placeholder="@LangResources["Service_Label_SearchService"]" onkeyup="filter(this,'serviceOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+									</div>
+									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
+
+										<div style="margin-bottom: 1vw;">
+											@{
+												int indexNo = 1;
+												string index = "";
+
+												foreach (var service in ViewData["Services"] as List<VPMS.Lib.Data.Models.ServicesModel>)
+												{
+													index = "service" + indexNo;
+
+																<div class="form-check">
+																	<input type="checkbox" class="form-check-input serviceOption" id="@index" name="@index" data-id="@service.ID" value="@service.Name" onchange="checkSelected('serviceOption', 'addServices');">
+																	<label class="form-check-label" for="@index">@service.Name</label><br>
+																</div>
+
+													indexNo++;
+												}
+											}
+										</div>
+
+									</div>
+									<div style="display: flex; justify-content: space-between; align-items: center;">
+										<button class="btn btn-lg btn-primary" name="service" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
+											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
+										</button>
+										<button id="addServices" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container" style="width: 100%;">
+						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">@LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
+						<div style=" padding: 1vw;" class="containerBackground">
+							<table class="textColor" id="medicationProductList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
+								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
+									<th class="table-content"> @LangResources["Patient_Label_Medication"] / @LangResources["Inventory_Label_ProductName"] </th>
+									<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
+									<th class="table-content">  </th>
+								</tr>
+							</table>
+
+							<div class="dropright treatmentPlanInfo hideContainer">
+								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding: 0;">
+									<span id="container">+</span>
+									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_Add"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
+								</button>
+								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw; background-color: white !important;">
+									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
+										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
+										<input type="text" id="searchMedicationProduct" placeholder="@LangResources["Patient_Button_Search"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]" onkeyup="filter(this, 'productOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+									</div>
+									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
+
+										<div style="margin-bottom: 1vw;">
+											@{
+												indexNo = 1;
+												index = "";
+
+												foreach (var inventory in ViewData["Inventories"] as List<VPMS.Lib.Data.Models.InventoryModel>)
+												{
+													index = "product" + indexNo;
+
+																<div class="form-check">
+																	<input type="checkbox" class="form-check-input productOption" id="@index" name="@index" data-id="@inventory.ID" value="@inventory.Name" onchange="checkSelected('productOption', 'addMedicationProduct');">
+																	<label class="form-check-label" for="@index">@inventory.Name</label><br>
+																</div>
+
+													indexNo++;
+												}
+											}
+										</div>
+
+									</div>
+									<div style="display: flex; justify-content: space-between; align-items: center;">
+										<button class="btn btn-lg btn-primary" name="medicationProduct" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
+											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
+										</button>
+										<button id="addMedicationProduct" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container" style="width: 100%;">
+						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_Remarks"]</span>
+						<input id="Remarks" type="text" class="form-control form-field inputField treatmentPlanInfo hideContainer" value="@treatmentPlanInfo.Remarks" />
+						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.Remarks</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="RightInfoContainer" style="margin-left: 1.5vw;">
+		<div>
+			<div class="containerBackground2" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Label_TotalCost"]</span>
+			</div>
+			<div class="containerBorder textColor" style="color: darkgray; width: 23vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
+
+				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw; padding: 0 1vw;">
+					<div class="field-container quaterSize" style="margin-bottom: unset;">
+						<span class="formlabel">@LangResources["MenuBar_Label_Service"]</span>
+					</div>
+
+					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
+						<span class="formlabel" id="serviceTotal"></span><span class="formlabel">$</span>
+					</div>
+				</div>
+
+				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw; padding: 0 1vw;">
+					<div class="field-container quaterSize" style="margin-bottom: unset;">
+						<span class="formlabel">@LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
+					</div>
+
+					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
+						<span class="formlabel" id="medicationProductTotal"></span><span class="formlabel">$</span>
+					</div>
+				</div>
+
+				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw; background-color: #c8dcfc; padding: 0 1vw;">
+					<div class="field-container quaterSize" style="margin-bottom: unset;">
+						<span class="formlabel">@LangResources["TreatmentPlan_Label_Total"]</span>
+					</div>
+
+					<div class="field-container quaterSize" style="flex-direction: row; margin-bottom: unset;">
+						<span class="formlabel" id="total"></span><span class="formlabel">$</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div style="text-align: end; display: flex; justify-content: space-between;">
+			<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;" onclick="location.href='@Url.Action("TreatmentPlanList", "PatientServices")'"> @LangResources["Patient_Button_Cancel"] </button>
+			<button class="btn btn-lg btn-primary treatmentPlanInfo" style="width: 11vw; font-size: 1vw;" onclick="editTreatmentPlanInfo();"> @LangResources["Patient_Button_Edit"] </button>
+			<button class="btn btn-lg btn-primary treatmentPlanInfo hideContainer" id="saveButton" style="width: 11vw; font-size: 1vw;" onclick="saveTreatmentPlan();"> @LangResources["Patient_Button_Save"] </button>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	if ("@ViewData["Type"]" == "Edit") {
+		editTreatmentPlanInfo();
+	}
+
+	$("#SubMenuServices").toggleClass('show');
+	document.querySelector("#SubMenuServicesParent").querySelector("#imgArrow").classList.toggle("Up");
+
+	getServiceListByPlan("@treatmentPlanInfo.ID");
+	getProductListByPlan("@treatmentPlanInfo.ID");
+
+	function editTreatmentPlanInfo() {
+		var element = document.querySelectorAll(".treatmentPlanInfo");
+
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+
+	}
+
+	function getServiceListByPlan(id){
+		fetch('/PatientServices/GetTreatmentPlanServicesList?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				for (let i = 0; i < data.length; i++) {
+					cloneElement(false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+				}
+				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getProductListByPlan(id) {
+		fetch('/PatientServices/GetTreatmentPlanProductsList?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				for (let i = 0; i < data.length; i++) {
+					cloneElement(false, "medicationProductTemplate", "medicationProductList", "medicationProductID", data[i].ProductID, "medicationProductName", data[i].ProductName, "medicationProductPrice", data[i].TotalPrice, true, data[i].Units, data[i].PricePerQty);
+				}
+				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	document.querySelector('#addServices').addEventListener('click', function (event) {
+		if (this.classList.contains("disable")) { event.stopPropagation(); }
+		else {
+			var checkboxes = document.getElementsByClassName("serviceOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+
+			for (let i = 0; i < selectedCboxes.length; i++) {
+				getServiceInfo(selectedCboxes[i].getAttribute('data-id'));
+			}
+		}
+	});
+
+	function getServiceInfo(id) {
+		fetch('/PatientServices/GetServiceById?id=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				cloneElement(true, "serviceTemplate", "serviceList", "serviceID", data.ID, "serviceName", data.Name, "servicePrice", data.Prices, false, 0, 0);
+				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	document.querySelector('#addMedicationProduct').addEventListener('click', function (event) {
+		if (this.classList.contains("disable")) { event.stopPropagation(); }
+		else {
+			var checkboxes = document.getElementsByClassName("productOption");
+			var selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+
+			for (let i = 0; i < selectedCboxes.length; i++) {
+				getInventoryInfo(selectedCboxes[i].getAttribute('data-id'));
+			}			
+		}
+	});
+
+	function getInventoryInfo(id) {
+		fetch('/Inventory/GetInventoryById?id=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				cloneElement(true, "medicationProductTemplate", "medicationProductList", "medicationProductID", data.ID, "medicationProductName", data.Name, "medicationProductPrice", data.PricePerQty, true, 1, data.PricePerQty);
+				calculateTotal();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	var treatments = document.querySelectorAll('.form-check');
+
+	for (let i = 0; i < treatments.length; i++) {
+		treatments[i].addEventListener('click', function (event) {
+			event.stopPropagation();
+		});
+	}
+
+	var clearFilterElement = document.querySelectorAll("#clearFilter");
+
+	for (let i = 0; i < clearFilterElement.length; i++) {
+		clearFilterElement[i].addEventListener('click', function (event) {
+			event.stopPropagation();
+
+			var option = "", selector = "";
+
+			if (this.name == "service") { option = "service"; selector = "Services"; }
+			else { option = "product"; selector = "MedicationProduct"; }
+
+			var element = this.parentElement.parentElement;
+
+			const a = element.querySelectorAll("." + option + "Option");
+
+			for (let i = 0; i < a.length; i++) {
+				if (a[i].checked) {
+					a[i].checked = false;
+				}
+			}
+
+			var test = "#search" + selector;
+
+			element.querySelector(test).value = "";
+			$('#search' + selector).keyup();
+
+			var addSelections = element.querySelector("#add" + selector);
+			if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+
+		});
+	}
+
+	function checkSelected(element, button) {
+		const a = document.querySelectorAll("." + element);
+		var disabledFilter = true;
+
+		for (let i = 0; i < a.length; i++) {
+			if (a[i].checked) {
+				disabledFilter = false;
+			}
+		}
+
+		var addSelections = document.getElementById(button);
+		if (disabledFilter) {
+			if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+		}
+		else {
+			if (addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
+		}
+	}
+
+	function cloneElement(edit, templateId, elementId, idElement, id, nameElement, name, priceElement, price, productGroup, units, originalPrice) {
+		const template = document.getElementById(templateId);
+		const element = document.getElementById(elementId);
+		const clone = template.content.cloneNode(true);
+		var notExisted = true;
+
+		clone.querySelector("." + idElement).innerHTML = id;
+		clone.querySelector("." + nameElement).innerHTML = name;
+		clone.querySelector("." + priceElement).innerHTML = price;
+
+		if (productGroup) {
+			clone.querySelector(".medicationProductPriceOriginal").innerHTML = originalPrice;
+			clone.querySelector(".medicationProductUnitsText").innerHTML = units;
+			clone.querySelector(".medicationProductUnits").value = units;
+
+			if (edit) {
+				var elementHidden = clone.querySelectorAll(".treatmentPlanInfo");
+
+				for (let i = 0; i < elementHidden.length; i++) {
+					elementHidden[i].classList.toggle("hideContainer");
+				}
+			}
+		}
+
+		if (nameElement.includes("medication")) {
+			var currentElementList = document.querySelectorAll(".productGroup");
+			for (let i = 0; i < currentElementList.length; i++) {
+				if (currentElementList[i].querySelector("." + idElement).innerHTML == id) {
+					notExisted = false;
+				}
+			}
+		} else {
+			var currentElementList = document.querySelectorAll(".serviceGroup");
+			for (let i = 0; i < currentElementList.length; i++) {
+				if (currentElementList[i].querySelector("." + idElement).innerHTML == id) {
+					notExisted = false;
+				}
+			}
+		}
+
+		if (notExisted) {
+			element.appendChild(clone);
+		}
+	}
+
+	function calculateMedicationPrice(value, element){
+		var originalPriceElement = element.querySelector(".medicationProductPriceOriginal");
+		var priceElement = element.querySelector(".medicationProductPrice");
+
+		var test = parseInt(originalPriceElement.innerHTML);
+
+		priceElement.innerHTML = parseInt(originalPriceElement.innerHTML) * parseInt(value);
+
+		calculateTotal();
+	}
+
+	function filter(element, target) {
+		const filter = element.value.toUpperCase();
+
+		var parentElement = element.parentElement.parentElement;
+
+		const a = parentElement.querySelectorAll("." + target);
+
+		for (let i = 0; i < a.length; i++) {
+			var value = a[i].value;
+			if (value.toUpperCase().indexOf(filter) > -1) {
+				a[i].parentElement.style.display = "";
+			} else {
+				a[i].parentElement.style.display = "none";
+			}
+		}
+	}
+
+	function calculateTotal(){
+		var servicePriceElement = document.querySelectorAll(".servicePrice");
+		var medicationProductPriceElement = document.querySelectorAll(".medicationProductPrice");
+		var serviceTotal = 0;
+		var medicationProductTotal = 0;
+		var total = 0;
+
+		for (let i = 0; i < servicePriceElement.length; i++) {
+			serviceTotal += parseInt(servicePriceElement[i].innerHTML);
+		}
+
+		for (let i = 0; i < medicationProductPriceElement.length; i++) {
+			medicationProductTotal += parseInt(medicationProductPriceElement[i].innerHTML);
+		}
+
+		document.getElementById("serviceTotal").innerHTML = serviceTotal;
+		document.getElementById("medicationProductTotal").innerHTML = medicationProductTotal;
+
+		total = serviceTotal + medicationProductTotal;
+		document.getElementById("total").innerHTML = total;
+		
+		if (total == 0) { document.getElementById("saveButton").disabled = true; }
+		else { document.getElementById("saveButton").disabled = false; }
+
+	}
+
+	function saveTreatmentPlan() {
+		var name = document.getElementById("TreatmentName");
+		var createdBy = document.getElementById("CreatedBy");
+		var status = document.getElementById("Status");
+		var remarks = document.getElementById("Remarks");
+		var totalPrice = document.getElementById("total");
+
+		var data = {
+			ID: document.getElementById("TreatmentPlanID").value,
+			Name: name.value,
+			Remarks: remarks.value,
+			CreatedBy: createdBy.value,
+			Status: status.value,
+			TotalPrice: totalPrice.innerHTML,
+			BranchID: 1,
+			IsDeleted: 0,
+			CreatedDate: document.getElementById("TreatmentPlanCreatedDate").value,
+			UpdatedDate: new Date(),
+			UpdatedBy: createdBy.value
+		}
+
+		fetch('/PatientServices/UpdateTreatmentPlan', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data != 0) {
+					saveTreatmentPlanServices(data);
+					saveTreatmentPlanProducts(data);
+					window.location = "/PatientServices/TreatmentPlanList";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function saveTreatmentPlanServices(id) {
+		var serviceGroupElement = document.querySelectorAll(".serviceGroup");
+		var data = [];
+
+		if (serviceGroupElement.length == 0) {
+			var obj = {
+				PlanID: id,
+				ServiceID: 0
+			}
+
+			data.push(obj);
+		}
+
+		for (let i = 0; i < serviceGroupElement.length; i++) {
+			var obj = {
+				PlanID: id,
+				ServiceID: serviceGroupElement[i].querySelector(".serviceID").innerHTML,
+				ServiceName: serviceGroupElement[i].querySelector(".serviceName").innerHTML,
+				Price: serviceGroupElement[i].querySelector(".servicePrice").innerHTML,
+				IsDeleted: 0,
+				CreatedDate: new Date(),
+				CreatedBy: document.getElementById("CreatedBy").value
+			}
+
+			data.push(obj);
+		}
+
+		fetch('/PatientServices/UpdateTreatmentPlanServices', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data) {
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function saveTreatmentPlanProducts(id) {
+		var productGroupElement = document.querySelectorAll(".productGroup");
+		var data = [];
+
+		if (productGroupElement.length == 0) {
+			var obj = {
+				PlanID: id,
+				ProductID: 0
+			}
+
+			data.push(obj);
+		}
+
+		for (let i = 0; i < productGroupElement.length; i++) {
+			var obj = {
+				PlanID: id,
+				ProductID: productGroupElement[i].querySelector(".medicationProductID").innerHTML,
+				ProductName: productGroupElement[i].querySelector(".medicationProductName").innerHTML,
+				Units: productGroupElement[i].querySelector(".medicationProductUnits").value,
+				PricePerQty: productGroupElement[i].querySelector(".medicationProductPriceOriginal").innerHTML,
+				TotalPrice: productGroupElement[i].querySelector(".medicationProductPrice").innerHTML,
+				IsDeleted: 0,
+				CreatedDate: new Date(),
+				CreatedBy: document.getElementById("CreatedBy").value
+			}
+
+			data.push(obj);
+		}
+
+		fetch('/PatientServices/UpdateTreatmentPlanProducts', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data) {
+					// window.location = "/PatientServices/ServiceList";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+</script>

@@ -12,5 +12,9 @@ namespace VPMS.Lib.Data.Models
         public int RoleType { get; set; }
 
         public int Status { get; set; }
-    }
+
+		public int IsAdmin { get; set; }
+
+		public int IsDoctor { get; set; }
+	}
 }

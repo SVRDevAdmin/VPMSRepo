@@ -7,12 +7,26 @@
 
 <form id="registerForm" method="post" asp-controller="Login" asp-action="SignUp">
     <h1 class="form-title">Create Account</h1>
-    <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
+    @* <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
         <div class="fieldContainerChild">
             <img src="~/images/skins/icon_ion_person_sharp.png" />
             <input asp-for="Name" class="form-control" aria-required="true" placeholder="Full Name" />
         </div>
         <span asp-validation-for="Name" class="text-danger"></span>
+    </div> *@
+    <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
+        <div class="fieldContainerChild">
+            <img src="~/images/skins/icon_ion_person_sharp.png" />
+            <input asp-for="Surname" class="form-control" aria-required="true" placeholder="Surname" />
+        </div>
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
+        <div class="fieldContainerChild">
+            <img src="~/images/skins/icon_ion_person_sharp.png" />
+            <input asp-for="LastName" class="form-control" aria-required="true" placeholder="Last Name" />
+        </div>
+        <span asp-validation-for="LastName" class="text-danger"></span>
     </div>
     <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
         <div class="fieldContainerChild">

@@ -24,7 +24,7 @@ CREATE TABLE `mst_appointment_services` (
 	`ID` BIGINT NOT NULL AUTO_INCREMENT,
 	`ApptID` BIGINT NULL DEFAULT NULL,
 	`ServicesID` BIGINT NULL DEFAULT NULL,
-	`IsDeleted` BIT(1) NOT NULL DEFAULT (0),
+	`IsDeleted` BIT(1) NOT NULL DEFAULT 0,
 	`CreatedDate` DATETIME NULL DEFAULT NULL,
 	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	PRIMARY KEY (`ID`) USING BTREE
@@ -36,7 +36,7 @@ AUTO_INCREMENT=19
 
 
 CREATE INDEX IX_ValidationDocAppt
-ON mst_appointment (BranchID, STATUS, InchargeDoctor, ApptDate, ApptStart, ApptEndTime);
+ON mst_appointment (BranchID, STATUS, InchargeDoctor, ApptDate, ApptStartTime, ApptEndTime);
 
 CREATE INDEX IX_ValidationOwnerAppt
 ON mst_appointment (BranchID, STATUS, OwnerID, PetID, ApptDate, ApptStartTime, ApptEndTime);
@@ -49,9 +49,6 @@ ON mst_appointment (ApptStartTime);
 
 CREATE INDEX IX_AppointmentView_Services
 ON mst_appointment_Services (ServicesID, IsDeleted);
-
-CREATE INDEX IX_API_ApptByCreatedDate
-ON mst_appointment (AppointmentID, PetID, OwnerID, CreatedDate, UpdatedDate);
 
 CREATE INDEX IX_API_ApptByCreatedDate
 ON mst_appointment (AppointmentID, PetID, OwnerID, CreatedDate, UpdatedDate);

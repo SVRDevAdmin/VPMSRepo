@@ -6,11 +6,14 @@
     string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
 
+    string userID = httpContextaccessor.HttpContext.Request.Cookies["userid"];
     var LanguageSelected = Program.LanguageSelected;
     var CountrySelected = Program.CountrySelected;
     var LanguageCodeList = Program.LanguageCodeList;
     var CountryList = Program.CountryList;
     var LanguageFullNameSelected = Program.LanguageFullNameSelected;
+
+    var CurrentPage = Program.CurrentPage;
 }
 
 <!DOCTYPE html>
@@ -41,18 +44,18 @@
         {
             if (theme == "dark")
             {
-                                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+                                    <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
                 ViewBag.DarkTheme = "Dark";
             }
             if (theme == "light")
             {
-                                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                                    <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
                 ViewBag.DarkTheme = "Light";
             }
         }
         else
         {
-                            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
             ViewBag.DarkTheme = "Light";
             /* temp */
         }
@@ -66,7 +69,7 @@
         /*below are for theme button*/
 
         #theme {
-            z-index: 9998;
+            /* z-index: 9998; */
             position: absolute;
             right: 0.8vw;
         }
@@ -80,20 +83,24 @@
         }
 
         #group_1138 {
-            top: 1.45vw;
-            right: -0.4vw;
-            width: 3.6vw;
+            /* top: 1.45vw; */
+            top: 17px;
+            /* right: -0.4vw; */
+            right: -5px;
+            /* width: 3.6vw; */
+            width: 44.5px;
             position: absolute;
             /*animation*/
             transition: all 0.5s linear;
         }
 
             #group_1138.darktheme {
-                top: 1.45vw;
-                right: 1.8vw;
-                width: 3.6vw;
+                /* top: 1.45vw; */
+                top: 17px;
+                /* right: 1.8vw; */
+                right: 21px;
+                /* width: 3.6vw; */
                 position: absolute;
-                /*animation*/
                 transition: all 0.5s linear;
             }
 
@@ -107,18 +114,22 @@
             #dark_theme_icon.darktheme {
                 visibility: visible;
                 opacity: 1;
-                top: -0.07vw;
-                right: 2vw;
-                width: 1.3vw;
+                /* top: -0.07vw; */
+                top: -1px;
+                /* right: 2vw; */
+                right: 24px;
+                /* width: 1.3vw; */
+                width: 16px;
                 position: absolute;
-                /*animation*/
                 transition: opacity 0.5s linear;
             }
 
 
         #rectangle_1045, #rectangle_1046 {
-            width: 2.7vw;
-            height: 2.2vw;
+            /* width: 2.7vw;
+            height: 2.2vw; */
+            width: 33.5px;
+            height: 27.5px;
             -ms-border-radius: 7px;
             -o-border-radius: 7px;
             -moz-border-radius: 7px;
@@ -129,32 +140,38 @@
         }
 
         #icon_feather_sun {
-            top: 2vw;
-            right: 1.3vw;
-            width: 2.05vw;
+            /* top: 2vw; */
+            top: 24.5px;
+            /* right: 1.3vw; */
+            right: 16px;
+            /* width: 2.05vw; */
             position: absolute;
         }
 
         #path_519 {
-            top: 0.22vw;
-            right: 0.22vw;
-            width: 0.7vw;
+            /* top: 0.22vw; */
+            top: 2px;
+            /* right: 0.22vw; */
+            right: 2.48px;
+            /* width: 0.7vw; */
+            width: 8px;
             position: absolute;
             visibility: visible;
             opacity: 1;
-            /*animation*/
             transition: opacity 0.5s linear;
         }
 
 
         #path_520 {
-            top: -0.21vw;
-            right: -0.21vw;
-            width: 1.5vw;
+            /* top: -0.21vw; */
+            top: -2.8px;
+            /* right: -0.21vw; */
+            right: -2.86px;
+            /* width: 1.5vw; */
+            width: 18px;
             position: absolute;
             visibility: visible;
             opacity: 1;
-            /*animation*/
             transition: opacity 0.5s linear;
         }
 
@@ -164,6 +181,10 @@
                 /*animation*/
                 transition: opacity 0.5s linear;
             }
+
+        .LanguageSelectionFont:hover {
+            color: dodgerblue;
+        }
     </style>
 </head>
 
@@ -177,18 +198,19 @@
     </div>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 34px; width: 15vw;">
+            <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 34px; width: 16vw;">
                 <img id="imgLogo" style="width: 2vw;" />
                 <img id="imgLogoTitle" style="width: 11vw;" />
             </div>
-            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 160px;">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100">
-                    <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 82vh !important;">
+                    <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="font-size: 1vw;">
                         <li class="nav-item">
-                            <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0"> *@
+                            <a href="#" class="nav-link align-middle px-0">
                                 <span id="dashboardMenu" class="spanMenuBlue"></span>
                                 <img id="iconHome" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Dashboard"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Dashboard"]</span>
                             </a>
                         </li>
                         <li>
@@ -206,21 +228,21 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#SubMenuServices" class="nav-link align-middle px-0" data-bs-toggle="collapse">
-                                <span class="spanMenuBlue"></span>
+                            <a href="#SubMenuServices" id="SubMenuServicesParent" class="nav-link align-middle px-0" data-toggle="collapse">
+                                <span id="patientServicesMenu" class="spanMenuBlue"></span>
                                 <img id="imgTreatment" class="menuIcons" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_PatientServices"]</span>
-                                <img id="imgArrow" style="margin-left:  1.25rem;" />
+                                <img id="imgArrow" style="margin-left: 1.25rem;" />
                             </a>
-                            <ul id="SubMenuServices" class="collapse nav flex-column" data-bs-parent="#menu">
+                            <ul id="SubMenuServices" class="collapse nav flex-column" data-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline">@LangResources["MenuBar_Label_PatientTreatmentPlan"]</span>
+                                    <a asp-controller="PatientServices" asp-action="TreatmentPlanList" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="patientTreatmentPlan">@LangResources["MenuBar_Label_PatientTreatmentPlan"]</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a hfef="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline">@LangResources["MenuBar_Label_Service"]</span>
+                                    <a asp-controller="PatientServices" asp-action="ServiceList" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="service">@LangResources["MenuBar_Label_Service"]</span>
                                     </a>
                                 </li>
                             </ul>
@@ -229,14 +251,15 @@
                             <a href="#" class="nav-link align-middle px-0">
                                 <span class="spanMenuBlue"></span>
                                 <img id="iconReceipt" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
                             </a>
                         </li>
                         <li>
+                            @* <a asp-controller="Inventory" asp-action="Index" class="nav-link align-middle px-0"> *@
                             <a href="#" class="nav-link align-middle px-0">
-                                <span class="spanMenuBlue"></span>
+                                <span id="inventoryMenu" class="spanMenuBlue"></span>
                                 <img id="iconInventory" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Inventory"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Inventory"]</span>
                             </a>
                         </li>
                         <li>
@@ -247,31 +270,31 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#SubMenuAccess" class="nav-link align-middle px-0" data-bs-toggle="collapse">
+                            <a href="#SubMenuAccess" class="nav-link align-middle px-0" data-toggle="collapse">
                                 <span class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span>
                                 <img id="imgArrow" style="margin-left: 20px;" />
                             </a>
-                            <ul id="SubMenuAccess" class="collapse nav flex-column" data-bs-parent="#menu">
+                            <ul id="SubMenuAccess" class="collapse nav flex-column" data-parent="#menu">
                                 <li class="w-100">
                                     <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline">@LangResources["MenuBar_Label_Organization"]</span>
+                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Organization"]</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline">@LangResources["MenuBar_Label_StaffListing"]</span>
+                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_StaffListing"]</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline">@LangResources["MenuBar_Label_RoleSetting"]</span>
+                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_RoleSetting"]</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline">@LangResources["MenuBar_Label_Integration"]</span>
+                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Integration"]</span>
                                     </a>
                                 </li>
                             </ul>
@@ -280,7 +303,7 @@
                             <a href="#" class="nav-link align-middle px-0">
                                 <span class="spanMenuBlue"></span>
                                 <img id="iconServices" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_CustomerService"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_CustomerService"]</span>
                             </a>
                         </li>
                     </ul>
@@ -323,13 +346,13 @@
                     </li>
                     <li>
                         <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                            <span id="patientServicesMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="imgTreatment" style="margin-left: 20px; margin-right: 20px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_PatientServices"]</strong>
-                            <img id="imgArrow" style="margin-left: 20px;" />
-                            <ul>
-                                <li>@LangResources["MenuBar_Label_PatientTreatmentPlan"]</li>
-                                <li>@LangResources["MenuBar_Label_Service"]</li>
+                            <img id="imgArrow" class="patientServicesMenuArrow" style="margin-left: 20px;" />
+                            <ul class="patientServicesMenuList">
+                                <li id="patientTreatmentPlan" onclick="location.href='@Url.Action("TreatmentPlanList", "PatientServices")'"> @LangResources["MenuBar_Label_PatientTreatmentPlan"] </li>
+                                <li id="service" onclick="location.href='@Url.Action("ServiceList", "PatientServices")'">@LangResources["MenuBar_Label_Service"]</li>
                             </ul>
                         </a>
                     </li>
@@ -341,8 +364,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <span style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
+                        <a asp-controller="Inventory" asp-action="Index">
+                            <span id="inventoryMenu" style="background-color: none; width: 20px; height: 35px; vertical-align: middle;  display: inline-block;"></span>
                             <img id="iconInventory" style="margin-left: 16px; margin-right: 16px;" />
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_Inventory"]</strong>
                         </a>
@@ -371,7 +394,7 @@
                 </ul>
             </dix>  *@
             <!-- Old END-->
-            <div class="col py-3">
+            @* <div class="col py-3" hidden>
                 <div class="row" style="border: 0px solid black; height: 85px;">
                     <div class="col-md-5" style="border: 0px solid black;">
                     </div>
@@ -421,7 +444,8 @@
                                                 <label class="ProfileFont">@user</label>
                                             </div>
                                             <div class="dropdown-menu profilemenu">
-                                                <a class="dropdown-item" href="#">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                <a class="dropdown-item" asp-controller="User" asp-action="UserProfile">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                <a class="dropdown-item" asp-controller="Login" asp-action="ChangePassword">@LangResources["Login_Label_ResetPassword"]</a>
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="Logout">@LangResources["MenuBar_Label_Logout"]</a>
                                             </div>
                                         </div>
@@ -438,7 +462,7 @@
                                         <img src="~/images/BrightnessWhite.png" width="22" height="20" />
                                     </div>
                                 </div> *@
-                                <a href="#" id="theme" onclick="toggleTheme(true);">
+                                @* <a href="#" id="theme" onclick="toggleTheme(true);">
                                     <div class="divThemes">
                                         <div id="group_1138">
                                             <div id="rectangle_1045"></div>
@@ -453,27 +477,89 @@
                                         </div>
                                     </div>
                                 </a>
-                                @* <a href="#" id="theme" onclick="toggleTheme(true);">
-                                    <img src="~/images/skins/path_4043.png" id="path_4043" />
-
-                                    <div id="group_1138">
-                                        <div id="rectangle_1045"></div>
-                                        <div id="rectangle_1046"></div>
-
-                                    </div>
-
-                                    <div id="icon_feather_sun">
-                                        <img src="~/images/skins/path_519.png" id="path_519" />
-                                        <img src="~/images/skins/path_520.png" id="path_520" />
-                                        <img src="~/images/DarkWhite.png" id="dark_theme_icon" />
-
-                                    </div>
-                                </a> *@
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="divContent" class="row" style="border: 0px solid black;">
+                    @RenderBody()
+                </div>
+
+            </div> *@
+            <div class="col py-3" style="padding-bottom: unset !important;">
+                <div class="row" style="border: 0px solid black; height: 85px;">
+                    <div class="col-md-4" style="border: 0px solid black;">
+                    </div>
+                    <div class="col-md-8" style="border: 0px solid black;">
+                        <div class="row" style="height: 80px;">
+                            <div class="col-md-4" style="border: 0px solid black; margin-right: 4vw; flex: 0 0 auto; width: 33.33333333%;">
+                                <div style="display: flex; flex-direction: row; height: 60px; margin-top: 10px; border: 0px solid black;">
+                                    <div style="display: flex; flex-direction: row; height: 60px; border: 0px solid black; margin-right: 1vw;">
+                                        <div style="height: 60px; border: 0px solid black;">
+                                            <img href="#" data-bs-toggle="modal" data-bs-target="#LanguageModal" id="imgEarth" style="margin-top: 6px; margin-left: 5px;" />
+                                        </div>
+                                        <div class="LanguageSelectionContainer" style="width: 13vw; height: 60px; border: 0px solid black;">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#LanguageModal">
+                                                @{
+                                                    if (LanguageFullNameSelected != null && CountrySelected != null)
+                                                    {
+                                                                    <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
+                                                    }
+                                                    else
+                                                    {
+                                                                    <label class="LanguageSelectionFont">No Configuration Settings</label>
+                                                    }
+                                                }
+
+
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div style="height: 60px;  border: 0px solid black;">
+                                        <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="border: 0px solid black; flex: 0 0 auto; width: 41.66666667%;">
+                                <div style="display: flex; flex-direction: row; align-items: baseline; height: 60px;">
+
+                                    <div style="width: 60px; border-radius: 50px; background-color: cornflowerblue; ">
+                                        <img src="~/images/AvatarProfile.png" width="60" height="60" />
+                                    </div>
+                                    <div style="width: 220px; margin-left: 15px;">
+                                        <div class="dropdown" style="margin-top: 10px;">
+                                            <div class="dropdown-toggle" data-toggle="dropdown" style="width: 11vw;">
+                                                <label class="ProfileFont">@user</label>
+                                            </div>
+                                            <div class="dropdown-menu profilemenu">
+                                                <a class="dropdown-item" asp-controller="User" asp-action="UserProfile">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                <a class="dropdown-item" asp-controller="Login" asp-action="ChangePassword">@LangResources["Login_Label_ResetPassword"]</a>
+                                                <a class="dropdown-item" asp-controller="Login" asp-action="Logout">@LangResources["MenuBar_Label_Logout"]</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="border: 0px solid black; flex: 0 0 auto; width: 16.66666667%;">
+                                <!-- Switch Themes -->
+                                <a href="#" id="theme" onclick="toggleTheme(true);">
+                                    <div class="divThemes">
+                                        <div id="group_1138">
+                                            <div id="rectangle_1045"></div>
+                                        </div>
+
+                                        <div id="icon_feather_sun">
+                                            <img src="~/images/skins/path_519.png" id="path_519" />
+                                            <img src="~/images/skins/path_520.png" id="path_520" />
+                                            <img src="~/images/DarkWhite.png" id="dark_theme_icon" />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divContent" class="row" style="border: 0px solid black; overflow-x: auto; max-height: 562px;">
                     @RenderBody()
                 </div>
 
@@ -502,7 +588,6 @@
                                         {
                                             foreach (var m in LanguageCodeList)
                                             {
-                                                //var sFlagPath = "../../images/Icons/Country/" + m.CodeID + ".png";
                                                 var sFlagPath = "/images/Icons/Country/" + m.CodeID + ".png";
 
                                                 var sFlagChecked = "";
@@ -511,23 +596,24 @@
                                                     sFlagChecked = "checked='true'";
                                                 }
 
-                                                        <li class="list-group-item" style="border: 0px">
-                                                            <input id="chkFirst" name="listgrpradio" type="radio"
-                                                                   class="form-check-input me-1 border-secondary"
-                                                                   style="margin-left: 30px; vertical-align: middle;"
-                                                                   value=@m.CodeID
-                                                                   @sFlagChecked />
+                                                            <li class="list-group-item" style="border: 0px">
+                                                                <input id="@m.CodeID" name="listgrpradio" type="radio"
+                                                                       class="form-check-input me-1 border-secondary"
+                                                                       style="margin-left: 30px; vertical-align: middle;"
+                                                                       value=@m.CodeID
+                                                                       @sFlagChecked />
 
-                                                            <img src=@sFlagPath class="CountryFlag" />
-                                                            <label class="form-check-label" style="margin-left: 10px;">@m.CodeName</label>
-                                                        </li>
+                                                                @*<img src=@sFlagPath class="CountryFlag" />
+                                                    <label class="form-check-label" style="margin-left: 10px;" for="@m.CodeID">@m.CodeName</label>*@
+                                                                <label class="form-check-label" style="vertical-align: top;" for="@m.CodeID"><img src=@sFlagPath class="CountryFlag" /> @m.CodeName</label>
+                                                            </li>
                                             }                                           
                                         }
                                         else
                                         {
-                                                    <li class="list-group-item" style="border: 0px">
-                                                        <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
-                                                    </li>
+                                                        <li class="list-group-item" style="border: 0px">
+                                                            <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
+                                                        </li>
                                         }
                                     }
                                 </ul>
@@ -553,12 +639,12 @@
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
 
-                                                        <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                                            <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
                                             }                                            
                                         }
                                         else
                                         {
-                                                    <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
+                                                        <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
                                         }
                                     }
                                 </ul>
@@ -640,7 +726,7 @@
         </div>
     </div>
 
-    <script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    @*<script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -652,7 +738,9 @@
         }
 
         var pageName = '@ViewBag.SelectedMenu';
-        $("#" + pageName).toggleClass('selected')
+        if(pageName != ""){
+            $("#" + pageName).toggleClass('selected')
+        }
 
         $(document).ready(function () {
             $('#txtfilter').on('keyup', function () {
@@ -667,13 +755,18 @@
         function updateCountrySettings() {
             $country = $('.list-group-item.active').text();
 
+            var test1 = '@sessionUserID';
+            var test2 = $country;
+
             if ($country != null && $country.length > 0) {
-                $.post("Configuration/UpdateUserConfiguration", {
+                $.post("/Configuration/UpdateUserConfiguration", {
                     userid: '@sessionUserID',
                     ConfigKey: 'UserSettings_Country',
                     ConfigVal: $country
                 });
             }
+
+            window.location.reload();
         }
 
         $('#btnSave').on('click', function () {
@@ -686,7 +779,7 @@
                 }).done(function (resp) {
                     updateCountrySettings();
 
-                    window.location.reload();
+                    // window.location.reload();
                 });
             }
             else {
@@ -702,14 +795,23 @@
         });
 
         $('#menu li').click(function (e) {
+
             if ($(this).find('#imgArrow').length > 0) {
                 if ($(this).find('#imgArrow')[0].className != 'Up'){
-                    $(this).find('ul').show();
+                    // $(this).find('ul').show();
+
+                    var arrowImages = document.querySelectorAll("#imgArrow");
+
+                    for (let i = 0; i < arrowImages.length; i++) {
+                        arrowImages[i].classList.remove("Up");
+                    }
+
                     $(this).find('#imgArrow').toggleClass('Up');
                 }
                 else{
-                    $(this).find('ul').toggleClass('collapse');
-                    $(this).find('ul').hide();
+                    // $(this).find('ul').toggleClass('collapse');
+                    // $(this).find('ul').hide();
+                    
 
                     $(this).find('#imgArrow').removeClass('Up');
                 }
@@ -817,7 +919,7 @@
                 else {
                     var head = document.getElementsByTagName('head')[0];
                     var link = document.createElement('link');
-                    link.id = "themeCss"
+                    link.Id = "themeCss"
                     link.rel = 'stylesheet';
                     link.href = theme;
                     head.appendChild(link);

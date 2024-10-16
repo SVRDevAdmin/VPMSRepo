@@ -11,13 +11,15 @@ namespace VPMS.Lib.Data
 {
     public class ClientRepository
     {
-        /// <summary>
-        /// Get Client Auth record by Auth Token
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="sAuthKey"></param>
-        /// <returns></returns>
-        public static ClientAuthModel GetClientAuth(IConfiguration config, String sAuthKey)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Client Auth record by Auth Token
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sAuthKey"></param>
+		/// <returns></returns>
+		public static ClientAuthModel GetClientAuth(IConfiguration config, String sAuthKey)
         {
             try
             {
@@ -28,7 +30,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("Database Error >> ", ex);
+				return null;
             }
         }
     }

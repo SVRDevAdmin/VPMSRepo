@@ -1,9 +1,14 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
+
+	var CountryList = Program.CountryList;
+
+	var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
 }
 
 <style>
@@ -65,8 +70,8 @@
 
 	.medicalRecordPartition{
 		width: 26vw;
-		height: 31vw;
-		overflow: auto;
+		/* height: 31vw;
+		overflow: auto; */
 	}
 
 	.medicalRecordPartitionTitle {
@@ -107,9 +112,14 @@
 		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
-				<div class="field-container halfSize">
+				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_OwnerName"]</span>
 					<input id="OwnerName" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">@LangResources["Login_Placeholder_Email"]</span>
+					<input id="Email" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container quaterSize">
@@ -130,17 +140,20 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-					<select id="Country" class="form-control form-field inputField">
+					<select id="Country" class="form-control form-field inputField" onchange="changeCountryState(this, 'country');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
-						<option value="Malaysia"> Malaysia</option>
+						@foreach(var country in CountryList)
+						{
+							<option value="@country.CountryName" data-id="@country.ID">@country.CountryName</option>
+						}						
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-					<select id="State" class="form-control form-field inputField">
+					<select id="State" class="form-control form-field inputField" onchange="changeCountryState(this, 'state');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
-						<option value="Selangor"> Selangor</option>
+						@* <option value="Selangor"> Selangor</option> *@
 					</select>
 				</div>
 
@@ -148,7 +161,7 @@
 					<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 					<select id="City" class="form-control form-field inputField">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
-						<option value="Shah Alam"> Shah Alam</option>
+						@* <option value="Shah Alam"> Shah Alam</option> *@
 					</select>
 				</div>
 
@@ -188,9 +201,14 @@
 		<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
-				<div class="field-container halfSize">
+				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_CoOwnerName"]</span>
 					<input id="CoOwnerName" type="text" class="form-control form-field inputField" />
+				</div>
+
+				<div class="field-container quaterSize">
+					<span class="formlabel">@LangResources["Login_Placeholder_Email"]</span>
+					<input id="CoOwnerEmail" type="text" class="form-control form-field inputField" />
 				</div>
 
 				<div class="field-container quaterSize">
@@ -211,17 +229,20 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-					<select id="CoCountry" class="form-control form-field inputField">
+					<select id="CoCountry" class="form-control form-field inputField" onchange="changeCountryState(this, 'country');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
-						<option value="Malaysia"> Malaysia</option>
+						@foreach (var country in CountryList)
+						{
+							<option value="@country.CountryName" data-id="@country.ID">@country.CountryName</option>
+						}
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-					<select id="CoState" class="form-control form-field inputField">
+					<select id="CoState" class="form-control form-field inputField" onchange="changeCountryState(this, 'state');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
-						<option value="Selangor"> Selangor</option>
+						@* <option value="Selangor"> Selangor</option> *@
 					</select>
 				</div>
 
@@ -229,7 +250,7 @@
 					<span class="formlabel">@LangResources["Patient_Label_City"]</span>
 					<select id="CoCity" class="form-control form-field inputField">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
-						<option value="Shah Alam"> Shah Alam</option>
+						@* <option value="Shah Alam"> Shah Alam</option> *@
 					</select>
 				</div>
 
@@ -262,22 +283,32 @@
 	</div>
 
 	<div style="text-align: end; margin-right: 1.6vw;">
-		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+		<button class="btn btn-lg btn-secondary" style="width: 11vw; font-size: 1vw;" onclick="location.href='@Url.Action("PatientsList", "Patients")'"> @LangResources["Patient_Button_Cancel"] </button>
 		<button onclick="togglePage();" class="btn btn-lg btn-primary" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_NextStep"] </button>
 	</div>
 	
 </div>
 
 <template id="VaccinationTemplate">
-	<div>
+	<div class="VaccinationGroup">
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-			<input type="text" class="form-control form-field inputField TypeVaccination" />
+			@* <input type="text" class="form-control form-field inputField TypeVaccination" /> *@
+			<select class="form-control form-field inputField TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination');">
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccinationType"] --</option>
+				@foreach (var vaccination in ViewData["VaccinationList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
+				{
+					<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
+				}
+			</select>
 		</div>
 
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-			<input type="text" class="form-control form-field inputField NameVaccination" />
+			@* <input type="text" class="form-control form-field inputField NameVaccination" /> *@
+			<select class="form-control form-field inputField NameVaccination">
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccination"] --</option>
+			</select>
 		</div>
 
 		<div class="field-container">
@@ -285,23 +316,38 @@
 			<input type="date" class="form-control form-field inputField DueDateVaccination" />
 		</div>
 
-		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;">@LangResources["Patient_Button_SaveVaccination"]</button>
+		<div class="field-container">
+			<span class="formlabel">@LangResources["TreatmentPlan_Label_Remarks"]</span>
+			<input type="text" class="form-control form-field inputField RemarksVaccination" />
+		</div>
+
+		<div class="medicalRecordPartitionTitle" style="display:flex; justify-content: flex-end;">
+			@* <button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;">@LangResources["Patient_Button_SaveVaccination"]</button> *@
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
 </template>
 
 <template id="MedicationTemplate">
-	<div>
+	<div class="MedicationGroup">
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-			<input type="text" class="form-control form-field inputField TypeMedication" />
+			@* <input type="text" class="form-control form-field inputField TypeMedication" /> *@
+			<select class="form-control form-field inputField TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication');">
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectMedicationType"] --</option>
+				@foreach (var medication in ViewData["MedicationList"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
+				{
+					<option value="@medication.ID"> @medication.TypeName</option>
+				}
+			</select>
 		</div>
 
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-			<input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" />
+			@* <input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" /> *@
+			<select class="form-control form-field inputField NameMedication">
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] --</option>
+			</select>
 		</div>
 
 		<div class="field-container">
@@ -309,23 +355,33 @@
 			<input type="date" class="form-control form-field inputField DueDateMedication" />
 		</div>
 
-		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> @LangResources["Patient_Button_SaveMedication"] </button>
+		<div class="medicalRecordPartitionTitle" style="display:flex; justify-content: flex-end;">
+			@* <button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> @LangResources["Patient_Button_SaveMedication"] </button> *@
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
 </template>
 
 <template id="SurgeriesTemplate">
-	<div>
+	<div class="SurgeryGroup">
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-			<input type="text" class="form-control form-field inputField TypeSurgeries" />
+			@* <input type="text" class="form-control form-field inputField TypeSurgeries" /> *@
+			<select class="form-control form-field inputField TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery');">
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgeryType"] --</option>
+				@foreach (var vaccination in ViewData["SurgeryList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
+				{
+					<option value="@vaccination.ID"> @vaccination.SubCategoryName</option>
+				}
+			</select>
 		</div>
 
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-			<input type="text" class="form-control form-field inputField NameSurgeries" />
+			@* <input type="text" class="form-control form-field inputField NameSurgeries" /> *@
+			<select class="form-control form-field inputField NameSurgeries">
+				<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgery"] --</option>
+			</select>
 		</div>
 
 		<div class="field-container">
@@ -333,8 +389,13 @@
 			<input type="date" class="form-control form-field inputField DueDateSurgeries" />
 		</div>
 
-		<div class="medicalRecordPartitionTitle" style="display:flex;align-items: center; justify-content: space-between;">
-			<button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> @LangResources["Patient_Button_SaveSurgery"] </button>
+		<div class="field-container">
+			<span class="formlabel">@LangResources["TreatmentPlan_Label_Remarks"]</span>
+			<input type="text" class="form-control form-field inputField RemarksSurgeries" />
+		</div>
+
+		<div class="medicalRecordPartitionTitle" style="display:flex; justify-content: flex-end;">
+			@* <button class="btn btn-lg btn-primary" style="width: 14vw; font-size: 1vw;"> @LangResources["Patient_Button_SaveSurgery"] </button> *@
 			<a onclick="removeClone(this);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 		</div>
 	</div>
@@ -371,14 +432,14 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
-							<input type="date" class="form-control form-field inputField DOB" />
+							<input type="date" class="form-control form-field inputField DOB" onchange="updateAge(this);" />
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Age"]</span>
-							<input type="text" class="form-control form-field inputField Age" />
+							<input type="text" class="form-control form-field inputField Age" disabled/>
 						</div>
 
 						<div class="field-container quaterSize">
@@ -449,7 +510,7 @@
 
 					<div class="medicalRecordPartition">
 
-						<div class="medicalRecordPartitionTitle">
+						@* <div class="medicalRecordPartitionTitle">
 							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Vaccination"]</span>
 						</div>
 
@@ -458,12 +519,20 @@
 
 						<div>
 							<a onclick="cloneVaccination(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ @LangResources["Patient_Button_AddNew"]</a>
+						</div> *@
+
+						<div class="medicalRecordPartitionTitle">
+							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Vaccination"]</span>
+							<a onclick="cloneVaccination(this);" href="#" class="medicalRecordPartitionTitle" style="font-size: 1.2vw; float: right;">+ @LangResources["Patient_Button_AddNew"]</a>
+						</div>
+
+						<div id="VaccinationContent" style="height: 27.3vw; overflow: auto;">
 						</div>
 
 					</div>
 
 					<div class="medicalRecordPartition">
-						<div class="medicalRecordPartitionTitle">
+						@* <div class="medicalRecordPartitionTitle">
 							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Medication"]</span>
 						</div>
 
@@ -472,12 +541,20 @@
 
 						<div>
 							<a onclick="cloneMedication(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ @LangResources["Patient_Button_AddNew"]</a>
+						</div> *@
+
+						<div class="medicalRecordPartitionTitle">
+							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Medication"]</span>
+							<a onclick="cloneMedication(this);" href="#" class="medicalRecordPartitionTitle" style="font-size: 1.2vw; float: right;">+ @LangResources["Patient_Button_AddNew"]</a>
+						</div>
+
+						<div id="MedicationContent" style="height: 27.3vw; overflow: auto;">
 						</div>
 
 					</div>
 
 					<div class="medicalRecordPartition">
-						<div class="medicalRecordPartitionTitle">
+						@* <div class="medicalRecordPartitionTitle">
 							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Surgeries"]</span>
 						</div>
 
@@ -486,6 +563,14 @@
 
 						<div>
 							<a onclick="cloneSurgeries(this);" class="medicalRecordPartitionTitle" style="font-size: 1.2vw;">+ @LangResources["Patient_Button_AddNew"]</a>
+						</div> *@
+
+						<div class="medicalRecordPartitionTitle">
+							<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Surgeries"]</span>
+							<a onclick="cloneSurgeries(this);" href="#" class="medicalRecordPartitionTitle" style="font-size: 1.2vw; float: right; ">+ @LangResources["Patient_Button_AddNew"]</a>
+						</div>
+
+						<div id="SurgeriesContent" style="height: 27.3vw; overflow: auto;">
 						</div>
 
 					</div>
@@ -520,8 +605,92 @@
 
 	document.getElementById("PetInfoContent").appendChild(clone);
 
+	function updateAge(e) {
+		var parentElement = e.parentElement.parentElement.parentElement;
+		var currentDate = new Date();
+		var petDOB = new Date(e.value);
+		var yearDiffer = currentDate.getFullYear() - petDOB.getFullYear();
+		var monthDiffer = currentDate.getMonth() - petDOB.getMonth() + (12 * yearDiffer);
+		var yearText = "";
 
-	var testGlobal = 0;
+		yearText = (monthDiffer / 12) + "";
+
+		var AgeElement = parentElement.querySelectorAll(".Age")
+		AgeElement[0].value = parseInt(yearText);
+	}
+
+	function changeCountryState(e, type){
+		var option = e.options[e.selectedIndex];
+		var dataID = option.getAttribute("data-id");
+		var parent = e.parentElement.parentElement;
+
+		if(type == "country"){
+			setState(parent, dataID);
+		}
+		else{
+			setCity(parent, dataID);
+		}
+	}
+
+
+	function setState(e, id) {
+
+		var parent = e.querySelector("#State");
+
+		if (parent == null) {
+			parent = e.querySelector("#CoState");
+		}
+
+		setCity(e, 0);
+
+		fetch('/Patients/GetState?countryID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				parent.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					parent.innerHTML = parent.innerHTML + '<option value="' + data[i].State + '" data-id="' + data[i].ID + '">' + data[i].State + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+
+	function setCity(e, id) {
+
+		var parent = e.querySelector("#City");
+
+		if (parent == null) {
+			parent = e.querySelector("#CoCity");
+		}
+
+		fetch('/Patients/GetCity?stateID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				parent.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					parent.innerHTML = parent.innerHTML + '<option value="' + data[i].City + '" data-id="' + data[i].ID + '">' + data[i].City + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
 
 	function changeSpecies(e) {
 		var breedElement = e.parentElement.parentElement.querySelector('.Breed');
@@ -541,7 +710,51 @@
 				breedElement.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] -- </option>';
 
 				for (let i = 0; i < data.length; i++) {
-					breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].breed + '">' + data[i].breed + '</option>';
+					breedElement.innerHTML = breedElement.innerHTML + '<option value="' + data[i].Breed + '">' + data[i].Breed + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function serviceList(id, element, name){
+		fetch('/PatientServices/GetServiceByCategory?categoryID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				if (name == "Surgery") { name = '@LangResources["Patient_Selection_SelectSurgery"]'; }
+				else { name = '@LangResources["Patient_Selection_SelectVaccination"]'; }
+				element.innerHTML = '<option value="" selected> -- ' + name + ' -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function medicationList(id, element) {
+		fetch('/Inventory/GetInventoryByCategory?categoryID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				element.innerHTML = '<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] -- </option>';
+
+				for (let i = 0; i < data.length; i++) {
+					element.innerHTML = element.innerHTML + '<option value="' + data[i].ID + '"  data-description="' + data[i].Description + '">' + data[i].Name + '</option>';
 				}
 			})
 			.catch(error => {
@@ -604,69 +817,10 @@
 		var parent = e.parentElement.parentElement.remove();
 	}
 
-	function submitOwnerInfo(){
-		var ownerName = document.getElementById("OwnerName").value
-		var contactNo = document.getElementById("ContactNo").value
-		var gender = document.getElementById("Gender").value
-		var country = document.getElementById("Country").value
-		var state = document.getElementById("State").value
-		var city = document.getElementById("City").value
-		var postcode = document.getElementById("Postcode").value
-		var address1 = document.getElementById("Address1").value
-		var address2 = document.getElementById("Address2").value
-
-		var obj = {
-			PatientID: 1,
-			Name: ownerName,
-			ContactNo: contactNo,
-			Gender: gender,
-			Country: country,
-			State: state,
-			City: city,
-			PostCode: postcode,
-			Address: address1
-		};
-
-		fetch('/Patients/InsertInfo', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(obj)
-		})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
-			return response.json();
-		})
-		.then(data => {
-				
-
-		})
-		.catch(error => {
-			console.error('There was a problem with the fetch operation:', error);
-		});
-
-	}
-
-	function submitPetInfo() {
-
-		var petInfoList = document.getElementById("PetInfoContent");
-		var petInfoChildList = petInfoList.children;
-
-		for (let i = 0; i < petInfoChildList.length; i++) {
-			var vaccinationList = petInfoChildList[i].querySelectorAll('.TypeVaccination');
-
-			for (let i = 0; i < vaccinationList.length; i++) {
-				var vaccinationType = vaccinationList[i].value;
-				var test = vaccinationList[i].value;
-			}
-		}
-	}
-
 	function submitInfo() {
 
 		var obj = {
-			BranchID: 1,
+			BranchID: @sessionBranchID,
 			CreatedDate: new Date(),
 			CreatedBy: "System"
 		};
@@ -691,8 +845,6 @@
 
 				createPetsInfo(data);
 
-				window.location = "/Patients/Index";
-
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
@@ -701,10 +853,11 @@
 	}
 
 	function createOwnerInfo(patientID, coOwner) {
-		var ownerName, contactNo, gender, country, state, city, postcode, address1, address2;
+		var ownerName, contactNo, email, gender, country, state, city, postcode, address1, address2;
 		if (coOwner) {
 			ownerName = document.getElementById("CoOwnerName").value
 			contactNo = document.getElementById("CoContactNo").value
+			email = document.getElementById("Email").value
 			gender = document.getElementById("CoGender").value
 			country = document.getElementById("CoCountry").value
 			state = document.getElementById("CoState").value
@@ -716,6 +869,7 @@
 		else {
 			ownerName = document.getElementById("OwnerName").value
 			contactNo = document.getElementById("ContactNo").value
+			email = document.getElementById("CoOwnerEmail").value
 			gender = document.getElementById("Gender").value
 			country = document.getElementById("Country").value
 			state = document.getElementById("State").value
@@ -729,6 +883,7 @@
 			PatientID: patientID,
 			Name: ownerName,
 			ContactNo: contactNo,
+			EmailAddress: email,
 			Gender: gender,
 			Country: country,
 			State: state,
@@ -803,10 +958,95 @@
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
 					}
+					return response.json();
+				})
+				.then(data => {
+					var vaccinations = petInfoChildList[i].querySelectorAll(".VaccinationGroup");
+					var surgeries = petInfoChildList[i].querySelectorAll(".SurgeryGroup");
+					var medications = petInfoChildList[i].querySelectorAll(".MedicationGroup");
+
+					for (let i = 0; i < vaccinations.length; i++) {
+						createMedicalRecordService(data, "Vaccination", vaccinations[i], 1);
+					}
+
+					for (let i = 0; i < surgeries.length; i++) {
+						createMedicalRecordService(data, "Surgeries", surgeries[i], 2);
+					}
+
+					for (let i = 0; i < medications.length; i++) {
+						createMedicalRecordMedication(data, medications[i]);
+					}					
+
+					window.location = "/Patients/Index";
+
 				})
 				.catch(error => {
 					console.error('There was a problem with the fetch operation:', error);
 				});
 		}
+	}
+
+	function createMedicalRecordService(petID, name ,element, type){
+		var serviceElement = element.querySelector(".Name" + name);
+		var selected = serviceElement.options[serviceElement.selectedIndex];
+		var description = selected.getAttribute('data-description');
+
+		var obj = {
+			PetID: petID,
+			CategoryID: element.querySelector(".Type" + name).value,
+			ServiceID: serviceElement.value,
+			Type: type,
+			DueDate: element.querySelector(".DueDate" + name).value,
+			Description: description,
+			Remarks: element.querySelector(".Remarks" + name).value,
+			IsDeleted: 0,
+			CreatedDate: new Date(),
+			CreatedBy: "System",
+		};
+
+		fetch('/Patients/InsertMedicalRecordService', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function createMedicalRecordMedication(petID, element) {
+		var productElement = element.querySelector(".NameMedication");
+		var selected = productElement.options[productElement.selectedIndex];
+		var description = selected.getAttribute('data-description');
+
+		var obj = {
+			PetID: petID,
+			CategoryID: element.querySelector(".TypeMedication").value,
+			ProductID: productElement.value,
+			ExpiryDate: element.querySelector(".DueDateMedication").value,
+			Status: 1,
+			Description: description,
+			CreatedDate: new Date(),
+			CreatedBy: "System",
+		};
+
+		fetch('/Patients/InsertMedicalRecordMedication', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 </script>
