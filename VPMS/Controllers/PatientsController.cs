@@ -240,13 +240,34 @@ namespace VPMSWeb.Controllers
 			return upcomingTreatmentPlan;
 		}
 
-		public PatientTreatmentPlan GetOngoingTreatmentPlan(int petID)
+		//public PatientTreatmentPlan GetOngoingTreatmentPlan(int petID)
+		//{
+		//	PatientTreatmentPlan upcomingTreatmentPlan = new PatientTreatmentPlan();
+
+		//	try
+		//	{
+		//		upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart <= DateOnly.FromDateTime(DateTime.Now) && x.TreatmentEnd >= DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).FirstOrDefault();
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Program.logger.Error("Controller Error >> ", ex);
+		//	}
+
+		//	if (upcomingTreatmentPlan == null)
+		//	{
+		//		upcomingTreatmentPlan = new PatientTreatmentPlan();
+		//	}
+
+		//	return upcomingTreatmentPlan;
+		//}
+
+		public List<PatientTreatmentPlan> GetOngoingTreatmentPlan(int petID)
 		{
-			PatientTreatmentPlan upcomingTreatmentPlan = new PatientTreatmentPlan();
+			List<PatientTreatmentPlan> upcomingTreatmentPlan = new List<PatientTreatmentPlan>();
 
 			try
 			{
-				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart <= DateOnly.FromDateTime(DateTime.Now) && x.TreatmentEnd >= DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).FirstOrDefault();
+				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart <= DateOnly.FromDateTime(DateTime.Now) && x.TreatmentEnd >= DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).ToList();
 			}
 			catch (Exception ex)
 			{
@@ -255,7 +276,7 @@ namespace VPMSWeb.Controllers
 
 			if (upcomingTreatmentPlan == null)
 			{
-				upcomingTreatmentPlan = new PatientTreatmentPlan();
+				upcomingTreatmentPlan = new List<PatientTreatmentPlan>();
 			}
 
 			return upcomingTreatmentPlan;

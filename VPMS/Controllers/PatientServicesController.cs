@@ -151,6 +151,11 @@ namespace VPMSWeb.Controllers
 			return treatmentPlansInfos;
 		}
 
+		public TreatmentPlanModel GetTreatmentPlanByID(int planID)
+		{
+			return _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == planID);
+		}
+
 		public List<TreatmentPlanService> GetTreatmentPlanServicesList(int planID)
 		{
 			var treatmentPlanServiceList = _treatmentPlanDBContext.Mst_TreatmentPlan_Services.Where(x => x.PlanID == planID && x.IsDeleted == 0).ToList();

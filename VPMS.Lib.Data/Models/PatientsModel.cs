@@ -186,6 +186,7 @@ namespace VPMS.Lib.Data.Models
         public DateOnly TreatmentStart { get; set; }
         public DateOnly TreatmentEnd { get; set; }
         public float TotalCost { get; set; }
+		public string Remarks { get; set; } = null!;
 		public int Status { get; set; }
 	}
 

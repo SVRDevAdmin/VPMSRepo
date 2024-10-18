@@ -167,6 +167,7 @@ namespace VPMSWeb.Controllers
 			}
         }
 
+        [Authorize(Roles = "Superadmin")]
         public IActionResult FirstRegister()
         {
 			try
@@ -183,6 +184,7 @@ namespace VPMSWeb.Controllers
 			}
         }
 
+        [Authorize(Roles = "Superadmin")]
         public async Task<IActionResult> SignUp(RegisterModel registerInfo)
         {
 			try
