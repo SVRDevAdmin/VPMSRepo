@@ -23,7 +23,9 @@ namespace VPMS.Lib.Data.Models
 
         public int BranchID { get; set; }
 
-        public DateTime? LastLoginDate { get; set; }
+		public int Level1ID { get; set; }
+
+		public DateTime? LastLoginDate { get; set; }
     }
 
     public class StaffProfileInfo

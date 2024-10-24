@@ -7,6 +7,8 @@
 // Set timeout variables. 1000 = 1 second.
 var timoutWarning = 300000;
 var timoutNow = 600000;
+//var timoutWarning = 3000;
+//var timoutNow = 6000;
 var logoutUrl = '/Login/Logout?autoLogout=true'; // URL to logout page.
 
 var warningTimer;

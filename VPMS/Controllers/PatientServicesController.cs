@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
+using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
@@ -457,6 +458,28 @@ namespace VPMSWeb.Controllers
 
 
 			return true;
+		}
+
+		public bool ChangeTreatmentPlanStatus(int treatmentPlanID, int newStatus)
+		{
+			try
+			{
+				var treatmentPlan = _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == treatmentPlanID);
+				treatmentPlan.Status = newStatus;
+
+				_treatmentPlanDBContext.Mst_TreatmentPlan.Update(treatmentPlan);
+				_treatmentPlanDBContext.SaveChanges();
+
+				return true;
+			}
+			catch (Exception ex) 
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+
+				return false;
+			}
+			
+			
 		}
 	}
 }

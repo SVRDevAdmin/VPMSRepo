@@ -202,7 +202,8 @@
                 <img id="imgLogo" style="width: 2vw;" />
                 <img id="imgLogoTitle" style="width: 11vw;" />
             </div>
-            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;">
+            @* <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;"> *@
+            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 65px;">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 82vh !important;">
                     <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="font-size: 1vw;">
                         <li class="nav-item">
@@ -270,16 +271,20 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#SubMenuAccess" class="nav-link align-middle px-0" data-toggle="collapse">
-                                <span class="spanMenuBlue"></span>
+                            <a href="#SubMenuAccess" id="SubMenuAccessParent" class="nav-link align-middle px-0" data-toggle="collapse">
+                                <span id="accessControlMenu" class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
+                                @* <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span> *@
                                 <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span>
                                 <img id="imgArrow" style="margin-left: 20px;" />
                             </a>
                             <ul id="SubMenuAccess" class="collapse nav flex-column" data-parent="#menu">
                                 <li class="w-100">
+                                    @* <a asp-controller="AccessControl" asp-action="OrganisationList" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="organisation">@LangResources["MenuBar_Label_Organization"]</span>
+                                    </a> *@
                                     <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Organization"]</span>
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="organisation" style="color: darkgray;">@LangResources["MenuBar_Label_Organization"]</span>
                                     </a>
                                 </li>
                                 <li>
@@ -510,8 +515,6 @@
                                                                     <label class="LanguageSelectionFont">No Configuration Settings</label>
                                                     }
                                                 }
-
-
                                             </a>
                                         </div>
                                     </div>

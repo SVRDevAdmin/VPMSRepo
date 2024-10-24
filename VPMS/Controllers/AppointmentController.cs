@@ -5,6 +5,7 @@ using VPMSWeb.Lib.Settings;
 using VPMSWeb.Models;
 using VPMS;
 using Microsoft.AspNetCore.Authorization;
+using VPMS.Lib;
 
 namespace VPMSWeb.Controllers
 {
@@ -226,6 +227,7 @@ namespace VPMSWeb.Controllers
             PatientOwnerModel sPatientOwner = new PatientOwnerModel();
             sPatientOwner.Name = sControllerModel.OwnerName;
             sPatientOwner.ContactNo = sControllerModel.ContactNo;
+            sPatientOwner.EmailAddress = sControllerModel.EmailAddress;
             sPatientOwner.Gender = "";
             sPatientOwner.Address = "";
             sPatientOwner.PostCode = "";
@@ -390,21 +392,21 @@ namespace VPMSWeb.Controllers
 
             try
             {
-                //VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
-                //sEmailObj.SenderEmail = sSender;
-                //sEmailObj.RecipientEmail = sRecipientList;
-                //sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
-                //sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
-                //sEmailObj.SMTPHost = sHost;
-                //sEmailObj.PortNo = sPortNo.Value;
-                //sEmailObj.HostUsername = sUsername;
-                //sEmailObj.HostPassword = sPassword;
-                //sEmailObj.EnableSsl = true;
-                //sEmailObj.UseDefaultCredentials = false;
-                //sEmailObj.IsHtml = true;
+                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = sRecipientList;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
 
-                //String sErrorMessage = "";
-                //EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+                String sErrorMessage = "";
+                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
             }
             catch (Exception ex)
             {

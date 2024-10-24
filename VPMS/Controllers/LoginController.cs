@@ -10,6 +10,11 @@ using VPMS.Lib.Data.Models;
 using System.Web;
 using System.Data;
 using Microsoft.AspNetCore.Http;
+using VPMS.Lib.Data;
+using VPMS.Lib;
+using VPMSWeb.Lib.Settings;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace VPMSWeb.Controllers
 {
@@ -106,17 +111,30 @@ namespace VPMSWeb.Controllers
                         Response.Cookies.Append("user", userInfo.Surname +" "+ userInfo.LastName, cookies);
 						Response.Cookies.Append("userid", userInfo.UserID, cookies);
 
+						HttpContext.Session.SetString("Username", userInfo.Surname + " " + userInfo.LastName);
+						HttpContext.Session.SetString("LoginID", loginInfo.Username);
 						HttpContext.Session.SetString("BranchID", userInfo.BranchID.ToString());
 						HttpContext.Session.SetString("RoleID", userInfo.RoleID);
 						HttpContext.Session.SetString("UserID", userInfo.UserID);
+						HttpContext.Session.SetString("Level1ID", userInfo.Level1ID.ToString());
 
-                        var userRole = await _userManager.GetRolesAsync(user);
+						var userRole = await _userManager.GetRolesAsync(user);
                         HttpContext.Session.SetString("RoleName", userRole.First());
-                        HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
+
+						var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
+						var organisationID = organisation == null ? 0 : organisation.OrganizationID;
+
+						HttpContext.Session.SetString("OrganisationID", organisationID.ToString());
 
                         var randomAlphanumeric = GenerateRandomAlphanumeric(32);
 						var sessionCreatedOn = DateTime.Now;
 						var sessionExpiredOn = DateTime.Now.AddMinutes(5);
+
+						var prevLoginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == loginInfo.Username);
+						if(prevLoginSessionLog.ActionType == "user-login")
+						{
+							_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { SessionID = prevLoginSessionLog.SessionID, SessionCreatedOn = prevLoginSessionLog.SessionCreatedOn, SessionExpiredOn = prevLoginSessionLog.SessionExpiredOn, UserID = prevLoginSessionLog.UserID, LoginID = prevLoginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = prevLoginSessionLog.LoginID, ActionType = "redundant-logout" });
+						}
 
 						_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
 
@@ -231,18 +249,18 @@ namespace VPMSWeb.Controllers
         {
 			try
 			{
-				await _signInManager.SignOutAsync();
-
-				var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
+				var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == HttpContext.Session.GetString("LoginID"));
 
 				var newLoginSessionLog = new LoginSessionLogModel() { SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
 
-				if (autoLogout) { newLoginSessionLog.ActionType = "expired-logout"; }
+				if (autoLogout) { newLoginSessionLog.ActionType = "idle-logout"; }
 				else { newLoginSessionLog.ActionType = "user-logout"; }
 
 				_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
 
 				_loginSessionDBContext.SaveChanges();
+
+				await _signInManager.SignOutAsync();
 
 			}
 			catch (Exception ex)
@@ -281,8 +299,25 @@ namespace VPMSWeb.Controllers
 
 						var setNewPassword = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
 
-						return RedirectToAction("Login", "Login");
-					}
+						if (setNewPassword.Succeeded)
+                        {
+                            List<String> sRecipientList = new List<String>();
+                            sRecipientList.Add(recoverInfo.Email);
+                            var staffInfo = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == user.Id);
+							var language = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), user.Id).FirstOrDefault(x => x.ConfigurationKey == "UserSettings_Language").ConfigurationValue;
+
+                            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN002", language);
+                            emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<staff_fullname>###", staffInfo.Surname + " " + staffInfo.LastName)
+                                                                                         .Replace("###<password>###", newPassword);
+
+
+                            SendNotificationEmail(sRecipientList, emailTemplate);
+
+                            return RedirectToAction("Login", "Login");
+                        }
+
+                        ViewData["alert"] = "Fail to reset password.";
+                    }
 					else
 					{
 						ViewData["alert"] = "Wrong email. Please check and try again.";
@@ -491,5 +526,38 @@ namespace VPMSWeb.Controllers
 
             return View("Login");
         }
-    }
+
+		public void SendNotificationEmail(List<String> sRecipientList, TemplateModel emailTemplate)
+		{
+			var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+			String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+			int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+			String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+			String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+			String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+
+			try
+			{
+				VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+				sEmailObj.SenderEmail = sSender;
+				sEmailObj.RecipientEmail = sRecipientList;
+				sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+				sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+				sEmailObj.SMTPHost = sHost;
+				sEmailObj.PortNo = sPortNo.Value;
+				sEmailObj.HostUsername = sUsername;
+				sEmailObj.HostPassword = sPassword;
+				sEmailObj.EnableSsl = true;
+				sEmailObj.UseDefaultCredentials = false;
+				sEmailObj.IsHtml = true;
+
+				String sErrorMessage = "";
+				EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
+		}
+	}
 }

@@ -117,6 +117,7 @@ namespace VPMS.Lib.Data.Models
         public String? Name { get; set; }
         public String? Gender { get; set; }
         public String? ContactNo { get; set; }
+        public String? EmailAddress { get; set; } = null!;
         public String? Address { get; set; }
         public String? PostCode { get; set; }
         public String? City { get; set; }

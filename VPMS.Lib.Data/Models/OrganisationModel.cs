@@ -17,4 +17,19 @@ namespace VPMS.Lib.Data.Models
 		public int TotalStaff { get; set; }
 		public int Status { get; set; }
 	}
+
+	public class OrganisationList
+	{
+		public int No { get; set; }
+		public int ID { get; set; }
+		public string Name { get; set; }
+		public string Branches { get; set; }
+		public int TotalStaff { get; set; }
+	}
+
+	public class OrganisationInfo
+	{
+		public List<OrganisationList> OrganisationList { get; set; }
+		public int TotalOrganisation { get; set; }
+	}
 }

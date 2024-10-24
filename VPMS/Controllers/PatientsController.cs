@@ -675,6 +675,8 @@ namespace VPMSWeb.Controllers
 		{
 			try
 			{
+				var allCurrentServices = _patientDBContext.Mst_MedicalRecord_VaccinationSurgery.AsNoTracking().Where(x => x.PetID == patientMedicalRecordService.PetID && x.Type == patientMedicalRecordService.Type).ToList();
+
 				if (patientMedicalRecordService.CategoryID != 0)
 				{
 					_patientDBContext.Update(patientMedicalRecordService);
@@ -693,6 +695,32 @@ namespace VPMSWeb.Controllers
 						_patientDBContext.Update(service);
 						_patientDBContext.SaveChanges();
 					}
+				}
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+
+				return false;
+			}
+		}
+
+		public bool DeleteMedicalRecordService([FromBody] List<int> deletedService)
+		{
+			try
+			{
+				var allServicesToDelete = _patientDBContext.Mst_MedicalRecord_VaccinationSurgery.AsNoTracking().Where(x => deletedService.Contains(x.ID)).ToList();
+
+				foreach(var service in allServicesToDelete)
+				{
+					service.IsDeleted = 1;
+					service.UpdatedDate = DateTime.Now;
+					service.UpdatedBy = "System";
+
+					_patientDBContext.Update(service);
+					_patientDBContext.SaveChanges();
 				}
 
 				return true;
@@ -727,6 +755,32 @@ namespace VPMSWeb.Controllers
 						_patientDBContext.Update(medications);
 						_patientDBContext.SaveChanges();
 					}
+				}
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+
+				return false;
+			}
+		}
+
+		public bool DeleteMedicalRecordMedication([FromBody] List<int> deletedMedication)
+		{
+			try
+			{
+				var allMedicationsToDelete = _patientDBContext.Mst_MedicalRecord_Medication.AsNoTracking().Where(x => deletedMedication.Contains(x.ID)).ToList();
+
+				foreach (var medication in allMedicationsToDelete)
+				{
+					medication.Status = 3;
+					medication.UpdatedDate = DateTime.Now;
+					medication.UpdatedBy = "System";
+
+					_patientDBContext.Update(medication);
+					_patientDBContext.SaveChanges();
 				}
 
 				return true;
