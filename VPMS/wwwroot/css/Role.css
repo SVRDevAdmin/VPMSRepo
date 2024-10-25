@@ -1,0 +1,51 @@
+﻿.lbRoleSettingError {
+    color: red;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+.rowRoleTableMargin {
+    margin-left: 5px;
+}
+
+.roleButtonRow {
+    margin-left: 10px;
+    margin-right: -5px;
+}
+
+.roleButtonBox {
+    text-align: right;
+    margin-right: 0px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.PaginationButtonSelected {
+    width: 3vw;
+    height: 3vw;
+    background-color: #1E76FB;
+    color: white;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}
+
+.PaginationButton {
+    width: 3vw;
+    height: 3vw;
+    background-color: transparent;
+    color: #1E76FB;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}

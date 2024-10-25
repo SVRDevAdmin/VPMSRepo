@@ -30,3 +30,19 @@ On mst_template (TemplateID, TemplateCode);
 
 CREATE INDEX IX_TemplateIDLanguageCode
 On mst_template_details (TemplateID, LangCode);
+
+/*------- ROLE -----------*/
+CREATE INDEX IX_RoleID_IsDeleted
+ON Mst_rolepermissions (RoleId, IsDeleted);
+
+CREATE INDEX IX_IsActive
+ON Mst_accesspermission (IsActive);
+
+CREATE INDEX IX_RoleID_Status
+ON Mst_roles (RoleID, Status);
+
+CREATE INDEX IX_RoleID_RoleName
+ON Mst_roles (RoleID, RoleName);
+
+CREATE INDEX IX_RoleID_Branch_Status
+ON Mst_roles (RoleID, BranchID, Status);
