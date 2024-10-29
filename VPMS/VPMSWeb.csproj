@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\User\UserProfile.cshtml" />
     <Content Remove="wwwroot\js\Appointment.js" />
   </ItemGroup>
 

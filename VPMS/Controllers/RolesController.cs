@@ -230,5 +230,11 @@ namespace VPMSWeb.Controllers
             var sBranchList = BranchRepository.GetBranchListByOrgID(organizationID);
             return Json(sBranchList);
         }
+
+        public IActionResult GetRolesList()
+        {
+            var sRoleList = RoleRepository.GetRolesList();
+            return Json(sRoleList);
+        }
     }
 }

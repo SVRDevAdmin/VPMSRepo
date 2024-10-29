@@ -271,7 +271,7 @@
                         </li>
                         <li>
                             <a href="#SubMenuAccess" class="nav-link align-middle px-0" data-toggle="collapse">
-                                <span class="spanMenuBlue"></span>
+                                <span id="AccessMenu" class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span>
                                 <img id="imgArrow" style="margin-left: 20px;" />
@@ -283,8 +283,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_StaffListing"]</span>
+                                    <a asp-controller="User" asp-action="Index" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_StaffListing"]</span>
                                     </a>
                                 </li>
                                 <li>

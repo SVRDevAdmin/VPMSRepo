@@ -988,3 +988,81 @@ a {
 	background-color: white !important;
 }
 
+/*-------- User Settings ----------*/
+#tblUsers {
+	border: 0px !important;
+}
+
+	#tblUsers > thead > tr > th {
+		border: 0px;
+		background-color: #f7f7f7;
+		border-left: 0px;
+		border-bottom: 1px solid #ddd;
+		color: black;
+	}
+
+	#tblUsers > tbody > tr > td {
+		border-left: 0px;
+		border-right: 0px;
+		border-top: 0px;
+		border-bottom: 1px solid #ddd;
+		background-color: transparent;
+		color: black;
+	}
+
+.frameUserStyle {
+	margin-left: 10px;
+	margin-right: -5px;
+	border-radius: 6px;
+	border: 1px solid black;
+}
+
+.frameUserHeader {
+	height: 28px;
+	background-color: black;
+}
+
+.frameUserHeaderLabel {
+	margin-left: 10px;
+	font-weight: bold;
+	margin-top: 5px;
+	color: white;
+}
+
+.LeftColUserLabel {
+	margin-left: 10px;
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.CenterColUserLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.RightColUserLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.leftColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-left: 10px;
+	margin-top: 5px
+}
+
+.centerColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.rightColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}

@@ -422,5 +422,28 @@ namespace VPMS.Lib.Data
                 return null;
             }
         }
+
+        public static List<RoleDropdownObject> GetRolesList()
+        {
+            try
+            {
+                using (var ctx = new RoleDBContext())
+                {
+                    return ctx.Mst_Roles
+                              .Where(x => x.Status == 1)
+                              .OrderBy(x => x.RoleName)
+                              .Select(x => new RoleDropdownObject
+                              {
+                                  RoleID = x.RoleID,
+                                  RoleName = x.RoleName
+                              })
+                              .ToList();
+                };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

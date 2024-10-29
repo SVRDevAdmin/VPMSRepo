@@ -11,6 +11,7 @@ namespace VPMS.Lib.Data.DBContext
         private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
 
         public DbSet<UserModel> Mst_User { get; set; }
+        public DbSet<IdentityUserObject> aspnetusers {  get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));

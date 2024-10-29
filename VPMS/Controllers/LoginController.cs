@@ -10,6 +10,7 @@ using VPMS.Lib.Data.Models;
 using System.Web;
 using System.Data;
 using Microsoft.AspNetCore.Http;
+using VPMSWeb.Lib.General;
 
 namespace VPMSWeb.Controllers
 {
@@ -196,7 +197,7 @@ namespace VPMSWeb.Controllers
 					await _userStore.SetUserNameAsync(user, registerInfo.Username, CancellationToken.None);
 					await _emailStore.SetEmailAsync(user, registerInfo.Email, CancellationToken.None);
 
-					var generatedPassword = RandomPasswordGenerator();
+					var generatedPassword = Utility.RandomPasswordGenerator();
 
 					//var result = await _userManager.CreateAsync(user, generatedPassword);
 					var result = await _userManager.CreateAsync(user, "Abcd@1234");
@@ -273,7 +274,7 @@ namespace VPMSWeb.Controllers
 
 					if (userEmail != null && _userManager.NormalizeEmail(userEmail) == _userManager.NormalizeEmail(recoverInfo.Email))
 					{
-						var newPassword = RandomPasswordGenerator();
+						var newPassword = Utility.RandomPasswordGenerator();
 
 						var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -344,43 +345,44 @@ namespace VPMSWeb.Controllers
 
             return View("ChangePassword");
         }
+		
+		// ----- Move to Lib/General/Utility.cs ------//
+        //private string RandomPasswordGenerator()
+        //{
+        //    Random res = new Random();
 
-        private string RandomPasswordGenerator()
-        {
-            Random res = new Random();
+        //    // String that contain alphabets, numbers and special character
+        //    String lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        //    String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        //    String number = "0123456789";
+        //    String specialChar = "!@#$%^&*()_+-={}|[];,./:<>?";
 
-            // String that contain alphabets, numbers and special character
-            String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-            String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            String number = "0123456789";
-            String specialChar = "!@#$%^&*()_+-={}|[];,./:<>?";
+        //    // Initializing the empty string 
+        //    String randomstring = "";
 
-            // Initializing the empty string 
-            String randomstring = "";
+        //    randomstring += lowerCase[res.Next(lowerCase.Length)];
+        //    randomstring += upperCase[res.Next(upperCase.Length)];
+        //    randomstring += number[res.Next(number.Length)];
+        //    randomstring += specialChar[res.Next(specialChar.Length)];
+        //    randomstring += lowerCase[res.Next(lowerCase.Length)];
+        //    randomstring += upperCase[res.Next(upperCase.Length)];
+        //    randomstring += number[res.Next(number.Length)];
+        //    randomstring += specialChar[res.Next(specialChar.Length)];
 
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
+        //    char[] chars = randomstring.ToCharArray();
 
-            char[] chars = randomstring.ToCharArray();
+        //    for (int i = 0; i < chars.Length; i++)
+        //    {
+        //        int randomIndex = res.Next(0, chars.Length);
+        //        char temp = chars[randomIndex];
+        //        chars[randomIndex] = chars[i];
+        //        chars[i] = temp;
+        //    }
 
-            for (int i = 0; i < chars.Length; i++)
-            {
-                int randomIndex = res.Next(0, chars.Length);
-                char temp = chars[randomIndex];
-                chars[randomIndex] = chars[i];
-                chars[i] = temp;
-            }
+        //    randomstring = string.Join("", chars);
 
-            randomstring = string.Join("", chars);
-
-            return randomstring;
-        }
+        //    return randomstring;
+        //}
 
         public static string GenerateRandomAlphanumeric(int length)
         {

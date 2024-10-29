@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    ViewData["SelectedMenu"] = "AccessMenu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");

@@ -44,6 +44,12 @@ namespace VPMS.Lib.Data.Models
         public String sPermission {  get; set; }
     }
 
+    public class RoleDropdownObject
+    {
+        public String RoleID { get; set; }
+        public String RoleName { get; set; }
+    }
+
     public class RolePermissionObject
     {
         [Key]
