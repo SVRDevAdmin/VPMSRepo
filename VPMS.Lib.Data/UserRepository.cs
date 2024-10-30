@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,10 @@ namespace VPMS.Lib.Data
 {
     public class UserRepository
     {
+        /// <summary>
+        /// Get User List Order by Surname
+        /// </summary>
+        /// <returns></returns>
         public static List<UserModel> GetStaffList()
         {
             try
@@ -28,6 +33,19 @@ namespace VPMS.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get User Listing View by filter
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <param name="RoleID"></param>
+        /// <param name="GenderID"></param>
+        /// <param name="OrganizationID"></param>
+        /// <param name="BranchID"></param>
+        /// <param name="Status"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
         public static List<UserListingViewObject> GetUserListingByFilter(String UserID, String RoleID, String GenderID, 
                                                 String OrganizationID, String BranchID, String Status, int pageSize, 
                                                 int pageIndex, out int totalRecords)
@@ -58,7 +76,8 @@ namespace VPMS.Lib.Data
                                             "LEFT JOIN (" +
                                                 "SELECT * FROM mst_mastercodedata WHERE codeGroup='Gender' AND IsActive=1" +
                                             ") AS E on E.CodeID = A.Gender " +
-                                            "WHERE (" + (UserID == null) + " OR A.UserID = '" + UserID + "') AND " +
+                                            "WHERE (A.Status <> '2') AND " +
+                                            "(" + (UserID == null) + " OR A.UserID = '" + UserID + "') AND " +
                                             "(" + (RoleID == null) + " OR A.RoleID = '" + RoleID + "') AND " +
                                             "(" + (GenderID == null) + " OR A.Gender = '" + GenderID + "') AND " +
                                             "(" + (OrganizationID == null) + " OR D.OrganizationID = '" + OrganizationID + "') AND " +
@@ -106,8 +125,18 @@ namespace VPMS.Lib.Data
             }
         }
 
-        public static Boolean AddIdentityUser(IdentityUserObject sUserObj, out String sUserID)
+        /// <summary>
+        /// Create user in Identity User
+        /// </summary>
+        /// <param name="sUserObj"></param>
+        /// <param name="sRoleID"></param>
+        /// <param name="sUserID"></param>
+        /// <returns></returns>
+        public static Boolean AddIdentityUser(IdentityUserObject sUserObj, String sRoleID,  out String sUserID)
         {
+            IPasswordHasher<IdentityUser> _passwordHasher = new PasswordHasher<IdentityUser>();
+            IdentityUser sUser = new IdentityUser();
+
             Boolean isSuccess = false;
             sUserID = "";
 
@@ -115,7 +144,16 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new UserDBContext())
                 {
+                    sUserObj.PasswordHash = _passwordHasher.HashPassword(sUser, "Abcd@1234");
+
                     ctx.aspnetusers.Add(sUserObj);
+                    ctx.SaveChanges();
+
+                    var sUserRoleObj = new IdentityUserRoleObject();
+                    sUserRoleObj.UserId = sUserObj.Id;
+                    sUserRoleObj.RoleId = sRoleID;
+
+                    ctx.aspnetuserroles.Add(sUserRoleObj);
                     ctx.SaveChanges();
 
                     sUserID = sUserObj.Id;
@@ -131,6 +169,31 @@ namespace VPMS.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Validate User profile in Identity user
+        /// </summary>
+        /// <param name="sLoginID"></param>
+        /// <returns></returns>
+        public static Boolean ValidateIdentityUser(String sLoginID)
+        {
+            try
+            {
+                using (var ctx = new UserDBContext())
+                {
+                    return ctx.aspnetusers.Where(x => x.UserName == sLoginID).Any();
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Add User Profile
+        /// </summary>
+        /// <param name="sUserProfile"></param>
+        /// <returns></returns>
         public static Boolean CreateUser(UserModel sUserProfile)
         {
             Boolean isSuccess = false;
@@ -153,6 +216,11 @@ namespace VPMS.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Update User Profile
+        /// </summary>
+        /// <param name="sUserProfile"></param>
+        /// <returns></returns>
         public static Boolean UpdateUser(UserModel sUserProfile)
         {
             Boolean isSuccess = false;
@@ -234,6 +302,46 @@ namespace VPMS.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Delete User Profile
+        /// </summary>
+        /// <param name="sUserID"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
+        public static Boolean DeleteUser(String sUserID, String sUpdatedBy)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new UserDBContext())
+                {
+                    var sUserProfile = ctx.Mst_User.Where(x => x.UserID == sUserID).FirstOrDefault();
+                    if (sUserProfile != null)
+                    {
+                        sUserProfile.Status = 2;
+                        sUserProfile.UpdatedDate = DateTime.Now;
+                        sUserProfile.UpdatedBy = sUpdatedBy;
+
+                        ctx.SaveChanges();
+
+                        isSuccess = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Get User Profile by User ID
+        /// </summary>
+        /// <param name="sUserID"></param>
+        /// <returns></returns>
         public static UserProfileExtObj GetUserProfileByUserID(String sUserID)
         {
             UserProfileExtObj sUserObj = new UserProfileExtObj();

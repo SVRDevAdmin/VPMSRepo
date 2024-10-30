@@ -1,127 +1,23 @@
 ﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
     ViewData["Title"] = "Users";
     ViewData["SelectedMenu"] = "AccessMenu";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+    var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/css/User.css" />
 <script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
-
-<style type="text/css">
-
-.staffPageTitle{
-    font-size: 24px;
-    font-weight: bold;
-    margin-left: 25px;
-    margin-top: 20px;
-    color: black;
-}
-
-#divFilter{
-        margin-top: 15px;
-        background-color: #f7f7f7;
-        border-radius: 6px;
-}
-
-.divFilterBorder{
-        border-radius: 5px;
-}
-
-.filterTitleBox{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-left: 5px;
-}
-
-    .filterTitle {
-        color: black;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .filterLabel {
-        color: black;
-        font-weight: bold;
-    }
-
-    .FilterRowTitle {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 5px;
-    }
-
-    .FilterRowFields {
-        margin-top: 0px;
-        margin-bottom: 20px;
-        margin-left: 7px;
-        margin-right: 5px;
-    }
-
-    .FilterRowButtonSearch {
-        margin-top: 20px;
-        margin-bottom: 10px;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-
-    .FilterRowButtonReset {
-        margin-top: 10px;
-        margin-bottom: 30px;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-
-    .collapseHide{
-        visibility: hidden;
-    }
-
-    .PaginationButtonSelected {
-        width: 3vw;
-        height: 3vw;
-        background-color: #1E76FB;
-        color: white;
-        margin-right: 1vw;
-        text-align: center;
-        border-radius: 3vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #1E76FB;
-        font-weight: bold;
-    }
-
-    .PaginationButton {
-        width: 3vw;
-        height: 3vw;
-        background-color: transparent;
-        color: #1E76FB;
-        margin-right: 1vw;
-        text-align: center;
-        border-radius: 3vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #1E76FB;
-        font-weight: bold;
-    }
-
-    #imgSlider {
-        content: url('../images/Slider_icon.png');
-        margin-right: 10px;
-        width: 20px;
-        height: 20px;
-    }
-</style>
 
 <script>
     var paginationLimit = 5;
-    //var pageSize = 10;
-    var pageSize = 1;
+    var pageSize = 10;
     var pageIndex = 1;
     var currentPage = 1;
     var totalPagination = 0;
@@ -135,15 +31,24 @@
     loadStatusDropdownlist();
 
     $(document).ready(function () {
-        loadUserViewListing();
+        //if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+        //{
+        //    $('#ddlOrganization').val('@sessionOrganizationID');
+        //    $('#ddlOrganization').trigger('change');
+       // }
+
+        setTimeout(function () {
+            loadUserViewListing();
+        }, 200);
+        
 
         $('#btnFilter').click(function () {
             $('#divFilterCollapse').toggleClass('collapseHide');
             $('#divUserContent').toggleClass('col-md-12 col-md-9');
 
-            if ($('#divFilterCollapse')[0].className.indexOf('Hide') < 0){
-                resetFields();
-            }
+            //if ($('#divFilterCollapse')[0].className.indexOf('Hide') < 0){
+            //    resetFields();
+            //}
         });
 
         $('#btnSearch').click(function () {
@@ -204,12 +109,33 @@
             '<img class="doctorListingMoreIcon"  />' +
             '</button>' +
 
-            '<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+            '<div class="dropdown-menu hiddenUserMenuStyle" style="min-width: fit-content; font-size: 1vw;">' +
             '<a class="dropdown-item" href="/User/UserProfile/' + value + '/View">View</a>' +
             '<a class="dropdown-item" href="/User/UserProfile/' + value + '/Edit">Edit</a>' +
-            '<a class="dropdown-item" onclick="mnDeleteOnClick(' + value + ')">Delete</a>' +
+            '<a class="dropdown-item" onclick="mnDeleteOnClick(\'' + value + '\')">Delete</a>' +
             '</div>';
         return hideMenuHtml;
+    }
+
+    function mnDeleteOnClick(id) 
+    {
+        ShowConfirmCancelMsgBox("Delete user", "Confirm to delete user?",
+            function () {
+                $.post("/User/DeleteUser", {
+                    userID: id,
+                    updatedBy: '@sessionUserID'
+                }).done(function (result) {
+                    if (result.StatusCode == 200){
+                        window.location.reload();
+                    }
+                    else{
+                        $('#lbUserListingError').html('Failed to delete user, please try again.');
+                        $('#lbUserListingError').css('visibility', 'visible');
+                    }
+                });
+            },
+            function () { }
+        );
     }
 
     function populatePagingControl(totalRecord) {
@@ -393,7 +319,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
-                <label class="staffPageTitle">Staff Listing</label>
+                <label class="staffPageTitle"><!--Staff Listing-->@LangResources["Staff_Title_StaffListing"]</label>
             </div>
         </div>
         <div class="col-md-4">
@@ -401,13 +327,16 @@
                 <div class="col-md-3">&nbsp;</div>
                 <div class="col-md-9" style="display: flex;">
                     <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 1vw;">
-                        <img id="imgSlider" />Filters
-                        <!-- <img src="images/Slider_icon.png" width="20" height="20" style="margin-right: 10px;" />-->
+                        <img id="imgSlider" />
+                        <!--Filters-->
+                        @LangResources["Staff_Title_Filters"]
                     </button>
                     &nbsp;&nbsp;
                     <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 1vw"
                             onclick="location.href='@Url.Action("UserDetails", "User")'">
-                        <i class="bi bi-plus-circle" style="margin-right: 5px;"></i>New Staff
+                        <i class="bi bi-plus-circle" style="margin-right: 5px;"></i>
+                        <!--New Staff-->
+                        @LangResources["Staff_Button_NewStaff"]
                     </button>
                 </div>
             </div>
@@ -415,19 +344,22 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12" style="height: 20px">
+            <label id="lbUserListingError"></label>
+        </div>
         <div id="divUserContent" class="col-md-12" style="margin-top: 15px;">
             <table id="tblUsers" class="table" style="font-size: 1vw;">
                 <thead>
                     <tr>
-                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">No.</th>
-                        <th scope="col" data-field="StaffName" class="text-center" style="width: 15%;">Staff Name</th>
-                        <th scope="col" data-field="StaffID" class="text-center" style="width: 15%;">Staff ID</th>
-                        <th scope="col" data-field="RoleName" class="text-center" style="width: 15%;">Role</th>
-                        <th scope="col" data-field="Gender" class="text-center" style="width: 10%;">Gender</th>
-                        <th scope="col" data-field="EmailAddress" class="text-center" style="width: 10%;">Email</th>
-                        <th scope="col" data-field="Organization" class="text-center" style="width: 10%;">Organization</th>
-                        <th scope="col" data-field="BranchName" class="text-center" style="width: 10%;">Branch</th>
-                        <th scope="col" data-field="StatusName" class="text-center" style="width: 5%;">Status</th>
+                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;"><!--No.-->@LangResources["Staff_Label_Number"]</th>
+                        <th scope="col" data-field="StaffName" class="text-center" style="width: 15%;"><!--Staff Name-->@LangResources["Staff_Label_StaffName"]</th>
+                        <th scope="col" data-field="StaffID" class="text-center" style="width: 15%;"><!--Staff ID-->@LangResources["Staff_Label_StaffID"]</th>
+                        <th scope="col" data-field="RoleName" class="text-center" style="width: 15%;"><!--Role-->@LangResources["Staff_Label_Role"]</th>
+                        <th scope="col" data-field="Gender" class="text-center" style="width: 10%;"><!--Gender-->@LangResources["Staff_Label_Gender"]</th>
+                        <th scope="col" data-field="EmailAddress" class="text-center" style="width: 10%;"><!--Email-->@LangResources["Staff_Label_Email"]</th>
+                        <th scope="col" data-field="Organization" class="text-center" style="width: 10%;"><!--Organization-->@LangResources["Staff_Label_Organization"]</th>
+                        <th scope="col" data-field="BranchName" class="text-center" style="width: 10%;"><!--Branch-->@LangResources["Staff_Label_Branch"]</th>
+                        <th scope="col" data-field="StatusName" class="text-center" style="width: 5%;"><!--Status-->@LangResources["Staff_Label_Status"]</th>
                         <th scope="col" data-field="UserID" data-formatter="populateHiddenMenu" class="text-center" style="width: 5%;"></th>
                     </tr>
 

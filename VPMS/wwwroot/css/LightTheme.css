@@ -893,6 +893,7 @@ a {
 
 .frameRoleHeader {
 	height: 28px;
+	border-top-left-radius: 6px;
 	background-color: black;
 }
 
@@ -984,31 +985,56 @@ a {
 }
 
 .hiddenMenuStyle > a:hover {
-	color: white !important;
+	color: black !important;
 	background-color: white !important;
 }
 
 /*-------- User Settings ----------*/
+.staffPageTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 25px;
+	margin-top: 20px;
+	color: black;
+}
+
+#divFilter {
+	margin-top: 15px;
+	background-color: #f7f7f7;
+	border-radius: 6px;
+}
+
+.filterTitle {
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.filterLabel {
+	color: black;
+	font-weight: bold;
+}
+
 #tblUsers {
 	border: 0px !important;
 }
 
-	#tblUsers > thead > tr > th {
-		border: 0px;
-		background-color: #f7f7f7;
-		border-left: 0px;
-		border-bottom: 1px solid #ddd;
-		color: black;
-	}
+#tblUsers > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+}
 
-	#tblUsers > tbody > tr > td {
-		border-left: 0px;
-		border-right: 0px;
-		border-top: 0px;
-		border-bottom: 1px solid #ddd;
-		background-color: transparent;
-		color: black;
-	}
+#tblUsers > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+}
 
 .frameUserStyle {
 	margin-left: 10px;
@@ -1019,6 +1045,7 @@ a {
 
 .frameUserHeader {
 	height: 28px;
+	border-top-left-radius: 6px;
 	background-color: black;
 }
 
@@ -1065,4 +1092,15 @@ a {
 	width: 90%;
 	font-size: 1vw;
 	margin-top: 5px
+}
+
+.hiddenUserMenuStyle {
+	background-color: white !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
+
+.hiddenUserMenuStyle > a:hover {
+	color: black !important;
+	background-color: white !important;
 }

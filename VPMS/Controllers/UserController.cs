@@ -4,23 +4,26 @@ using VPMS;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
-using VPMSWeb.Lib.General;
 using VPMSWeb.Lib.Settings;
+using VPMSWeb.Models;
 
 namespace VPMSWeb.Controllers
 {
 	public class UserController : Controller
 	{
-		//private readonly UserDBContext _userDBContext = new UserDBContext();
-		//private readonly BranchDBContext _branchDBContext = new BranchDBContext();
-		//private readonly OrganisationDBContext _organisationDBContext = new OrganisationDBContext();
-		//private readonly RoleDBContext _roleDBContext = new RoleDBContext();
-
+		/// <summary>
+		/// Index page
+		/// </summary>
+		/// <returns></returns>
 		public IActionResult Index()
 		{
 			return View();
 		}
 
+		/// <summary>
+		/// User Details page
+		/// </summary>
+		/// <returns></returns>
 		public IActionResult UserDetails()
 		{
             ViewData["UserStatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Status");
@@ -31,6 +34,12 @@ namespace VPMSWeb.Controllers
             return View("UserDetails");
 		}
 
+		/// <summary>
+		/// User Details page By User ID
+		/// </summary>
+		/// <param name="UserID"></param>
+		/// <param name="ViewType"></param>
+		/// <returns></returns>
 		[Route("/User/UserProfile/{UserID}/{ViewType}")]
 		public IActionResult UserProfile(String UserID, String ViewType)
 		{
@@ -46,6 +55,18 @@ namespace VPMSWeb.Controllers
             return View("UserDetails", sUserObj);
 		}
 
+		/// <summary>
+		/// Get User Listing View by Filter
+		/// </summary>
+		/// <param name="UserID"></param>
+		/// <param name="RoleID"></param>
+		/// <param name="GenderID"></param>
+		/// <param name="OrganizationID"></param>
+		/// <param name="BranchID"></param>
+		/// <param name="Status"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="pageIndex"></param>
+		/// <returns></returns>
 		public IActionResult GetUserListingView(String UserID, String RoleID, String GenderID, String OrganizationID, String BranchID, 
 												String Status, int pageSize, int pageIndex)
 		{
@@ -60,6 +81,11 @@ namespace VPMSWeb.Controllers
 			return null;
 		}
 
+		/// <summary>
+		/// Add User Profile
+		/// </summary>
+		/// <param name="sUserModel"></param>
+		/// <returns></returns>
 		public IActionResult AddUser(UserInputControllerObj sUserModel)
 		{
 			Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
@@ -71,7 +97,7 @@ namespace VPMSWeb.Controllers
 			sNewIdentity.Email = sUserModel.emailAddress;
 			sNewIdentity.NormalizedEmail = sUserModel.emailAddress.ToUpper();
 			sNewIdentity.EmailConfirmed = 0;
-			sNewIdentity.PasswordHash = Utility.RandomPasswordGenerator();
+			sNewIdentity.SecurityStamp = Guid.NewGuid().ToString();
 			sNewIdentity.PhoneNumberConfirmed = 0;
 			sNewIdentity.TwoFactorEnabled = 0;
 			sNewIdentity.AccessFailedCount = 0;
@@ -90,23 +116,37 @@ namespace VPMSWeb.Controllers
 			sNewUser.CreatedBy = "";
 
 			String sIdentityUserID = "";
-			if (UserRepository.AddIdentityUser(sNewIdentity, out sIdentityUserID))
+			if (!UserRepository.ValidateIdentityUser(sUserModel.loginID))
 			{
-				sNewUser.UserID = sIdentityUserID;
-				if (UserRepository.CreateUser(sNewUser))
-				{
-					sResp.StatusCode = (int)StatusCodes.Status200OK;
+                if (UserRepository.AddIdentityUser(sNewIdentity, sNewUser.RoleID, out sIdentityUserID))
+                {
+                    sNewUser.UserID = sIdentityUserID;
+                    if (UserRepository.CreateUser(sNewUser))
+                    {
+                        sResp.StatusCode = (int)StatusCodes.Status200OK;
 
+                    }
                 }
-			}
+                else
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                }
+            }
 			else
 			{
 				sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+				sResp.isRecordExists = true;
             }
+
 
 			return Json(sResp);
 		}
 
+		/// <summary>
+		/// Update User Profile
+		/// </summary>
+		/// <param name="sUserModel"></param>
+		/// <returns></returns>
 		public IActionResult UpdateUser(UserInputControllerObj sUserModel)
 		{
 			Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
@@ -136,12 +176,42 @@ namespace VPMSWeb.Controllers
             return Json(sResp);
 		}
 
+		/// <summary>
+		/// Delete User
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <param name="updatedBy"></param>
+		/// <returns></returns>
+		public IActionResult DeleteUser(String userID, String updatedBy)
+		{
+			ResponseStatusObject sResp = new ResponseStatusObject();
+
+			if (UserRepository.DeleteUser(userID, updatedBy))
+			{
+				sResp.StatusCode = (int)StatusCodes.Status200OK;
+			}
+			else
+			{
+				sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+			}
+
+			return Json(sResp);
+		}
+
+		/// <summary>
+		/// Get User List Dropdown
+		/// </summary>
+		/// <returns></returns>
         public IActionResult GetUserListDropdown()
 		{
 			var sUsersListObj = UserRepository.GetStaffList();
 			return Json(sUsersListObj);
 		}
 
+		/// <summary>
+		/// Get Gender List Dropdown
+		/// </summary>
+		/// <returns></returns>
 		public IActionResult GetGenderListDropdown()
 		{
             var sMasterCodeObj = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Gender");

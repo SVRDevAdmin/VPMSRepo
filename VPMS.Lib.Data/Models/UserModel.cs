@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VPMS.Lib.Data.Models
 {
@@ -97,5 +100,12 @@ namespace VPMS.Lib.Data.Models
         public DateTime? LockoutEnd { get; set; }
         public int? LockoutEnabled { get; set; }
         public int? AccessFailedCount { get; set; }
+    }
+
+    [PrimaryKey("UserId", "RoleId")]
+    public class IdentityUserRoleObject
+    {
+        public String UserId { get; set; }
+        public String RoleId { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace VPMS.Lib.Data.DBContext
 
         public DbSet<UserModel> Mst_User { get; set; }
         public DbSet<IdentityUserObject> aspnetusers {  get; set; }
+        public DbSet<IdentityUserRoleObject> aspnetuserroles {  get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));

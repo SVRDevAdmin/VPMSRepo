@@ -18,7 +18,7 @@ namespace VPMS.Lib.Data.Models
 		public int IsDoctor { get; set; }
 
         public String? Description { get; set; }
-        public int BranchID { get; set; }
+        public int? BranchID { get; set; }
 	}
 
     public class RoleModelExtObject : RoleModel

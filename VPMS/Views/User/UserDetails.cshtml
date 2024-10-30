@@ -1,6 +1,9 @@
 ﻿@inject IHttpContextAccessor httpContextaccessor
 
 @{
+    ViewData["Title"] = "Users";
+    ViewData["SelectedMenu"] = "AccessMenu";
+
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
 
     var sUserObj = new VPMS.Lib.Data.Models.UserProfileExtObj();
@@ -36,28 +39,8 @@
     var sViewType = ViewData["ViewType"] as String;
 }
 
-<style type="text/css">
-    .staffPageTitle {
-        font-size: 24px;
-        font-weight: bold;
-        margin-left: 25px;
-        margin-top: 20px;
-        color: black;
-    }
+<link rel="stylesheet" href="~/css/User.css" />
 
-    .userButtonRow {
-        margin-left: 10px;
-        margin-right: -5px;
-    }
-
-    .userButtonBox {
-        text-align: right;
-        margin-right: 0px;
-        margin-top: 15px;
-        margin-bottom: 10px;
-    }
-
-</style>
 <script>
     $(document).ready(function () 
     {
@@ -93,8 +76,15 @@
                         
                     }
                     else {
-                        $('#lbError').html("Failed to create user, please try again.");
-                        $('#lbError').css('visibility', 'visible');
+                        if (result.isRecordExists) 
+                        {
+                            $('#lbError').html("*Login ID exists in system, please try again.");
+                            $('#lbError').css('visibility', 'visible');
+                        }
+                        else{
+                            $('#lbError').html("Failed to create user, please try again.");
+                            $('#lbError').css('visibility', 'visible');
+                        }
                     }
                 });
             }
@@ -329,6 +319,7 @@
             });
     }
 </script>
+
 <div class="row">
     <div class="row">
         <div class="col-md-6">
@@ -344,7 +335,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
-                            <label id="lbError" style="color:red;"></label>
+                            <label id="lbError" style="color:red; margin-left: 5px;"></label>
                             <input id="hidID" type="hidden" />
                         </div>
                     </div>
@@ -392,7 +383,7 @@
                                     {
                                         foreach (var g in sGenderDropdown)
                                         {
-                                                                                                                        <option value="@g.CodeID">@g.CodeName</option>
+                                                                                                                            <option value="@g.CodeID">@g.CodeName</option>
                                         }
                                     }
                                 }
@@ -410,7 +401,7 @@
                                     {
                                         foreach(var r in sRoleDropdown)
                                         {
-                                                                            <option value="@r.RoleID">@r.RoleName</option>
+                                                                                <option value="@r.RoleID">@r.RoleName</option>
                                         }
                                     }
                                 }
@@ -439,7 +430,7 @@
                                     {
                                         foreach (var o in sOrganizationDropdown)
                                         {
-                                                                                                    <option value="@o.Id">@o.Name</option>
+                                                                                                        <option value="@o.Id">@o.Name</option>
                                         }
                                     }
                                 }
@@ -459,7 +450,7 @@
                                     {
                                         foreach(var s in sStatusDropdown)
                                         {
-                                                                                                                        <option value="@s.CodeID">@s.CodeName</option>
+                                                                                                                            <option value="@s.CodeID">@s.CodeName</option>
                                         }
                                     }
                                 }

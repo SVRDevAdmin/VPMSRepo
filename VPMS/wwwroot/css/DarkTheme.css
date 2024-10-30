@@ -902,6 +902,7 @@ a {
 
 .frameRoleHeader {
 	height: 28px;
+	border-top-left-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -998,26 +999,51 @@ a {
 }
 
 /*-------- User Settings ----------*/
+.staffPageTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 25px;
+	margin-top: 20px;
+	color: white;
+}
+
+#divFilter {
+	margin-top: 15px;
+	background-color: #1f2e45;
+	border-radius: 6px;
+}
+
+.filterTitle {
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.filterLabel {
+	color: white;
+	font-weight: bold;
+}
+
 #tblUsers {
 	border: 0px !important;
 }
 
-	#tblUsers > thead > tr > th {
-		border: 0px;
-		background-color: transparent;
-		border-left: 0px;
-		border-bottom: 1px solid #ddd;
-		color: #919191;
-	}
+#tblUsers > thead > tr > th {
+	border: 0px;
+	background-color: transparent;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: #919191;
+}
 
-	#tblUsers > tbody > tr > td {
-		border-left: 0px;
-		border-right: 0px;
-		border-top: 0px;
-		border-bottom: 1px solid #ddd;
-		background-color: transparent;
-		color: white;
-	}
+#tblUsers > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: white;
+}
 
 .frameUserStyle {
 	margin-left: 10px;
@@ -1028,6 +1054,7 @@ a {
 
 .frameUserHeader {
 	height: 28px;
+	border-top-left-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -1042,19 +1069,19 @@ a {
 	margin-left: 10px;
 	margin-top: 5px;
 	font-weight: bold;
-	color: black;
+	color: white;
 }
 
 .CenterColUserLabel {
 	margin-top: 5px;
 	font-weight: bold;
-	color: black;
+	color: white;
 }
 
 .RightColUserLabel {
 	margin-top: 5px;
 	font-weight: bold;
-	color: black;
+	color: white;
 }
 
 .leftColUserControl {
@@ -1075,6 +1102,18 @@ a {
 	font-size: 1vw;
 	margin-top: 5px
 }
+
+.hiddenUserMenuStyle {
+	background-color: #1f2e45 !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
+
+.hiddenUserMenuStyle > a:hover {
+	color: white !important;
+	background-color: #1f2e45 !important;
+}
+
 
 
 

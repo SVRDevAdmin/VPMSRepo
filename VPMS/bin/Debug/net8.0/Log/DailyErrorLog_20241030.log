@@ -1,0 +1,73 @@
+2024-10-30 09:41:45,144 ERROR VPMS.Program.MoveNext [90] - MESSAGE: Controller Error >> 
+ System.InvalidOperationException: User security stamp cannot be null.
+   at Microsoft.AspNetCore.Identity.UserManager`1.GetSecurityStampAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.UserClaimsPrincipalFactory`1.GenerateClaimsAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.UserClaimsPrincipalFactory`2.GenerateClaimsAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.UserClaimsPrincipalFactory`1.CreateAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.CreateUserPrincipalAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.SignInWithClaimsAsync(TUser user, AuthenticationProperties authenticationProperties, IEnumerable`1 additionalClaims)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.SignInOrTwoFactorAsync(TUser user, Boolean isPersistent, String loginProvider, Boolean bypassTwoFactor)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.PasswordSignInAsync(TUser user, String password, Boolean isPersistent, Boolean lockoutOnFailure)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.PasswordSignInAsync(String userName, String password, Boolean isPersistent, Boolean lockoutOnFailure)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 90
+
+----------------------------------------------------------------------------
+
+2024-10-30 11:05:26,070 ERROR VPMS.Program.MoveNext [119] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Can't convert NULL to Int32
+   at MySqlConnector.Core.Row.GetInt32(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 240
+   at MySqlConnector.MySqlDataReader.GetInt32(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 240
+   at lambda_method373(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method374(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 119
+
+----------------------------------------------------------------------------
+
+2024-10-30 11:05:31,345 ERROR VPMS.Program.MoveNext [119] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Can't convert NULL to Int32
+   at MySqlConnector.Core.Row.GetInt32(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 240
+   at MySqlConnector.MySqlDataReader.GetInt32(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 240
+   at lambda_method373(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method374(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 119
+
+----------------------------------------------------------------------------
+
+2024-10-30 11:09:11,689 ERROR VPMS.Program.MoveNext [119] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Can't convert NULL to Int32
+   at MySqlConnector.Core.Row.GetInt32(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 240
+   at MySqlConnector.MySqlDataReader.GetInt32(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 240
+   at lambda_method373(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method374(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 119
+
+----------------------------------------------------------------------------
+
+2024-10-30 11:26:00,535 ERROR VPMS.Program.Index [68] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.HomeController.<>c__DisplayClass3_0.<Index>b__2(MastercodeModel x) in C:\Dev\VPMS\VPMS\Controllers\HomeController.cs:line 68
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at VPMSWeb.Controllers.HomeController.Index() in C:\Dev\VPMS\VPMS\Controllers\HomeController.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-10-30 11:53:28,946 ERROR VPMS.Program.MoveNext [0] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.LoginController.Logout(Boolean autoLogout)
+
+----------------------------------------------------------------------------
+

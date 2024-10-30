@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Lib\ExtensionMethods\HtmlHelperExtensionMethods.cs" />
+    <Compile Remove="Lib\General\Utility.cs" />
     <Compile Remove="Lib\Interface\ISharedViewLocalizer.cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer .cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer.cs" />
@@ -20,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Resource.de.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="InventoryImages\Feline Viral Rhinotracheitis (FVR).png" />
     <None Remove="InventoryImages\Panleukopenia (FPV).png" />
   </ItemGroup>
@@ -27,6 +32,12 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\Role.css" />
     <_ContentIncludedByDefault Remove="wwwroot\images\vpms_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Resource.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +53,7 @@
 
   <ItemGroup>
     <Folder Include="bin\Debug\net8.0\" />
+    <Folder Include="Lib\General\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,9 +80,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Resource.de.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace></CustomToolNamespace>
