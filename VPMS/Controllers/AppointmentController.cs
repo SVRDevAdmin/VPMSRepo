@@ -6,6 +6,7 @@ using VPMSWeb.Models;
 using VPMS;
 using Microsoft.AspNetCore.Authorization;
 using VPMS.Lib;
+using VPMS.Lib.Data.DBContext;
 
 namespace VPMSWeb.Controllers
 {
@@ -141,6 +142,9 @@ namespace VPMSWeb.Controllers
             sModel.Status = 0;
             sModel.UniqueIDKey = VPMS.Lib.Helpers.GenerateRandomKeyString(32);
 
+            PatientDBContext patientDBContext = new PatientDBContext();
+            var patientEmail = patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.ID == sControllerModel.OwnerID).EmailAddress;
+
             List<long> sServices = new List<long>();
             if (sControllerModel.ServiceList.Count > 0)
             {
@@ -166,7 +170,7 @@ namespace VPMSWeb.Controllers
                             {
                                 sApptOwnerName = (sPatientOwner != null) ? sPatientOwner.Name : "";
                                 sApptPetName = (sPatientOwner != null) ? sPatientOwner.PetName : "";
-                                //sRecipietnList.Add(sPatientOwner.Email);
+                                sRecipientList.Add(patientEmail);
                             }
 
                             SendNotificationEmail(sApptOwnerName, sApptPetName, sModel.InchargeDoctor, sModel.ApptDate, sModel.ApptStartTime,

@@ -12,6 +12,9 @@
 
 
 <style>
+	.table-content {
+		height: 2vw;
+	}
 	.field-container {
 		display: flex;
 		flex-direction: column;
@@ -54,47 +57,111 @@
 </style>
 
 <div style="display: flex;">
-
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/PetProfile/View/@ViewBag.PatientID/@Model.Name'" />
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="Back();" />
 		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
 		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_PatientProfile"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
 		<span class="textColor" style="font-size: 2vw;">@ViewData["PetName"] @LangResources["Patient_Title_Profile"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["Patient_Label_InvoiceBilling"]</span>
+		<span style="font-size: 2vw; color: dodgerblue;" id="pageName">@LangResources["Patient_Label_InvoiceBilling"]</span>
 	</div>
 </div>
 
-
-<div style="display: flex; justify-content: center;">
-	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
-		<div style="margin: 2vw; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
-			<table style="font-size: 1vw; width: 100%;">
-				<tr style="border-bottom: 0.1vw solid; border-bottom-color: lightgray;">
-					<th style="padding: 0.5vw 2vw; font-weight: bold;">Receipt No</th>
-					<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Date"]</th>
-					<th style="padding: 0.5vw 2vw; font-weight: bold;">Fee ($)</th>
-					<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Status"]</th>
-					<th style="padding: 0.5vw 2vw; font-weight: bold;">Action</th>
-				</tr>
-				<tr>
-					<td style="padding: 0.5vw 2vw;">#123456</td>
-					<td style="padding: 0.5vw 2vw;">10/04/2024 10:10</td>
-					<td style="padding: 0.5vw 2vw;">848</td>
-					<td style="padding: 0.5vw 2vw; color: red;">Pending</td>
-					<td style="padding: 0.5vw 2vw;"><a href="#">@LangResources["Patient_Button_View"]</a></td>
-				</tr>
-				<tr>
-					<td style="padding: 0.5vw 2vw;">#123456</td>
-					<td style="padding: 0.5vw 2vw;">10/04/2024 10:10</td>
-					<td style="padding: 0.5vw 2vw;">100</td>
-					<td style="padding: 0.5vw 2vw; color: blue;">Ready</td>
-					<td style="padding: 0.5vw 2vw;"><a href="#">@LangResources["Patient_Button_View"]</a></td>
+<template id="invoiceTemplate">
+	<div class="textColor treatmentPlanGroup" style="border-style: dashed; border-radius: 1vw; padding: 1vw; font-size: 1vw; margin-right: 1vw; margin-bottom: 1vw;">
+		<input type="text" id="invoiceID" hidden/>
+		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
+			<table class="textColor" id="serviceList" style="width:100%; font-size: 1vw;">
+				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
+					<th class="table-content" style="width: 20vw; padding-left: 0.5vw;"> @LangResources["MenuBar_Label_Service"] </th>
+					<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"]</th>
+					<th class="table-content" style="width: 10vw;"> Discount % </th>
+					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["TreatmentPlan_Label_Total"]</th>
 				</tr>
 			</table>
 		</div>
+
+		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
+			<table class="textColor" id="productList" style="width:100%; font-size: 1vw;">
+				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
+					<th class="table-content" style="width: 20vw; padding-left: 0.5vw;"> @LangResources["Patient_Label_Product"] </th>
+					<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
+					<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"] </th>
+					<th class="table-content" style="width: 10vw;"> Discount % </th>
+					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["TreatmentPlan_Label_Total"]</th>
+				</tr>
+			</table>
+		</div>
+
+		<div style="padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
+			<div style="display: flex; margin-bottom: 0.5vw; align-items: center;">
+				<div style="width: 10vw;"> @LangResources["Patient_Label_Tax"] % </div> 
+				<div>6</div>
+			</div>
+			<div style="display: flex; margin-bottom: 0.5vw; align-items: center;">
+				<div style="width: 10vw;"> Grand Discount (%) </div> 
+				<div class="grandDiscount">6</div>
+				<input class="grandDiscount hideContainer" id="grandDiscount" onchange="calculateInvoice();" onkeyup="calculateInvoice();" type="number" style="width: 5vw;" value="0" min="0" max="100" />
+			</div>
+			<div style="display: flex; margin-bottom: 0.5vw; align-items: center;">
+				<div style="font-weight: bold; width: 10vw;"> @LangResources["Patient_Label_GrandTotal"] ($) </div> 
+				<div id="grandTotal" style="font-weight: bold;">840</div>
+			</div>
+		</div>
+
+		<div style="display: flex; justify-content: flex-end; margin-top: 1vw;" class="grandDiscount hideContainer">
+			<div style="display: flex; align-items: center;">
+				<span style="color: red;">@LangResources["TreatmentPlan_Message_PendingConfirmation"]</span>
+				<button onclick="UpdateInvoice(2);" title="Save Invoice" class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
+				<button onclick="UpdateInvoice(4);" title="Cancel Invoice" class="btn btn-lg btn-danger" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-xmark"></i></button>
+			</div>
+		</div>
+
+	</div>
+</template>
+
+<template id="serviceTemplate">
+	<tr class="serviceGroup">
+		<td class="table-content serviceID" style="padding-left: 0.5vw;" hidden></td>
+		<td class="table-content serviceName" style="padding-left: 0.5vw;"></td>
+		<td class="table-content serviceCost"></td>
+		<td class="table-content serviceDiscount"></td>
+		<td class="table-content serviceDiscount hideContainer">
+			<input type="number" class="serviceDiscountInput"
+				   onchange="applyDiscount(this, 'serviceCost', 'serviceTotal', 'serviceDiscountInput', 'serviceUnit');"
+				   onkeyup="applyDiscount(this, 'serviceCost', 'serviceTotal', 'serviceDiscountInput', 'serviceUnit');"
+				   style="width: 5vw;" value="0" min="0" max="100" />
+		</td>
+		<td class="table-content serviceTotal totalInvoice" style="padding-right: 0.5vw;"></td>
+	</tr>
+</template>
+
+<template id="productTemplate">
+	<tr class="productGroup">
+		<td class="table-content productID" style="padding-left: 0.5vw;" hidden></td>
+		<td class="table-content productName" style="padding-left: 0.5vw;"></td>
+		<td class="table-content productUnit"></td>
+		<td class="table-content productCost"></td>
+		<td class="table-content productDiscount"></td>
+		<td class="table-content productDiscount hideContainer">
+			<input type="number" class="productDiscountInput"
+				   onchange="applyDiscount(this, 'productCost', 'productTotal', 'productDiscountInput', 'productUnit');"
+				   onkeyup="applyDiscount(this, 'productCost', 'productTotal', 'productDiscountInput', 'productUnit');"
+				style="width: 5vw;" value="0" min="0" max="100" />
+		</td>
+		<td class="table-content productTotal totalInvoice" style="padding-right: 0.5vw;"></td>
+	</tr>
+</template>
+
+<div style="display: flex; justify-content: center;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
+		<div class="invoiceGroup" style="margin: 2vw; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
+			<table id="invoiceList" style="font-size: 1vw; width: 100%;">
+			</table>
+		</div>
+		<div class="invoiceGroup hideContainer" id="viewInvoice"></div>
 	</div>
 
 	<div id="RightInfoContainer" style="margin-left: 1.5vw; overflow: auto; height: 74vh; width: 24vw;">
@@ -306,10 +373,282 @@
 </div>
 
 <script>
+	getInvoiceList();
 	getUpcomingTreatmentPlan();
 	GetVaccinationTreatmentList(0, false);
 	GetHealthCardMedicationList();
 	GetUpcomingAppointment();
+	var backToPrevPage = true;
+
+	function Back(){
+		if (backToPrevPage) {
+			location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@Model.Name'
+		}
+		else{
+			document.getElementById("pageName").innerHTML = "@LangResources["Patient_Label_InvoiceBilling"]";
+			var invoiceGroup = document.querySelectorAll(".invoiceGroup");
+
+			for (let i = 0; i < invoiceGroup.length; i++) {
+				invoiceGroup[i].classList.toggle("hideContainer");
+			}
+
+			backToPrevPage = true;
+		}
+	}
+
+	function getInvoiceList(){
+		fetch('/InvoiceReceipt/GetInvoiceListByPetID?petID=@Model.ID')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				var content = document.getElementById("invoiceList");
+
+				content.innerHTML =
+					'<tr style="border-bottom: 0.1vw solid; border-bottom-color: lightgray;">' +
+						'<th style="padding: 0.5vw 2vw; font-weight: bold;" > Invoice No</th>' +
+						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Date"]</th>' +
+						'<th style="padding: 0.5vw 2vw; font-weight: bold;">Fee ($)</th>' +
+						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Status"]</th>' +
+						'<th style="padding: 0.5vw 2vw; font-weight: bold;">Action</th>' +
+					'</tr> ';
+
+				if (data.length == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="5" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				else {
+					for (let i = 0; i < data.length; i++) {
+
+						var status, changedStatus, color, background, toggleStatus;
+
+						if (data[i].Status == 1) {
+							status = "Pending";
+							color = "#ff2c29";
+						}
+						else if (data[i].Status == 2) {
+							status = "Ready";
+							color = "#57baa5";
+						}
+						else if (data[i].Status == 4) {
+							status = "Canceled";
+							color = "#ff2c29";
+						}
+						else {
+							status = "Paid";
+							color = "#57baa5";
+						}
+
+						var date = new Date(data[i].CreatedDate);
+						var dateString = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						content.innerHTML = content.innerHTML +
+							'<tr>' +
+							'<td style="padding: 0.5vw 2vw;" >' + data[i].InvoiceNo + '</td >' +
+							'<td style="padding: 0.5vw 2vw;">' + dateString + '</td>' +
+							'<td style="padding: 0.5vw 2vw;">' + data[i].Fee + '</td>' +
+							'<td style="padding: 0.5vw 2vw; color: ' + color + '; ">' + status + '</td>' +
+							'<td style="padding: 0.5vw 2vw;"><a href="#" onclick="ViewInvoice(' + data[i].ID + ', ' + data[i].Status + ');">@LangResources["Patient_Button_View"]</a></td>' +
+							'</tr > ';
+					}
+				}
+
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function ViewInvoice(id, status){
+		backToPrevPage = false;
+		var isEdit = false;
+		if (status == 1) {
+			isEdit = true;
+		}
+
+		fetch('/InvoiceReceipt/GetInvoiceByID?id=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				document.getElementById("pageName").innerHTML = "Receipt No " + data.InvoiceNo;
+				const template = document.getElementById("invoiceTemplate");
+				const container = document.getElementById("viewInvoice");
+				var invoiceGroup = document.querySelectorAll(".invoiceGroup");
+				const clone = template.content.cloneNode(true);
+
+				clone.querySelector("#invoiceID").value = data.ID;
+				var discountGroup = clone.querySelectorAll(".grandDiscount");
+				discountGroup[0].innerHTML = data.GrandDiscount;
+				discountGroup[1].value = data.GrandDiscount;
+
+				if (isEdit) {
+					var discountGroup = clone.querySelectorAll(".grandDiscount");
+					for (let i = 0; i < discountGroup.length; i++) {
+						discountGroup[i].classList.toggle("hideContainer");
+					}
+				}
+
+				container.innerHTML = "";
+				container.appendChild(clone);
+
+				cloneServiceElement(data.TreatmentPlanID, isEdit);
+				cloneProductElement(data.TreatmentPlanID, isEdit);
+
+				for (let i = 0; i < invoiceGroup.length; i++) {
+					invoiceGroup[i].classList.toggle("hideContainer");
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function cloneServiceElement(id, isEdit) {
+		fetch('/InvoiceReceipt/GetServicesByPlanID?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				for (let i = 0; i < data.length; i++){
+					const template = document.getElementById("serviceTemplate");
+					var tableElement = document.getElementById("serviceList");
+					const clone = template.content.cloneNode(true);
+
+					clone.querySelector(".serviceID").innerHTML = data[i].ID;
+					clone.querySelector(".serviceName").innerHTML = data[i].ServiceName;
+					clone.querySelector(".serviceCost").innerHTML = data[i].Price;
+					clone.querySelector(".serviceDiscount").innerHTML = data[i].Discount;
+					clone.querySelector(".serviceDiscountInput").value = data[i].Discount;
+
+					var discount = (data[i].Price * (data[i].Discount / 100)).toFixed(2).replace(/[.,]00$/, "");
+
+					clone.querySelector(".serviceTotal").innerHTML = (data[i].Price - discount).toFixed(2).replace(/[.,]00$/, "");
+
+					if (isEdit) {
+						var discountGroup = clone.querySelectorAll(".serviceDiscount");
+						for (let i = 0; i < discountGroup.length; i++) {
+							discountGroup[i].classList.toggle("hideContainer");
+						}
+					}
+
+					tableElement.appendChild(clone);
+				}
+
+				calculateInvoice();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function cloneProductElement(id, isEdit) {
+		fetch('/InvoiceReceipt/GetProductsByPlanID?planID=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				return response.json();
+			})
+			.then(data => {
+				for (let i = 0; i < data.length; i++) {
+					const template = document.getElementById("productTemplate");
+					var tableElement = document.getElementById("productList");
+					const clone = template.content.cloneNode(true);
+
+					clone.querySelector(".productID").innerHTML = data[i].ID;
+					clone.querySelector(".productName").innerHTML = data[i].ProductName;
+					clone.querySelector(".productUnit").innerHTML = data[i].Units;
+					clone.querySelector(".productCost").innerHTML = data[i].PricePerQty;
+					clone.querySelector(".productDiscount").innerHTML = data[i].Discount;
+					clone.querySelector(".productDiscountInput").value = data[i].Discount;
+
+					var originalCost = data[i].PricePerQty * data[i].Units;
+					var discount = (originalCost * (data[i].Discount / 100)).toFixed(2).replace(/[.,]00$/, "");
+
+					clone.querySelector(".productTotal").innerHTML = (originalCost - discount).toFixed(2).replace(/[.,]00$/, "");
+
+					if (isEdit) {
+						var discountGroup = clone.querySelectorAll(".productDiscount");
+						for (let i = 0; i < discountGroup.length; i++) {
+							discountGroup[i].classList.toggle("hideContainer");
+						}
+					}
+
+					tableElement.appendChild(clone);
+				}
+
+				calculateInvoice();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});		
+	}
+
+	function applyDiscount(e, costClass, totalClass, discountClass, unitClass){
+		var unit = 1;
+		var originalCost = 0;
+		var discount = 0;
+		var parent = e.parentElement.parentElement;
+		var cost = parseInt(parent.querySelector("." + costClass).innerHTML);
+		var totalElement = parent.querySelector("." + totalClass);
+		var discountPerc = parent.querySelector("." + discountClass).value;
+
+		if (parent.querySelector("." + unitClass)) {
+			unit = parseInt(parent.querySelector("." + unitClass).innerHTML);
+		}
+
+		if (discountPerc > 100){
+			discountPerc = 100
+			parent.querySelector("." + discountClass).value = 100;
+		}
+
+		if (discountPerc < 0 || Number.isNaN(discountPerc) || discountPerc == "") {
+			discountPerc = 0
+			parent.querySelector("." + discountClass).value = 0;
+		}
+
+		originalCost = cost * unit;
+		discount = (Number(originalCost) * (discountPerc / 100)).toFixed(2).replace(/[.,]00$/, "");
+
+		totalElement.innerHTML = (Number(originalCost) - Number(discount)).toFixed(2).replace(/[.,]00$/, "");
+
+		calculateInvoice();
+
+	}
+
+	function calculateInvoice() {
+		var totalInvoiceElement = document.querySelectorAll(".totalInvoice");
+		var grandTotalElement = document.getElementById("grandTotal");
+		var grandDiscountElement = document.getElementById("grandDiscount");
+		var totalInvoice = 0;
+		var discount = 0;
+
+		for (let i = 0; i < totalInvoiceElement.length; i++) {
+			totalInvoice += parseInt(totalInvoiceElement[i].innerHTML);
+		}
+
+		var tax = (totalInvoice * (6 / 100)).toFixed(2).replace(/[.,]00$/, "");
+
+		discount = ((Number(totalInvoice) + Number(tax)) * (parseInt(grandDiscountElement.value) / 100)).toFixed(2).replace(/[.,]00$/, "");
+
+		grandTotalElement.innerHTML = (Number(totalInvoice) + Number(tax) - Number(discount)).toFixed(2).replace(/[.,]00$/, "");
+	}
 
 	function downloadHealthCard() {
 		var clone = document.getElementById("healthCardModal").cloneNode(true);
@@ -511,6 +850,113 @@
 						'</div>';
 				}
 
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function UpdateInvoice(status) {
+		var invoiceID = document.getElementById("invoiceID").value;
+		var grandTotal = document.getElementById("grandTotal").innerHTML;
+		var grandDiscount = document.getElementById("grandDiscount").value;
+		var serviceGroup = document.querySelectorAll(".serviceGroup");
+		var productGroup = document.querySelectorAll(".productGroup");
+
+		var obj = {
+			ID: invoiceID,
+			Fee: grandTotal,
+			GrandDiscount: grandDiscount,
+			Status: status
+		};
+
+		fetch('/InvoiceReceipt/UpdateInvoice', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				if (status == 2) {
+					for (let i = 0; i < serviceGroup.length; i++) {
+						updateInvoiceService(serviceGroup[i]);
+					}
+
+					for (let i = 0; i < productGroup.length; i++) {
+						UpdateInvoiceProduct(productGroup[i]);
+					}
+				}				
+
+				location.reload();
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function updateInvoiceService(e){
+		var id = e.querySelector(".serviceID").innerHTML;
+		var discount = e.querySelector(".serviceDiscountInput").value;
+		var price = e.querySelector(".serviceTotal").innerHTML;
+
+		var obj = {
+			ID: id,
+			Discount: discount,
+			TotalPrice: price,
+			UpdatedDate: new Date()
+		};
+
+		fetch('/InvoiceReceipt/UpdateInvoiceService', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				let a = data;
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function UpdateInvoiceProduct(e) {
+		var id = e.querySelector(".productID").innerHTML;
+		var discount = e.querySelector(".productDiscountInput").value;
+		var price = e.querySelector(".productTotal").innerHTML;
+
+		var obj = {
+			ID: id,
+			Discount: discount,
+			TotalPrice: price,
+			UpdatedDate: new Date()
+		};
+
+		fetch('/InvoiceReceipt/UpdateInvoiceProduct', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				let a = data;
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);

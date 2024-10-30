@@ -171,9 +171,9 @@
 			</div>
 			<div style="display: flex; align-items: center;">
 				<span style="color: red;">@LangResources["TreatmentPlan_Message_PendingConfirmation"]</span>
-				<button onclick="submitTreatmentPlan(this.parentElement.parentElement.parentElement);" class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
-				<button onclick="removeTreatmentPlan(this);" class="btn btn-lg btn-danger" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-xmark"></i></button>
-				<button onclick="editTreatmentPlan(this.parentElement.parentElement.parentElement);" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-regular fa-pen-to-square"></i></button>
+				<button onclick="submitTreatmentPlan(this.parentElement.parentElement.parentElement);" title="Save" class="btn btn-lg btn-primary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-check"></i></button>
+				<button onclick="removeTreatmentPlan(this);" class="btn btn-lg btn-danger" title="Cancel" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-solid fa-xmark"></i></button>
+				<button onclick="editTreatmentPlan(this.parentElement.parentElement.parentElement);" title="Edit" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw; margin-left: 0.5vw;"><i class="fa-regular fa-pen-to-square"></i></button>
 			</div>
 			<button class="textColor viewButton hideContainer" onclick="showPastInfo(this);" style="background: transparent; border: none;">
 				<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
@@ -202,9 +202,9 @@
 		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
 			<table class="textColor" id="productList" style="width:100%; font-size: 1vw;">
 				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
-					<td class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Product"] </td>
-					<td class="table-content"> @LangResources["Patient_Label_Unit"] </td>
-					<td class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</td>
+					<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Product"] </th>
+					<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
+					<th class="table-content" style="width: 3vw; padding-right: 0.5vw;"> @LangResources["Patient_Label_Price"]</th>
 				</tr>
 				<tr>
 					<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
@@ -498,7 +498,7 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" disabled>
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-receipt"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_InvoiceBilling"]</span>
@@ -510,9 +510,6 @@
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TestManagement"]</span>
 					</div>
 				</div>
-
-
-
 
 			</div>
 
@@ -988,13 +985,13 @@
 		if(id == 0) {
 			idElement.selectedIndex = id;
 			clone.querySelector("." + nameElement).innerHTML = idElement.options[idElement.selectedIndex].innerHTML;
-			priceData = idElement.options[idElement.selectedIndex].getAttribute('data-price');
-			originalPrice = priceData;
+			originalPrice = idElement.options[idElement.selectedIndex].getAttribute('data-price');
+			priceData = originalPrice;
 			units = 1;
 		} else {
 			idElement.value = id;
 			clone.querySelector("." + nameElement).innerHTML = name;
-			priceData = price;
+			priceData = originalPrice * units;
 		}
 
 		clone.querySelector("." + priceElement).innerHTML = "$" + priceData;
@@ -1361,7 +1358,7 @@
 			})
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
-					cloneElement(e, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+					cloneElement(e, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 1, data[i].Price);
 				}
 			})
 			.catch(error => {
@@ -1432,7 +1429,7 @@
 			})
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
-					cloneElement(e, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+					cloneElement(e, false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 1, data[i].Price);
 				}
 			})
 			.catch(error => {
@@ -1833,6 +1830,8 @@
 			ServiceID: serviceID,
 			ServiceName: serviceName,
 			Price: price,
+			TotalPrice: price,
+			Discount: 0,
 			IsDeleted: 0,
 			CreatedDate: new Date(),
 			CreatedBy: "System"
@@ -1868,6 +1867,7 @@
 			Units: units,
 			PricePerQty: originalPrice,
 			TotalPrice: price,
+			Discount: 0,
 			IsDeleted: 0,
 			CreatedDate: new Date(),
 			CreatedBy: "System"

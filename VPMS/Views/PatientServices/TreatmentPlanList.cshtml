@@ -128,7 +128,7 @@
 
 	filter();
 
-	function getServicesList(page, search, reset) {
+	function getTreatmentPlanList(page, search, reset) {
 		fetch('/PatientServices/GetTreatmentPlanList?rowLimit=' + rowLimit + '&page=' + page + '&search=' + search)
 			.then(response => {
 				if (!response.ok) {
@@ -273,7 +273,7 @@
 	function prev() {
 		currentPage = currentPage - 1;
 
-		getServicesList(currentPage, search, false);
+		getTreatmentPlanList(currentPage, search, false);
 
 		if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
 		pagination(startPagination, endPagination);
@@ -282,7 +282,7 @@
 	function next() {
 		currentPage = currentPage + 1;
 
-		getServicesList(currentPage, search, false);
+		getTreatmentPlanList(currentPage, search, false);
 
 		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
 		pagination(startPagination, endPagination);
@@ -293,7 +293,7 @@
 
 		currentPage = Number(pageNum);
 
-		getServicesList(currentPage, search, false);
+		getTreatmentPlanList(currentPage, search, false);
 
 		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
 		else if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
@@ -310,35 +310,14 @@
 	function filter() {
 		currentPage = 1;
 
-		getServicesList(1, search, true);
+		getTreatmentPlanList(1, search, true);
 	}
 
 	function ToggleStatus(e, treatmentID, status) {
-		var status, newStatus, changedStatus, color, background, toggleStatus;
-		var parentMain = e.parentElement.parentElement.parentElement.parentElement;
-		var parent = e.parentElement;
-		var statusElement = parentMain.querySelector(".treatmentStatus");
+		var newStatus;
 
-		if (status == 2) {
-			status = "@LangResources["Patient_Selection_Active"]";
-			color = "#57baa5";
-			background = "#c3f7ec";
-			toggleStatus = "@LangResources["TreatmentPlan_Label_MakeInactive"]";
-			changedStatus = "@LangResources["Patient_Selection_Inactive"]";
-			newStatus = 1;
-		}
-		else {
-			status = "@LangResources["Patient_Selection_Inactive"]";
-			color = "#ff2c29";
-			background = "#ffc5c4";
-			toggleStatus = "@LangResources["TreatmentPlan_Label_MakeActive"]";
-			changedStatus = "@LangResources["Patient_Selection_Active"]";
-			newStatus = 2;
-		}
-
-		statusElement.innerHTML = '<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">' + status;
-		e.remove();
-		parent.innerHTML += '<a class="dropdown-item" href="#" onclick="ToggleStatus(this, ' + treatmentID + ', ' + newStatus + ');"> ' + toggleStatus + ' </a>';
+		if (status == 2) { newStatus = 1; }
+		else { newStatus = 2; }
 
 		fetch('/PatientServices/ChangeTreatmentPlanStatus?treatmentPlanID=' + treatmentID + '&newStatus=' + newStatus)
 			.then(response => {
@@ -349,6 +328,8 @@
 			})
 			.then(data => {
 				let a = data;
+
+				getTreatmentPlanList(currentPage, search, true);
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);

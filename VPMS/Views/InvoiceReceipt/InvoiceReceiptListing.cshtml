@@ -1,0 +1,528 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+	ViewData["Title"] = "Invoice & Receipt Page";
+	ViewBag.SelectedMenu = "invoiceReceiptMenu";
+
+	var role = httpContextaccessor.HttpContext.Session.GetString("RoleName");
+}
+
+<style>
+	.table-content {
+		text-align: center;
+		height: 2vw;
+	}
+
+	.table-content-center {
+		text-align: center;
+	}
+
+	.table-row-content {
+		padding: 1vw 0;
+	}
+
+	table th:first-child {
+		border-radius: 0.2vw 0 0 0.2vw;
+	}
+
+	table th:last-child {
+		border-radius: 0 0.2vw 0.2vw 0;
+	}
+
+	.form-field {
+		border-style: solid;
+		border-color: black;
+		font-size: 1vw;
+	}
+
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2vw;
+		font-size: 1vw;
+	}
+
+	.form-label {
+		font-weight: bold;
+		margin-bottom: 0.7vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: white;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#organisation {
+		color: dodgerblue !important;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.tabButton{
+		background-color: transparent;
+		border-style: none;
+		--bs-btn-hover-bg: unset;
+		border-radius: 0;
+		font-size: 1vw;
+	}
+
+	.selectedTab{
+		border-bottom-style: solid;
+		border-bottom-color: blue;
+		color: blue;
+		border-width: 0.2vw;
+	}
+</style>
+
+<div style="display: flex; justify-content: space-between;">
+
+	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
+	</div>
+
+</div>
+
+<div style="display: flex;">
+	<div>
+		<div style="display: flex; justify-content: space-between;">
+			<div>
+				<button class="btn btn-lg btn-primary textColor tabButton selectedTab" onclick="changeTab(this);">Invoices</button>
+				<button class="btn btn-lg btn-primary textColor tabButton" onclick="changeTab(this);">Receipts</button>
+			</div>
+			<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
+				<button class="btn btn-lg btn-primary" style=" display: flex; align-items: center; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateInvoice", "InvoiceReceipt")'">
+					<span id="container">+</span>
+					<span style="font-size: 1vw; margin-left: 0.5vw;">Quick Invoice</span>
+				</button>
+			</div>
+		</div>
+		<div class="tableContainer">
+			<table class="textColor" id="invoiceList" style="width: 57vw; margin-bottom: 2vw; font-size: 1vw;">
+			</table>
+
+			<div id="paginationInvoice" style="display: flex; justify-content: flex-end;">
+				<div>
+					<button id="prevButtonInvoice" onclick="prev('invoice');" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
+				</div>
+				<div id="paginationNumberingInvoice" style="display: flex; justify-content: flex-end; font-size: 1vw;">
+				</div>
+				<div>
+					<button id="nextButtonInvoice" onclick="next('invoice');" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
+				</div>
+			</div>
+		</div>
+		<div class="tableContainer hideContainer">
+			<table class="textColor" id="receiptList" style="width: 57vw; margin-bottom: 2vw; font-size: 1vw;">
+			</table>
+
+			<div id="paginationReceipt" style="display: flex; justify-content: flex-end;">
+				<div>
+					<button id="prevButtonReceipt" onclick="prev('receipt');" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
+				</div>
+				<div id="paginationNumberingReceipt" style="display: flex; justify-content: flex-end; font-size: 1vw;">
+				</div>
+				<div>
+					<button id="nextButtonReceipt" onclick="next('receipt');" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="containerBackground" style="width: 20vw; border-radius: 0.2vw; margin-left: 1vw; padding: 2vw;">
+		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">Filter</h3>
+
+		<div class="field-container">
+			<span class="form-label">Invoice/Receipt No</span>
+			<input id="InvoiceReceiptNo" type="text" class="form-control form-field" />
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">@LangResources["Patient_Label_PetName"]</span>
+			<input id="PetName" type="text" class="form-control form-field" />
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">@LangResources["Patient_Label_OwnerName"]</span>
+			<select id="Owner" class="form-control form-field">
+				<option value="" selected> -- @LangResources["Appointment_Selection_SelectOwner"] --</option>
+			</select>
+		</div>
+
+		<div class="field-container">
+			<span class="form-label">@LangResources["Appointment_Label_Doctor"]</span>
+			<select id="Doctor" class="form-control form-field">
+				<option value="" selected> -- @LangResources["Appointment_Selection_SelectDoctor"] -- </option>
+			</select>
+		</div>
+
+		<button class="w-100 btn btn-lg btn-primary" onclick="filter();" style="font-size: 1vw;">@LangResources["Patient_Button_Search"]</button>
+	</div>
+</div>
+
+<script>
+	var paginationLimit = 5;
+	var rowLimit = 8;
+	var currentInvoiceReceptNo = "", currentPetName = "", currentOwnerName = "", currentDoctor = "";
+
+	var startPaginationInvoice = 1;
+	var endPaginationInvoice = 0;
+	var totalPaginationInvoice = 0;
+	var currentPageInvoice = 1;
+
+	var startPaginationReceipt = 1;
+	var endPaginationReceipt = 0;
+	var totalPaginationReceipt = 0;
+	var currentPageReceipt = 1;
+
+	getInvoiceList(1, true);
+	getReceiptList(1, true);
+
+	function changeTab(e){
+		var currentTab = document.querySelector(".selectedTab");
+		var table = document.querySelectorAll(".tableContainer");
+
+		if (currentTab) {
+			currentTab.classList.toggle("selectedTab");
+		}
+
+		e.classList.toggle("selectedTab");
+
+		for (let i = 0; i < table.length; i++){
+			table[i].classList.toggle("hideContainer");
+		}
+	}
+
+	function getInvoiceList(page, reset){
+
+		fetch('/InvoiceReceipt/GetInvoiceList?rowLimit=' + rowLimit + '&page=' + page + '&invoiceNo=' + currentInvoiceReceptNo + '&petName=' + currentPetName + '&ownerName=' + currentOwnerName + '&doctor=' + currentDoctor)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				let total = data.TotalInvoiceReceipt;
+
+				if (reset) {
+					if (total == 0) { document.getElementById("paginationInvoice").hidden = true; }
+					else {
+						document.getElementById("paginationInvoice").hidden = false;
+
+						var totalPage = parseInt(total / rowLimit);
+
+						if (totalPage == 0) { totalPage = totalPage + 1; }
+
+						if ((total > rowLimit) && (total % rowLimit) != 0) { totalPage = totalPage + 1; }
+
+						totalPaginationInvoice = totalPage;
+
+						if (totalPage > paginationLimit) { endPaginationInvoice = paginationLimit }
+						else { endPaginationInvoice = totalPage; }
+
+						pagination(startPaginationInvoice, endPaginationInvoice, "paginationNumberingInvoice");
+					}
+				}
+
+
+				if (currentPageInvoice == totalPaginationInvoice) { document.getElementById("nextButtonInvoice").hidden = true; }
+				else { document.getElementById("nextButtonInvoice").hidden = false; }
+				if (currentPageInvoice == 1) { document.getElementById("prevButtonInvoice").hidden = true; }
+				else { document.getElementById("prevButtonInvoice").hidden = false; }
+
+				var content = document.getElementById("invoiceList");
+
+				content.innerHTML =
+					'<tr class="containerBackground">' +
+					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
+					'<th class="table-content" > Invoice No </th>' +
+					'<th class="table-content" > Date </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_PetName"] </th>' +
+					'<th class="table-content" > @LangResources["Appointment_Label_Doctor"] </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
+					'<th class="table-content" > Fee ($) </th>' +
+					'<th class="table-content" > </th>' +
+					'</tr>';
+
+				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				else {
+					for (let i = 0; i < data.invoiceReceiptList.length; i++) {
+
+						var date = new Date(data.invoiceReceiptList[i].Date);
+						var dateString = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						content.innerHTML = content.innerHTML +
+							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].No + '</td>' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].InvoiceNo + '</td>' +
+							'<td class="table-content" >' + dateString + '</td>' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].PetName + '</td>' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].Doctor + '</td>' +
+							'<td class="table-content" > ' + data.invoiceReceiptList[i].OwnerName + '</td>' +
+							'<td class="table-content" > ' + data.invoiceReceiptList[i].Fee + '</td>' +
+							'<td class="table-content" style = "width: 0;" > ' +
+							'<div class="dropleft" > ' +
+							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
+							'<img class="moreIcon" /> ' +
+							'</button>' +
+							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
+							'<a class="dropdown-item" href = "#" > @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="#" > Download </a>' +
+							'<a class="dropdown-item" href="#" > Print </a>' +
+							'<a class="dropdown-item" href="#" onclick="MarkAsPaid(' + data.invoiceReceiptList[i].ID + ');" > Mark as paid </a>' +
+							'</div>' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+				}
+
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getReceiptList(page, reset) {
+
+		fetch('/InvoiceReceipt/GetInvoiceReceiptList?rowLimit=' + rowLimit + '&page=' + page + '&status=3&receiptNo=' + currentInvoiceReceptNo + '&petName=' + currentPetName + '&ownerName=' + currentOwnerName + '&doctor=' + currentDoctor)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				let total = data.TotalInvoiceReceipt;
+
+				if (reset) {
+					if (total == 0) { document.getElementById("paginationReceipt").hidden = true; }
+					else {
+						document.getElementById("paginationReceipt").hidden = false;
+
+						var totalPage = parseInt(total / rowLimit);
+
+						if (totalPage == 0) { totalPage = totalPage + 1; }
+
+						if ((total > rowLimit) && (total % rowLimit) != 0) { totalPage = totalPage + 1; }
+
+						totalPaginationReceipt = totalPage;
+
+						if (totalPage > paginationLimit) { endPaginationReceipt = paginationLimit }
+						else { endPaginationReceipt = totalPage; }
+
+						pagination(startPaginationReceipt, endPaginationReceipt, "paginationNumberingReceipt");
+					}
+				}
+
+
+				if (currentPageReceipt == totalPaginationReceipt) { document.getElementById("nextButtonReceipt").hidden = true; }
+				else { document.getElementById("nextButtonReceipt").hidden = false; }
+				if (currentPageReceipt == 1) { document.getElementById("prevButtonReceipt").hidden = true; }
+				else { document.getElementById("prevButtonReceipt").hidden = false; }
+
+				var content = document.getElementById("receiptList");
+
+				content.innerHTML =
+					'<tr class="containerBackground">' +
+					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
+					'<th class="table-content" > Receipt No </th>' +
+					'<th class="table-content" > Date </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_PetName"] </th>' +
+					'<th class="table-content" > @LangResources["Appointment_Label_Doctor"] </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
+					'<th class="table-content" > Fee ($) </th>' +
+					'<th class="table-content" > </th>' +
+					'</tr>';
+
+				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				else {
+					for (let i = 0; i < data.invoiceReceiptList.length; i++) {
+
+						var date = new Date(data.invoiceReceiptList[i].Date);
+						var dateString = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
+						content.innerHTML = content.innerHTML +
+							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].No + '</td>' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].ReceiptNo + '</td>' +
+							'<td class="table-content" >' + dateString + '</td>' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].PetName + '</td>' +
+							'<td class="table-content" >' + data.invoiceReceiptList[i].Doctor + '</td>' +
+							'<td class="table-content" > ' + data.invoiceReceiptList[i].OwnerName + '</td>' +
+							'<td class="table-content" > ' + data.invoiceReceiptList[i].Fee + '</td>' +
+							'<td class="table-content" style = "width: 0;" > ' +
+							'<div class="dropleft" > ' +
+							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
+							'<img class="moreIcon" /> ' +
+							'</button>' +
+							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
+							'<a class="dropdown-item" href = "#" > @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="#" > Download </a>' +
+							'<a class="dropdown-item" href="#" > Print </a>' +
+							'</div>' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+				}
+
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function pagination(start, end, elementID) {
+
+		var element = document.getElementById(elementID);
+
+		if (elementID == "paginationNumberingInvoice") {
+			element.innerHTML = "";
+
+			for (let i = start; i < end + 1; i++) {
+				var color = "";
+				if (currentPageInvoice == i) { background = "#1e76fb"; color = "white" }
+				else { background = "transparent"; color = "#1e76fb"; }
+
+				element.innerHTML = element.innerHTML +
+					'<div>' +
+					'<button onclick="changePage(this, \'invoice\');" data-page="' + i + '" style="width: 3vw; height: 3vw; background-color: ' + background + '; color: ' + color + '; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border: 0.1vw solid; border-color: #1e76fb; font-weight: bold;"> ' + ('0' + i).slice(-2) + ' </button>' +
+					'</div>';
+			}
+		}
+		else { 
+			element.innerHTML = "";
+
+			for (let i = start; i < end + 1; i++) {
+				var color = "";
+				if (currentPageReceipt == i) { background = "#1e76fb"; color = "white" }
+				else { background = "transparent"; color = "#1e76fb"; }
+
+				element.innerHTML = element.innerHTML +
+					'<div>' +
+					'<button onclick="changePage(this, \'receipt\');" data-page="' + i + '" style="width: 3vw; height: 3vw; background-color: ' + background + '; color: ' + color + '; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border: 0.1vw solid; border-color: #1e76fb; font-weight: bold;"> ' + ('0' + i).slice(-2) + ' </button>' +
+					'</div>';
+			}
+		}
+	}
+
+	function prev(table) {
+		if (table == "invoice") {
+			currentPageInvoice = currentPageInvoice - 1;
+
+			getInvoiceList(currentPageInvoice, false);
+
+			if ((currentPageInvoice != 1) && (currentPageInvoice == startPaginationInvoice)) { startPaginationInvoice--; endPaginationInvoice--; }
+			pagination(startPaginationInvoice, endPaginationInvoice, "paginationNumberingInvoice");
+		}
+		else{
+			currentPageReceipt = currentPageReceipt - 1;
+
+			getReceiptList(currentPageReceipt, false);
+
+			if ((currentPageReceipt != 1) && (currentPageReceipt == startPaginationReceipt)) { startPaginationReceipt--; endPaginationReceipt--; }
+			pagination(startPaginationReceipt, endPaginationReceipt, "paginationNumberingReceipt");
+		}
+		
+	}
+
+	function next(table) {
+		if (table == "invoice") {
+			currentPageInvoice = currentPageInvoice + 1;
+
+			getInvoiceList(currentPageInvoice, false);
+
+			if ((currentPageInvoice == endPaginationInvoice) && (endPaginationInvoice != totalPaginationInvoice)) { startPaginationInvoice++; endPaginationInvoice++; }
+			pagination(startPaginationInvoice, endPaginationInvoice, "paginationNumberingInvoice");
+		}
+		else {
+			currentPageReceipt = currentPageReceipt + 1;
+
+			getReceiptList(currentPageReceipt, false);
+
+			if ((currentPageReceipt == endPaginationReceipt) && (endPaginationReceipt != totalPaginationReceipt)) { startPaginationReceipt++; endPaginationReceipt++; }
+			pagination(startPaginationReceipt, endPaginationReceipt, "paginationNumberingReceipt");
+		}
+	}
+
+	function changePage(page, targetTable) {
+		let pageNum = page.getAttribute("data-page");
+
+		if (targetTable == "invoice") {
+			currentPageInvoice = Number(pageNum);
+
+			getInvoiceList(currentPageInvoice, false);
+
+			if ((currentPageInvoice == endPaginationInvoice) && (endPaginationInvoice != totalPaginationInvoice)) { startPaginationInvoice++; endPaginationInvoice++; }
+			else if ((currentPageInvoice != 1) && (currentPageInvoice == startPaginationInvoice)) { startPaginationInvoice--; endPaginationInvoice--; }
+			pagination(startPaginationInvoice, endPaginationInvoice, "paginationNumberingInvoice");
+		}
+		else {
+			currentPageReceipt = Number(pageNum);
+
+			getReceiptList(currentPageReceipt, false);
+
+			if ((currentPageReceipt == endPaginationReceipt) && (endPaginationReceipt != totalPaginationReceipt)) { startPaginationReceipt++; endPaginationReceipt++; }
+			else if ((currentPageReceipt != 1) && (currentPageReceipt == startPaginationReceipt)) { startPaginationReceipt--; endPaginationReceipt--; }
+			pagination(startPaginationReceipt, endPaginationReceipt, "paginationNumberingReceipt");
+		}
+	}
+
+	function filter() {
+		currentInvoiceReceptNo = document.getElementById("InvoiceReceiptNo").value;
+		currentPetName = document.getElementById("PetName").value;
+		currentOwnerName = document.getElementById("Owner").value;
+		currentDoctor = document.getElementById("Doctor").value;
+
+		currentPageInvoice = 1;
+		currentPageReceipt = 1;
+
+		getInvoiceList(currentPageInvoice, true);
+		getReceiptList(currentPageReceipt, true);
+	}
+
+	function MarkAsPaid(id){
+		fetch('/InvoiceReceipt/MarkAsPaid?id=' + id)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				
+				return response.json();
+			})
+			.then(data => {
+				let a = data;
+
+				getInvoiceList(1, true);
+				getReceiptList(1, true);
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+</script>

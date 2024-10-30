@@ -21,8 +21,9 @@ namespace VPMSWeb.Controllers
 		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
 		private readonly CountryDBContext _countryDBContext = new CountryDBContext(ConfigSettings.GetConfigurationSettings());
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
+		private readonly InvoiceReceiptDBContext _invoiceReceiptDBContext = new InvoiceReceiptDBContext();
 
-        int totalPets;
+		int totalPets;
 
 		public IActionResult Index()
         {
@@ -225,7 +226,7 @@ namespace VPMSWeb.Controllers
 
 			try
 			{
-				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart > DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).FirstOrDefault();
+				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart > DateOnly.FromDateTime(DateTime.Now) && x.PlanName != "Quick Invoice").OrderBy(x => x.TreatmentStart).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -267,7 +268,7 @@ namespace VPMSWeb.Controllers
 
 			try
 			{
-				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart <= DateOnly.FromDateTime(DateTime.Now) && x.TreatmentEnd >= DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).ToList();
+				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart <= DateOnly.FromDateTime(DateTime.Now) && x.TreatmentEnd >= DateOnly.FromDateTime(DateTime.Now) && x.PlanName != "Quick Invoice").OrderBy(x => x.TreatmentStart).ToList();
 			}
 			catch (Exception ex)
 			{
@@ -288,7 +289,7 @@ namespace VPMSWeb.Controllers
 
 			try
 			{
-				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentEnd < DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).ToList();
+				upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentEnd < DateOnly.FromDateTime(DateTime.Now) && x.PlanName != "Quick Invoice").OrderBy(x => x.TreatmentStart).ToList();
 			}
 			catch (Exception ex)
 			{
@@ -344,8 +345,49 @@ namespace VPMSWeb.Controllers
 		{
 			try
 			{
+				patientTreatmentPlan.CreatedDate = DateTime.Now;
+				patientTreatmentPlan.CreatedBy = HttpContext.Session.GetString("Username");
 				_patientDBContext.Txn_TreatmentPlan.Add(patientTreatmentPlan);
 				_patientDBContext.SaveChanges();
+
+				var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
+				var patientInfo = _patientDBContext.Mst_Patients.FirstOrDefault(x => x.ID == petInfo.PatientID);
+				var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == petInfo.PatientID);
+				var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
+
+				Random rnd = new Random();
+				string invoiceNoString = "";
+				var existed = true;
+
+				while (existed)
+				{
+					int num = rnd.Next(1, 999999);
+					invoiceNoString = "#" + num;
+					if (!invoiceNoList.Contains(invoiceNoString))
+					{
+						existed = false;
+					}
+				}
+
+
+				var invoiceInfo = new InvoiceReceiptModel()
+				{
+					TreatmentPlanID = patientTreatmentPlan.ID,
+					Branch = patientInfo.BranchID,
+					InvoiceNo = invoiceNoString,
+					PetName = petInfo.Name,
+					Doctor = "Dr. Kim Do-yeon",
+					OwnerName = owner.Name,
+					Fee = patientTreatmentPlan.TotalCost,
+					Tax = 6,
+					GrandDiscount = 0,
+					Status = patientTreatmentPlan.Status,
+					CreatedDate = DateTime.Now,
+					CreatedBy = HttpContext.Session.GetString("Username")
+				};
+
+				_invoiceReceiptDBContext.Mst_InvoiceReceipt.Add(invoiceInfo);
+				_invoiceReceiptDBContext.SaveChanges();
 			}
 			catch (Exception ex)
 			{
@@ -372,6 +414,8 @@ namespace VPMSWeb.Controllers
 		{
 			try
 			{
+				patientTreatmentPlanProducts.CreatedDate = DateTime.Now;
+				patientTreatmentPlanProducts.CreatedBy = HttpContext.Session.GetString("Username");
 				_patientDBContext.Txn_TreatmentPlan_Products.Add(patientTreatmentPlanProducts);
 				_patientDBContext.SaveChanges();
 			}
