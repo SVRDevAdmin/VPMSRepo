@@ -18,13 +18,55 @@ namespace VPMS.Lib.Data
         /// Get User List Order by Surname
         /// </summary>
         /// <returns></returns>
-        public static List<UserModel> GetStaffList()
+        public static List<UserModel> GetStaffList(String organizationID)
         {
+            List<UserModel> sStaffList = new List<UserModel>();
+
             try
             {
                 using (var ctx = new UserDBContext())
                 {
-                    return ctx.Mst_User.OrderBy(x => x.Surname).ToList();
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.UserID, A.Surname, A.LastName, A.StaffID, A.Gender, A.EmailAddress, A.Status, " +
+                                            "A.RoleID, A.BranchID, A.LastLoginDate, A.CreatedDate, A.CreatedBy, A.UpdatedDate, A.UpdatedBy " +
+                                            "FROM mst_user AS A " +
+                                            "INNER JOIN mst_branch AS B ON B.ID = A.BranchID " +
+                                            "WHERE (" + (organizationID == null) + " OR B.OrganizationID = '" + organizationID + "') " +
+                                            "ORDER BY A.Surname";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                var sStaff = new UserModel();
+                                sStaff.UserID = sReader["UserID"].ToString();
+                                sStaff.Surname = sReader["Surname"].ToString();
+                                sStaff.LastName = sReader["LastName"].ToString();
+                                sStaff.StaffID = sReader["StaffID"].ToString();
+                                sStaff.Gender = sReader["Gender"].ToString();
+                                sStaff.EmailAddress = sReader["EmailAddress"].ToString();
+                                sStaff.Status = Convert.ToInt32(sReader["Status"]);
+                                sStaff.RoleID = sReader["RoleID"].ToString();
+                                sStaff.BranchID = Convert.ToInt32(sReader["BranchID"]);
+                                sStaff.LastLoginDate = (!String.IsNullOrEmpty(sReader["LastLoginDate"].ToString())) ? Convert.ToDateTime(sReader["LastLoginDate"]) : null;
+                                sStaff.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                sStaff.CreatedBy = sReader["CreatedBy"].ToString();
+                                sStaff.UpdatedDate = (!String.IsNullOrEmpty(sReader["UpdatedDate"].ToString())) ? Convert.ToDateTime(sReader["UpdatedDate"]) : null;
+                                sStaff.UpdatedBy = (sReader["UpdatedBy"] != null) ? sReader["UpdatedBy"].ToString() : null;
+     
+
+                                sStaffList.Add(sStaff);
+                            }
+                        }
+                    }
+                    sConn.Close();
+
+                    return sStaffList;
+                    //return ctx.Mst_User.OrderBy(x => x.Surname).ToList();
                 };
             }
             catch (Exception ex)

@@ -154,12 +154,16 @@
             $('#ddlIsDoctor').val('@sRoleObj.IsDoctor');
             $('#ddlIsDoctor').trigger('changes');
 
-            $('#ddlOrganization').val('@sRoleObj.OrganisationID');
-            $('#ddlOrganization').trigger('changes');
-            loadBranchDropdownlist('@sRoleObj.OrganisationID');
+            setTimeout(function () {
+                $('#ddlOrganization').val('@sRoleObj.OrganisationID');
+                $('#ddlOrganization').trigger('changes');
+                loadBranchDropdownlist('@sRoleObj.OrganisationID');
+            }, 200);
 
-            $('#ddlBranch').val('@sRoleObj.BranchID');
-            $('#ddlBranch').trigger('changes');
+            setTimeout(function () {
+                $('#ddlBranch').val('@sRoleObj.BranchID');
+                $('#ddlBranch').trigger('changes');
+            }, 250);
 
             /*------ Get Role Permission -----------*/
             $.getJSON("/Roles/GetRolePermissionsByRoleID", {
@@ -377,7 +381,7 @@
                                     {
                                         foreach(var m in sStatusDDL)
                                         {
-                                            <option value="@m.CodeID">@m.CodeName</option>
+                                                    <option value="@m.CodeID">@m.CodeName</option>
                                         }
                                     }
                                 }
@@ -392,7 +396,7 @@
                                     {
                                         foreach(var org in sOrganizationDDL)
                                         {
-                                            <option value="@org.Id">@org.Name</option>
+                                                    <option value="@org.Id">@org.Name</option>
                                         }
                                     }
                                 }
@@ -450,21 +454,21 @@
                                 var sGroupListing = ViewData["PermissionGroup"] as List<String>;
                                 foreach(var g in sGroupListing)
                                 {
-                                    <div class="col-md-12">
-                                        <label class="permissionGrouping">@g</label>
-                                    </div>
+                                            <div class="col-md-12">
+                                                <label class="permissionGrouping">@g</label>
+                                            </div>
 
 
                                     var sPermissionListing = ViewData["PermissionObject"] as List<VPMS.Lib.Data.Models.AccessPermissionObject>;
                                     foreach (var p in sPermissionListing.Where(x => x.PermissionGrouping == g).ToList())
                                     {
-                                        <div class="col-md-3">
-                                            <input name="chkPermission" class="form-check-input permissionCheckbox" type="checkbox" value="" data-target="@p.PermissionKey" />
-                                            <label class="form-check-label permissionCheckBoxLabel">@p.PermissionName</label>
-                                        </div>
+                                                <div class="col-md-3">
+                                                    <input name="chkPermission" class="form-check-input permissionCheckbox" type="checkbox" value="" data-target="@p.PermissionKey" />
+                                                    <label class="form-check-label permissionCheckBoxLabel">@p.PermissionName</label>
+                                                </div>
                                     }
 
-                                    <div class="col-md-12">&nbsp;</div>
+                                            <div class="col-md-12">&nbsp;</div>
                                 }
                             }
                         }

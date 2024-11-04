@@ -1,10 +1,14 @@
-﻿@inject IHttpContextAccessor httpContextaccessor
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
     ViewData["Title"] = "Users";
     ViewData["SelectedMenu"] = "AccessMenu";
 
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+    var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 
     var sUserObj = new VPMS.Lib.Data.Models.UserProfileExtObj();
     if (ViewData["UserProfile"] != null)
@@ -40,6 +44,7 @@
 }
 
 <link rel="stylesheet" href="~/css/User.css" />
+<script src="~/js/General.js"></script>
 
 <script>
     $(document).ready(function () 
@@ -51,45 +56,59 @@
         {
             if (UserFieldsValidation())
             {
-                var sNewUser = {
-                    surName: $('#txtSurname').val(),
-                    lastName: $('#txtLastName').val(),
-                    staffID: $('#txtStaffID').val(),
-                    gender: $('#ddlGender').val(),
-                    emailAddress: $('#txtEmail').val(),
-                    roleID: $('#ddlRole').val(),
-                    organizationID: $('#ddlOrganization').val(),
-                    branchID: $('#ddlBranch').val(),
-                    userStatus: $('#ddlStatus').val(),
-                    loginID: $('#txtLoginID').val()
-                }
+                if (isEmail($('#txtEmail').val()))
+                {
+                    $('#txtEmail').removeClass('errorValidation');
 
-                $.post("/User/AddUser",
-                    sNewUser
-                ).done(function (result) {
-                    if (result.StatusCode == 200) {
-                        ShowSuccessMsgBox("Create User", "Create user successfully.",
-                            function () {
-                                window.location.href = '/User/Index';
-                            }
-                        );
+                    var sNewUser = {
+                        surName: $('#txtSurname').val(),
+                        lastName: $('#txtLastName').val(),
+                        staffID: $('#txtStaffID').val(),
+                        gender: $('#ddlGender').val(),
+                        emailAddress: $('#txtEmail').val(),
+                        roleID: $('#ddlRole').val(),
+                        organizationID: $('#ddlOrganization').val(),
+                        branchID: $('#ddlBranch').val(),
+                        userStatus: $('#ddlStatus').val(),
+                        loginID: $('#txtLoginID').val()
+                    }
+
+                    $.post("/User/AddUser",
+                        sNewUser
+                    ).done(function (result) {
+                        if (result.StatusCode == 200) {
+                            ShowSuccessMsgBox("@Html.Raw(LangResources["StaffDetail_Title_CreateUser"])",
+                                              "@Html.Raw(LangResources["StaffDetail_Label_CreateUserSuccessfully"])",
+                                function () {
+                                    window.location.href = '/User/Index';
+                                }
+                            );
                         
-                    }
-                    else {
-                        if (result.isRecordExists) 
-                        {
-                            $('#lbError').html("*Login ID exists in system, please try again.");
-                            $('#lbError').css('visibility', 'visible');
                         }
-                        else{
-                            $('#lbError').html("Failed to create user, please try again.");
-                            $('#lbError').css('visibility', 'visible');
+                        else {
+                            if (result.isRecordExists) 
+                            {
+                                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_LoginIDExists"])");
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                            else{
+                                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_FailedToCreateUser"])");
+                                $('#lbError').css('visibility', 'visible');
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else{
+                    $('#txtEmail').addClass('errorValidation');
+                    $('#txtEmail').focus();
+
+                    $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_InvalidEmail"])");
+                    $('#lbError').css('visibility', 'visible');
+                }
             }
-            else{
-                $('#lbError').html("*Mandatory Fields required.");
+            else
+            {
+                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_MandatoryFieldsRequired"])");
                 $('#lbError').css('visibility', 'visible');
             }
         });
@@ -100,40 +119,53 @@
         });
 
         /*-------- Update Button ------------------*/
-        $('#btnUpdate').on('click', function (ctl) {
-            if (UserFieldsValidation()) {
-                var sUpdateUser = {
-                    UserID: $('#hidID').val(),
-                    surName: $('#txtSurname').val(),
-                    lastName: $('#txtLastName').val(),
-                    staffID: $('#txtStaffID').val(),
-                    gender: $('#ddlGender').val(),
-                    emailAddress: $('#txtEmail').val(),
-                    roleID: $('#ddlRole').val(),
-                    organizationID: $('#ddlOrganization').val(),
-                    branchID: $('#ddlBranch').val(),
-                    userStatus: $('#ddlStatus').val(),
-                    loginID: $('#txtLoginID').val()
-                }
+        $('#btnUpdate').on('click', function (ctl) 
+        {
+            if (UserFieldsValidation()) 
+            {
+                if (isEmail($('#txtEmail').val()))
+                {
+                    var sUpdateUser = {
+                        UserID: $('#hidID').val(),
+                        surName: $('#txtSurname').val(),
+                        lastName: $('#txtLastName').val(),
+                        staffID: $('#txtStaffID').val(),
+                        gender: $('#ddlGender').val(),
+                        emailAddress: $('#txtEmail').val(),
+                        roleID: $('#ddlRole').val(),
+                        organizationID: $('#ddlOrganization').val(),
+                        branchID: $('#ddlBranch').val(),
+                        userStatus: $('#ddlStatus').val(),
+                        loginID: $('#txtLoginID').val()
+                    }
 
-                $.post("/User/UpdateUser",
-                    sUpdateUser
-                ).done(function (result) {
-                    if (result.StatusCode == 200) {
-                        ShowSuccessMsgBox("Update User Profile", "Update user profile successfully.",
-                            function () {
-                                window.location.href = '/User/Index';
-                            }
-                        )
-                    }
-                    else {
-                        $('#lbError').html("Failed to update user profile, please try again.");
-                        $('#lbError').css('visibility', 'visible');
-                    }
-                });
+                    $.post("/User/UpdateUser",
+                        sUpdateUser
+                    ).done(function (result) {
+                        if (result.StatusCode == 200) {
+                            ShowSuccessMsgBox("@Html.Raw(LangResources["StaffDetail_Title_UpdateUserProfile"])",
+                                              "@Html.Raw(LangResources["StaffDetail_Label_UpdateUserSuccessfully"])",
+                                function () {
+                                    window.location.href = '/User/Index';
+                                }
+                            )
+                        }
+                        else {
+                            $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_FailedToUpdateUser"])");
+                            $('#lbError').css('visibility', 'visible');
+                        }
+                    });
+                }
+                else{
+                    $('#txtEmail').addClass('errorValidation');
+                    $('#txtEmail').focus();
+
+                    $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_InvalidEmail"])");
+                    $('#lbError').css('visibility', 'visible');
+                }
             }
             else {
-                $('#lbError').html("*Mandatory Fields required.");
+                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_MandatoryFieldsRequired"])");
                 $('#lbError').css('visibility', 'visible');
             }
         });
@@ -186,6 +218,17 @@
             }
 
             $('#txtLoginID').prop('disabled', true);
+        }
+        else
+        {
+            if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+            {
+                $('#ddlOrganization').val('@sessionOrganizationID');
+                $('#ddlOrganization').trigger('change');
+                $('#ddlOrganization').prop('disabled', true);
+
+                loadBranchDropdownList('@sessionOrganizationID');
+            }
         }
     });
 
@@ -323,14 +366,18 @@
 <div class="row">
     <div class="row">
         <div class="col-md-6">
-            <label class="staffPageTitle">Staff Listing</label>
+            <label class="staffPageTitle">
+                @LangResources["Staff_Title_StaffListing"]
+            </label>
         </div>
     </div>
     <div class="row" style="margin-top: 15px; font-size: 1vw;">
         <div class="col-md-12">
             <div class="row frameUserStyle">
                 <div class="col-md-12 frameUserHeader">
-                    <label class="frameUserHeaderLabel">Staff Details</label>
+                    <label class="frameUserHeaderLabel">
+                        @LangResources["Staff_Label_StaffDetail"]
+                    </label>
                 </div>
                 <div class="col-md-12">
                     <div class="row">
@@ -341,13 +388,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">Surname</label>
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Surname"]</label>
                         </div>
                         <div class="col-md-4">
-                            <label class="CenterColUserLabel">Last Name</label>
+                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Name"]</label>
                         </div>
                         <div class="col-md-4">
-                            <label class="RightColUserLabel">Staff ID</label>
+                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_StaffID"]</label>
                         </div>
                     </div>
                     <div class="row">
@@ -364,26 +411,26 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">Gender</label>
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Gender"]</label>
                         </div>
                         <div class="col-md-4">
-                            <label class="CenterColUserLabel">Email</label>
+                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Email"]</label>
                         </div>
                         <div class="col-md-4">
-                            <label class="RightColUserLabel">User Role</label>
+                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_Role"]</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <select id="ddlGender" class="form-select leftColUserControl">
-                                <option value="">Please select gender</option>
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectGender"]</option>
 
                                 @{
                                     if (sGenderDropdown != null && sGenderDropdown.Count > 0)
                                     {
                                         foreach (var g in sGenderDropdown)
                                         {
-                                                                                                                            <option value="@g.CodeID">@g.CodeName</option>
+                                            <option value="@g.CodeID">@g.CodeName</option>
                                         }
                                     }
                                 }
@@ -394,14 +441,14 @@
                         </div>
                         <div class="col-md-4">
                             <select id="ddlRole" class="form-select rightColUserControl">
-                                <option value="">Please select role</option>
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectRole"]</option>
 
                                 @{
                                     if (sRoleDropdown != null && sRoleDropdown.Count > 0)
                                     {
                                         foreach(var r in sRoleDropdown)
                                         {
-                                                                                <option value="@r.RoleID">@r.RoleName</option>
+                                             <option value="@r.RoleID">@r.RoleName</option>
                                         }
                                     }
                                 }
@@ -411,26 +458,26 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">Organization</label>
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Organization"]</label>
                         </div>
                         <div class="col-md-4">
-                            <label class="CenterColUserLabel">Branch</label>
+                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Branch"]</label>
                         </div>
                         <div class="col-md-4">
-                            <label class="RightColUserLabel">Status</label>
+                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_Status"]</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <select id="ddlOrganization" class="form-select leftColUserControl" onchange="ddlOrganizationChange(this)">
-                                <option value="">Please select organization</option>
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectOrganization"]</option>
 
                                 @{
                                     if (sOrganizationDropdown != null && sOrganizationDropdown.Count > 0)
                                     {
                                         foreach (var o in sOrganizationDropdown)
                                         {
-                                                                                                        <option value="@o.Id">@o.Name</option>
+                                            <option value="@o.Id">@o.Name</option>
                                         }
                                     }
                                 }
@@ -438,19 +485,19 @@
                         </div>
                         <div class="col-md-4">
                             <select id="ddlBranch" class="form-select centerColUserControl">
-                                <option value="">Please select branch</option>
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectBranch"]</option>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <select id="ddlStatus" class="form-select rightColUserControl">
-                                <option value="">Please select status</option>
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectStatus"]</option>
 
                                 @{
                                     if (sStatusDropdown != null && sStatusDropdown.Count > 0)
                                     {
                                         foreach(var s in sStatusDropdown)
                                         {
-                                                                                                                            <option value="@s.CodeID">@s.CodeName</option>
+                                            <option value="@s.CodeID">@s.CodeName</option>
                                         }
                                     }
                                 }
@@ -460,7 +507,7 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">Login ID</label>
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_LoginID"]</label>
                         </div>
                         <div class="col-md-8">&nbsp;</div>
                     </div>
@@ -477,13 +524,13 @@
             <div class="row userButtonRow">
                 <div class="col-md-12 userButtonBox">
                     <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">
-                        Cancel
+                        @LangResources["StaffDetail_Button_Cancel"]
                     </button>
                     <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 1vw;">
-                        Create
+                        @LangResources["StaffDetail_Button_Create"]
                     </button>
                     <button id="btnUpdate" type="button" class="btn btn-primary" style="font-size: 1vw;">
-                        Update
+                        @LangResources["StaffDetail_Button_Update"]
                     </button>
                 </div>
             </div>

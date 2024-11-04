@@ -1092,17 +1092,122 @@
   <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
     <value>服務時間 （小時）</value>
   </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>創造</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>創建用戶成功。</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>建立使用者失敗，請重試。</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>更新用戶個人資料失敗，請重試。</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>電子郵件地址無效。</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>登入ID</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*系統中已存在登入ID，請重試。</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*必填欄位為必填項。</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>請選擇分行</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>請選擇性別</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>請選擇機構</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>請選擇角色</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>請選擇狀態</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>員工ID</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>成功更新使用者設定檔。</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>創建用戶</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>更新使用者資料</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>過濾器</value>
+  </data>
   <data name="Staff_Button_NewStaff" xml:space="preserve">
     <value>新員工</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>搜尋</value>
   </data>
   <data name="Staff_Label_Branch" xml:space="preserve">
     <value>分支</value>
   </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>確認刪除人員嗎？</value>
+  </data>
   <data name="Staff_Label_Email" xml:space="preserve">
     <value>電子郵件</value>
   </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>刪除用戶失敗，請重試。</value>
+  </data>
   <data name="Staff_Label_Gender" xml:space="preserve">
     <value>性別</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>查看</value>
   </data>
   <data name="Staff_Label_Number" xml:space="preserve">
     <value>號</value>
@@ -1110,8 +1215,29 @@
   <data name="Staff_Label_Organization" xml:space="preserve">
     <value>組織</value>
   </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>請選擇分行</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>請選擇性別</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>請選擇機構</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>請選擇角色</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>請選擇人員</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>請選擇狀態</value>
+  </data>
   <data name="Staff_Label_Role" xml:space="preserve">
     <value>角色</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>員工詳情</value>
   </data>
   <data name="Staff_Label_StaffID" xml:space="preserve">
     <value>員工ID</value>
@@ -1121,6 +1247,9 @@
   </data>
   <data name="Staff_Label_Status" xml:space="preserve">
     <value>狀態</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>刪除人員</value>
   </data>
   <data name="Staff_Title_Filters" xml:space="preserve">
     <value>過濾器</value>

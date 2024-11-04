@@ -11,6 +11,11 @@ namespace VPMS.Lib.Data
 {
     public class BranchRepository
     {
+        /// <summary>
+        /// Get Branch List By Organization ID
+        /// </summary>
+        /// <param name="organizationID"></param>
+        /// <returns></returns>
         public static List<BranchModel> GetBranchListByOrgID(int organizationID)
         {
             try

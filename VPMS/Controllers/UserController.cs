@@ -202,9 +202,9 @@ namespace VPMSWeb.Controllers
 		/// Get User List Dropdown
 		/// </summary>
 		/// <returns></returns>
-        public IActionResult GetUserListDropdown()
+        public IActionResult GetUserListDropdown(String organizationID)
 		{
-			var sUsersListObj = UserRepository.GetStaffList();
+			var sUsersListObj = UserRepository.GetStaffList(organizationID);
 			return Json(sUsersListObj);
 		}
 

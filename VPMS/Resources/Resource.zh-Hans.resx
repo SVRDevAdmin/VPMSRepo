@@ -1092,17 +1092,122 @@
   <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
     <value>服务时间 （小时）</value>
   </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>分公司</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>创建用户成功。</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>创建用户失败，请重试。</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>无法更新用户资料，请重试。</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>电子邮件地址无效。</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>登录 ID</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*登录ID已在系统中存在，请重试。</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*为必填字段。</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>组织</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>请选择分行</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>请选择性别</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>请选择组织</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>请选择角色</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>请选择状态</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>员工ID</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>现状</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>更新用户个人资料成功。</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>创建用户</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>更新用户资料</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>筛选器</value>
+  </data>
   <data name="Staff_Button_NewStaff" xml:space="preserve">
     <value>新员工</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>搜索</value>
   </data>
   <data name="Staff_Label_Branch" xml:space="preserve">
     <value>分公司</value>
   </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>确认删除员工吗？</value>
+  </data>
   <data name="Staff_Label_Email" xml:space="preserve">
     <value>电子邮件</value>
   </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>删除用户失败，请重试。</value>
+  </data>
   <data name="Staff_Label_Gender" xml:space="preserve">
     <value>性别</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>查看</value>
   </data>
   <data name="Staff_Label_Number" xml:space="preserve">
     <value>号</value>
@@ -1110,8 +1215,29 @@
   <data name="Staff_Label_Organization" xml:space="preserve">
     <value>组织</value>
   </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>请选择分行</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>请选择性别</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>请选择机构</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>请选择角色</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>请选择员工</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>请选择状态</value>
+  </data>
   <data name="Staff_Label_Role" xml:space="preserve">
     <value>角色</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>员工详情</value>
   </data>
   <data name="Staff_Label_StaffID" xml:space="preserve">
     <value>员工 ID</value>
@@ -1121,6 +1247,9 @@
   </data>
   <data name="Staff_Label_Status" xml:space="preserve">
     <value>现状</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>删除员工</value>
   </data>
   <data name="Staff_Title_Filters" xml:space="preserve">
     <value>筛选器</value>
