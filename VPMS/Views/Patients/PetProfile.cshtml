@@ -1520,7 +1520,7 @@
 							date.getFullYear()
 						].join('/');
 
-						var status = data[i].Status == 1 ? "Active" : "Inactive";
+						var status = data[i].Status == 1 ? "@LangResources["Patient_Selection_Active"]" : "@LangResources["Patient_Selection_Inactive"]";
 
 						tableElement.innerHTML = tableElement.innerHTML +
 							'<tr>' +

@@ -102,13 +102,13 @@
 	<div>
 		<div style="display: flex; justify-content: space-between;">
 			<div>
-				<button class="btn btn-lg btn-primary textColor tabButton selectedTab" onclick="changeTab(this);">Invoices</button>
-				<button class="btn btn-lg btn-primary textColor tabButton" onclick="changeTab(this);">Receipts</button>
+				<button class="btn btn-lg btn-primary textColor tabButton selectedTab" onclick="changeTab(this);">@LangResources["InvoiceReceipt_Label_Invoices"]</button>
+				<button class="btn btn-lg btn-primary textColor tabButton" onclick="changeTab(this);">@LangResources["InvoiceReceipt_Label_Receipt"]</button>
 			</div>
 			<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
 				<button class="btn btn-lg btn-primary" style=" display: flex; align-items: center; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateInvoice", "InvoiceReceipt")'">
 					<span id="container">+</span>
-					<span style="font-size: 1vw; margin-left: 0.5vw;">Quick Invoice</span>
+					<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["InvoiceReceipt_Button_QuickInvoice"]</span>
 				</button>
 			</div>
 		</div>
@@ -144,10 +144,10 @@
 		</div>
 	</div>
 	<div class="containerBackground" style="width: 20vw; border-radius: 0.2vw; margin-left: 1vw; padding: 2vw;">
-		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">Filter</h3>
+		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">@LangResources["Patient_Label_Filter"]</h3>
 
 		<div class="field-container">
-			<span class="form-label">Invoice/Receipt No</span>
+			<span class="form-label">@LangResources["InvoiceReceipt_Label_InvoiceReceiptNo"]</span>
 			<input id="InvoiceReceiptNo" type="text" class="form-control form-field" />
 		</div>
 
@@ -298,10 +298,10 @@
 
 				<div>
 					<div>
-						<span style="font-size: 1vw; font-weight: bold;" class="printFont">Service Name : </span><span class="printFont serviceName" style="font-size: 1vw;"></span>
+						<span style="font-size: 1vw; font-weight: bold;" class="printFont">@LangResources["Service_Label_ServiceName"] : </span><span class="printFont serviceName" style="font-size: 1vw;"></span>
 					</div>
 					<div style="margin-bottom: 1vw;">
-						<span style="font-size: 1vw; font-weight: bold;" class="printFont">Date : </span><span class="printFont serviceDate" style="font-size: 1vw;"></span>
+						<span style="font-size: 1vw; font-weight: bold;" class="printFont">@LangResources["Patient_Label_Date"] : </span><span class="printFont serviceDate" style="font-size: 1vw;"></span>
 					</div>
 
 					<div style="margin-bottom: 1vw; padding: 1vw; background-color: whitesmoke;">
@@ -317,17 +317,17 @@
 					<div style="padding: 1vw;">
 						<table class="printFont" style="font-size: 1vw;">
 							<tr>
-								<td style="padding: 0 1vw;" class="firstColumn">Total</td>
+								<td style="padding: 0 1vw;" class="firstColumn">@LangResources["TreatmentPlan_Label_Total"]</td>
 								<td style="padding: 0 1vw;" class="secondColumn"></td>
 								<td style="padding: 0 1vw;" class="thirdColumn total"></td>
 							</tr>
 							<tr>
-								<td style="padding: 0 1vw;" class="firstColumn">Tax (6%)</td>
+								<td style="padding: 0 1vw;" class="firstColumn">@LangResources["Patient_Label_Tax"] (6%)</td>
 								<td style="padding: 0 1vw;" class="secondColumn"></td>
 								<td style="padding: 0 1vw;" class="thirdColumn tax"></td>
 							</tr>
 							<tr style="border-top-width: 0.2vw; border-bottom-width: 0.2vw; border-color: black;">
-								<td style="padding: 0 1vw; font-weight: bold;" class="firstColumn borderUpBottom">Grand Total</td>
+								<td style="padding: 0 1vw; font-weight: bold;" class="firstColumn borderUpBottom">@LangResources["Patient_Label_GrandTotal"]</td>
 								<td style="padding: 0 1vw;" class="secondColumn borderUpBottom"></td>
 								<td style="padding: 0 1vw; font-weight: bold;" class="thirdColumn grandTotal borderUpBottom"></td>
 							</tr>
@@ -335,10 +335,10 @@
 					</div>
 
 					<div>
-						<span style="font-size: 1vw;" class="printFont">Next Appointment : </span><span class="printFont nextAppointment" style="font-size: 1vw; font-weight: bold;">10/10/2024 10:10</span>
+						<span style="font-size: 1vw;" class="printFont">@LangResources["InvoiceReceipt_Label_NextAppointment"] : </span><span class="printFont nextAppointment" style="font-size: 1vw; font-weight: bold;">10/10/2024 10:10</span>
 					</div>
 					<div>
-						<span style="font-size: 1vw;" class="printFont">Surgery/Vaccination/Consultation Name : </span><span class="printFont nextServiceName" style="font-size: 1vw; font-weight: bold;">Endoscopy Follow Up</span>
+						<span style="font-size: 1vw;" class="printFont">@LangResources["InvoiceReceipt_Label_SurgVacConsName"] : </span><span class="printFont nextServiceName" style="font-size: 1vw; font-weight: bold;">Endoscopy Follow Up</span>
 					</div>
 
 				</div>
@@ -355,7 +355,7 @@
 		<div class="modal-content">
 			<div class="modal-body" style="width: 29vw; padding: 3vw 3vw; font-size: 1vw;">
 				<div style="margin-bottom: 2vw; text-align: center;">
-					<span class="formlabel" style="font-weight: bold;">Are you sure you want to mark as paid and move to receipt?</span>
+					<span class="formlabel" style="font-weight: bold;">@LangResources["InvoiceReceipt_Message_MarkAsPaid"]</span>
 				</div>
 
 				<div style="text-align: center; margin-top: 2vw;">
@@ -446,12 +446,12 @@
 				content.innerHTML =
 					'<tr class="containerBackground">' +
 					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
-					'<th class="table-content" > Invoice No </th>' +
-					'<th class="table-content" > Date </th>' +
+					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_InvoiceNo"] </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_Date"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_PetName"] </th>' +
 					'<th class="table-content" > @LangResources["Appointment_Label_Doctor"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
-					'<th class="table-content" > Fee ($) </th>' +
+					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_Fee"] ($) </th>' +
 					'<th class="table-content" > </th>' +
 					'</tr>';
 
@@ -482,10 +482,9 @@
 							'</button>' +
 							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
 							'<a class="dropdown-item" href = "#" onclick="viewInvoiceReceipt(\'Invoice\', ' + data.invoiceReceiptList[i].ID + ');" data-bs-toggle="modal" data-bs-target="#viewModal" > @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Invoice\', ' + data.invoiceReceiptList[i].ID + '); downloadInvoice();"> Download </a>' +
-							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Invoice\', ' + data.invoiceReceiptList[i].ID + '); printInvoice();" > Print </a>' +
-							// '<a class="dropdown-item" href="#" onclick="MarkAsPaid(' + data.invoiceReceiptList[i].ID + ');" > Mark as paid </a>' +
-							'<a class="dropdown-item" href="#" onclick="currentInvoiceID = ' + data.invoiceReceiptList[i].ID + ';" data-bs-toggle="modal" data-bs-target="#confirmationModal" > Mark as paid </a>' +
+							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Invoice\', ' + data.invoiceReceiptList[i].ID + '); downloadInvoice();"> @LangResources["InvoiceReceipt_Button_Download"] </a>' +
+							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Invoice\', ' + data.invoiceReceiptList[i].ID + '); printInvoice();" > @LangResources["InvoiceReceipt_Button_Print"] </a>' +
+							'<a class="dropdown-item" href="#" onclick="currentInvoiceID = ' + data.invoiceReceiptList[i].ID + ';" data-bs-toggle="modal" data-bs-target="#confirmationModal" > @LangResources["InvoiceReceipt_Button_MarkAsPaid"] </a>' +
 							'</div>' +
 							'</div>' +
 							'</td>' +
@@ -544,12 +543,12 @@
 				content.innerHTML =
 					'<tr class="containerBackground">' +
 					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
-					'<th class="table-content" > Receipt No </th>' +
-					'<th class="table-content" > Date </th>' +
+					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_ReceiptNo"] </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_Date"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_PetName"] </th>' +
 					'<th class="table-content" > @LangResources["Appointment_Label_Doctor"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
-					'<th class="table-content" > Fee ($) </th>' +
+					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_Fee"] ($) </th>' +
 					'<th class="table-content" > </th>' +
 					'</tr>';
 
@@ -580,8 +579,8 @@
 							'</button>' +
 							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
 							'<a class="dropdown-item" href = "#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + ');"  data-bs-toggle="modal" data-bs-target="#viewModal"> @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + '); downloadInvoice();" > Download </a>' +
-							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + '); printInvoice();" > Print </a>' +
+							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + '); downloadInvoice();" > @LangResources["InvoiceReceipt_Button_Download"] </a>' +
+							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + '); printInvoice();" > @LangResources["InvoiceReceipt_Button_Print"] </a>' +
 							'</div>' +
 							'</div>' +
 							'</td>' +
@@ -775,11 +774,11 @@
 			.then(data => {
 				var invoiceReceiptNo = "";
 				if (type == "Invoice") {
-					document.querySelector(".invoiceReceiptNo").innerHTML = "Invoice No: " + data.InvoiceReceipt.InvoiceNo;
+					document.querySelector(".invoiceReceiptNo").innerHTML = "@LangResources["InvoiceReceipt_Label_InvoiceNo"]: " + data.InvoiceReceipt.InvoiceNo;
 					invoiceReceiptNo = data.InvoiceReceipt.InvoiceNo;
 				}
 				else {
-					document.querySelector(".invoiceReceiptNo").innerHTML = "Receipt No: " + data.InvoiceReceipt.ReceiptNo;
+					document.querySelector(".invoiceReceiptNo").innerHTML = "@LangResources["InvoiceReceipt_Label_ReceiptNo"]: " + data.InvoiceReceipt.ReceiptNo;
 					invoiceReceiptNo = data.InvoiceReceipt.ReceiptNo;
 				}
 
@@ -828,9 +827,9 @@
 		var serviceTotal = 0;
 		serviceTable.innerHTML = 
 			'<tr style="border-bottom-width: 0.1vw;">' +
-				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="firstColumn"> Service</td>' +
-				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="secondColumn">Discount (%)</td>' +
-				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="thirdColumn">Price ($)</td>' +
+			'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="firstColumn">@LangResources["Patient_Label_Service"]</td>' +
+			'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="secondColumn">@LangResources["InvoiceReceipt_Label_Discount"] (%)</td>' +
+				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="thirdColumn">@LangResources["Patient_Label_Price"] ($)</td>' +
 			'</tr> ';
 
 		if(data.length == 0) {
@@ -854,7 +853,7 @@
 
 		serviceTable.innerHTML +=
 			'<tr>' +
-				'<td style="padding: 1vw; padding-bottom: 0; font-weight: bold;" class="firstColumn">Total Cost</td>' +
+			'<td style="padding: 1vw; padding-bottom: 0; font-weight: bold;" class="firstColumn">@LangResources["Patient_Label_TotalCost"]</td>' +
 				'<td style="padding: 1vw; padding-bottom: 0;" class="secondColumn"></td>' +
 				'<td style="padding: 1vw; padding-bottom: 0; font-weight: bold;" class="thirdColumn totalAll">' + (serviceTotal).toFixed(2).replace(/[.,]00$/, "") + '</td>' +
 			'</tr>';
@@ -867,9 +866,9 @@
 		var productTotal = 0;
 		productTable.innerHTML =
 			'<tr style="border-bottom-width: 0.1vw;">' +
-				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="firstColumn"> Product</td>' +
-				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="secondColumn">Discount (%)</td>' +
-				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="thirdColumn">Price ($)</td>' +
+				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="firstColumn">@LangResources["Patient_Label_Product"]</td>' +
+				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="secondColumn">@LangResources["InvoiceReceipt_Label_Discount"] (%)</td>' +
+				'<td class="borderBelow" style="font-weight: bold; padding: 0 1vw;" class="thirdColumn">@LangResources["Patient_Label_Price"] ($)</td>' +
 			'</tr> ';
 
 		if (data.length == 0) {
@@ -900,7 +899,7 @@
 
 		productTable.innerHTML +=
 			'<tr>' +
-				'<td style="padding: 1vw; padding-bottom: 0; font-weight: bold;" class="firstColumn">Total Cost</td>' +
+				'<td style="padding: 1vw; padding-bottom: 0; font-weight: bold;" class="firstColumn">@LangResources["Patient_Label_TotalCost"]</td>' +
 				'<td style="padding: 1vw; padding-bottom: 0;" class="secondColumn"></td>' +
 				'<td style="padding: 1vw; padding-bottom: 0; font-weight: bold;" class="thirdColumn totalAll">' + (productTotal).toFixed(2).replace(/[.,]00$/, "") + '</td>' +
 			'</tr>';

@@ -117,6 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>添加分支  </value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>分支地址  </value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>分支  </value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>分支名稱  </value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>創建組織  </value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>新組織  </value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>組織名稱  </value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>保存分支  </value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>搜尋組織  </value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>總員工數  </value>
+  </data>
   <data name="Appointment_Button_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -363,6 +393,9 @@
   <data name="Doctor_Title_Doctor" xml:space="preserve">
     <value>醫生</value>
   </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>版權所有</value>
+  </data>
   <data name="Inventory_Button_NewInventory" xml:space="preserve">
     <value>新庫存</value>
   </data>
@@ -437,6 +470,69 @@
   </data>
   <data name="Inventory_Label_Usage" xml:space="preserve">
     <value>用法</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>标记为已付款</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>快速发票</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>行動  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>平衡</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>已取消  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>折扣</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>费用</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>大折扣  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>发票号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>发票/收据号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>发票</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>下次预约</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>已付款  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>待處理  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>已準備  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>收据</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>收据号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>手术/疫苗接种/咨询名称</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>您确定要标记为已付款并转到收据吗？</value>
   </data>
   <data name="LanguageCountry_Button_Save" xml:space="preserve">
     <value>儲存</value>
@@ -987,6 +1083,9 @@
   <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
     <value>服務時間 （小時）</value>
   </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>添加自訂治療  </value>
+  </data>
   <data name="TreatmentPlan_Label_Add" xml:space="preserve">
     <value>加</value>
   </data>
@@ -1005,6 +1104,9 @@
   <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
     <value>創建日期</value>
   </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>現有治療計劃  </value>
+  </data>
   <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
     <value>啟動</value>
   </data>
@@ -1022,6 +1124,9 @@
   </data>
   <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
     <value>選擇使用者</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>顯示  </value>
   </data>
   <data name="TreatmentPlan_Label_Total" xml:space="preserve">
     <value>總</value>

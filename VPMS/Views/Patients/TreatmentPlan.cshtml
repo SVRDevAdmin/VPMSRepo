@@ -240,7 +240,7 @@
 		</div>
 
 		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
-			<span style="font-weight: bold">Remarks: </span> <br />
+			<span style="font-weight: bold">@LangResources["TreatmentPlan_Label_Remarks"]: </span> <br />
 			<span id="Remarks" style="word-wrap: break-word;" class="treatmentPlanInfo"></span>
 			<input type="text" id="RemarksInput" style="width: 100%" class="treatmentPlanInfo hideContainer" onchange="this.parentElement.querySelector('#Remarks').innerHTML = this.value;" />
 		</div>
@@ -329,7 +329,7 @@
 
 		<div style="margin-right: 1vw; display: flex; justify-content: space-between;">
 			<div class="dropdown">
-				<button class="dropbtn textColor"> <span class="textColor" style="font-size: 1vw; margin-right: 1vw;">Showing</span> <span id="tabSelection" style="font-size: 1vw; font-weight: bold;">@LangResources["Patient_Button_OngoingTreatment"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+				<button class="dropbtn textColor"> <span class="textColor" style="font-size: 1vw; margin-right: 1vw;">@LangResources["TreatmentPlan_Label_Showing"]</span> <span id="tabSelection" style="font-size: 1vw; font-weight: bold;">@LangResources["Patient_Button_OngoingTreatment"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
 				<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw; width: max-content; font-size: 1vw;">
 					<a href="#" class="textColor" onclick="changeTab(this, 'treatmentPlanViewContainer');" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;">@LangResources["Patient_Button_UpcomingTreatment"]</a>
 					<a href="#" class="textColor" onclick="changeTab(this, 'treatmentPlanOngoingContainer');">@LangResources["Patient_Button_OngoingTreatment"]</a>
@@ -348,10 +348,10 @@
 					<div style="height: 10vw; width: 18vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw; font-size: 1vw;">
 
 						<button class="btn btn-lg btn-primary" onclick="customTreatmentPlan();" style="background-color: transparent; color: blue; border-style: none; font-size: 1vw; padding: unset; font-weight: bold;">
-							+  Add Custom Treatment
+							+  @LangResources["TreatmentPlan_Button_AddCustomTreatment"]
 						</button>
 						<hr style="margin: 1vw 0;" />
-						<span style="font-weight: bold;">Existing Treatment Plan</span>
+						<span style="font-weight: bold;">@LangResources["TreatmentPlan_Label_ExistingTreatmentPlan"]</span>
 						<div style="margin-bottom: 1vw;">
 							@{
 								int indexNo = 1;
@@ -1551,14 +1551,14 @@
 							date.getFullYear()
 						].join('/');
 
-						var status = data[i].Status == 1 ? "Active" : "Inactive";
+						var status = data[i].Status == 1 ? "@LangResources["Patient_Selection_Active"]" : "@LangResources["Patient_Selection_Inactive"]";
 
 						tableElement.innerHTML = tableElement.innerHTML +
 							'<tr>' +
-							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
-							'<td style="padding: 0 2vw;">' + data[i].Name + '</td>' +
-							'<td style="padding: 0 2vw;">' + status + '</td>' +
-							'</tr > '
+								'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
+								'<td style="padding: 0 2vw;">' + data[i].Name + '</td>' +
+								'<td style="padding: 0 2vw;">' + status + '</td>' +
+							'</tr>';
 					}
 				}
 
@@ -1580,7 +1580,7 @@
 			var element = document.getElementById("UpcomingAppointment");
 
 			if (data.PetName == null) {
-				element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">No Upcoming Appointment</div>'
+					element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">@LangResources["Patient_Label_NoUpcomingAppointment"]</div>'
 			}else{
 
 				var date = new Date(data.ApptDate);
@@ -1595,36 +1595,32 @@
 
 				element.innerHTML =
 					'<div style="display: flex; margin-bottom: 1.5vw;">' +
-					'<div class="field-container quaterSize" >' +
-					'<span class="formlabel">@LangResources["Patient_Label_Date"]</span>' +
-					'<span class="formlabel" style="color: black;">' + dateText + '</span>' +
+						'<div class="field-container quaterSize" >' +
+							'<span class="formlabel">@LangResources["Patient_Label_Date"]</span>' +
+							'<span class="formlabel" style="color: black;">' + dateText + '</span>' +
+						'</div >' +
+						'<div class="field-container quaterSize">' +
+							'<span class="formlabel">@LangResources["Patient_Label_Time"]</span>' +
+							'<span class="formlabel" style="color: black;">' + time + '</span>' +
+						'</div>' +
 					'</div >' +
 
-					'<div class="field-container quaterSize">' +
-					'<span class="formlabel">@LangResources["Patient_Label_Time"]</span>' +
-					'<span class="formlabel" style="color: black;">' + time + '</span>' +
+					'<div style="display: flex; margin-bottom: 1.5vw;">' +
+						'<div class="field-container quaterSize">' +
+							'<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>' +
+							'<span class="formlabel" style="color: black;">' + data.PetName + '</span>' +
+						'</div>' +
+						'<div class="field-container quaterSize">' +
+							'<span class="formlabel">@LangResources["Patient_Label_Service"]</span>' +
+							'<span class="formlabel" style="color: black;">' + data.Service + '</span>' +
+						'</div>' +
 					'</div>' +
-					'</div >' +
-
 
 					'<div style="display: flex; margin-bottom: 1.5vw;">' +
-					'<div class="field-container quaterSize">' +
-					'<span class="formlabel">@LangResources["Patient_Label_Pet"]</span>' +
-					'<span class="formlabel" style="color: black;">' + data.PetName + '</span>' +
-					'</div>' +
-
-					'<div class="field-container quaterSize">' +
-					'<span class="formlabel">@LangResources["Patient_Label_Service"]</span>' +
-					'<span class="formlabel" style="color: black;">' + data.Service + '</span>' +
-					'</div>' +
-					'</div>' +
-
-
-					'<div style="display: flex; margin-bottom: 1.5vw;">' +
-					'<div class="field-container quaterSize">' +
-					'<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>' +
-					'<span class="formlabel" style="color: black;">' + data.Doctor + '</span>' +
-					'</div>' +
+						'<div class="field-container quaterSize">' +
+							'<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>' +
+							'<span class="formlabel" style="color: black;">' + data.Doctor + '</span>' +
+						'</div>' +
 					'</div>';
 			}
 

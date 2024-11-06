@@ -204,8 +204,8 @@
             </div>
 
             @* <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;"> *@
-            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 90px; height: 672px;">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 82vh !important; height: 82vh; overflow-x: auto; padding-left: 0 !important;">
+            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 111px; height: 672px;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 79vh !important; height: 79vh; overflow-x: auto; padding-left: 0 !important;">
                     <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="font-size: 1vw;">
                         <li class="nav-item">
                             @* <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0"> *@
@@ -248,13 +248,6 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a asp-controller="TestManagement" asp-action="Index" class="nav-link align-middle px-0">
-                                <span class="spanMenuBlue"></span>
-                                <i id="iconTestManagement" class="fa-solid fa-flask-vial menuIcons"></i>
-                                <span class="d-none d-sm-inline sidebar-nav-font">Test Management</span>
-                            </a>
                         </li>
                         <li>
                             @* <a href="#" class="nav-link align-middle px-0"> *@
@@ -329,7 +322,7 @@
             </div>
 
             <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; bottom: 5px; left: 25px; width: 17vw; font-size: 0.8vw;">
-                <span><i class="fa-regular fa-copyright"></i> 2024 Vet Connect. All rights reserved</span>
+                <span><i class="fa-regular fa-copyright"></i> 2024 Vet Connect. @LangResources["General_Label_CopyrightStatement"]</span>
             </div>
 
 
