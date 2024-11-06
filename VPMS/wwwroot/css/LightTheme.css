@@ -853,3 +853,26 @@ a {
 	color: black !important;
 	text-decoration: unset;
 }
+
+/* Styling the thumb (indicator) as an arrow */
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 15px solid black;
+	cursor: pointer;
+	position: relative;
+	top: -7px;
+}
+
+.slider::-moz-range-thumb {
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 15px solid black;
+	cursor: pointer;
+}

@@ -198,13 +198,14 @@
     </div>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 34px; width: 16vw;">
+            <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 25px; width: 16vw;">
                 <img id="imgLogo" style="width: 2vw;" />
                 <img id="imgLogoTitle" style="width: 11vw;" />
             </div>
+
             @* <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;"> *@
-            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 65px; height: 672px;">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 82vh !important;">
+            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 90px; height: 672px;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 82vh !important; height: 82vh; overflow-x: auto; padding-left: 0 !important;">
                     <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="font-size: 1vw;">
                         <li class="nav-item">
                             @* <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0"> *@
@@ -251,9 +252,7 @@
                         <li>
                             <a asp-controller="TestManagement" asp-action="Index" class="nav-link align-middle px-0">
                                 <span class="spanMenuBlue"></span>
-                                @* <img id="iconReceipt" class="menuIcons" /> *@
                                 <i id="iconTestManagement" class="fa-solid fa-flask-vial menuIcons"></i>
-                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span> *@
                                 <span class="d-none d-sm-inline sidebar-nav-font">Test Management</span>
                             </a>
                         </li>
@@ -327,6 +326,10 @@
                 @* <div style="text-align: center; margin-top: 2vw;">
                     <span style="font-size: 0.7vw; color: darkgray;"><i class="fa-regular fa-copyright"></i> Vet Connect. All rights reserved</span>
                 </div>   *@              
+            </div>
+
+            <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; bottom: 5px; left: 25px; width: 17vw; font-size: 0.8vw;">
+                <span><i class="fa-regular fa-copyright"></i> 2024 Vet Connect. All rights reserved</span>
             </div>
 
 

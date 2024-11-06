@@ -94,7 +94,7 @@
 		width: 300px;
 		position: relative;
 		height: 8px;
-		background: linear-gradient(to right, #fcc11d 33%, #42c0a5 33%, #42c0a5 66%, #ea4643 66%);
+		background: linear-gradient(to right, #fcc11d 33%, white 33%, white 33.5%, #42c0a5 33.5%, #42c0a5 66%, white 66%, white 66.5%, #ea4643 66.5%);
 		border-radius: 5px;
 		overflow: visible; /* Allow the thumb to display outside the container */
 	}
@@ -112,34 +112,15 @@
 		cursor: pointer;
 	}
 
-		/* Styling the thumb (indicator) as an arrow */
-		.slider::-webkit-slider-thumb {
-			-webkit-appearance: none;
-			appearance: none;
-			width: 0;
-			height: 0;
-			border-left: 8px solid transparent;
-			border-right: 8px solid transparent;
-			border-top: 15px solid black;
-			cursor: pointer;
-			position: relative;
-			top: -7px;
-		}
-
-		.slider::-moz-range-thumb {
-			width: 0;
-			height: 0;
-			border-left: 8px solid transparent;
-			border-right: 8px solid transparent;
-			border-top: 15px solid black;
-			cursor: pointer;
-		}
+	.columnWidth{
+		width: 25%;
+	}
 </style>
 
 <div style="display: flex;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='/Patients/PetProfile/View/@ViewBag.PatientID/@ViewData["PetName"]'" />
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="window.location='/Patients/TestManagement/@ViewBag.PatientID/@ViewData["PetName"]';" />
 		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
 		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_PatientProfile"]</span>
@@ -153,30 +134,50 @@
 </div>
 
 <div>
-	<table class="textColor" id="treatmentPlanList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
+	<table class="textColor" id="bloodTestList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
 		<tr class="containerBackground">
-			<th class="table-content" style="padding-left: 1vw;">Parameter</th>
-			<th class="table-content">Result</th>
-			<th class="table-content">Normal Range</th>
-			<th class="table-content" style="width: 26vw">Result Gauge</th>
+			<th class="table-content columnWidth" style="padding-left: 1vw;">Parameter</th>
+			<th class="table-content columnWidth">Result</th>
+			<th class="table-content columnWidth">Normal Range</th>
+			<th class="table-content columnWidth">Result Gauge</th>
 		</tr>
-		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-			<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
-			<td class="table-content">30.5%</td>
-			<td class="table-content">25.8-41.8%</td>
-			<td class="table-content" style="padding-right: 1vw;">
-				<div class="slider-container">
-					<input type="range" min="0" max="100" value="50" class="slider">
-				</div>
+		<tr>
+			<td class="table-content" style="padding-left: 1vw;"></td>
+			<td class="table-content"></td>
+			<td class="table-content"></td>
+			<td class="table-content" style="padding: 0.5vw 0; padding-right: 1vw; display: flex; height: min-content;">
+				<div style="border-left: 0.7vw solid #fcc11d; width: 33%; padding-left: 0.5vw;">Low</div>
+				<div style="border-left: 0.7vw solid #42c0a5; width: 33%; padding-left: 0.5vw;">Normal</div>
+				<div style="border-left: 0.7vw solid #ea4643; width: 33%; padding-left: 0.5vw;">High</div>
 			</td>
 		</tr>
 		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
 			<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
 			<td class="table-content">30.5%</td>
-			<td class="table-content">25.8-41.8%</td>
+			<td class="table-content"><span>25.8</span> - <span>41.8</span><span>%</span></td>
 			<td class="table-content" style="padding-right: 1vw;">
 				<div class="slider-container">
-					<input type="range" min="0" max="100" value="50" class="slider">
+					<input type="range" min="0" max="100" value="50" class="slider" disabled>
+				</div>
+			</td>
+		</tr>
+		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+			<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
+			<td class="table-content">20.5%</td>
+			<td class="table-content"><span>25.8</span> - <span>41.8</span><span>%</span></td>
+			<td class="table-content" style="padding-right: 1vw;">
+				<div class="slider-container">
+					<input type="range" min="0" max="100" value="30" class="slider" disabled>
+				</div>
+			</td>
+		</tr>
+		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+			<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
+			<td class="table-content">70.5%</td>
+			<td class="table-content"><span>25.8</span> - <span>41.8</span><span>%</span></td>
+			<td class="table-content" style="padding-right: 1vw;">
+				<div class="slider-container">
+					<input type="range" min="0" max="100" value="70" class="slider" disabled>
 				</div>
 			</td>
 		</tr>
