@@ -131,7 +131,7 @@ namespace VPMSWeb.Controllers
 						var sessionExpiredOn = DateTime.Now.AddMinutes(5);
 
 						var prevLoginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == loginInfo.Username);
-						if(prevLoginSessionLog.ActionType == "user-login")
+						if(prevLoginSessionLog != null && prevLoginSessionLog.ActionType == "user-login")
 						{
 							_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { SessionID = prevLoginSessionLog.SessionID, SessionCreatedOn = prevLoginSessionLog.SessionCreatedOn, SessionExpiredOn = prevLoginSessionLog.SessionExpiredOn, UserID = prevLoginSessionLog.UserID, LoginID = prevLoginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = prevLoginSessionLog.LoginID, ActionType = "redundant-logout" });
 						}

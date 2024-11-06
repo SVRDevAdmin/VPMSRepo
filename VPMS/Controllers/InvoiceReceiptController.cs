@@ -238,5 +238,22 @@ namespace VPMSWeb.Controllers
 
 			return true;
 		}
+
+		public ViewInvoiceReceipt ViewInvoiceReceipt(int id)
+		{
+			var invoiceReceipt = _invoiceReceiptDBContext.Mst_InvoiceReceipt.FirstOrDefault(x => x.ID == id);
+			var treatmentPlan = _patientDBContext.Txn_TreatmentPlan.FirstOrDefault(x => x.ID == invoiceReceipt.TreatmentPlanID);
+			var services = _patientDBContext.Txn_TreatmentPlan_Services.Where(x => x.PlanID == invoiceReceipt.TreatmentPlanID).ToList();
+			var products = _inventoryDBContext.GetInventoryInvoice(invoiceReceipt.TreatmentPlanID).ToList();
+			var pet = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == treatmentPlan.PetID);
+			var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == pet.PatientID && invoiceReceipt.OwnerName == x.Name);
+
+			ViewInvoiceReceipt viewInvoiceReceipt = new ViewInvoiceReceipt()
+			{
+				InvoiceReceipt = invoiceReceipt, TreatmentPlan = treatmentPlan, Services = services, Products = products, Owner = owner, Pet = pet
+			};
+
+			return viewInvoiceReceipt;
+		}
 	}
 }

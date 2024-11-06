@@ -249,6 +249,15 @@
                             </ul>
                         </li>
                         <li>
+                            <a asp-controller="TestManagement" asp-action="Index" class="nav-link align-middle px-0">
+                                <span class="spanMenuBlue"></span>
+                                @* <img id="iconReceipt" class="menuIcons" /> *@
+                                <i id="iconTestManagement" class="fa-solid fa-flask-vial menuIcons"></i>
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span> *@
+                                <span class="d-none d-sm-inline sidebar-nav-font">Test Management</span>
+                            </a>
+                        </li>
+                        <li>
                             @* <a href="#" class="nav-link align-middle px-0"> *@
                             <a asp-controller="InvoiceReceipt" asp-action="InvoiceReceiptListing" class="nav-link align-middle px-0">
                                 <span id="invoiceReceiptMenu" class="spanMenuBlue"></span>

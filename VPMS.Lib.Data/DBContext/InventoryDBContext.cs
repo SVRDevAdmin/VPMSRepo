@@ -85,5 +85,41 @@ namespace VPMS.Lib.Data.DBContext
 
 			return sList;
 		}
+
+		public ObservableCollection<InventoryInvoice> GetInventoryInvoice(int planID)
+		{
+			ObservableCollection<InventoryInvoice> sList = new ObservableCollection<InventoryInvoice>();
+
+			var query = "select a.ProductName, a.Discount, a.TotalPrice, b.ExpiryDate from txn_treatmentplan_products a join mst_product_status b on b.ProductID = a.ProductID where a.PlanID = "+ planID + ";";
+
+			try
+			{
+				using (MySqlConnection conn = new MySqlConnection(connectionString))
+				{
+					conn.Open();
+					MySqlCommand cmd = new MySqlCommand(query, conn);
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							sList.Add(new InventoryInvoice()
+							{
+								ProductName = reader["ProductName"].ToString(),
+								Discount = float.Parse(reader["Discount"].ToString()),
+								TotalPrice = float.Parse(reader["TotalPrice"].ToString()),
+								ExpiryDate = DateOnly.FromDateTime(DateTime.Parse(reader["ExpiryDate"].ToString()))
+							});
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.Error("Database Error >> ", ex);
+			}
+
+			return sList;
+		}
 	}
 }

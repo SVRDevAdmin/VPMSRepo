@@ -44,4 +44,14 @@ namespace VPMS.Lib.Data.Models
 		public List<InvoiceReceiptInfo> invoiceReceiptList { get; set; }
 		public int TotalInvoiceReceipt { get; set; }
 	}
+
+	public class ViewInvoiceReceipt
+	{
+		public InvoiceReceiptModel InvoiceReceipt {  get; set; }
+		public PatientTreatmentPlan TreatmentPlan { get; set; }
+		public List<PatientTreatmentPlanServices> Services { get; set; }
+		public List<InventoryInvoice> Products { get; set; }
+		public Patient_Owner Owner { get; set; }
+		public Pets Pet { get; set; }
+	}
 }
