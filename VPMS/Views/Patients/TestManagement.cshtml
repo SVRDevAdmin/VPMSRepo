@@ -151,10 +151,11 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		padding: 1vw;
 	}
 
 	.previewValue{
-		background: white;
+		background: #d2e4fe;
 		display: flex;
 		align-items: center;
 		border-radius: 2vw;
@@ -190,16 +191,16 @@
 		<div class="testGrouping" style="background: #1d76fb;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>Blood test</span>
+					<span>@LangResources["TestManagement_Label_BloodTest"]</span>
 					<div class="previewValue" style="padding-right: 0.5vw;">
 						<span style="color: black;">90/100</span>
-						<div style="background: green; border-radius: 1vw; margin-left: 0.5vw; padding: 0.2vw 0.4vw;">
+						<div style="background: #52d68a; border-radius: 1vw; margin-left: 0.5vw; padding: 0.2vw 0.4vw;">
 							10% <i class="fa-solid fa-arrow-down-long"></i>
 						</div>
 					</div>
 				</div>
 				<div style="font-size: 0.8vw;">
-					<a href="#" style="color: white !important;" onclick="window.location='/Patients/BloodTest/@ViewBag.PatientID/@ViewData["PetName"]';">View Report <i class="fa-solid fa-arrow-right-long"></i></a>
+					<a href="#" style="color: white !important;" onclick="window.location='/Patients/BloodTest/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a>
 				</div>
 			</div>
 			<div>
@@ -210,12 +211,12 @@
 		<div class="testGrouping" style="background: #a3a8b1;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>Vaccination</span>
+					<span>@LangResources["Patient_Label_Vaccination"]</span>
 					<div class="previewValue">
 						<span style="color: black;">2/3</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">View Report <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />
@@ -230,11 +231,11 @@
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>V-Check</span>
-					<div class="previewValue" style="background: transparent; border: 0.1vw solid white;">
-						<span style="color: white;">Negative</span>
+					<div class="previewValue" style="background: transparent; border: 0.1vw solid #d2e4fe;">
+						<span style="color: #d2e4fe;">@LangResources["TestManagement_Label_Negative"]</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">View Report <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" />
@@ -244,12 +245,12 @@
 		<div class="testGrouping" style="background: #9ebce6;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>Injury Exam</span>
+					<span>@LangResources["TestManagement_Label_InjuryExam"]</span>
 					<div class="previewValue">
-						<span style="color: black;">Recovering</span>
+						<span style="color: black;">@LangResources["TestManagement_Label_Recovering"]</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">View Report <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />
@@ -263,12 +264,12 @@
 		<div class="testGrouping" style="background: #5e8cd1;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>Blood Pressure</span>
+					<span>@LangResources["TestManagement_Label_BloodPressure"]</span>
 					<div class="previewValue">
 						<span style="color: black;">N/A</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">View Report <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" />
@@ -278,12 +279,12 @@
 		<div class="testGrouping" style="background: #6888b9;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>Lung X-Ray</span>
+					<span>@LangResources["TestManagement_Label_LungXRay"]</span>
 					<div class="previewValue">
 						<span style="color: black;">80%</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">View Report <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />
@@ -297,12 +298,12 @@
 		<div class="testGrouping" style="background: #86b6ff;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>Bone Mass</span>
+					<span>@LangResources["TestManagement_Label_BoneMass"]</span>
 					<div class="previewValue">
 						<span style="color: black;">90%</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">View Report <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" />
@@ -312,12 +313,12 @@
 		<div class="testGrouping" style="background: #5a9cff;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>Heart Rate</span>
+					<span>@LangResources["TestManagement_Label_HeartRate"]</span>
 					<div class="previewValue">
 						<span style="color: black;">N/A</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">View Report <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />

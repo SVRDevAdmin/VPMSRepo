@@ -127,28 +127,31 @@
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
 		<span class="textColor" style="font-size: 2vw;">@ViewData["PetName"] @LangResources["Patient_Title_Profile"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span class="textColor" style="font-size: 2vw;">Test Management</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Label_TestManagement"]</span>
 		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
-		<span style="font-size: 2vw; color: dodgerblue;">Blood Test</span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["TestManagement_Label_BloodTest"]</span>
 	</div>
 </div>
+
+<input id="row" title="row" type="number" onchange="updateGauge();" />
+<input id="value" title="value" type="number" onchange="updateGauge();"/>
 
 <div>
 	<table class="textColor" id="bloodTestList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
 		<tr class="containerBackground">
-			<th class="table-content columnWidth" style="padding-left: 1vw;">Parameter</th>
-			<th class="table-content columnWidth">Result</th>
-			<th class="table-content columnWidth">Normal Range</th>
-			<th class="table-content columnWidth">Result Gauge</th>
+			<th class="table-content columnWidth" style="padding-left: 1vw;">@LangResources["TestManagement_Label_Parameter"]</th>
+			<th class="table-content columnWidth">@LangResources["TestManagement_Label_Result"]</th>
+			<th class="table-content columnWidth">@LangResources["TestManagement_Label_NormalRange"]</th>
+			<th class="table-content columnWidth">@LangResources["TestManagement_Label_ResultGauge"]</th>
 		</tr>
 		<tr>
 			<td class="table-content" style="padding-left: 1vw;"></td>
 			<td class="table-content"></td>
 			<td class="table-content"></td>
 			<td class="table-content" style="padding: 0.5vw 0; padding-right: 1vw; display: flex; height: min-content;">
-				<div style="border-left: 0.7vw solid #fcc11d; width: 33%; padding-left: 0.5vw;">Low</div>
-				<div style="border-left: 0.7vw solid #42c0a5; width: 33%; padding-left: 0.5vw;">Normal</div>
-				<div style="border-left: 0.7vw solid #ea4643; width: 33%; padding-left: 0.5vw;">High</div>
+				<div style="border-left: 0.7vw solid #fcc11d; width: 33%; padding-left: 0.5vw;">@LangResources["TestManagement_Label_Low"]</div>
+				<div style="border-left: 0.7vw solid #42c0a5; width: 33%; padding-left: 0.5vw;">@LangResources["TestManagement_Label_Normal"]</div>
+				<div style="border-left: 0.7vw solid #ea4643; width: 33%; padding-left: 0.5vw;">@LangResources["TestManagement_Label_High"]</div>
 			</td>
 		</tr>
 		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
@@ -185,3 +188,14 @@
 
 	
 </div>
+
+<script>
+	function updateGauge() {
+		var row = Number(document.getElementById("row").value) + 1;
+		var value = document.getElementById("value").value;
+		var table = document.getElementById("bloodTestList");
+		var trElement = table.querySelectorAll("tr");
+
+		trElement[row].querySelector(".slider").value = value;
+	}
+</script>

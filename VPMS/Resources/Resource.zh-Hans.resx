@@ -132,8 +132,14 @@
   <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
     <value>创建组织  </value>
   </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>编辑组织  </value>
+  </data>
   <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
     <value>新组织  </value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>组织详情  </value>
   </data>
   <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
     <value>组织名称  </value>
@@ -648,7 +654,7 @@
   <data name="MenuBar_Label_MyProfile" xml:space="preserve">
     <value>我的个人资料</value>
   </data>
-  <data name="MenuBar_Label_Organization" xml:space="preserve">
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
     <value>组织</value>
   </data>
   <data name="MenuBar_Label_Patients" xml:space="preserve">
@@ -1118,6 +1124,54 @@
   </data>
   <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
     <value>服务时间 （小时）</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>查看报告  </value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>血压  </value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>血液测试  </value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>骨量  </value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>心率  </value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>高  </value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>伤害检查  </value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>低  </value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>肺部X光  </value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>阴性  </value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>正常  </value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>正常范围  </value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>参数  </value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>恢复中  </value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>结果  </value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>结果计量器  </value>
   </data>
   <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
     <value>添加自定义治疗  </value>

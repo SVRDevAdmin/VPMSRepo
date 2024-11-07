@@ -76,7 +76,7 @@
 <div style="display: flex; justify-content: space-between;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Organization"]</span>
+		<span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Organisation"]</span>
 	</div>
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
@@ -116,13 +116,13 @@
 </div>
 
 <template id="branchRowTemplate">
-	<tr>
+	<tr style="border-bottom: 0.1vw solid darkgray;">
 		<td class="id" hidden></td>
-		<td class="number"></td>
+		<td class="number" style="padding: 1vw 0;"></td>
 		<td class="name"></td>
 		<td class="address" hidden></td>
 		<td style="width: 7vw;">
-			<div style="display: flex; justify-content: space-between;">
+			<div class="editable" style="display: flex; justify-content: space-between;">
 				<button class="btn btn-lg btn-secondary" onclick="editBranch(this.parentElement.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-pen-to-square"></i></button>
 				<button onclick="removeBranch(this);" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-trash-can"></i></button>
 			</div>
@@ -204,14 +204,15 @@
 	<div class="modal-dialog" style="margin: 0 auto; width: fit-content;">
 		<div class="modal-content">
 			<div class="modal-header" style="--bs-modal-header-border-color: none; padding-bottom: 0;">
-				<span style="font-weight: bold;">@LangResources["AccessControl_Label_CreateOrganisation"]</span>
+				<span style="font-weight: bold;" id="title">@LangResources["AccessControl_Label_CreateOrganisation"]</span>
 			</div>
 			<div class="modal-body" style="width: 46vw; padding: 3vw 3vw; font-size: 1vw;">
 				<input type="text" id="organisationID" value="0" hidden/>
 				<div id="organisationContainer" class="organisationBranch">
-					<div style="margin-bottom: 2vw;">
+					<div style="margin-bottom: 2vw; display: flex; flex-direction: column;">
 						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_OrganisationName"]</span>
-						<input type="text" id="organisationName" style="margin-top: 0.5vw;" class="form-control form-field inputField" value="" />
+						<span id="organisationNameText" class="formlabel textColor editable hideContainer"></span>
+						<input type="text" id="organisationName" style="margin-top: 0.5vw;" class="form-control form-field inputField editable" value="" />
 					</div>
 
 					<div style="margin-bottom: 2vw;">
@@ -219,7 +220,7 @@
 						<table id="branchList" style="margin-top: 0.5vw; width: 100%;"></table>
 					</div>
 
-					<div>
+					<div class="editable">
 						<button id="AddBranchButton" onclick="changeTab('', '');" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; padding: 0;">
 							<span id="container" style="color: blue; width: 1.2vw; height: 1.2vw; font-size: 1vw;">+</span>
 							<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Button_AddBranch"]</span>
@@ -245,7 +246,8 @@
 
 				<div style="text-align: end; margin-top: 2vw;">
 					<button class="btn btn-lg btn-secondary" data-bs-dismiss="modal" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
-					<button class="btn btn-lg btn-primary organisationBranch" onclick="SaveOrganisation();" style="width: 11vw; font-size: 1vw;"> @LangResources["Inventory_Label_Create"] </button>
+					<button class="btn btn-lg btn-primary organisationBranch editable" id="saveButton" onclick="SaveOrganisation();" style="width: 11vw; font-size: 1vw;"> @LangResources["Inventory_Label_Create"] </button>
+					<button class="btn btn-lg btn-primary editable hideContainer" onclick="toggleViewEdit(false);" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Edit"] </button>
 					<button class="btn btn-lg btn-primary organisationBranch hideContainer" onclick="UpdateBranch(this.parentElement.parentElement);" style="width: 11vw; font-size: 1vw;"> @LangResources["AccessControl_Label_SaveBranch"] </button>
 				</div>
 
@@ -336,8 +338,8 @@
 							'<img class="moreIcon" /> ' +
 							'</button>' +
 							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
-							'<a class="dropdown-item" href="#" > @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="#" onclick="editOrgnisation(' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_Edit"] </a>' +
+							'<a class="dropdown-item" href="#" onclick="editViewOrganisation(true, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="#" onclick="editViewOrganisation(false, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_Edit"] </a>' +
 							'</div>' +
 							'</div>' +
 							'</td>' +
@@ -414,13 +416,30 @@
 		getOrganisationList(1, search, true);
 	}
 
-	function editOrgnisation(organisationID, organisationName){
+	function editViewOrganisation(view, organisationID, organisationName){
 		document.getElementById("organisationID").value = organisationID;
 		document.getElementById("organisationName").value = organisationName;
+		document.getElementById("organisationNameText").innerHTML = organisationName;
+		document.getElementById("saveButton").innerHTML = "@LangResources["Patient_Button_Save"]";
 
-		getBranchInfo(organisationID);
+		getBranchInfo(view, organisationID);
 
 		$('#organisationModal').modal('toggle');
+	}
+
+	function toggleViewEdit(view) {
+		if (view) {
+			document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_OrganisationDetails"]";
+		}
+		else {
+			document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_EditOrganisation"]";
+		}
+
+		var editableElement = document.querySelectorAll(".editable");
+
+		for (let i = 0; i < editableElement.length; i++) {
+			editableElement[i].classList.toggle("hideContainer");
+		}
 	}
 
 	function getOrganisationInfo(organisationID) {
@@ -433,13 +452,14 @@
 			})
 			.then(data => {
 				document.getElementById("organisationName").value = data.Name;
+				document.getElementById("organisationNameText").innerHTML = data.Name;
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
 	}
 
-	function getBranchInfo(organisationID) {
+	function getBranchInfo(view, organisationID) {
 		fetch('/AccessControl/GetBranchInfoByOrganisation?organisationID=' + organisationID)
 			.then(response => {
 				if (!response.ok) {
@@ -450,6 +470,13 @@
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
 					cloneBranchRow(data[i].ID, data[i].Name, data[i].Address);
+				}
+
+				if (view) {
+					toggleViewEdit(view);
+				}
+				else{
+					document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_EditOrganisation"]";
 				}
 			})
 			.catch(error => {
@@ -537,13 +564,23 @@
 	$('.modal').on('hidden.bs.modal', function () {
 		var element = document.querySelectorAll(".organisationBranch");
 		var mainTab = document.getElementById("organisationContainer");
+		var saveButton = document.getElementById("saveButton");
 		document.getElementById("organisationID").value = "0";
 		document.getElementById("organisationName").value = "";
+		document.getElementById("organisationNameText").innerHTML = "";
 		document.getElementById("branchList").innerHTML = "";
 
 		if (mainTab.classList.contains("hideContainer")) {
 			changeTab("", "");
 		}
+
+		if (saveButton.classList.contains("hideContainer")) {
+			toggleViewEdit(false);
+		}
+
+		saveButton.innerHTML = "@LangResources["Inventory_Label_Create"]";
+
+		document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_CreateOrganisation"]";
 	});
 
 	// $(document).click(function (e) {
