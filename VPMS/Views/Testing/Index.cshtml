@@ -1,0 +1,107 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Arrow Range Slider</title>
+    <style>
+		/* Container for the slider */
+		.slider-container {
+			width: 300px;
+			position: relative;
+			height: 8px;
+			background: linear-gradient(to right, #fcc11d 33%, white 33%, white 33.5%, #42c0a5 33.5%, #42c0a5 66%, white 66%, white 66.5%, #ea4643 66.5%);
+			border-radius: 5px;
+			overflow: visible; /* Allow the thumb to display outside the container */
+			margin: 10vw;
+		}
+
+		/* Styling the range input to be invisible but functional */
+		.slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 8px;
+			background: transparent;
+			position: absolute;
+			top: -9px;
+			left: 0;
+			outline: none;
+			cursor: pointer;
+		}
+
+			/* Styling the thumb (indicator) as an arrow */
+			/* .slider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 0;
+				height: 0;
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-top: 15px solid black;
+				cursor: pointer;
+				position: relative;
+				top: -7px;
+
+			} */
+    </style>
+	<style>
+		.slidecontainer {
+			width: 100%;
+			overflow: visible; /* Allow the thumb to display outside the container */
+			margin-top: 10vw;
+		}
+
+		/* .slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 10px;
+			border-radius: 5px;
+			background: #d3d3d3;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+
+			.slider:hover {
+				opacity: 1;
+			} */
+
+		
+	</style>
+	<style>
+		/* Styling the thumb (indicator) as an arrow */
+		.slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 16px;
+			height: 14px;
+			border: 0;
+			background: url('../images/Icons/Black_border_arrow.png');
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+	@* <div class="slidecontainer">
+		<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+	</div> *@
+
+    <div class="slider-container">
+        <input type="range" min="0" max="100" value="50" class="slider">
+    </div>
+
+	@* <div style="background: black;">
+		<img style="height: 2vw;" src="~/images/Icons/Black_Down_Arrow.png" />
+	</div> *@
+</body>
+</html>

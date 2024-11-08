@@ -89,16 +89,6 @@
 		transform: rotate(180deg);
 	}
 
-	/* Container for the slider */
-	.slider-container {
-		width: 300px;
-		position: relative;
-		height: 8px;
-		background: linear-gradient(to right, #fcc11d 33%, white 33%, white 33.5%, #42c0a5 33.5%, #42c0a5 66%, white 66%, white 66.5%, #ea4643 66.5%);
-		border-radius: 5px;
-		overflow: visible; /* Allow the thumb to display outside the container */
-	}
-
 	/* Styling the range input to be invisible but functional */
 	.slider {
 		-webkit-appearance: none;
@@ -106,7 +96,7 @@
 		height: 8px;
 		background: transparent;
 		position: absolute;
-		top: 0;
+		top: -7px;
 		left: 0;
 		outline: none;
 		cursor: pointer;
@@ -133,8 +123,8 @@
 	</div>
 </div>
 
-<input id="row" title="row" type="number" onchange="updateGauge();" />
-<input id="value" title="value" type="number" onchange="updateGauge();"/>
+<input id="row" title="row" type="number" onchange="updateGauge();" hidden/>
+<input id="value" title="value" type="number" onchange="updateGauge();" hidden/>
 
 <div>
 	<table class="textColor" id="bloodTestList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
@@ -149,9 +139,18 @@
 			<td class="table-content"></td>
 			<td class="table-content"></td>
 			<td class="table-content" style="padding: 0.5vw 0; padding-right: 1vw; display: flex; height: min-content;">
-				<div style="border-left: 0.7vw solid #fcc11d; width: 33%; padding-left: 0.5vw;">@LangResources["TestManagement_Label_Low"]</div>
-				<div style="border-left: 0.7vw solid #42c0a5; width: 33%; padding-left: 0.5vw;">@LangResources["TestManagement_Label_Normal"]</div>
-				<div style="border-left: 0.7vw solid #ea4643; width: 33%; padding-left: 0.5vw;">@LangResources["TestManagement_Label_High"]</div>
+				<div style="display: flex; align-items: center; width: 33%;">
+					<div style="border-left: 0.5vw solid #fcc11d; height: 8px;"></div>
+					<div style="margin-left: 0.5vw;">@LangResources["TestManagement_Label_Low"]</div>
+				</div>
+				<div style="display: flex; align-items: center; width: 33%;">
+					<div style="border-left: 0.5vw solid #42c0a5; height: 8px;"></div>
+					<div style="margin-left: 0.5vw;">@LangResources["TestManagement_Label_Normal"]</div>
+				</div>
+				<div style="display: flex; align-items: center; width: 33%;">
+					<div style="border-left: 0.5vw solid #ea4643; height: 8px;"></div>
+					<div style="margin-left: 0.5vw;">@LangResources["TestManagement_Label_High"]</div>
+				</div>
 			</td>
 		</tr>
 		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
