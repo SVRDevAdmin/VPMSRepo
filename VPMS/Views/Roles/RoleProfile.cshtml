@@ -29,11 +29,15 @@
     }
 
     var sViewType = ViewData["ViewType"] as String;
+    ViewBag.SelectedMenu = "AccessMenu";
 }
 
 <link rel="stylesheet" href="~/css/Role.css" />
 
 <script>
+    $("#SubMenuAccess").toggleClass('show');
+    document.querySelector("#SubMenuAccessParent").querySelector("#imgArrow").classList.toggle("Up");
+
     $(document).ready(function () {
         $('#btnUpdate').hide();
 
@@ -339,10 +343,10 @@
 </script>
 <div class="row">
     <div class="row" style="margin-top: 20px;">
-        <div class="col-md-6">
-            <label class="rolePageTitle">@LangResources["Roles_Title_UserAccessControl"] > @LangResources["Roles_Title_AddNewRole"]</label>
+        <div class="col-md-7">
+            <label class="rolePageTitle"><img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("Index", "Roles")'" /> @LangResources["Roles_Title_UserAccessControl"] > @LangResources["Roles_Title_AddNewRole"]</label>
         </div>
-        <div class="col-md-6">&nbsp;</div>
+        <div class="col-md-5">&nbsp;</div>
     </div>
     <div class="row" style="margin-top: 15px; font-size: 1vw">
         <div class="col-md-12">

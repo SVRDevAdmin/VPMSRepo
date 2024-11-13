@@ -55,7 +55,7 @@ namespace VPMS.Lib.Data.DBContext
 				"join mst_organisation c on c.ID = b.OrganizationID ";
 
 			var totalInvoiceReceiptQuery = "(select Count(a.ID) from mst_invoicereceipt a " + joinQuery + filter + ")";
-			var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.PetName, a.Doctor, a.OwnerName, a.Fee, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
+			var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.UpdatedDate, a.PetName, a.Doctor, a.OwnerName, a.Fee, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
 				joinQuery + filter + " LIMIT " + start + ", " + total + ";";
 
 			try
@@ -80,10 +80,12 @@ namespace VPMS.Lib.Data.DBContext
 								PetName = reader["PetName"].ToString(),
 								Doctor = reader["Doctor"].ToString(),
 								OwnerName = reader["OwnerName"].ToString(),
-								Fee = float.Parse(reader["Fee"].ToString())
+								Fee = float.Parse(reader["Fee"].ToString()),
+								UpdatedDate = (reader["UpdatedDate"].ToString() != "") ? DateTime.Parse(reader["UpdatedDate"].ToString()) : DateTime.Now
 							});
 
-							totalInvoiceReceipt = Convert.ToInt32(reader["TotalInvoiceReceipt"]);
+
+                            totalInvoiceReceipt = Convert.ToInt32(reader["TotalInvoiceReceipt"]);
 						}
 					}
 				}

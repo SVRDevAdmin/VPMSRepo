@@ -326,6 +326,11 @@
 								<td style="padding: 0 1vw;" class="secondColumn"></td>
 								<td style="padding: 0 1vw;" class="thirdColumn tax"></td>
 							</tr>
+							<tr>
+								<td style="padding: 0 1vw;" class="firstColumn">@LangResources["InvoiceReceipt_Label_GrandDiscount"] %</td>
+								<td style="padding: 0 1vw;" class="secondColumn"></td>
+								<td style="padding: 0 1vw;" class="thirdColumn grandDiscount"></td>
+							</tr>
 							<tr style="border-top-width: 0.2vw; border-bottom-width: 0.2vw; border-color: black;">
 								<td style="padding: 0 1vw; font-weight: bold;" class="firstColumn borderUpBottom">@LangResources["Patient_Label_GrandTotal"]</td>
 								<td style="padding: 0 1vw;" class="secondColumn borderUpBottom"></td>
@@ -335,10 +340,10 @@
 					</div>
 
 					<div>
-						<span style="font-size: 1vw;" class="printFont">@LangResources["InvoiceReceipt_Label_NextAppointment"] : </span><span class="printFont nextAppointment" style="font-size: 1vw; font-weight: bold;">10/10/2024 10:10</span>
+						<span style="font-size: 1vw;" class="printFont">@LangResources["InvoiceReceipt_Label_NextAppointment"] : </span><span class="printFont nextAppointmentDate" style="font-size: 1vw; font-weight: bold;">10/10/2024 10:10</span>
 					</div>
 					<div>
-						<span style="font-size: 1vw;" class="printFont">@LangResources["InvoiceReceipt_Label_SurgVacConsName"] : </span><span class="printFont nextServiceName" style="font-size: 1vw; font-weight: bold;">Endoscopy Follow Up</span>
+						<span style="font-size: 1vw;" class="printFont">@LangResources["InvoiceReceipt_Label_SurgVacConsName"] : </span><span class="printFont nextAppointmentName" style="font-size: 1vw; font-weight: bold;">Endoscopy Follow Up</span>
 					</div>
 
 				</div>
@@ -556,7 +561,7 @@
 				else {
 					for (let i = 0; i < data.invoiceReceiptList.length; i++) {
 
-						var date = new Date(data.invoiceReceiptList[i].Date);
+						var date = new Date(data.invoiceReceiptList[i].UpdatedDate);
 						var dateString = [
 							('0' + date.getDate()).slice(-2),
 							('0' + (date.getMonth() + 1)).slice(-2),
@@ -773,30 +778,51 @@
 			})
 			.then(data => {
 				var invoiceReceiptNo = "";
+				var date = new Date();
+
+				if(data.UpcomingAppointment.ApptDate != null){
+					var nextDate = new Date(data.UpcomingAppointment.ApptDate);
+
+					var nextDateString = [
+						('0' + nextDate.getDate()).slice(-2),
+						('0' + (nextDate.getMonth() + 1)).slice(-2),
+						nextDate.getFullYear()
+					].join('/');
+
+					document.querySelector(".nextAppointmentDate").innerHTML = nextDateString + " " + data.UpcomingAppointment.ApptStartTime;
+					document.querySelector(".nextAppointmentName").innerHTML = data.UpcomingAppointment.Service;
+				}
+				else{
+					document.querySelector(".nextAppointmentDate").innerHTML = "N/A";
+					document.querySelector(".nextAppointmentName").innerHTML = "@LangResources["Appointment_Label_NoFutureAppointment"]";
+				}
+
 				if (type == "Invoice") {
 					document.querySelector(".invoiceReceiptNo").innerHTML = "@LangResources["InvoiceReceipt_Label_InvoiceNo"]: " + data.InvoiceReceipt.InvoiceNo;
 					invoiceReceiptNo = data.InvoiceReceipt.InvoiceNo;
+					date = new Date(data.InvoiceReceipt.CreatedDate);
 				}
 				else {
 					document.querySelector(".invoiceReceiptNo").innerHTML = "@LangResources["InvoiceReceipt_Label_ReceiptNo"]: " + data.InvoiceReceipt.ReceiptNo;
 					invoiceReceiptNo = data.InvoiceReceipt.ReceiptNo;
+					date = new Date(data.InvoiceReceipt.UpdatedDate);
 				}
 
-				var date = new Date(data.TreatmentPlan.TreatmentStart);
-				var createdDate = new Date(data.TreatmentPlan.CreatedDate);
+				// var date = new Date(data.TreatmentPlan.TreatmentStart);
+				// var createdDate = new Date(data.TreatmentPlan.CreatedDate);
 				var dateString = [
 					('0' + date.getDate()).slice(-2),
 					('0' + (date.getMonth() + 1)).slice(-2),
 					date.getFullYear()
 				].join('/');
 
-				if (dateString == "01/01/1") {
-					dateString = [
-						('0' + createdDate.getDate()).slice(-2),
-						('0' + (createdDate.getMonth() + 1)).slice(-2),
-						createdDate.getFullYear()
-					].join('/');
-				}
+				// if (dateString == "01/01/1") {
+				// 	dateString = [
+				// 		('0' + createdDate.getDate()).slice(-2),
+				// 		('0' + (createdDate.getMonth() + 1)).slice(-2),
+				// 		createdDate.getFullYear()
+				// 	].join('/');
+				// }
 
 				document.querySelector("#viewType").value = type;
 				document.querySelector("#viewNo").value = invoiceReceiptNo;
@@ -811,6 +837,11 @@
 				document.querySelector(".petName").innerHTML = data.Pet.Name;
 				document.querySelector(".petRegistrationNo").innerHTML = data.Pet.RegistrationNo;
 				document.querySelector(".petSpecies").innerHTML = data.Pet.Species;
+
+				document.querySelector(".grandDiscount").innerHTML = data.InvoiceReceipt.GrandDiscount;
+
+
+
 
 				serviceList(data.Services);
 				productList(data.Products);
@@ -885,7 +916,7 @@
 
 				productTable.innerHTML +=
 					'<tr>' +
-						'<td style="padding: 0 1vw;" class="firstColumn">' + data[i].ProductName + ' <br /> <span style="color: red;">Product Expiry : ' + dateString + '</span></td>' +
+						'<td style="padding: 0 1vw;" class="firstColumn">' + data[i].ProductName + ' <br /> <span style="color: red;">@LangResources["Patient_Label_Expiry"] : ' + dateString + '</span></td>' +
 						'<td style="padding: 0 1vw;" class="secondColumn"> ' + (data[i].Discount).toFixed(2).replace(/[.,]00$/, "") + '</td>' +
 						'<td style="padding: 0 1vw;" class="thirdColumn totalProducts"> ' + data[i].TotalPrice + '</td>' +
 					'</tr>';
@@ -909,7 +940,9 @@
 
 	function calculateGrandTotal() {
 		var totalAllElement = document.querySelectorAll(".totalAll");
+		var grandDiscountElement = document.querySelector(".grandDiscount");
 		var totalAll = 0;
+		var grandDiscount = 0;
 
 		for (let i = 0; i < totalAllElement.length; i++) {
 			totalAll += Number(totalAllElement[i].innerHTML);
@@ -917,8 +950,9 @@
 
 		document.querySelector(".total").innerHTML = (totalAll).toFixed(2).replace(/[.,]00$/, "");
 		var tax = (totalAll * (6 / 100)).toFixed(2).replace(/[.,]00$/, "");
+		grandDiscount = ((Number(totalAll) + Number(tax)) * (parseInt(grandDiscountElement.innerHTML) / 100)).toFixed(2).replace(/[.,]00$/, "");
 
 		document.querySelector(".tax").innerHTML = tax;
-		document.querySelector(".grandTotal").innerHTML = (Number(totalAll) + Number(tax)).toFixed(2).replace(/[.,]00$/, "");
+		document.querySelector(".grandTotal").innerHTML = (Number(totalAll) + Number(tax) - Number(grandDiscount)).toFixed(2).replace(/[.,]00$/, "");
 	}
 </script>

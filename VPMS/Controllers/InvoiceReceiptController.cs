@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.X509;
 using System.Security.Cryptography.X509Certificates;
 using VPMS;
+using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
+using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
 {
@@ -15,7 +17,7 @@ namespace VPMSWeb.Controllers
 		private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
 
-		int totalInvoiceReceipt;
+        int totalInvoiceReceipt;
 
 		public IActionResult Index()
         {
@@ -163,8 +165,8 @@ namespace VPMSWeb.Controllers
 			invoice.Fee = invoiceReceiptModel.Fee;
 			invoice.GrandDiscount = invoiceReceiptModel.GrandDiscount;
 			invoice.Status = invoiceReceiptModel.Status;
-			invoice.UpdatedDate = DateTime.Now;
-			invoice.UpdatedBy = HttpContext.Session.GetString("Username");
+			invoice.CreatedDate = DateTime.Now;
+			invoice.CreatedBy = HttpContext.Session.GetString("Username");
 
 			_invoiceReceiptDBContext.Update(invoice);
 			_invoiceReceiptDBContext.SaveChanges();
@@ -249,10 +251,12 @@ namespace VPMSWeb.Controllers
 			var pet = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == treatmentPlan.PetID);
 			var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == pet.PatientID && invoiceReceipt.OwnerName == x.Name);
 
-			ViewInvoiceReceipt viewInvoiceReceipt = new ViewInvoiceReceipt()
+			UpcomingAppointment upcomingAppointment = AppointmentRepository.GetUpcomingAppointment(ConfigSettings.GetConfigurationSettings(), owner.ID, pet.ID);
+
+            ViewInvoiceReceipt viewInvoiceReceipt = new ViewInvoiceReceipt()
 			{
-				InvoiceReceipt = invoiceReceipt, TreatmentPlan = treatmentPlan, Services = services, Products = products, Owner = owner, Pet = pet
-			};
+				InvoiceReceipt = invoiceReceipt, TreatmentPlan = treatmentPlan, Services = services, Products = products, Owner = owner, Pet = pet, UpcomingAppointment = upcomingAppointment
+            };
 
 			return viewInvoiceReceipt;
 		}

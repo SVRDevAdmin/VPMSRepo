@@ -34,12 +34,11 @@ namespace VPMS.Lib.Data.DBContext
 				roleFilter += "AND a.ID = " + organisation + " ";
 			}
 
-			var filter = "WHERE (a.name like '%" + search + "%') AND a.Level = 2 AND a.Status = 1 AND b.Status = 1 " + roleFilter + " ";
-			var joinQuery =
-				"join mst_branch b on b.OrganizationID = a.ID ";
+			var filter = "WHERE (a.name like '%" + search + "%') AND a.Level = 2 AND a.Status = 1 " + roleFilter + " ";
+			var joinQuery =	"join mst_branch b on b.OrganizationID = a.ID AND b.Status = 1 ";
 
-			var totalServiceQuery = "(Select Count(id) from mst_organisation)";
-			var completeQuery = "select a.ID, a.Name, a.TotalStaff, group_concat(concat(b.Name) SEPARATOR ', ') as 'Branches', " + totalServiceQuery + " as 'TotalOrganisations' from mst_organisation a " +
+			var totalServiceQuery = "(Select Count(a.id) from mst_organisation a " + filter + ")";
+			var completeQuery = "select a.ID, a.Name, (Select Count(Surname) from mst_user where BranchID in (Select ID FROM mst_branch where OrganizationID = a.ID)) as 'TotalStaff', group_concat(concat(b.Name) SEPARATOR ', ') as 'Branches', " + totalServiceQuery + " as 'TotalOrganisations' from mst_organisation a " +
 				joinQuery + filter + "GROUP BY a.ID, a.Name, a.TotalStaff Order by a.ID LIMIT " + start + ", " + total + ";";
 
 			try

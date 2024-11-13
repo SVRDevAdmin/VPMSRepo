@@ -640,7 +640,7 @@
 		var discount = 0;
 
 		for (let i = 0; i < totalInvoiceElement.length; i++) {
-			totalInvoice += parseInt(totalInvoiceElement[i].innerHTML);
+			totalInvoice += Number(totalInvoiceElement[i].innerHTML);
 		}
 
 		var tax = (totalInvoice * (6 / 100)).toFixed(2).replace(/[.,]00$/, "");

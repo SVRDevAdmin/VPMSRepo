@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Jgt/AzVXIQanX0IbgXdLsJGtli2ALTnUuMICpgFeuHY=",
+  "Hash": "t9NkDxOHn6aDxvr8En5nnaf790aZMvReqo8Y4+IkioQ=",
   "Source": "VPMSWeb",
   "BasePath": "_content/VPMSWeb",
   "Mode": "Default",
@@ -1585,8 +1585,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "b5v7hoxea2",
-      "Integrity": "bzqDpadRBdcvJ/ZX7oGIvWDvu8mmCsFOxwKmJDhyRko=",
+      "Fingerprint": "oigqpvsmcb",
+      "Integrity": "4FSbbppsfmaEVb7NAUPgEkxTJ+ZIoFpVzrvCRbyEV/w=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Role.css"
@@ -1648,8 +1648,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "v77ab9z0hc",
-      "Integrity": "9d2eQTozR57+s7ZBBBxRE78w4mSrTOrW2hoP6B6qVzw=",
+      "Fingerprint": "ghyb80w1x0",
+      "Integrity": "VMsGlBQRQ0Y0Jpied31Wpt8jId/Jv1myFf94NWgykxI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\User.css"
@@ -6316,51 +6316,6 @@
       ]
     },
     {
-      "Route": "css/Role.b5v7hoxea2.css",
-      "AssetFile": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\wwwroot\\css\\Role.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "988"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"bzqDpadRBdcvJ/ZX7oGIvWDvu8mmCsFOxwKmJDhyRko=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 13 Nov 2024 00:57:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "b5v7hoxea2"
-        },
-        {
-          "Name": "label",
-          "Value": "css/Role.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-bzqDpadRBdcvJ/ZX7oGIvWDvu8mmCsFOxwKmJDhyRko="
-        }
-      ]
-    },
-    {
       "Route": "css/Role.css",
       "AssetFile": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\wwwroot\\css\\Role.css",
       "Selectors": [],
@@ -6371,7 +6326,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "988"
+          "Value": "1044"
         },
         {
           "Name": "Content-Type",
@@ -6379,11 +6334,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"bzqDpadRBdcvJ/ZX7oGIvWDvu8mmCsFOxwKmJDhyRko=\""
+          "Value": "\"4FSbbppsfmaEVb7NAUPgEkxTJ+ZIoFpVzrvCRbyEV/w=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 13 Nov 2024 00:57:53 GMT"
+          "Value": "Wed, 13 Nov 2024 02:17:47 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6393,7 +6348,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-bzqDpadRBdcvJ/ZX7oGIvWDvu8mmCsFOxwKmJDhyRko="
+          "Value": "sha256-4FSbbppsfmaEVb7NAUPgEkxTJ+ZIoFpVzrvCRbyEV/w="
+        }
+      ]
+    },
+    {
+      "Route": "css/Role.oigqpvsmcb.css",
+      "AssetFile": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\wwwroot\\css\\Role.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1044"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4FSbbppsfmaEVb7NAUPgEkxTJ+ZIoFpVzrvCRbyEV/w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 13 Nov 2024 02:17:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "oigqpvsmcb"
+        },
+        {
+          "Name": "label",
+          "Value": "css/Role.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4FSbbppsfmaEVb7NAUPgEkxTJ+ZIoFpVzrvCRbyEV/w="
         }
       ]
     },
@@ -6572,7 +6572,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1634"
+          "Value": "1691"
         },
         {
           "Name": "Content-Type",
@@ -6580,11 +6580,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"9d2eQTozR57+s7ZBBBxRE78w4mSrTOrW2hoP6B6qVzw=\""
+          "Value": "\"VMsGlBQRQ0Y0Jpied31Wpt8jId/Jv1myFf94NWgykxI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 13 Nov 2024 00:57:53 GMT"
+          "Value": "Wed, 13 Nov 2024 02:18:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6594,12 +6594,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-9d2eQTozR57+s7ZBBBxRE78w4mSrTOrW2hoP6B6qVzw="
+          "Value": "sha256-VMsGlBQRQ0Y0Jpied31Wpt8jId/Jv1myFf94NWgykxI="
         }
       ]
     },
     {
-      "Route": "css/User.v77ab9z0hc.css",
+      "Route": "css/User.ghyb80w1x0.css",
       "AssetFile": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\wwwroot\\css\\User.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6609,7 +6609,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1634"
+          "Value": "1691"
         },
         {
           "Name": "Content-Type",
@@ -6617,11 +6617,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"9d2eQTozR57+s7ZBBBxRE78w4mSrTOrW2hoP6B6qVzw=\""
+          "Value": "\"VMsGlBQRQ0Y0Jpied31Wpt8jId/Jv1myFf94NWgykxI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 13 Nov 2024 00:57:53 GMT"
+          "Value": "Wed, 13 Nov 2024 02:18:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6631,7 +6631,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "v77ab9z0hc"
+          "Value": "ghyb80w1x0"
         },
         {
           "Name": "label",
@@ -6639,7 +6639,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-9d2eQTozR57+s7ZBBBxRE78w4mSrTOrW2hoP6B6qVzw="
+          "Value": "sha256-VMsGlBQRQ0Y0Jpied31Wpt8jId/Jv1myFf94NWgykxI="
         }
       ]
     },

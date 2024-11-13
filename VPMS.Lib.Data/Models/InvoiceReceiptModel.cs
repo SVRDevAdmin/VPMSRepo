@@ -37,7 +37,8 @@ namespace VPMS.Lib.Data.Models
 		public string OwnerName { get; set; }
 		public float Fee { get; set; }
 		public string Remarks { get; set; }
-	}
+        public DateTime UpdatedDate { get; set; }
+    }
 
 	public class InvoiceReceiptInfos
 	{
@@ -53,5 +54,6 @@ namespace VPMS.Lib.Data.Models
 		public List<InventoryInvoice> Products { get; set; }
 		public Patient_Owner Owner { get; set; }
 		public Pets Pet { get; set; }
-	}
+		public UpcomingAppointment UpcomingAppointment { get; set; }
+    }
 }
