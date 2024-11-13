@@ -284,7 +284,7 @@
                         </li>
                         <li>
                             <a href="#SubMenuAccess" id="SubMenuAccessParent" class="nav-link align-middle px-0" data-toggle="collapse">
-                                <span id="accessControlMenu" class="spanMenuBlue"></span>
+                                <span id="AccessMenu" class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span>
                                 @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span> *@
@@ -300,13 +300,19 @@
                                     </a> *@
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">
+                                    @* <a href="#" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_StaffListing"]</span>
+                                    </a> *@
+                                    <a asp-controller="User" asp-action="Index" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_StaffListing"]</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">
+                                    @* <a href="#" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_RoleSetting"]</span>
+                                    </a> *@
+                                    <a asp-controller="Roles" asp-action="Index" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_RoleSetting"]</span>
                                     </a>
                                 </li>
                                 <li>

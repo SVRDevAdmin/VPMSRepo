@@ -13570,11 +13570,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\VPMS\\VPMS\\VPMSWeb.csproj",
+      "projectUniqueName": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\VPMSWeb.csproj",
       "projectName": "VPMSWeb",
-      "projectPath": "C:\\Dev\\VPMS\\VPMS\\VPMSWeb.csproj",
-      "packagesPath": "C:\\Users\\SVRke\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\VPMS\\VPMS\\obj\\",
+      "projectPath": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\VPMSWeb.csproj",
+      "packagesPath": "C:\\Users\\azwan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -13595,11 +13595,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Dev\\VPMS\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj": {
-              "projectPath": "C:\\Dev\\VPMS\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj"
+            "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj": {
+              "projectPath": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\Library\\VPMS.Lib.Helpers\\VPMS.Lib.Helpers.csproj"
             },
-            "C:\\Dev\\VPMS\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj": {
-              "projectPath": "C:\\Dev\\VPMS\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj"
+            "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj": {
+              "projectPath": "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS.Lib.Data\\VPMS.Lib.Data.csproj"
             }
           }
         }
@@ -13729,16 +13729,6 @@
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'System.Formats.Asn1' 6.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-447r-wph3-92pm",
-      "libraryId": "System.Formats.Asn1",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'System.Net.Http' 4.3.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-7jgj-8wvc-jh57",
       "libraryId": "System.Net.Http",
       "targetGraphs": [
@@ -13759,7 +13749,17 @@
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'System.Text.Json' 8.0.4 has a known high severity vulnerability, https://github.com/advisories/GHSA-8g4q-xg66-9fp4",
+      "message": "Package 'System.Text.Json' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-8g4q-xg66-9fp4",
+      "libraryId": "System.Text.Json",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Text.Json' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-hh2w-p6rv-4g7w",
       "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0"
