@@ -10,7 +10,7 @@ CREATE TABLE `mst_pets_breed` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-INSERT INTO `vpmsdb`.`mst_pets_breed`(`Species`,`Breed`,`Active`,`SeqOrder`,`CreatedDate`,`CreatedBy`)
+INSERT INTO `mst_pets_breed`(`Species`,`Breed`,`Active`,`SeqOrder`,`CreatedDate`,`CreatedBy`)
 VALUES
 ('Dog','Alaskan Malamute',1,1,NOW(),'System'),
 ('Dog','Afghan Hound',1,2,NOW(),'System'),

@@ -18,6 +18,6 @@ CREATE TABLE `mst_patients_owner` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `vpmsdb`.`mst_patients_owner`(`PatientID`,`Name`,`Gender`,`ContactNo`,`Address`,`PostCode`,`City`,`State`,`Country`,`Status`,`CreatedDate`,`CreatedBy`)
+INSERT INTO `mst_patients_owner`(`PatientID`,`Name`,`Gender`,`ContactNo`,`Address`,`PostCode`,`City`,`State`,`Country`,`Status`,`CreatedDate`,`CreatedBy`)
 VALUES
 (1,'Choi Hue-Jin','M','0123456789','2-4-24, Pangsapuri Orkid','40460','Shah Alam','Selangor','Malaysia',1,NOW(),'System');

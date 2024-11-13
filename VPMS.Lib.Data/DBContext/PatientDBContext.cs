@@ -149,7 +149,7 @@ namespace VPMS.Lib.Data.DBContext
 			ObservableCollection<PatientHealthCardMedication> sList = new ObservableCollection<PatientHealthCardMedication>();
 
 			var completeQuery =
-				"SELECT a.CreatedDate as 'Date', c.Name as 'ProductName', a.Status FROM vpmsdb.mst_medicalrecord_medication a " +
+				"SELECT a.CreatedDate as 'Date', c.Name as 'ProductName', a.Status FROM mst_medicalrecord_medication a " +
 				"inner join mst_product c on c.ID = a.ProductID " +
 				"where a.PetID = " + petID + ";";
 

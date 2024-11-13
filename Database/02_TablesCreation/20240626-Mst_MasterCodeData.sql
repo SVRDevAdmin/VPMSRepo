@@ -13,7 +13,7 @@ CREATE TABLE `mst_mastercodedata` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `vpmsdb`.`mst_mastercodedata`(`CodeGroup`,`CodeID`,`CodeName`,`Description`,`IsActive`,`SeqOrder`,`CreatedDate`,`CreatedBy`)
+INSERT INTO `mst_mastercodedata`(`CodeGroup`,`CodeID`,`CodeName`,`Description`,`IsActive`,`SeqOrder`,`CreatedDate`,`CreatedBy`)
 VALUES
 ('RoleType', '1','Doctor','Doctor role',1,1,NOW(),'System'),
 ('RoleType', '2','Clinic Admin','Clinic Admin role',1,2,NOW(),'System'),

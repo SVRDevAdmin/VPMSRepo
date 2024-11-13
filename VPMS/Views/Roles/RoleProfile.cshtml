@@ -1,0 +1,495 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+
+    var sRoleObj = new VPMS.Lib.Data.Models.RoleModelExtObject();
+    if (ViewData["RoleProfile"] != null)
+    {
+        sRoleObj = ViewData["RoleProfile"] as VPMS.Lib.Data.Models.RoleModelExtObject;
+    }
+
+    List<String> sPermList = new List<String>();
+    if (ViewData["RolePermission"] != null)
+    {
+        sPermList = ViewData["RolePermission"] as List<String>;
+    }
+
+    List<VPMS.Lib.Data.Models.MastercodeModel> sStatusDDL = new List<VPMS.Lib.Data.Models.MastercodeModel>();
+    if (ViewData["StatusDropdown"] != null)
+    {
+        sStatusDDL = ViewData["StatusDropdown"] as List<VPMS.Lib.Data.Models.MastercodeModel>;
+    }
+
+    List<VPMS.Lib.Data.Models.OrganisationModel> sOrganizationDDL = new List<VPMS.Lib.Data.Models.OrganisationModel>();
+    if (ViewData["OrganizationDropdown"] != null)
+    {
+        sOrganizationDDL = ViewData["OrganizationDropdown"] as List<VPMS.Lib.Data.Models.OrganisationModel>;
+    }
+
+    var sViewType = ViewData["ViewType"] as String;
+}
+
+<link rel="stylesheet" href="~/css/Role.css" />
+
+<script>
+    $(document).ready(function () {
+        $('#btnUpdate').hide();
+
+        /*------- Add role -------*/
+        $('#btnCreate').on('click', function (ctl) 
+        {
+            if (RoleFieldsValidation())
+            {
+                let permList = [];
+                var sPermissionChecked = $('input[name=chkPermission]');
+                for (var z = 0; z < sPermissionChecked.length; z++)
+                {
+                    if (sPermissionChecked[z].checked)
+                    {
+                        permList.push(sPermissionChecked[z].attributes['data-target'].value);
+                    }
+                }
+
+                var sNewRoleObj = {
+                    roleName: $('#txtRoleName').val(),
+                    roleDescription: $('#txtDescription').val(),
+                    userID: '@sessionUserID',
+                    status: $('#ddlStatus').val(),
+                    branchID: $('#ddlBranch').val(),
+                    isDoctor: $('#ddlIsDoctor').val(),
+                    permissionsList: permList
+                }
+
+                $.post("/Roles/AddRole",
+                    sNewRoleObj
+                ).done(function (result) {
+                    if (result.StatusCode == 200) {
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["Roles_Title_CreateRole"])",
+                                          "@Html.Raw(LangResources["Roles_Label_NewRoleCreateSuccessfully"])",
+                            function () {
+                                window.location.href = '/Roles/Index';
+                            }
+                        )
+                    }
+                    else {
+                        $('#lbError').html("@Html.Raw(LangResources["Roles_Label_FailedToCreateRole"])");
+                        $('#lbError').css('visibility', 'visible');
+                    }
+                });
+            }
+            else{
+                $('#lbError').html("@Html.Raw(LangResources["Roles_Label_MandatoryFieldRequred"])");
+                $('#lbError').css('visibility', 'visible');
+            }
+        });
+
+        /*-------- Cancel Button ---------------*/
+        $('#btnCancel').on('click', function(ctl){
+            window.location.href = '/Roles/Index';
+        });
+
+        /*-------- Update Button ---------------*/
+        $('#btnUpdate').on('click', function(ctl){
+            if (RoleFieldsValidation())
+            {
+                let updatePermList = [];
+                var sPermissionChecked = $('input[name=chkPermission]');
+                for (var z = 0; z < sPermissionChecked.length; z++)
+                {
+                    if (sPermissionChecked[z].checked)
+                    {
+                        updatePermList.push(sPermissionChecked[z].attributes['data-target'].value);
+                    }
+                }
+
+                var sUpdateRoleObj = {
+                    roleID: $('#hidID').val(),
+                    roleName: $('#txtRoleName').val(),
+                    roleDescription: $('#txtDescription').val(),
+                    userID: '@sessionUserID',
+                    status: $('#ddlStatus').val(),
+                    branchID: $('#ddlBranch').val(),
+                    isDoctor: $('#ddlIsDoctor').val(),
+                    permissionsList: updatePermList
+                }
+
+                $.post("/Roles/UpdateRole", 
+                    sUpdateRoleObj
+                ).done(function(result){
+                    if (result.StatusCode == 200) {
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["Roles_Title_UpdateRole"])",
+                                          "@Html.Raw(LangResources["Roles_Label_UpdateRoleSuccessfully"])",
+                            function () {
+                                window.location.href = '/Roles/Index';
+                            }
+                        )
+                    }
+                    else {
+                        $('#lbError').html("@Html.Raw(LangResources["Roles_Label_FailedToUpdateRoles"])");
+                        $('#lbError').css('visibility', 'visible');
+                    }
+                });
+            }
+            else
+            {
+                $('#lbError').html("@Html.Raw(LangResources["Roles_Label_MandatoryFieldRequred"])");
+                $('#lbError').css('visibility', 'visible');
+            }
+        });
+
+        if ('@ViewData["RoleProfile"]' != '')
+        {
+            $('#btnUpdate').show();
+            $('#btnCreate').hide();
+
+            $('#hidID').val('@sRoleObj.RoleID');
+            $('#txtRoleName').val('@sRoleObj.RoleName');
+            $('#txtDescription').val('@sRoleObj.Description');
+       
+            $('#ddlStatus').val('@sRoleObj.Status');
+            $('#ddlStatus').trigger('changes');
+
+            $('#ddlIsDoctor').val('@sRoleObj.IsDoctor');
+            $('#ddlIsDoctor').trigger('changes');
+
+            setTimeout(function () {
+                $('#ddlOrganization').val('@sRoleObj.OrganisationID');
+                $('#ddlOrganization').trigger('changes');
+                loadBranchDropdownlist('@sRoleObj.OrganisationID');
+            }, 200);
+
+            setTimeout(function () {
+                $('#ddlBranch').val('@sRoleObj.BranchID');
+                $('#ddlBranch').trigger('changes');
+            }, 250);
+
+            /*------ Get Role Permission -----------*/
+            $.getJSON("/Roles/GetRolePermissionsByRoleID", {
+                roleID: '@sRoleObj.RoleID'
+            }).done(function(result){
+                if (result.length > 0)
+                {
+                    for (var i = 0; i < result.length; i++)
+                    {
+                        var sKey = $('input[name=chkPermission]');
+                        for (var z = 0; z < sKey.length; z++)
+                        {
+                            if (sKey[z].attributes['data-target'].value == result[i])
+                            {
+                                sKey[z].checked = true;
+                            }
+                        }
+                    }
+                }
+            });
+
+            if ('@sViewType' == "View")
+            {
+                $('#txtRoleName').prop('disabled', true);
+                $('#txtDescription').prop('disabled', true);
+
+                $('#ddlStatus').prop('disabled', true);
+                $('#ddlIsDoctor').prop('disabled', true);
+                $('#ddlOrganization').prop('disabled', true);
+                $('#ddlBranch').prop('disabled', true);
+
+                $('input[name=chkPermission]').prop('disabled', true);
+
+                $('#btnUpdate').hide();
+            }
+        }
+    });
+
+    function RoleFieldsValidation()
+    {
+        $('#lbError').css('visibility', 'hidden');
+        let isValid = true;
+
+        if ($('#txtRoleName').val() == '')
+        {
+            $('#txtRoleName').addClass("errorValidation");
+            $('#txtRoleName').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtRoleName').removeClass("errorValidation");
+        }
+
+        if ($('#ddlStatus').val() == '') 
+        {
+            $('#ddlStatus').addClass("errorValidation");
+            $('#ddlStatus').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlStatus').removeClass("errorValidation");
+        }
+
+        if ($('#ddlOrganization').val() == '') {
+            $('#ddlOrganization').addClass("errorValidation");
+            $('#ddlOrganization').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#ddlOrganization').removeClass("errorValidation");
+        }
+
+        if ($('#txtDescription').val() == '') {
+            $('#txtDescription').addClass("errorValidation");
+            $('#txtDescription').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtDescription').removeClass("errorValidation");
+        }
+
+        if ($('#ddlBranch').val() == '') {
+            $('#ddlBranch').addClass("errorValidation");
+            $('#ddlBranch').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#ddlBranch').removeClass("errorValidation");
+        }
+
+        if ($('#ddlIsDoctor').val() == '') {
+            $('#ddlIsDoctor').addClass("errorValidation");
+            $('#ddlIsDoctor').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#ddlIsDoctor').removeClass("errorValidation");
+        }
+
+        if ($('input[name=chkPermission]:checked').length <= 0) 
+        {
+            $('input[name=chkPermission]').addClass("errorValidation");
+            isValid = false;
+        }
+        else{
+            $('input[name=chkPermission]').removeClass("errorValidation");
+        }
+
+        return isValid;
+    }
+
+    function loadStatusDropdonwlist() {
+        $.getJSON("/Roles/GetStatusListDropdown")
+            .done(function (result) {
+                if (result.length > 0) {
+
+                    $('#ddlStatus').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].CodeName, result[i].CodeID);
+                        $('#ddlStatus').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlStatus').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function loadOrganizationDropdownlist() {
+        $.getJSON("/Roles/GetOrganizationList", { iLevel: 2 })
+            .done(function (result) {
+                if (result != null && result.length > 0) {
+                    $('#ddlOrganization').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].Name, result[i].Id);
+                        $('#ddlOrganization').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlOrganization').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function ddlOrganizationChange(data) 
+    {
+        loadBranchDropdownlist(data.value);
+    }
+
+    function loadBranchDropdownlist(sID) {
+        $.getJSON("/Roles/GetBranchList", { organizationID : sID})
+            .done(function(result){
+                if (result != null && result.length > 0) 
+                {
+                    $('#ddlBranch').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].Name, result[i].ID);
+                        $('#ddlBranch').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlBranch').find("option:not(:first)").remove();
+                }
+        });
+    }
+</script>
+<div class="row">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-6">
+            <label class="rolePageTitle">@LangResources["Roles_Title_UserAccessControl"] > @LangResources["Roles_Title_AddNewRole"]</label>
+        </div>
+        <div class="col-md-6">&nbsp;</div>
+    </div>
+    <div class="row" style="margin-top: 15px; font-size: 1vw">
+        <div class="col-md-12">
+            <div class="row frameRoleStyle">
+                <div class="col-md-12 frameRoleHeader">
+                    <label class="frameRoleHeaderLabel">@LangResources["Roles_Title_RoleSettings"]</label>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;
+                            <label id="lbError" style="color: red;"></label>
+                            <input id="hidID" type="hidden" />
+                        </div>
+                    </div>
+                    <div class="row" style="border: 0px solid black;">
+                        <div class="col-md-4">
+                            <label class="LeftColLabel">@LangResources["Roles_Label_UserRole"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="CenterColLabel">@LangResources["Roles_Label_Status"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="RightColLabel">@LangResources["Roles_Label_Organization"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input id="txtRoleName" type="text" class="form-control leftColControl" />
+                        </div>
+                        <div class="col-md-4">
+                            <select id="ddlStatus" class="form-select centerColControl" >
+                                <option value="">@LangResources["Roles_Label_PleaseSelectStatus"]</option>
+
+                                @{
+                                    if (sStatusDDL != null && sStatusDDL.Count > 0)
+                                    {
+                                        foreach(var m in sStatusDDL)
+                                        {
+                                                    <option value="@m.CodeID">@m.CodeName</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="ddlOrganization" class="form-select rightColControl" onchange="ddlOrganizationChange(this);" >
+                                <option value="">@LangResources["Roles_Label_PleaseSelectOrganization"]</option>
+
+                                @{
+                                    if (sOrganizationDDL != null && sOrganizationDDL.Count > 0)
+                                    {
+                                        foreach(var org in sOrganizationDDL)
+                                        {
+                                                    <option value="@org.Id">@org.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="LeftColLabel">@LangResources["Roles_Label_Description"]</label>
+                        </div>
+                        <div class="col-md-8">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea id="txtDescription" class="form-control leftColSpanControl" maxlength="255" rows="4" ></textarea>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="LeftColLabel">@LangResources["Roles_Label_Branch"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="CenterColLabel">@LangResources["Roles_Label_AreYouDoctor"]</label>
+                        </div>
+                        <div class="col-md-4">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select id="ddlBranch" class="form-select leftColControl">
+                                <option value="">@LangResources["Roles_Label_PleaseSelectBranch"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="ddlIsDoctor" class="form-select centerColControl">
+                                <option value="">@LangResources["Roles_Label_PleaseSelectOption"]</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">&nbsp;</div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <label class="permissionSectionLabel">
+                            @LangResources["Roles_Label_PermissionSettings"]
+                        </label>
+                    </div>
+                    <div class="row">
+                        @{
+                            if (@ViewData["PermissionGroup"] != null && @ViewData["PermissionObject"] != null)
+                            {
+                                var sGroupListing = ViewData["PermissionGroup"] as List<String>;
+                                foreach(var g in sGroupListing)
+                                {
+                                            <div class="col-md-12">
+                                                <label class="permissionGrouping">@g</label>
+                                            </div>
+
+
+                                    var sPermissionListing = ViewData["PermissionObject"] as List<VPMS.Lib.Data.Models.AccessPermissionObject>;
+                                    foreach (var p in sPermissionListing.Where(x => x.PermissionGrouping == g).ToList())
+                                    {
+                                                <div class="col-md-3">
+                                                    <input name="chkPermission" class="form-check-input permissionCheckbox" type="checkbox" value="" data-target="@p.PermissionKey" />
+                                                    <label class="form-check-label permissionCheckBoxLabel">@p.PermissionName</label>
+                                                </div>
+                                    }
+
+                                            <div class="col-md-12">&nbsp;</div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+            </div>
+            <div class="row roleButtonRow">
+                <div class="col-md-12 roleButtonBox">
+                    <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">
+                        @LangResources["Roles_Button_Cancel"]
+                    </button>
+                    <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                        @LangResources["Roles_Button_Create"]
+                    </button>
+                    <button id="btnUpdate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                        @LangResources["Roles_Button_Update"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1041,6 +1041,276 @@
   <data name="Patient_Label_NoOtherPet" xml:space="preserve">
     <value>他にペットはいません。</value>
   </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>役割設定</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>新しい役割</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>権限</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>割り当てられたスタッフの数</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>役割を削除</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>このロールを削除しますか?</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>レコードの削除に失敗しました。</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>ユーザーアクセス制御</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>新しい役割を追加</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>ユーザーロール</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>支店</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>あなたは医者ですか？</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>支店を選択してください</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>オプションを選択してください</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>権限設定:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>状態を選択してください</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>組織を選択してください</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>ロールの作成</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>新しいロールが正常に作成されました。</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>ロールの作成に失敗しました。</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>*必須フィールドです。</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>役割の更新</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>ロールを正常に更新しました。</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>ロールの更新に失敗しました。</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>スタッフ一覧</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>新スタッフ</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>スタッフ名</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>スタッフID</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>ブランチ</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>スタッフを選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>役割を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>性別を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>組織を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>支店を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>ステータスを選択してください</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>スタッフを削除</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>スタッフを削除しますか?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>ユーザーの削除に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>スタッフ詳細</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>スタッフID</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>性別を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>役割を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>ブランチ</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>組織を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>支店を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>ステータスを選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>ログインID</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>ユーザーを作成</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>ユーザーを正常に作成しました。</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*ログインIDはシステム内に存在します。もう一度お試しください。</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>ユーザーの作成に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*必須フィールドです。</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>ユーザープロフィールの更新</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>ユーザー プロファイルを正常に更新しました。</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>ユーザープロファイルの更新に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>メールアドレスが無効です。</value>
+  </data>
   <data name="General_Label_CopyrightStatement" xml:space="preserve">
     <value>無断転載を禁じます</value>
   </data>

@@ -32,6 +32,7 @@ namespace VPMSWeb.Controllers
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
         private readonly UserDBContext _userDBContext = new UserDBContext();
         private readonly LoginSessionDBContext _loginSessionDBContext = new LoginSessionDBContext();
+		private readonly OrganisationDBContext _organizationDBContext = new OrganisationDBContext(); 
 
         private const string Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -120,6 +121,32 @@ namespace VPMSWeb.Controllers
 
 						var userRole = await _userManager.GetRolesAsync(user);
                         HttpContext.Session.SetString("RoleName", userRole.First());
+
+						int iIsAdmin = 0;
+						var sRoleContext = _roleDBContext.Mst_Roles.Where(x => x.RoleID == userInfo.RoleID).FirstOrDefault();
+						if (sRoleContext != null)
+						{
+							iIsAdmin = sRoleContext.IsAdmin;
+						}
+                        HttpContext.Session.SetString("IsAdmin", iIsAdmin.ToString());
+
+                        int iOrgID = -1;
+						var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
+						if (sBranchContext != null)
+						{
+							iOrgID = sBranchContext.OrganizationID;
+
+                        }
+                        HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
+						//HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
+
+						int iLevel = -1;
+						var sOrgContext = _organizationDBContext.Mst_Organisation.Where(x => x.Id == iOrgID).FirstOrDefault();
+						if (sOrgContext != null)
+						{
+							iLevel = sOrgContext.Level;
+                        }
+                        HttpContext.Session.SetString("Level", iLevel.ToString());
 
 						var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
 						var organisationID = organisation == null ? 0 : organisation.OrganizationID;
@@ -391,44 +418,44 @@ namespace VPMSWeb.Controllers
             return View("ChangePassword");
         }
 
-        private string RandomPasswordGenerator()
-        {
-            Random res = new Random();
+		private string RandomPasswordGenerator()
+		{
+			Random res = new Random();
 
-            // String that contain alphabets, numbers and special character
-            String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-            String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            String number = "0123456789";
-            String specialChar = "!@#$%^&*()_+-={}|[];,./:<>?";
+			// String that contain alphabets, numbers and special character
+			String lowerCase = "abcdefghijklmnopqrstuvwxyz";
+			String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			String number = "0123456789";
+			String specialChar = "!@#$%^&*()_+-={}|[];,./:<>?";
 
-            // Initializing the empty string 
-            String randomstring = "";
+			// Initializing the empty string 
+			String randomstring = "";
 
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
+			randomstring += lowerCase[res.Next(lowerCase.Length)];
+			randomstring += upperCase[res.Next(upperCase.Length)];
+			randomstring += number[res.Next(number.Length)];
+			randomstring += specialChar[res.Next(specialChar.Length)];
+			randomstring += lowerCase[res.Next(lowerCase.Length)];
+			randomstring += upperCase[res.Next(upperCase.Length)];
+			randomstring += number[res.Next(number.Length)];
+			randomstring += specialChar[res.Next(specialChar.Length)];
 
-            char[] chars = randomstring.ToCharArray();
+			char[] chars = randomstring.ToCharArray();
 
-            for (int i = 0; i < chars.Length; i++)
-            {
-                int randomIndex = res.Next(0, chars.Length);
-                char temp = chars[randomIndex];
-                chars[randomIndex] = chars[i];
-                chars[i] = temp;
-            }
+			for (int i = 0; i < chars.Length; i++)
+			{
+				int randomIndex = res.Next(0, chars.Length);
+				char temp = chars[randomIndex];
+				chars[randomIndex] = chars[i];
+				chars[i] = temp;
+			}
 
-            randomstring = string.Join("", chars);
+			randomstring = string.Join("", chars);
 
-            return randomstring;
-        }
+			return randomstring;
+		}
 
-        public static string GenerateRandomAlphanumeric(int length)
+		public static string GenerateRandomAlphanumeric(int length)
         {
             return string.Create<object?>(length, null,
                 static (chars, _) => Random.Shared.GetItems(Charset, chars));

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Lib\ExtensionMethods\HtmlHelperExtensionMethods.cs" />
+    <Compile Remove="Lib\General\Utility.cs" />
     <Compile Remove="Lib\Interface\ISharedViewLocalizer.cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer .cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer.cs" />
@@ -15,7 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\User\UserProfile.cshtml" />
     <Content Remove="wwwroot\js\Appointment.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources\Resource.de.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\Role.css" />
     <_ContentIncludedByDefault Remove="wwwroot\images\vpms_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Resource.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +53,7 @@
 
   <ItemGroup>
     <Folder Include="bin\Debug\net8.0\" />
+    <Folder Include="Lib\General\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,7 +71,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,9 +80,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Resource.de.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace></CustomToolNamespace>

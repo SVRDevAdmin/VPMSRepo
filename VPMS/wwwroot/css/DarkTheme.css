@@ -865,6 +865,273 @@ a {
 	text-decoration: unset;
 }
 
+/*-------- Role Settings ------*/
+.rolePageTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 26px;
+	margin-top: 0px;
+	color: white;
+}
+
+#tblRoles {
+	border: 0px !important;
+}
+
+	#tblRoles > thead > tr > th {
+		border: 0px;
+		background-color: transparent;
+		border-left: 0px;
+		border-bottom: 1px solid #ddd;
+		color: #919191;
+	}
+
+#tblRoles > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: white;
+}
+
+.roleListingMoreIcon {
+	content: url('../images/more_white.png');
+	width: 20px;
+	height: 20px;
+}
+
+.frameRoleStyle {
+	margin-left: 10px;
+	margin-right: -5px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+}
+
+.frameRoleHeader {
+	height: 28px;
+	border-top-left-radius: 6px;
+	background-color: #1f2e45;
+}
+
+.frameRoleHeaderLabel {
+	margin-left: 10px;
+	font-weight: bold;
+	margin-top: 5px;
+	color: white;
+}
+
+.LeftColLabel {
+	margin-left: 10px;
+	margin-top: 5px;
+	font-weight: bold;
+	color: white;
+}
+
+.CenterColLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: white;
+}
+
+.RightColLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: white;
+}
+
+.permissionSectionLabel {
+	margin-left: 10px;
+	margin-bottom: 15px;
+	font-weight: bold;
+	font-size: 1vw;
+	color: white;
+}
+
+.permissionGrouping {
+	margin-left: 10px;
+	color: white;
+	text-decoration: underline;
+}
+
+.permissionCheckbox {
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 1.75em;
+	height: 1.75em;
+}
+
+.permissionCheckBoxLabel {
+	margin-left: 5px;
+	margin-top: 13px;
+	margin-bottom: 5px;
+	color: white;
+}
+
+.leftColControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-left: 10px;
+	margin-top: 5px
+}
+
+.centerColControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.rightColControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.leftColSpanControl {
+	width: 95%;
+	font-size: 1vw;
+	margin-left: 10px;
+	margin-top: 5px;
+}
+
+.hiddenMenuStyle {
+	background-color: #1f2e45 !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
+
+.hiddenMenuStyle > a:hover {
+	color: #1f2e45 !important;
+	text-decoration: #1f2e45 !important;
+}
+
+/*-------- User Settings ----------*/
+.staffPageTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 25px;
+	margin-top: 20px;
+	color: white;
+}
+
+#divFilter {
+	margin-top: 15px;
+	background-color: #1f2e45;
+	border-radius: 6px;
+}
+
+.filterTitle {
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.filterLabel {
+	color: white;
+	font-weight: bold;
+}
+
+#tblUsers {
+	border: 0px !important;
+}
+
+#tblUsers > thead > tr > th {
+	border: 0px;
+	background-color: transparent;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: #919191;
+}
+
+#tblUsers > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: white;
+}
+
+.frameUserStyle {
+	margin-left: 10px;
+	margin-right: -5px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+}
+
+.frameUserHeader {
+	height: 28px;
+	border-top-left-radius: 6px;
+	background-color: #1f2e45;
+}
+
+.frameUserHeaderLabel {
+	margin-left: 10px;
+	font-weight: bold;
+	margin-top: 5px;
+	color: white;
+}
+
+.LeftColUserLabel {
+	margin-left: 10px;
+	margin-top: 5px;
+	font-weight: bold;
+	color: white;
+}
+
+.CenterColUserLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: white;
+}
+
+.RightColUserLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: white;
+}
+
+.leftColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-left: 10px;
+	margin-top: 5px
+}
+
+.centerColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.rightColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.hiddenUserMenuStyle {
+	background-color: #1f2e45 !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
+
+.hiddenUserMenuStyle > a:hover {
+	color: white !important;
+	background-color: #1f2e45 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
 /* Container for the slider */
 .slider-container {
 	/*width: 300px;*/

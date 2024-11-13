@@ -1,0 +1,475 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Users";
+    ViewData["SelectedMenu"] = "AccessMenu";
+
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+    var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/css/User.css" />
+<script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
+
+<script>
+    var paginationLimit = 5;
+    var pageSize = 10;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
+    loadStaffDropdownList();
+    loadRolesDropdownList();
+    laodGenderDropdonwList();
+    loadOrgzDropdownList();
+    loadStatusDropdownlist();
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            loadUserViewListing();
+        }, 200);
+        
+
+        $('#btnFilter').click(function () {
+            $('#divFilterCollapse').toggleClass('collapseHide');
+            $('#divUserContent').toggleClass('col-md-12 col-md-9');
+
+            if ($('#divFilterCollapse')[0].className.indexOf('Hide') > 0){
+                resetFields();
+            }
+            else{
+                if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+                {
+                    $('#ddlOrganization').val('@sessionOrganizationID');
+                    $('#ddlOrganization').trigger('change');
+                    $('#ddlOrganization').prop('disabled', true);
+                }
+            }
+        });
+
+        $('#btnSearch').click(function () {
+            currentPage = 1;
+
+            loadUserViewListing();
+        });
+
+        $('#btnReset').click(function () {
+            resetFields();
+        });
+    });
+
+    function resetFields() 
+    {
+        $('#ddlStaffName').val($('#ddlStaffName option:first').val());
+        $('#ddlRole').val($('#ddlRole option:first').val());
+        $('#ddlGender').val($('#ddlGender option:first').val());
+        $('#ddlOrganization').val($('#ddlOrganization option:first').val());
+        $('#ddlStatus').val($('#ddlStatus option:first').val());
+
+        $('#ddlBranch').find("option:not(:first)").remove();
+        $('#ddlBranch').val($('#ddlBranch option:first').val());
+    }
+
+    function loadUserViewListing()
+    {
+        $.getJSON("/User/GetUserListingView", {
+            UserID: $('#ddlStaffName').val(),
+            RoleID: $('#ddlRole').val(),
+            GenderID: $('#ddlGender').val(),
+            OrganizationID: $('#ddlOrganization').val(),
+            BranchID: $('#ddlBranch').val(),
+            Status: $('#ddlStatus').val(),
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function (result) {
+            if (result.data != null && result.data.length > 0)
+            {
+                $('#tblUsers').bootstrapTable('destroy');
+                $('#tblUsers').bootstrapTable({
+                    data: result.data
+                });
+
+                /*------- Pagination ---------*/
+                populatePagingControl(result.totalRecord);
+            }
+            else
+            {
+                $('#tblUsers').bootstrapTable('destroy');
+                document.getElementById("pagination").hidden = true;
+            }
+        });
+    }
+
+    function populateHiddenMenu(value, row) {
+        var hideMenuHtml = '<button type="button" class="btn" data-toggle="dropdown">' +
+            '<img class="doctorListingMoreIcon"  />' +
+            '</button>' +
+
+            '<div class="dropdown-menu hiddenUserMenuStyle" style="min-width: fit-content; font-size: 1vw;">' +
+            '<a class="dropdown-item" href="/User/UserProfile/' + value + '/View">' + '@Html.Raw(LangResources["Staff_Label_MenuView"])' + '</a>' +
+            '<a class="dropdown-item" href="/User/UserProfile/' + value + '/Edit">' + '@Html.Raw(LangResources["Staff_Label_MenuEdit"])' + '</a>' +
+            '<a class="dropdown-item" onclick="mnDeleteOnClick(\'' + value + '\')">' + '@Html.Raw(LangResources["Staff_Label_MenuDelete"])' + '</a>' +
+            '</div>';
+        return hideMenuHtml;
+    }
+
+    function mnDeleteOnClick(id) 
+    {
+        ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Staff_Title_DeleteStaff"])",
+                                "@Html.Raw(LangResources["Staff_Label_ConfirmDeleteStaff"])",
+            function () {
+                $.post("/User/DeleteUser", {
+                    userID: id,
+                    updatedBy: '@sessionUserID'
+                }).done(function (result) {
+                    if (result.StatusCode == 200){
+                        window.location.reload();
+                    }
+                    else{
+                        $('#lbUserListingError').html("@Html.Raw(LangResources["Staff_Label_FailedToDeleteStaff"])");
+                        $('#lbUserListingError').css('visibility', 'visible');
+                    }
+                });
+            },
+            function () { }
+        );
+    }
+
+    function populatePagingControl(totalRecord) {
+        let total = totalRecord;
+        if (total == 0) {
+            document.getElementById("pagination").hidden = true;
+        }
+        else {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end) {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        loadUserViewListing();
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+
+        loadUserViewListing();
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        loadUserViewListing();
+    }
+
+    function loadStaffDropdownList() 
+    {
+        var sSelectedOrganizationID = '';
+        if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+        {
+            sSelectedOrganizationID = ('@sessionOrganizationID');
+        }
+
+        $.getJSON("/User/GetUserListDropdown", {
+                organizationID : sSelectedOrganizationID
+            })
+            .done(function (result){
+                if (result.length > 0){
+                    $('#ddlStaffName').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option((result[i].Surname + ' ' + result[i].LastName), result[i].UserID);
+                        $('#ddlStaffName').append(opt);
+                    }
+                }
+                else{
+                    $('#ddlStaffName').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function loadRolesDropdownList() {
+        $.getJSON("/Roles/GetRolesList")
+            .done(function (result) {
+                if (result.length > 0) {
+                    $('#ddlRole').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].RoleName, result[i].RoleID);
+                        $('#ddlRole').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlRole').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function laodGenderDropdonwList(){
+        $.getJSON("/User/GetGenderListDropdown")
+            .done(function (result) {
+                if (result.length > 0) {
+                    $('#ddlGender').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].CodeName, result[i].CodeID);
+                        $('#ddlGender').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlGender').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function loadOrgzDropdownList() {
+        $.getJSON("/Roles/GetOrganizationList", { iLevel: 2 })
+            .done(function (result) {
+                if (result != null && result.length > 0) {
+                    $('#ddlOrganization').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].Name, result[i].Id);
+                        $('#ddlOrganization').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlOrganization').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function loadStatusDropdownlist() {
+        $.getJSON("/Roles/GetStatusListDropdown")
+            .done(function (result) {
+                if (result.length > 0) {
+
+                    $('#ddlStatus').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].CodeName, result[i].CodeID);
+                        $('#ddlStatus').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlStatus').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function loadBranchDropdownlist(data) {
+        $.getJSON("/Roles/GetBranchList", { organizationID: data.value })
+            .done(function (result) {
+                if (result != null && result.length > 0) {
+                    $('#ddlBranch').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].Name, result[i].ID);
+                        $('#ddlBranch').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlBranch').find("option:not(:first)").remove();
+                }
+            });
+    }
+</script>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <label class="staffPageTitle">
+                    @LangResources["Staff_Title_StaffListing"]
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-9" style="display: flex;">
+                    <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 1vw;">
+                        <img id="imgSlider" />
+                        @LangResources["Staff_Button_Filters"]
+                    </button>
+                    &nbsp;&nbsp;
+                    <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 1vw"
+                            onclick="location.href='@Url.Action("UserDetails", "User")'">
+                        <i class="bi bi-plus-circle" style="margin-right: 5px;"></i>
+                        @LangResources["Staff_Button_NewStaff"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="height: 20px">
+            <label id="lbUserListingError"></label>
+        </div>
+        <div id="divUserContent" class="col-md-12" style="margin-top: 15px;">
+            <table id="tblUsers" class="table" style="font-size: 1vw;">
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">@LangResources["Staff_Label_Number"]</th>
+                        <th scope="col" data-field="StaffName" class="text-center" style="width: 15%;">@LangResources["Staff_Label_StaffName"]</th>
+                        <th scope="col" data-field="StaffID" class="text-center" style="width: 15%;">@LangResources["Staff_Label_StaffID"]</th>
+                        <th scope="col" data-field="RoleName" class="text-center" style="width: 15%;">@LangResources["Staff_Label_Role"]</th>
+                        <th scope="col" data-field="Gender" class="text-center" style="width: 10%;">@LangResources["Staff_Label_Gender"]</th>
+                        <th scope="col" data-field="EmailAddress" class="text-center" style="width: 10%;">@LangResources["Staff_Label_Email"]</th>
+                        <th scope="col" data-field="Organization" class="text-center" style="width: 10%;">@LangResources["Staff_Label_Organization"]</th>
+                        <th scope="col" data-field="BranchName" class="text-center" style="width: 10%;">@LangResources["Staff_Label_Branch"]</th>
+                        <th scope="col" data-field="StatusName" class="text-center" style="width: 5%;">@LangResources["Staff_Label_Status"]</th>
+                        <th scope="col" data-field="UserID" data-formatter="populateHiddenMenu" class="text-center" style="width: 5%;"></th>
+                    </tr>
+
+                </thead>
+            </table>
+            <div class="row">
+                <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <div>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Prev"]</button>
+                    </div>
+                    <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                    </div>
+                    <div>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Next"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divFilterCollapse" class="col-md-3 collapseHide" style="height: auto;">
+            <div id="divFilter" class="row" style="height: auto;">
+                <div class="col-md-12 divFilterBorder">
+                    <div class="row filterTitleBox">
+                        <label class="filterTitle">@LangResources["Staff_Title_Filters"]</label>
+                    </div>
+
+                    <!-- Staff Name -->
+                    <div class="row FilterRowTitle">
+                        <label class="filterLabel">@LangResources["Staff_Label_StaffName"]</label>
+                    </div>
+                    <div class="row FilterRowFields">
+                        <select id="ddlStaffName" class="form-select">
+                            <option value="">@LangResources["Staff_Label_PleaseSelectStaff"]</option>
+                        </select>
+                    </div>
+
+                    <!-- User Role -->
+                    <div class="row FilterRowTitle">
+                        <label class="filterLabel">@LangResources["Staff_Label_Role"]</label>
+                    </div>
+                    <div class="row FilterRowFields">
+                        <select id="ddlRole" class="form-select">
+                            <option value="">@LangResources["Staff_Label_PleaseSelectRole"]</option>
+                        </select>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="row FilterRowTitle">
+                        <label class="filterLabel">@LangResources["Staff_Label_Gender"]</label>
+                    </div>
+                    <div class="row FilterRowFields">
+                        <select id="ddlGender" class="form-select">
+                            <option value="">@LangResources["Staff_Label_PleaseSelectGender"]</option>
+                        </select>
+                    </div>
+
+                    <!-- Organization -->
+                    <div class="row FilterRowTitle">
+                        <label class="filterLabel">@LangResources["Staff_Label_Organization"]</label>
+                    </div>
+                    <div class="row FilterRowFields">
+                        <select id="ddlOrganization" class="form-select" onchange="loadBranchDropdownlist(this);">
+                            <option value="">@LangResources["Staff_Label_PleaseSelectOrganization"]</option>
+                        </select>
+                    </div>
+
+                    <!-- Branch -->
+                    <div class="row FilterRowTitle">
+                        <label class="filterLabel">@LangResources["Staff_Label_Branch"]</label>
+                    </div>
+                    <div class="row FilterRowFields">
+                        <select id="ddlBranch" class="form-select">
+                            <option value="">@LangResources["Staff_Label_PleaseSelectBranch"]</option>
+                        </select>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="row FilterRowTitle">
+                        <label class="filterLabel">@LangResources["Staff_Label_Status"]</label>
+                    </div>
+                    <div class="row FilterRowFields">
+                        <select id="ddlStatus" class="form-select">
+                            <option value="">@LangResources["Staff_Label_PleaseSelectStatus"]</option>
+                        </select>
+                    </div>
+
+                    <div class="row FilterRowButtonSearch">
+                        <button id="btnSearch" type="button" class="btn btn-primary">
+                            @LangResources["Staff_Button_Search"]
+                        </button>
+                    </div>
+                    <div class="row FilterRowButtonReset">
+                        <button id="btnReset" type="button" class="btn btn-secondary">
+                            @LangResources["Staff_Button_Reset"]
+                        </button>
+                    </div>
+                    <div class="row" style="height: 20px;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
