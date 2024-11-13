@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>添加分支  </value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>访问被拒绝。</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>分支地址  </value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>分行联系电话</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>分支  </value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>分支名称  </value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>创建组织  </value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>编辑组织  </value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>新组织  </value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>组织详情  </value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>组织名称  </value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>保存分支  </value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>搜索组织  </value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>总员工数  </value>
+  </data>
   <data name="Appointment_Button_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -363,6 +405,9 @@
   <data name="Doctor_Title_Doctor" xml:space="preserve">
     <value>医生</value>
   </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>版权所有</value>
+  </data>
   <data name="Inventory_Button_NewInventory" xml:space="preserve">
     <value>新库存</value>
   </data>
@@ -437,6 +482,105 @@
   </data>
   <data name="Inventory_Label_Usage" xml:space="preserve">
     <value>用法</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>添加项目  </value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>标记为已付款</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>快速发票</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>小计  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>行动  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>平衡</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>已取消  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>折扣</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>费用</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>从  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>大折扣  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>发票详情  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>发票号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>发票备注</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>发票/收据号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>发票</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>下次预约</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>已支付  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>待处理  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>购买项目详情  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>数量  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>准备就绪  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>收据</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>收据号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>选择客户  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>选择产品  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>手术/疫苗接种/咨询名称</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>到  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>总价格  </value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>您确定要标记为已付款并转到收据吗？</value>
   </data>
   <data name="LanguageCountry_Button_Save" xml:space="preserve">
     <value>保存</value>
@@ -519,7 +663,7 @@
   <data name="MenuBar_Label_MyProfile" xml:space="preserve">
     <value>我的个人资料</value>
   </data>
-  <data name="MenuBar_Label_Organization" xml:space="preserve">
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
     <value>组织</value>
   </data>
   <data name="MenuBar_Label_Patients" xml:space="preserve">
@@ -704,6 +848,9 @@
   </data>
   <data name="Patient_Label_ExpiryDate" xml:space="preserve">
     <value>到期日</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>过滤器  </value>
   </data>
   <data name="Patient_Label_Gender" xml:space="preserve">
     <value>性别</value>
@@ -1257,6 +1404,60 @@
   <data name="Staff_Title_StaffListing" xml:space="preserve">
     <value>员工名单</value>
   </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>查看报告  </value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>血压  </value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>血液测试  </value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>骨量  </value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>心率  </value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>高  </value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>伤害检查  </value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>低  </value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>肺部X光  </value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>阴性  </value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>正常  </value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>正常范围  </value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>参数  </value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>肯定</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>恢复中  </value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>结果  </value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>结果计量器  </value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>添加自定义治疗  </value>
+  </data>
   <data name="TreatmentPlan_Label_Add" xml:space="preserve">
     <value>加</value>
   </data>
@@ -1275,6 +1476,9 @@
   <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
     <value>创建日期</value>
   </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>现有治疗计划  </value>
+  </data>
   <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
     <value>激活</value>
   </data>
@@ -1292,6 +1496,9 @@
   </data>
   <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
     <value>选择用户</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>显示  </value>
   </data>
   <data name="TreatmentPlan_Label_Total" xml:space="preserve">
     <value>总</value>

@@ -1,0 +1,388 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+	ViewData["Title"] = "Invoice & Receipt Page";
+	ViewBag.SelectedMenu = "invoiceReceiptMenu";
+
+	var role = httpContextaccessor.HttpContext.Session.GetString("RoleName");
+}
+
+<style>
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		/* margin-bottom: 1.5vw;
+		margin-left: 1.5vw;
+		margin-right: 1.5vw; */
+	}
+
+	.formlabel {
+		font-weight: bold;
+		margin-bottom: 0.6vw;
+		font-size: 1vw;
+	}
+
+	.inputField {
+		border: 0.1vw solid;
+		font-size: 1vw;
+	}
+
+	.halfSize {
+		width: 36vw;
+	}
+
+	.quaterSize {
+		width: 21.5vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: blue;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+
+	.table-content {
+		/* text-align: center; */
+		height: 2vw;
+	}
+
+	table th:first-child {
+		border-radius: 0.2vw 0 0 0.2vw;
+	}
+
+	table th:last-child {
+		border-radius: 0 0.2vw 0.2vw 0;
+	}
+</style>
+
+<div style="display: flex;">
+	<div style="display: flex; align-items: center; margin-bottom: 1.5vw;">
+		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" onclick="location.href='@Url.Action("InvoiceReceiptListing", "InvoiceReceipt")'" />
+		<span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
+		<span class="textColor" style="font-size: 2vw; margin-left:1vw; margin-right:1vw; font-weight: bold;"> &#62; </span>
+		<span style="font-size: 2vw; color: dodgerblue;">@LangResources["InvoiceReceipt_Button_QuickInvoice"]</span>
+	</div>
+</div>
+
+<template id="itemTemplate">
+	<tr class="itemGroup" style="border-bottom-width: 0.1vw; height: 3.3vw;">
+		<th class="table-content" style="padding: 0 1vw;"> 
+			<select class="form-control form-field inputField itemInfo validationCheck" onchange="ChangeItems(this);">
+				<option value="" selected> -- @LangResources["InvoiceReceipt_Label_SelectProduct"] -- </option>
+				@foreach (var item in ViewData["Items"] as List<VPMS.Lib.Data.Models.InventoryModel>)
+				{
+					<option value="@item.ID"> @item.Name </option>
+				}
+			</select>
+		</th>
+		<th class="table-content" style="padding: 0 1vw; width: 9vw;"> <input class="form-control form-field inputField itemQuantity validationCheck" type="number" onchange="CalculatePrice(this);" value="0" min="0" /> </th>
+		<th class="table-content" style="padding: 0 1vw; width: 9vw;"> <input class="form-control form-field inputField itemDiscount" type="number" onchange="CalculatePrice(this);" value="0" min="0" max="100" /> </th>
+		<th class="table-content itemPrice" style="padding: 0 1vw; width: 9vw;"> 0 </th>
+		<th class="table-content itemTotal" style="padding: 0 1vw; width: 9vw;"> 0 </th>
+		<th class="table-content" style="padding: 0 1vw; width: 0;"> <i class="fa-regular fa-trash-can" style="color: red;" onclick="this.parentElement.parentElement.remove(); CalculateTotalPrice();"></i> </th>
+	</tr>
+</template>
+
+<div id="quickInvoiceContainer">
+	<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
+		<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["InvoiceReceipt_Label_InvoiceDetails"]</span>
+	</div>
+	<div class="containerBorder textColor" style="width: 77vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; margin-bottom: 2vw;">
+
+		<div style="display: flex; justify-content: space-between; align-items: center;">
+			<div class="field-container quaterSize">
+				<span class="formlabel">@LangResources["InvoiceReceipt_Label_InvoiceNo"] <span style="color: red;">*</span></span>
+				<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; align-items: center; padding: 0 0.5vw; color: black; background-color: white; border-color: black; font-size: 1vw;">
+					<span style="margin-right: 0.3vw; color: darkgray">#</span>
+					<input class="form-control form-field inputField validationCheck" type="text" id="invoiceNo" style=" width: 100%; border: none; outline-width: 0; background-color: transparent; padding-left: 0;" />
+				</div>
+			</div>
+			<div class="field-container" style="width: 9vw;">
+				<input type="file" placeholder="@LangResources["Inventory_Label_UploadImage"]" id="inventoryImgFile" accept="image/*" hidden>
+				<label for="inventoryImgFile" id="inventoryImgLabel" style="border: 0.1vw solid; border-radius: 0.5vw; width: 9vw; height: 9vw; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+					<i class="fa-regular fa-image inventoryImg" style="opacity: 0.2; font-size: 3vw;"></i>
+					<span class="inventoryImg" style="opacity: 0.2; font-size: 1vw; text-align: center;">@LangResources["Inventory_Label_UploadImage"]</span>
+					<img id="inventoryImg" style="height: 18vw;" class="hideContainer" />
+				</label>
+			</div>
+		</div>
+
+		<hr />
+
+		<div style="display: flex;">
+			<div class="field-container quaterSize" style="font-size: 1vw; width: 34.5vw;">
+				<span class="formlabel">@LangResources["InvoiceReceipt_Label_From"]</span>
+				@* <div>
+					<span id="branchName">Pet Paws</span> <br />
+					<span id="branchPhoneNo">(+82) 70 3266 2491</span> <br />
+					<span id="branchAddress">456 Haeundae-ro, Haeundae-gu, Busan Centum River, 3rd Floor, Unit 302, Republic of Korea.</span> <br />
+				</div> *@
+				<div>
+					<span id="branchName">@ViewData["BranchName"]</span> <br />
+					<span id="branchPhoneNo">@ViewData["BranchContactNo"]</span> <br />
+					<span id="branchAddress">@ViewData["BranchAddress"]</span> <br />
+				</div>
+			</div>
+			<div class="field-container" style="width: 100%; margin-left: 4vw;">
+				<span class="formlabel">@LangResources["InvoiceReceipt_Label_To"]</span>
+				<div style="display: flex; justify-content: space-between;">
+					<div class="quaterSize">
+						<span class="formlabel">Customer <span style="color: red;">*</span></span>
+						<select id="owner" class="form-control form-field inputField validationCheck" onchange="ChangeOwner(this);" style="margin-top: 0.6vw;">
+							<option value="" selected> -- @LangResources["InvoiceReceipt_Label_SelectCustomer"] -- </option>
+							@foreach (var customer in ViewData["Customer"] as List<VPMS.Lib.Data.Models.Patient_Owner>)
+							{
+								<option value="@customer.Name" data-patientid="@customer.PatientID"> @customer.Name </option>
+							}
+						</select>
+					</div>
+					<div class="quaterSize">
+						<span class="formlabel">@LangResources["Appointment_Label_Pet"] <span style="color: red;">*</span></span>
+						<select id="pet" class="form-control form-field inputField validationCheck" style="margin-top: 0.6vw;">
+							<option value="" selected> -- @LangResources["Appointment_Selection_SelectPet"] -- </option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="margin-top: 2vw;">
+			<table id="itemList" style="width: 100%; font-size: 1vw;">
+				<tr class="containerBackground">
+					<th class="table-content" style="padding: 0 1vw;"> @LangResources["InvoiceReceipt_Label_PurchaseItemDetails"] <span style="color: red;">*</span> </th>
+					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["InvoiceReceipt_Label_Quantity"] <span style="color: red;">*</span> </th>
+					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["InvoiceReceipt_Label_Discount"] (%) </th>
+					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["Patient_Label_Price"]/@LangResources["Inventory_Label_Quantity"] ($) </th>
+					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["InvoiceReceipt_Label_TotalPrice"] ($) </th>
+					<th class="table-content" style="padding: 0 1vw; width: 0;"></th>
+				</tr>
+			</table>
+			<button id="AddItemButton" onclick="cloneItem();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none;">
+				<span style="font-size: 1vw;">@LangResources["InvoiceReceipt_Button_AddItem"]</span>
+			</button>
+		</div>
+
+		<div style="display: flex; justify-content: flex-end;">
+			<div class="halfSize">
+				<div style="display: flex; justify-content: space-between; margin: 0 1vw;">
+					<div class="formlabel" style="margin: 0;">@LangResources["InvoiceReceipt_Button_SubTotal"]</div>
+					<div class="formlabel" id="SubTotal" style="margin: 0; padding: 0 1vw;">0</div>
+				</div>
+				<hr />
+				<div style="display: flex; justify-content: space-between; margin: 0 1vw;">
+					<div class="formlabel" style="margin: 0;">@LangResources["TreatmentPlan_Label_Total"] (USD)</div>
+					<div class="formlabel" style="margin: 0; padding: 0 1vw;">0</div>
+				</div>
+				@* <div style="display: flex; border-style: solid; border-width: 0.1vw; margin: 0 1vw; margin-top: 1vw; border-radius: 0.4vw;">
+					<div class="formlabel containerBackground2" style="margin: 0; padding: 0 1vw; border-radius: 0.4vw;">Balance</div>
+					<div class="form-control form-field inputField" style="display: flex; padding: 0 1vw; justify-content: space-between; width: 100%;">
+						<div class="formlabel" style="margin: 0; color: darkgray;">USD</div>
+						<div class="formlabel" style="margin: 0;">0.00</div>
+					</div>					
+				</div> *@
+				<div style="display: flex; border-style: solid; border-width: 0.1vw; margin: 0 1vw; margin-top: 1vw; border-radius: 0.4vw;">
+					<div class="form-control form-field inputField containerBackground2" style="margin: 0; border-radius: 0.4vw; width: 6vw; border: 0; text-align: center;">
+						@LangResources["InvoiceReceipt_Label_Balance"]
+					</div>
+					<div class="form-control form-field inputField" style="display: flex; justify-content: space-between; width: 100%; border: 0;">
+						<div class="formlabel" style="margin: 0; color: darkgray;">USD</div>
+						<div class="formlabel" style="margin: 0;">0</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="margin-top: 2vw;">
+			<span class="formlabel">@LangResources["InvoiceReceipt_Label_InvoiceNote"]</span>
+			<input type="text" id="remarks" class="form-control form-field inputField" style="margin-top: 0.3vw;" />
+		</div>
+
+		<div style="text-align: end; margin-top: 2vw;">
+			<button class="btn btn-lg btn-secondary" onclick="location.href='@Url.Action("InvoiceReceiptListing", "InvoiceReceipt")'" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+			<button class="btn btn-lg btn-primary" onclick="CreateInvoice();" style="width: 11vw; font-size: 1vw;"> @LangResources["Inventory_Label_Create"] </button>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	function ChangeOwner(e){
+		var patientID = e.options[e.selectedIndex].getAttribute("data-patientid");		
+		var petElement = document.getElementById("pet");
+
+		$.post("/Appointment/GetPetListByPatientID", {
+			PatientID: patientID
+		}).done(function (result) {
+			petElement.innerHTML = '<option value="" selected> -- @LangResources["Appointment_Selection_SelectPet"] -- </option>';
+			for(let i = 0; i < result.length; i++){
+				petElement.innerHTML += '<option value="' + result[i].Name + '" data-id="' + result[i].ID + '"> ' + result[i].Name + ' </option>';
+			}
+		});
+	}
+
+	function cloneItem() {
+		const template = document.getElementById("itemTemplate");
+		var targetElement = document.getElementById("itemList");
+		const clone = template.content.cloneNode(true);
+
+		targetElement.appendChild(clone);
+	}
+
+	function ChangeItems(e){
+		var parent = e.parentElement.parentElement;
+		var itemID = e.value;
+
+		$.post("/Inventory/GetInventoryById", {
+			id: itemID
+		}).done(function (result) {
+			parent.querySelector(".itemPrice").innerHTML = result.PricePerQty;
+			CalculatePrice(e);
+		});
+	}
+
+	function CalculatePrice(e){
+		var parent = e.parentElement.parentElement;
+		var pricPerQty = parent.querySelector(".itemPrice").innerHTML;
+		var discountPerc = parent.querySelector(".itemDiscount").value;
+		var quantity = parent.querySelector(".itemQuantity").value;
+		var total = 0;
+		var discount = 0;
+
+		total = Number(pricPerQty) * Number(quantity);
+		discount = (total * (Number(discountPerc) / 100)).toFixed(2).replace(/[.,]00$/, "");
+
+		parent.querySelector(".itemTotal").innerHTML = (Number(total) - Number(discount)).toFixed(2).replace(/[.,]00$/, "");
+
+		CalculateTotalPrice();
+	}
+
+	function CalculateTotalPrice() {
+		var priceElement = document.querySelectorAll(".itemTotal");
+		var total = 0;
+
+		for (let i = 0; i < priceElement.length; i++) {
+			total += Number(priceElement[i].innerHTML);
+		}
+
+		var tax = (total * (6 / 100)).toFixed(2).replace(/[.,]00$/, "");
+
+		document.getElementById("SubTotal").innerHTML = (Number(total) + Number(tax)).toFixed(2).replace(/[.,]00$/, "");
+	}
+
+	function CreateInvoice(){
+		var items = document.querySelectorAll(".itemGroup");
+		var invoiceNo = "#" + document.getElementById("invoiceNo").value;
+		var ownerName = document.getElementById("owner").value;
+		var petName = document.getElementById("pet").value;
+		var fee = document.getElementById("SubTotal").innerHTML;	
+		var remarks = document.getElementById("remarks").value;
+		var petElement = document.getElementById("pet");
+		var petID = petElement.options[petElement.selectedIndex].getAttribute("data-id");	
+
+		if (items.length == 0){
+			alert("Please add atleast one product.");
+		}
+		else if (!checkRequiredField()) {
+			alert("Please fill the required field.");
+		}
+		else{
+			var obj = {
+				InvoiceNo: invoiceNo,
+				OwnerName: ownerName,
+				PetID: petID,
+				PetName: petName,
+				Doctor: "NA",
+				Fee: fee,
+				Remarks: remarks
+			}
+
+			fetch('/InvoiceReceipt/CreateQuickInvoice', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(obj)
+			})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then(data => {
+					for (let i = 0; i < items.length; i++) {
+						submitTreatmentPlanProduct(items[i], data);
+					}
+
+					setTimeout(function () {
+						location.href = '/InvoiceReceipt/InvoiceReceiptListing';
+					}, 1000);
+				})
+				.catch(error => {
+					console.error('There was a problem with the fetch operation:', error);
+				});
+		}
+		
+	}
+
+	function submitTreatmentPlanProduct(e, planID) {
+
+		var itemElement = e.querySelector(".itemInfo");
+		var productID = itemElement.value;
+		var productName = itemElement.options[itemElement.selectedIndex].innerHTML;	
+		var units = e.querySelector(".itemQuantity").value;
+		var discount = e.querySelector(".itemDiscount").value;
+		var originalPrice = e.querySelector(".itemPrice").innerHTML;
+		var price = e.querySelector(".itemTotal").innerHTML;
+
+		var obj = {
+			PlanID: planID,
+			ProductID: productID,
+			ProductName: productName,
+			Units: units,
+			PricePerQty: originalPrice,
+			TotalPrice: price,
+			Discount: discount,
+			IsDeleted: 0,
+			CreatedDate: new Date(),
+			CreatedBy: "System"
+		};
+
+		fetch('/Patients/InsertPatientTreatmentPlanProduct', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function checkRequiredField() {
+		var validationElement = document.querySelectorAll(".validationCheck");
+		var validated = true;
+
+		for (let i = 0; i < validationElement.length; i++) {
+			if (validationElement[i].value == "" || validationElement[i].value == 0) { validated = false; }
+		}
+
+		return validated;
+	}
+</script>

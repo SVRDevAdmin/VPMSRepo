@@ -4,6 +4,8 @@ CREATE TABLE `Txn_TreatmentPlan_Services` (
     `ServiceID` INT NULL DEFAULT NULL,
     `ServiceName` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`Price` DECIMAL(10,2) NULL DEFAULT NULL, 
+	`Discount` DECIMAL(10,2) NULL DEFAULT NULL, 
+	`TotalPrice` DECIMAL(10,2) NULL DEFAULT NULL, 
     `IsDeleted` INT NULL DEFAULT NULL,
     `CreatedDate` DATETIME NULL DEFAULT NULL,
     `CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
