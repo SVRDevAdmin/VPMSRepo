@@ -200,7 +200,8 @@
 					</div>
 				</div>
 				<div style="font-size: 0.8vw;">
-					<a href="#" style="color: white !important;" onclick="window.location='/Patients/BloodTest/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a>
+					@* <a href="#" style="color: white !important;" onclick="window.location='/Patients/BloodTest/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a> *@
+					<a href="#" style="color: white !important;" onclick="window.location='/Patients/TestManagement/1/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a>
 				</div>
 			</div>
 			<div>
@@ -235,7 +236,10 @@
 						<span style="color: #d2e4fe;">@LangResources["TestManagement_Label_Negative"]</span>
 					</div>
 				</div>
-				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
+				<div style="font-size: 0.8vw;">
+					@* <a href="#" style="color: white !important;" onclick="window.location='/Patients/VCheck/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a> *@
+					<a href="#" style="color: white !important;" onclick="window.location='/Patients/TestManagement/3/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a>
+				</div>
 			</div>
 			<div>
 				<img class="testImage" src="~/images/Blood Test Image.png" />

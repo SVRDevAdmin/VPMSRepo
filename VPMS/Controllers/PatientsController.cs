@@ -22,6 +22,7 @@ namespace VPMSWeb.Controllers
 		private readonly CountryDBContext _countryDBContext = new CountryDBContext(ConfigSettings.GetConfigurationSettings());
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 		private readonly InvoiceReceiptDBContext _invoiceReceiptDBContext = new InvoiceReceiptDBContext();
+		private readonly TestManagementDBContext _testManagementDBContext = new TestManagementDBContext();
 
 		int totalPets;
 
@@ -260,11 +261,6 @@ namespace VPMSWeb.Controllers
 			ViewData["PetName"] = petname;
 			ViewBag.PatientID = patientid;
 
-			ViewData["TreatmentPlans"] = _treatmentPlanDBContext.Mst_TreatmentPlan.ToList();
-
-			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
-			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
-
 			Program.CurrentPage = "/Patients/TestManagement/" + patientid + "/" + petname;
 
 			return View();
@@ -310,12 +306,119 @@ namespace VPMSWeb.Controllers
 			ViewData["PetName"] = petname;
 			ViewBag.PatientID = patientid;
 
-			ViewData["TreatmentPlans"] = _treatmentPlanDBContext.Mst_TreatmentPlan.ToList();
-
-			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
-			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
-
 			Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
+
+			return View();
+		}
+
+		[Route("/Patients/VCheck/{patientid}/{petname}")]
+		public IActionResult VCheck(int patientid, string petname)
+		{
+			List<int> patientList = new List<int>();
+
+			try
+			{
+				var role = HttpContext.Session.GetString("RoleName");
+				var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+				var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+				if (role == "Superadmin")
+				{
+					patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+				}
+				else if (organisation != 0)
+				{
+					List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+					patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+				}
+				else if (branch != 0)
+				{
+					patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+				}
+
+				if (!patientList.Contains(patientid))
+				{
+					return RedirectToAction("PatientsList", "Patients");
+				}
+
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
+
+			ViewData["PetName"] = petname;
+			ViewBag.PatientID = patientid;
+
+			Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
+
+			return View();
+		}
+
+		[Route("/Patients/TestManagement/{category}/{patientid}/{petname}")]
+		public IActionResult TestResults(int category, int patientid, string petname)
+		{
+			List<int> patientList = new List<int>();
+			string categoryName = "";
+			var petID = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname).ID.ToString();
+			List<TestResultDetails> resultDetails = new List<TestResultDetails>();
+
+			try
+			{
+				var role = HttpContext.Session.GetString("RoleName");
+				var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+				var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+				if (role == "Superadmin")
+				{
+					patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+				}
+				else if (organisation != 0)
+				{
+					List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+					patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+				}
+				else if (branch != 0)
+				{
+					patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+				}
+
+				if (!patientList.Contains(patientid))
+				{
+					return RedirectToAction("PatientsList", "Patients");
+				}
+
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
+
+			ViewData["PetName"] = petname;
+			ViewBag.PatientID = patientid;
+
+			if(category == 1)
+			{
+				categoryName = "BLOOD TEST";
+			}
+			else if(category == 3)
+			{
+				categoryName = "VCHECK";
+			}
+
+
+			var testResult = _testManagementDBContext.Txn_TestResults.OrderByDescending(x => x.CreatedDate).FirstOrDefault(y => y.PetID == petID && y.ResultCategories == categoryName);
+			if(testResult != null)
+			{
+				resultDetails = _testManagementDBContext.Txn_TestResults_Details.Where(x => x.ResultID == testResult.ID).ToList();
+			}
+			ViewData["Results"] = resultDetails;
+
+			ViewData["Category"] = category;
+
+			Program.CurrentPage = "/Patients/TestManagement/" + category + "/" + patientid + "/" + petname;
 
 			return View();
 		}

@@ -120,6 +120,7 @@
 		<td class="id" hidden></td>
 		<td class="number" style="padding: 1vw 0;"></td>
 		<td class="name"></td>
+		<td class="contactNo" hidden></td>
 		<td class="address" hidden></td>
 		<td style="width: 7vw;">
 			<div class="editable" style="display: flex; justify-content: space-between;">
@@ -221,7 +222,7 @@
 					</div>
 
 					<div class="editable">
-						<button id="AddBranchButton" onclick="changeTab('', '');" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; padding: 0;">
+						<button id="AddBranchButton" onclick="changeTab('', '', '');" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; padding: 0;">
 							<span id="container" style="color: blue; width: 1.2vw; height: 1.2vw; font-size: 1vw;">+</span>
 							<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Button_AddBranch"]</span>
 						</button>
@@ -235,12 +236,17 @@
 					</div>
 
 					<div style="margin-bottom: 2vw;">
+						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchContactNo"]</span>
+						<input type="text" id="branchContactNo" style=" margin-top: 0.5vw;" class="form-control form-field inputField" />
+					</div>
+
+					<div style="margin-bottom: 2vw;">
 						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchAddress"]</span>
 						<textarea id="branchAddress" style=" margin-top: 0.5vw;" class="form-control form-field inputField address"></textarea>
 					</div>
 
 					<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-						<img id="imgBackArrow" onclick="changeTab('', '');" style=" margin-right: 0.5vw; width: 1vw;" /> <span class="textColor" onclick="changeTab('', '');" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Back"]</span>
+						<img id="imgBackArrow" onclick="changeTab('', '', '');" style=" margin-right: 0.5vw; width: 1vw;" /> <span class="textColor" onclick="changeTab('', '', '');" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Back"]</span>
 					</div>
 				</div>
 
@@ -469,7 +475,7 @@
 			})
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
-					cloneBranchRow(data[i].ID, data[i].Name, data[i].Address);
+					cloneBranchRow(data[i].ID, data[i].Name, data[i].ContactNo, data[i].Address);
 				}
 
 				if (view) {
@@ -492,9 +498,10 @@
 		// swapModals('#organisationModal', '#branchModal');
 	}
 
-	function changeTab(name, address){
+	function changeTab(name, contactNo, address){
 		document.querySelector("#branchName").value = name;
 		document.querySelector("#branchAddress").value = address;
+		document.querySelector("#branchContactNo").value = contactNo;
 
 		var element = document.querySelectorAll(".organisationBranch");
 		for (let i = 0; i < element.length; i++) {
@@ -505,12 +512,13 @@
 	function editBranch(e) {
 		e.classList.toggle("editCurrent");
 
-		changeTab(e.querySelector(".name").innerHTML, e.querySelector(".address").innerHTML);
+		changeTab(e.querySelector(".name").innerHTML, e.querySelector(".contactNo").innerHTML, e.querySelector(".address").innerHTML);
 	}
 
 	function SaveBranch(name) {
 		var address = document.getElementById("branchAddress").value;
-		cloneBranchRow(0, name, address);
+		var contactNo = document.getElementById("branchAddress").value;
+		cloneBranchRow(0, name, contactNo, address);
 
 		openModal('branchModal', 'organisationModal');
 		// swapModals('#branchModal', '#organisationModal');
@@ -518,19 +526,21 @@
 
 	function UpdateBranch(e) {
 		var name = e.querySelector("#branchName").value;
+		var contactNo = e.querySelector("#branchContactNo").value;
 		var address = e.querySelector("#branchAddress").value;
 		var currentEdit = e.querySelector(".editCurrent");
 
 		if (currentEdit) {
 			currentEdit.querySelector(".name").innerHTML = name;
+			currentEdit.querySelector(".contactNo").innerHTML = contactNo;
 			currentEdit.querySelector(".address").innerHTML = address;
 			currentEdit.classList.toggle("editCurrent");
 		}
 		else{
-			cloneBranchRow(0, name, address);
+			cloneBranchRow(0, name, contactNo, address);
 		}
 
-		changeTab("", "");
+		changeTab("", "", "");
 	}
 
 	function openModal(nameClose, nameOpen) {
@@ -571,7 +581,7 @@
 		document.getElementById("branchList").innerHTML = "";
 
 		if (mainTab.classList.contains("hideContainer")) {
-			changeTab("", "");
+			changeTab("", "", "");
 		}
 
 		if (saveButton.classList.contains("hideContainer")) {
@@ -593,7 +603,7 @@
 
 	// });
 
-	function cloneBranchRow(id, name, address) {
+	function cloneBranchRow(id, name, contactNo, address) {
 		var header =
 			'<tr style="color: darkgray;">' +
 			'<th>@LangResources["Patient_Label_Number"]</th>' +
@@ -610,6 +620,7 @@
 
 		clone.querySelector(".number").innerHTML = branchTable.childElementCount;
 		clone.querySelector(".name").innerHTML = name;
+		clone.querySelector(".contactNo").innerHTML = contactNo;
 		clone.querySelector(".address").innerHTML = address;
 		clone.querySelector(".id").innerHTML = id;
 
@@ -659,11 +670,12 @@
 			})
 			.then(data => {
 				var branchName = document.querySelectorAll(".name");
+				var branchContactNo = document.querySelectorAll(".contactNo");
 				var branchAddress = document.querySelectorAll(".address");
 				var branchID = document.querySelectorAll(".id");
 
 				for (let i = 0; i < branchName.length; i++) {
-					InsertBranch(data, branchID[i].innerHTML, branchName[i].innerHTML, branchAddress[i].innerHTML);
+					InsertBranch(data, branchID[i].innerHTML, branchName[i].innerHTML, branchContactNo[i].innerHTML, branchAddress[i].innerHTML);
 				}
 
 				deleteBranch();
@@ -675,12 +687,13 @@
 			});
 	}
 
-	function InsertBranch(organisationID, branchID, name, address) {
+	function InsertBranch(organisationID, branchID, name, contactNo, address) {
 
 		var obj = {
 			OrganizationID: organisationID,
 			ID: branchID,
 			Name: name,
+			ContactNo: contactNo,
 			Address: address,
 			Status: 1,
 			CreatedDate: new Date(),

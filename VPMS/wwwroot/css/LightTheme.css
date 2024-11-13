@@ -499,6 +499,10 @@ input[type='text']:focus, select:focus {
 		display: none !important;
 	}
 	*/
+
+	#copyrightText {
+		display: none !important;
+	}
 }
 
 @media(min-width:768px) {
@@ -539,6 +543,10 @@ input[type='text']:focus, select:focus {
 	#SubMenuAccess {
 		visibility: visible !important;
 	}*/
+
+	#copyrightText {
+		visibility: visible !important;
+	}
 }
 
 .errorValidation {
@@ -850,11 +858,14 @@ a {
 
 /* Container for the slider */
 .slider-container {
-	width: 300px;
+	/*width: 300px;*/
+	width: 24vw;
 	position: relative;
-	height: 8px;
+	/*height: 8px;*/
+	height: 0.62vw;
 	background: linear-gradient(to right, #fcc11d 33%, white 33%, white 33.5%, #42c0a5 33.5%, #42c0a5 66%, white 66%, white 66.6%, #ea4643 66.6%);
-	border-radius: 5px;
+	/*border-radius: 5px;*/
+	border-radius: 1vw;
 	overflow: visible; /* Allow the thumb to display outside the container */
 }
 
@@ -885,8 +896,10 @@ a {
 .slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 16px;
-	height: 14px;
+	/*width: 16px;*/
+	/*height: 14px;*/
+	width: 1.3vw;
+	height: 1.2vw;
 	border: 0;
 	background: url('../images/Icons/White_border_arrow.png');
 	-webkit-background-size: cover;

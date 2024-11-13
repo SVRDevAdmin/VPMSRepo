@@ -97,11 +97,22 @@
 	</div> *@
 
     <div class="slider-container">
-        <input type="range" min="0" max="100" value="50" class="slider">
+        <input type="range" class="slider">
     </div>
 
 	@* <div style="background: black;">
 		<img style="height: 2vw;" src="~/images/Icons/Black_Down_Arrow.png" />
 	</div> *@
+
+
+
+
+	<script>
+		var sliderElement = document.querySelector(".slider");
+		sliderElement.min = -1;
+		sliderElement.max = 2;
+		sliderElement.value = 0.1;
+	</script>
+
 </body>
 </html>

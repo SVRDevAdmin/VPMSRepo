@@ -120,8 +120,14 @@
   <data name="AccessControl_Button_AddBranch" xml:space="preserve">
     <value>添加分支  </value>
   </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>访问被拒绝。</value>
+  </data>
   <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
     <value>分支地址  </value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>分行联系电话</value>
   </data>
   <data name="AccessControl_Label_Branches" xml:space="preserve">
     <value>分支  </value>
@@ -503,6 +509,9 @@
   </data>
   <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
     <value>已取消  </value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>客户</value>
   </data>
   <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
     <value>折扣</value>
@@ -1163,6 +1172,9 @@
   </data>
   <data name="TestManagement_Label_Parameter" xml:space="preserve">
     <value>参数  </value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>肯定</value>
   </data>
   <data name="TestManagement_Label_Recovering" xml:space="preserve">
     <value>恢复中  </value>

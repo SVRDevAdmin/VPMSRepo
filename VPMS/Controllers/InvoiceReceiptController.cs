@@ -34,6 +34,7 @@ namespace VPMSWeb.Controllers
 
 			var branch = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == int.Parse(HttpContext.Session.GetString("BranchID")));
 			ViewData["BranchName"] = branch.Name;
+			ViewData["BranchContactNo"] = branch.ContactNo;
 			ViewData["BranchAddress"] = branch.Address;
 
 			return View();

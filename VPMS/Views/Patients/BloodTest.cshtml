@@ -153,36 +153,19 @@
 				</div>
 			</td>
 		</tr>
-		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-			<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
-			<td class="table-content">30.5%</td>
-			<td class="table-content"><span>25.8</span> - <span>41.8</span><span>%</span></td>
-			<td class="table-content" style="padding-right: 1vw;">
-				<div class="slider-container">
-					<input type="range" min="0" max="100" value="50" class="slider" disabled>
-				</div>
-			</td>
-		</tr>
-		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-			<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
-			<td class="table-content">20.5%</td>
-			<td class="table-content"><span>25.8</span> - <span>41.8</span><span>%</span></td>
-			<td class="table-content" style="padding-right: 1vw;">
-				<div class="slider-container">
-					<input type="range" min="0" max="100" value="30" class="slider" disabled>
-				</div>
-			</td>
-		</tr>
-		<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-			<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
-			<td class="table-content">70.5%</td>
-			<td class="table-content"><span>25.8</span> - <span>41.8</span><span>%</span></td>
-			<td class="table-content" style="padding-right: 1vw;">
-				<div class="slider-container">
-					<input type="range" min="0" max="100" value="70" class="slider" disabled>
-				</div>
-			</td>
-		</tr>
+		@for(var i = 0; i < 20; i++)
+		{
+			<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
+				<td class="table-content" style="padding-left: 1vw;">Hematocrit</td>
+				<td class="table-content">30.5%</td>
+				<td class="table-content"><span>25.8</span> - <span>41.8</span><span>%</span></td>
+				<td class="table-content" style="padding-right: 1vw;">
+					<div class="slider-container">
+						<input type="range" min="0" max="100" value="50" class="slider" disabled>
+					</div>
+				</td>
+			</tr>
+		}
 	</table>
 
 	

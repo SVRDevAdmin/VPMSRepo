@@ -273,7 +273,16 @@ namespace VPMSWeb.Controllers
 
         public IActionResult AccessDenied()
         {
-            return View();
+			Program.AccessDenied = "true";
+
+            return RedirectToAction("Index", "Appointment");
+        }
+
+		public bool ResetAccessDenied()
+		{
+            Program.AccessDenied = "false";
+
+			return true;
         }
 
         public IActionResult PasswordRecovery()
