@@ -5,6 +5,8 @@ using VPMSWeb.Lib.Settings;
 using VPMSWeb.Models;
 using VPMS;
 using Microsoft.AspNetCore.Authorization;
+using VPMS.Lib;
+using VPMS.Lib.Data.DBContext;
 
 namespace VPMSWeb.Controllers
 {
@@ -140,6 +142,9 @@ namespace VPMSWeb.Controllers
             sModel.Status = 0;
             sModel.UniqueIDKey = VPMS.Lib.Helpers.GenerateRandomKeyString(32);
 
+            PatientDBContext patientDBContext = new PatientDBContext();
+            var patientEmail = patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.ID == sControllerModel.OwnerID).EmailAddress;
+
             List<long> sServices = new List<long>();
             if (sControllerModel.ServiceList.Count > 0)
             {
@@ -165,7 +170,7 @@ namespace VPMSWeb.Controllers
                             {
                                 sApptOwnerName = (sPatientOwner != null) ? sPatientOwner.Name : "";
                                 sApptPetName = (sPatientOwner != null) ? sPatientOwner.PetName : "";
-                                //sRecipietnList.Add(sPatientOwner.Email);
+                                sRecipientList.Add(patientEmail);
                             }
 
                             SendNotificationEmail(sApptOwnerName, sApptPetName, sModel.InchargeDoctor, sModel.ApptDate, sModel.ApptStartTime,
@@ -226,6 +231,7 @@ namespace VPMSWeb.Controllers
             PatientOwnerModel sPatientOwner = new PatientOwnerModel();
             sPatientOwner.Name = sControllerModel.OwnerName;
             sPatientOwner.ContactNo = sControllerModel.ContactNo;
+            sPatientOwner.EmailAddress = sControllerModel.EmailAddress;
             sPatientOwner.Gender = "";
             sPatientOwner.Address = "";
             sPatientOwner.PostCode = "";
@@ -390,21 +396,21 @@ namespace VPMSWeb.Controllers
 
             try
             {
-                //VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
-                //sEmailObj.SenderEmail = sSender;
-                //sEmailObj.RecipientEmail = sRecipientList;
-                //sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
-                //sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
-                //sEmailObj.SMTPHost = sHost;
-                //sEmailObj.PortNo = sPortNo.Value;
-                //sEmailObj.HostUsername = sUsername;
-                //sEmailObj.HostPassword = sPassword;
-                //sEmailObj.EnableSsl = true;
-                //sEmailObj.UseDefaultCredentials = false;
-                //sEmailObj.IsHtml = true;
+                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = sRecipientList;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
 
-                //String sErrorMessage = "";
-                //EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+                String sErrorMessage = "";
+                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
             }
             catch (Exception ex)
             {

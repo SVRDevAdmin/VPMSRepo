@@ -128,7 +128,7 @@
 
 	filter();
 
-	function getServicesList(page, search, reset) {
+	function getTreatmentPlanList(page, search, reset) {
 		fetch('/PatientServices/GetTreatmentPlanList?rowLimit=' + rowLimit + '&page=' + page + '&search=' + search)
 			.then(response => {
 				if (!response.ok) {
@@ -199,19 +199,21 @@
 
 					for(let i = 0; i < data.treatmentPlans.length; i++) {
 
-						var status, color, background, toggleStatus;
+						var status, changedStatus, color, background, toggleStatus;
 
 						if (data.treatmentPlans[i].Status == 1) {
 							status = "@LangResources["Patient_Selection_Active"]";
 							color = "#57baa5";
 							background = "#c3f7ec";
 							toggleStatus = "@LangResources["TreatmentPlan_Label_MakeInactive"]";
+							changedStatus = "@LangResources["Patient_Selection_Inactive"]";
 						}
 						else {
 							status = "@LangResources["Patient_Selection_Inactive"]";
 							color = "#ff2c29";
 							background = "#ffc5c4";
 							toggleStatus = "@LangResources["TreatmentPlan_Label_MakeActive"]";
+							changedStatus = "@LangResources["Patient_Selection_Active"]";
 						}
 
 						content.innerHTML = content.innerHTML +
@@ -221,22 +223,22 @@
 							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedDate + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedBy + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].TotalPrice + ' </td>' +
-							'<td class="table-content">' +
+							'<td class="table-content treatmentStatus">' +
 							'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">' +
 							status +
 							'</div>' +
 							'</td>' +
 							'<td class="table-content" style="width: 0;">' +
-							'<div class="dropleft">' +
-							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">' +
-							'<img class="moreIcon" />' +
-							'</button>' +
-							'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
-							'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/View/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/Edit/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_Edit"] </a>' +
-							'<a class="dropdown-item" href="#"> ' + toggleStatus + ' </a>' +
-							'</div>' +
-							'</div>' +
+								'<div class="dropleft">' +
+									'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">' +
+									'<img class="moreIcon" />' +
+									'</button>' +
+									'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+										'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/View/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
+										'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/Edit/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_Edit"] </a>' +
+										'<a class="dropdown-item" href="#" onclick="ToggleStatus(this, ' + data.treatmentPlans[i].ID + ', ' + data.treatmentPlans[i].Status + ');"> ' + toggleStatus + ' </a>' +
+									'</div>' +
+								'</div>' +
 							'</td>' +
 							'</tr > ';
 					}
@@ -271,7 +273,7 @@
 	function prev() {
 		currentPage = currentPage - 1;
 
-		getServicesList(currentPage, search, false);
+		getTreatmentPlanList(currentPage, search, false);
 
 		if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
 		pagination(startPagination, endPagination);
@@ -280,7 +282,7 @@
 	function next() {
 		currentPage = currentPage + 1;
 
-		getServicesList(currentPage, search, false);
+		getTreatmentPlanList(currentPage, search, false);
 
 		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
 		pagination(startPagination, endPagination);
@@ -291,7 +293,7 @@
 
 		currentPage = Number(pageNum);
 
-		getServicesList(currentPage, search, false);
+		getTreatmentPlanList(currentPage, search, false);
 
 		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
 		else if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
@@ -308,6 +310,29 @@
 	function filter() {
 		currentPage = 1;
 
-		getServicesList(1, search, true);
+		getTreatmentPlanList(1, search, true);
+	}
+
+	function ToggleStatus(e, treatmentID, status) {
+		var newStatus;
+
+		if (status == 2) { newStatus = 1; }
+		else { newStatus = 2; }
+
+		fetch('/PatientServices/ChangeTreatmentPlanStatus?treatmentPlanID=' + treatmentID + '&newStatus=' + newStatus)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				let a = data;
+
+				getTreatmentPlanList(currentPage, search, true);
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 </script>

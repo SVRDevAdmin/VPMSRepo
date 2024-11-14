@@ -8,7 +8,7 @@ CREATE TABLE `mst_pets` (
   `Age` int NOT NULL,
   `Species` varchar(10) NOT NULL,
   `Breed` varchar(100) NOT NULL,
-  `Color` varchar(10) NOT NULL,
+  `Color` varchar(20) NOT NULL,
   `Allergies` varchar(150) NOT NULL,
   `Weight` decimal(6,2) NOT NULL,
   `WeightUnit` varchar(5) NOT NULL,

@@ -117,6 +117,7 @@ namespace VPMS.Lib.Data.Models
         public String? Name { get; set; }
         public String? Gender { get; set; }
         public String? ContactNo { get; set; }
+        public String? EmailAddress { get; set; } = null!;
         public String? Address { get; set; }
         public String? PostCode { get; set; }
         public String? City { get; set; }
@@ -186,6 +187,7 @@ namespace VPMS.Lib.Data.Models
         public DateOnly TreatmentStart { get; set; }
         public DateOnly TreatmentEnd { get; set; }
         public float TotalCost { get; set; }
+		public String? Remarks { get; set; }
 		public int Status { get; set; }
 	}
 
@@ -197,6 +199,8 @@ namespace VPMS.Lib.Data.Models
 		public int ServiceID { get; set; }
 		public string ServiceName { get; set; }
 		public float Price { get; set; }
+		public float Discount { get; set; }
+		public float TotalPrice { get; set; }
 		public int IsDeleted { get; set; }
 	}
 
@@ -210,6 +214,7 @@ namespace VPMS.Lib.Data.Models
 		public int Units { get; set; }
 		public float PricePerQty { get; set; }
 		public float TotalPrice { get; set; }
+		public float Discount { get; set; }
 		public int IsDeleted { get; set; }
 	}
 

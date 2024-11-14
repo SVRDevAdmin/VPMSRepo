@@ -890,7 +890,7 @@
 				var element = document.getElementById("UpcomingAppointment");
 
 				if (data.PetName == null) {
-					element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">No Upcoming Appointment</div>'
+					element.innerHTML = '<div style="margin-bottom: 1.5vw; text-align: center;">@LangResources["Patient_Label_NoUpcomingAppointment"]</div>'
 				}else{
 
 					var date = new Date(data.ApptDate);

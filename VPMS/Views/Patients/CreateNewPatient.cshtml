@@ -105,7 +105,7 @@
 </div>
 
 <div id="ownerInfoContainer">
-	<div>
+	<div id="OwnerInfo">
 		<div class="containerBackground2" style="width: 77vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;">
 			<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_OwnerInfo"]</span>
 		</div>
@@ -113,23 +113,23 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_OwnerName"]</span>
-					<input id="OwnerName" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_OwnerName"] <span style="color: red;">*</span></span>
+					<input id="OwnerName" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Login_Placeholder_Email"]</span>
-					<input id="Email" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Login_Placeholder_Email"] <span style="color: red;">*</span></span>
+					<input id="Email" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
-					<input id="ContactNo" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_ContactNo"] <span style="color: red;">*</span></span>
+					<input id="ContactNo" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
-					<select id="Gender" class="form-control form-field inputField">
+					<span class="formlabel">@LangResources["Patient_Label_Gender"] <span style="color: red;">*</span></span>
+					<select id="Gender" class="form-control form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectGender"] --</option>
 						<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 						<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -139,8 +139,8 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-					<select id="Country" class="form-control form-field inputField" onchange="changeCountryState(this, 'country');">
+					<span class="formlabel">@LangResources["Patient_Label_Country"] <span style="color: red;">*</span></span>
+					<select id="Country" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'country');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
 						@foreach(var country in CountryList)
 						{
@@ -150,31 +150,31 @@
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-					<select id="State" class="form-control form-field inputField" onchange="changeCountryState(this, 'state');">
+					<span class="formlabel">@LangResources["Patient_Label_State"] <span style="color: red;">*</span></span>
+					<select id="State" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'state');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
 						@* <option value="Selangor"> Selangor</option> *@
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_City"]</span>
-					<select id="City" class="form-control form-field inputField">
+					<span class="formlabel">@LangResources["Patient_Label_City"] <span style="color: red;">*</span></span>
+					<select id="City" class="form-control form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
 						@* <option value="Shah Alam"> Shah Alam</option> *@
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
-					<input id="Postcode" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_Postcode"] <span style="color: red;">*</span></span>
+					<input id="Postcode" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 			</div>
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
-					<span class="formlabel">@LangResources["Patient_Label_AddressLine1"]</span>
-					<input id="Address1" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_AddressLine1"] <span style="color: red;">*</span></span>
+					<input id="Address1" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container halfSize">
@@ -202,23 +202,23 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_CoOwnerName"]</span>
-					<input id="CoOwnerName" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_CoOwnerName"] <span style="color: red;">*</span></span>
+					<input id="CoOwnerName" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Login_Placeholder_Email"]</span>
-					<input id="CoOwnerEmail" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Login_Placeholder_Email"] <span style="color: red;">*</span></span>
+					<input id="CoOwnerEmail" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_ContactNo"]</span>
-					<input id="CoContactNo" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_ContactNo"] <span style="color: red;">*</span></span>
+					<input id="CoContactNo" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
-					<select id="CoGender" class="form-control form-field inputField">
+					<span class="formlabel">@LangResources["Patient_Label_Gender"] <span style="color: red;">*</span></span>
+					<select id="CoGender" class="form-control form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectGender"] --</option>
 						<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 						<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -228,8 +228,8 @@
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-					<select id="CoCountry" class="form-control form-field inputField" onchange="changeCountryState(this, 'country');">
+					<span class="formlabel">@LangResources["Patient_Label_Country"] <span style="color: red;">*</span></span>
+					<select id="CoCountry" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'country');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
 						@foreach (var country in CountryList)
 						{
@@ -239,31 +239,31 @@
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-					<select id="CoState" class="form-control form-field inputField" onchange="changeCountryState(this, 'state');">
+					<span class="formlabel">@LangResources["Patient_Label_State"] <span style="color: red;">*</span></span>
+					<select id="CoState" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'state');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
 						@* <option value="Selangor"> Selangor</option> *@
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_City"]</span>
-					<select id="CoCity" class="form-control form-field inputField">
+					<span class="formlabel">@LangResources["Patient_Label_City"] <span style="color: red;">*</span></span>
+					<select id="CoCity" class="form-control form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
 						@* <option value="Shah Alam"> Shah Alam</option> *@
 					</select>
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Postcode"]</span>
-					<input id="CoPostcode" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_Postcode"] <span style="color: red;">*</span></span>
+					<input id="CoPostcode" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 			</div>
 
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container halfSize">
-					<span class="formlabel">@LangResources["Patient_Label_AddressLine1"]</span>
-					<input id="CoAddress1" type="text" class="form-control form-field inputField" />
+					<span class="formlabel">@LangResources["Patient_Label_AddressLine1"] <span style="color: red;">*</span></span>
+					<input id="CoAddress1" type="text" class="form-control form-field inputField isValidate" />
 				</div>
 
 				<div class="field-container halfSize">
@@ -292,9 +292,9 @@
 <template id="VaccinationTemplate">
 	<div class="VaccinationGroup">
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+			<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField TypeVaccination" /> *@
-			<select class="form-control form-field inputField TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination');">
+			<select class="form-control form-field inputField isValidate TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination');">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccinationType"] --</option>
 				@foreach (var vaccination in ViewData["VaccinationList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 				{
@@ -304,16 +304,16 @@
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+			<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField NameVaccination" /> *@
-			<select class="form-control form-field inputField NameVaccination">
+			<select class="form-control form-field inputField isValidate NameVaccination">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccination"] --</option>
 			</select>
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
-			<input type="date" class="form-control form-field inputField DueDateVaccination" />
+			<span class="formlabel">@LangResources["Patient_Label_DueDate"] <span style="color: red;">*</span></span>
+			<input type="date" class="form-control form-field inputField isValidate DueDateVaccination" />
 		</div>
 
 		<div class="field-container">
@@ -331,9 +331,9 @@
 <template id="MedicationTemplate">
 	<div class="MedicationGroup">
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+			<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField TypeMedication" /> *@
-			<select class="form-control form-field inputField TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication');">
+			<select class="form-control form-field inputField isValidate TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication');">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectMedicationType"] --</option>
 				@foreach (var medication in ViewData["MedicationList"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
 				{
@@ -343,16 +343,16 @@
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+			<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
 			@* <input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" /> *@
-			<select class="form-control form-field inputField NameMedication">
+			<select class="form-control form-field inputField isValidate NameMedication">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] --</option>
 			</select>
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
-			<input type="date" class="form-control form-field inputField DueDateMedication" />
+			<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"] <span style="color: red;">*</span></span>
+			<input type="date" class="form-control form-field inputField isValidate DueDateMedication" />
 		</div>
 
 		<div class="medicalRecordPartitionTitle" style="display:flex; justify-content: flex-end;">
@@ -365,9 +365,9 @@
 <template id="SurgeriesTemplate">
 	<div class="SurgeryGroup">
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
+			<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField TypeSurgeries" /> *@
-			<select class="form-control form-field inputField TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery');">
+			<select class="form-control form-field inputField isValidate TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery');">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgeryType"] --</option>
 				@foreach (var vaccination in ViewData["SurgeryList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 				{
@@ -377,16 +377,16 @@
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
+			<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField NameSurgeries" /> *@
-			<select class="form-control form-field inputField NameSurgeries">
+			<select class="form-control form-field inputField isValidate NameSurgeries">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgery"] --</option>
 			</select>
 		</div>
 
 		<div class="field-container">
-			<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
-			<input type="date" class="form-control form-field inputField DueDateSurgeries" />
+			<span class="formlabel">@LangResources["Patient_Label_DueDate"] <span style="color: red;">*</span></span>
+			<input type="date" class="form-control form-field inputField isValidate DueDateSurgeries" />
 		</div>
 
 		<div class="field-container">
@@ -412,18 +412,18 @@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_PetName"]</span>
-							<input type="text" class="form-control form-field inputField PetName" />
+							<span class="formlabel">@LangResources["Patient_Label_PetName"] <span style="color: red;">*</span></span>
+							<input type="text" class="form-control form-field inputField isValidate PetName" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"]</span>
-							<input type="text" class="form-control form-field inputField RegistrationNo" />
+							<span class="formlabel">@LangResources["Patient_Label_RegistrationNo"] <span style="color: red;">*</span></span>
+							<input type="text" class="form-control form-field inputField isValidate RegistrationNo" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Sex"]</span>
-							<select class="form-control form-field inputField Sex">
+							<span class="formlabel">@LangResources["Patient_Label_Sex"] <span style="color: red;">*</span></span>
+							<select class="form-control form-field inputField isValidate Sex">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectSex"] --</option>
 								<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 								<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -431,8 +431,8 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_DOB"]</span>
-							<input type="date" class="form-control form-field inputField DOB" onchange="updateAge(this);" />
+							<span class="formlabel">@LangResources["Patient_Label_DOB"] <span style="color: red;">*</span></span>
+							<input type="date" class="form-control form-field inputField isValidate DOB" onchange="updateAge(this);" />
 						</div>
 					</div>
 
@@ -443,8 +443,8 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
-							<select onchange="changeSpecies(this);" class="form-control form-field inputField Species">
+							<span class="formlabel">@LangResources["Patient_Label_Species"] <span style="color: red;">*</span></span>
+							<select onchange="changeSpecies(this);" class="form-control form-field inputField isValidate Species">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 								@foreach (var species in ViewData["Species"] as List<string>)
 								{
@@ -454,8 +454,8 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Breed"]</span>
-							<select class="form-control form-field inputField Breed">
+							<span class="formlabel">@LangResources["Patient_Label_Breed"] <span style="color: red;">*</span></span>
+							<select class="form-control form-field inputField isValidate Breed">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
 							</select>
 						</div>
@@ -479,18 +479,18 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Height"] (cm)</span>
-							<input type="text" class="form-control form-field inputField Height" />
+							<span class="formlabel">@LangResources["Patient_Label_Height"] (cm) <span style="color: red;">*</span></span>
+							<input type="number" class="form-control form-field inputField isValidate Height" min="0"/>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Weight"] (kg)</span>
-							<input type="text" class="form-control form-field inputField Weight" />
+							<span class="formlabel">@LangResources["Patient_Label_Weight"] (kg) <span style="color: red;">*</span></span>
+							<input type="number" class="form-control form-field inputField isValidate Weight" min="0" />
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
-							<select class="form-control form-field inputField Status">
+							<span class="formlabel">@LangResources["Patient_Label_Status"] <span style="color: red;">*</span></span>
+							<select class="form-control form-field inputField isValidate Status">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 								<option value="1"> @LangResources["Patient_Selection_Active"]</option>
 								<option value="2"> @LangResources["Patient_Selection_Inactive"]</option>
@@ -818,37 +818,47 @@
 	}
 
 	function submitInfo() {
+		var hasCoOwner = false;
 
-		var obj = {
-			BranchID: @sessionBranchID,
-			CreatedDate: new Date(),
-			CreatedBy: "System"
-		};
+		if (!document.getElementById("CoOwnerInfo").classList.contains("hideContainer")) {
+			hasCoOwner = true;
+		}
 
-		fetch('/Patients/CreatePatientInfo', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(obj)
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				return response.json();
+		if (validationCheck(hasCoOwner)){
+			var obj = {
+				BranchID: @sessionBranchID,
+				CreatedDate: new Date(),
+				CreatedBy: "System"
+			};
+
+			fetch('/Patients/CreatePatientInfo', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(obj)
 			})
-			.then(data => {
-				createOwnerInfo(data, false);
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then(data => {
+					createOwnerInfo(data, false);
 
-				if (!document.getElementById("CoOwnerInfo").classList.contains("hideContainer")) {
-					createOwnerInfo(data, true);
-				}
+					if (hasCoOwner) {
+						createOwnerInfo(data, true);
+					}
 
-				createPetsInfo(data);
+					createPetsInfo(data);
 
-			})
-			.catch(error => {
-				console.error('There was a problem with the fetch operation:', error);
-			});
+				})
+				.catch(error => {
+					console.error('There was a problem with the fetch operation:', error);
+				});
+		}
+		else{
+			alert("Need to fill the required fields.");
+		}		
 
 	}
 
@@ -1048,5 +1058,35 @@
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
+	}
+
+	function validationCheck(hasCoOwner){
+		var IsValidated = true;
+
+		var ownerInfo = document.querySelector("#OwnerInfo").querySelectorAll(".isValidate");
+		var coOwnerInfo = document.querySelector("#CoOwnerInfo").querySelectorAll(".isValidate");
+		var petInfo = document.querySelector("#petsInfoContainer").querySelectorAll(".isValidate");
+
+		for (let i = 0; i < ownerInfo.length; i++){
+			if (ownerInfo[i].value == "") {
+				IsValidated = false;
+			}
+		}
+
+		if (hasCoOwner) {
+			for (let i = 0; i < coOwnerInfo.length; i++) {
+				if (coOwnerInfo[i].value == "") {
+					IsValidated = false;
+				}
+			}
+		}
+
+		for (let i = 0; i < petInfo.length; i++) {
+			if (petInfo[i].value == "" || petInfo[i].value == 0) {
+				IsValidated = false;
+			}
+		}
+
+		return IsValidated;
 	}
 </script>

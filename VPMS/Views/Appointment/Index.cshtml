@@ -344,8 +344,12 @@
     { 
         $('#ddlAddDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
-            var opt = new Option(data[i].DoctorInCharge, data[i].DoctorInCharge);
-            $('#ddlAddDoctor').append(opt);
+            var doctorArray = data[i].DoctorInCharge.split(';');
+
+            for (var x = 0; x < doctorArray.length-1; x++) {
+                var opt = new Option(doctorArray[x], doctorArray[x]);
+                    $('#ddlAddDoctor').append(opt);
+            }
         }
     }
 
@@ -353,8 +357,12 @@
     {
         $('#ddlNewDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
-            var opt = new Option(data[i].DoctorInCharge, data[i].DoctorInCharge);
-            $('#ddlNewDoctor').append(opt);
+            var doctorArray = data[i].DoctorInCharge.split(';');
+
+            for (var x = 0; x < doctorArray.length - 1; x++) {
+                var opt = new Option(doctorArray[x], doctorArray[x]);
+                $('#ddlNewDoctor').append(opt);
+            }
         }
     }
 
@@ -371,7 +379,7 @@
     {
         $('#ddlAddPet').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++) {
-            var opt = new Option(data[i].Name, data[i].Id);
+            var opt = new Option(data[i].Name, data[i].ID);
             $('#ddlAddPet').append(opt);
         }
 
@@ -382,7 +390,7 @@
     {
         $('#ddlSearchPet').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++) {
-            var opt = new Option(data[i].Name, data[i].Id);
+            var opt = new Option(data[i].Name, data[i].ID);
             $('#ddlSearchPet').append(opt);
         }
 
@@ -1306,7 +1314,8 @@
                                     {
                                         foreach (var p in sAddOwnerViewObj.PatientSelectionModel)
                                         {
-                                            <option value=@p.ID>@p.Name</option>
+                                            // <option value=@p.ID>@p.Name</option>
+                                            <option value=@p.PatientID>@p.Name</option>
                                         }
                                     }
                                 }
