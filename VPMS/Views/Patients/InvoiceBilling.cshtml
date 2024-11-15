@@ -338,7 +338,7 @@
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_MedicationName"]</th>
-								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Status"]</th>
+								<th style="color: darkgray; padding: 0 2vw;" hidden>@LangResources["Patient_Label_Status"]</th>
 							</tr>
 							@* <tr>
 								<td style="padding: 0 2vw;">01/09/2023</td>
@@ -779,7 +779,7 @@
 							'<tr>' +
 							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
 							'<td style="padding: 0 2vw;">' + data[i].Name + '</td>' +
-							'<td style="padding: 0 2vw;">' + status + '</td>' +
+							'<td style="padding: 0 2vw;" hidden>' + status + '</td>' +
 							'</tr > '
 					}
 				}

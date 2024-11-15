@@ -16,7 +16,6 @@ namespace VPMS.Lib.Data.Models
 		public string InvoiceNo { get; set; }
 		public String? ReceiptNo { get; set; }
 		public string PetName { get; set; }
-		public string Doctor { get; set; }
 		public string OwnerName { get; set; }
 		public float Fee { get; set; }
 		public float Tax { get; set; }
@@ -33,7 +32,6 @@ namespace VPMS.Lib.Data.Models
 		public DateTime Date { get; set; }
 		public int PetID { get; set; }
 		public string PetName { get; set; }
-		public string Doctor { get; set; }
 		public string OwnerName { get; set; }
 		public float Fee { get; set; }
 		public string Remarks { get; set; }

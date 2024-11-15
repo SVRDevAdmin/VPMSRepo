@@ -579,7 +579,6 @@ namespace VPMSWeb.Controllers
 					Branch = patientInfo.BranchID,
 					InvoiceNo = invoiceNoString,
 					PetName = petInfo.Name,
-					Doctor = "Dr. Kim Do-yeon",
 					OwnerName = owner.Name,
 					Fee = patientTreatmentPlan.TotalCost,
 					Tax = 6,

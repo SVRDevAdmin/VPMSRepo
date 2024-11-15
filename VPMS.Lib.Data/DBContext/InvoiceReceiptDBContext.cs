@@ -49,13 +49,13 @@ namespace VPMS.Lib.Data.DBContext
 				statusFilter = "ReceiptNo";
 			}
 
-			var filter = "WHERE a."+ statusFilter + " like '%" + invoiceReceiptNo + "%' AND a.PetName like '%" + petName + "%' AND a.Doctor like '%" + doctor + "%' AND a.OwnerName like '%" + ownerName + "%' AND a.Status = " + status + " " + roleFilter + " ";
+			var filter = "WHERE a."+ statusFilter + " like '%" + invoiceReceiptNo + "%' AND a.PetName like '%" + petName + "%' AND a.OwnerName like '%" + ownerName + "%' AND a.Status = " + status + " " + roleFilter + " ";
 			var joinQuery =
 				"join mst_branch b on b.ID = a.Branch " +
 				"join mst_organisation c on c.ID = b.OrganizationID ";
 
 			var totalInvoiceReceiptQuery = "(select Count(a.ID) from mst_invoicereceipt a " + joinQuery + filter + ")";
-			var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.UpdatedDate, a.PetName, a.Doctor, a.OwnerName, a.Fee, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
+			var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.UpdatedDate, a.PetName, a.OwnerName, a.Fee, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
 				joinQuery + filter + " LIMIT " + start + ", " + total + ";";
 
 			try
@@ -78,7 +78,6 @@ namespace VPMS.Lib.Data.DBContext
 								ReceiptNo = reader["ReceiptNo"].ToString(),
 								Date = DateTime.Parse(reader["CreatedDate"].ToString()),
 								PetName = reader["PetName"].ToString(),
-								Doctor = reader["Doctor"].ToString(),
 								OwnerName = reader["OwnerName"].ToString(),
 								Fee = float.Parse(reader["Fee"].ToString()),
 								UpdatedDate = (reader["UpdatedDate"].ToString() != "") ? DateTime.Parse(reader["UpdatedDate"].ToString()) : DateTime.Now

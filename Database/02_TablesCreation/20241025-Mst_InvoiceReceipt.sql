@@ -5,7 +5,6 @@ CREATE TABLE `Mst_InvoiceReceipt` (
 	`InvoiceNo` VARCHAR(300) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
 	`ReceiptNo` VARCHAR(300) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
 	`PetName` VARCHAR(300) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
-	`Doctor` VARCHAR(300) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
 	`OwnerName` VARCHAR(300) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',    
 	`Fee` DECIMAL(18,2) NULL DEFAULT NULL,  
 	`Tax` DECIMAL(18,2) NULL DEFAULT NULL,

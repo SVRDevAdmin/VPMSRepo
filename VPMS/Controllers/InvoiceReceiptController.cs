@@ -145,7 +145,6 @@ namespace VPMSWeb.Controllers
 			invoice.InvoiceNo = invoiceReceiptInfo.InvoiceNo;
 			invoice.OwnerName = invoiceReceiptInfo.OwnerName;
 			invoice.PetName = invoiceReceiptInfo.PetName;
-			invoice.Doctor = invoiceReceiptInfo.Doctor;
 			invoice.Fee = invoiceReceiptInfo.Fee;
 			invoice.Tax = 6;
 			invoice.GrandDiscount = 0;
