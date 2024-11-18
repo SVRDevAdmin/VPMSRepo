@@ -15,6 +15,11 @@ namespace VPMSWeb.Controllers
             return View();
         }
 
+        public IActionResult NotificationSettings()
+        {
+            return View("Settings");
+        }
+
         /// <summary>
         /// Get Notification List by Notification Group
         /// </summary>
