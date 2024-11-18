@@ -22,7 +22,7 @@
         pageTab = "";
         loadNotificationList(pageTab);
     });
-    debugger;
+
     function tabSelected(tab){
         pageTab = tab;
         currentPage = 1;
@@ -165,17 +165,31 @@
     <div class="row">
         <div class="row contentRow">
             <div class="col-md-12 contentBorder">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button id="pills-all-tab" class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="true" onclick="tabSelected('')">@LangResources["Notification_Label_All"]</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button id="pills-message-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Messages')">@LangResources["Notification_Label_Messages"]</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button id="pills-inventory-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Inventory')">@LangResources["Notification_Label_Inventory"]</button>
-                    </li>
-                </ul>
+                
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col-md-9">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button id="pills-all-tab" class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="true" onclick="tabSelected('')">@LangResources["Notification_Label_All"]</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button id="pills-message-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Messages')">@LangResources["Notification_Label_Messages"]</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button id="pills-inventory-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Inventory')">@LangResources["Notification_Label_Inventory"]</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3" style="text-align: right;">
+                        <!--
+                        <button id="btnSettings" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("NotificationSettings", "Notification")'">
+                            <i class="bi bi-gear" style="margin: 5px;"></i>
+                            Notification Settings
+                        </button>
+                        -->
+                    </div>
+                </div>
+
                 <div class="tab-content" id="pills-tabContent">
                     <div id="pills-content" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-home-tab">
                         

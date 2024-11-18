@@ -1060,8 +1060,13 @@ namespace VPMSWeb.Controllers
 		{
 			if(countryName != "")
 			{
-				countryID = _countryDBContext.mst_countrylist.FirstOrDefault(x => x.CountryName == countryName).ID;
-			}
+				//countryID = _countryDBContext.mst_countrylist.FirstOrDefault(x => x.CountryName == countryName).ID;
+                var sCountryObj = _countryDBContext.mst_countrylist.FirstOrDefault(x => x.CountryName == countryName);
+				if (sCountryObj != null)
+				{
+					countryID = sCountryObj.ID;
+                }
+            }
 
 			return _countryDBContext.mst_state.Where(x => x.CountryID == countryID).ToList();
 
@@ -1071,8 +1076,13 @@ namespace VPMSWeb.Controllers
 		{
 			if (stateName != "")
 			{
-				stateID = _countryDBContext.mst_state.FirstOrDefault(x => x.State == stateName).ID;
-			}
+				//stateID = _countryDBContext.mst_state.FirstOrDefault(x => x.State == stateName).ID;
+                var sStateObj = _countryDBContext.mst_state.FirstOrDefault(x => x.State == stateName);
+				if (sStateObj != null)
+				{
+					stateID = sStateObj.ID;
+				}
+            }
 
 			return _countryDBContext.mst_city.Where(x => x.StateID == stateID).ToList();
 		}
