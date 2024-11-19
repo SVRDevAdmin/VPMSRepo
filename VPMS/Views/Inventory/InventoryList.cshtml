@@ -15,38 +15,15 @@
 		padding: 0 2vw;
 	}
 
-	.table-content-center {
-		text-align: center;
-	}
-
-	.table-row-content {
-		padding: 1vw 0;
-	}
-
-	table th:first-child {
-		border-radius: 0.2vw 0 0 0.2vw;
-	}
-
-	table th:last-child {
-		border-radius: 0 0.2vw 0.2vw 0;
+	.tableOriginal {
+		width: max-content;
+		font-size: 1vw;
 	}
 
 	.form-field {
 		border-style: solid;
 		border-color: black;
 		font-size: 1vw;
-	}
-
-	.field-container {
-		display: flex;
-		flex-direction: column;
-		margin-bottom: 2vw;
-		font-size: 1vw;
-	}
-
-	.form-label {
-		font-weight: bold;
-		margin-bottom: 0.7vw;
 	}
 
 	/* circle-icon */
@@ -79,17 +56,17 @@
 			<span id="container">+</span>
 			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Inventory_Button_NewInventory"]</span>
 		</button>
-		<button class="btn btn-lg btn-primary" style="display: flex; justify-content: center; align-items: center; margin-left: 1vw;">
+		<button class="btn btn-lg btn-primary" style="display: flex; justify-content: center; align-items: center; margin-left: 1vw;" onclick="getInventoryListPrintDownload('download');">
 			<i class="fa-solid fa-download"></i>
 		</button>
-		<button class="btn btn-lg btn-primary" style="display: flex; justify-content: center; align-items: center; margin-left: 1vw;"><i class="fa-solid fa-print"></i></button>
+		<button class="btn btn-lg btn-primary" style="display: flex; justify-content: center; align-items: center; margin-left: 1vw;" onclick="getInventoryListPrintDownload('print');"><i class="fa-solid fa-print"></i></button>
 	</div>
 
 </div>
 
 <div>
 	<div style="overflow:auto; width: 78vw;">
-		<table class="textColor" id="inventoryList" style="width: max-content; margin-bottom: 2vw; font-size: 1vw;">
+		<table class="textColor tableStyle tableOriginal" id="inventoryList">
 		</table>
 	</div>
 	
@@ -103,6 +80,51 @@
 		<div>
 			<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
 		</div>
+	</div>
+
+	<div id="tablePrintDownload" class="hideContainer">
+		<style>
+			.tableContentPrintDownload {
+				height: 2vw;
+				padding: 0 0.82vw !important;
+			}
+
+			.table-content-center {
+				text-align: center;
+			}
+
+			.fontSize {
+				font-size: 0.9vw;
+			}
+
+			.table-row-content {
+				padding: 1vw 0;
+			}
+
+			table th:first-child {
+				border-radius: 0.2vw 0 0 0.2vw;
+			}
+
+			table th:last-child {
+				border-radius: 0 0.2vw 0.2vw 0;
+			}
+
+			.hideContainer {
+				display: none !important;
+			}
+
+			@@media print {
+				/* All your print styles go here */
+				.fontSize {
+					font-size: 1.39vw;
+				}
+			}
+		</style>
+		<div id="inventoryListPrintDownload">
+
+		</div>
+		@* <table class="textColor tableStyle tablePrintDownload" id="inventoryListPrintDownload" style="margin-bottom: 2vw;">
+		</table> *@
 	</div>
 </div>
 
@@ -179,7 +201,7 @@
 
 				content.innerHTML = 
 				'<tr class="containerBackground">' +
-					'<th class="table-content" style = "padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
+					'<th class="table-content" style="padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_InventoryName"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_Category"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_Usage"] </th>' +
@@ -236,7 +258,7 @@
 							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false" style="padding: 0;">' +
 							'<img class="moreIcon" />' +
 							'</button>' +
-							'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+							'<div class="dropdown-menu containerBackground5" style="min-width: fit-content; font-size: 1vw;">' +
 							'<a class="dropdown-item" href="/Inventory/ViewEditInventory/View/' + data.InventoryInfoList[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
 							'<a class="dropdown-item" href="/Inventory/ViewEditInventory/Edit/' + data.InventoryInfoList[i].ID + '"> @LangResources["Patient_Button_Edit"] </a>' +
 							'</div>' +
@@ -244,6 +266,111 @@
 							'</td>' +
 							'</tr>';
 					}
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getInventoryListPrintDownload(type) {
+		fetch('/Inventory/PrintInventoryList?search=' + search)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				let total = data.length;
+
+				var content = document.getElementById("inventoryListPrintDownload");
+
+				if (total == 0) { 
+
+					content.innerHTML =
+					'<table class="textColor tableStyle fontSize" style="margin-bottom: 2vw; border: 0.1vw solid;"> ' +
+					'<tr class="containerBackground">' +
+						'<th class="tableContentPrintDownload" style="padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
+						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_InventoryName"] </th>' +
+						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Category"] </th>' +
+						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
+						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
+						'<th class="tableContentPrintDownload"> SKU </th>' +
+						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Quantity"] </th>' +
+						'<th class="tableContentPrintDownload table-content-center"> @LangResources["Inventory_Label_PricePerQty"] </th>' +
+						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Organisation"] </th>' +
+						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Branch"] </th>' +
+						'<th class="tableContentPrintDownload table-content-center"> @LangResources["Patient_Label_Status"] </th>' +
+					'</tr> ' +
+					'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="tableContentPrintDownload" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' +
+					'</table>';
+				}
+				else{
+					content.innerHTML = "";
+
+					for(let i = 0; i < total; i++){
+						content.innerHTML += 
+							'<span class="fontSize" style="font-weight: bold;"> Organisation : </span>' +
+							'<span class="fontSize"> ' + data[i][0].Organisation + ' </span>' +
+							'<span class="fontSize" style="font-weight: bold;">, Branch : </span> ' +
+							'<span class="fontSize"> ' + data[i][0].Branch + ' </span> <br/>';
+
+						var rowContent = 
+							'<tr class="containerBackground">' +
+								'<th class="tableContentPrintDownload" style="padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
+								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_InventoryName"] </th>' +
+								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Category"] </th>' +
+								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
+								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
+								'<th class="tableContentPrintDownload"> SKU </th>' +
+								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Quantity"] </th>' +
+								'<th class="tableContentPrintDownload table-content-center"> @LangResources["Inventory_Label_PricePerQty"] </th>' +
+								'<th class="tableContentPrintDownload table-content-center"> @LangResources["Patient_Label_Status"] </th>' +
+							'</tr> ';
+
+						for(let j = 0; j < data[i].length; j++){
+							var status, color, background;
+
+							if (data[i][j].StockStatus == 1) {
+								status = "@LangResources["Inventory_Label_InStock"]";
+								color = "#57baa5";
+								background = "#c3f7ec";
+							}
+							else {
+								status = "@LangResources["Inventory_Label_OutOfStock"]";
+								color = "#ff2c29";
+								background = "#ffc5c4";
+							}
+
+							rowContent +=
+								'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+								'<td class="tableContentPrintDownload" style = "padding: 0 1vw;" > ' + (j + 1) + ' </td>' +
+								'<td class="tableContentPrintDownload"> ' + data[i][j].InventoryName + ' </td>' +
+								'<td class="tableContentPrintDownload"> ' + data[i][j].Category + ' </td>' +
+								'<td class="tableContentPrintDownload"> ' + data[i][j].Usage + ' </td>' +
+								'<td class="tableContentPrintDownload"> ' + data[i][j].ProductName + ' </td>' +
+								'<td class="tableContentPrintDownload"> ' + data[i][j].SKU + ' </td>' +
+								'<td class="tableContentPrintDownload"> ' + data[i][j].Quantity + ' </td>' +
+								'<td class="tableContentPrintDownload table-content-center"> ' + data[i][j].PricePerQty + ' </td>' +
+								'<td class="tableContentPrintDownload table-content-center">' +
+								'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 8vw; margin: auto; ">' +
+								status +
+								'</div>' +
+								'</td>' +
+								'</tr>';
+						}
+
+						content.innerHTML = content.innerHTML + '<table class="textColor tableStyle fontSize" style="margin-bottom: 2vw; border: 0.1vw solid;"> ' + rowContent + ' </table>';
+					}
+				}
+
+				if(type == "print"){
+					printHealthCard();
+				}
+				else{
+					downloadHealthCard();
 				}
 			})
 			.catch(error => {
@@ -311,5 +438,33 @@
 		currentPage = 1;
 
 		getInventoryList(1, search, true);
+	}
+
+	function downloadHealthCard() {
+		var clone = document.getElementById("tablePrintDownload").cloneNode(true);
+		clone.classList.toggle("hideContainer");
+
+		var opt = {
+			margin: 1,
+			filename: 'Inventory List.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'A4', orientation: 'landscape' }
+		};
+
+		html2pdf().set(opt).from(clone).save();
+	}
+
+	function printHealthCard() {
+		var iframe = document.createElement("iframe"); // create the element
+		document.body.appendChild(iframe);  // insert the element to the DOM
+
+		var clone = document.getElementById("tablePrintDownload").cloneNode(true);
+
+		var input = clone.innerHTML;
+
+		iframe.contentWindow.document.write(input); // write the HTML to be printed
+		iframe.contentWindow.print();  // print it
+		document.body.removeChild(iframe); // remove the iframe from the DOM
 	}
 </script>

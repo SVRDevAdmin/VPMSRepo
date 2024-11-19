@@ -216,11 +216,18 @@
 							changedStatus = "@LangResources["Patient_Selection_Active"]";
 						}
 
+						var date = new Date(data.treatmentPlans[i].CreatedDate);
+						var dateString = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
 						content.innerHTML = content.innerHTML +
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
-							'<td class="table-content" > ' + index + ' </td>' +
+							'<td class="table-content" > ' + index++ + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].Name + ' </td>' +
-							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedDate + ' </td>' +
+							'<td class="table-content"> ' + dateString + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedBy + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].TotalPrice + ' </td>' +
 							'<td class="table-content treatmentStatus">' +
@@ -233,7 +240,7 @@
 									'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">' +
 									'<img class="moreIcon" />' +
 									'</button>' +
-									'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+									'<div class="dropdown-menu containerBackground5" style="min-width: fit-content; font-size: 1vw;">' +
 										'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/View/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
 										'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/Edit/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_Edit"] </a>' +
 										'<a class="dropdown-item" href="#" onclick="ToggleStatus(this, ' + data.treatmentPlans[i].ID + ', ' + data.treatmentPlans[i].Status + ');"> ' + toggleStatus + ' </a>' +

@@ -29,6 +29,12 @@ namespace VPMS.Lib.Data.DBContext
 			ObservableCollection<InventoryInfoList> sList = new ObservableCollection<InventoryInfoList>();
 			int No = start + 1;
 			totalInventory = 0;
+			var limit = "";
+
+			if(total != 0)
+			{
+                limit = "LIMIT " + start + ", " + total + ";";
+            }
 
 
 
@@ -41,7 +47,7 @@ namespace VPMS.Lib.Data.DBContext
 
 			var totalInventoryQuery = "(select Count(a.Name) from mst_product a " + joinQuery + filter + ")";
 			var completeQuery = "select a.ID, a.InventoryName, b.TypeName, a.Usage, a.name, a.ImageFilePath, a.ImageFileName, a.SKU, c.QtyInStores, a.PricePerQty, e.Name as 'Organisation', d.Name as 'Branch', c.StockStatus, " + totalInventoryQuery + " as 'TotalInventory' from mst_product a " +
-				joinQuery + filter + "Order by a.ID LIMIT " + start + ", " + total + ";";
+				joinQuery + filter + "Order by a.ID " + limit + ";";
 
 			try
 			{
