@@ -18,6 +18,7 @@
 	.tableOriginal {
 		width: max-content;
 		font-size: 1vw;
+		margin-bottom: 1vw;
 	}
 
 	.form-field {
@@ -86,7 +87,7 @@
 		<style>
 			.tableContentPrintDownload {
 				height: 2vw;
-				padding: 0 0.82vw !important;
+				padding: 0 0.55vw;
 			}
 
 			.table-content-center {
@@ -113,18 +114,27 @@
 				display: none !important;
 			}
 
+			.avoid-break {
+				page-break-inside: avoid;
+			}
+
 			@@media print {
 				/* All your print styles go here */
 				.fontSize {
 					font-size: 1.39vw;
 				}
+
+				.printHide{
+					display: none !important;
+				}
+
+				.tableContentPrintDownload {
+					height: 2vw;
+					padding: 0 0.82vw !important;
+				}
 			}
 		</style>
-		<div id="inventoryListPrintDownload">
-
-		</div>
-		@* <table class="textColor tableStyle tablePrintDownload" id="inventoryListPrintDownload" style="margin-bottom: 2vw;">
-		</table> *@
+		<div id="inventoryListPrintDownload"> </div>
 	</div>
 </div>
 
@@ -297,6 +307,7 @@
 						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Category"] </th>' +
 						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
 						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
+						'<th class="tableContentPrintDownload table-content-center printHide"> @LangResources["Inventory_Label_Image"] </th>' +
 						'<th class="tableContentPrintDownload"> SKU </th>' +
 						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Quantity"] </th>' +
 						'<th class="tableContentPrintDownload table-content-center"> @LangResources["Inventory_Label_PricePerQty"] </th>' +
@@ -311,7 +322,7 @@
 					content.innerHTML = "";
 
 					for(let i = 0; i < total; i++){
-						content.innerHTML += 
+						var organisationBranch = 
 							'<span class="fontSize" style="font-weight: bold;"> Organisation : </span>' +
 							'<span class="fontSize"> ' + data[i][0].Organisation + ' </span>' +
 							'<span class="fontSize" style="font-weight: bold;">, Branch : </span> ' +
@@ -324,6 +335,7 @@
 								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Category"] </th>' +
 								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
 								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
+								'<th class="tableContentPrintDownload table-content-center printHide"> @LangResources["Inventory_Label_Image"] </th>' +
 								'<th class="tableContentPrintDownload"> SKU </th>' +
 								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Quantity"] </th>' +
 								'<th class="tableContentPrintDownload table-content-center"> @LangResources["Inventory_Label_PricePerQty"] </th>' +
@@ -351,6 +363,9 @@
 								'<td class="tableContentPrintDownload"> ' + data[i][j].Category + ' </td>' +
 								'<td class="tableContentPrintDownload"> ' + data[i][j].Usage + ' </td>' +
 								'<td class="tableContentPrintDownload"> ' + data[i][j].ProductName + ' </td>' +
+								'<td class="tableContentPrintDownload table-content-center printHide">' +
+								'<img src="/InventoryImages/' + data[i][j].Image + '" style="height: 3vw;" />' +
+								'</td>' +
 								'<td class="tableContentPrintDownload"> ' + data[i][j].SKU + ' </td>' +
 								'<td class="tableContentPrintDownload"> ' + data[i][j].Quantity + ' </td>' +
 								'<td class="tableContentPrintDownload table-content-center"> ' + data[i][j].PricePerQty + ' </td>' +
@@ -362,7 +377,7 @@
 								'</tr>';
 						}
 
-						content.innerHTML = content.innerHTML + '<table class="textColor tableStyle fontSize" style="margin-bottom: 2vw; border: 0.1vw solid;"> ' + rowContent + ' </table>';
+						content.innerHTML = content.innerHTML + '<div class="avoid-break">' + organisationBranch + '<table class="textColor tableStyle fontSize avoid-break" style="margin-bottom: 2vw; border: 0.1vw solid;"> ' + rowContent + ' </table> </div>';
 					}
 				}
 
