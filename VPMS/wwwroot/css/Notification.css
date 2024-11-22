@@ -24,6 +24,35 @@
     height: 40px;
 }
 
+.notification_badge {
+    background-color: #fa3e3e;
+    border-radius: 2px;
+    color: white;
+    padding: 1px 3px;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.NotifSettingsButtonRow {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.checkSetting {
+    vertical-align: middle;
+    box-shadow: none;
+}
+
+.checkSetting:focus {
+    box-shadow: none;
+}
+
+.checkSettingHeight {
+    height: 40px;
+}
+
 .PaginationButtonSelected {
     width: 3vw;
     height: 3vw;

@@ -69,3 +69,25 @@ ON Mst_Branch (OrganizationID, Status);
 
 CREATE INDEX IX_BranchID_Status
 ON Mst_Branch (ID, Status);
+
+/*---------- Notification --------*/
+CREATE INDEX IX_NotiGroup_CreatedDate
+On Txn_Notifications (NotificationGroup, CreatedDate DESC);
+
+CREATE INDEX IX_NotiGroup
+On Txn_Notifications (NotificationGroup);
+
+CREATE INDEX IX_Notification_OrderSorting
+On Txn_Notifications (CreatedDate DESC);
+
+CREATE INDEX IX_NotiID_UserID_Status
+On Txn_Notification_Receiver (NotificationID, TargetUser, Status);
+
+CREATE INDEX IX_NotiID_UserID
+On Txn_Notification_Receiver (NotificationID, TargetUser);
+
+CREATE INDEX IX_NotifGroup_RoleID
+On mst_notification_receiver_config (NotificationGroup, RoleID);
+
+CREATE INDEX IX_NotifGroup
+On mst_notification_receiver_config (NotificationGroup);

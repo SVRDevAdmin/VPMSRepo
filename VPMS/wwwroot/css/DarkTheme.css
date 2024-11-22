@@ -825,7 +825,14 @@ input[type='text']:focus, select:focus {
 	border: 0;
 	width: 70%;
 	height: 40px;
-	word-break: break-word;
+	/*word-break: break-word;*/
+}
+
+.rowNotificationMessage p {
+	width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .rowNotificationDate {
@@ -834,6 +841,7 @@ input[type='text']:focus, select:focus {
 	width: 25%;
 	height: 40px;
 	text-align: center;
+	vertical-align: bottom;
 }
 
 .customButton {
@@ -863,6 +871,28 @@ input[type='text']:focus, select:focus {
 a {
 	color: white !important;
 	text-decoration: unset;
+}
+
+.NotifSettingsSubTitle {
+	text-align: left;
+	margin-left: 0px;
+	font-size: 12px;
+	font-family: sans-serif;
+	color: white;
+}
+
+.NotifSettingsContent {
+	border: 0px solid #1f2e45;
+	border-radius: 8px;
+	background-color: #1f2e45;
+}
+
+.NotifSettingsCheckboxFont {
+	margin-left: 10px;
+	vertical-align: bottom;
+	font-size: 12px;
+	font-family: sans-serif;
+	color: white;
 }
 
 /*-------- Role Settings ------*/
