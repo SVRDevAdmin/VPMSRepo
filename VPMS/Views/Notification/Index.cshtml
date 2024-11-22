@@ -1,8 +1,12 @@
 ﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
     ViewData["Title"] = "Index";
     ViewData["SelectedMenu"] = "dashboardMenu";
+
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
 }
 
 <link rel="stylesheet" href="~/css/Notification.css" />
@@ -10,7 +14,7 @@
 
 <script>
     var paginationLimit = 5;
-    var pageSize = 5;
+    var pageSize = 4;
     var pageIndex = 1;
     var currentPage = 1;
     var totalPagination = 0;
@@ -30,15 +34,46 @@
         loadNotificationList(tab);
     }
 
+    function showNotificationDetails(msgrecvID, title, msg)
+    {
+        $('#lbTitle').html(title);
+        $('#lbContent').html(msg);
+
+        $('#NotificationModal').modal('show');
+
+        // ----- Update Read Status -------//
+        setTimeout(function(){
+            UpdateMessageReadStatus(msgrecvID);
+        }, 1000);
+    }
+
+    function UpdateMessageReadStatus(msgrecvID)
+    {
+        $.post("/Notification/UpdateMessageReadStatus", {
+            iMessageReceiverID : msgrecvID,
+            sUserID : '@sessionUserID'
+        }).done(function(result)
+        {
+            if (result.StatusCode == 200)
+            {
+                loadNotificationList(pageTab);
+            }
+        })
+    }
+
     function loadNotificationList(selectedGroup)
     {
         $.getJSON("/Notification/GetNotificationList", {
+            sUserID: '@sessionUserID',
+            sBranchID: '@sessionBranchID',
             sGroup: selectedGroup,
             pageSize: pageSize,
             pageIndex: currentPage
         }).done(function (result) {
             if (result.data != null && result.data.length > 0){
                 $('#tblNotification').empty();
+                $('.notification_badge').html('');
+                $('.notification_badge').css('visibility', 'hidden');
 
                 for (i = 0; i < result.data.length; i++)
                 {
@@ -52,7 +87,12 @@
                                 '<td class="rowNotificationType" colspan="3">' + result.data[i].NotificationType + '</td>' +
                                 '</tr>' +
                                 '<tr>' +
-                                '<td class="rowNotificationMessage">' + result.data[i].Content + '</td>' +
+                                '<td class="rowNotificationMessage">' + 
+                                '<p>' + result.data[i].Content + '</p>' + 
+                                '<span style="color: #6495ED; font-weight: bold;">' + 
+                                '<a onclick="showNotificationDetails(\'' + result.data[i].NotifMsgID + '\', \'' + result.data[i].NotificationType + '\', \'' + result.data[i].Content + '\');">Read more</a>' + 
+                                '</span>' +
+                                '</td>' +
                                 '<td class="rowDivider">&nbsp;</td>' +
                                 '<td class="rowNotificationDate">' + dtCreate.format('D MMMM YYYY HH:mm') + '</td>' +
                                 '</tr>' +
@@ -64,10 +104,21 @@
                     $('#tblNotification').append(sHtml);
                 }
 
+                if (selectedGroup == '')
+                {
+                    selectedGroup = 'all';
+                }
+                $('#span_' + selectedGroup).html(result.totalNew);
+                $('#span_' + selectedGroup).css('visibility', 'visible');
+
                 populatePagingControl(result.totalRecord);
             }
             else{
+                document.getElementById("pagination").hidden = true;
+
                 $('#tblNotification').empty();
+                $('.notification_badge').html('');
+                $('.notification_badge').css('visibility', 'hidden');
             }
         });
     }
@@ -169,24 +220,25 @@
                 <div class="row" style="margin-bottom: 0px;">
                     <div class="col-md-9">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
+                            <li class="nav-item" role="presentation" style="position: relative;">
                                 <button id="pills-all-tab" class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="true" onclick="tabSelected('')">@LangResources["Notification_Label_All"]</button>
+                                <span id="span_all" class="notification_badge" style="visibility: hidden;"></span>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button id="pills-message-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Messages')">@LangResources["Notification_Label_Messages"]</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
+                            <li class="nav-item" role="presentation" style="position: relative;">
                                 <button id="pills-inventory-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('Inventory')">@LangResources["Notification_Label_Inventory"]</button>
+                                <span id="span_Inventory" class="notification_badge" style="visibility: hidden;"></span>
+                            </li>
+                            <li class="nav-item" role="presentation" style="position: relative;">
+                                <button id="pills-softwareupdate-tab" class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-selected="false" onclick="tabSelected('SoftwareUpdate')">@LangResources["Notification_Label_SoftwareUpdate"]</button>
+                                <span id="span_SoftwareUpdate" class="notification_badge" style="visibility: hidden;"></span>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-3" style="text-align: right;">
-                        <!--
-                        <button id="btnSettings" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("NotificationSettings", "Notification")'">
+                        <button id="btnSettings" type="button" class="btn btn-primary" style="font-size: 1vw;" onclick="location.href='@Url.Action("NotificationSettings", "Notification")'">
                             <i class="bi bi-gear" style="margin: 5px;"></i>
-                            Notification Settings
+                            @LangResources["Notification_Button_NotifcationSettings"]
                         </button>
-                        -->
                     </div>
                 </div>
 
@@ -218,6 +270,43 @@
         </div>
 
     </div>
+</div>
+
+<div id="NotificationModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content popupEvent">
+            <div class="modal-header" style="border-bottom: 0px; text-align: right !important;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 0px; margin-top: 0px; margin-left: 0px;">
+                <div class="row">
+                    <div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-10">
+                        <label id="lbTitle" style="font-weight: bold;"></label>
+                    </div>
+                    <div class="col-md-1">&nbsp;</div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-10">
+                        <label id="lbContent" style="word-break: break-all;"></label>
+                    </div>
+                    <div class="col-md-1">&nbsp;</div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-10" style="text-align: right;">
+                        <button id="btnCloseNotif" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="font-size: 1vw;">Close</button>
+                    </div>
+                    <div class="col-md-1">&nbsp;</div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+            </div>
+        </div>
+
+     </div>
 </div>
 
 

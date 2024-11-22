@@ -15,6 +15,7 @@ namespace VPMS.Lib.Data.DBContext
         private readonly IConfiguration config;
         public DbSet<NotificationModel> Txn_Notifications { get; set; }
         public DbSet<NotificationReceiverModel> Txn_Notification_Receiver { get; set; }
+        public DbSet<NotificationConfiguration> Mst_Users_Configuration { get; set; }
 
         public NotificationDBContext(IConfiguration config)
         {
