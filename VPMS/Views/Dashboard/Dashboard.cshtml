@@ -1,13 +1,232 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
+@inject IHttpContextAccessor httpContextaccessor
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
 
 @{
     ViewData["Title"] = "Dashboard Page";
     ViewBag.SelectedMenu = "dashboardMenu";
+
+    string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
 }
 
-<div>
-    <h1>@LangResources["MenuBar_Label_Dashboard"]</h1>
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> *@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.0/Chart.bundle.min.js">
+</script>
+
+<style>
+	.hideContainer{
+		display: none;
+	}
+
+	.dropdown-arrow.showInfo {
+		transform: rotate(180deg);
+	}
+
+	.dropdown-arrow {
+		transition: 0.6s ease;
+	}
+
+	.dropbtn {
+		background-color: transparent;
+		/* color: white; */
+		/* padding: 16px; */
+		font-size: 1.3vw;
+		border: none;
+	}
+
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 9vw;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+		right: 0;
+		text-align: center;
+	}
+
+		.dropdown-content a {
+			color: black;
+			padding: 0 1vw;
+			text-decoration: none;
+			display: block;
+		}
+
+	/* .dropdown-content a:hover {
+						background-color: #ddd;
+					} */
+
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+
+	.dropdown:hover .dropdown-arrow {
+		transform: rotate(180deg);
+	}
+</style>
+
+<div style="display: flex; justify-content: center;">
+    <div id="LeftInfoContainer" style="overflow: auto; height: 75.2vh; margin-right: 1vw; width: 52vw;">
+        <div>
+            <div style="background: #c2d9fc; width: 50vw; padding: 0 2vw; padding-top: 1vw; border-radius: 0.5vw; display: flex; margin-bottom: 2vw;">
+				<div style="padding: 1vw 0; font-size: 1vw;">
+					<span>@LangResources["Dashboard_Message_Welcome"] </span> <span style="font-weight: bold;">@user!</span> <br /> <br />
+					<span style="font-size: 2vw; font-weight: bold;">@LangResources["Dashboard_Message_Here"]</span>
+                </div>
+                <div>
+                    <img src="~/images/Dashboard image.png" style="height: 14vw;" />
+                </div>
+			</div>
+
+			<div style="width: 50vw;">
+				<span class="textColor" style="font-size: 1vw; font-weight: bold;">@LangResources["Dashboard_Label_Summary"]</span> <span style="font-size: 0.8vw; color: darkgray;">@LangResources["Dashboard_Label_AsOf"] 7 Oct 2024</span>
+
+				<div id="selectionTab" style="display: flex; justify-content: space-between; font-size: 1vw; margin-top: 1vw;">
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<div style="width: 16vw; background: #1e76fb; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw; padding-right: 0.4vw;">
+							<div>
+								<span style="font-weight: bold; font-size: 1.5vw;">8528</span>
+							</div>
+							<div style="display: flex; justify-content: space-between;">
+								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+									<span>@LangResources["Dashboard_Label_TotalPatients"]</span>
+									<a href="#" onclick="changeTab('patientTab');" style="color: white !important;">@LangResources["Dashboard_Label_ShowMore"]</a>
+								</div>
+								<img src="~/images/Total patient image.png" style="height: 5vw;" />
+							</div>
+						</div>
+						<div class="patientTab currentTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #1e76fb"></div>
+					</div>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<div style="width: 16vw; background: #609df8; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
+							<div>
+								<span style="font-weight: bold; font-size: 1.5vw;">28</span>
+							</div>
+							<div style="display: flex; justify-content: space-between;">
+								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+									<span>@LangResources["Dashboard_Label_TotalStaffs"]</span>
+									<a href="#" onclick="changeTab('staffTab');" style="color: white !important;">@LangResources["Dashboard_Label_ShowMore"]</a>
+								</div>
+								<img src="~/images/Total staff image.png" style="height: 5vw;" />
+							</div>
+						</div>
+						<div class="hideContainer staffTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #609df8;"></div>
+					</div>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<div style="width: 16vw; background: #5e8cd1; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
+							<div>
+								<span style="font-weight: bold; font-size: 1.5vw;">$268,500</span>
+							</div>
+							<div style="display: flex; justify-content: space-between;">
+								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+									<span>@LangResources["Dashboard_Label_TotalSales"]</span>
+									<a href="#" onclick="changeTab('saleTab');" style="color: white !important;">@LangResources["Dashboard_Label_ShowMore"]</a>
+								</div>
+								<img src="~/images/Total sale image.png" style="height: 5vw;" />
+							</div>
+						</div>
+						<div class="hideContainer saleTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #5e8cd1;"></div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<canvas id="myChart"></canvas>
+			</div>
+        </div>
+    </div>
+    <div id="RightInfoContainer" style="margin-left: 1.5vw;">
+		<div>
+			<div class="containerBackground5" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border: 0.2vw solid #f2f2f2 !important; border-radius: 0.5vw; font-size: 1vw;">
+				<span class="formlabel" style="font-weight: bold;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
+
+				<div class="dropdown" style="margin-top: 1vw; margin-bottom: 2vw;">
+					<button class="dropbtn textColor"> <span class="textColor" style="margin-right: 1vw; font-size: 1vw;">@LangResources["TreatmentPlan_Label_Showing"]</span> <span id="tabSelection" style="font-size: 1vw; font-weight: bold; color: dodgerblue;">@LangResources["Dashboard_Label_AllDoctors"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+                    <div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw; width: max-content;">
+						<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;">@LangResources["Dashboard_Label_AllDoctors"]</a>
+                        <a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;">@user</a>
+                    </div>
+                </div>
+
+
+				<div style="display: flex; align-items: center; margin-bottom: 1vw;">
+					<div style="margin-right: 2vw; background-color: #c2d9fc; border-radius: 0.5vw; padding: 0 0.5vw; padding-top: 1vw; width: 5.4vw;">
+						<img src="~/images/Male doctor image.png" style="height: 5vw;" />
+					</div>
+					<div>
+						<span style="font-weight: bold;">@user</span> <br />
+						<span>Simba</span> <br />
+						<span>10/4/2024 10:10</span> <br />
+					</div>
+				</div>
+
+
+				<div style="display: flex; align-items: center; margin-bottom: 1vw;">
+					<div style="margin-right: 2vw; background-color: #5e8cd1; border-radius: 0.5vw; padding: 0 0.5vw; padding-top: 1vw; width: 5.4vw;">
+						<img src="~/images/Female doctor image.png" style="height: 5vw;" />
+					</div>
+					<div>
+						<span style="font-weight: bold;">@user</span> <br />
+						<span>Simba</span> <br />
+						<span>10/4/2024 10:10</span> <br />
+					</div>
+				</div>
+
+				<a href="#" style="color: dodgerblue !important;">@LangResources["Dashboard_Button_ViewAll"]</a>
+			</div>
+		</div>
+
+    </div>
 </div>
 
+<script>
+	var tabElement = document.getElementById("selectionTab");
+	var chartElement;
 
+	function changeTab(type){
+		var currentTab = document.querySelector(".currentTab");
+		var selectedTab =  document.querySelector("." + type);
+
+		currentTab.classList.add("hideContainer");
+		currentTab.classList.remove("currentTab");
+
+		selectedTab.classList.remove("hideContainer");
+		selectedTab.classList.add("currentTab");
+	}
+
+	 window.onload = function () {
+			let ctx = document.getElementById("myChart").getContext("2d");
+
+			// Sample data
+			let data = {
+				label: "my dataset",
+				datasets: [{
+					label: "my data",
+					data: [{x: '2016-12-25', y: 20}, {x: '2016-12-26', y: 10}]
+				}]
+			};
+
+			let chart = new Chart(ctx, {
+				type: 'line',
+				data: data,
+				options: {
+					scales: {
+						xAxes: [{
+							type: 'time',
+							time: {
+								unit: 'month'
+							}
+						}]
+					}
+				}
+			});
+		}
+</script>

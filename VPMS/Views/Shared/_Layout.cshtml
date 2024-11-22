@@ -219,11 +219,12 @@
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 83vh !important; height: 83vh; overflow-x: auto; padding-left: 0 !important;">
                     <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="font-size: 1vw;">
                         <li class="nav-item">
-                            @* <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0"> *@
-                            <a href="#" class="nav-link align-middle px-0">
+                            <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="dashboardMenu" class="spanMenuBlue"></span>
                                 <img id="iconHome" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Dashboard"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Dashboard"]</span>
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Dashboard"]</span> *@
                             </a>
                         </li>
                         <li>
