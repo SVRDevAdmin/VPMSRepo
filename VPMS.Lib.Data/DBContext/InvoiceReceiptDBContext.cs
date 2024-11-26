@@ -95,5 +95,105 @@ namespace VPMS.Lib.Data.DBContext
 
 			return sList;
 		}
+
+		public List<InvoiceTransSummaryModel> GetInvoiceTransactionSummaryByDate(DateTime dtStart, DateTime dtEnd)
+		{
+			List<InvoiceTransSummaryModel> sResult = new List<InvoiceTransSummaryModel>();
+
+            try 
+			{
+				using (var sConn = new MySqlConnection(connectionString))
+				{
+					sConn.Open();
+
+					String sSelectCommand = "SELECT  A.CreatedDate AS 'SummaryDate', A.Branch, " +
+											"SUM(A.Fee) AS 'TotalAmount', SUM(A.GrandDiscount) AS 'TotalDiscount' " +
+											"FROM mst_invoicereceipt AS A " +
+											"INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
+											"WHERE A.CreatedDate >= '" + dtStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " + 
+											"A.CreatedDate <= '" + dtEnd.ToString("yyyy-MM-dd HH:mm:ss") + "' " +
+											"GROUP BY A.CreatedDate, A.Branch ";
+
+					using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+					{
+						using (var sReader = sCommand.ExecuteReader())
+						{
+							while (sReader.Read())
+							{
+								sResult.Add(new InvoiceTransSummaryModel
+								{
+									SummaryDate = Convert.ToDateTime(sReader["SummaryDate"]),
+									BranchID = Convert.ToInt32(sReader["Branch"]),
+									TotalAmount = Convert.ToDecimal(sReader["TotalAmount"]),
+									TotalDiscount = Convert.ToDecimal(sReader["TotalDiscount"])
+								});
+                            }
+						}
+					}
+
+					sConn.Close();
+				}
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+
+			return sResult;
+        }
+
+		public List<TransSummaryBreakdownModel> GetTransactionSummaryBreakdownByDate(DateTime dtStart, DateTime dtEnd)
+		{
+			List<TransSummaryBreakdownModel> sResult = new List<TransSummaryBreakdownModel>();
+
+            try
+			{
+				using (var sConn = new MySqlConnection(connectionString))
+				{
+					sConn.Open();
+
+					String sSelectCommand = "SELECT A.CreatedDate AS 'SummaryDate', A.Branch, B.PetID, M.Species, " + 
+											"B.TreatmentPlanID, B.PlanName, B.TotalCost AS 'TreatmentPlanAmount', " +
+											"C.ServiceID, C.ServiceName, C.TotalPrice AS 'ServicePrice' " + 
+											"FROM mst_invoicereceipt AS A " + 
+											"INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
+											"INNER JOIN txn_treatmentplan_services AS C ON C.PlanID = B.ID " + 
+											"INNER JOIN mst_pets AS M ON M.ID = B.PetID " +
+											"WHERE A.CreatedDate >= '" + dtStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " + 
+											"A.CreatedDate <= '" + dtEnd.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+
+					using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+					{
+						using (var sReader = sCommand.ExecuteReader())
+						{
+							while (sReader.Read())
+							{
+								sResult.Add(new TransSummaryBreakdownModel
+								{
+									SummaryDate = Convert.ToDateTime(sReader["SummaryDate"]),
+									BranchID = Convert.ToInt32(sReader["Branch"]),
+									PetID = Convert.ToInt32(sReader["PetID"]),
+									Species = sReader["Species"].ToString(),
+									TreatmentPlanID = Convert.ToInt32(sReader["TreatmentPlanID"]),
+									TreatmentPlanName = sReader["PlanName"].ToString(),
+									TreatmentPlanAmount = Convert.ToDecimal(sReader["TreatmentPlanAmount"]),
+									ServiceID = Convert.ToInt32(sReader["ServiceID"]),
+									ServiceName = sReader["ServiceName"].ToString(),
+									ServicePrice = Convert.ToDecimal(sReader["ServicePrice"])
+								});
+                            }
+						}
+					}
+
+					sConn.Close();
+				}
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+
+			return sResult;
+        }
 	}
 }

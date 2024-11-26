@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -427,22 +428,53 @@ namespace VPMS.Lib.Data
                     sConn.Close();
 
                     return sUserObj;
-                    //var sResult = ctx.Mst_User
-                    //                 .Where(x => x.UserID == sUserID)
-                    //                 .Select(x => new UserProfileExtObj
-                    //                 {
-                    //                     UserID = x.UserID,
-                    //                     Surname = x.Surname,
-                    //                     LastName = x.LastName,
-                    //                     StaffID = x.StaffID,
-                    //                     Gender = x.Gender,
-                    //                     EmailAddress = x.EmailAddress,
-
-                    //                 })
-                    //                 .FirstOrDefault();
-
-                    //return ctx.Mst_User.Where(x => x.UserID == sUserID).FirstOrDefault();
                 }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static List<PatientSummaryModel> GetPatientsSummary()
+        {
+            List<PatientSummaryModel> sResult = new List<PatientSummaryModel>();
+
+            try
+            {
+                using (var ctx = new UserDBContext())
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.ID, A.BranchID, B.ID AS 'PetID', B.`Name` AS 'PetName', B.Species, B.Breed " +
+                                            "FROM mst_patients AS A " +
+                                            "INNER JOIN mst_pets AS B ON B.PatientID = A.ID " +
+                                            "WHERE B.Status = 1";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using(var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                sResult.Add(new PatientSummaryModel
+                                {
+                                    ID = Convert.ToInt64(sReader["ID"]),
+                                    BranchID = Convert.ToInt32(sReader["BranchID"]),
+                                    PetID = Convert.ToInt64(sReader["PetID"]),
+                                    PetName = sReader["PetName"].ToString(),
+                                    Species = sReader["Species"].ToString(),
+                                    Breed = sReader["Breed"].ToString()
+                                });
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResult;
             }
             catch (Exception ex)
             {

@@ -54,4 +54,26 @@ namespace VPMS.Lib.Data.Models
 		public Patient_Owner Owner { get; set; }
 		public Pets Pet { get; set; }
 	}
+
+	public class InvoiceTransSummaryModel
+	{
+		public DateTime? SummaryDate { get; set; }
+		public int? BranchID { get; set;  }
+		public Decimal? TotalAmount { get; set;  }
+		public Decimal? TotalDiscount { get; set;  }
+	}
+
+	public class TransSummaryBreakdownModel
+	{
+		public DateTime? SummaryDate { get; set; }
+		public int? BranchID { get; set; }
+		public int? PetID {  get; set; }
+		public String? Species {  get; set; }
+		public int? TreatmentPlanID {  get; set; }
+		public String? TreatmentPlanName { get; set; }
+		public Decimal? TreatmentPlanAmount { get; set; }
+		public int? ServiceID {  get; set; }
+		public String? ServiceName { get; set; }
+		public Decimal? ServicePrice { get; set; }
+	}
 }
