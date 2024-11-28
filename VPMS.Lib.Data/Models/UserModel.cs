@@ -110,4 +110,14 @@ namespace VPMS.Lib.Data.Models
         public String UserId { get; set; }
         public String RoleId { get; set; }
     }
+
+    public class PatientSummaryModel
+    {
+        public long ID { get; set; }
+        public int? BranchID {  get; set; }
+        public long? PetID { get; set; }
+        public String? PetName { get; set; }
+        public String? Species { get; set; }
+        public String? Breed { get; set; }
+    }
 }
