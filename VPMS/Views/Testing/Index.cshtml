@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Arrow Range Slider</title>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <style>
 		/* Container for the slider */
 		.slider-container {
@@ -105,13 +108,49 @@
 	</div> *@
 
 
-
+	<button id="btnTest" type="button" class="btn btn-secondary">Create Notification</button>
 
 	<script>
 		var sliderElement = document.querySelector(".slider");
 		sliderElement.min = -1;
 		sliderElement.max = 2;
 		sliderElement.value = 0.1;
+
+
+		$('#btnTest').on('click', function(ctl){
+
+		    $.post("/Notification/TestNotification", {
+				NotificationGroup: 'LowStock',
+		        NotificationType: 'Low Stock Alert',
+		        BranchID: 1,
+		        Content: 'Prednisalone Suspension 5mg(SKU 6368) is running on low stock. Order soon to avoid issue.',
+		        CreatedBy: 'System'
+		    }).done(function(result){
+		        if (result.StatusCode == 200)
+		        {
+		            alert('A');
+		        }
+		        else{
+		            alert('B');
+		        }
+		    });
+
+			$.post("/Notification/TestNotification", {
+				NotificationGroup: 'SoftwareUpdate',
+				NotificationType: 'Software Update',
+				BranchID: 1,
+				Content: 'We have just released new features for VPMS Version 2.0.1, please kindly logout from system and perform browser cache clearing before login again. Thanks. ',
+				CreatedBy: 'System'
+			}).done(function(result){
+				if (result.StatusCode == 200)
+				{
+					alert('A');
+				}
+				else{
+					alert('B');
+				}
+			});
+		});
 	</script>
 
 </body>

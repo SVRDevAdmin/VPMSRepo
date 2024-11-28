@@ -302,7 +302,7 @@ namespace VPMS.Lib.Data
         /// <param name="sNotification"></param>
         /// <param name="sRecipients"></param>
         /// <returns></returns>
-        public static Boolean InserNotification(IConfiguration config, NotificationModel sNotification, List<String> sRecipients)
+        public static Boolean InsertNotification(IConfiguration config, NotificationModel sNotification, List<String> sRecipients)
         {
             Boolean isSuccess = false;
 

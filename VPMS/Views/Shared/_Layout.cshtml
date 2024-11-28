@@ -262,12 +262,12 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="nav-link align-middle px-0">
-                            @* <a asp-controller="InvoiceReceipt" asp-action="InvoiceReceiptListing" class="nav-link align-middle px-0"> *@
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
+                            <a asp-controller="InvoiceReceipt" asp-action="InvoiceReceiptListing" class="nav-link align-middle px-0">
                                 <span id="invoiceReceiptMenu" class="spanMenuBlue"></span>
                                 <img id="iconReceipt" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
-                                @* <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_InvoiceReceipts"]</span> *@
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span> *@
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
                             </a>
                         </li>
                         <li>
@@ -280,46 +280,46 @@
                             </a>
                         </li>
                         <li>
-                            @* <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0"> *@
-                            <a href="#" class="nav-link align-middle px-0">
+                            <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="doctorMenu" class="spanMenuBlue"></span>
                                 <img id="iconDoctor" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Doctor"]</span>
-                                @* <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Doctor"]</span> *@
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Doctor"]</span> *@
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Doctor"]</span>
                             </a>
                         </li>
                         <li>
                             <a href="#SubMenuAccess" id="SubMenuAccessParent" class="nav-link align-middle px-0" data-toggle="collapse">
                                 <span id="AccessMenu" class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
-                                @* <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span> *@
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span>
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span> *@
                                 <img id="imgArrow" style="margin-left: 20px;" />
                             </a>
                             <ul id="SubMenuAccess" class="collapse nav flex-column" data-parent="#menu">
                                 <li class="w-100">
-                                    @* <a asp-controller="AccessControl" asp-action="OrganisationList" class="nav-link px-0">
+                                    <a asp-controller="AccessControl" asp-action="OrganisationList" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" id="organisation">@LangResources["MenuBar_Label_Organisation"]</span>
-                                    </a> *@
-                                    <a href="#" class="nav-link px-0">
+                                    </a>
+                                    @* <a href="#" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" id="organisation" style="color: darkgray;">@LangResources["MenuBar_Label_Organisation"]</span>
-                                    </a>
+                                    </a> *@
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">
+                                    @* <a href="#" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_StaffListing"]</span>
-                                    </a>
-                                    @* <a asp-controller="User" asp-action="Index" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" id="staffListing">@LangResources["MenuBar_Label_StaffListing"]</span>
                                     </a> *@
+                                    <a asp-controller="User" asp-action="Index" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="staffListing">@LangResources["MenuBar_Label_StaffListing"]</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">
+                                    @* <a href="#" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_RoleSetting"]</span>
-                                    </a>
-                                    @* <a asp-controller="Roles" asp-action="Index" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" id="roleSetting">@LangResources["MenuBar_Label_RoleSetting"]</span>
                                     </a> *@
+                                    <a asp-controller="Roles" asp-action="Index" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="roleSetting">@LangResources["MenuBar_Label_RoleSetting"]</span>
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0">
@@ -551,12 +551,12 @@
                                         </div>
                                     </div>
                                     <div style="height: 60px;  border: 0px solid black;">
-                                        @* <a asp-controller="Notification" asp-action="Index">
-                                            <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
-                                        </a> *@
-                                        <a href="#">
+                                        <a asp-controller="Notification" asp-action="Index">
                                             <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
                                         </a>
+                                       @*  <a href="#">
+                                            <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
+                                        </a> *@
                                     </div>
                                 </div>
                             </div>
@@ -572,8 +572,8 @@
                                                 <label class="ProfileFont">@user</label>
                                             </div>
                                             <div class="dropdown-menu profilemenu">
-                                                @* <a class="dropdown-item" asp-controller="User" asp-action="UserDetails">@LangResources["MenuBar_Label_MyProfile"]</a> *@
-                                                <a class="dropdown-item" href="#">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                <a class="dropdown-item" asp-controller="User" asp-action="UserDetails">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                @* <a class="dropdown-item" href="#">@LangResources["MenuBar_Label_MyProfile"]</a> *@
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="ChangePassword">@LangResources["Login_Label_ResetPassword"]</a>
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="Logout">@LangResources["MenuBar_Label_Logout"]</a>
                                             </div>
@@ -935,17 +935,31 @@
             lightIcon2.classList.toggle("darktheme");
 
             if (lightIcon1.classList.contains("darktheme")) {
-                if (typeof borderOpacity !== 'undefined') {
+                if (typeof(changeChart) == "function") {
                     borderOpacity = "0.5";
                     axisColor = "white";
-                    changeChart("current");
+                    changeChart("current", "");
+                }
+
+                if(typeof(refreshChart) == "function"){
+                    axisColor = "white";
+                    refreshChart();
                 }
             } else {
-                if (typeof borderOpacity !== 'undefined') {
+                if (typeof(changeChart) == "function") {
                     borderOpacity = "0.1";
                     axisColor = "black";
-                    changeChart("current");
+                    changeChart("current", "");
                 }
+
+                if(typeof(refreshChart) == "function"){
+                    axisColor = "black";
+                    refreshChart();
+                }
+            }
+
+            if(typeof(refreshChart) == "function"){
+                refreshChart();
             }
 
 

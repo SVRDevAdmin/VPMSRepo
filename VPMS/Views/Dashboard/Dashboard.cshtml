@@ -3,22 +3,26 @@
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
 
 @{
-    ViewData["Title"] = "Dashboard Page";
-    ViewBag.SelectedMenu = "dashboardMenu";
+	ViewData["Title"] = "Dashboard Page";
+	ViewBag.SelectedMenu = "dashboardMenu";
 
-    string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
+	string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
+	var isSuperadmin = httpContextaccessor.HttpContext.Session.GetString("RoleName") == "Superadmin" ? true : false;
+	var hideElement = "";
+
+	if (!isSuperadmin){
+		hideElement = "hidden";
+	}
 }
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 @* <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> *@
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.0/Chart.bundle.min.js">
-</script>
+@* <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script> *@
 
 <style>
 	.hideContainer{
-		display: none;
+		display: none !important;
 	}
 
 	.dropdown-arrow.showInfo {
@@ -89,7 +93,7 @@
 			<div style="width: 50vw;">
 				<span class="textColor" style="font-size: 1vw; font-weight: bold;">@LangResources["Dashboard_Label_Summary"]</span> <span style="font-size: 0.8vw; color: darkgray;">@LangResources["Dashboard_Label_AsOf"] 7 Oct 2024</span>
 
-				<div id="selectionTab" style="display: flex; justify-content: space-between; font-size: 1vw; margin-top: 1vw;">
+				<div id="selectionTab" style="display: flex; justify-content: space-between; font-size: 1vw; margin-top: 1vw; margin-bottom: 1vw;">
 					<div style="display: flex; flex-direction: column; align-items: center;">
 						<div style="width: 16vw; background: #1e76fb; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw; padding-right: 0.4vw;">
 							<div>
@@ -98,12 +102,12 @@
 							<div style="display: flex; justify-content: space-between;">
 								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
 									<span>@LangResources["Dashboard_Label_TotalPatients"]</span>
-									<a href="#" onclick="changeTab('patientTab');" style="color: white !important;">@LangResources["Dashboard_Label_ShowMore"]</a>
+									<a href="#" class="patientTab hideContainer currentTab" onclick="changeTab('patientTab', 'patientChart');" style="color: white !important;" @hideElement>@LangResources["Dashboard_Label_ShowMore"]</a>
 								</div>
 								<img src="~/images/Total patient image.png" style="height: 5vw;" />
 							</div>
 						</div>
-						<div class="patientTab currentTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #1e76fb"></div>
+						<div class="patientTab currentTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #1e76fb" @hideElement></div>
 					</div>
 					<div style="display: flex; flex-direction: column; align-items: center;">
 						<div style="width: 16vw; background: #609df8; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
@@ -113,33 +117,218 @@
 							<div style="display: flex; justify-content: space-between;">
 								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
 									<span>@LangResources["Dashboard_Label_TotalStaffs"]</span>
-									<a href="#" onclick="changeTab('staffTab');" style="color: white !important;">@LangResources["Dashboard_Label_ShowMore"]</a>
+									<a href="#" class="staffTab" onclick="changeTab('staffTab', 'staffChart');" style="color: white !important;" @hideElement>@LangResources["Dashboard_Label_ShowMore"]</a>
 								</div>
 								<img src="~/images/Total staff image.png" style="height: 5vw;" />
 							</div>
 						</div>
-						<div class="hideContainer staffTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #609df8;"></div>
+						<div class="hideContainer staffTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #609df8;" @hideElement></div>
 					</div>
-					<div style="display: flex; flex-direction: column; align-items: center;">
-						<div style="width: 16vw; background: #5e8cd1; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
-							<div>
-								<span style="font-weight: bold; font-size: 1.5vw;">$268,500</span>
-							</div>
-							<div style="display: flex; justify-content: space-between;">
-								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
-									<span>@LangResources["Dashboard_Label_TotalSales"]</span>
-									<a href="#" onclick="changeTab('saleTab');" style="color: white !important;">@LangResources["Dashboard_Label_ShowMore"]</a>
+
+					@{
+						if (isSuperadmin){
+							<div style="display: flex; flex-direction: column; align-items: center;">
+								<div style="width: 16vw; background: #5e8cd1; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
+									<div>
+										<span style="font-weight: bold; font-size: 1.5vw;">$268,500</span>
+									</div>
+									<div style="display: flex; justify-content: space-between;">
+										<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+											<span>@LangResources["Dashboard_Label_TotalSales"]</span>
+											<a href="#" class="saleTab" onclick="changeTab('saleTab', 'salesChart');" style="color: white !important;" @hideElement>@LangResources["Dashboard_Label_ShowMore"]</a>
+										</div>
+										<img src="~/images/Total sale image.png" style="height: 5vw;" />
+									</div>
 								</div>
-								<img src="~/images/Total sale image.png" style="height: 5vw;" />
+								<div class="hideContainer saleTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #5e8cd1;" @hideElement></div>
 							</div>
-						</div>
-						<div class="hideContainer saleTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #5e8cd1;"></div>
-					</div>
+						}
+						else
+						{
+							<div style="display: flex; flex-direction: column; align-items: center;">
+								<div style="width: 16vw; background: #5e8cd1; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
+									<div>
+										<span style="font-weight: bold; font-size: 1.5vw;">8</span>
+									</div>
+									<div style="display: flex; justify-content: space-between;">
+										<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+											<span>Total Appointment</span>
+											<a href="#" onclick="changeTab('appointmentTab');" style="color: white !important;" hidden>@LangResources["Dashboard_Label_ShowMore"]</a>
+										</div>
+										<img src="~/images/Total sale image.png" style="height: 5vw;" />
+									</div>
+								</div>
+								<div class="hideContainer appointmentTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #5e8cd1;" @hideElement></div>
+							</div>
+						}
+					}
 				</div>
 			</div>
 
-			<div>
-				<canvas id="myChart"></canvas>
+			<div class="containerBorder textColor" style="width: 50vw;" @hideElement>
+				<div class="patientChart currentChart textColor">
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw; margin-bottom: 0.5vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">
+							<span style="font-weight: bold;">Patient Number Statistics</span>
+							<div style="display: flex;">
+								<div style="display: flex; align-items: center; margin-right: 1vw;">
+									<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dogs</span>
+								</div>
+								<div style="display: flex; align-items: center; margin-right: 1vw;">
+									<div style="width: 1vw; height: 1vw; background: #1e76fb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Cats</span>
+								</div>
+								<div style="display: flex; align-items: center; margin-right: 1vw">
+									<div style="width: 1vw; height: 1vw; background: #94bbf5; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Others</span>
+								</div>
+							</div>
+						</div>
+						<canvas id="patientChart"></canvas>
+					</div>
+
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">
+							<span style="font-size: 1vw; font-weight: bold;">Total Patient By Breed</span>
+							<div style="font-size: 1vw;">
+								<span>Showing </span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">Daily</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;">Daily</a>
+										<a href="#" class="textColor">Weekly</a>
+										<a href="#" class="textColor">Monthly</a>
+										<a href="#" class="textColor">Q1</a>
+										<a href="#" class="textColor">Q2</a>
+										<a href="#" class="textColor">Q3</a>
+										<a href="#" class="textColor">Q4</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;">Yearly</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="display: flex; justify-content: space-between;">
+							<div style="width: 49%; height: 13vw; padding: 0 4vw;">
+								<canvas id="totalPatientChart"></canvas>
+							</div>
+							<div style="width: 49%; padding: 0 4vw; font-size: 1vw;">
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dogs</span>
+									</div>
+									<span style="font-weight: bold;">235</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #1e76fb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Cats</span>
+									</div>
+									<span style="font-weight: bold;">221</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #94bbf5; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Others</span>
+									</div>
+									<span style="font-weight: bold;">56</span>
+								</div>
+							</div>
+							@* <div style="width: 50%;">
+								<canvas id="totalPatientChart"></canvas>
+							</div> *@
+						</div>
+					</div>
+				</div>
+				<div class="staffChart hideContainer" style="display: flex; justify-content: space-between;">
+					<div style="width: 49%; border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw 0; padding-left: 1vw; font-size: 1vw">
+						<div style="margin-bottom: 1vw;">
+							<span style="font-weight: bold;">Staff Breakdown</span>
+						</div>
+						<canvas id="staffChart"></canvas>
+					</div>
+					<div style="width: 49%; border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw 0; padding-left: 1vw; font-size: 1vw">
+						<div style="margin-bottom: 1vw;">
+							<span style="font-weight: bold;">Gender Breakdown</span>
+						</div>
+						<canvas id="genderChart"></canvas>
+					</div>
+				</div>
+				<div class="salesChart hideContainer">
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw; margin-bottom: 0.5vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">
+							<span style="font-size: 1vw; font-weight: bold;">Overall Revenue</span>
+							<div style="font-size: 1vw;">
+								<span>Showing </span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">Daily</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;">Daily</a>
+										<a href="#" class="textColor">Weekly</a>
+										<a href="#" class="textColor">Monthly</a>
+										<a href="#" class="textColor">Q1</a>
+										<a href="#" class="textColor">Q2</a>
+										<a href="#" class="textColor">Q3</a>
+										<a href="#" class="textColor">Q4</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;">Yearly</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<canvas id="salesChart"></canvas>
+					</div>
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">							
+							<div style="font-size: 1vw;">
+								<span style="font-weight: bold;">Revenue By</span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">Top Treatment</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;">Top Treatment</a>
+										<a href="#" class="textColor">Top Services</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;">Top Breed</a>
+									</div>
+								</div>
+							</div>
+							<div style="font-size: 1vw;">
+								<span>Showing </span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">Daily</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;">Daily</a>
+										<a href="#" class="textColor">Weekly</a>
+										<a href="#" class="textColor">Monthly</a>
+										<a href="#" class="textColor">Q1</a>
+										<a href="#" class="textColor">Q2</a>
+										<a href="#" class="textColor">Q3</a>
+										<a href="#" class="textColor">Q4</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;">Yearly</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="display: flex; justify-content: space-between;">
+							<div style="width: 49%; height: 13vw; padding: 0 4vw;">
+								<canvas id="totalSaleChart"></canvas>
+							</div>
+							<div style="width: 49%; padding: 0 4vw; font-size: 1vw;">
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Spaying and Neutering</span>
+									</div>
+									<span style="font-weight: bold;">12000</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #1e76fb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> ENT</span>
+									</div>
+									<span style="font-weight: bold;">9070</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #94bbf5; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dental Procedures</span>
+									</div>
+									<span style="font-weight: bold;">6446</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
 			</div>
         </div>
     </div>
@@ -190,43 +379,501 @@
 <script>
 	var tabElement = document.getElementById("selectionTab");
 	var chartElement;
+	var tensionValue = 0.5;
+	var chartTotalSale, chartSale, chartGender, chartStaff, chartTotalPatient, chartPatient;
+	var axisColor = "black";
 
-	function changeTab(type){
-		var currentTab = document.querySelector(".currentTab");
-		var selectedTab =  document.querySelector("." + type);
+	// if(typeof(refreshChart) == "function"){
+	// 	alert("function exist.")
+	// }
 
-		currentTab.classList.add("hideContainer");
-		currentTab.classList.remove("currentTab");
+	refreshChart();
 
-		selectedTab.classList.remove("hideContainer");
-		selectedTab.classList.add("currentTab");
+	function changeTab(type, chart){
+		var currentTab = document.querySelectorAll(".currentTab");
+		var currentChart = document.querySelector(".currentChart");
+		var selectedTab =  document.querySelectorAll("." + type);
+		var selectedChart =  document.querySelector("." + chart);
+
+		currentTab[0].classList.remove("hideContainer");
+		currentTab[0].classList.remove("currentTab");
+		currentTab[1].classList.add("hideContainer");
+		currentTab[1].classList.remove("currentTab");
+
+		currentChart.classList.add("hideContainer");
+		currentChart.classList.remove("currentChart");
+
+		selectedTab[0].classList.add("hideContainer");
+		selectedTab[0].classList.add("currentTab");
+		selectedTab[1].classList.remove("hideContainer");
+		selectedTab[1].classList.add("currentTab");
+
+		selectedChart.classList.remove("hideContainer");
+		selectedChart.classList.add("currentChart");
 	}
 
-	 window.onload = function () {
-			let ctx = document.getElementById("myChart").getContext("2d");
 
-			// Sample data
-			let data = {
-				label: "my dataset",
-				datasets: [{
-					label: "my data",
-					data: [{x: '2016-12-25', y: 20}, {x: '2016-12-26', y: 10}]
-				}]
+	function refreshChart(){
+		// if(chartPatient){
+		// 	chartPatient.chart.destroy();
+		// 	chartTotalPatient.chart.destroy();
+		// 	chartStaff.chart.destroy();
+		// 	chartGender.chart.destroy();
+		// 	chartSale.chart.destroy();
+		// 	chartTotalSale.chart.destroy();
+		// }
+
+		if(chartPatient){
+			chartPatient.destroy();
+			chartTotalPatient.destroy();
+			chartStaff.destroy();
+			chartGender.destroy();
+			chartSale.destroy();
+			chartTotalSale.destroy();
+		}
+
+		setPatientChart();
+		setStaffChart();
+		setSaleChart();
+	}
+
+	function setPatientChart(){
+			let patientChart = document.getElementById("patientChart").getContext("2d");
+			let totalPatientChart = document.getElementById("totalPatientChart").getContext("2d");
+
+
+			var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			var breed = ["Dogs", "Cats", "Others"];
+
+			let dataPatient = {
+					labels: months,
+						datasets: [{
+						label: "Dogs",
+						data: [400, 500, 400, 500, 400],
+						borderColor: "#9faabb",
+						backgroundColor: (ctx) => {
+							const canvas = ctx.chart.ctx;
+							const gradient = canvas.createLinearGradient(0, 0, 0, 180);
+
+							gradient.addColorStop(0, '#9faabb');
+							gradient.addColorStop(1, '#ffffff');
+
+							return gradient;
+						},
+						tension: tensionValue,
+						fill: 1
+					},
+					{
+						label: "Cats",
+						data: [300, 400, 300, 400, 300],
+						borderColor: "#1e76fb",
+						backgroundColor: (ctx) => {
+							const canvas = ctx.chart.ctx;
+							const gradient = canvas.createLinearGradient(0, 0, 0, 260);
+
+							gradient.addColorStop(0, '#1e76fb');
+							gradient.addColorStop(1, '#ffffff');
+
+							return gradient;
+						},
+						tension: tensionValue,
+						fill: 2
+					},
+					{
+						label: "Others",
+						data: [200,300, 200, 300, 200],
+						borderColor: "#94bbf5",
+						backgroundColor: (ctx) => {
+							const canvas = ctx.chart.ctx;
+							const gradient = canvas.createLinearGradient(0, 0, 0, 360);
+
+							gradient.addColorStop(0, '#94bbf5');
+							gradient.addColorStop(1, '#ffffff');
+
+							return gradient;
+						},
+						tension: tensionValue,
+						fill: true
+					}]
+				};
+
+				chartPatient = new Chart(patientChart, {
+					type: 'line',
+					data: dataPatient,
+					options: {
+						// legend: {display: false},
+						// scales : {
+							// yAxes : [{
+							// 	gridLines: {
+							// 		drawOnChartArea: false
+							// 	},
+							// 	ticks: {
+							// 		beginAtZero: true,
+							// 		fontColor: axisColor
+							// 	}
+							// }],
+							// xAxes : [{
+							// 	gridLines: {
+							// 		drawOnChartArea: false
+							// 	},
+							// 	ticks: {
+							// 		fontColor: axisColor
+							// 	}
+							// }]
+						// },
+						scales : {
+							x : {
+								grid: {
+									drawOnChartArea: false
+								},
+								ticks: {
+									color: axisColor
+								}
+							},
+							y : {
+								beginAtZero: true,
+								grid: {
+									drawOnChartArea: false
+								},
+								ticks: {
+									color: axisColor
+								}
+							}
+						},
+						plugins: {
+							datalabels: {
+								display: false // Disable datalabels
+							},
+							legend: false
+						}
+					}
+				});
+
+				chartTotalPatient = new Chart(totalPatientChart, {
+					type: 'doughnut',
+					data: {
+					  labels: breed,
+					  datasets: [{
+						backgroundColor: ["#9faabb", "#1e76fb", "#94bbf5"],
+						data: [234, 221, 56]
+					  }]
+					},
+					options: {
+						// legend: {
+						// 	display: true,
+						// 	position: "right",
+						// 	labels: {
+						// 		usePointStyle: true, // Use circular point style for legend
+						// 		fontColor: axisColor
+						// 	}
+						// },
+						plugins: {
+							datalabels: {
+								display: false // Disable datalabels
+							},
+							legend: {
+								display: false,
+								position: "right",
+								labels: {
+									usePointStyle: true, // Use circular point style for legend
+									color: axisColor
+								}
+							},
+						}
+					}
+				});
+	}
+
+	function setStaffChart(){
+			var staffChart = document.getElementById('staffChart').getContext('2d');
+			var genderChart = document.getElementById('genderChart').getContext('2d');
+
+			var data = [ { role: 'Senior Veterinarian', count: 12, color: '#1E88E5', x: 1.5 }, { role: 'Junior Veterinarian', count: 8, color: '#42A5F5', x: 2 }, { role: 'Assistant', count: 6, color: '#90CAF9', x: 2.5 }, { role: 'Receptionist', count: 2, color: '#B0BEC5', x: 3 } ];
+			data.sort((a, b) => b.count - a.count);
+			let dataStaff = {
+				datasets: data.map(item => ({
+					label: item.role,
+					data: [{ x: item.x, y: 0, r: item.count * 3 }], // Adjust the multiplier for bubble size
+					backgroundColor: item.color ,
+					borderColor: "white"
+				}))
 			};
 
-			let chart = new Chart(ctx, {
-				type: 'line',
-				data: data,
+			chartStaff = new Chart(staffChart, {
+				type: 'bubble',
+				data: dataStaff,
 				options: {
 					scales: {
-						xAxes: [{
-							type: 'time',
-							time: {
-								unit: 'month'
+						// xAxes: [{ display: false, ticks: { min: 0, max: 4, fontColor: axisColor },}],
+						// yAxes: [{ 
+						// 	display: false,
+						// 	ticks: {
+						// 		fontColor: axisColor
+						// 	} 
+						// }]
+						x : {
+							display: false,
+							min: 0, 
+							max: 4,
+							ticks: {
+								color: axisColor
 							}
-						}]
+						},
+						y : {
+							display: false,
+							ticks: {
+								color: axisColor
+							}
+						}
+					},
+					// legend: {
+					// 	display: true,
+					// 	position: "right",
+					// 	labels: {
+					// 		generateLabels: function(chart) {
+					// 			return data.map(item => ({
+					// 				text: item.role,
+					// 				fillStyle: item.color
+					// 			}));
+					// 		},
+					// 		usePointStyle: true,
+					// 		fontColor: axisColor
+					// 	}
+					// },
+					plugins: {
+						datalabels: {
+							align: 'center',
+							anchor: 'center',
+							formatter: function(value, context) {
+								return value.r / 3; // Adjust the multiplier to match bubble size calculation
+							},
+							color: '#fff',
+							font: {
+								size: 10 // Adjust this value to change the font size
+							}
+						},
+						legend: {
+							display: true,
+							position: "right",
+							labels: {
+								// generateLabels: function(chart) {
+								// 	return data.map(item => ({
+								// 		text: item.role,
+								// 		fillStyle: item.color
+								// 	}));
+								// },
+								usePointStyle: true,
+								color: axisColor
+							}
+						},
+					}
+				},
+				plugins: [ChartDataLabels]
+			});
+
+			chartGender = new Chart(genderChart, {
+				type: 'doughnut',
+				data: {
+				  labels: ["Male Staffs", "Female Staffs"],
+				  datasets: [{
+					backgroundColor: ["#1d76fb", "#5e8cd1"],
+					data: [11, 17]
+				  }]
+				},
+				options: {
+					// legend: {
+					// 	display: true,
+					// 	position: "right",
+					// 	labels: {
+					// 		usePointStyle: true, // Use circular point style for legend
+					// 		fontColor: axisColor
+					// 	}
+					// },
+					plugins: {
+						datalabels: {
+							display: false // Disable datalabels
+						},
+						legend: {
+							display: true,
+							position: "right",
+							labels: {
+								usePointStyle: true, // Use circular point style for legend
+								color: axisColor
+							}
+						},
 					}
 				}
 			});
-		}
+	}
+
+	function setSaleChart(){
+			let salesChart = document.getElementById("salesChart").getContext("2d");
+			let totalSaleChart = document.getElementById("totalSaleChart").getContext("2d");
+
+			var xData = ['2016-12-25', '2016-12-26', '2016-12-27', '2016-12-28'];
+
+			let dataSales = {
+				labels: xData,
+				datasets: [{
+					label: "Sale Data",
+					data: [20, 10, 30, 40],
+					backgroundColor: "#e9f2fd",
+					hoverBackgroundColor: "#5e8cd1",
+					barPercentage: 1.2,
+					borderRadius: {
+						topLeft: 10,
+						topRight: 10,
+						bottomLeft: 0,
+						bottomRight: 0
+					}
+				}]
+			};
+
+			chartSale = new Chart(salesChart, {
+				type: 'bar',
+				data: dataSales,
+				options: {
+					  // legend: {display: false},
+					//   scales : {
+					// 	yAxes : [{
+					// 		display: false,
+					// 		gridLines: {
+					// 			drawOnChartArea: false
+					// 		},
+					// 		ticks: {
+					// 			beginAtZero: true,
+					// 		},
+					// 		afterDataLimits: function(axis) {
+					// 			axis.max = Math.max(...axis.chart.data.datasets[0].data) + 10; // Add some padding
+					// 		}
+					// 	}],
+					// 	xAxes : [{
+					// 			gridLines: {
+					// 				drawOnChartArea: false
+					// 		},
+					// 		ticks: {
+					// 			fontColor: axisColor
+					// 		}
+					// 	}]
+					// },
+					// plugins: {
+					// 	datalabels: {
+					// 		align: 'end',
+					// 		anchor: 'end',
+					// 		formatter: function(value, context) {
+					// 			return '$ ' + value; // Adjust the multiplier to match bubble size calculation
+					// 		},
+					// 		color: axisColor,
+					// 		font: {
+					// 			size: 10 // Adjust this value to change the font size
+					// 		}
+					// 	}
+					// },
+					// elements: {
+					// 	bar: {
+					// 		borderRadius: 500, // Set the border radius here
+					// 		borderSkipped: false
+					// 	}
+					// }
+					scales : {
+						x : {
+							grid: {
+								drawOnChartArea: false
+							},
+							ticks: {
+								color: axisColor
+							}
+						},
+						y: {
+							beginAtZero: true,
+							display: false,
+							grid: {
+								drawOnChartArea: false
+							},
+							afterDataLimits: function(axis) {
+								axis.max = Math.max(...axis.chart.data.datasets[0].data) + 10; // Add some padding
+							}
+						}
+					},
+					plugins: {
+						datalabels: {
+							anchor: 'end',
+							align: 'end',
+							formatter: (value) => '$ ' + value,
+							color: axisColor,
+							font: {
+								size: 10
+							}
+						},
+						legend: false
+					},
+				},
+				plugins: [ChartDataLabels]
+			});
+
+
+
+			chartTotalSale = new Chart("totalSaleChart", {
+				type: 'doughnut',
+				data: {
+				  labels: ["Spaying and Neutering", "ENT", "Dental procedures"],
+				  datasets: [{
+					backgroundColor: ["#9faabb", "#1e76fb", "#94bbf5"],
+					data: [12000, 9070, 6446]
+				  }]
+				},
+				options: {
+					// legend: {
+					// 	display: true,
+					// 	position: "right",
+					// 	labels: {
+					// 		usePointStyle: true, // Use circular point style for legend
+					// 		fontColor: axisColor
+					// 	}
+					// },
+					plugins: {
+						datalabels: {
+							display: false // Disable datalabels
+						},
+						legend: {
+							display: false,
+							position: "right",
+							labels: {
+								usePointStyle: true, // Use circular point style for legend
+								color: axisColor
+							}
+						},
+					}
+				}
+			});
+	}
+</script>
+
+<script>
+	// var data = [ { role: 'Senior Veterinarian', count: 12, color: '#1E88E5', x: 50 }, { role: 'Junior Veterinarian', count: 8, color: '#42A5F5', x: 150 }, { role: 'Assistant', count: 6, color: '#90CAF9', x: 250 }, { role: 'Receptionist', count: 2, color: '#B0BEC5', x: 350 } ];
+
+	// var canvas = document.getElementById('staffChart');
+	// var ctx = canvas.getContext('2d'); 
+	// var data = [ { role: 'Senior Veterinarian', count: 12, color: '#1E88E5', x: 50 }, { role: 'Junior Veterinarian', count: 8, color: '#42A5F5', x: 150 }, { role: 'Assistant', count: 6, color: '#90CAF9', x: 250 }, { role: 'Receptionist', count: 2, color: '#B0BEC5', x: 350 } ]; 
+	// data.forEach(function(item) { 
+	// 	// Draw bubble 
+	// 	ctx.beginPath(); 
+	// 	ctx.arc(item.x, canvas.height / 2, item.count * 5, 0, Math.PI * 2, false); 
+	// 	ctx.fillStyle = item.color; ctx.fill(); 
+		
+	// 	// Draw text 
+	// 	ctx.fillStyle = '#fff'; 
+	// 	ctx.font = '16px Arial';
+	// 	ctx.textAlign = 'center'; 
+	// 	ctx.textBaseline = 'middle'; 
+	// 	ctx.fillText(item.count, item.x, canvas.height / 2); }); 
+		
+	// 	// Add labels 
+	// 	data.forEach(function(item) { 
+	// 		ctx.fillStyle = '#000';
+	// 		ctx.font = '12px Arial';
+	// 		ctx.textAlign = 'center'; 
+	// 		ctx.textBaseline = 'top'; 
+	// 		ctx.fillText(item.role, item.x, canvas.height / 2 + item.count * 5 + 10); 
+	// 	});
 </script>

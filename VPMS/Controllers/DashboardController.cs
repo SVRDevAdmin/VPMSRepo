@@ -5,7 +5,7 @@ using VPMS.Lib.Data.DBContext;
 
 namespace VPMSWeb.Controllers
 {
-    [Authorize(Roles = "Superadmin")]
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly PatientDBContext _patientDBContext = new PatientDBContext();

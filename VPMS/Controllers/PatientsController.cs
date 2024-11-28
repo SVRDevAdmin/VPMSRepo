@@ -553,43 +553,43 @@ namespace VPMSWeb.Controllers
 				_patientDBContext.Txn_TreatmentPlan.Add(patientTreatmentPlan);
 				_patientDBContext.SaveChanges();
 
-				//var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
-				//var patientInfo = _patientDBContext.Mst_Patients.FirstOrDefault(x => x.ID == petInfo.PatientID);
-				//var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == petInfo.PatientID);
-				//var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
+				var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
+				var patientInfo = _patientDBContext.Mst_Patients.FirstOrDefault(x => x.ID == petInfo.PatientID);
+				var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == petInfo.PatientID);
+				var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
 
-				//Random rnd = new Random();
-				//string invoiceNoString = "";
-				//var existed = true;
+				Random rnd = new Random();
+				string invoiceNoString = "";
+				var existed = true;
 
-				//while (existed)
-				//{
-				//	int num = rnd.Next(1, 999999);
-				//	invoiceNoString = "#" + num;
-				//	if (!invoiceNoList.Contains(invoiceNoString))
-				//	{
-				//		existed = false;
-				//	}
-				//}
+				while (existed)
+				{
+					int num = rnd.Next(1, 999999);
+					invoiceNoString = "#" + num;
+					if (!invoiceNoList.Contains(invoiceNoString))
+					{
+						existed = false;
+					}
+				}
 
 
-				//var invoiceInfo = new InvoiceReceiptModel()
-				//{
-				//	TreatmentPlanID = patientTreatmentPlan.ID,
-				//	Branch = patientInfo.BranchID,
-				//	InvoiceNo = invoiceNoString,
-				//	PetName = petInfo.Name,
-				//	OwnerName = owner.Name,
-				//	Fee = patientTreatmentPlan.TotalCost,
-				//	Tax = 6,
-				//	GrandDiscount = 0,
-				//	Status = patientTreatmentPlan.Status,
-				//	CreatedDate = DateTime.Now,
-				//	CreatedBy = HttpContext.Session.GetString("Username")
-				//};
+				var invoiceInfo = new InvoiceReceiptModel()
+				{
+					TreatmentPlanID = patientTreatmentPlan.ID,
+					Branch = patientInfo.BranchID,
+					InvoiceNo = invoiceNoString,
+					PetName = petInfo.Name,
+					OwnerName = owner.Name,
+					Fee = patientTreatmentPlan.TotalCost,
+					Tax = 6,
+					GrandDiscount = 0,
+					Status = patientTreatmentPlan.Status,
+					CreatedDate = DateTime.Now,
+					CreatedBy = HttpContext.Session.GetString("Username")
+				};
 
-				//_invoiceReceiptDBContext.Mst_InvoiceReceipt.Add(invoiceInfo);
-				//_invoiceReceiptDBContext.SaveChanges();
+				_invoiceReceiptDBContext.Mst_InvoiceReceipt.Add(invoiceInfo);
+				_invoiceReceiptDBContext.SaveChanges();
 			}
 			catch (Exception ex)
 			{

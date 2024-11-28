@@ -490,12 +490,23 @@
 					'<th class="table-content" > @LangResources["Patient_Label_PetName"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
 					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_Fee"] ($) </th>' +
+					'<th class="table-content" > @LangResources["Patient_Label_Status"] </th>' +
 					'<th class="table-content" > </th>' +
 					'</tr>';
 
 				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
 					for (let i = 0; i < data.invoiceReceiptList.length; i++) {
+						var status, color;
+
+						if(data.invoiceReceiptList[i].Status == 2){
+							status = "@LangResources["InvoiceReceipt_Label_Ready"]";
+							color = "#57baa5"
+						}
+						else{
+							status = "@LangResources["InvoiceReceipt_Label_Canceled"]";
+							color = "#ff2c29"
+						}
 
 						var date = new Date(data.invoiceReceiptList[i].Date);
 						var dateString = [
@@ -512,6 +523,7 @@
 							'<td class="table-content" >' + data.invoiceReceiptList[i].PetName + '</td>' +
 							'<td class="table-content" > ' + data.invoiceReceiptList[i].OwnerName + '</td>' +
 							'<td class="table-content" > ' + data.invoiceReceiptList[i].Fee + '</td>' +
+							'<td class="table-content" style="color: ' + color + ';" > ' + status + '</td>' +
 							'<td class="table-content" style = "width: 0;" > ' +
 							'<div class="dropleft" > ' +
 							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +

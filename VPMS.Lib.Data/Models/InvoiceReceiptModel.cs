@@ -36,6 +36,7 @@ namespace VPMS.Lib.Data.Models
 		public float Fee { get; set; }
 		public string Remarks { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public int Status { get; set; }
     }
 
 	public class InvoiceReceiptInfos
