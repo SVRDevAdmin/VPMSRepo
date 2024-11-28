@@ -96,6 +96,12 @@ namespace VPMS.Lib.Data.DBContext
 			return sList;
 		}
 
+		/// <summary>
+		/// Get all invoices transaction summary by date
+		/// </summary>
+		/// <param name="dtStart"></param>
+		/// <param name="dtEnd"></param>
+		/// <returns></returns>
 		public List<InvoiceTransSummaryModel> GetInvoiceTransactionSummaryByDate(DateTime dtStart, DateTime dtEnd)
 		{
 			List<InvoiceTransSummaryModel> sResult = new List<InvoiceTransSummaryModel>();
@@ -106,15 +112,24 @@ namespace VPMS.Lib.Data.DBContext
 				{
 					sConn.Open();
 
-					String sSelectCommand = "SELECT  A.CreatedDate AS 'SummaryDate', A.Branch, " +
-											"SUM(A.Fee) AS 'TotalAmount', SUM(A.GrandDiscount) AS 'TotalDiscount' " +
+					String sSelectCommand = "SELECT T1.SummaryDate, T1.Branch, " +
+											"IFNULL(T2.TotalAmount, 0) AS 'TotalAmount', IFNULL(T2.TotalDiscount, 0) AS 'TotalDiscount' " +
+											"FROM (" +
+											"SELECT STR_TO_DATE('" + dtStart.ToString("yyyy-MM-dd") + "', '%Y-%m-%d') AS 'SummaryDate', " +
+											"ID AS 'Branch', `Name` AS 'BranchName' " +
+											"FROM Mst_Branch WHERE `Status`= 1 " +
+											") AS T1 " +
+											"LEFT JOIN (" +
+											"SELECT  A.CreatedDate AS 'SummaryDate', A.Branch, SUM(A.Fee) AS 'TotalAmount', SUM(A.GrandDiscount) AS 'TotalDiscount' " +
 											"FROM mst_invoicereceipt AS A " +
 											"INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
-											"WHERE A.CreatedDate >= '" + dtStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " + 
-											"A.CreatedDate <= '" + dtEnd.ToString("yyyy-MM-dd HH:mm:ss") + "' " +
-											"GROUP BY A.CreatedDate, A.Branch ";
+                                            "WHERE A.CreatedDate >= '" + dtStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " +
+                                            "A.CreatedDate <= '" + dtEnd.ToString("yyyy-MM-dd HH:mm:ss") + "' " +
+											"GROUP BY A.CreatedDate, A.Branch " +
+											") AS T2 ON T2.SummaryDate = T1.SummaryDate AND T2.Branch = T1.Branch ";
 
-					using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
 					{
 						using (var sReader = sCommand.ExecuteReader())
 						{
@@ -142,6 +157,12 @@ namespace VPMS.Lib.Data.DBContext
 			return sResult;
         }
 
+		/// <summary>
+		/// Get Invoice transaction details summary by Date
+		/// </summary>
+		/// <param name="dtStart"></param>
+		/// <param name="dtEnd"></param>
+		/// <returns></returns>
 		public List<TransSummaryBreakdownModel> GetTransactionSummaryBreakdownByDate(DateTime dtStart, DateTime dtEnd)
 		{
 			List<TransSummaryBreakdownModel> sResult = new List<TransSummaryBreakdownModel>();

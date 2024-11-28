@@ -14,6 +14,12 @@ namespace VPMS.Lib.Data
 {
     public class TransSummaryRepository
     {
+        /// <summary>
+        /// Insert Transaction Summary
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sSummaryObj"></param>
+        /// <returns></returns>
         public static Boolean InsertTransactionSummary(IConfiguration config, List<TransSummaryModel> sSummaryObj)
         {
             Boolean isSuccess = false;
@@ -37,6 +43,14 @@ namespace VPMS.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Delete Transaction summary Record by Type + Date + Group
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sSummaryType"></param>
+        /// <param name="sSummaryDate"></param>
+        /// <param name="sGroup"></param>
+        /// <returns></returns>
         public static Boolean DeleteTransactionSummary(IConfiguration config, String sSummaryType, DateTime sSummaryDate, String sGroup)
         {
             Boolean isSuccess = false;
@@ -73,6 +87,12 @@ namespace VPMS.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Insert Summary Log
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sSummaryLog"></param>
+        /// <returns></returns>
         public static Boolean InsertTransSummaryLog(IConfiguration config, TransSummaryLogModel sSummaryLog)
         {
             Boolean isSuccess = false;

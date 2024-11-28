@@ -11,13 +11,20 @@ using Microsoft.VisualBasic;
 using VPMS.Lib.Data;
 using System.Globalization;
 using System;
+using log4net.Repository;
+using System.Reflection;
 
 namespace VPMSTransactionSummaryTask
 {
-    internal class Program
+    public class Program
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         static void Main(string[] args)
         {
+            ILoggerRepository repository = log4net.LogManager.GetRepository(Assembly.GetCallingAssembly());
+            log4net.Config.XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+
             DateTime executionDate = DateTime.Now.AddDays(-1);
             DateTime startDate = new DateTime(executionDate.Year, executionDate.Month, executionDate.Day, 0, 0, 0);
             DateTime endDate = new DateTime(executionDate.Year, executionDate.Month, executionDate.Day, 23, 59, 59);
@@ -66,7 +73,7 @@ namespace VPMSTransactionSummaryTask
                 var sDailyResult = sContext.GetInvoiceTransactionSummaryByDate(startDate, endDate);
                 if (sDailyResult != null)
                 {
-                    List<TransSummaryModel> sSummaryObj = new List<TransSummaryModel>();
+                    
                     String sSummaryType = "Overall";
                     String sGroup = "TotalRevenue";
                     String sTotalSubGroup = "Total";
@@ -76,6 +83,8 @@ namespace VPMSTransactionSummaryTask
 
                     foreach (var r in sDailyResult)
                     {
+                        List<TransSummaryModel> sSummaryObj = new List<TransSummaryModel>();
+
                         sSummaryObj.Add(new TransSummaryModel
                         {
                             SummaryDate = executionDate.Date,
@@ -109,6 +118,7 @@ namespace VPMSTransactionSummaryTask
                         TransSummaryRepository.InsertTransactionSummary(config, sSummaryObj);
                     } 
                 }
+
 
                 // -------- Daily Breakdown Summary -------------//
                 String sBreakdownSummaryType = "Breakdown";
