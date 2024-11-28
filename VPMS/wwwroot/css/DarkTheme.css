@@ -274,12 +274,20 @@ input[type='text']:focus, select:focus {
 	color: white;
 }
 
+.profilemenu > a:hover {
+	background-color: transparent !important;
+}
+
 #btnBright {
 	background-color: transparent;
 }
 
 #btnDark {
 	background-color: #1e76fb;
+}
+
+#imgVetVitals {
+	content: url('../images/Vet-Vitals-Logo-White.png');
 }
 
 #imgLogo {
