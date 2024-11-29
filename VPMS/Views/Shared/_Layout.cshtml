@@ -45,18 +45,18 @@
         {
             if (theme == "dark")
             {
-                                    <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
                 ViewBag.DarkTheme = "Dark";
             }
             if (theme == "light")
             {
-                                    <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
                 ViewBag.DarkTheme = "Light";
             }
         }
         else
         {
-                                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
             ViewBag.DarkTheme = "Light";
             /* temp */
         }
@@ -67,125 +67,124 @@
 
     <style>
 
-        /*below are for theme button*/
+    /*below are for theme button*/
 
-        #theme {
-            /* z-index: 9998; */
-            position: absolute;
-            right: 0.8vw;
-        }
+    #theme {
+        /* z-index: 9998; */
+        position: absolute;
+        right: 0.8vw;
+    }
 
-        #path_4043 {
-            top: 1vw;
-            right: 0.5vw;
-            width: 5.5vw;
-            height: 3vw;
-            position: absolute;
-        }
+    #path_4043 {
+        top: 1vw;
+        right: 0.5vw;
+        width: 5.5vw;
+        height: 3vw;
+        position: absolute;
+    }
 
-        #group_1138 {
-            /* top: 1.45vw; */
-            top: 17px;
-            /* right: -0.4vw; */
-            right: -5px;
-            /* width: 3.6vw; */
-            width: 44.5px;
-            position: absolute;
-            /*animation*/
-            transition: all 0.5s linear;
-        }
+    #group_1138 {
+        /* top: 1.45vw; */
+        top: 17px;
+        /* right: -0.4vw; */
+        right: -5px;
+        /* width: 3.6vw; */
+        width: 44.5px;
+        position: absolute;
+        /*animation*/
+        transition: all 0.5s linear;
+    }
 
-            #group_1138.darktheme {
-                /* top: 1.45vw; */
-                top: 17px;
-                /* right: 1.8vw; */
-                right: 21px;
-                /* width: 3.6vw; */
-                position: absolute;
-                transition: all 0.5s linear;
-            }
+    #group_1138.darktheme {
+        /* top: 1.45vw; */
+        top: 17px;
+        /* right: 1.8vw; */
+        right: 21px;
+        /* width: 3.6vw; */
+        position: absolute;
+        transition: all 0.5s linear;
+    }
 
-        #dark_theme_icon {
-            visibility: hidden;
-            opacity: 0;
-            /*animation*/
-            transition: opacity 0.5s linear;
-        }
+    #dark_theme_icon {
+        visibility: hidden;
+        opacity: 0;
+        /*animation*/
+        transition: opacity 0.5s linear;
+    }
 
-            #dark_theme_icon.darktheme {
-                visibility: visible;
-                opacity: 1;
-                /* top: -0.07vw; */
-                top: -1px;
-                /* right: 2vw; */
-                right: 24px;
-                /* width: 1.3vw; */
-                width: 16px;
-                position: absolute;
-                transition: opacity 0.5s linear;
-            }
-
-
-        #rectangle_1045, #rectangle_1046 {
-            /* width: 2.7vw;
-            height: 2.2vw; */
-            width: 33.5px;
-            height: 27.5px;
-            -ms-border-radius: 7px;
-            -o-border-radius: 7px;
-            -moz-border-radius: 7px;
-            -webkit-border-radius: 7px;
-            border-radius: 0.5vw;
-            background: rgba(30, 118, 251, 255);
-            position: absolute;
-        }
-
-        #icon_feather_sun {
-            /* top: 2vw; */
-            top: 24.5px;
-            /* right: 1.3vw; */
-            right: 16px;
-            /* width: 2.05vw; */
-            position: absolute;
-        }
-
-        #path_519 {
-            /* top: 0.22vw; */
-            top: 2px;
-            /* right: 0.22vw; */
-            right: 2.48px;
-            /* width: 0.7vw; */
-            width: 8px;
-            position: absolute;
+        #dark_theme_icon.darktheme {
             visibility: visible;
             opacity: 1;
-            transition: opacity 0.5s linear;
-        }
-
-
-        #path_520 {
-            /* top: -0.21vw; */
-            top: -2.8px;
-            /* right: -0.21vw; */
-            right: -2.86px;
-            /* width: 1.5vw; */
-            width: 18px;
+            /* top: -0.07vw; */
+            top: -1px;
+            /* right: 2vw; */
+            right: 24px;
+            /* width: 1.3vw; */
+            width: 16px;
             position: absolute;
-            visibility: visible;
-            opacity: 1;
             transition: opacity 0.5s linear;
         }
 
-            #path_519.darktheme, #path_520.darktheme {
-                visibility: hidden;
-                opacity: 0;
-                /*animation*/
-                transition: opacity 0.5s linear;
-            }
 
-        .LanguageSelectionFont:hover {
-            color: dodgerblue;
-        }
+    #rectangle_1045, #rectangle_1046 {
+        /* width: 2.7vw;
+        height: 2.2vw; */
+        width: 33.5px;
+        height: 27.5px;
+        -ms-border-radius: 7px;
+        -o-border-radius: 7px;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        border-radius: 0.5vw;
+        background: rgba(30, 118, 251, 255);
+        position: absolute;
+    }
+
+    #icon_feather_sun {
+        /* top: 2vw; */
+        top: 24.5px;
+        /* right: 1.3vw; */
+        right: 16px;
+        /* width: 2.05vw; */
+        position: absolute;
+    }
+
+    #path_519 {
+        /* top: 0.22vw; */
+        top: 2px;
+        /* right: 0.22vw; */
+        right: 2.48px;
+        /* width: 0.7vw; */
+        width: 8px;
+        position: absolute;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+    }
+
+    #path_520 {
+        /* top: -0.21vw; */
+        top: -2.8px;
+        /* right: -0.21vw; */
+        right: -2.86px;
+        /* width: 1.5vw; */
+        width: 18px;
+        position: absolute;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+    }
+
+    #path_519.darktheme, #path_520.darktheme {
+        visibility: hidden;
+        opacity: 0;
+        /*animation*/
+        transition: opacity 0.5s linear;
+    }
+
+    .LanguageSelectionFont:hover {
+        color: dodgerblue;
+    }
     </style>
 </head>
 
@@ -260,6 +259,14 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <a asp-controller="TestManagement" asp-action="Index" class="nav-link align-middle px-0 ">
+                                <span id="TestMgmtMenu" class="spanMenuBlue"></span>
+                                <img id="iconTestMgmt" class="menuIcons" />
+
+                                <span class="d-none d-sm-inline sidebar-nav-font">Test Management</span>
+                            </a>
                         </li>
                         <li>
                             @* <a href="#" class="nav-link align-middle px-0"> *@

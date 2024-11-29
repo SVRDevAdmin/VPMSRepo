@@ -1,0 +1,351 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
+<script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
+<script src="~/lib/moment.min.js"></script>
+
+<style type="text/css">
+    .TestMgmtTitle{
+        font-size: 24px;
+        font-weight: bold;
+        margin-left: 25px;
+        margin-top: 20px;
+    }
+
+    #imgTestResultSlider {
+        content: url('../images/Slider_icon.png');
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .collapseHide {
+        visibility: hidden;
+    }
+
+    .PaginationButtonSelected {
+        width: 3vw;
+        height: 3vw;
+        background-color: #1E76FB;
+        color: white;
+        margin-right: 1vw;
+        text-align: center;
+        border-radius: 3vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #1E76FB;
+        font-weight: bold;
+    }
+
+    .PaginationButton {
+        width: 3vw;
+        height: 3vw;
+        background-color: transparent;
+        color: #1E76FB;
+        margin-right: 1vw;
+        text-align: center;
+        border-radius: 3vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #1E76FB;
+        font-weight: bold;
+    }
+</style>
+<script>
+    var paginationLimit = 10;
+    var pageSize = 10;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
+    loadDeviceName();
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            loadTestMgmListing();
+        }, 200);
+
+        $('#btnTestMgmtFilter').click(function () {
+            $('#divTestMgmtFilter').toggleClass('collapseHide');
+            $('#divTestResult').toggleClass('col-md-12 col-md-9');
+        });
+
+        $('#btnSearch').click(function () {
+            currentPage = 1;
+
+            loadTestMgmListing();
+        });
+
+        $('#btnReset').click(function () {
+            resetFields();
+        });
+    });
+
+    function resetFields(){
+        $('#txtPatientID').val('');
+        $('#ddlDevice').val($('#ddlDevice option:first').val());
+        $('#ddlSorting').val($('#ddlSorting option:first').val());
+    }
+
+    function loadDeviceName()
+    {
+        $.getJSON("/TestManagement/GetDeviceNameList")
+            .done(function (result) {
+                if (result.length > 0){
+                    $('#ddlDevice').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++)
+                    {
+                        var opt = new Option((result[i]), result[i]);
+                        $('#ddlDevice').append(opt);
+                    }
+                }
+                else{
+                    $('#ddlDevice').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function loadTestMgmListing() 
+    {
+        $.getJSON("/TestManagement/GetTestResultListing", {
+            patientID: $('#txtPatientID').val(),
+            deviceName: $('#ddlDevice').val(),
+            sortOrder: $('#ddlSorting').val(),
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function (result) {
+            if (result.data != null && result.data.length > 0) {
+                $('#tblTestResult').bootstrapTable('destroy');
+                $('#tblTestResult').bootstrapTable({
+                    data: result.data
+                });
+
+                /*----------- Pagination -----------*/
+                populatePagingControl(result.totalRecord);
+            }
+            else {
+                $('#tblTestResult').bootstrapTable('destroy');
+                document.getElementById("pagination").hidden = true;
+            }
+        });
+    }
+
+    function populateHiddenMenu(value, row) {
+        var hideMenuHtml = '<button type="button" class="btn" data-toggle="dropdown">' +
+            '<img class="TestResultListingMoreIcon"  />' +
+            '</button>' +
+
+            '<div class="dropdown-menu hiddenTestResultMenuStyle" style="min-width: fit-content; font-size: 1vw;">' +
+            '<a class="dropdown-item" href="/TestManagement/ViewResults/' + value + '/View">View</a>' +
+            '</div>';
+        return hideMenuHtml;
+    }
+
+    function formatTestResultDate(value, row, index) {
+        return moment(value).format('DD/MM/YYYY HH:mm:ss');
+    }
+
+    function populatePagingControl(totalRecord) {
+        let total = totalRecord;
+        if (total == 0) {
+            document.getElementById("pagination").hidden = true;
+        }
+        else {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end) {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        loadTestMgmListing();
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+
+        loadTestMgmListing();
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        loadTestMgmListing();
+    }
+</script>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <label class="TestMgmtTitle">Test Management</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-8" style="display: flex;">
+                    <button id="btnDownload" class="btn btn-primary">
+                        <i class="bi bi-download"></i>
+                    </button>
+                    &nbsp;
+                    <button id="btnPrint" class="btn btn-primary">
+                        <i class="bi bi-printer"></i>
+                    </button>
+                    &nbsp;
+                    <button id="btnTestMgmtFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 1vw;">
+                        <img id="imgTestResultSlider" />
+                        Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="height: 15px;">
+            <label id="lbTestMgmtError"></label>
+        </div>
+        <div id="divTestResult" class="col-md-12" style="margin-top: 15px;">
+            <table id="tblTestResult" class="table" style="font-size: 1vw;">
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">No.</th>
+                        <th scope="col" data-field="ResultDateTime" data-formatter="formatTestResultDate" class="text-center" style="width: 20%;">Time</th>
+                        <th scope="col" data-field="ResultType" class="text-center" style="width: 15%;">Test Type</th>
+                        <th scope="col" data-field="ResultStatus" class="text-center" style="width: 10%;">Result Status (+/-)</th>
+                        <th scope="col" data-field="PatientID" class="text-center" style="width: 15%;">Patient ID</th>
+                        <th scope="col" data-field="OperatorID" class="text-center" style="width: 15%;">Operator ID</th>
+                        <th scope="col" data-field="DeviceName" class="text-center" style="width: 15%;">Device Name</th>
+                        <th scope="col" data-field="ResultID" data-formatter="populateHiddenMenu" class="text-center" style="width: 5%;"></th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="row">
+                <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <div>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Prev"]</button>
+                    </div>
+                    <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                    </div>
+                    <div>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Next"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divTestMgmtFilter" class="col-md-3 collapseHide" style="height: auto; border: 0px solid black;">
+            <div class="row" style="height: auto; margin-top: 15px; background-color: #f7f7f7; border-radius: 6px;">
+                <div class="col-md-12" style="border-radius: 5px;">
+                    <div class="row" style="margin-top: 30px; margin-bottom: 30px; margin-left: 5px;">
+                        <label style="color: black; font-size: 20px; font-weight: bold;">Filters</label>
+                    </div>
+                    
+                    <!-- Patient ID -->
+                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+                        <label style="color: black; font-weight: bold;">Patient ID</label>
+                    </div>
+                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                        <input id="txtPatientID" type="text" class="form-control" />
+                    </div>
+
+                    <!-- Device Name -->
+                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+                        <label style="color: black; font-weight: bold;">Device Name</label>
+                    </div>
+                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                        <select id="ddlDevice" class="form-select">
+                            <option value="">Search By Name</option>
+                        </select>
+                    </div>
+
+                    <!-- Sort By Date -->
+                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+                        <label style="color: black; font-weight: bold;">Sort By Date</label>
+                    </div>
+                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                        <select id="ddlSorting" class="form-select">
+                            <option value="">Sort By</option>
+                            <option value="ASC">Ascending</option>
+                            <option value="DESC">Descending</option>
+                        </select>
+                    </div>
+
+                    <div class="row" style="margin-top: 20px; margin-bottom: 10px; margin-left: 5px; margin-right: 5px;">
+                        <button id="btnSearch" type="button" class="btn btn-primary">
+                            Search
+                        </button>
+                    </div>
+                    <div class="row" style="margin-top: 10px; margin-bottom: 30px; margin-left: 5px; margin-right: 5px;">
+                        <button id="btnReset" type="button" class="btn btn-secondary">
+                            Reset
+                        </button>
+                    </div>
+                    <div class="row" style="height: 20px;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
