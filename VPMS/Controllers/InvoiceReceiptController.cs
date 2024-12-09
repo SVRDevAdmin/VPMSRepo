@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Org.BouncyCastle.Asn1.X509;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Security.Cryptography.X509Certificates;
 using VPMS;
+using VPMS.Lib;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
+using System.Web;
+using SelectPdf;
+
 
 namespace VPMSWeb.Controllers
 {
@@ -259,5 +267,100 @@ namespace VPMSWeb.Controllers
 
 			return viewInvoiceReceipt;
 		}
-	}
+
+		public void SendNotification()
+		{
+            List<String> sRecipientList = new List<String>();
+            sRecipientList.Add("azwan@svrtech.com.my");
+
+            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003", "en");
+
+            SendNotificationEmail(sRecipientList, emailTemplate);
+        }
+
+        public void SendNotificationEmail(List<String> sRecipientList, TemplateModel emailTemplate)
+        {
+            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+            String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+            int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+            String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+            String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+            String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+
+            try
+            {
+                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = sRecipientList;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
+
+                String sErrorMessage = "";
+                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+            }
+            catch (Exception ex)
+            {
+                Program.logger.Error("Controller Error >> ", ex);
+            }
+        }
+
+		[AllowAnonymous]
+		public void SendHTMLEmail()
+		{
+            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003", "en");
+
+			MailMessage mail = new MailMessage();
+			mail.From = new MailAddress("svrkenny@gmail.com");
+			mail.To.Add("azwan@svrtech.com.my");
+			mail.Subject = "Test Email with attachement";
+			//mail.IsBodyHtml = true;
+            mail.Body = "Here is your image.";
+			PdfSharpConvert(emailTemplate.TemplateContent);
+            //mail.Attachments.Add(new Attachment(new MemoryStream(PdfSharpConvert(emailTemplate.TemplateContent)), "invoice.pdf"));
+
+			//         string htmlBody = emailTemplate.TemplateContent;
+			//         //mail.Body = htmlBody;
+			//AlternateView avHtml = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+
+			//LinkedResource inline = new LinkedResource("C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\wwwroot\\images\\Female doctor image.png", MediaTypeNames.Image.Png);
+			//inline.ContentId = "embeddedImage";
+			//avHtml.LinkedResources.Add(inline);
+
+			//mail.AlternateViews.Add(avHtml);
+
+			//SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+			//smtp.Credentials = new System.Net.NetworkCredential("svrkenny@gmail.com", "lpsnuqpibcswmtoz");
+			//smtp.Port = 587;
+			//smtp.EnableSsl = true;
+			//smtp.UseDefaultCredentials = false;
+			//smtp.Send(mail);
+
+			Console.WriteLine("Email sent successfully!");
+        }
+
+        public byte[] PdfSharpConvert(String html)
+        {
+            var converter = new HtmlToPdf(); 
+			PdfDocument pdfDoc = converter.ConvertHtmlString(html);
+            pdfDoc.Save("invoice.pdf");
+
+            byte[] res = null;
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    //var pdf = PdfGenerator.GeneratePdf(html, PdfSharp.PageSize.A4);
+            //    //pdf.Save(ms);
+            //    pdf.Save("output.pdf");
+            //    //res = ms.ToArray();
+            //}
+            return res;
+        }
+    }
 }
+

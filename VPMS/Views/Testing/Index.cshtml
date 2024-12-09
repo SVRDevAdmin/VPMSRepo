@@ -10,6 +10,8 @@
     <title>Custom Arrow Range Slider</title>
 
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <style>
 		/* Container for the slider */
@@ -99,18 +101,20 @@
 		<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
 	</div> *@
 
-    <div class="slider-container">
+    @* <div class="slider-container">
         <input type="range" class="slider">
-    </div>
+    </div> *@
 
 	@* <div style="background: black;">
 		<img style="height: 2vw;" src="~/images/Icons/Black_Down_Arrow.png" />
 	</div> *@
 
 
-	<button id="btnTest" type="button" class="btn btn-secondary">Create Notification</button>
+	@* <button id="btnTest" type="button" class="btn btn-secondary">Create Notification</button> *@
 
-	<script>
+	<canvas id="salesChart"></canvas>
+
+	@* <script>
 		var sliderElement = document.querySelector(".slider");
 		sliderElement.min = -1;
 		sliderElement.max = 2;
@@ -150,6 +154,73 @@
 					alert('B');
 				}
 			});
+		});
+	</script> *@
+
+	<script>
+		let salesChart = document.getElementById("salesChart").getContext("2d");
+		var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		var xData = ['2016-12-25', '2016-12-26', '2016-12-27', '2016-12-28'];
+
+		let dataSales = {
+			// labels: xData,
+			labels: months,
+			datasets: [{
+				label: "Sale Data",
+				// data: [20, 10, 30, 40],
+				data: [{x : "Jan", y : 400}, {x : "Feb", y : 500}, {x : "Apr", y : 500}, {x : "May", y : 400}, {x : "June", y : 500}],
+				backgroundColor: "#e9f2fd",
+				hoverBackgroundColor: "#5e8cd1",
+				// barPercentage: 1.2,
+				// borderRadius: {
+				// 	topLeft: 10,
+				// 	topRight: 10,
+				// 	bottomLeft: 0,
+				// 	bottomRight: 0
+				// }
+			}]
+		};
+
+		chartSale = new Chart(salesChart, {
+			type: 'bar',
+			data: dataSales,
+			options: {
+				scales : {
+					x : {
+						grid: {
+							drawOnChartArea: true
+						},
+						ticks: {
+							color: "black"
+						}
+					},
+					y: {
+						beginAtZero: true,
+						display: true,
+						grid: {
+							drawOnChartArea: true
+						},
+						afterDataLimits: function(axis) {
+							let result = axis.chart.data.datasets[0].data.map(a => a.y);
+							axis.max = Math.max(...result) + 10; // Add some padding
+						}
+					}
+				},
+				plugins: {
+					datalabels: {
+						anchor: 'end',
+						align: 'end',
+						formatter: (value) => '$ ' + value.y,
+						color: "black",
+						font: {
+							size: 10,
+							weight: 'bold'
+						}
+					},
+					legend: false
+				},
+			},
+			plugins: [ChartDataLabels]
 		});
 	</script>
 

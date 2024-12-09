@@ -125,7 +125,7 @@ namespace VPMS.Lib.Data.DBContext
 											"FROM Mst_Branch WHERE `Status`= 1 " +
 											") AS T1 " +
 											"LEFT JOIN (" +
-											"SELECT  A.CreatedDate AS 'SummaryDate', A.Branch, SUM(A.Fee) AS 'TotalAmount', SUM(A.GrandDiscount) AS 'TotalDiscount' " +
+                                            "SELECT  STR_TO_DATE(A.CreatedDate, '%Y-%m-%d') AS 'SummaryDate', A.Branch, SUM(A.Fee) AS 'TotalAmount', SUM(A.GrandDiscount) AS 'TotalDiscount' " +
 											"FROM mst_invoicereceipt AS A " +
 											"INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
                                             "WHERE A.CreatedDate >= '" + dtStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " +

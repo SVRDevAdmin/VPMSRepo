@@ -210,8 +210,11 @@
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 25px; width: 16vw;">
+                <img id="imgVetVitals" style="width: 11vw;" />
+                <!--
                 <img id="imgLogo" style="width: 2vw;" />
                 <img id="imgLogoTitle" style="width: 11vw;" />
+                -->
             </div>
 
             @* <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;"> *@
@@ -943,7 +946,13 @@
 
                 if(typeof(refreshChart) == "function"){
                     axisColor = "white";
-                    refreshChart();
+                    refreshChart("");
+                    // refreshChart("patient");
+                    // refreshChart("totalPatient");
+                    // refreshChart("staff");
+                    // refreshChart("gender");
+                    // refreshChart("sale");
+                    // refreshChart("totalSale");
                 }
             } else {
                 if (typeof(changeChart) == "function") {
@@ -954,12 +963,14 @@
 
                 if(typeof(refreshChart) == "function"){
                     axisColor = "black";
-                    refreshChart();
+                    refreshChart("");
+                    // refreshChart("patient");
+                    // refreshChart("totalPatient");
+                    // refreshChart("staff");
+                    // refreshChart("gender");
+                    // refreshChart("sale");
+                    // refreshChart("totalSale");
                 }
-            }
-
-            if(typeof(refreshChart) == "function"){
-                refreshChart();
             }
 
 
