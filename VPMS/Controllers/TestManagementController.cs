@@ -13,11 +13,24 @@ namespace VPMSWeb.Controllers
             return View();
         }
 
-        public IActionResult GetTestResultListing(String patientID, String deviceName, String sortOrder, int pageSize, int pageIndex)
+        [Route("/TestManagement/ViewResults/{resultID}/View")]
+        public ActionResult ViewResults(int resultID)
+        {
+            //var sBreakdownResult = TestResultRepository.GetTestResultBreakdownDetails(ConfigSettings.GetConfigurationSettings(), resultID);
+            //if (sBreakdownResult != null)
+            //{
+            //    ViewData["ResultBreakdown"] = sBreakdownResult;
+            //}
+            ViewData["ResultID"] = resultID;
+
+            return View("ViewResults", resultID);
+        }
+
+        public IActionResult GetTestResultListing(int branchID, String patientID, String deviceName, String sortOrder, int pageSize, int pageIndex)
         {
             int iTotalRecords;
 
-            var sResult = TestResultRepository.GetTestResultManagementListing(ConfigSettings.GetConfigurationSettings(), patientID, deviceName, sortOrder, pageSize, pageIndex, out iTotalRecords);
+            var sResult = TestResultRepository.GetTestResultManagementListing(ConfigSettings.GetConfigurationSettings(), branchID, patientID, deviceName, sortOrder, pageSize, pageIndex, out iTotalRecords);
             if (sResult != null)
             {
                 return Json(new { data = sResult, totalRecord = iTotalRecords });
@@ -31,6 +44,18 @@ namespace VPMSWeb.Controllers
             var sDeviceList = TestResultRepository.GetTestResultDeviceNameList(ConfigSettings.GetConfigurationSettings());
             return Json(sDeviceList);
         }
+
+        public IActionResult GetTestResultBreakdownDetails(int resultID)
+        {
+            var sResult = TestResultRepository.GetTestResultBreakdownDetails(ConfigSettings.GetConfigurationSettings(), resultID);
+            if (sResult != null)
+            {
+                return Json(new { data = sResult });
+            }
+
+            return null;
+        }
+
         //// GET: TestManagementController/Details/5
         //public ActionResult Details(int id)
         //{

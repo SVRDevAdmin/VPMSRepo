@@ -60,8 +60,7 @@ namespace VPMS.Lib.Data
             }
         }
 
-        public static List<TestResultViewModel> GetTestResultManagementListing(IConfiguration config, String sPatientID, String sDeviceName, String sSortOrder, 
-                                                                            int PageSize, int PageIndex, out int totalRecords)
+        public static List<TestResultViewModel> GetTestResultManagementListing(IConfiguration config, int branchID, String sPatientID, String sDeviceName, String sSortOrder, int PageSize, int PageIndex, out int totalRecords)
         {
             List<TestResultViewModel> sResult = new List<TestResultViewModel>();
             totalRecords = 0;
@@ -84,7 +83,8 @@ namespace VPMS.Lib.Data
                                             "A.DeviceName, COUNT(*) OVER() AS 'TotalRows' " + 
                                             "FROM txn_testresults AS A " +
                                             "INNER JOIN txn_testresults_details AS B ON B.ResultID = A.ID " +
-                                            "WHERE (" + (sPatientID == null) + " OR A.PatientID = '" + sPatientID + "') AND " +
+                                            "WHERE A.BranchID = '" + branchID  + "' AND " +
+                                            "(" + (sPatientID == null) + " OR A.PatientID = '" + sPatientID + "') AND " +
                                             "(" + (sDeviceName == null) + " OR A.DeviceName = '" + sDeviceName + "') " +
                                             "ORDER BY A.ResultDateTime " + sSortOrder + " " +
                                             "LIMIT " + PageSize + " " +
@@ -126,6 +126,84 @@ namespace VPMS.Lib.Data
             {
                 return null;
             }
+        }
+
+        public static TestResultDetailModel GetTestResultBreakdownDetails(IConfiguration config, int resultID)
+        {
+            List<TestResultBreakdownModel> sDetailList = new List<TestResultBreakdownModel>();
+            TestResultDetailModel sResult = new TestResultDetailModel();
+
+            try
+            {
+                using (var ctx = new TestResultsDBContext(config))
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.ID, A.ResultDateTime, A.ResultCategories, A.ResultType, " +
+                                            "A.DeviceName, A.PatientID, B.Name AS 'PatientName', A.OperatorID " + 
+                                            "FROM txn_testresults AS A " +
+                                            "LEFT JOIN mst_pets AS B ON B.ID = A.PetID " +
+                                            "WHERE A.ID = '" + resultID + "' ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                sResult.ResultID = Convert.ToInt32(sReader["ID"]);
+                                sResult.ResultDateTime = Convert.ToDateTime(sReader["ResultDateTime"]);
+                                sResult.ResultCategories = sReader["ResultCategories"].ToString();
+                                sResult.ResultType = sReader["ResultType"].ToString();
+                                sResult.DeviceName = sReader["DeviceName"].ToString();
+                                sResult.PatientID = sReader["PatientID"].ToString();
+                                sResult.PatientName = sReader["PatientName"].ToString();
+                                sResult.OperatorID = sReader["OperatorID"].ToString();
+                            }
+                        }
+                    }
+
+                    if (sResult.ResultID != null)
+                    {
+                        String sSelectDetailCommand = "SELECT ResultParameter, ResultStatus, ResultValue, ResultUnit, ReferenceRange " +
+                                                      "FROM txn_testresults_details " +
+                                                      "WHERE ResultID = '" + resultID + "' " +
+                                                      "ORDER BY ResultSeqID";
+
+                        using (MySqlCommand sDetailCommand = new MySqlCommand(sSelectDetailCommand, sConn))
+                        {
+                            using (var sDetailReader = sDetailCommand.ExecuteReader())
+                            {
+                                while (sDetailReader.Read())
+                                {
+                                    sDetailList.Add(new TestResultBreakdownModel
+                                    {
+                                        ResultParameter = sDetailReader["ResultParameter"].ToString(),
+                                        ResultStatus = sDetailReader["ResultStatus"].ToString(),
+                                        ResultValue= sDetailReader["ResultValue"].ToString(),
+                                        ResultUnit = sDetailReader["ResultUnit"].ToString(),
+                                        ReferenceRange = sDetailReader["ReferenceRange"].ToString()
+                                    });
+                                }
+                            }
+                        }
+                    }
+
+                    if (sDetailList.Count > 0)
+                    {
+                        sResult.TestResultBreakdown = sDetailList;
+                    }
+
+                    sConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null; 
+            }
+
+            return sResult;
         }
     }
 }

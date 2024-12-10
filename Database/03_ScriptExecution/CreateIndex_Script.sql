@@ -91,3 +91,25 @@ On mst_notification_receiver_config (NotificationGroup, RoleID);
 
 CREATE INDEX IX_NotifGroup
 On mst_notification_receiver_config (NotificationGroup);
+
+/*---------- Test Management ------*/
+CREATE INDEX IX_BranchID_ResultDate
+ON txn_testresults (BranchID, ResultDateTime);
+
+CREATE INDEX IX_BranchID_ResultDate_DESC
+ON txn_testresults (BranchID, ResultDateTime DESC);
+
+CREATE INDEX IX_BranchPatientID_DeviceName
+ON txn_testresults (ID, BranchID, PatientID, DeviceName);
+
+CREATE INDEX IX_BranchID_PatientID
+ON txn_testresults (ID, BranchID, PatientID);
+
+CREATE INDEX IX_BranchID_DeviceName
+ON txn_testresults (ID, BranchID, DeviceName);
+
+CREATE INDEX IX_BranchPatientID_DeviceName_Sorting
+ON txn_testresults (ID, BranchID, PatientID, DeviceName, ResultDateTime);
+
+CREATE INDEX IX_BranchPatientID_DeviceName_DESCSorting
+ON txn_testresults (ID, BranchID,  PatientID, DeviceName, ResultDateTime DESC);

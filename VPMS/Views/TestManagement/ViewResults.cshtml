@@ -1,0 +1,263 @@
+﻿
+@{
+    ViewData["Title"] = "ViewResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    System.Int32? sResultID = new System.Int32();
+    if (ViewData["ResultID"] != null)
+    {
+        sResultID = ViewData["ResultID"] as System.Int32?;
+    }
+}
+
+<link rel="stylesheet" href="~/lib/printJS/print.min.css" />
+
+<script src="~/lib/moment.min.js"></script>
+<script src="~/lib/html2pdf/v0.10.1/html2pdf.bundle.min.js"></script>
+<script src="~/lib/printJS/print.min.js"></script>
+
+<style type="text/css">
+    #tblTestParamResult {
+        border: 0px solid black !important;
+        margin-left: 20px !important;
+    }
+    #tblTestParamResult > thead > tr > th {
+        border: 0px;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ddd;
+        color: #919191;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        //--------- Download -----------//
+        $('#btnResultDownload').click(function () {
+            outputPDF(false);
+        });
+
+        //--------- Print --------------//
+        $('#btnResultPrint').click(function () {
+            outputPDF(true);
+        });
+
+        if ('@sResultID' != '') {
+            $.getJSON("/TestManagement/GetTestResultBreakdownDetails", {
+                resultID: '@sResultID'
+            }).done(function (result){
+                if (result.data != null) 
+                {
+                    var dtResult = moment(result.data.ResultDateTime).format("DD/MM/YYYY HH:mm:ss")
+                    $('#lbResultTime').html(dtResult);
+                    $('#lbPatientName').html(result.data.PatientName);
+                    $('#lbPatientID').html(result.data.PatientID);
+                    $('#lbOperatorID').html(result.data.OperatorID);
+                    $('#lbDeviceName').html(result.data.DeviceName);
+
+                    if (result.data.TestResultBreakdown != null && result.data.TestResultBreakdown.length > 0) 
+                    {
+                        for (var i = 0; i < result.data.TestResultBreakdown.length; i++) {
+
+                            var sRange = result.data.TestResultBreakdown[i].ResultUnit;
+                            if (result.data.TestResultBreakdown[i].ReferenceRange != null && result.data.TestResultBreakdown[i].ReferenceRange != '') 
+                            {
+                                var splitRange = result.data.TestResultBreakdown[i].ReferenceRange.replace('[', '').replace(']', '');
+                                var sRangeArray = splitRange.split(";");
+                                if (sRangeArray.length > 1){
+                                    sRange = sRangeArray[0] + " ~ " + sRangeArray[1] + " " + result.data.TestResultBreakdown[i].ResultUnit;
+                                }
+                                
+                            }
+
+                            var sContentRow = "<tr>" +
+                                              "<td class='text-left' style='height: 15px;'>" + result.data.TestResultBreakdown[i].ResultParameter + "</td>" +
+                                              "<td class='text-left' style='height: 15px;'>" + result.data.TestResultBreakdown[i].ResultValue + "</td>" +
+                                              "<td class='text-left' style='height: 15px;'>" + sRange + "</td>" +
+                                              "<td class='text-left' style='border-bottom: 1px solid black;'>" +
+
+                                              "<div style='border: 0px solid black; display: flex; margin-top: 4px;'>";
+
+                            if (result.data.TestResultBreakdown[i].ReferenceRange != null && result.data.TestResultBreakdown[i].ReferenceRange != '') 
+                            {
+                                //----- Populate Resule Gauge ----------//
+                                sContentRow += "<div style='background-color: orange; height: 10px; width: 30%; border-top-left-radius: 6px; border-bottom-left-radius: 6px;'>" +
+                                               "</div>" +
+                                               "<div style='background-color: mediumseagreen; height: 10px; width: 40%;'>" +
+                                               "</div>" +
+                                               "<div style='background-color: red; height: 10px; width: 30%; border-top-right-radius: 6px; border-bottom-right-radius: 6px;'>" +
+                                               "</div>";
+                            }
+
+                            sContentRow += "</div>" +
+                                           "</td>" +
+                                           "</tr>";
+
+                            $('#tblTestParamResult').append(sContentRow);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    function outputPDF(isPrint) 
+    {
+        var dtDownload = moment().format("YYYYMMDDTHHmmss");
+        var iResultID = '@sResultID';
+        var sFileName = 'TestResult_ID_' + iResultID + '_' + dtDownload + '.pdf';
+
+        if (isPrint)
+        {
+            var element = document.getElementById('divContent');
+            var opt = {
+                filename: sFileName,
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    orientation: 'portrait'
+                }
+            };
+
+            html2pdf().set(opt)
+                      .from(element)
+                      .outputPdf()
+                      .get('pdf')
+                      .then(function (pdfObj) {
+                          pdfObj.autoPrint();
+                          window.open(pdfObj.output("bloburl"), "F")
+                      });
+
+        }
+        else
+        {
+            var element = document.getElementById('divContent');
+            var opt = {
+                filename: sFileName,
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    orientation: 'portrait'
+                }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+    }
+</script>
+
+<div class="row" style="border: 0px solid black;  height: auto;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <label style="font-size: 24px; font-weight: bold; margin-left: 25px; margin-top: 20px;">Overall Test Results</label>
+            </div>
+        </div>
+    </div>    
+    <div id="divContent" class="row" style="border: 0px solid red; height: 60px; margin-top: 20px; margin-left: 0px; margin-right: 0;">
+        <div class="col-md-10" style="border: 0px solid black;">
+            <div class="row" style="border: 0px solid black; margin-left: 2px; margin-right: 2px;">
+                <div class="row" style="border: 0px solid black; margin-left: 0px; border-radius: 6px; background-color: rgb(30, 118, 251);">
+                    <dvi class="col-md-1" style="border: 0px solid black;">
+                        <div style="height: 40px; width: 40px; display: flex; margin-left: 1px; margin-right: 1px; margin-top: 5px; margin-bottom: 5px; border-radius: 6px; background-color: white;">
+                            <img src="~/images/calendar_cat_icon.png" width="20" height="20" style="background-color: transparent; display: block; margin: auto;" />
+                        </div>
+                    </dvi>
+                    <div class="col-md-3" style="border: 0px solid black; padding-top: 5px;">
+                        <div class="row">
+                            <label style="font-size: 11px; color: white; font-weight: bold">Time</label>
+                        </div>
+                        <div class="row">
+                            <label id="lbResultTime" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="padding-top: 5px;">
+                        <div class="row" style="border-left: 1px solid white">
+                            <label style="font-size: 11px; color: white; font-weight: bold">Patient Name</label>
+                        </div>
+                        <div class="row" style="border-left: 1px solid white">
+                            <label id="lbPatientName" style="font-size: 10px; color: white; margin-top: 5px;"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="border: 0px solid black; font-weight: bold; padding-top: 5px;">
+                        <div class="row" style="border-left: 1px solid white">
+                            <label style="font-size: 11px; color: white; font-weight: bold">Patient ID</label>
+                        </div>
+                        <div class="row" style="border-left: 1px solid white">
+                            <label id="lbPatientID" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="border: 0px solid black; font-weight: bold; padding-top: 5px;">
+                        <div class="row" style="border-left: 1px solid white">
+                            <label style="font-size: 11px; color: white; font-weight: bold">Operator ID</label>
+                        </div>
+                        <div class="row" style="border-left: 1px solid white">
+                            <label id="lbOperatorID" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="border: 0px solid black; font-weight: bold; padding-top: 5px;">
+                        <div class="row" style="border-left: 1px solid white">
+                            <label style="font-size: 11px; color: white; font-weight: bold">Device Name</label>
+                        </div>
+                        <div class="row" style="border-left: 1px solid white">
+                            <label id="lbDeviceName" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row" style="display: flex; height: 50px; border: 0px solid black;">
+                <div class="col-md-12" data-html2canvas-ignore="true" style="text-align: right; margin-top: 5px; margin-bottom: 5px;">
+                    <button id="btnResultDownload" class="btn btn-primary pull-right">
+                        <i class="bi bi-download"></i>
+                    </button>
+                    &nbsp;
+                    <button id="btnResultPrint" class="btn btn-primary pull-right">
+                        <i class="bi bi-printer"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <table id="tblTestParamResult" class="table" style="font-size: 1vw;">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-left" style="width: 25%; border: 0px solid black;">Test</th>
+                    <th scope="col" class="text-left" style="width: 20%; border: 0px solid black;">Result</th>
+                    <th scope="col" class="text-left" style="width: 25%; border: 0px solid black;">Normal Range</th>
+                    <th scope="col" class="text-center" style="width: 30%; border: 0px solid black;">Result Gauge</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3" style="width: 60%; border-bottom: 1px solid #C0C0C0;">&nbsp;</td>
+                    <td style="width: 100%; height: 15px; border-bottom: 1px solid #C0C0C0;">
+                        <table style="width: 100%; height: 15px; border: 0px solid black;">
+                            <tr>
+                                <td>
+                                    <span style="width: 6px; height: 15px; background-color: orange; display: block;"></span>
+                                </td>
+                                <td style="font-weight: bold;">Low</td>
+                                <td>
+                                    <span style="width: 6px; height: 15px; background-color: mediumseagreen; display: block;"></span>
+                                </td>
+                                <td style="font-weight: bold;">Normal</td>
+                                <td>
+                                    <span style="width: 6px; height: 15px; background-color: red; display: block;"></span>
+                                </td>
+                                <td style="font-weight: bold;">High</td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row" style="height: 35px;">&nbsp;</div>
+</div>
+

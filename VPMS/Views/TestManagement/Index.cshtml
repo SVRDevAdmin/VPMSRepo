@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
@@ -78,6 +80,10 @@
         $('#btnTestMgmtFilter').click(function () {
             $('#divTestMgmtFilter').toggleClass('collapseHide');
             $('#divTestResult').toggleClass('col-md-12 col-md-9');
+
+            if ($('#divTestMgmtFilter')[0].className.indexOf('Hide') > 0){
+                resetFields();
+            }
         });
 
         $('#btnSearch').click(function () {
@@ -89,6 +95,14 @@
         $('#btnReset').click(function () {
             resetFields();
         });
+
+        $('#btnDownload').click(function () {
+
+        });
+
+        $('#btnPrint').click(function () {
+
+        });
     });
 
     function resetFields(){
@@ -96,6 +110,48 @@
         $('#ddlDevice').val($('#ddlDevice option:first').val());
         $('#ddlSorting').val($('#ddlSorting option:first').val());
     }
+
+    // function outputListingPDF(isPrint) {
+    //     var dtDownload = moment().format("YYYYMMDDTHHmmss");
+    //     var sFileName = 'TestResult_' + dtDownload + '.pdf';
+
+    //     if (isPrint) {
+    //         var element = document.getElementById('divContent');
+    //         var opt = {
+    //             filename: sFileName,
+    //             html2canvas: {
+    //                 scale: 2
+    //             },
+    //             jsPDF: {
+    //                 orientation: 'portrait'
+    //             }
+    //         };
+
+    //         html2pdf().set(opt)
+    //             .from(element)
+    //             .outputPdf()
+    //             .get('pdf')
+    //             .then(function (pdfObj) {
+    //                 pdfObj.autoPrint();
+    //                 window.open(pdfObj.output("bloburl"), "F")
+    //             });
+
+    //     }
+    //     else {
+    //         var element = document.getElementById('divContent');
+    //         var opt = {
+    //             filename: sFileName,
+    //             html2canvas: {
+    //                 scale: 2
+    //             },
+    //             jsPDF: {
+    //                 orientation: 'portrait'
+    //             }
+    //         };
+
+    //         html2pdf().set(opt).from(element).save();
+    //     }
+    // }
 
     function loadDeviceName()
     {
@@ -118,6 +174,7 @@
     function loadTestMgmListing() 
     {
         $.getJSON("/TestManagement/GetTestResultListing", {
+            branchID: '@sessionBranchID',
             patientID: $('#txtPatientID').val(),
             deviceName: $('#ddlDevice').val(),
             sortOrder: $('#ddlSorting').val(),
