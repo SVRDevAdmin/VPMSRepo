@@ -22,6 +22,12 @@ namespace VPMSWeb.Controllers
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
         private readonly AppointmentDBContext _appointmentDBContext = new AppointmentDBContext(Host.CreateApplicationBuilder().Configuration);
         private readonly TransSummaryDBContext _transSummaryDBContext = new TransSummaryDBContext(Host.CreateApplicationBuilder().Configuration);
+        private readonly DoctorDBContext _doctorDBContext = new DoctorDBContext(Host.CreateApplicationBuilder().Configuration);
+
+        //public List<string> colorList = ["#e9e9eb", "#cbcfda", "#ebe3be", "#c4db67", "#b2f2e4", "#33f5d3", "#bcd2e0", "#59b1d7", "#7a9fbc", "#7a9fbc", "#d699a0", "#d96aa5", "#d3aac8", "#c15ae9", "#d6acfe", "#896bdf", "#6669db", "#681feb"];
+        public List<string> colorList = ["#cbcfda", "#ebe3be", "#c4db67", "#b2f2e4", "#33f5d3", "#bcd2e0", "#59b1d7", "#7a9fbc", "#7a9fbc", "#d699a0", "#d96aa5", "#d3aac8", "#c15ae9", "#d6acfe", "#896bdf", "#6669db", "#681feb"];
+        public List<string> fillColorList = ["rgba(233,233,235,0.5)", "rgba(203,207,218,0.5)", "rgba(235,227,190,0.5)", "rgba(196,219,103,0.5)", "rgba(178,242,228,0.5)", "rgba(51,245,211,0.5)", "rgba(185,208,222,0.5)", "rgba(89,177,215,0.5)", "rgba(122,159,188,0.5)", "rgba(59,128,197,0.5)", "rgba(214,153,160,0.5)", "rgba(217,106,165,0.5)", "rgba(211,170,200,0.5)", "rgba(193,90,233,0.5)", "rgba(214,172,254,0.5)", "rgba(137,107,223,0.5)", "rgba(102,105,219,0.5)", "rgba(104,31,235,0.5)"];
+        public List<string> monthList = new List<string>() { "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
         private class axis { public string x { get; set; }  public decimal? y { get; set; } }
 
@@ -33,7 +39,18 @@ namespace VPMSWeb.Controllers
 
         public IActionResult Dashboard()
         {
-            var latestUpdateDate = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == "RevenueSummary").OrderByDescending(x => x.TransactionDate).FirstOrDefault().TransactionDate;
+            var latestUpdateLog = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == "RevenueSummary").OrderByDescending(x => x.TransactionDate).FirstOrDefault();
+            DateTime? latestUpdateDate;
+
+            if(latestUpdateLog != null)
+            {
+                latestUpdateDate = latestUpdateLog.TransactionDate;
+            }
+            else
+            {
+                latestUpdateDate = DateTime.Now;
+            }
+            
 
             int year = latestUpdateDate.Value.Year;
             int month = latestUpdateDate.Value.Month;
@@ -46,6 +63,7 @@ namespace VPMSWeb.Controllers
             List<TransSummaryModel> SummaryList = _transSummaryDBContext.txn_transactionsummary.Where(x => x.DateInYear == year.ToString()).ToList();
             List<UserModel> userList = _userDBContext.Mst_User.ToList();
             var appointmentList = _appointmentDBContext.mst_appointment.Select(x => new { x.ApptDate, x.BranchID }).Where(y => y.ApptDate.Value.Year == year).ToList();
+            var doctorList = _doctorDBContext.mst_doctor.ToList();
 
             if (role == "Superuser")
             {
@@ -53,19 +71,22 @@ namespace VPMSWeb.Controllers
                 SummaryList = SummaryList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
                 userList = userList.Where(x => branchList.Contains(x.BranchID)).ToList();
                 appointmentList = appointmentList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
+                doctorList = doctorList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
             }
             else if (role != "Superadmin")
             {
                 SummaryList = SummaryList.Where(x => x.BranchID == branchID).ToList();
                 userList = userList.Where(x => x.BranchID == branchID).ToList();
                 appointmentList = appointmentList.Where(x => x.BranchID == branchID).ToList();
+                doctorList = doctorList.Where(x => x.BranchID == branchID).ToList();
             }
 
+            ViewData["Doctors"] = doctorList.Select(x => x.Name).ToList();
             ViewData["UpdatedOn"] = latestUpdateDate.Value.ToString("dd MMM yyyy");
-            ViewData["TotalSales"] = SummaryList.Where(x => x.Group == "TotalRevenue" && x.SubGroup == "Total").GroupBy(x => x.Group).Select(x => x.Sum(c => c.TotalAmount).Value).FirstOrDefault();
+            ViewData["TotalSales"] = SummaryList.Where(x => x.Group == "TotalRevenue" && x.SubGroup == "Total" && x.DateInMonth == month.ToString()).GroupBy(x => x.Group).Select(x => x.Sum(c => c.TotalAmount).Value).FirstOrDefault();
             ViewData["TotalStaff"] = userList.Count;
             ViewData["TotalPatients"] = SummaryList.Where(x => x.Group == "TotalPatients").GroupBy(x => x.Group).Select(x => x.Sum(c => c.TotalAmount).Value).FirstOrDefault();
-            ViewData["TotalAppointment"] = appointmentList.Count;
+            ViewData["TotalAppointment"] = appointmentList.Where(x => x.ApptDate.Value.Month == month).ToList().Count;
 
             Program.CurrentPage = "/Dashboard/Dashboard";
 
@@ -74,7 +95,18 @@ namespace VPMSWeb.Controllers
 
         public Dictionary<string, dynamic> GetPatientSummary()
         {
-            var latestUpdateDate = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == "PatientSummary").OrderByDescending(x => x.TransactionDate).FirstOrDefault().TransactionDate;
+            var latestUpdateLog = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == "PatientSummary").OrderByDescending(x => x.TransactionDate).FirstOrDefault();
+            DateTime? latestUpdateDate;
+
+            if (latestUpdateLog != null)
+            {
+                latestUpdateDate = latestUpdateLog.TransactionDate;
+            }
+            else
+            {
+                latestUpdateDate = DateTime.Now;
+            }
+
             var role = HttpContext.Session.GetString("RoleName");
             var branchID = int.Parse(HttpContext.Session.GetString("BranchID"));
             var organisationID = int.Parse(HttpContext.Session.GetString("OrganisationID"));
@@ -91,7 +123,7 @@ namespace VPMSWeb.Controllers
             }
 
             
-            var monthList = new List<string>() { "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec" };
+            var monthList = new List<string>() { "", "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
             Dictionary<string, dynamic> chartSetup = new Dictionary<string, dynamic>();
             Dictionary<string, dynamic> chart = new Dictionary<string, dynamic>();
@@ -99,8 +131,8 @@ namespace VPMSWeb.Controllers
             List<Dictionary<string, dynamic>> legend = new List<Dictionary<string, dynamic>>();
 
             double tension = 0.5;
-            List<string> color = ["#9faabb", "#1e76fb", "#94bbf5"];
-            List<string> fillColor = ["rgba(159,170,187,0.5)", "rgba(30,118,251,0.5)", "rgba(148,187,245,0.5)"];
+            //List<string> color = ["#9faabb", "#1e76fb", "#94bbf5"];
+            //List<string> fillColor = ["rgba(159,170,187,0.5)", "rgba(30,118,251,0.5)", "rgba(148,187,245,0.5)"];
             int i = 0;
             int year = DateTime.Now.Year;
 
@@ -108,10 +140,10 @@ namespace VPMSWeb.Controllers
 
             var breedList = patientSummary.Select(x => x.SubGroup).Distinct().ToList();
 
-            List<IEnumerable<Color>> colorList = new List<IEnumerable<Color>>();
-            colorList.Add(GetGradients(Color.DarkGray, Color.White, 2));
-            colorList.Add(GetGradients(Color.Blue, Color.White, 2));
-            colorList.Add(GetGradients(Color.Green, Color.White, 2));
+            //List<IEnumerable<Color>> colorList = new List<IEnumerable<Color>>();
+            //colorList.Add(GetGradients(Color.DarkGray, Color.White, 2));
+            //colorList.Add(GetGradients(Color.Blue, Color.White, 2));
+            //colorList.Add(GetGradients(Color.Green, Color.White, 2));
 
             foreach (var breed in breedList) 
             {
@@ -119,10 +151,18 @@ namespace VPMSWeb.Controllers
 
                 var axisData = new List<axis>();
 
-                foreach (var data in dataByBreed)
+                axisData.Add(new axis() { x = "", y = 0 });
+
+                //foreach (var data in dataByBreed)
+                //{
+                //    //axisData.Add(new axis() { x = GetMonthString(int.Parse(data.DateInMonth) - 1), y = data.Value });
+                //    axisData.Add(new axis() { x = monthList[int.Parse(data.DateInMonth)], y = data.Value });
+                //}
+
+                for(int j = 1; j <= 12; j++)
                 {
-                    //axisData.Add(new axis() { x = GetMonthString(int.Parse(data.DateInMonth) - 1), y = data.Value });
-                    axisData.Add(new axis() { x = monthList[int.Parse(data.DateInMonth) - 1], y = data.Value });
+                    var value = dataByBreed.FirstOrDefault(x => x.DateInMonth == j.ToString());
+                    axisData.Add(new axis() { x = monthList[j], y = (value == null ? 0 : value.Value) });
                 }
 
                 dataset.Add(new Dictionary<string, dynamic>());
@@ -130,15 +170,15 @@ namespace VPMSWeb.Controllers
 
                 dataset[i].Add("label", breed);
                 dataset[i].Add("data", axisData);
-                dataset[i].Add("fill", true);
+                dataset[i].Add("fill", false);
                 dataset[i].Add("tension", tension);
-                dataset[i].Add("borderColor", color[i]);
-                dataset[i].Add("backgroundColor", fillColor[i]);
+                dataset[i].Add("borderColor", colorList[i]);
+                dataset[i].Add("backgroundColor", fillColorList[i]);
                 //dataset[i].Add("backgroundColor", colorList[i]);
                 dataset[i].Add("spanGaps", true);
 
                 legend[i].Add("label", breed);
-                legend[i].Add("color", color[i]);
+                legend[i].Add("color", colorList[i]);
 
                 i++;
             }
@@ -155,11 +195,23 @@ namespace VPMSWeb.Controllers
 
         public Dictionary<string, dynamic> GetRevenueSummary(string type)
         {
+            var latestUpdateLog = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == "PatientSummary").OrderByDescending(x => x.TransactionDate).FirstOrDefault();
+            DateTime? latestUpdateDate;
+
+            if (latestUpdateLog != null)
+            {
+                latestUpdateDate = latestUpdateLog.TransactionDate;
+            }
+            else
+            {
+                latestUpdateDate = DateTime.Now;
+            }
+
             Dictionary<string, dynamic> chart = new Dictionary<string, dynamic>();
             List<Dictionary<string, dynamic>> dataset = new List<Dictionary<string, dynamic>>();
             Dictionary<string, dynamic> borderRadius = new Dictionary<string, dynamic>();
             var labelList = new List<string>();
-            var latestUpdateDate = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == "RevenueSummary").OrderByDescending(x => x.TransactionDate).FirstOrDefault().TransactionDate;
+            //var latestUpdateDate = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == "RevenueSummary").OrderByDescending(x => x.TransactionDate).FirstOrDefault().TransactionDate;
             int year = latestUpdateDate.Value.Year;
             int month = latestUpdateDate.Value.Month;
             int day = latestUpdateDate.Value.Day;
@@ -183,47 +235,153 @@ namespace VPMSWeb.Controllers
 
             if (type == "Yearly")
             {
-                var revenueSummary = SummaryList.GroupBy(y => y.DateInYear).Select(x => new { x.First().DateInYear, x.Sum(c => c.TotalAmount).Value }).ToList();
+                var revenueSummary = SummaryList.GroupBy(y => y.DateInYear).Select(x => new { x.First().DateInYear, x.Sum(c => c.TotalAmount).Value }).TakeLast(10).ToList();
+                var yearList = revenueSummary.Select(x => x.DateInYear).ToList();
+                int currentYear = 0;
 
-                foreach (var item in revenueSummary)
+                if(yearList.Count == 0)
                 {
-                    axisData.Add(new axis() { x = item.DateInYear, y = item.Value });
+                    labelList = [year.ToString()];
+                }
+                else 
+                {
+                    List<string> tempYearList = new List<string>();
+
+                    foreach (var yearNo in yearList)
+                    {
+                        if (currentYear != 0 && (int.Parse(yearNo) - currentYear) > 1)
+                        {
+                            var differ = int.Parse(yearNo) - currentYear;
+                            int start = 1;
+
+                            while (start < differ)
+                            {
+                                tempYearList.Add((currentYear + start).ToString());
+                                start++;
+                            }
+                        }
+                        
+                        tempYearList.Add(yearNo);
+                        currentYear = int.Parse(yearNo);
+                    }
+
+                    labelList = tempYearList.TakeLast(10).ToList();
                 }
 
-                labelList = revenueSummary.Select(x => x.DateInYear).ToList();
+                foreach (var yearNo in labelList)
+                {
+                    var value = revenueSummary.FirstOrDefault(x => x.DateInYear == yearNo);
+                    axisData.Add(new axis() { x = yearNo, y = (value == null ? 0 : value.Value) });
+                }
+
+                //if (revenueSummary.Count == 0)
+                //{
+                //    axisData.Add(new axis() { x = year.ToString(), y = 0 });
+                //    labelList = [year.ToString()];
+                //}
+                //else
+                //{
+                //    //foreach (var item in revenueSummary)
+                //    //{
+                //    //    axisData.Add(new axis() { x = item.DateInYear, y = item.Value });
+                //    //}
+
+                //    //labelList = revenueSummary.Select(x => x.DateInYear).ToList();
+
+                //    foreach (var yearNo in revenueSummary.Select(x => x.DateInYear).ToList())
+                //    {
+                //        if(currentYear != 0 && (int.Parse(yearNo) - currentYear) > 1)
+                //        {
+                //            var differ = int.Parse(yearNo) - currentYear;
+                //            int start = 1;
+
+                //            while(start < differ)
+                //            {
+                //                axisData.Add(new axis() { x = (currentYear + 1).ToString(), y = 0 });
+                //                start++;
+                //            }
+                //        }
+
+                //        var value = revenueSummary.First(x => x.DateInYear == yearNo);
+                //        axisData.Add(new axis() { x = yearNo, y = value.Value });
+
+                //        currentYear = int.Parse(yearNo);
+                //    }
+                //}
+
+                
             }
             else if (type == "Monthly")
             {
                 var revenueSummary = SummaryList.Where(x => x.DateInYear == year.ToString()).GroupBy(y => y.DateInMonth).Select(x => new { x.First().DateInMonth, x.Sum(c => c.TotalAmount).Value }).ToList();
 
-                foreach (var item in revenueSummary)
+                //foreach (var item in revenueSummary)
+                //{
+                //    axisData.Add(new axis() { x = GetMonthString(int.Parse(item.DateInMonth) - 1), y = item.Value });
+                //}
+
+                for (int i = 1; i <= 12; i++)
                 {
-                    axisData.Add(new axis() { x = GetMonthString(int.Parse(item.DateInMonth) - 1), y = item.Value });
+                    var value = revenueSummary.FirstOrDefault(x => x.DateInMonth == i.ToString());
+                    axisData.Add(new axis() { x = monthList[i-1], y = (value == null ? 0 : value.Value) });
                 }
 
-                labelList = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                labelList = monthList;
             }
             else if (type == "Weekly")
             {
                 var revenueSummary = SummaryList.Where(x => x.DateInYear == year.ToString() && x.DateInMonth == month.ToString()).GroupBy(y => y.Week).Select(x => new { x.First().Week, x.Sum(c => c.TotalAmount).Value }).ToList();
 
-                foreach (var item in revenueSummary)
-                {
-                    axisData.Add(new axis() { x = "Week " + item.Week, y = item.Value });
+                //foreach (var item in revenueSummary)
+                //{
+                //    axisData.Add(new axis() { x = "Week " + item.Week, y = item.Value });
 
-                    labelList.Add("Week " + item.Week);
+                //    //labelList.Add("Week " + item.Week);
+                //}
+
+                foreach (var weekNo in getWeeksInMonth(latestUpdateDate.Value))
+                {
+                    var value = revenueSummary.FirstOrDefault(x => x.Week == int.Parse(weekNo.Replace("Week ", "")));
+                    axisData.Add(new axis() { x = weekNo, y = (value == null ? 0 : value.Value) });
                 }
+
+                labelList = getWeeksInMonth(latestUpdateDate.Value);
             }
             else if (type == "Daily")
             {
                 var revenueSummary = SummaryList.Where(x => x.DateInYear == year.ToString() && x.DateInMonth == month.ToString() && x.Week == week).GroupBy(y => y.SummaryDate).Select(x => new { x.First().SummaryDate, x.Sum(c => c.TotalAmount).Value }).ToList();
 
-                foreach (var item in revenueSummary)
-                {
-                    axisData.Add(new axis() { x = item.SummaryDate.Value.ToString("dd/M/yyyy") , y = item.Value });
+                //if (revenueSummary.Count == 0)
+                //{
+                //    //axisData.Add(new axis() { x = latestUpdateDate.Value.ToString("dd/M/yyyy"), y = 0});
 
-                    labelList.Add(item.SummaryDate.Value.ToString("dd/M/yyyy"));
+                //    foreach (var date in getDaysInWeek(latestUpdateDate.Value))
+                //    {
+                //        var value = revenueSummary.FirstOrDefault(x => x.SummaryDate.Value.ToString("dd/M/yyyy") == date);
+                //        //axisData.Add(new axis() { x = date, y = (revenueSummary.FirstOrDefault(x => x.SummaryDate.Value.ToString("dd/M/yyyy") == date).Value) });
+
+                //        //labelList.Add(item.SummaryDate.Value.ToString("dd/M/yyyy"));
+                //    }
+                //}
+                //else
+                //{
+                //    foreach (var item in revenueSummary)
+                //    {
+                //        axisData.Add(new axis() { x = item.SummaryDate.Value.ToString("dd/M/yyyy"), y = item.Value });
+
+                //        //labelList.Add(item.SummaryDate.Value.ToString("dd/M/yyyy"));
+                //    }
+                //}
+
+                foreach (var date in getDaysInWeek(latestUpdateDate.Value))
+                {
+                    var value = revenueSummary.FirstOrDefault(x => x.SummaryDate.Value.ToString("dd/M/yyyy") == date);
+                    axisData.Add(new axis() { x = date, y = (value == null ? 0 : value.Value) });
+
+                    //labelList.Add(item.SummaryDate.Value.ToString("dd/M/yyyy"));
                 }
+
+                labelList = getDaysInWeek(latestUpdateDate.Value);
             }
             else
             {
@@ -231,12 +389,21 @@ namespace VPMSWeb.Controllers
 
                 var revenueSummary = SummaryList.Where(x => x.DateInYear == year.ToString() && x.Quarter == quarter).GroupBy(y => y.Quarter).Select(x => new { x.First().Quarter, x.Sum(c => c.TotalAmount).Value }).ToList();
 
-                foreach (var item in revenueSummary)
+                if(revenueSummary.Count > 0)
                 {
-                    axisData.Add(new axis() { x = "Q " + item.Quarter, y = item.Value });
+                    foreach (var item in revenueSummary)
+                    {
+                        axisData.Add(new axis() { x = "Q " + item.Quarter, y = item.Value });
 
-                    labelList.Add("Q " + item.Quarter);
+                        labelList.Add("Q " + item.Quarter);
+                    }
                 }
+                else
+                {
+                    axisData.Add(new axis() { x = "Q " + quarter, y = 0 });
+                    labelList = ["Q " + quarter];
+                }
+
             }
 
 
@@ -265,7 +432,7 @@ namespace VPMSWeb.Controllers
             List<string> genderList = ["Male", "Female"];
             List<string> roleList = new List<string>();
             List<string> backgroundColor = ["#1d76fb", "#5e8cd1"];
-            List<string> staffBackgroundColor = ["#1E88E5", "#42A5F5", "#90CAF9", "#B0BEC5"];
+            //List<string> staffBackgroundColor = ["#1E88E5", "#42A5F5", "#90CAF9", "#B0BEC5"];
             List<int> genderBreakdown = new List<int>();
             List<int> roleBreakdown = new List<int>();
             Dictionary<string, dynamic> chartList = new Dictionary<string, dynamic>();
@@ -298,7 +465,7 @@ namespace VPMSWeb.Controllers
             }
 
             staffDataset.Add(new Dictionary<string, dynamic>());
-            staffDataset[0].Add("backgroundColor", staffBackgroundColor);
+            staffDataset[0].Add("backgroundColor", colorList);
             staffDataset[0].Add("data", roleBreakdown);
 
             staffChart.Add("labels", roleList);
@@ -335,7 +502,17 @@ namespace VPMSWeb.Controllers
                 transactionType = "RevenueSummary";
             }
 
-            var latestUpdateDate = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == transactionType).OrderByDescending(x => x.TransactionDate).FirstOrDefault().TransactionDate;
+            var latestUpdateLog = _transSummaryDBContext.txn_transactionsummarylog.Where(x => x.TransactionType == transactionType).OrderByDescending(x => x.TransactionDate).FirstOrDefault();
+            DateTime? latestUpdateDate;
+
+            if (latestUpdateLog != null)
+            {
+                latestUpdateDate = latestUpdateLog.TransactionDate;
+            }
+            else
+            {
+                latestUpdateDate = DateTime.Now;
+            }
 
             Dictionary<string, dynamic> chart = new Dictionary<string, dynamic>();
             List<Dictionary<string, dynamic>> dataset = new List<Dictionary<string, dynamic>>();
@@ -344,7 +521,7 @@ namespace VPMSWeb.Controllers
             int day = latestUpdateDate.Value.Day;
             int week = Helpers.GetWeekOfMonth(latestUpdateDate.Value);
             var patientList = new List<TransSummaryModel>();
-            List<string> color = ["#9faabb", "#1e76fb", "#94bbf5"];
+            //List<string> color = ["#9faabb", "#1e76fb", "#94bbf5"];
 
             var role = HttpContext.Session.GetString("RoleName");
             var branchID = int.Parse(HttpContext.Session.GetString("BranchID"));
@@ -387,7 +564,7 @@ namespace VPMSWeb.Controllers
 
             dataset.Add(new Dictionary<string, dynamic>());
             dataset[0].Add("data", patientSummary.OrderBy(x => x.SubGroup).Select(x => x.Value));
-            dataset[0].Add("backgroundColor", color);
+            dataset[0].Add("backgroundColor", colorList);
 
             chart.Add("labels", patientSummary.OrderBy(x => x.SubGroup).Select(x => x.SubGroup));
             chart.Add("datasets", dataset);
@@ -401,6 +578,11 @@ namespace VPMSWeb.Controllers
             var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
             var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
+            //List<UpcomingAppointment> test = AppointmentRepository.GetTodayUpcomingAppointmentList(Host.CreateApplicationBuilder().Configuration, doctor, organisation, branch);
+            //test.AddRange(test);
+            //test.AddRange(test);
+
+            //return test;
             return AppointmentRepository.GetTodayUpcomingAppointmentList(Host.CreateApplicationBuilder().Configuration, doctor, organisation, branch);
         }
 
@@ -424,6 +606,71 @@ namespace VPMSWeb.Controllers
                                             start.G + (stepper.G * i),
                                             start.B + (stepper.B * i));
             }
+        }
+
+        private List<string> getDaysInWeek(DateTime date)
+        {
+            List<string> dayList = new List<string>();
+            int week = Helpers.GetWeekOfMonth(date);
+            DateTime startingDay = date;
+            DateTime endingDay = date;
+
+            while (true)
+            {
+                if (Helpers.GetWeekOfMonth(startingDay.AddDays(-1)) != week)
+                {
+                    break;
+                }
+                else
+                {
+                    startingDay = startingDay.AddDays(-1);
+                }
+            }
+
+            while (true)
+            {
+                if (Helpers.GetWeekOfMonth(endingDay.AddDays(1)) != week)
+                {
+                    break;
+                }
+                else
+                {
+                    endingDay = endingDay.AddDays(1);
+                }
+            }
+
+            while (true)
+            {
+                if (startingDay != endingDay)
+                {
+                    dayList.Add(startingDay.ToString("dd/M/yyyy"));
+                    startingDay = startingDay.AddDays(1);
+                }
+                else
+                {
+                    dayList.Add(startingDay.ToString("dd/M/yyyy"));
+                    break;
+                }
+            }
+
+            return dayList;
+
+        }
+
+        private List<string> getWeeksInMonth(DateTime date)
+        {
+            List<string> weekList = new List<string>();
+            var currentDay = date.Day;
+            var nextMont = date.AddMonths(1);
+            var lastDayOfMonth = nextMont.AddDays(0 - currentDay);
+            var lastWeekOfMonth = Helpers.GetWeekOfMonth(lastDayOfMonth);
+
+            for(int i = 1; i <= lastWeekOfMonth; i++)
+            {
+                weekList.Add("Week " + i);
+            }
+
+            return weekList;
         }
     }
 }

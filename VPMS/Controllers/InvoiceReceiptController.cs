@@ -225,23 +225,37 @@ namespace VPMSWeb.Controllers
 			invoice.UpdatedDate = DateTime.Now;
 			invoice.UpdatedBy = HttpContext.Session.GetString("Username");
 
-			var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.ReceiptNo);
+			//var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.ReceiptNo);
 
-			Random rnd = new Random();
+			//Random rnd = new Random();
 			string receiptNoString = "";
-			var existed = true;
+            //var existed = true;
 
-			while (existed)
-			{
-				int num = rnd.Next(1, 999999);
-				receiptNoString = "#" + num;
-				if (!receiptNoList.Contains(receiptNoString))
-				{
-					existed = false;
-				}
-			}
+            //while (existed)
+            //{
+            //	int num = rnd.Next(1, 999999);
+            //	receiptNoString = "#" + num;
+            //	if (!receiptNoList.Contains(receiptNoString))
+            //	{
+            //		existed = false;
+            //	}
+            //}
 
-			invoice.ReceiptNo = receiptNoString;
+            var branchCode = HttpContext.Session.GetString("BranchCode");
+            var currentDate = DateTime.Now.ToString("yyMMdd");
+            var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.ReceiptNo.StartsWith(branchCode + "-" + currentDate + "-")).OrderBy(x => x.ReceiptNo).Select(x => x.ReceiptNo).AsNoTracking().ToList();
+
+            if (receiptNoList.Count == 0)
+            {
+                receiptNoString = branchCode + "-" + currentDate + "-1";
+            }
+            else
+            {
+                var latestNo = receiptNoList.LastOrDefault().Split("-")[2];
+                receiptNoString = branchCode + "-" + currentDate + "-" + (int.Parse(latestNo) + 1);
+            }
+
+            invoice.ReceiptNo = receiptNoString;
 
 			_invoiceReceiptDBContext.Update(invoice);
 			_invoiceReceiptDBContext.SaveChanges(true);

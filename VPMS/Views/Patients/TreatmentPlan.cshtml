@@ -255,7 +255,7 @@
 			<select class="form-control form-field serviceID" onchange="updateCost(this, 'servicePrice', 'serviceName');" style="width: unset; font-size: 1vw">
 				@foreach (var service in ViewData["Services"] as List<VPMS.Lib.Data.Models.ServicesModel>)
 				{
-					<option value="@service.ID" data-price="@service.Prices"> @service.Name </option>
+					<option value="@service.ID" data-price="@service.Prices">@service.Name</option>
 				}
 			</select>
 		</td>
@@ -280,7 +280,7 @@
 			<select class="form-control form-field productID" onchange="updateCost(this, 'productPrice', 'productName');" style="width: unset; font-size: 1vw">
 				@foreach (var product in ViewData["Inventories"] as List<VPMS.Lib.Data.Models.InventoryModel>)
 				{
-					<option value="@product.ID" data-price="@product.PricePerQty"> @product.Name </option>
+					<option value="@product.ID" data-price="@product.PricePerQty">@product.Name</option>
 				}
 			</select>
 		</td>
@@ -851,6 +851,7 @@
 		var productUnitElement = parent.querySelector(".productUnitInput");
 
 		if(productUnitElement) {
+			parent.querySelector(".productOriginalPrice").innerHTML = price;
 			price = productUnitElement.value * price;
 		}
 
@@ -865,7 +866,7 @@
 
 		parent.parentElement.querySelector(".totalCost").innerHTML = "$" + totalCost;
 
-		calculateTotal();
+		calculateTotal(parent.parentElement.parentElement.parentElement);
 	}
 
 	function updateUnitCost(e, priceElementName, productElementName, unitElementName) {
@@ -889,7 +890,7 @@
 		parent.parentElement.querySelector(".totalCost").innerHTML = "$" + totalCost;
 		unitElement.innerHTML = e.value;
 
-		calculateTotal();
+		calculateTotal(parent.parentElement.parentElement.parentElement);
 	}
 
 	function changeTab(e, selected){

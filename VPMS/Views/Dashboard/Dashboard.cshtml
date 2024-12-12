@@ -31,62 +31,62 @@
 
 <style>
 	.hideContainer{
-		display: none !important;
+	display: none !important;
 	}
 
 	.dropdown-arrow.showInfo {
-		transform: rotate(180deg);
+	transform: rotate(180deg);
 	}
 
 	.dropdown-arrow {
-		transition: 0.6s ease;
+	transition: 0.6s ease;
 	}
 
 	.dropbtn {
-		background-color: transparent;
-		/* color: white; */
-		/* padding: 16px; */
-		font-size: 1.3vw;
-		border: none;
+	background-color: transparent;
+	/* color: white; */
+	/* padding: 16px; */
+	font-size: 1.3vw;
+	border: none;
 	}
 
 	.dropdown {
-		position: relative;
-		display: inline-block;
+	position: relative;
+	display: inline-block;
 	}
 
 	.dropdown-content {
-		display: none;
-		position: absolute;
-		background-color: #f1f1f1;
-		min-width: 9vw;
-		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-		z-index: 1;
-		right: 0;
-		text-align: center;
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 9vw;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	right: 0;
+	text-align: center;
 	}
 
-		.dropdown-content a {
-			color: black;
-			padding: 0 1vw;
-			text-decoration: none;
-			display: block;
-		}
+	.dropdown-content a {
+	color: black;
+	padding: 0 1vw;
+	text-decoration: none;
+	display: block;
+	}
 
 	/* .dropdown-content a:hover {
-						background-color: #ddd;
-					} */
+	background-color: #ddd;
+	} */
 
 	.dropdown:hover .dropdown-content {
-		display: block;
+	display: block;
 	}
 
 	.dropdown:hover .dropdown-arrow {
-		transform: rotate(180deg);
+	transform: rotate(180deg);
 	}
 
 	.leftContainerStyle{
-		width: 97%;
+	width: 97%;
 	}
 </style>
 
@@ -97,16 +97,16 @@
 </template>
 
 <div style="display: flex; justify-content: center;">
-    <div id="LeftInfoContainer" style="overflow: auto; height: 75.2vh; margin-right: 1vw;">
-        <div>
+	<div id="LeftInfoContainer" style="overflow: auto; height: 84.2vh; margin-right: 1vw;">
+		<div>
 			<div class="leftContainerStyle" style="background: #c2d9fc; padding: 0 2vw; padding-top: 1vw; border-radius: 0.5vw; display: flex; margin-bottom: 2vw;">
 				<div style="padding: 1vw 0; font-size: 1vw;">
 					<span>@LangResources["Dashboard_Message_Welcome"] </span> <span style="font-weight: bold;">@user!</span> <br /> <br />
 					<span style="font-size: 2vw; font-weight: bold;">@LangResources["Dashboard_Message_Here"]</span>
-                </div>
-                <div>
-                    <img src="~/images/Dashboard image.png" style="height: 14vw;" />
-                </div>
+				</div>
+				<div>
+					<img src="~/images/Dashboard image.png" style="height: 14vw;" />
+				</div>
 			</div>
 
 			<div class="leftContainerStyle">
@@ -228,7 +228,7 @@
 							<div style="width: 49%; height: 13vw; padding: 0 4vw;">
 								<canvas id="totalPatientChart"></canvas>
 							</div>
-							<div id="totalPatientLegend" style="width: 49%; padding: 0 4vw; font-size: 1vw;">
+							<div id="totalPatientLegend" style="width: 49%; padding: 0 4vw; font-size: 1vw; height: 24.5vh; overflow: auto;">
 								@* <div style="display: flex; justify-content: space-between;">
 									<div style="display: flex; align-items: center;">
 										<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dogs</span>
@@ -296,7 +296,7 @@
 							<div style="font-size: 1vw;">
 								<span style="font-weight: bold;">@LangResources["Dashboard_Label_RevenueBy"]</span>
 								<div class="dropdown">
-									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_TopTreatment"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_TopServices"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
 									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
 										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', 'Treatments' , '', this);">@LangResources["Dashboard_Label_TopTreatment"]</a>
 										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', 'Services' , '', this);">@LangResources["Dashboard_Label_TopServices"]</a>
@@ -325,7 +325,7 @@
 							<div style="width: 49%; height: 13vw; padding: 0 4vw;">
 								<canvas id="totalSaleChart"></canvas>
 							</div>
-							<div id="totalSaleLegend" style="width: 49%; padding: 0 4vw; font-size: 1vw;">
+							<div id="totalSaleLegend" style="width: 49%; padding: 0 1vw; font-size: 1vw; height: 24.5vh; overflow: auto;">
 								@* <div style="display: flex; justify-content: space-between;">
 									<div style="display: flex; align-items: center;">
 										<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Spaying and Neutering</span>
@@ -349,29 +349,60 @@
 					</div>
 				</div>				
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 	<div id="RightInfoContainer" style="margin-left: 1.5vw;" @hideRightContainer>
 		<div>
 			<div class="containerBackground5" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border: 0.2vw solid #f2f2f2 !important; border-radius: 0.5vw; font-size: 1vw;">
 				<span class="formlabel" style="font-weight: bold;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
 
 				<div class="dropdown" style="margin-top: 1vw; margin-bottom: 2vw;">
-					<button class="dropbtn textColor"> <span class="textColor" style="margin-right: 1vw; font-size: 1vw;">@LangResources["TreatmentPlan_Label_Showing"]</span> <span id="tabSelection" style="font-size: 1vw; font-weight: bold; color: dodgerblue;">@LangResources["Dashboard_Label_AllDoctors"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
-                    <div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw; width: max-content;">
-						
+					<button class="dropbtn textColor"> 
+						<span class="textColor" style="margin-right: 1vw; font-size: 1vw;">@LangResources["TreatmentPlan_Label_Showing"]</span> 
 						@if (role == "Doctor")
+						{
+							<span id="tabSelection" style="font-size: 1vw; font-weight: bold; color: dodgerblue;">@user</span>
+						}
+						else{
+							<span id="tabSelection" style="font-size: 1vw; font-weight: bold; color: dodgerblue;">@LangResources["Dashboard_Label_AllDoctors"]</span>
+						}
+						<i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i>
+					</button>
+					<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw; width: max-content;">
+
+						@* @if (role == "Doctor")
 						{
 							<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
 							<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getUpcomingAppointment('@user', this);">@user</a>
 						}
 						else{
 							<a href="#" class="textColor" style="border-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
+						} *@
+
+						@if (role == "Doctor")
+						{
+							<a href="#" class="textColor" style="border-radius: 1vw;" onclick="getUpcomingAppointment('@user', this);">@user</a>
+						}
+						else
+						{
+							var doctorList = ViewData["Doctors"] as List<string>;
+							for (int i = 0; i < doctorList.Count; i++)
+							{
+								if(i == 0){
+									<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
+								}
+								else if (i == doctorList.Count - 1){
+									<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
+								}
+								else{
+									<a href="#" class="textColor" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
+								}
+							}
 						}
                     </div>
                 </div>
 
-				<div id="appointmentList">
+				<div id="appointmentList" style="overflow-y: auto; max-height: 66.2vh;">
 					@* <div style="display: flex; align-items: center; margin-bottom: 1vw;">
 						<div style="margin-right: 2vw; background-color: #c2d9fc; border-radius: 0.5vw; padding: 0 0.5vw; padding-top: 1vw; width: 5.4vw;">
 							<img src="~/images/Male doctor image.png" style="height: 5vw;" />
@@ -421,11 +452,18 @@
 	var typeFilter = "Daily";
 	var groupFilter = "Treatments";
 
-	getUpcomingAppointment("", "");
+	if('@role' == 'Doctor'){
+		getUpcomingAppointment("@user", "");
+	}
+	else{
+		getUpcomingAppointment("", "");
+	}
+
+	
 	getPatientSummary();
 	getSaleSummary("Daily", "");
 	getStaffSummary();
-	getDougnutSummary("totalSale", "Treatments", "Daily", "");
+	getDougnutSummary("totalSale", "Services", "Daily", "");
 	getDougnutSummary("totalPatient", "PatientByBreed", "Daily", "");
 
 	function getPatientSummary(){
@@ -512,6 +550,18 @@
 		})
 		.done(function (result) {
 			if (result != null) {
+				if(result.labels.length == 0 ){
+					result =
+						{
+							labels : [],
+							datasets: [{
+								backgroundColor: ["transparent"],
+								data: [1],
+								borderColor: axisColor
+							}]
+						}
+				}
+
 				var sign = "";
 				if(chart == "totalPatient"){ totalPatientData = result; }
 				else{totalSaleData = result; sign = "$";}
@@ -537,12 +587,13 @@
 
 	function getUpcomingAppointment(doctor, element){
 		if(element != ""){
-			if(doctor != ""){
-				doctor = "Dr. " + doctor;
-			}
-
 			element.parentElement.parentElement.querySelector("#tabSelection").innerHTML =  element.innerHTML;
 		}
+
+		if(doctor != ""){
+			doctor = "Dr. " + doctor;
+		}
+
 		$.getJSON("/Dashboard/GetUpcomingAppointment", {
 			doctor: doctor
 		})
@@ -803,13 +854,20 @@
 				}
 
 				if(chart == "totalPatient"){
+					var enableTooltip = true;
+
+					if(totalPatientData.datasets[0].backgroundColor[0] == "transparent" ){
+						enableTooltip = false;
+					}
+
 					chartTotalPatient = new Chart(totalPatientChart, {
 						type: 'doughnut',
 						// data: {
 						//   labels: breed,
 						//   datasets: [{
 						// 	backgroundColor: ["#9faabb", "#1e76fb", "#94bbf5"],
-						// 	data: [234, 221, 56]
+						// 	data: [234, 221, 56],
+						// 	borderColor: axisColor
 						//   }]
 						// },
 						data: totalPatientData,
@@ -823,6 +881,9 @@
 							// 	}
 							// },
 							plugins: {
+								tooltip: {
+									enabled : enableTooltip
+								},
 								datalabels: {
 									display: false // Disable datalabels
 								},
@@ -837,6 +898,8 @@
 							}
 						}
 					});
+
+					// chartTotalPatient.data.datasets[0].borderColor = axisColor;
 				}
 	}
 
@@ -1000,26 +1063,26 @@
 			let salesChart = document.getElementById("salesChart").getContext("2d");
 			let totalSaleChart = document.getElementById("totalSaleChart").getContext("2d");
 
-			var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-			var xData = ['2016-12-25', '2016-12-26', '2016-12-27', '2016-12-28'];
+			// var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			// var xData = ['2016-12-25', '2016-12-26', '2016-12-27', '2016-12-28'];
 
-			let dataSales = {
-				// labels: xData,
-				labels: months,
-				datasets: [{
-					// data: [20, 10, 30, 40],
-					data: [{x : "Jan", y : 400}, {x : "Feb", y : 500}, {x : "Apr", y : 500}, {x : "May", y : 400}, {x : "June", y : 500}],
-					backgroundColor: "#e9f2fd",
-					hoverBackgroundColor: "#5e8cd1",
-					barPercentage: 1.2,
-					borderRadius: {
-						topLeft: 10,
-						topRight: 10,
-						bottomLeft: 0,
-						bottomRight: 0
-					}
-				}]
-			};
+			// let dataSales = {
+			// 	// labels: xData,
+			// 	labels: months,
+			// 	datasets: [{
+			// 		// data: [20, 10, 30, 40],
+			// 		data: [{x : "Jan", y : 400}, {x : "Feb", y : 500}, {x : "Apr", y : 500}, {x : "May", y : 400}, {x : "June", y : 500}],
+			// 		backgroundColor: "#e9f2fd",
+			// 		hoverBackgroundColor: "#5e8cd1",
+			// 		barPercentage: 1.2,
+			// 		borderRadius: {
+			// 			topLeft: 10,
+			// 			topRight: 10,
+			// 			bottomLeft: 0,
+			// 			bottomRight: 0
+			// 		}
+			// 	}]
+			// };
 
 			if(chart == "sale"){
 				chartSale = new Chart(salesChart, {
@@ -1050,10 +1113,28 @@
 							}
 						},
 						plugins: {
+							tooltip:{
+								enabled: false
+							},
 							datalabels: {
 								anchor: 'end',
 								align: 'end',
-								formatter: (value) => '$ ' + value.y,
+								// formatter: (value) => '$ ' + value.y,
+								formatter: function(value){
+									var valueString = value.y;
+
+									if(value.y > 1000000000){
+										valueString = (value.y / 1000000000).toFixed(2) + "B"
+									}
+									else if(value.y > 1000000){
+										valueString = (value.y / 1000000).toFixed(2) + "M"
+									}
+									else if(value.y > 1000){
+										valueString = (value.y / 1000).toFixed(2) + "k"
+									}
+
+									return '$ ' + valueString
+								},
 								color: axisColor,
 								font: {
 									size: 10,
@@ -1069,6 +1150,11 @@
 
 			
 			if(chart == "totalSale"){
+				var enableTooltip = true;
+
+				if(totalSaleData.datasets[0].backgroundColor[0] == "transparent" ){
+					enableTooltip = false;
+				}
 				chartTotalSale = new Chart(totalSaleChart, {
 					type: 'doughnut',
 					// data: {
@@ -1089,6 +1175,9 @@
 						// 	}
 						// },
 						plugins: {
+							tooltip:{
+								enabled: enableTooltip
+							},
 							datalabels: {
 								display: false // Disable datalabels
 							},

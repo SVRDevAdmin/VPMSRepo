@@ -553,27 +553,41 @@ namespace VPMSWeb.Controllers
 				_patientDBContext.Txn_TreatmentPlan.Add(patientTreatmentPlan);
 				_patientDBContext.SaveChanges();
 
-				var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
+				var branchCode = HttpContext.Session.GetString("BranchCode");
+				var currentDate = DateTime.Now.ToString("yyMMdd");
+                var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
 				var patientInfo = _patientDBContext.Mst_Patients.FirstOrDefault(x => x.ID == petInfo.PatientID);
 				var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == petInfo.PatientID);
-				var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
+				//var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
 
-				Random rnd = new Random();
+				//Random rnd = new Random();
 				string invoiceNoString = "";
-				var existed = true;
+				//var existed = true;
 
-				while (existed)
+				//while (existed)
+				//{
+				//	int num = rnd.Next(1, 999999);
+				//	invoiceNoString = "#" + num;
+				//	if (!invoiceNoList.Contains(invoiceNoString))
+				//	{
+				//		existed = false;
+				//	}
+				//}
+
+				var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.InvoiceNo.StartsWith(branchCode + "-" + currentDate + "-")).OrderBy(x => x.InvoiceNo).Select(x => x.InvoiceNo).AsNoTracking().ToList();
+
+				if(invoiceNoList.Count == 0)
 				{
-					int num = rnd.Next(1, 999999);
-					invoiceNoString = "#" + num;
-					if (!invoiceNoList.Contains(invoiceNoString))
-					{
-						existed = false;
-					}
-				}
+					invoiceNoString = branchCode + "-" + currentDate + "-1";
+                }
+				else
+				{
+					var latestNo = invoiceNoList.LastOrDefault().Split("-")[2];
+                    invoiceNoString = branchCode + "-" + currentDate + "-" + (int.Parse(latestNo) + 1);
+                }
 
 
-				var invoiceInfo = new InvoiceReceiptModel()
+                var invoiceInfo = new InvoiceReceiptModel()
 				{
 					TreatmentPlanID = patientTreatmentPlan.ID,
 					Branch = patientInfo.BranchID,

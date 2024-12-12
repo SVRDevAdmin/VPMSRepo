@@ -692,7 +692,8 @@ namespace VPMS.Lib.Data
                 "inner join mst_doctor e on e.Name = REPLACE(a.InchargeDoctor, \"Dr. \", \"\") " +
                 "inner join mst_branch f on f.ID = e.BranchID " + roleFilter +
                 "where a.ApptDate = current_date() AND a.ApptStartTime > current_time() AND a.ApptDate < '" + tomorow + "' " + doctorFilter +
-                "Order By a.ApptDate, a.ApptStartTime;";
+                "Order By a.ApptDate, a.ApptStartTime " +
+                "LIMIT 0,15;";
 
             try
             {

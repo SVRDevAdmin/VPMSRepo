@@ -178,7 +178,7 @@ namespace VPMS.Lib.Data.DBContext
 				{
 					sConn.Open();
 
-					String sSelectCommand = "SELECT A.CreatedDate AS 'SummaryDate', A.Branch, B.PetID, M.Species, " + 
+					String sSelectCommand = "SELECT A.CreatedDate AS 'SummaryDate', A.Branch, B.PetID, M.Species, " +
 											"B.TreatmentPlanID, B.PlanName, B.TotalCost AS 'TreatmentPlanAmount', " +
 											"C.ServiceID, C.ServiceName, C.TotalPrice AS 'ServicePrice' " + 
 											"FROM mst_invoicereceipt AS A " + 
