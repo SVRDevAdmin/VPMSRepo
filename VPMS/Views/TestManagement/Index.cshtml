@@ -9,58 +9,11 @@
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/css/TestMgmt.css" />
+
 <script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
 <script src="~/lib/moment.min.js"></script>
 
-<style type="text/css">
-    .TestMgmtTitle{
-        font-size: 24px;
-        font-weight: bold;
-        margin-left: 25px;
-        margin-top: 20px;
-    }
-
-    #imgTestResultSlider {
-        content: url('../images/Slider_icon.png');
-        margin-right: 10px;
-        width: 20px;
-        height: 20px;
-    }
-
-    .collapseHide {
-        visibility: hidden;
-    }
-
-    .PaginationButtonSelected {
-        width: 3vw;
-        height: 3vw;
-        background-color: #1E76FB;
-        color: white;
-        margin-right: 1vw;
-        text-align: center;
-        border-radius: 3vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #1E76FB;
-        font-weight: bold;
-    }
-
-    .PaginationButton {
-        width: 3vw;
-        height: 3vw;
-        background-color: transparent;
-        color: #1E76FB;
-        margin-right: 1vw;
-        text-align: center;
-        border-radius: 3vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #1E76FB;
-        font-weight: bold;
-    }
-</style>
 <script>
     var paginationLimit = 10;
     var pageSize = 10;
@@ -97,11 +50,47 @@
         });
 
         $('#btnDownload').click(function () {
-
+            //DownloadTestResultListing
         });
 
         $('#btnPrint').click(function () {
+            var sData = {
+                branchID: '@sessionBranchID',
+                patientID: $('#txtPatientID').val(),
+                deviceName: $('#ddlDevice').val(),
+                sortOrder: $('#ddlSorting').val()
+            };
 
+            $.ajax({
+                type: 'POST',
+                url: '/TestManagement/DownloadTestResultListing',
+                dataType: 'json',
+                data: {
+                    branchID: '@sessionBranchID',
+                    patientID: $('#txtPatientID').val(),
+                    deviceName: $('#ddlDevice').val(),
+                    sortOrder: $('#ddlSorting').val()
+                },
+                success: function (filedata) {
+                    //var bytes = new Uint8Array(filedata.data.FileContents);
+
+                    var tt = btoa(filedata.data);
+                    var bytes = new Uint8Array(tt.length);
+
+                    var blob = new Blob([bytes], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                    //var blob = new Blob([bytes], { type: "application/ms-excel" });
+                    //var blob = new Blob([bytes], { type: "application/octet-stream" });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "Report.xlsx";
+                    link.click();
+                },
+                
+
+                //Cache: false,
+                //contentType: false,
+                //processData: false
+            });
         });
     });
 
@@ -110,48 +99,6 @@
         $('#ddlDevice').val($('#ddlDevice option:first').val());
         $('#ddlSorting').val($('#ddlSorting option:first').val());
     }
-
-    // function outputListingPDF(isPrint) {
-    //     var dtDownload = moment().format("YYYYMMDDTHHmmss");
-    //     var sFileName = 'TestResult_' + dtDownload + '.pdf';
-
-    //     if (isPrint) {
-    //         var element = document.getElementById('divContent');
-    //         var opt = {
-    //             filename: sFileName,
-    //             html2canvas: {
-    //                 scale: 2
-    //             },
-    //             jsPDF: {
-    //                 orientation: 'portrait'
-    //             }
-    //         };
-
-    //         html2pdf().set(opt)
-    //             .from(element)
-    //             .outputPdf()
-    //             .get('pdf')
-    //             .then(function (pdfObj) {
-    //                 pdfObj.autoPrint();
-    //                 window.open(pdfObj.output("bloburl"), "F")
-    //             });
-
-    //     }
-    //     else {
-    //         var element = document.getElementById('divContent');
-    //         var opt = {
-    //             filename: sFileName,
-    //             html2canvas: {
-    //                 scale: 2
-    //             },
-    //             jsPDF: {
-    //                 orientation: 'portrait'
-    //             }
-    //         };
-
-    //         html2pdf().set(opt).from(element).save();
-    //     }
-    // }
 
     function loadDeviceName()
     {
@@ -311,7 +258,7 @@
                         <i class="bi bi-printer"></i>
                     </button>
                     &nbsp;
-                    <button id="btnTestMgmtFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 1vw;">
+                    <button id="btnTestMgmtFilter" type="button" class="btn">
                         <img id="imgTestResultSlider" />
                         Filter
                     </button>
@@ -352,36 +299,36 @@
                 </div>
             </div>
         </div>
-        <div id="divTestMgmtFilter" class="col-md-3 collapseHide" style="height: auto; border: 0px solid black;">
-            <div class="row" style="height: auto; margin-top: 15px; background-color: #f7f7f7; border-radius: 6px;">
+        <div id="divTestMgmtFilter" class="col-md-3 collapseHide">
+            <div class="row TestMgmtFilterBox">
                 <div class="col-md-12" style="border-radius: 5px;">
-                    <div class="row" style="margin-top: 30px; margin-bottom: 30px; margin-left: 5px;">
-                        <label style="color: black; font-size: 20px; font-weight: bold;">Filters</label>
+                    <div class="row TestMgmtTitleRow">
+                        <label class="TestMgmtFilterTitle">Filters</label>
                     </div>
                     
                     <!-- Patient ID -->
-                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
-                        <label style="color: black; font-weight: bold;">Patient ID</label>
+                    <div class="row TestMgmtLabelRow">
+                        <label class="TestMgmtFilterLabel">Patient ID</label>
                     </div>
-                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                    <div class="row TestMgmtFieldRow">
                         <input id="txtPatientID" type="text" class="form-control" />
                     </div>
 
                     <!-- Device Name -->
-                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
-                        <label style="color: black; font-weight: bold;">Device Name</label>
+                    <div class="row TestMgmtLabelRow">
+                        <label class="TestMgmtFilterLabel">Device Name</label>
                     </div>
-                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                    <div class="row TestMgmtFieldRow">
                         <select id="ddlDevice" class="form-select">
                             <option value="">Search By Name</option>
                         </select>
                     </div>
 
                     <!-- Sort By Date -->
-                    <div class="row" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
-                        <label style="color: black; font-weight: bold;">Sort By Date</label>
+                    <div class="row TestMgmtLabelRow">
+                        <label class="TestMgmtFilterLabel">Sort By Date</label>
                     </div>
-                    <div class="row" style="margin-top: 0px; margin-bottom: 20px; margin-left: 7px; margin-right: 5px;">
+                    <div class="row TestMgmtFieldRow">
                         <select id="ddlSorting" class="form-select">
                             <option value="">Sort By</option>
                             <option value="ASC">Ascending</option>
@@ -389,12 +336,12 @@
                         </select>
                     </div>
 
-                    <div class="row" style="margin-top: 20px; margin-bottom: 10px; margin-left: 5px; margin-right: 5px;">
+                    <div class="row TestMgmtBtnSearchRow">
                         <button id="btnSearch" type="button" class="btn btn-primary">
                             Search
                         </button>
                     </div>
-                    <div class="row" style="margin-top: 10px; margin-bottom: 30px; margin-left: 5px; margin-right: 5px;">
+                    <div class="row TestMgmtBtnResetRow">
                         <button id="btnReset" type="button" class="btn btn-secondary">
                             Reset
                         </button>

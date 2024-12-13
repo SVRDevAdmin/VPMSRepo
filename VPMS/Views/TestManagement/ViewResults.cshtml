@@ -11,23 +11,11 @@
 }
 
 <link rel="stylesheet" href="~/lib/printJS/print.min.css" />
+<link rel="stylesheet" href="~/css/TestMgmt.css" />
 
 <script src="~/lib/moment.min.js"></script>
 <script src="~/lib/html2pdf/v0.10.1/html2pdf.bundle.min.js"></script>
 <script src="~/lib/printJS/print.min.js"></script>
-
-<style type="text/css">
-    #tblTestParamResult {
-        border: 0px solid black !important;
-        margin-left: 20px !important;
-    }
-    #tblTestParamResult > thead > tr > th {
-        border: 0px;
-        background-color: #f7f7f7;
-        border-bottom: 1px solid #ddd;
-        color: #919191;
-    }
-</style>
 
 <script>
     $(document).ready(function () {
@@ -70,22 +58,18 @@
                             }
 
                             var sContentRow = "<tr>" +
-                                              "<td class='text-left' style='height: 15px;'>" + result.data.TestResultBreakdown[i].ResultParameter + "</td>" +
-                                              "<td class='text-left' style='height: 15px;'>" + result.data.TestResultBreakdown[i].ResultValue + "</td>" +
-                                              "<td class='text-left' style='height: 15px;'>" + sRange + "</td>" +
-                                              "<td class='text-left' style='border-bottom: 1px solid black;'>" +
-
-                                              "<div style='border: 0px solid black; display: flex; margin-top: 4px;'>";
+                                              "<td class='text-left tblGaugeRowHeight'>" + result.data.TestResultBreakdown[i].ResultParameter + "</td>" +
+                                              "<td class='text-left tblGaugeRowHeight'>" + result.data.TestResultBreakdown[i].ResultValue + "</td>" +
+                                              "<td class='text-left tblGaugeRowHeight'>" + sRange + "</td>" +
+                                              "<td class='text-left'>" +
+                                              "<div class='GaugeBox'>";
 
                             if (result.data.TestResultBreakdown[i].ReferenceRange != null && result.data.TestResultBreakdown[i].ReferenceRange != '') 
                             {
                                 //----- Populate Resule Gauge ----------//
-                                sContentRow += "<div style='background-color: orange; height: 10px; width: 30%; border-top-left-radius: 6px; border-bottom-left-radius: 6px;'>" +
-                                               "</div>" +
-                                               "<div style='background-color: mediumseagreen; height: 10px; width: 40%;'>" +
-                                               "</div>" +
-                                               "<div style='background-color: red; height: 10px; width: 30%; border-top-right-radius: 6px; border-bottom-right-radius: 6px;'>" +
-                                               "</div>";
+                                sContentRow += "<div class='OrangeGaugeBar'></div>" +
+                                               "<div class='GreenGaugeBar'></div>" +
+                                               "<div class='RedGaugeBar'></div>";
                             }
 
                             sContentRow += "</div>" +
@@ -151,65 +135,65 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <label style="font-size: 24px; font-weight: bold; margin-left: 25px; margin-top: 20px;">Overall Test Results</label>
+                <label class="TestMgmtResultTitle">Overall Test Results</label>
             </div>
         </div>
     </div>    
-    <div id="divContent" class="row" style="border: 0px solid red; height: 60px; margin-top: 20px; margin-left: 0px; margin-right: 0;">
-        <div class="col-md-10" style="border: 0px solid black;">
-            <div class="row" style="border: 0px solid black; margin-left: 2px; margin-right: 2px;">
-                <div class="row" style="border: 0px solid black; margin-left: 0px; border-radius: 6px; background-color: rgb(30, 118, 251);">
-                    <dvi class="col-md-1" style="border: 0px solid black;">
-                        <div style="height: 40px; width: 40px; display: flex; margin-left: 1px; margin-right: 1px; margin-top: 5px; margin-bottom: 5px; border-radius: 6px; background-color: white;">
-                            <img src="~/images/calendar_cat_icon.png" width="20" height="20" style="background-color: transparent; display: block; margin: auto;" />
+    <div id="divContentRow" class="row">
+        <div class="col-md-10">
+            <div class="row divContentColumn">
+                <div class="row divContentBackground">
+                    <dvi class="col-md-1">
+                        <div class="ImageIconColumn">
+                            <img width="20" height="20" class="CatImageIcon" />
                         </div>
                     </dvi>
-                    <div class="col-md-3" style="border: 0px solid black; padding-top: 5px;">
+                    <div class="col-md-3 ContentColumnRow">
                         <div class="row">
-                            <label style="font-size: 11px; color: white; font-weight: bold">Time</label>
+                            <label class="ContentRowTitle">Time</label>
                         </div>
                         <div class="row">
-                            <label id="lbResultTime" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                            <label id="lbResultTime" class="ContentRowValue">&nbsp;</label>
                         </div>
                     </div>
-                    <div class="col-md-2" style="padding-top: 5px;">
-                        <div class="row" style="border-left: 1px solid white">
-                            <label style="font-size: 11px; color: white; font-weight: bold">Patient Name</label>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">Patient Name</label>
                         </div>
-                        <div class="row" style="border-left: 1px solid white">
-                            <label id="lbPatientName" style="font-size: 10px; color: white; margin-top: 5px;"></label>
-                        </div>
-                    </div>
-                    <div class="col-md-2" style="border: 0px solid black; font-weight: bold; padding-top: 5px;">
-                        <div class="row" style="border-left: 1px solid white">
-                            <label style="font-size: 11px; color: white; font-weight: bold">Patient ID</label>
-                        </div>
-                        <div class="row" style="border-left: 1px solid white">
-                            <label id="lbPatientID" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbPatientName" class="ContentRowValue">&nbsp;</label>
                         </div>
                     </div>
-                    <div class="col-md-2" style="border: 0px solid black; font-weight: bold; padding-top: 5px;">
-                        <div class="row" style="border-left: 1px solid white">
-                            <label style="font-size: 11px; color: white; font-weight: bold">Operator ID</label>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">Patient ID</label>
                         </div>
-                        <div class="row" style="border-left: 1px solid white">
-                            <label id="lbOperatorID" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbPatientID" class="ContentRowValue">&nbsp;</label>
                         </div>
                     </div>
-                    <div class="col-md-2" style="border: 0px solid black; font-weight: bold; padding-top: 5px;">
-                        <div class="row" style="border-left: 1px solid white">
-                            <label style="font-size: 11px; color: white; font-weight: bold">Device Name</label>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">Operator ID</label>
                         </div>
-                        <div class="row" style="border-left: 1px solid white">
-                            <label id="lbDeviceName" style="font-size: 10px; color: white; margin-top: 5px;">&nbsp;</label>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbOperatorID" class="ContentRowValue">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">Device Name</label>
+                        </div>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbDeviceName" class="ContentRowValue">&nbsp;</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-            <div class="row" style="display: flex; height: 50px; border: 0px solid black;">
-                <div class="col-md-12" data-html2canvas-ignore="true" style="text-align: right; margin-top: 5px; margin-bottom: 5px;">
+            <div class="row HeaderButtonRow">
+                <div class="col-md-12 HeaderButtonCol" data-html2canvas-ignore="true">
                     <button id="btnResultDownload" class="btn btn-primary pull-right">
                         <i class="bi bi-download"></i>
                     </button>
@@ -226,30 +210,30 @@
         <table id="tblTestParamResult" class="table" style="font-size: 1vw;">
             <thead>
                 <tr>
-                    <th scope="col" class="text-left" style="width: 25%; border: 0px solid black;">Test</th>
-                    <th scope="col" class="text-left" style="width: 20%; border: 0px solid black;">Result</th>
-                    <th scope="col" class="text-left" style="width: 25%; border: 0px solid black;">Normal Range</th>
-                    <th scope="col" class="text-center" style="width: 30%; border: 0px solid black;">Result Gauge</th>
+                    <th scope="col" class="text-left" style="width: 25%;">Test</th>
+                    <th scope="col" class="text-left" style="width: 20%;">Result</th>
+                    <th scope="col" class="text-left" style="width: 25%;">Normal Range</th>
+                    <th scope="col" class="text-center" style="width: 30%;">Result Gauge</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="3" style="width: 60%; border-bottom: 1px solid #C0C0C0;">&nbsp;</td>
-                    <td style="width: 100%; height: 15px; border-bottom: 1px solid #C0C0C0;">
-                        <table style="width: 100%; height: 15px; border: 0px solid black;">
+                    <td colspan="3" style="width: 60%;">&nbsp;</td>
+                    <td style="width: 100%; height: 15px;">
+                        <table id="tblGauge" style="width: 100%; height: 15px;">
                             <tr>
                                 <td>
-                                    <span style="width: 6px; height: 15px; background-color: orange; display: block;"></span>
+                                    <span class="OrangeGaugeBox"></span>
                                 </td>
-                                <td style="font-weight: bold;">Low</td>
+                                <td>Low</td>
                                 <td>
-                                    <span style="width: 6px; height: 15px; background-color: mediumseagreen; display: block;"></span>
+                                    <span class="GreenGaugeBox"></span>
                                 </td>
-                                <td style="font-weight: bold;">Normal</td>
+                                <td>Normal</td>
                                 <td>
-                                    <span style="width: 6px; height: 15px; background-color: red; display: block;"></span>
+                                    <span class="RedGaugeBox"></span>
                                 </td>
-                                <td style="font-weight: bold;">High</td>
+                                <td>High</td>
                             </tr>
 
                         </table>

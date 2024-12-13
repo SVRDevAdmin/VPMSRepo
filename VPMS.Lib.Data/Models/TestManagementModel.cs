@@ -38,4 +38,12 @@ namespace VPMS.Lib.Data.Models
 		public string? ResultUnit { get; set; }
 		public string? ReferenceRange { get; set; }
 	}
+
+	public class TestResultRequestModel
+	{
+		public String? branchID { get; set; }
+		public String? patientID { get; set; }
+		public String? deviceName { get; set; }
+		public String? sortOrder { get; set; }
+    }
 }

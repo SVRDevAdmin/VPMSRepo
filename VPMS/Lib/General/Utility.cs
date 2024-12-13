@@ -1,42 +1,32 @@
-﻿namespace VPMSWeb.Lib.General
+﻿using System.Data;
+using System.Reflection;
+
+namespace VPMSWeb.Lib.General
 {
     public class Utility
     {
-        public static string RandomPasswordGenerator()
+        public static DataTable ToDataTable<T>(List<T> items)
         {
-            Random res = new Random();
-
-            // String that contain alphabets, numbers and special character
-            String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-            String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            String number = "0123456789";
-            String specialChar = "!@#$%^&*()_+-={}|[];,./:<>?";
-
-            // Initializing the empty string 
-            String randomstring = "";
-
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
-
-            char[] chars = randomstring.ToCharArray();
-
-            for (int i = 0; i < chars.Length; i++)
+            DataTable dataTable = new DataTable(typeof(T).Name);
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
             {
-                int randomIndex = res.Next(0, chars.Length);
-                char temp = chars[randomIndex];
-                chars[randomIndex] = chars[i];
-                chars[i] = temp;
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name);
             }
-
-            randomstring = string.Join("", chars);
-
-            return randomstring;
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
         }
     }
 }

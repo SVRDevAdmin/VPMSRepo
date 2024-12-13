@@ -1,7 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Operations;
+using System.Data;
+using System.Web;
+using System.Drawing.Printing;
+using System.Reflection.Metadata;
 using VPMS.Lib.Data;
+using VPMSWeb.Lib.General;
 using VPMSWeb.Lib.Settings;
+using ClosedXML.Excel;
+using System.Collections;
+using VPMS.Lib.Data.Models;
+using Org.BouncyCastle.Utilities;
+using Microsoft.Extensions.Hosting.Internal;
+using System.Drawing.Text;
 
 namespace VPMSWeb.Controllers
 {
@@ -56,73 +68,43 @@ namespace VPMSWeb.Controllers
             return null;
         }
 
-        //// GET: TestManagementController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public IActionResult DownloadTestResultListing(TestResultRequestModel data)
+        {
+            FileContentResult fObject;
+            int iTotalRecords = 0;
 
-        //// GET: TestManagementController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+            var sResult = TestResultRepository.GetTestResultManagementListing(ConfigSettings.GetConfigurationSettings(), Convert.ToInt32(data.branchID), data.patientID, data.deviceName, data.sortOrder, 100, 1, out iTotalRecords);
 
-        //// POST: TestManagementController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+            DataTable sDataTable = Utility.ToDataTable(sResult);
+            String sBase64String = "";
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(sDataTable, "Test Results");
 
-        //// GET: TestManagementController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+                String sMainFolder = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Temp");
+                if (!Directory.Exists(sMainFolder))
+                {
+                    Directory.CreateDirectory(sMainFolder);
+                }
 
-        //// POST: TestManagementController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+                String sDownloadFile = Path.Combine(sMainFolder, "456.xlsx");
+                wb.SaveAs(sDownloadFile);
 
-        //// GET: TestManagementController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    wb.SaveAs(ms);
+                    //var bytesdata = File(ms.ToArray(), "application/ms-excel", "Report.xlsx");
+                    var bytesdata = File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Report.xlsx");
 
-        //// POST: TestManagementController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+                    //Byte[] bytes = System.IO.File.ReadAllBytes("c:\\test\\456.xlsx");
+                    Byte[] bytes = System.IO.File.ReadAllBytes(sDownloadFile);
+                    sBase64String = Convert.ToBase64String(bytes);
+                    fObject = bytesdata;
+                }
+            }
+
+            return Json(new { data = sBase64String });
+        }
     }
 }
