@@ -150,6 +150,7 @@ namespace VPMSWeb.Controllers
                         HttpContext.Session.SetString("Level", iLevel.ToString());
 
                         HttpContext.Session.SetString("BranchCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name) + userInfo.BranchID);
+                        HttpContext.Session.SetString("OrganisationCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name));
 
                         //var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
                         //var organisationID = organisation == null ? 0 : organisation.OrganizationID;

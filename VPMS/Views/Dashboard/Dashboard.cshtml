@@ -26,8 +26,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-@* <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> *@
-@* <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script> *@
 
 <style>
 	.hideContainer{
@@ -571,12 +569,22 @@
 				legendContainer.innerHTML = "";
 
 				for(let i = 0; i < result.labels.length; i++){
+					var value = result.datasets[0].data[i];
+					var valueString = result.datasets[0].data[i].toLocaleString();
+
+					if(value > 1000000000){
+						valueString = (value / 1000000000).toFixed(2) + "B"
+					}
+					else if(value > 1000000){
+						valueString = (value / 1000000).toFixed(2) + "M"
+					}
+
 					legendContainer.innerHTML +=
 						'<div style="display: flex; justify-content: space-between;">' +
 							'<div style="display: flex; align-items: center;">' +
 									'<div style="width: 1vw; height: 1vw; background: ' + result.datasets[0].backgroundColor[i] + '; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> ' + result.labels[i] + ' </span>' +
 							'</div>' +
-							'<span style="font-weight: bold;">' + sign + ' ' + result.datasets[0].data[i] + '</span>' +
+							'<span style="font-weight: bold;">' + sign + valueString + '</span>' +
 						'</div>';
 				}
 
@@ -1108,7 +1116,17 @@
 								afterDataLimits: function(axis) {
 									// axis.max = Math.max(...axis.chart.data.datasets[0].data) + 10; // Add some padding
 									let result = axis.chart.data.datasets[0].data.map(a => a.y);
-									axis.max = Math.max(...result) + 10; // Add some padding
+									let highestValue = Math.max(...result);
+									let minimum = 0;
+
+									if(highestValue != 0){
+										minimum = highestValue * 0.1;
+									}
+									else{
+										minimum = 1;
+									}
+
+									axis.max = highestValue + minimum; // Add some padding
 								}
 							}
 						},
@@ -1121,15 +1139,15 @@
 								align: 'end',
 								// formatter: (value) => '$ ' + value.y,
 								formatter: function(value){
-									var valueString = value.y;
+									var valueString = value.y.toLocaleString();
 
 									if(value.y > 1000000000){
-										valueString = (value.y / 1000000000).toFixed(2) + "B"
+										valueString = (value.y / 1000000000).toLocaleString() + "B"
 									}
 									else if(value.y > 1000000){
 										valueString = (value.y / 1000000).toFixed(2) + "M"
 									}
-									else if(value.y > 1000){
+									else if(value.y > 10000){
 										valueString = (value.y / 1000).toFixed(2) + "k"
 									}
 

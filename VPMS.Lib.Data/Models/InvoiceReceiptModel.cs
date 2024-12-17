@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,7 +24,21 @@ namespace VPMS.Lib.Data.Models
 		public int Status { get; set; }
 	}
 
-	public class InvoiceReceiptInfo
+    public class InvoiceReceiptNo
+    {
+        [Key]
+        public int ID { get; set; }
+        public string OrganisationAbbr { get; set; }
+        public int? BranchID { get; set; }
+        public string Year { get; set; }
+        public string Month { get; set; }
+        public string Day { get; set; }
+        public int? RunningNo { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+    }
+
+    public class InvoiceReceiptInfo
 	{
 		public int No { get; set; }
 		public int ID { get; set; }
@@ -76,5 +91,5 @@ namespace VPMS.Lib.Data.Models
 		public int? ServiceID {  get; set; }
 		public String? ServiceName { get; set; }
 		public Decimal? ServicePrice { get; set; }
-	}
+    }
 }

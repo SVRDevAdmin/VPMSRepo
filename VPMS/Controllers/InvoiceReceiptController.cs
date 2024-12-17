@@ -225,10 +225,22 @@ namespace VPMSWeb.Controllers
 			invoice.UpdatedDate = DateTime.Now;
 			invoice.UpdatedBy = HttpContext.Session.GetString("Username");
 
-			//var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.ReceiptNo);
+            //var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.ReceiptNo);
+            var OrganisationCode = HttpContext.Session.GetString("OrganisationCode");
 
 			//Random rnd = new Random();
-			string receiptNoString = "";
+			var invoiceNoTemp = invoice.InvoiceNo;
+            string receiptNoString = "";
+
+			if(OrganisationCode == "V")
+			{
+                receiptNoString = "V" + invoiceNoTemp.Substring(1).Replace("V", "R");
+            }
+			else
+			{
+                receiptNoString = OrganisationCode + invoiceNoTemp.Replace(OrganisationCode, "").Replace("V", "R");
+            }
+
             //var existed = true;
 
             //while (existed)
@@ -241,19 +253,19 @@ namespace VPMSWeb.Controllers
             //	}
             //}
 
-            var branchCode = HttpContext.Session.GetString("BranchCode");
-            var currentDate = DateTime.Now.ToString("yyMMdd");
-            var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.ReceiptNo.StartsWith(branchCode + "-" + currentDate + "-")).OrderBy(x => x.ReceiptNo).Select(x => x.ReceiptNo).AsNoTracking().ToList();
+            //var branchCode = HttpContext.Session.GetString("BranchCode");
+            //var currentDateString = DateTime.Now.ToString("yyMMdd");
+            //var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.ReceiptNo.StartsWith(branchCode + "-" + currentDateString + "-")).OrderBy(x => x.ReceiptNo).Select(x => x.ReceiptNo).AsNoTracking().ToList();
 
-            if (receiptNoList.Count == 0)
-            {
-                receiptNoString = branchCode + "-" + currentDate + "-1";
-            }
-            else
-            {
-                var latestNo = receiptNoList.LastOrDefault().Split("-")[2];
-                receiptNoString = branchCode + "-" + currentDate + "-" + (int.Parse(latestNo) + 1);
-            }
+            //if (receiptNoList.Count == 0)
+            //{
+            //    receiptNoString = branchCode + "-" + currentDateString + "-1";
+            //}
+            //else
+            //{
+            //    var latestNo = receiptNoList.LastOrDefault().Split("-")[2];
+            //    receiptNoString = branchCode + "-" + currentDateString + "-" + (int.Parse(latestNo) + 1);
+            //}
 
             invoice.ReceiptNo = receiptNoString;
 

@@ -553,15 +553,31 @@ namespace VPMSWeb.Controllers
 				_patientDBContext.Txn_TreatmentPlan.Add(patientTreatmentPlan);
 				_patientDBContext.SaveChanges();
 
-				var branchCode = HttpContext.Session.GetString("BranchCode");
-				var currentDate = DateTime.Now.ToString("yyMMdd");
+				InvoiceReceiptNo invoiceReceiptNo = new InvoiceReceiptNo();
+				//var branchCode = HttpContext.Session.GetString("BranchCode");
+                var OrganisationCode = HttpContext.Session.GetString("OrganisationCode");
+                var BranchID = HttpContext.Session.GetString("BranchID");
+                //var currentDateString = DateTime.Now.ToString("yyMMdd");
+				var currentDate = DateTime.Now;
                 var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
 				var patientInfo = _patientDBContext.Mst_Patients.FirstOrDefault(x => x.ID == petInfo.PatientID);
 				var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == petInfo.PatientID);
-				//var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
+                //var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
+                invoiceReceiptNo = _invoiceReceiptDBContext.Txn_InvoiceReceiptNo.FirstOrDefault(x => x.OrganisationAbbr == OrganisationCode && x.BranchID.ToString() == BranchID && x.Year == currentDate.Year.ToString() && x.Month == currentDate.Month.ToString() && x.Day == currentDate.Day.ToString());
+				
+				if(invoiceReceiptNo == null)
+				{
+					invoiceReceiptNo = new InvoiceReceiptNo() { OrganisationAbbr = OrganisationCode, BranchID = int.Parse(BranchID), Year = currentDate.Year.ToString(), Month = currentDate.Month.ToString(), Day = currentDate.Day.ToString(), RunningNo = 1, UpdatedDate = DateTime.Now, UpdatedBy = HttpContext.Session.GetString("Username") };
 
-				//Random rnd = new Random();
-				string invoiceNoString = "";
+					_invoiceReceiptDBContext.Txn_InvoiceReceiptNo.Add(invoiceReceiptNo);
+                }
+				else
+				{
+					invoiceReceiptNo.RunningNo += 1;
+                }
+
+                //Random rnd = new Random();
+                string invoiceNoString = invoiceReceiptNo.OrganisationAbbr + invoiceReceiptNo.BranchID.Value.ToString("D3") + "V" + invoiceReceiptNo.Year + int.Parse(invoiceReceiptNo.Month).ToString("D2") + int.Parse(invoiceReceiptNo.Day).ToString("D2") + invoiceReceiptNo.RunningNo.Value.ToString("D4");
 				//var existed = true;
 
 				//while (existed)
@@ -574,17 +590,17 @@ namespace VPMSWeb.Controllers
 				//	}
 				//}
 
-				var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.InvoiceNo.StartsWith(branchCode + "-" + currentDate + "-")).OrderBy(x => x.InvoiceNo).Select(x => x.InvoiceNo).AsNoTracking().ToList();
+				//var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.InvoiceNo.StartsWith(branchCode + "-" + currentDateString + "-")).OrderBy(x => x.InvoiceNo).Select(x => x.InvoiceNo).AsNoTracking().ToList();
 
-				if(invoiceNoList.Count == 0)
-				{
-					invoiceNoString = branchCode + "-" + currentDate + "-1";
-                }
-				else
-				{
-					var latestNo = invoiceNoList.LastOrDefault().Split("-")[2];
-                    invoiceNoString = branchCode + "-" + currentDate + "-" + (int.Parse(latestNo) + 1);
-                }
+				//if(invoiceNoList.Count == 0)
+				//{
+				//	invoiceNoString = branchCode + "-" + currentDateString + "-1";
+    //            }
+				//else
+				//{
+				//	var latestNo = invoiceNoList.LastOrDefault().Split("-")[2];
+    //                invoiceNoString = branchCode + "-" + currentDateString + "-" + (int.Parse(latestNo) + 1);
+    //            }
 
 
                 var invoiceInfo = new InvoiceReceiptModel()

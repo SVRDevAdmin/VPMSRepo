@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using System.Globalization;
@@ -23,6 +24,8 @@ namespace VPMSWeb.Controllers
         private readonly AppointmentDBContext _appointmentDBContext = new AppointmentDBContext(Host.CreateApplicationBuilder().Configuration);
         private readonly TransSummaryDBContext _transSummaryDBContext = new TransSummaryDBContext(Host.CreateApplicationBuilder().Configuration);
         private readonly DoctorDBContext _doctorDBContext = new DoctorDBContext(Host.CreateApplicationBuilder().Configuration);
+
+        private readonly InvoiceReceiptDBContext _invoiceReceiptDBContext = new InvoiceReceiptDBContext();
 
         //public List<string> colorList = ["#e9e9eb", "#cbcfda", "#ebe3be", "#c4db67", "#b2f2e4", "#33f5d3", "#bcd2e0", "#59b1d7", "#7a9fbc", "#7a9fbc", "#d699a0", "#d96aa5", "#d3aac8", "#c15ae9", "#d6acfe", "#896bdf", "#6669db", "#681feb"];
         public List<string> colorList = ["#cbcfda", "#ebe3be", "#c4db67", "#b2f2e4", "#33f5d3", "#bcd2e0", "#59b1d7", "#7a9fbc", "#7a9fbc", "#d699a0", "#d96aa5", "#d3aac8", "#c15ae9", "#d6acfe", "#896bdf", "#6669db", "#681feb"];
@@ -81,11 +84,24 @@ namespace VPMSWeb.Controllers
                 doctorList = doctorList.Where(x => x.BranchID == branchID).ToList();
             }
 
+            var totalSales = SummaryList.Where(x => x.Group == "TotalRevenue" && x.SubGroup == "Total" && x.DateInMonth == month.ToString()).GroupBy(x => x.Group).Select(x => x.Sum(c => c.TotalAmount).Value).FirstOrDefault();
+            var totalSaleString = string.Format("{0:#,##0.##}", totalSales);
+            if (totalSales > 1000000000)
+            {
+                totalSaleString = Math.Round((totalSales / 1000000000), 2) + "B";
+            }
+            else if (totalSales > 1000000)
+            {
+                totalSaleString = Math.Round((totalSales / 1000000), 2) + "M";
+            }
+
+            var totalPatient = SummaryList.Where(x => x.Group == "TotalPatients").LastOrDefault();
+
             ViewData["Doctors"] = doctorList.Select(x => x.Name).ToList();
             ViewData["UpdatedOn"] = latestUpdateDate.Value.ToString("dd MMM yyyy");
-            ViewData["TotalSales"] = SummaryList.Where(x => x.Group == "TotalRevenue" && x.SubGroup == "Total" && x.DateInMonth == month.ToString()).GroupBy(x => x.Group).Select(x => x.Sum(c => c.TotalAmount).Value).FirstOrDefault();
+            ViewData["TotalSales"] = totalSaleString;
             ViewData["TotalStaff"] = userList.Count;
-            ViewData["TotalPatients"] = SummaryList.Where(x => x.Group == "TotalPatients").GroupBy(x => x.Group).Select(x => x.Sum(c => c.TotalAmount).Value).FirstOrDefault();
+            ViewData["TotalPatients"] = totalPatient == null ? 0 : string.Format("{0:#,##0.##}", totalPatient.TotalAmount);
             ViewData["TotalAppointment"] = appointmentList.Where(x => x.ApptDate.Value.Month == month).ToList().Count;
 
             Program.CurrentPage = "/Dashboard/Dashboard";
@@ -136,7 +152,7 @@ namespace VPMSWeb.Controllers
             int i = 0;
             int year = DateTime.Now.Year;
 
-            var patientSummary = SummaryList.GroupBy(x => new { x.DateInMonth, x.SubGroup }).Select(x => new { x.First().DateInMonth, x.Sum(c => c.TotalAmount).Value, x.First().SubGroup }).ToList();
+            var patientSummary = SummaryList.GroupBy(x => new { x.DateInMonth, x.SubGroup }).Select(x => new { x.Last().DateInMonth, x.Last().TotalAmount.Value, x.Last().SubGroup }).ToList();
 
             var breedList = patientSummary.Select(x => x.SubGroup).Distinct().ToList();
 
@@ -323,7 +339,7 @@ namespace VPMSWeb.Controllers
                 for (int i = 1; i <= 12; i++)
                 {
                     var value = revenueSummary.FirstOrDefault(x => x.DateInMonth == i.ToString());
-                    axisData.Add(new axis() { x = monthList[i-1], y = (value == null ? 0 : value.Value) });
+                    axisData.Add(new axis() { x = monthList[i - 1], y = (value == null ? 0 : value.Value) });
                 }
 
                 labelList = monthList;
@@ -561,6 +577,10 @@ namespace VPMSWeb.Controllers
             }
 
             var patientSummary = patientList.GroupBy(x => x.SubGroup).Select(x => new { x.Sum(c => c.TotalAmount).Value, x.First().SubGroup }).ToList();
+            if (group == "PatientByBreed")
+            {
+                patientSummary = patientList.GroupBy(x => x.SubGroup).Select(x => new { x.Last().TotalAmount.Value, x.Last().SubGroup }).ToList();
+            }
 
             dataset.Add(new Dictionary<string, dynamic>());
             dataset[0].Add("data", patientSummary.OrderBy(x => x.SubGroup).Select(x => x.Value));

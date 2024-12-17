@@ -18,8 +18,9 @@ namespace VPMS.Lib.Data.DBContext
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public DbSet<InvoiceReceiptModel> Mst_InvoiceReceipt { get; set; }
+        public DbSet<InvoiceReceiptNo> Txn_InvoiceReceiptNo { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
+        protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 		options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
 		public ObservableCollection<InvoiceReceiptInfo> GetInvoiceReceiptList(int start, int total, int status, int branch, int organisation, string invoiceReceiptNo, string petName, string ownerName, string doctor, out int totalInvoiceReceipt)

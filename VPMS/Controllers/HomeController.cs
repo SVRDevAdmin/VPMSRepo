@@ -85,7 +85,7 @@ namespace VPMSWeb.Controllers
             //return View();
 
             //return RedirectToAction("Index", "Appointment");
-            return RedirectToAction("Dashboard", "Dashboard");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public IActionResult Privacy()

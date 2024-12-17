@@ -276,12 +276,20 @@ input[type='text']:focus, select:focus {
 	color: black;
 }
 
+.profilemenu > a:hover {
+	background-color: transparent !important;
+}
+
 #btnBright {
 	background-color: #1e76fb;
 }
 
 #btnDark {
 	background-color: transparent;
+}
+
+#imgVetVitals {
+	content: url('../images/Vet-Vitals-Logo.png');
 }
 
 #imgLogo {
@@ -630,6 +638,14 @@ input[type='text']:focus, select:focus {
 	border-color: black !important;
 }
 
+.containerBackground5 {
+	background-color: white;
+	color: black;
+	border-color: black !important;
+	transition: background-color 1s;
+	transition: color 0.5s;
+}
+
 .dropdown-content a:hover {
 	background-color: #ddd;
 }
@@ -815,7 +831,14 @@ input[type='text']:focus, select:focus {
 	border: 0;
 	width: 70%;
 	height: 40px;
-	word-break: break-word;
+	/*word-break: break-word;*/
+}
+
+.rowNotificationMessage p {
+	width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .rowNotificationDate {
@@ -824,8 +847,8 @@ input[type='text']:focus, select:focus {
 	width: 25%;
 	height: 40px;
 	text-align: center;
+	vertical-align: bottom;
 }
-
 
 .customButton {
 	--bs-btn-color: black;
@@ -854,6 +877,29 @@ input[type='text']:focus, select:focus {
 a {
 	color: black !important;
 	text-decoration: unset;
+}
+
+.NotifSettingsSubTitle {
+	text-align: left;
+	margin-left: 0px;
+	font-size: 12px;
+	font-family: sans-serif;
+	color: black;
+}
+
+.NotifSettingsContent 
+{
+	border: 0px solid #f7f7f7;
+	border-radius: 8px;
+	background-color: #f7f7f7;
+}
+
+.NotifSettingsCheckboxFont {
+	margin-left: 10px;
+	vertical-align: bottom;
+	font-size: 12px;
+	font-family: sans-serif;
+	color: black;
 }
 
 /*-------- Role Settings ------*/
