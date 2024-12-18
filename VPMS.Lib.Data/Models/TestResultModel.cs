@@ -55,13 +55,14 @@ namespace VPMS.Lib.Data.Models
         public DateTime? ResultDateTime { get; set; }
         public String? ResultCategories { get; set; }
         public String? ResultType { get; set; }
-        public String? ResultStatus { get; set; }
-        public String? ResultValue { get; set; }
-        public String? ResultUnit { get; set; }
-        public String? ReferenceRange { get; set; }
+        //public String? ResultStatus { get; set; }
+        //public String? ResultValue { get; set; }
+        //public String? ResultUnit { get; set; }
+        //public String? ReferenceRange { get; set; }
         public String? InchargeDoctor { get; set; }
         public String? OperatorID { get; set; }
         public String? DeviceName { get; set; }
+        public String? OverallStatus { get; set; }
     }
 
     public class TestResultDetailModel

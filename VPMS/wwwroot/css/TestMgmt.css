@@ -132,6 +132,18 @@
 .GaugeBox {
     display: flex;
     margin-top: 4px;
+
+    position: relative;
+}
+
+.GaugeTarget {
+    position: relative;
+    width: 0;
+    height: 0;
+    z-index: 20;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid black;
 }
 
 #tblGauge > tbody > tr > td {

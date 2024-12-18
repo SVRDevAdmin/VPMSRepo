@@ -41,13 +41,19 @@ namespace VPMS.Lib.Data
             return isValid;
         }
 
-        public static List<String> GetTestResultDeviceNameList(IConfiguration config)
+        /// <summary>
+        /// List of Device Name
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static List<String> GetTestResultDeviceNameList(IConfiguration config, int BranchID)
         {
             try
             {
                 using (var ctx = new TestResultsDBContext(config))
                 {
-                    var sResult = ctx.Txn_TestResults.OrderBy(x => x.DeviceName)
+                    var sResult = ctx.Txn_TestResults.Where(x => x.BranchID == BranchID)
+                                                     .OrderBy(x => x.DeviceName)
                                                      .Select(x => x.DeviceName)
                                                      .Distinct();
 
@@ -60,6 +66,18 @@ namespace VPMS.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Test Result Listing View
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="branchID"></param>
+        /// <param name="sPatientID"></param>
+        /// <param name="sDeviceName"></param>
+        /// <param name="sSortOrder"></param>
+        /// <param name="PageSize"></param>
+        /// <param name="PageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
         public static List<TestResultViewModel> GetTestResultManagementListing(IConfiguration config, int branchID, String sPatientID, String sDeviceName, String sSortOrder, int PageSize, int PageIndex, out int totalRecords)
         {
             List<TestResultViewModel> sResult = new List<TestResultViewModel>();
@@ -78,11 +96,10 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT ROW_NUMBER() OVER (ORDER BY A.ResultDateTime " + sSortOrder + ") AS 'No', " +
-                                            "A.ID as 'ResultID', A.ResultDateTime, A.ResultCategories, A.ResultType, B.ResultStatus, " +
-                                            "B.ResultValue, B.ResultUnit, B.ReferenceRange, A.PatientID, A.InchargeDoctor, A.OperatorID, " +
+                                            "A.ID as 'ResultID', A.ResultDateTime, A.ResultCategories, A.ResultType, A.OverallStatus, " +
+                                            "A.PatientID, A.InchargeDoctor, A.OperatorID, " +
                                             "A.DeviceName, COUNT(*) OVER() AS 'TotalRows' " + 
                                             "FROM txn_testresults AS A " +
-                                            "INNER JOIN txn_testresults_details AS B ON B.ResultID = A.ID " +
                                             "WHERE A.BranchID = '" + branchID  + "' AND " +
                                             "(" + (sPatientID == null) + " OR A.PatientID = '" + sPatientID + "') AND " +
                                             "(" + (sDeviceName == null) + " OR A.DeviceName = '" + sDeviceName + "') " +
@@ -102,13 +119,10 @@ namespace VPMS.Lib.Data
                                 sTestResultObj.ResultDateTime = Convert.ToDateTime(sReader["ResultDateTime"]);
                                 sTestResultObj.ResultCategories = sReader["ResultCategories"].ToString();
                                 sTestResultObj.ResultType = sReader["ResultType"].ToString();
-                                sTestResultObj.ResultStatus = sReader["ResultStatus"].ToString();
-                                sTestResultObj.ResultValue = sReader["ResultValue"].ToString();
-                                sTestResultObj.ResultUnit = sReader["ResultUnit"].ToString();
-                                sTestResultObj.ReferenceRange = sReader["ReferenceRange"].ToString();
                                 sTestResultObj.InchargeDoctor = sReader["InchargeDoctor"].ToString();
                                 sTestResultObj.OperatorID = sReader["OperatorID"].ToString();
                                 sTestResultObj.DeviceName = sReader["DeviceName"].ToString();
+                                sTestResultObj.OverallStatus = sReader["OverallStatus"].ToString();
 
                                 sResult.Add(sTestResultObj);
 
@@ -128,6 +142,12 @@ namespace VPMS.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get selected Test result details
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="resultID"></param>
+        /// <returns></returns>
         public static TestResultDetailModel GetTestResultBreakdownDetails(IConfiguration config, int resultID)
         {
             List<TestResultBreakdownModel> sDetailList = new List<TestResultBreakdownModel>();

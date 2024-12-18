@@ -10,6 +10,11 @@ namespace VPMS.Lib.Data
 {
     public class OrganizationRepository
     {
+        /// <summary>
+        /// Get Organization List
+        /// </summary>
+        /// <param name="iLevel"></param>
+        /// <returns></returns>
         public static List<OrganisationModel> GetOrganizationList(int iLevel)
         {
             try

@@ -684,6 +684,9 @@
   <data name="MenuBar_Label_StaffListing" xml:space="preserve">
     <value>员工名单</value>
   </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>测试管理</value>
+  </data>
   <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -1482,6 +1485,102 @@
   <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
     <value>结果计量器  </value>
   </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>设备名称</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>正常范围</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>操作员 ID</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>患者 ID</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>患者姓名</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>结果</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>结果量表</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>测试</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>测试时间</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>总体测试结果</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>升序</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>降序</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>设备名称</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>序号</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>操作员 ID</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>患者 ID</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>结果状态 (+/-)</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>按名称搜索</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>排序方式</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>按日期排序</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>测试类型</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>测试时间</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>测试管理</value>
+  </data>
   <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
     <value>添加自定义治疗  </value>
   </data>
@@ -1495,7 +1594,7 @@
     <value>添加服务</value>
   </data>
   <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
-    <value>成本</value>
+    <value>1</value>
   </data>
   <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
     <value>创建者</value>

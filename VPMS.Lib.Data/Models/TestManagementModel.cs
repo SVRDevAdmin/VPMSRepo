@@ -45,5 +45,6 @@ namespace VPMS.Lib.Data.Models
 		public String? patientID { get; set; }
 		public String? deviceName { get; set; }
 		public String? sortOrder { get; set; }
+		public String? isPDFPrint { get; set; }
     }
 }

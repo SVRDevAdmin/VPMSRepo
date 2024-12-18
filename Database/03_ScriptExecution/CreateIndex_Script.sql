@@ -113,3 +113,15 @@ ON txn_testresults (ID, BranchID, PatientID, DeviceName, ResultDateTime);
 
 CREATE INDEX IX_BranchPatientID_DeviceName_DESCSorting
 ON txn_testresults (ID, BranchID,  PatientID, DeviceName, ResultDateTime DESC);
+
+CREATE INDEX IX_ResultID
+ON txn_testresults_details (ResultID);
+
+CREATE INDEX IX_ResultID_ResultSeqID
+ON txn_testresults_details (ResultID, ResultSeqID);
+
+CREATE INDEX IX_DeviceName_Grouping
+ON txn_testresults (DeviceName);
+
+CREATE INDEX IX_BranchID_DeviceName_Grouping
+ON txn_testresults (BranchID, DeviceName);

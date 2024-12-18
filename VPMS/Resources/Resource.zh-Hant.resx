@@ -140,6 +140,7 @@
   </data>
   <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
     <value>編輯組織  </value>
+    <comment>r</comment>
   </data>
   <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
     <value>新組織  </value>
@@ -650,6 +651,9 @@
   </data>
   <data name="MenuBar_Label_StaffListing" xml:space="preserve">
     <value>員工名單</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>測試管理</value>
   </data>
   <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
     <value>取消</value>
@@ -1445,6 +1449,102 @@
   </data>
   <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
     <value>結果指標  </value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>設備名稱</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>正常範圍</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>操作員 ID</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>患者 ID</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>患者姓名</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>結果量表</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>測試</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>測試時間</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>整體測試結果</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>篩選</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>다시 놓기</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>升序</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>降序</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>設備名稱</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>序號</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>操作員 ID</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>患者 ID</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>結果狀態 (+/-)</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>按名稱搜尋</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>排序方式</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>按日期排序</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>測試類型</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>測試時間</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>篩選</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>測試管理</value>
   </data>
   <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
     <value>添加自訂治療  </value>

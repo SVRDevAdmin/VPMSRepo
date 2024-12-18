@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    ViewData["SelectedMenu"] = "TestMgmtMenu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
@@ -13,6 +14,7 @@
 
 <script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
 <script src="~/lib/moment.min.js"></script>
+<script src="~/lib/Base64/Base64Lib.js"></script>
 
 <script>
     var paginationLimit = 10;
@@ -50,49 +52,56 @@
         });
 
         $('#btnDownload').click(function () {
-            //DownloadTestResultListing
+            downloadListing('0');
         });
 
         $('#btnPrint').click(function () {
-            var sData = {
+            downloadListing('1');
+        });
+    });
+
+    function downloadListing(isPDF)
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/TestManagement/DownloadTestResultListing',
+            dataType: 'json',
+            data: {
                 branchID: '@sessionBranchID',
                 patientID: $('#txtPatientID').val(),
                 deviceName: $('#ddlDevice').val(),
-                sortOrder: $('#ddlSorting').val()
-            };
+                sortOrder: $('#ddlSorting').val(),
+                isPDFPrint: isPDF
+            },
+            success: function (filedata) {
+                var contentType = '';
+                var filename = '';
 
-            $.ajax({
-                type: 'POST',
-                url: '/TestManagement/DownloadTestResultListing',
-                dataType: 'json',
-                data: {
-                    branchID: '@sessionBranchID',
-                    patientID: $('#txtPatientID').val(),
-                    deviceName: $('#ddlDevice').val(),
-                    sortOrder: $('#ddlSorting').val()
-                },
-                success: function (filedata) {
-                    //var bytes = new Uint8Array(filedata.data.FileContents);
+                if (isPDF == '1'){
+                    contentType = 'application/pdf';
+                    filename = 'TestResult_' + moment().format("YYYYMMDD") + '.pdf';
+                }
+                else{
+                    contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                    filename = 'TestResult_' + moment().format("YYYYMMDD") + '.xlsx';
+                }
+                    
+                var blob = base64StringToBlob(filedata.data, contentType);
+                var blobURL = URL.createObjectURL(blob);
+    
+                var element = document.createElement('a');
+                element.href = blobURL;
+                element.download = filename;
+                element.click();
 
-                    var tt = btoa(filedata.data);
-                    var bytes = new Uint8Array(tt.length);
+                setTimeout(() => document.body.removeChild(element), 100);
 
-                    var blob = new Blob([bytes], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-                    //var blob = new Blob([bytes], { type: "application/ms-excel" });
-                    //var blob = new Blob([bytes], { type: "application/octet-stream" });
-                    var link = document.createElement('a');
-                    link.href = window.URL.createObjectURL(blob);
-                    link.download = "Report.xlsx";
-                    link.click();
-                },
-                
-
-                //Cache: false,
-                //contentType: false,
-                //processData: false
-            });
+                if (isPDF=='1'){
+                    window.open(blobURL);
+                }              
+            },
         });
-    });
+    }
 
     function resetFields(){
         $('#txtPatientID').val('');
@@ -102,8 +111,9 @@
 
     function loadDeviceName()
     {
-        $.getJSON("/TestManagement/GetDeviceNameList")
-            .done(function (result) {
+        $.getJSON("/TestManagement/GetDeviceNameList", {
+            BranchID: '@sessionBranchID'
+        }).done(function (result) {
                 if (result.length > 0){
                     $('#ddlDevice').find("option:not(:first)").remove();
                     for (var i = 0; i < result.length; i++)
@@ -150,7 +160,7 @@
             '</button>' +
 
             '<div class="dropdown-menu hiddenTestResultMenuStyle" style="min-width: fit-content; font-size: 1vw;">' +
-            '<a class="dropdown-item" href="/TestManagement/ViewResults/' + value + '/View">View</a>' +
+            '<a class="dropdown-item" href="/TestManagement/ViewResults/' + value + '/View">' + '@Html.Raw(LangResources["TestResults_Label_View"])' + '</a>' +
             '</div>';
         return hideMenuHtml;
     }
@@ -243,7 +253,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
-                <label class="TestMgmtTitle">Test Management</label>
+                <label class="TestMgmtTitle">@LangResources["TestResults_Title_TestManagement"]</label>
             </div>
         </div>
         <div class="col-md-4">
@@ -260,7 +270,7 @@
                     &nbsp;
                     <button id="btnTestMgmtFilter" type="button" class="btn">
                         <img id="imgTestResultSlider" />
-                        Filter
+                        @LangResources["TestResults_Button_Filter"]
                     </button>
                 </div>
             </div>
@@ -275,13 +285,13 @@
             <table id="tblTestResult" class="table" style="font-size: 1vw;">
                 <thead>
                     <tr>
-                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">No.</th>
-                        <th scope="col" data-field="ResultDateTime" data-formatter="formatTestResultDate" class="text-center" style="width: 20%;">Time</th>
-                        <th scope="col" data-field="ResultType" class="text-center" style="width: 15%;">Test Type</th>
-                        <th scope="col" data-field="ResultStatus" class="text-center" style="width: 10%;">Result Status (+/-)</th>
-                        <th scope="col" data-field="PatientID" class="text-center" style="width: 15%;">Patient ID</th>
-                        <th scope="col" data-field="OperatorID" class="text-center" style="width: 15%;">Operator ID</th>
-                        <th scope="col" data-field="DeviceName" class="text-center" style="width: 15%;">Device Name</th>
+                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">@LangResources["TestResults_Label_Number"]</th>
+                        <th scope="col" data-field="ResultDateTime" data-formatter="formatTestResultDate" class="text-center" style="width: 20%;">@LangResources["TestResults_Label_Time"]</th>
+                        <th scope="col" data-field="ResultType" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_TestType"]</th>
+                        <th scope="col" data-field="OverallStatus" class="text-center" style="width: 10%;">@LangResources["TestResults_Label_ResultStatus"]</th>
+                        <th scope="col" data-field="PatientID" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_PatientID"]</th>
+                        <th scope="col" data-field="OperatorID" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_OperatorID"]</th>
+                        <th scope="col" data-field="DeviceName" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_DeviceName"]</th>
                         <th scope="col" data-field="ResultID" data-formatter="populateHiddenMenu" class="text-center" style="width: 5%;"></th>
                     </tr>
                 </thead>
@@ -303,12 +313,12 @@
             <div class="row TestMgmtFilterBox">
                 <div class="col-md-12" style="border-radius: 5px;">
                     <div class="row TestMgmtTitleRow">
-                        <label class="TestMgmtFilterTitle">Filters</label>
+                        <label class="TestMgmtFilterTitle">@LangResources["TestResults_Title_Filters"]</label>
                     </div>
                     
                     <!-- Patient ID -->
                     <div class="row TestMgmtLabelRow">
-                        <label class="TestMgmtFilterLabel">Patient ID</label>
+                        <label class="TestMgmtFilterLabel">@LangResources["TestResults_Label_PatientID"]</label>
                     </div>
                     <div class="row TestMgmtFieldRow">
                         <input id="txtPatientID" type="text" class="form-control" />
@@ -316,34 +326,34 @@
 
                     <!-- Device Name -->
                     <div class="row TestMgmtLabelRow">
-                        <label class="TestMgmtFilterLabel">Device Name</label>
+                        <label class="TestMgmtFilterLabel">@LangResources["TestResults_Label_DeviceName"]</label>
                     </div>
                     <div class="row TestMgmtFieldRow">
                         <select id="ddlDevice" class="form-select">
-                            <option value="">Search By Name</option>
+                            <option value="">@LangResources["TestResults_Label_SearchByName"]</option>
                         </select>
                     </div>
 
                     <!-- Sort By Date -->
                     <div class="row TestMgmtLabelRow">
-                        <label class="TestMgmtFilterLabel">Sort By Date</label>
+                        <label class="TestMgmtFilterLabel">@LangResources["TestResults_Label_SortByDate"]</label>
                     </div>
                     <div class="row TestMgmtFieldRow">
                         <select id="ddlSorting" class="form-select">
-                            <option value="">Sort By</option>
-                            <option value="ASC">Ascending</option>
-                            <option value="DESC">Descending</option>
+                            <option value="">@LangResources["TestResults_Label_SortBy"]</option>
+                            <option value="ASC">@LangResources["TestResults_Label_Ascending"]</option>
+                            <option value="DESC">@LangResources["TestResults_Label_Descending"]</option>
                         </select>
                     </div>
 
                     <div class="row TestMgmtBtnSearchRow">
                         <button id="btnSearch" type="button" class="btn btn-primary">
-                            Search
+                            @LangResources["TestResults_Button_Search"]
                         </button>
                     </div>
                     <div class="row TestMgmtBtnResetRow">
                         <button id="btnReset" type="button" class="btn btn-secondary">
-                            Reset
+                            @LangResources["TestResults_Button_Reset"]
                         </button>
                     </div>
                     <div class="row" style="height: 20px;">&nbsp;</div>
