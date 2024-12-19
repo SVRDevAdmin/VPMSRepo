@@ -34,5 +34,33 @@ namespace VPMS.Lib.Data
 				return null;
             }
         }
+
+        /// <summary>
+        /// Get Client Profile 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sAuthKey"></param>
+        /// <returns></returns>
+        public static ClientModel GetClientProfile(IConfiguration config, String sAuthKey)
+        {
+            try
+            {
+                using (var ctx = new ClientDBContext(config))
+                {
+                    var sClientAuth = ctx.mst_client_auth.Where(x => x.ClientKey == sAuthKey).FirstOrDefault();
+                    if (sClientAuth != null)
+                    {
+                        return ctx.mst_client.Where(x => x.ID == sClientAuth.ClientID).FirstOrDefault();
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("ClientRepository >> GetClientProfile >> ", ex);
+                return null;
+            }
+        }
     }
 }

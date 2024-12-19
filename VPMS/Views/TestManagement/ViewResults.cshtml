@@ -69,6 +69,7 @@
                                 }
                             }
 
+                            var sPointerDiv = "";
                             var sContentRow = "<tr>" +
                                               "<td class='text-left tblGaugeRowHeight'>" + result.data.TestResultBreakdown[i].ResultParameter + "</td>" +
                                               "<td class='text-left tblGaugeRowHeight'>" + result.data.TestResultBreakdown[i].ResultStatus + "</td>" +
@@ -83,12 +84,14 @@
                                 sContentRow += "<div class='OrangeGaugeBar'></div>" +
                                                "<div class='GreenGaugeBar'></div>" +
                                                "<div class='RedGaugeBar'></div>";
+
+                                sPointerDiv += "<div class='GaugeTarget' style='top: -17px; left: " + ValPercentages + "%;'></div>";
                             }
 
                             sContentRow += "</div>" +
 
-                                           "<div class='GaugeTarget' style='top: -17px; left: " + ValPercentages  + "%;'></div>" +
-                                           //"<div class='GaugeTarget' style='position: relative; top: -17px; left: " + ValPercentages + "%; width: 0; height: 0; z-index: 20; border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 9px solid black; '></div>" +
+                                            sPointerDiv +
+                                           //"<div class='GaugeTarget' style='top: -17px; left: " + ValPercentages  + "%;'></div>" +
 
                                            "</td>" +
                                            "</tr>";

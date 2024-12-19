@@ -19,7 +19,7 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="sResults"></param>
         /// <returns></returns>
-        public static Boolean InsertTestResults(IConfiguration config, List<TestResultModel> sResults)
+        public static Boolean InsertTestResults(IConfiguration config, TestResultsTxnModel sResult, List<TestResultsDetailTxnModel> sList)
         {
             Boolean isValid = false;
 
@@ -29,6 +29,16 @@ namespace VPMS.Lib.Data
                 {
                     //ctx.Txn_TestResults.AddRange(sResults);
                     //ctx.SaveChanges();
+                    ctx.Txn_TestResults.Add(sResult);
+                    ctx.SaveChanges();
+
+                    foreach (var item in sList)
+                    {
+                        item.ResultID = sResult.ID;
+
+                        ctx.Txn_TestResults_details.Add(item);
+                        ctx.SaveChanges();
+                    }
 
                     isValid = true;
                 }

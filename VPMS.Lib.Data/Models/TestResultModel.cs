@@ -18,7 +18,6 @@ namespace VPMS.Lib.Data.Models
         public String? ResultParameter { get; set; }
         public String? ReferenceRange {  get; set; }
         public String? PatientID { get; set; }
-        //public String? OwnerID { get; set; }
         public String? PetID { get; set; }
         public String? PetName { get; set; }
         public String? OperatorID { get; set; }
@@ -46,6 +45,22 @@ namespace VPMS.Lib.Data.Models
         public String? CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public String? UpdatedBy { get; set; }
+        public String? OverallStatus { get; set; }
+    }
+
+    public class TestResultsDetailTxnModel
+    {
+        [Key]
+        public long? ID { get; set; }
+        public int? ResultID { get; set; }
+        public String? ResultParameter { get; set; }
+        public int? ResultSeqID { get; set; }
+        public String? ResultStatus { get; set; }
+        public String? ResultValue { get; set; }
+        public String? ResultUnit { get; set; }
+        public String? ReferenceRange { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public String? CreatedBy { get; set; }
     }
 
     public class TestResultViewModel()
@@ -55,10 +70,6 @@ namespace VPMS.Lib.Data.Models
         public DateTime? ResultDateTime { get; set; }
         public String? ResultCategories { get; set; }
         public String? ResultType { get; set; }
-        //public String? ResultStatus { get; set; }
-        //public String? ResultValue { get; set; }
-        //public String? ResultUnit { get; set; }
-        //public String? ReferenceRange { get; set; }
         public String? InchargeDoctor { get; set; }
         public String? OperatorID { get; set; }
         public String? DeviceName { get; set; }
