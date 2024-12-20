@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.X509;
-using System.Security.Cryptography.X509Certificates;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 using VPMS;
+using VPMS.Lib;
+using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
+using VPMSWeb.Lib.Settings;
+
+using Spire.Additions.Qt;
+using Spire.Pdf.Graphics;
+using System.Drawing;
 
 namespace VPMSWeb.Controllers
 {
@@ -15,7 +21,7 @@ namespace VPMSWeb.Controllers
 		private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
 
-		int totalInvoiceReceipt;
+        int totalInvoiceReceipt;
 
 		public IActionResult Index()
         {
@@ -143,7 +149,6 @@ namespace VPMSWeb.Controllers
 			invoice.InvoiceNo = invoiceReceiptInfo.InvoiceNo;
 			invoice.OwnerName = invoiceReceiptInfo.OwnerName;
 			invoice.PetName = invoiceReceiptInfo.PetName;
-			invoice.Doctor = invoiceReceiptInfo.Doctor;
 			invoice.Fee = invoiceReceiptInfo.Fee;
 			invoice.Tax = 6;
 			invoice.GrandDiscount = 0;
@@ -163,8 +168,8 @@ namespace VPMSWeb.Controllers
 			invoice.Fee = invoiceReceiptModel.Fee;
 			invoice.GrandDiscount = invoiceReceiptModel.GrandDiscount;
 			invoice.Status = invoiceReceiptModel.Status;
-			invoice.UpdatedDate = DateTime.Now;
-			invoice.UpdatedBy = HttpContext.Session.GetString("Username");
+			invoice.CreatedDate = DateTime.Now;
+			invoice.CreatedBy = HttpContext.Session.GetString("Username");
 
 			_invoiceReceiptDBContext.Update(invoice);
 			_invoiceReceiptDBContext.SaveChanges();
@@ -216,23 +221,49 @@ namespace VPMSWeb.Controllers
 			invoice.UpdatedDate = DateTime.Now;
 			invoice.UpdatedBy = HttpContext.Session.GetString("Username");
 
-			var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.ReceiptNo);
+            //var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.ReceiptNo);
+            var OrganisationCode = HttpContext.Session.GetString("OrganisationCode");
 
-			Random rnd = new Random();
-			string receiptNoString = "";
-			var existed = true;
+			//Random rnd = new Random();
+			var invoiceNoTemp = invoice.InvoiceNo;
+            string receiptNoString = "";
 
-			while (existed)
+			if(OrganisationCode == "V")
 			{
-				int num = rnd.Next(1, 999999);
-				receiptNoString = "#" + num;
-				if (!receiptNoList.Contains(receiptNoString))
-				{
-					existed = false;
-				}
-			}
+                receiptNoString = "V" + invoiceNoTemp.Substring(1).Replace("V", "R");
+            }
+			else
+			{
+                receiptNoString = OrganisationCode + invoiceNoTemp.Replace(OrganisationCode, "").Replace("V", "R");
+            }
 
-			invoice.ReceiptNo = receiptNoString;
+            //var existed = true;
+
+            //while (existed)
+            //{
+            //	int num = rnd.Next(1, 999999);
+            //	receiptNoString = "#" + num;
+            //	if (!receiptNoList.Contains(receiptNoString))
+            //	{
+            //		existed = false;
+            //	}
+            //}
+
+            //var branchCode = HttpContext.Session.GetString("BranchCode");
+            //var currentDateString = DateTime.Now.ToString("yyMMdd");
+            //var receiptNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.ReceiptNo.StartsWith(branchCode + "-" + currentDateString + "-")).OrderBy(x => x.ReceiptNo).Select(x => x.ReceiptNo).AsNoTracking().ToList();
+
+            //if (receiptNoList.Count == 0)
+            //{
+            //    receiptNoString = branchCode + "-" + currentDateString + "-1";
+            //}
+            //else
+            //{
+            //    var latestNo = receiptNoList.LastOrDefault().Split("-")[2];
+            //    receiptNoString = branchCode + "-" + currentDateString + "-" + (int.Parse(latestNo) + 1);
+            //}
+
+            invoice.ReceiptNo = receiptNoString;
 
 			_invoiceReceiptDBContext.Update(invoice);
 			_invoiceReceiptDBContext.SaveChanges(true);
@@ -249,12 +280,108 @@ namespace VPMSWeb.Controllers
 			var pet = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == treatmentPlan.PetID);
 			var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == pet.PatientID && invoiceReceipt.OwnerName == x.Name);
 
-			ViewInvoiceReceipt viewInvoiceReceipt = new ViewInvoiceReceipt()
+			UpcomingAppointment upcomingAppointment = AppointmentRepository.GetUpcomingAppointment(ConfigSettings.GetConfigurationSettings(), owner.ID, pet.ID);
+
+            ViewInvoiceReceipt viewInvoiceReceipt = new ViewInvoiceReceipt()
 			{
-				InvoiceReceipt = invoiceReceipt, TreatmentPlan = treatmentPlan, Services = services, Products = products, Owner = owner, Pet = pet
-			};
+				InvoiceReceipt = invoiceReceipt, TreatmentPlan = treatmentPlan, Services = services, Products = products, Owner = owner, Pet = pet, UpcomingAppointment = upcomingAppointment
+            };
 
 			return viewInvoiceReceipt;
 		}
-	}
+
+		public void SendNotification()
+		{
+            List<String> sRecipientList = new List<String>();
+            sRecipientList.Add("azwan@svrtech.com.my");
+
+            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003", "en");
+
+            SendNotificationEmail(sRecipientList, emailTemplate);
+        }
+
+        public void SendNotificationEmail(List<String> sRecipientList, TemplateModel emailTemplate)
+        {
+            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+            String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+            int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+            String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+            String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+            String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+
+            try
+            {
+                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = sRecipientList;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
+
+                String sErrorMessage = "";
+                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+            }
+            catch (Exception ex)
+            {
+                Program.logger.Error("Controller Error >> ", ex);
+            }
+        }
+
+		[AllowAnonymous]
+		public void SendHTMLEmail()
+		{
+            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003", "en");
+
+			MailMessage mail = new MailMessage();
+			mail.From = new MailAddress("svrkenny@gmail.com");
+			mail.To.Add("azwan@svrtech.com.my");
+			mail.Subject = "Test Email with attachement";
+			//mail.IsBodyHtml = true;
+            mail.Body = "Here is your image.";
+            CreatePDF(emailTemplate.TemplateContent);
+			mail.Attachments.Add(new Attachment("/Users/azwan/Work/Repo/Git Repo/VPMSRepo/VPMS/bin/Debug/net8.0/HtmlStringToPdf.pdf"));
+
+			//         string htmlBody = emailTemplate.TemplateContent;
+			//         //mail.Body = htmlBody;
+			//AlternateView avHtml = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+
+			//LinkedResource inline = new LinkedResource("C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\wwwroot\\images\\Female doctor image.png", MediaTypeNames.Image.Png);
+			//inline.ContentId = "embeddedImage";
+			//avHtml.LinkedResources.Add(inline);
+
+			//mail.AlternateViews.Add(avHtml);
+
+			SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+			smtp.Credentials = new System.Net.NetworkCredential("svrkenny@gmail.com", "lpsnuqpibcswmtoz");
+			smtp.Port = 587;
+			smtp.EnableSsl = true;
+			smtp.UseDefaultCredentials = false;
+			smtp.Send(mail);
+
+			Console.WriteLine("Email sent successfully!");
+        }
+
+		public void CreatePDF(string htmlString)
+		{
+            //Specify the output file path
+            string fileName = "HtmlStringToPdf.pdf";
+
+            //Specify the plugin path
+            string pluginPath = "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\Libraries\\Plugin\\plugins-windows-x64\\plugins";
+
+            //Set the plugin path
+            HtmlConverter.PluginPath = pluginPath;
+
+            //Convert HTML string to PDF
+            HtmlConverter.Convert(htmlString, fileName, true, 100000, new Size(1080, 1000), new PdfMargins(0), LoadHtmlType.SourceCode);
+
+        }
+    }
 }
+

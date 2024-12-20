@@ -118,7 +118,7 @@ namespace VPMSWeb.Controllers
             Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
             List<String> sUser = NotificationRepository.GetReceiverListByNotificationGroup(ConfigSettings.GetConfigurationSettings(), sNotification.NotificationGroup);
 
-            var sResult = NotificationRepository.InserNotification(ConfigSettings.GetConfigurationSettings(), sNotification, sUser);
+            var sResult = NotificationRepository.InsertNotification(ConfigSettings.GetConfigurationSettings(), sNotification, sUser);
             if (sResult)
             {
                 sResp.StatusCode = (int)StatusCodes.Status200OK;

@@ -624,7 +624,6 @@ input[type='text']:focus, select:focus {
 .containerBackground2 {
 	background-color: #1f2e45;
 	color: white;
-
 	transition: background-color 1s;
 	transition: color 0.5s;
 }
@@ -638,6 +637,14 @@ input[type='text']:focus, select:focus {
 	background-color: #1f2e45 !important;
 	color: white !important;
 	border-color: white !important;
+}
+
+.containerBackground5 {
+	background-color: #172232;
+	color: white;
+	border-color: darkgray !important;
+	transition: background-color 1s;
+	transition: color 0.5s;
 }
 
 .dropdown-content a:hover {
@@ -1307,4 +1314,8 @@ a {
 	-o-background-size: cover;
 	background-size: cover;
 	cursor: pointer;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+	background-color: #1f2e45;
 }

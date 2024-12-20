@@ -1,0 +1,39 @@
+2024-12-16 14:17:56,778 ERROR VPMS.Program.InsertPatientTreatmentPlan [574] - MESSAGE: Controller Error >> 
+ System.InvalidOperationException: Nullable object must have a value.
+   at System.Nullable`1.get_Value()
+   at VPMSWeb.Controllers.PatientsController.InsertPatientTreatmentPlan(PatientTreatmentPlan patientTreatmentPlan) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\PatientsController.cs:line 574
+
+----------------------------------------------------------------------------
+
+2024-12-16 14:19:12,788 ERROR VPMS.Program.InsertPatientTreatmentPlan [574] - MESSAGE: Controller Error >> 
+ System.InvalidOperationException: Nullable object must have a value.
+   at System.Nullable`1.get_Value()
+   at VPMSWeb.Controllers.PatientsController.InsertPatientTreatmentPlan(PatientTreatmentPlan patientTreatmentPlan) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\PatientsController.cs:line 574
+
+----------------------------------------------------------------------------
+
+2024-12-16 14:19:53,091 ERROR VPMS.Program.InsertPatientTreatmentPlan [574] - MESSAGE: Controller Error >> 
+ System.InvalidOperationException: Nullable object must have a value.
+   at System.Nullable`1.get_Value()
+   at VPMSWeb.Controllers.PatientsController.InsertPatientTreatmentPlan(PatientTreatmentPlan patientTreatmentPlan) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\PatientsController.cs:line 574
+
+----------------------------------------------------------------------------
+
+2024-12-16 15:08:05,248 ERROR VPMS.Program.InsertPatientTreatmentPlan [0] - MESSAGE: Controller Error >> 
+ System.InvalidOperationException: Unable to track an instance of type 'InvoiceReceiptNo' because it does not have a primary key. Only entity types with a primary key may be tracked.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.GetOrCreateEntry(Object entity, IEntityType entityType)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.EntryWithoutDetectChanges(TEntity entity)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Add(TEntity entity)
+   at VPMSWeb.Controllers.PatientsController.InsertPatientTreatmentPlan(PatientTreatmentPlan patientTreatmentPlan)
+
+----------------------------------------------------------------------------
+
+2024-12-16 15:09:04,867 ERROR VPMS.Program.InsertPatientTreatmentPlan [0] - MESSAGE: Controller Error >> 
+ System.InvalidOperationException: Unable to track an instance of type 'InvoiceReceiptNo' because it does not have a primary key. Only entity types with a primary key may be tracked.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.GetOrCreateEntry(Object entity, IEntityType entityType)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.EntryWithoutDetectChanges(TEntity entity)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Add(TEntity entity)
+   at VPMSWeb.Controllers.PatientsController.InsertPatientTreatmentPlan(PatientTreatmentPlan patientTreatmentPlan)
+
+----------------------------------------------------------------------------
+

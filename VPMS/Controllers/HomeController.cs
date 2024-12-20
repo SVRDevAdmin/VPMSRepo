@@ -80,10 +80,12 @@ namespace VPMSWeb.Controllers
 			}	
 
 			Program.CurrentPage = "/Home/Index";
+            Program.CurrentPage = "/Dashboard/Dashboard";
 
-			//return View();
+            //return View();
 
-            return RedirectToAction("Index", "Appointment");
+            //return RedirectToAction("Index", "Appointment");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public IActionResult Privacy()

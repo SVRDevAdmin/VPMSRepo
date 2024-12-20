@@ -104,7 +104,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
-                                            "A.UserID, CONCAT(A.Surname, A.LastName) AS 'StaffName', A.StaffID, " +
+                                            "A.UserID, CONCAT(A.Surname, ' ', A.LastName) AS 'StaffName', A.StaffID, " +
                                             "B.RoleName, A.Gender, E.CodeName as 'GenderName', A.EmailAddress, A.Status, " + 
                                             "C.CodeName AS 'StatusName', A.BranchID, D.Name AS 'BranchName', D.OrganizationID, " + 
                                             "O.Name as 'Organization', " +

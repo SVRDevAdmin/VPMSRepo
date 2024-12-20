@@ -1,0 +1,192 @@
+2024-11-14 09:35:28,430 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:35:28,431 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:36:01,685 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:36:01,685 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:36:04,145 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:36:04,192 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:36:57,713 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:36:57,767 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'field list'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:38:11,250 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'where clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:38:11,313 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'where clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:38:38,297 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'where clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-14 09:38:38,297 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [68] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.Doctor' in 'where clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 68
+
+----------------------------------------------------------------------------
+

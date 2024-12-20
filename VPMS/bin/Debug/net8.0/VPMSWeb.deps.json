@@ -9,6 +9,7 @@
       "VPMSWeb/1.0.0": {
         "dependencies": {
           "ClosedXML": "0.104.2",
+          "FreeSpire.PDF": "10.2.0",
           "FreeSpire.XLS": "14.2.0",
           "Microsoft.AspNet.Mvc": "5.3.0",
           "Microsoft.AspNetCore.Identity": "2.1.39",
@@ -16,7 +17,7 @@
           "Microsoft.AspNetCore.Identity.UI": "8.0.6",
           "Microsoft.EntityFrameworkCore.Design": "8.0.6",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.7",
-          "System.Web.Optimization.React": "5.2.12",
+          "System.Drawing.Common": "9.0.0",
           "VPMS.Lib.Data": "1.0.0",
           "VPMS.Lib.Helpers": "1.0.0",
           "log4net": "3.0.0",
@@ -61,22 +62,6 @@
           },
           "zh-Hant/VPMSWeb.resources.dll": {
             "locale": "zh-Hant"
-          }
-        }
-      },
-      "AdvancedStringBuilder/0.1.0": {
-        "runtime": {
-          "lib/netstandard2.0/AdvancedStringBuilder.dll": {
-            "assemblyVersion": "0.1.0.0",
-            "fileVersion": "0.1.0.0"
-          }
-        }
-      },
-      "Antlr/3.4.1.9004": {
-        "runtime": {
-          "lib/Antlr3.Runtime.dll": {
-            "assemblyVersion": "3.4.1.9004",
-            "fileVersion": "3.4.1.9004"
           }
         }
       },
@@ -138,6 +123,21 @@
           "lib/netstandard2.0/ExcelNumberFormat.dll": {
             "assemblyVersion": "1.1.0.0",
             "fileVersion": "1.1.0.0"
+          }
+        }
+      },
+      "FreeSpire.PDF/10.2.0": {
+        "dependencies": {
+          "SkiaSharp": "1.68.0",
+          "System.Buffers": "4.5.1",
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
+          "System.Text.Encoding.CodePages": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Spire.Pdf.dll": {
+            "assemblyVersion": "10.2.0.0",
+            "fileVersion": "10.2.0.1420"
           }
         }
       },
@@ -706,33 +706,6 @@
           }
         }
       },
-      "JavaScriptEngineSwitcher.Core/3.1.0": {
-        "dependencies": {
-          "AdvancedStringBuilder": "0.1.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.dll": {
-            "assemblyVersion": "3.1.0.0",
-            "fileVersion": "3.1.0.0"
-          }
-        },
-        "resources": {
-          "lib/netstandard2.0/ru-ru/JavaScriptEngineSwitcher.Core.resources.dll": {
-            "locale": "ru-RU"
-          }
-        }
-      },
-      "JSPool/4.0.0": {
-        "dependencies": {
-          "JavaScriptEngineSwitcher.Core": "3.1.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/JSPool.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.0.0.0"
-          }
-        }
-      },
       "K4os.Compression.LZ4/1.3.5": {
         "runtime": {
           "lib/net6.0/K4os.Compression.LZ4.dll": {
@@ -804,18 +777,6 @@
           "lib/net45/System.Web.Razor.dll": {
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.0.61130.707"
-          }
-        }
-      },
-      "Microsoft.AspNet.Web.Optimization/1.1.3": {
-        "dependencies": {
-          "Microsoft.Web.Infrastructure": "1.0.0",
-          "WebGrease": "1.5.2"
-        },
-        "runtime": {
-          "lib/net40/System.Web.Optimization.dll": {
-            "assemblyVersion": "1.1.0.0",
-            "fileVersion": "1.1.40211.0"
           }
         }
       },
@@ -1943,19 +1904,19 @@
           "System.Security.Principal.Windows": "5.0.0"
         }
       },
-      "Microsoft.Win32.SystemEvents/7.0.0": {
+      "Microsoft.Win32.SystemEvents/9.0.0": {
         "runtime": {
-          "lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
           }
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
+          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
           }
         }
       },
@@ -2207,20 +2168,6 @@
           }
         }
       },
-      "React.Core/5.2.12": {
-        "dependencies": {
-          "JSPool": "4.0.0",
-          "JavaScriptEngineSwitcher.Core": "3.1.0",
-          "Microsoft.Extensions.DependencyModel": "8.0.2",
-          "Newtonsoft.Json": "13.0.3"
-        },
-        "runtime": {
-          "lib/netstandard2.0/React.Core.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.12.29"
-          }
-        }
-      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
@@ -2466,22 +2413,18 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Drawing.Common/7.0.0": {
+      "System.Drawing.Common/9.0.0": {
         "dependencies": {
-          "Microsoft.Win32.SystemEvents": "7.0.0"
+          "Microsoft.Win32.SystemEvents": "9.0.0"
         },
         "runtime": {
-          "lib/net7.0/System.Drawing.Common.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net7.0/System.Drawing.Common.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52901"
+          },
+          "lib/net8.0/System.Private.Windows.Core.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52901"
           }
         }
       },
@@ -3026,21 +2969,9 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Web.Optimization.React/5.2.12": {
-        "dependencies": {
-          "Microsoft.AspNet.Web.Optimization": "1.1.3",
-          "React.Core": "5.2.12"
-        },
-        "runtime": {
-          "lib/net40/System.Web.Optimization.React.dll": {
-            "assemblyVersion": "5.2.0.0",
-            "fileVersion": "5.2.12.29"
-          }
-        }
-      },
       "System.Windows.Extensions/7.0.0": {
         "dependencies": {
-          "System.Drawing.Common": "7.0.0"
+          "System.Drawing.Common": "9.0.0"
         },
         "runtime": {
           "lib/net7.0/System.Windows.Extensions.dll": {
@@ -3092,18 +3023,6 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "WebGrease/1.5.2": {
-        "dependencies": {
-          "Antlr": "3.4.1.9004",
-          "Newtonsoft.Json": "13.0.3"
-        },
-        "runtime": {
-          "lib/WebGrease.dll": {
-            "assemblyVersion": "1.5.2.14234",
-            "fileVersion": "1.5.2.14234"
-          }
-        }
-      },
       "ZstdSharp.Port/0.7.1": {
         "runtime": {
           "lib/net7.0/ZstdSharp.dll": {
@@ -3147,20 +3066,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AdvancedStringBuilder/0.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-IbN3r5whlJvi8MhCDPVpIb+NVScyUcKSdcJZrnoXFDyzPDISl3AbWouNBYIHRdZdfGuzqCQEhM1vkxbIKqQVaQ==",
-      "path": "advancedstringbuilder/0.1.0",
-      "hashPath": "advancedstringbuilder.0.1.0.nupkg.sha512"
-    },
-    "Antlr/3.4.1.9004": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-c1S+HBE+KYA5EBxtn25LEK02hHPH/tDQ6RviUTTCJpZIPoputtn8ArsQJy9lVJWZOnw37ufByO2Fmf1M8wpr8Q==",
-      "path": "antlr/3.4.1.9004",
-      "hashPath": "antlr.3.4.1.9004.nupkg.sha512"
-    },
     "BouncyCastle.Cryptography/2.2.1": {
       "type": "package",
       "serviceable": true,
@@ -3202,6 +3107,13 @@
       "sha512": "sha512-R3BVHPs9O+RkExbZYTGT0+9HLbi8ZrNij1Yziyw6znd3J7P3uoIR07uwTLGOogtz1p6+0sna66eBoXu7tBiVQA==",
       "path": "excelnumberformat/1.1.0",
       "hashPath": "excelnumberformat.1.1.0.nupkg.sha512"
+    },
+    "FreeSpire.PDF/10.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K5l3oFJOGkgG0i80DJse4XVE9gfov1YtsQxr/E1ZTNWuFNBUZdhTiEDqpglNsOxJjM27INyllTzBvLAGUQfwkg==",
+      "path": "freespire.pdf/10.2.0",
+      "hashPath": "freespire.pdf.10.2.0.nupkg.sha512"
     },
     "FreeSpire.XLS/14.2.0": {
       "type": "package",
@@ -3567,20 +3479,6 @@
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
     },
-    "JavaScriptEngineSwitcher.Core/3.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UbyvwC+aSYwV76FDEa/C59lVzgBVdAuP/F4YpNfv+Ev+HllqLBgEhj8Hzo0pAk7uUGQwUxVnQBAtsINMy29ysQ==",
-      "path": "javascriptengineswitcher.core/3.1.0",
-      "hashPath": "javascriptengineswitcher.core.3.1.0.nupkg.sha512"
-    },
-    "JSPool/4.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-r+AeQ9R50HxU+HLqASYvZz6Mvg7RmZwEnCVhQ+xGYVexFjYYqlkW6by9HaflGaHjy+/28YLbb3qxDLRJ3AbZGQ==",
-      "path": "jspool/4.0.0",
-      "hashPath": "jspool.4.0.0.nupkg.sha512"
-    },
     "K4os.Compression.LZ4/1.3.5": {
       "type": "package",
       "serviceable": true,
@@ -3629,13 +3527,6 @@
       "sha512": "sha512-5vJ0UKE/n381qcaKwFHxCwzb/YVuHzrm155iTgQhiv7+xdg2PE+54u+NPqu6C9AeRVOiwbh8/EOZwD16bLvWkg==",
       "path": "microsoft.aspnet.razor/3.3.0",
       "hashPath": "microsoft.aspnet.razor.3.3.0.nupkg.sha512"
-    },
-    "Microsoft.AspNet.Web.Optimization/1.1.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-TWKKpTWEdB8jXp2Vl2TXNKW30GBQg6nnh0y8iZWmGY5c1XY4f649vfDslNHsCsvk9JZxc1Rkm/UGDdfq4gjWRQ==",
-      "path": "microsoft.aspnet.web.optimization/1.1.3",
-      "hashPath": "microsoft.aspnet.web.optimization.1.1.3.nupkg.sha512"
     },
     "Microsoft.AspNet.WebPages/3.3.0": {
       "type": "package",
@@ -4281,12 +4172,12 @@
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
     },
-    "Microsoft.Win32.SystemEvents/7.0.0": {
+    "Microsoft.Win32.SystemEvents/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2nXPrhdAyAzir0gLl8Yy8S5Mnm/uBSQQA7jEsILOS1MTyS7DbmV1NgViMtvV1sfCD1ebITpNwb1NIinKeJgUVQ==",
-      "path": "microsoft.win32.systemevents/7.0.0",
-      "hashPath": "microsoft.win32.systemevents.7.0.0.nupkg.sha512"
+      "sha512": "sha512-z8FfGIaoeALdD+KF44A2uP8PZIQQtDGiXsOLuN8nohbKhkyKt7zGaZb+fKiCxTuBqG22Q7myIAioSWaIcOOrOw==",
+      "path": "microsoft.win32.systemevents/9.0.0",
+      "hashPath": "microsoft.win32.systemevents.9.0.0.nupkg.sha512"
     },
     "Mono.TextTemplating/2.3.1": {
       "type": "package",
@@ -4399,13 +4290,6 @@
       "sha512": "sha512-j3GeRxxLUQdc+UrZnvythdQxi3bd8ayn87VDjfGXrvfodF550n9wR6SgQvpo+YiAv3GJezsu6lK0l47rRqnbdg==",
       "path": "rbush/4.0.0",
       "hashPath": "rbush.4.0.0.nupkg.sha512"
-    },
-    "React.Core/5.2.12": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UqaxnMqVhQDLLNkIR4cNwJAR0lxdT8IwYl6iqXvw9+60uEcOXtbZIlD5TIHVsrenBaovNNsqJwE1ZqB/vEo+lg==",
-      "path": "react.core/5.2.12",
-      "hashPath": "react.core.5.2.12.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
@@ -4680,12 +4564,12 @@
       "path": "system.diagnostics.tracing/4.3.0",
       "hashPath": "system.diagnostics.tracing.4.3.0.nupkg.sha512"
     },
-    "System.Drawing.Common/7.0.0": {
+    "System.Drawing.Common/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KIX+oBU38pxkKPxvLcLfIkOV5Ien8ReN78wro7OF5/erwcmortzeFx+iBswlh2Vz6gVne0khocQudGwaO1Ey6A==",
-      "path": "system.drawing.common/7.0.0",
-      "hashPath": "system.drawing.common.7.0.0.nupkg.sha512"
+      "sha512": "sha512-uoozjI3+dlgKh2onFJcz8aNLh6TRCPlLSh8Dbuljc8CdvqXrxHOVysJlrHvlsOCqceqGBR1wrMPxlnzzhynktw==",
+      "path": "system.drawing.common/9.0.0",
+      "hashPath": "system.drawing.common.9.0.0.nupkg.sha512"
     },
     "System.Formats.Asn1/8.0.1": {
       "type": "package",
@@ -5114,13 +4998,6 @@
       "path": "system.threading.timer/4.3.0",
       "hashPath": "system.threading.timer.4.3.0.nupkg.sha512"
     },
-    "System.Web.Optimization.React/5.2.12": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-IYMMbC7vKNCMhXfn86GmFq56vJbNQKInjnKimlNh/5r6Tkr5ilFNtY1D/V3vwSKgFLfAW8JwllZqD/yqQMVaDA==",
-      "path": "system.web.optimization.react/5.2.12",
-      "hashPath": "system.web.optimization.react.5.2.12.nupkg.sha512"
-    },
     "System.Windows.Extensions/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -5141,13 +5018,6 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
-    },
-    "WebGrease/1.5.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-VoyDSOOugLx3q5IyOgEcjeYZQOqV9VWZQT57UtN4szlYhAmOcEjVfKWXbtRqBuX43pgyL9E7nMSIPoryC8Cu1Q==",
-      "path": "webgrease/1.5.2",
-      "hashPath": "webgrease.1.5.2.nupkg.sha512"
     },
     "ZstdSharp.Port/0.7.1": {
       "type": "package",

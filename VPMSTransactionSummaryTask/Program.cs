@@ -132,7 +132,14 @@ namespace VPMSTransactionSummaryTask
                     // ------------ Treatments ------------//
                     TransSummaryRepository.DeleteTransactionSummary(config, sBreakdownSummaryType, executionDate.Date, sTreatmentGroup);
 
-                    var sTreatmentGrouping = sBreakdownObj.GroupBy(x => new
+                    var sTreatmentGroupingInitial = sBreakdownObj.GroupBy(x => new
+                    {
+                        x.SummaryDate
+                    })
+                        .Select(x => new { x.FirstOrDefault().BranchID, x.FirstOrDefault().TreatmentPlanID, x.FirstOrDefault().TreatmentPlanName, x.FirstOrDefault().TreatmentPlanAmount })
+                        .ToList();
+
+                    var sTreatmentGrouping = sTreatmentGroupingInitial.GroupBy(x => new
                                                             {
                                                                 x.BranchID,
                                                                 x.TreatmentPlanID,
@@ -148,8 +155,8 @@ namespace VPMSTransactionSummaryTask
                                                                 Week = iWeek,
                                                                 Quarter = iQuarter,
                                                                 Group = sTreatmentGroup,
-                                                                SubGroup = x.Select(x => x.ServiceName).FirstOrDefault(),
-                                                                TotalAmount = x.Sum(x => x.ServicePrice),
+                                                                SubGroup = x.Select(x => x.TreatmentPlanName).FirstOrDefault(),
+                                                                TotalAmount = x.Sum(x => x.TreatmentPlanAmount),
                                                                 CreatedDate = DateTime.Now
                                                             }).ToList();
 
@@ -177,8 +184,8 @@ namespace VPMSTransactionSummaryTask
                                                             Week = iWeek,
                                                             Quarter = iQuarter,
                                                             Group = sServiceGroup,
-                                                            SubGroup = x.Select(x => x.TreatmentPlanName).FirstOrDefault(),
-                                                            TotalAmount = x.Sum(x => x.TreatmentPlanAmount),
+                                                            SubGroup = x.Select(x => x.ServiceName).FirstOrDefault(),
+                                                            TotalAmount = x.Sum(x => x.ServicePrice),
                                                             CreatedDate = DateTime.Now
                                                         }).ToList();
 
@@ -190,7 +197,14 @@ namespace VPMSTransactionSummaryTask
                     //----------- Breeds --------------------//
                     TransSummaryRepository.DeleteTransactionSummary(config, sBreakdownSummaryType, executionDate.Date, sBreedGroup);
 
-                    var sBreedGrouping = sBreakdownObj.GroupBy(x => new
+                    var sBreedGroupingInitial = sBreakdownObj.GroupBy(x => new
+                    {
+                        x.SummaryDate
+                    })
+                        .Select(x => new { x.FirstOrDefault().BranchID, x.FirstOrDefault().Species, x.FirstOrDefault().TreatmentPlanAmount})
+                        .ToList();
+
+                    var sBreedGrouping = sBreedGroupingInitial.GroupBy(x => new
                                                         {
                                                             x.BranchID,
                                                             x.Species

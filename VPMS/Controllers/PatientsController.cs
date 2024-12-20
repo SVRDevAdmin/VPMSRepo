@@ -54,29 +54,29 @@ namespace VPMSWeb.Controllers
 
             try
 			{
-                var role = HttpContext.Session.GetString("RoleName");
-                var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-                var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+    //            var role = HttpContext.Session.GetString("RoleName");
+    //            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+    //            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-				if (role == "Superadmin")
-				{
-                    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-                }
-				else if(organisation != 0)
-				{
-					List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-                    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+				//if (role == "Superadmin")
+				//{
+    //                patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+    //            }
+				//else if(organisation != 0)
+				//{
+				//	List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+    //                patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-                }
-				else if(branch != 0)
-				{
-                    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-                }
+    //            }
+				//else if(branch != 0)
+				//{
+    //                patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+    //            }
 
-				if (!patientList.Contains(patientid))
-				{
-                    return RedirectToAction("PatientsList", "Patients");
-                }
+				//if (!patientList.Contains(patientid))
+				//{
+    //                return RedirectToAction("PatientsList", "Patients");
+    //            }
 
                 ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 				ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
@@ -102,29 +102,29 @@ namespace VPMSWeb.Controllers
 
             try
 			{
-                var role = HttpContext.Session.GetString("RoleName");
-                var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-                var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+                //var role = HttpContext.Session.GetString("RoleName");
+                //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+                //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-                if (role == "Superadmin")
-                {
-                    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-                }
-                else if (organisation != 0)
-                {
-                    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-                    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+                //if (role == "Superadmin")
+                //{
+                //    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+                //}
+                //else if (organisation != 0)
+                //{
+                //    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+                //    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-                }
-                else if (branch != 0)
-                {
-                    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-                }
+                //}
+                //else if (branch != 0)
+                //{
+                //    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+                //}
 
-                if (!patientList.Contains(patientid))
-                {
-                    return RedirectToAction("PatientsList", "Patients");
-                }
+                //if (!patientList.Contains(patientid))
+                //{
+                //    return RedirectToAction("PatientsList", "Patients");
+                //}
 
                 ViewData["Species"] = _patientDBContext.Mst_Pets_Breed.Select(x => x.Species).Distinct().ToList();
 				ViewData["Color"] = _masterCodeDataDBContext.Mst_MasterCodeData.Where(x => x.CodeGroup == "Color").Select(y => y.CodeName).ToList();
@@ -177,29 +177,29 @@ namespace VPMSWeb.Controllers
 
             try
 			{
-                var role = HttpContext.Session.GetString("RoleName");
-                var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-                var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+                //var role = HttpContext.Session.GetString("RoleName");
+                //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+                //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-                if (role == "Superadmin")
-                {
-                    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-                }
-                else if (organisation != 0)
-                {
-                    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-                    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+                //if (role == "Superadmin")
+                //{
+                //    patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+                //}
+                //else if (organisation != 0)
+                //{
+                //    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+                //    patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-                }
-                else if (branch != 0)
-                {
-                    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-                }
+                //}
+                //else if (branch != 0)
+                //{
+                //    patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+                //}
 
-                if (!patientList.Contains(patientid))
-                {
-                    return RedirectToAction("PatientsList", "Patients");
-                }
+                //if (!patientList.Contains(patientid))
+                //{
+                //    return RedirectToAction("PatientsList", "Patients");
+                //}
 
                 petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 			}
@@ -266,95 +266,95 @@ namespace VPMSWeb.Controllers
 			return View();
 		}
 
-		[Route("/Patients/BloodTest/{patientid}/{petname}")]
-		public IActionResult BloodTest(int patientid, string petname)
-		{
-			List<int> patientList = new List<int>();
+		//[Route("/Patients/BloodTest/{patientid}/{petname}")]
+		//public IActionResult BloodTest(int patientid, string petname)
+		//{
+		//	List<int> patientList = new List<int>();
 
-			try
-			{
-				var role = HttpContext.Session.GetString("RoleName");
-				var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-				var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+		//	try
+		//	{
+		//		var role = HttpContext.Session.GetString("RoleName");
+		//		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+		//		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-				if (role == "Superadmin")
-				{
-					patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-				}
-				else if (organisation != 0)
-				{
-					List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-					patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+		//		if (role == "Superadmin")
+		//		{
+		//			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+		//		}
+		//		else if (organisation != 0)
+		//		{
+		//			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+		//			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-				}
-				else if (branch != 0)
-				{
-					patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-				}
+		//		}
+		//		else if (branch != 0)
+		//		{
+		//			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+		//		}
 
-				if (!patientList.Contains(patientid))
-				{
-					return RedirectToAction("PatientsList", "Patients");
-				}
+		//		if (!patientList.Contains(patientid))
+		//		{
+		//			return RedirectToAction("PatientsList", "Patients");
+		//		}
 
-			}
-			catch (Exception ex)
-			{
-				Program.logger.Error("Controller Error >> ", ex);
-			}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Program.logger.Error("Controller Error >> ", ex);
+		//	}
 
-			ViewData["PetName"] = petname;
-			ViewBag.PatientID = patientid;
+		//	ViewData["PetName"] = petname;
+		//	ViewBag.PatientID = patientid;
 
-			Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
+		//	Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
 
-			return View();
-		}
+		//	return View();
+		//}
 
-		[Route("/Patients/VCheck/{patientid}/{petname}")]
-		public IActionResult VCheck(int patientid, string petname)
-		{
-			List<int> patientList = new List<int>();
+		//[Route("/Patients/VCheck/{patientid}/{petname}")]
+		//public IActionResult VCheck(int patientid, string petname)
+		//{
+		//	List<int> patientList = new List<int>();
 
-			try
-			{
-				var role = HttpContext.Session.GetString("RoleName");
-				var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-				var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+		//	try
+		//	{
+		//		var role = HttpContext.Session.GetString("RoleName");
+		//		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+		//		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-				if (role == "Superadmin")
-				{
-					patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-				}
-				else if (organisation != 0)
-				{
-					List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-					patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+		//		if (role == "Superadmin")
+		//		{
+		//			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+		//		}
+		//		else if (organisation != 0)
+		//		{
+		//			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+		//			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-				}
-				else if (branch != 0)
-				{
-					patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-				}
+		//		}
+		//		else if (branch != 0)
+		//		{
+		//			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+		//		}
 
-				if (!patientList.Contains(patientid))
-				{
-					return RedirectToAction("PatientsList", "Patients");
-				}
+		//		if (!patientList.Contains(patientid))
+		//		{
+		//			return RedirectToAction("PatientsList", "Patients");
+		//		}
 
-			}
-			catch (Exception ex)
-			{
-				Program.logger.Error("Controller Error >> ", ex);
-			}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Program.logger.Error("Controller Error >> ", ex);
+		//	}
 
-			ViewData["PetName"] = petname;
-			ViewBag.PatientID = patientid;
+		//	ViewData["PetName"] = petname;
+		//	ViewBag.PatientID = patientid;
 
-			Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
+		//	Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
 
-			return View();
-		}
+		//	return View();
+		//}
 
 		[Route("/Patients/TestManagement/{category}/{patientid}/{petname}")]
 		public IActionResult TestResults(int category, int patientid, string petname)
@@ -553,33 +553,62 @@ namespace VPMSWeb.Controllers
 				_patientDBContext.Txn_TreatmentPlan.Add(patientTreatmentPlan);
 				_patientDBContext.SaveChanges();
 
-				var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
+				InvoiceReceiptNo invoiceReceiptNo = new InvoiceReceiptNo();
+				//var branchCode = HttpContext.Session.GetString("BranchCode");
+                var OrganisationCode = HttpContext.Session.GetString("OrganisationCode");
+                var BranchID = HttpContext.Session.GetString("BranchID");
+                //var currentDateString = DateTime.Now.ToString("yyMMdd");
+				var currentDate = DateTime.Now;
+                var petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == patientTreatmentPlan.PetID);
 				var patientInfo = _patientDBContext.Mst_Patients.FirstOrDefault(x => x.ID == petInfo.PatientID);
 				var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == petInfo.PatientID);
-				var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
-
-				Random rnd = new Random();
-				string invoiceNoString = "";
-				var existed = true;
-
-				while (existed)
+                //var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.AsNoTracking().Select(x => x.InvoiceNo);
+                invoiceReceiptNo = _invoiceReceiptDBContext.Txn_InvoiceReceiptNo.FirstOrDefault(x => x.OrganisationAbbr == OrganisationCode && x.BranchID.ToString() == BranchID && x.Year == currentDate.Year.ToString() && x.Month == currentDate.Month.ToString() && x.Day == currentDate.Day.ToString());
+				
+				if(invoiceReceiptNo == null)
 				{
-					int num = rnd.Next(1, 999999);
-					invoiceNoString = "#" + num;
-					if (!invoiceNoList.Contains(invoiceNoString))
-					{
-						existed = false;
-					}
-				}
+					invoiceReceiptNo = new InvoiceReceiptNo() { OrganisationAbbr = OrganisationCode, BranchID = int.Parse(BranchID), Year = currentDate.Year.ToString(), Month = currentDate.Month.ToString(), Day = currentDate.Day.ToString(), RunningNo = 1, UpdatedDate = DateTime.Now, UpdatedBy = HttpContext.Session.GetString("Username") };
+
+					_invoiceReceiptDBContext.Txn_InvoiceReceiptNo.Add(invoiceReceiptNo);
+                }
+				else
+				{
+					invoiceReceiptNo.RunningNo += 1;
+                }
+
+                //Random rnd = new Random();
+                string invoiceNoString = invoiceReceiptNo.OrganisationAbbr + invoiceReceiptNo.BranchID.Value.ToString("D3") + "V" + invoiceReceiptNo.Year + int.Parse(invoiceReceiptNo.Month).ToString("D2") + int.Parse(invoiceReceiptNo.Day).ToString("D2") + invoiceReceiptNo.RunningNo.Value.ToString("D4");
+				//var existed = true;
+
+				//while (existed)
+				//{
+				//	int num = rnd.Next(1, 999999);
+				//	invoiceNoString = "#" + num;
+				//	if (!invoiceNoList.Contains(invoiceNoString))
+				//	{
+				//		existed = false;
+				//	}
+				//}
+
+				//var invoiceNoList = _invoiceReceiptDBContext.Mst_InvoiceReceipt.Where(x => x.InvoiceNo.StartsWith(branchCode + "-" + currentDateString + "-")).OrderBy(x => x.InvoiceNo).Select(x => x.InvoiceNo).AsNoTracking().ToList();
+
+				//if(invoiceNoList.Count == 0)
+				//{
+				//	invoiceNoString = branchCode + "-" + currentDateString + "-1";
+    //            }
+				//else
+				//{
+				//	var latestNo = invoiceNoList.LastOrDefault().Split("-")[2];
+    //                invoiceNoString = branchCode + "-" + currentDateString + "-" + (int.Parse(latestNo) + 1);
+    //            }
 
 
-				var invoiceInfo = new InvoiceReceiptModel()
+                var invoiceInfo = new InvoiceReceiptModel()
 				{
 					TreatmentPlanID = patientTreatmentPlan.ID,
 					Branch = patientInfo.BranchID,
 					InvoiceNo = invoiceNoString,
 					PetName = petInfo.Name,
-					Doctor = "Dr. Kim Do-yeon",
 					OwnerName = owner.Name,
 					Fee = patientTreatmentPlan.TotalCost,
 					Tax = 6,

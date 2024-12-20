@@ -30,6 +30,7 @@ namespace VPMSWeb.Controllers
 
         private readonly RoleDBContext _roleDBContext = new RoleDBContext();
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
+        private readonly OrganisationDBContext _organisationDBContext = new OrganisationDBContext();
         private readonly UserDBContext _userDBContext = new UserDBContext();
         private readonly LoginSessionDBContext _loginSessionDBContext = new LoginSessionDBContext();
 		private readonly OrganisationDBContext _organizationDBContext = new OrganisationDBContext(); 
@@ -148,10 +149,13 @@ namespace VPMSWeb.Controllers
                         }
                         HttpContext.Session.SetString("Level", iLevel.ToString());
 
-						var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
-						var organisationID = organisation == null ? 0 : organisation.OrganizationID;
+                        HttpContext.Session.SetString("BranchCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name) + userInfo.BranchID);
+                        HttpContext.Session.SetString("OrganisationCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name));
 
-						HttpContext.Session.SetString("OrganisationID", organisationID.ToString());
+                        //var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
+                        //var organisationID = organisation == null ? 0 : organisation.OrganizationID;
+
+                        //HttpContext.Session.SetString("OrganisationID", organisationID.ToString());
 
                         var randomAlphanumeric = GenerateRandomAlphanumeric(32);
 						var sessionCreatedOn = DateTime.Now;
@@ -594,6 +598,23 @@ namespace VPMSWeb.Controllers
 			{
 				Program.logger.Error("Controller Error >> ", ex);
 			}
+		}
+
+		public string GetAbbreviation(string fullString)
+		{
+			var wordList = fullString.Split(" ");
+			var abbreviation = "";
+
+			foreach (var word in wordList) 
+			{
+				abbreviation += word.ElementAt(0);
+            }
+
+			List<string> test = ["CH1-241212-1", "CH1-241212-2", "CH1-241212-3"];
+
+			var test2 = test.Contains("CH1-241212-1");
+
+            return abbreviation;
 		}
 	}
 }

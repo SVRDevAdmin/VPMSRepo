@@ -1,0 +1,104 @@
+2024-11-13 11:42:06,443 ERROR VPMS.Program.Index [68] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.HomeController.<>c__DisplayClass3_0.<Index>b__2(MastercodeModel x) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\HomeController.cs:line 68
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at VPMSWeb.Controllers.HomeController.Index() in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\HomeController.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-13 11:49:58,698 ERROR VPMS.Lib.Data.DBContext.OrganisationDBContext.GetOrganisationList [53] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'id' in field list is ambiguous
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.OrganisationDBContext.GetOrganisationList(Int32 start, Int32 total, Int32 organisation, Int32& totalOrganisations, String search) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\OrganisationDBContext.cs:line 53
+
+----------------------------------------------------------------------------
+
+2024-11-13 13:50:02,052 ERROR VPMS.Lib.Data.DBContext.OrganisationDBContext.GetOrganisationList [53] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'id' in field list is ambiguous
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.OrganisationDBContext.GetOrganisationList(Int32 start, Int32 total, Int32 organisation, Int32& totalOrganisations, String search) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\OrganisationDBContext.cs:line 53
+
+----------------------------------------------------------------------------
+
+2024-11-13 13:50:06,845 ERROR VPMS.Program.MoveNext [281] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.LoginController.Logout(Boolean autoLogout) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\LoginController.cs:line 281
+
+----------------------------------------------------------------------------
+
+2024-11-13 13:50:06,845 ERROR VPMS.Program.MoveNext [281] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.LoginController.Logout(Boolean autoLogout) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\LoginController.cs:line 281
+
+----------------------------------------------------------------------------
+
+2024-11-13 14:46:06,702 ERROR VPMS.Program.Index [68] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.HomeController.<>c__DisplayClass3_0.<Index>b__2(MastercodeModel x) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\HomeController.cs:line 68
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at VPMSWeb.Controllers.HomeController.Index() in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS\Controllers\HomeController.cs:line 68
+
+----------------------------------------------------------------------------
+
+2024-11-13 15:32:47,217 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [72] - MESSAGE: Database Error >> 
+ System.FormatException: String '' was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(ReadOnlySpan`1 s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.DateTime.Parse(String s)
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 72
+
+----------------------------------------------------------------------------
+
+2024-11-13 15:32:50,664 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [72] - MESSAGE: Database Error >> 
+ System.FormatException: String '' was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(ReadOnlySpan`1 s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.DateTime.Parse(String s)
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 72
+
+----------------------------------------------------------------------------
+
+2024-11-13 15:33:12,670 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [72] - MESSAGE: Database Error >> 
+ System.FormatException: String '' was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(ReadOnlySpan`1 s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.DateTime.Parse(String s)
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 72
+
+----------------------------------------------------------------------------
+
+2024-11-13 15:35:03,931 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [72] - MESSAGE: Database Error >> 
+ System.FormatException: String '' was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(ReadOnlySpan`1 s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.DateTime.Parse(String s)
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt) in C:\Users\azwan\Work\Repo\Git Repo\VPMSRepo\VPMS.Lib.Data\DBContext\InvoiceReceiptDBContext.cs:line 72
+
+----------------------------------------------------------------------------
+
+2024-11-13 15:37:30,388 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ System.FormatException: String '' was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(ReadOnlySpan`1 s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.DateTime.Parse(String s)
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+

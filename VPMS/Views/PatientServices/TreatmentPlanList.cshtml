@@ -87,7 +87,7 @@
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
 		<div style="display: flex;">
-			<input id="SearchTreatmentPlan" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
+			<input id="SearchTreatmentPlan" type="text" class="form-control form-field inputField" placeholder="@LangResources["Patient_Label_SearchTreatment"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
 			<button onclick="searchFilter(document.getElementById('SearchTreatmentPlan').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
 		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewTreatment", "PatientServices")'">
@@ -216,11 +216,18 @@
 							changedStatus = "@LangResources["Patient_Selection_Active"]";
 						}
 
+						var date = new Date(data.treatmentPlans[i].CreatedDate);
+						var dateString = [
+							('0' + date.getDate()).slice(-2),
+							('0' + (date.getMonth() + 1)).slice(-2),
+							date.getFullYear()
+						].join('/');
+
 						content.innerHTML = content.innerHTML +
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
-							'<td class="table-content" > ' + index + ' </td>' +
+							'<td class="table-content" > ' + index++ + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].Name + ' </td>' +
-							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedDate + ' </td>' +
+							'<td class="table-content"> ' + dateString + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedBy + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].TotalPrice + ' </td>' +
 							'<td class="table-content treatmentStatus">' +
@@ -233,7 +240,7 @@
 									'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">' +
 									'<img class="moreIcon" />' +
 									'</button>' +
-									'<div class="dropdown-menu" style="min-width: fit-content; font-size: 1vw;">' +
+									'<div class="dropdown-menu containerBackground5" style="min-width: fit-content; font-size: 1vw;">' +
 										'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/View/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_View"] </a>' +
 										'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/Edit/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_Edit"] </a>' +
 										'<a class="dropdown-item" href="#" onclick="ToggleStatus(this, ' + data.treatmentPlans[i].ID + ', ' + data.treatmentPlans[i].Status + ');"> ' + toggleStatus + ' </a>' +

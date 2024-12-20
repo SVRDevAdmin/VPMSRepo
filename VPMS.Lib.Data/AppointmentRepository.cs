@@ -662,6 +662,79 @@ namespace VPMS.Lib.Data
 
             return upcomingAppointment;
         }
+
+        public static List<UpcomingAppointment> GetTodayUpcomingAppointmentList(IConfiguration config, string doctor, int organisationID, int branchID)
+        {
+            List<UpcomingAppointment> upcomingAppointmentList = new List<UpcomingAppointment>();
+            string tomorow = DateTime.Now.AddDays(1).Date.ToString("yyyy-MM-dd HH:mm:ss");
+            string doctorFilter = "";
+            string roleFilter = "";
+
+            if(doctor != null && doctor != "")
+            {
+                doctorFilter = "AND a.InchargeDoctor = '"+ doctor + "'";
+            }
+
+            if (organisationID != 0)
+            {
+                roleFilter = "AND f.OrganizationID = " + organisationID + " ";
+            }
+            else if (branchID != 0)
+            {
+                roleFilter = "AND f.ID = " + branchID + " ";
+            }
+
+            var selectCommand =
+                "select a.ApptDate as 'Date', a.ApptStartTime as 'StartTime', a.ApptEndTime as 'EndTime', c.Name as 'PetName', d.name as 'ServiceName', a.InchargeDoctor, e.Gender from mst_appointment a " +
+                "inner join mst_appointment_services b on b.ApptID = a.AppointmentID " +
+                "inner join mst_pets c on a.PetID = c.ID " +
+                "inner join mst_services d on d.ID = b.ServicesID " +
+                "inner join mst_doctor e on e.Name = REPLACE(a.InchargeDoctor, \"Dr. \", \"\") " +
+                "inner join mst_branch f on f.ID = e.BranchID " + roleFilter +
+                "where a.ApptDate = current_date() AND a.ApptStartTime > current_time() AND a.ApptDate < '" + tomorow + "' " + doctorFilter +
+                "Order By a.ApptDate, a.ApptStartTime " +
+                "LIMIT 0,15;";
+
+            try
+            {
+                using (var ctx = new AppointmentDBContext(config))
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    using (MySqlCommand sCommand = new MySqlCommand(selectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            if (sReader.HasRows)
+                            {
+                                while (sReader.Read())
+                                {
+                                    upcomingAppointmentList.Add(new UpcomingAppointment()
+                                    {
+                                        ApptDate = DateOnly.FromDateTime(DateTime.Parse(sReader["Date"].ToString())),
+                                        ApptStartTime = TimeOnly.FromDateTime(DateTime.Parse(sReader["StartTime"].ToString())),
+                                        ApptEndTime = TimeOnly.FromDateTime(DateTime.Parse(sReader["EndTime"].ToString())),
+                                        PetName = sReader["PetName"].ToString(),
+                                        Service = sReader["ServiceName"].ToString(),
+                                        Doctor = sReader["InchargeDoctor"].ToString(),
+                                        Gender = sReader["Gender"].ToString()
+                                    });
+                                }
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Database Error >> ", ex);
+            }
+
+            return upcomingAppointmentList;
+        }
     }
 
 }

@@ -156,7 +156,8 @@
 
 	.previewValue{
 		background: #d2e4fe;
-		display: flex;
+		/* display: flex; */
+		display: none;
 		align-items: center;
 		border-radius: 2vw;
 		margin-left: 2vw;
@@ -188,7 +189,8 @@
 
 	<div style="display: flex; justify-content: space-between; margin-bottom: 1vw;">
 
-		<div class="testGrouping" style="background: #1d76fb;">
+		@* <div class="testGrouping" style="background: #1d76fb;"> *@
+		<div class="testGrouping" style="background: darkgray;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>@LangResources["TestManagement_Label_BloodTest"]</span>
@@ -200,8 +202,8 @@
 					</div>
 				</div>
 				<div style="font-size: 0.8vw;">
-					@* <a href="#" style="color: white !important;" onclick="window.location='/Patients/BloodTest/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a> *@
-					<a href="#" style="color: white !important;" onclick="window.location='/Patients/TestManagement/1/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a>
+					<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
+					@* <a href="#" style="color: white !important;" onclick="window.location='/Patients/TestManagement/1/@ViewBag.PatientID/@ViewData["PetName"]';">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></a> *@
 				</div>
 			</div>
 			<div>
@@ -209,7 +211,8 @@
 			</div>
 		</div>
 
-		<div class="testGrouping" style="background: #a3a8b1;">
+		@* <div class="testGrouping" style="background: #a3a8b1;"> *@
+		<div class="testGrouping" style="background: darkgray;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>@LangResources["Patient_Label_Vaccination"]</span>
@@ -220,7 +223,7 @@
 				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
-				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />
+				<img class="testImage" src="~/images/Vaccination image.png"/>
 			</div>
 		</div>
 
@@ -231,7 +234,7 @@
 		<div class="testGrouping" style="background: #609df8;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
-					<span>V-Check</span>
+					<span>@LangResources["TestManagement_Label_Analyzer"]</span>
 					<div class="previewValue" style="background: transparent; border: 0.1vw solid #d2e4fe;">
 						<span style="color: #d2e4fe;">@LangResources["TestManagement_Label_Negative"]</span>
 					</div>
@@ -242,11 +245,12 @@
 				</div>
 			</div>
 			<div>
-				<img class="testImage" src="~/images/Blood Test Image.png" />
+				<img class="testImage" src="~/images/Analyzer image.png" /> 
 			</div>
 		</div>
 
-		<div class="testGrouping" style="background: #9ebce6;">
+		@* <div class="testGrouping" style="background: #9ebce6;"> *@
+		<div class="testGrouping" style="background: darkgray;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>@LangResources["TestManagement_Label_InjuryExam"]</span>
@@ -257,7 +261,7 @@
 				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
-				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />
+				<img class="testImage" src="~/images/Injury Exam image.png" />
 			</div>
 		</div>
 
@@ -265,7 +269,8 @@
 
 	<div style="display: flex; justify-content: space-between; margin-bottom: 1vw;">
 
-		<div class="testGrouping" style="background: #5e8cd1;">
+		@* <div class="testGrouping" style="background: #5e8cd1;"> *@
+		<div class="testGrouping" style="background: darkgray;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>@LangResources["TestManagement_Label_BloodPressure"]</span>
@@ -276,11 +281,12 @@
 				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
-				<img class="testImage" src="~/images/Blood Test Image.png" />
+				<img class="testImage" src="~/images/Blood Pressure image.png" />
 			</div>
 		</div>
 
-		<div class="testGrouping" style="background: #6888b9;">
+		@* <div class="testGrouping" style="background: #6888b9;"> *@
+		<div class="testGrouping" style="background: darkgray;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>@LangResources["TestManagement_Label_LungXRay"]</span>
@@ -291,7 +297,7 @@
 				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
-				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />
+				<img class="testImage" src="~/images/X-Ray image.png" />
 			</div>
 		</div>
 
@@ -299,7 +305,8 @@
 
 	<div style="display: flex; justify-content: space-between; margin-bottom: 1vw;">
 
-		<div class="testGrouping" style="background: #86b6ff;">
+		@* <div class="testGrouping" style="background: #86b6ff;"> *@
+		<div class="testGrouping" style="background: darkgray;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>@LangResources["TestManagement_Label_BoneMass"]</span>
@@ -310,11 +317,12 @@
 				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
-				<img class="testImage" src="~/images/Blood Test Image.png" />
+				<img class="testImage" src="~/images/Bone Mass image.png" />
 			</div>
 		</div>
 
-		<div class="testGrouping" style="background: #5a9cff;">
+		@* <div class="testGrouping" style="background: #5a9cff;"> *@
+		<div class="testGrouping" style="background: darkgray;">
 			<div class="testGroupingChild">
 				<div style="display: flex; align-items: center;">
 					<span>@LangResources["TestManagement_Label_HeartRate"]</span>
@@ -325,7 +333,7 @@
 				<div style="font-size: 0.8vw;">@LangResources["TestManagement_Button_ViewReport"] <i class="fa-solid fa-arrow-right-long"></i></div>
 			</div>
 			<div>
-				<img class="testImage" src="~/images/Blood Test Image.png" style="width: 9vw;" />
+				<img class="testImage" src="~/images/Heart rate image.png" />
 			</div>
 		</div>
 
