@@ -1,20 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using Org.BouncyCastle.Asn1.X509;
 using System.Net.Mail;
-using System.Net.Mime;
-using System.Security.Cryptography.X509Certificates;
 using VPMS;
 using VPMS.Lib;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
-using System.Web;
-using SelectPdf;
 
+using Spire.Additions.Qt;
+using Spire.Pdf.Graphics;
+using System.Drawing;
 
 namespace VPMSWeb.Controllers
 {
@@ -348,8 +344,8 @@ namespace VPMSWeb.Controllers
 			mail.Subject = "Test Email with attachement";
 			//mail.IsBodyHtml = true;
             mail.Body = "Here is your image.";
-			PdfSharpConvert(emailTemplate.TemplateContent);
-            //mail.Attachments.Add(new Attachment(new MemoryStream(PdfSharpConvert(emailTemplate.TemplateContent)), "invoice.pdf"));
+            CreatePDF(emailTemplate.TemplateContent);
+			mail.Attachments.Add(new Attachment("/Users/azwan/Work/Repo/Git Repo/VPMSRepo/VPMS/bin/Debug/net8.0/HtmlStringToPdf.pdf"));
 
 			//         string htmlBody = emailTemplate.TemplateContent;
 			//         //mail.Body = htmlBody;
@@ -361,31 +357,30 @@ namespace VPMSWeb.Controllers
 
 			//mail.AlternateViews.Add(avHtml);
 
-			//SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-			//smtp.Credentials = new System.Net.NetworkCredential("svrkenny@gmail.com", "lpsnuqpibcswmtoz");
-			//smtp.Port = 587;
-			//smtp.EnableSsl = true;
-			//smtp.UseDefaultCredentials = false;
-			//smtp.Send(mail);
+			SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+			smtp.Credentials = new System.Net.NetworkCredential("svrkenny@gmail.com", "lpsnuqpibcswmtoz");
+			smtp.Port = 587;
+			smtp.EnableSsl = true;
+			smtp.UseDefaultCredentials = false;
+			smtp.Send(mail);
 
 			Console.WriteLine("Email sent successfully!");
         }
 
-        public byte[] PdfSharpConvert(String html)
-        {
-            var converter = new HtmlToPdf(); 
-			PdfDocument pdfDoc = converter.ConvertHtmlString(html);
-            pdfDoc.Save("invoice.pdf");
+		public void CreatePDF(string htmlString)
+		{
+            //Specify the output file path
+            string fileName = "HtmlStringToPdf.pdf";
 
-            byte[] res = null;
-            //using (MemoryStream ms = new MemoryStream())
-            //{
-            //    //var pdf = PdfGenerator.GeneratePdf(html, PdfSharp.PageSize.A4);
-            //    //pdf.Save(ms);
-            //    pdf.Save("output.pdf");
-            //    //res = ms.ToArray();
-            //}
-            return res;
+            //Specify the plugin path
+            string pluginPath = "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\Libraries\\Plugin\\plugins-windows-x64\\plugins";
+
+            //Set the plugin path
+            HtmlConverter.PluginPath = pluginPath;
+
+            //Convert HTML string to PDF
+            HtmlConverter.Convert(htmlString, fileName, true, 100000, new Size(1080, 1000), new PdfMargins(0), LoadHtmlType.SourceCode);
+
         }
     }
 }

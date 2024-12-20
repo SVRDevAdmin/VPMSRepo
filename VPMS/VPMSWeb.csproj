@@ -62,6 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FreeSpire.PDF" Version="10.2.0" />
     <PackageReference Include="log4net" Version="3.0.0" />
     <PackageReference Include="log4net.Ext.Json" Version="2.0.10.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.39" />
@@ -72,7 +73,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
-    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="24.1.0" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
   </ItemGroup>
 
