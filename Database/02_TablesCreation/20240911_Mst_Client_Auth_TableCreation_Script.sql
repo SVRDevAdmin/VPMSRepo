@@ -7,12 +7,12 @@ CREATE TABLE `mst_client` (
 	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`UpdatedDate` DATETIME NULL DEFAULT NULL,
 	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`BranchID` INT NULL DEFAULT NULL,
 	PRIMARY KEY (`ID`) USING BTREE
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
-
 
 CREATE TABLE `mst_client_auth` (
 	`ID` INT NOT NULL AUTO_INCREMENT,

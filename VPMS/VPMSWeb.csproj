@@ -4,11 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Lib\ExtensionMethods\HtmlHelperExtensionMethods.cs" />
-    <Compile Remove="Lib\General\Utility.cs" />
     <Compile Remove="Lib\Interface\ISharedViewLocalizer.cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer .cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer.cs" />
@@ -53,7 +53,6 @@
 
   <ItemGroup>
     <Folder Include="bin\Debug\net8.0\" />
-    <Folder Include="Lib\General\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +64,7 @@
     <PackageReference Include="FreeSpire.PDF" Version="10.2.0" />
     <PackageReference Include="log4net" Version="3.0.0" />
     <PackageReference Include="log4net.Ext.Json" Version="2.0.10.1" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.39" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
