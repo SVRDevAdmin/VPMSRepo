@@ -1,6 +1,6 @@
 CREATE TABLE `mst_accesspermission` (
 	`ID` INT NOT NULL AUTO_INCREMENT,
-	`Grouping` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`PermissionGrouping` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`PermissionKey` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`PermissionName` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`IsActive` INT NULL DEFAULT NULL,

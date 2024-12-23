@@ -11,12 +11,14 @@ namespace VPMS.Lib.Data
 {
     public class BranchRepository
     {
-        /// <summary>
-        /// Get Branch List By Organization ID
-        /// </summary>
-        /// <param name="organizationID"></param>
-        /// <returns></returns>
-        public static List<BranchModel> GetBranchListByOrgID(int organizationID)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Branch List By Organization ID
+		/// </summary>
+		/// <param name="organizationID"></param>
+		/// <returns></returns>
+		public static List<BranchModel> GetBranchListByOrgID(int organizationID)
         {
             try
             {
@@ -27,6 +29,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BranchRepository >>> GetBranchListByOrgID >>> ", ex);
                 return null;
             }
         }

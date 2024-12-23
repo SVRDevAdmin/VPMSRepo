@@ -62,6 +62,7 @@
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="FreeSpire.PDF" Version="10.2.0" />
     <PackageReference Include="FreeSpire.XLS" Version="14.2.0" />
     <PackageReference Include="log4net" Version="3.0.0" />
     <PackageReference Include="log4net.Ext.Json" Version="2.0.10.1" />
@@ -74,7 +75,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
-    <PackageReference Include="System.Web.Optimization.React" Version="5.2.12" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

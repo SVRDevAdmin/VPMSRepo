@@ -13,14 +13,16 @@ namespace VPMS.Lib.Data
 {
     public class RoleRepository
     {
-        /// <summary>
-        /// Get Roles Listing (Wiht Pagination)
-        /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="totalRecords"></param>
-        /// <returns></returns>
-        public static List<RoleListingObject> GetRolesListing(int pageSize, int pageIndex, out int totalRecords)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Roles Listing (Wiht Pagination)
+		/// </summary>
+		/// <param name="pageSize"></param>
+		/// <param name="pageIndex"></param>
+		/// <param name="totalRecords"></param>
+		/// <returns></returns>
+		public static List<RoleListingObject> GetRolesListing(int pageSize, int pageIndex, out int totalRecords)
         {
             List<RoleListingObject> sRoleList = new List<RoleListingObject>();
             totalRecords = 0;
@@ -71,6 +73,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("RoleRepository >>> GetRolesListing >>> ", ex);
                 return null;
             }
         }
@@ -104,6 +107,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("RoleRepository >>> CreateIdentityRole >>> ", ex);
                 isSuccess = false;
             }
 
@@ -131,7 +135,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("RoleRepository >>> CreateRole >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -170,7 +175,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess =  false;
+				logger.Error("RoleRepository >>> InsertRolePermission >>> ", ex);
+				isSuccess =  false;
             }
 
             return isSuccess;
@@ -230,7 +236,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("RoleRepository >>> UpdateRoleProfile >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -277,7 +284,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess =  false;
+				logger.Error("RoleRepository >>> UpdateRolePermission >>> ", ex);
+				isSuccess =  false;
             }
 
             return isSuccess;
@@ -312,7 +320,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("RoleRepository >>> DeleteRole >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -333,7 +342,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("RoleRepository >>> GetAccessPermissionList >>> ", ex);
+				return null;
             }
         }
 
@@ -419,10 +429,15 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("RoleRepository >>> GetRolePermissionsByRoleID >>> ", ex);
+				return null;
             }
         }
 
+        /// <summary>
+        /// Get Roles List
+        /// </summary>
+        /// <returns></returns>
         public static List<RoleDropdownObject> GetRolesList()
         {
             try
@@ -442,7 +457,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("RoleRepository >>> GetRolesList >>> ", ex);
+				return null;
             }
         }
     }

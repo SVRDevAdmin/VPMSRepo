@@ -4,7 +4,7 @@ VALUES ('Dashboard', 'Dashboard.View', 'View Dashboard', 1, NOW(), 'SYSTEM');
 
 /*------ Patients --------*/
 INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy) 
-VALUES ('Patients', 'Patients.Add', 'Add New Patient', 1, NOW, 'SYSTEM');
+VALUES ('Patients', 'Patients.Add', 'Add New Patient', 1, NOW(), 'SYSTEM');
 
 INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy)
 VALUES ('Patients', 'PatientListing.View', 'View Patient Listing', 1, NOW(), 'SYSTEM');

@@ -1,5 +1,6 @@
 CREATE TABLE `txn_notifications` (
 	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+	`BranchID` int NOT NULL,
 	`NotificationGroup` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`NotificationType` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`Title` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',

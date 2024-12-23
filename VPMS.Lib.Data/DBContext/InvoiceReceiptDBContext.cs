@@ -18,8 +18,9 @@ namespace VPMS.Lib.Data.DBContext
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public DbSet<InvoiceReceiptModel> Mst_InvoiceReceipt { get; set; }
+        public DbSet<InvoiceReceiptNo> Txn_InvoiceReceiptNo { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
+        protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 		options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
 		public ObservableCollection<InvoiceReceiptInfo> GetInvoiceReceiptList(int start, int total, int status, int branch, int organisation, string invoiceReceiptNo, string petName, string ownerName, string doctor, out int totalInvoiceReceipt)
@@ -29,6 +30,7 @@ namespace VPMS.Lib.Data.DBContext
 			totalInvoiceReceipt = 0;
 			var roleFilter = "";
 			var statusFilter = "";
+			var columnName = "";
 
 			if (branch != 0)
 			{
@@ -41,21 +43,23 @@ namespace VPMS.Lib.Data.DBContext
 
 			if(status == 2)
 			{
-				statusFilter = "InvoiceNo";
+				statusFilter = "a.Status in (2, 4) ";
+                columnName = "InvoiceNo";
 			}
 
 			if(status == 3)
-			{
-				statusFilter = "ReceiptNo";
+            {
+                statusFilter = "a.Status = 3 ";
+                columnName = "ReceiptNo";
 			}
 
-			var filter = "WHERE a."+ statusFilter + " like '%" + invoiceReceiptNo + "%' AND a.PetName like '%" + petName + "%' AND a.Doctor like '%" + doctor + "%' AND a.OwnerName like '%" + ownerName + "%' AND a.Status = " + status + " " + roleFilter + " ";
+			var filter = "WHERE a."+ columnName + " like '%" + invoiceReceiptNo + "%' AND a.PetName like '%" + petName + "%' AND a.OwnerName like '%" + ownerName + "%' AND " + statusFilter + roleFilter + " ";
 			var joinQuery =
 				"join mst_branch b on b.ID = a.Branch " +
 				"join mst_organisation c on c.ID = b.OrganizationID ";
 
 			var totalInvoiceReceiptQuery = "(select Count(a.ID) from mst_invoicereceipt a " + joinQuery + filter + ")";
-			var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.PetName, a.Doctor, a.OwnerName, a.Fee, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
+			var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.UpdatedDate, a.PetName, a.OwnerName, a.Fee, a.Status, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
 				joinQuery + filter + " LIMIT " + start + ", " + total + ";";
 
 			try
@@ -78,12 +82,14 @@ namespace VPMS.Lib.Data.DBContext
 								ReceiptNo = reader["ReceiptNo"].ToString(),
 								Date = DateTime.Parse(reader["CreatedDate"].ToString()),
 								PetName = reader["PetName"].ToString(),
-								Doctor = reader["Doctor"].ToString(),
 								OwnerName = reader["OwnerName"].ToString(),
-								Fee = float.Parse(reader["Fee"].ToString())
-							});
+								Fee = float.Parse(reader["Fee"].ToString()),
+								UpdatedDate = (reader["UpdatedDate"].ToString() != "") ? DateTime.Parse(reader["UpdatedDate"].ToString()) : DateTime.Now,
+								Status = int.Parse(reader["Status"].ToString())
+                            });
 
-							totalInvoiceReceipt = Convert.ToInt32(reader["TotalInvoiceReceipt"]);
+
+                            totalInvoiceReceipt = Convert.ToInt32(reader["TotalInvoiceReceipt"]);
 						}
 					}
 				}
@@ -120,7 +126,7 @@ namespace VPMS.Lib.Data.DBContext
 											"FROM Mst_Branch WHERE `Status`= 1 " +
 											") AS T1 " +
 											"LEFT JOIN (" +
-											"SELECT  A.CreatedDate AS 'SummaryDate', A.Branch, SUM(A.Fee) AS 'TotalAmount', SUM(A.GrandDiscount) AS 'TotalDiscount' " +
+                                            "SELECT  STR_TO_DATE(A.CreatedDate, '%Y-%m-%d') AS 'SummaryDate', A.Branch, SUM(A.Fee) AS 'TotalAmount', SUM(A.GrandDiscount) AS 'TotalDiscount' " +
 											"FROM mst_invoicereceipt AS A " +
 											"INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
                                             "WHERE A.CreatedDate >= '" + dtStart.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " +
@@ -173,7 +179,7 @@ namespace VPMS.Lib.Data.DBContext
 				{
 					sConn.Open();
 
-					String sSelectCommand = "SELECT A.CreatedDate AS 'SummaryDate', A.Branch, B.PetID, M.Species, " + 
+					String sSelectCommand = "SELECT A.CreatedDate AS 'SummaryDate', A.Branch, B.PetID, M.Species, " +
 											"B.TreatmentPlanID, B.PlanName, B.TotalCost AS 'TreatmentPlanAmount', " +
 											"C.ServiceID, C.ServiceName, C.TotalPrice AS 'ServicePrice' " + 
 											"FROM mst_invoicereceipt AS A " + 

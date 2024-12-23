@@ -6,6 +6,8 @@ namespace VPMS.Lib.Data
 {
 	public class ConfigurationRepository
 	{
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		/// <summary>
 		/// Get User's Configuration Settings by User ID + Configuration Key
 		/// </summary>
@@ -25,6 +27,7 @@ namespace VPMS.Lib.Data
 			}
 			catch (Exception ex)
 			{
+				logger.Error("ConfigurationRepository >>> GetUserConfigurationSettingsByKey >>> ", ex);
 				return null;
 			}
 		}
@@ -46,6 +49,7 @@ namespace VPMS.Lib.Data
 			}
 			catch (Exception ex)
 			{
+				logger.Error("ConfigurationRepository >>> GetUserConfigurationSettings >>> ", ex);
 				return null;
 			}
 		}
@@ -88,6 +92,7 @@ namespace VPMS.Lib.Data
 			catch (Exception ex)
 			{
 				isSuccess = false;
+				logger.Error("ConfigurationRepository >>> UpdateUserConfigurationSettingsByKey >>> ", ex);
 			}
 
 			return isSuccess;

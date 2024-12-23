@@ -644,6 +644,14 @@ input[type='text']:focus, select:focus {
 	border-color: black !important;
 }
 
+.containerBackground5 {
+	background-color: white;
+	color: black;
+	border-color: black !important;
+	transition: background-color 1s;
+	transition: color 0.5s;
+}
+
 .dropdown-content a:hover {
 	background-color: #ddd;
 }
@@ -702,6 +710,8 @@ input[type='text']:focus, select:focus {
 .frameHeader {
 	/*height: 40px;*/
 	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: black;
 }
 
@@ -946,6 +956,7 @@ a {
 .frameRoleHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: black;
 }
 
@@ -1098,6 +1109,7 @@ a {
 .frameUserHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: black;
 }
 

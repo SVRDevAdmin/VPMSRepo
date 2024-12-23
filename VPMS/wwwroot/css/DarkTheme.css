@@ -624,7 +624,6 @@ input[type='text']:focus, select:focus {
 .containerBackground2 {
 	background-color: #1f2e45;
 	color: white;
-
 	transition: background-color 1s;
 	transition: color 0.5s;
 }
@@ -638,6 +637,14 @@ input[type='text']:focus, select:focus {
 	background-color: #1f2e45 !important;
 	color: white !important;
 	border-color: white !important;
+}
+
+.containerBackground5 {
+	background-color: #172232;
+	color: white;
+	border-color: darkgray !important;
+	transition: background-color 1s;
+	transition: color 0.5s;
 }
 
 .dropdown-content a:hover {
@@ -687,9 +694,9 @@ input[type='text']:focus, select:focus {
 
 #tblDoctor > thead > tr > th {
 	border: 0px;
-	background-color: transparent;
+	background-color: #1f2e45;
 	border-bottom: 1px solid #ddd;
-	color: #919191;
+	color: white;
 }
 
 #tblDoctor > tbody > tr > td {
@@ -711,6 +718,8 @@ input[type='text']:focus, select:focus {
 .frameHeader {
 	/*height: 40px;*/
 	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -922,13 +931,13 @@ a {
 	border: 0px !important;
 }
 
-	#tblRoles > thead > tr > th {
-		border: 0px;
-		background-color: transparent;
-		border-left: 0px;
-		border-bottom: 1px solid #ddd;
-		color: #919191;
-	}
+#tblRoles > thead > tr > th {
+	border: 0px;
+	background-color: #1f2e45;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: white;
+}
 
 #tblRoles > tbody > tr > td {
 	border-left: 0px;
@@ -955,6 +964,7 @@ a {
 .frameRoleHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -1082,10 +1092,10 @@ a {
 
 #tblUsers > thead > tr > th {
 	border: 0px;
-	background-color: transparent;
+	background-color: #1f2e45;
 	border-left: 0px;
 	border-bottom: 1px solid #ddd;
-	color: #919191;
+	color: white;
 }
 
 #tblUsers > tbody > tr > td {
@@ -1107,6 +1117,7 @@ a {
 .frameUserHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -1173,10 +1184,10 @@ a {
 
 #tblTestResult > thead > tr > th {
 	border: 0px;
-	background-color: transparent;
+	background-color: #1f2e45;
 	border-left: 0px;
 	border-bottom: 1px solid #ddd;
-	color: #919191;
+	color: white;
 }
 
 #tblTestResult > tbody > tr > td {
@@ -1307,4 +1318,8 @@ a {
 	-o-background-size: cover;
 	background-size: cover;
 	cursor: pointer;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+	background-color: #1f2e45;
 }

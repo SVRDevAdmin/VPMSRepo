@@ -14,13 +14,15 @@ namespace VPMS.Lib.Data
 {
     public class TransSummaryRepository
     {
-        /// <summary>
-        /// Insert Transaction Summary
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="sSummaryObj"></param>
-        /// <returns></returns>
-        public static Boolean InsertTransactionSummary(IConfiguration config, List<TransSummaryModel> sSummaryObj)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Insert Transaction Summary
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sSummaryObj"></param>
+		/// <returns></returns>
+		public static Boolean InsertTransactionSummary(IConfiguration config, List<TransSummaryModel> sSummaryObj)
         {
             Boolean isSuccess = false;
 
@@ -37,6 +39,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TransSummaryRepository >>> InsertTransactionSummary >>> ", ex);
                 return false;
             }
 
@@ -81,7 +84,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("TransSummaryRepository >>> DeleteTransactionSummary >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -109,7 +113,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("TransSummaryRepository >>> InsertTransSummaryLog >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;

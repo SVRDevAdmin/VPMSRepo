@@ -332,7 +332,8 @@
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container halfSize">
 							<span class="formlabel">@LangResources["Inventory_Label_Usage"]</span>
-							<input id="Usage" type="text" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.Usage" />
+							@* <input id="Usage" type="text" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.Usage" /> *@
+							<textarea id="Usage" rows="4" class="form-control form-field inputField inventoryInfo hideContainer" maxlength="200">@inventoryInfo.Usage</textarea>
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.Usage</span>
 						</div>
 

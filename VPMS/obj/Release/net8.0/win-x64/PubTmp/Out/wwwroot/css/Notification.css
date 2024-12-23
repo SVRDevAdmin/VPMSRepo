@@ -1,0 +1,88 @@
+﻿.contentRow {
+    height: 500px;
+    margin-left: 10px;
+    margin-right: 5px;
+    border: 0;
+}
+
+.contentBorder {
+    margin-top: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 0;
+}
+
+.notificationContent {
+    width: 100%;
+    background-color: transparent !important;
+    border: 0;
+    margin-top: 10px;
+}
+
+.rowDivider {
+    width: 5%;
+    height: 40px;
+}
+
+#spanReadMore a:hover {
+    cursor: pointer;
+}
+
+.notification_badge {
+    background-color: #fa3e3e;
+    border-radius: 2px;
+    color: white;
+    padding: 1px 3px;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.NotifSettingsButtonRow {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.checkSetting {
+    vertical-align: middle;
+    box-shadow: none;
+}
+
+.checkSetting:focus {
+    box-shadow: none;
+}
+
+.checkSettingHeight {
+    height: 40px;
+}
+
+.PaginationButtonSelected {
+    width: 3vw;
+    height: 3vw;
+    background-color: #1E76FB;
+    color: white;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}
+
+.PaginationButton {
+    width: 3vw;
+    height: 3vw;
+    background-color: transparent;
+    color: #1E76FB;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}

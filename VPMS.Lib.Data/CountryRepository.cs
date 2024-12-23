@@ -26,7 +26,7 @@ namespace VPMS.Lib.Data
 			}
 			catch (Exception ex)
 			{
-				logger.Error("Database Error >> ", ex);
+				logger.Error("CountryRepository >>> GetCountryList >>> ", ex);
 				return null;
 			}
 		}

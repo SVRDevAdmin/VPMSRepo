@@ -46,10 +46,10 @@ namespace VPMSWeb.Controllers
 
 		public int InsertUpdateOrganisation([FromBody] OrganisationModel organisationModel)
 		{
-			var Level2ID = int.Parse(HttpContext.Session.GetString("Level1ID"));
+			var Level1ID = int.Parse(HttpContext.Session.GetString("Level1ID"));
 			organisationModel.TotalStaff = 1;
 			organisationModel.Level = 2;
-			organisationModel.ParentID = Level2ID;
+			organisationModel.ParentID = Level1ID;
 
 			if(organisationModel.Id != 0)
 			{

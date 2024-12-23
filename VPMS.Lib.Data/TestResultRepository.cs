@@ -13,13 +13,15 @@ namespace VPMS.Lib.Data
 {
     public class TestResultRepository
     {
-        /// <summary>
-        /// Add Test Results record
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="sResults"></param>
-        /// <returns></returns>
-        public static Boolean InsertTestResults(IConfiguration config, TestResultsTxnModel sResult, List<TestResultsDetailTxnModel> sList)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Add Test Results record
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sResults"></param>
+		/// <returns></returns>
+		public static Boolean InsertTestResults(IConfiguration config, TestResultsTxnModel sResult, List<TestResultsDetailTxnModel> sList)
         {
             Boolean isValid = false;
 
@@ -27,8 +29,6 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new TestResultsDBContext(config))
                 {
-                    //ctx.Txn_TestResults.AddRange(sResults);
-                    //ctx.SaveChanges();
                     ctx.Txn_TestResults.Add(sResult);
                     ctx.SaveChanges();
 
@@ -45,6 +45,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestResultRepository >>> InsertTestResults >>> ", ex);
                 isValid = false;
             }
 
@@ -72,6 +73,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestResultRepository >>> GetTestResultDeviceNameList >>> ", ex);
                 return null;
             }
         }
@@ -148,7 +150,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("TestResultRepository >>> GetTestResultManagementListing >>> ", ex);
+				return null;
             }
         }
 
@@ -230,7 +233,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null; 
+				logger.Error("TestResultRepository >>> GetTestResultBreakdownDetails >>> ", ex);
+				return null; 
             }
 
             return sResult;

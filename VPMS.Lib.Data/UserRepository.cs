@@ -15,11 +15,13 @@ namespace VPMS.Lib.Data
 {
     public class UserRepository
     {
-        /// <summary>
-        /// Get User List Order by Surname
-        /// </summary>
-        /// <returns></returns>
-        public static List<UserModel> GetStaffList(String organizationID)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get User List Order by Surname
+		/// </summary>
+		/// <returns></returns>
+		public static List<UserModel> GetStaffList(String organizationID)
         {
             List<UserModel> sStaffList = new List<UserModel>();
 
@@ -72,6 +74,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("UserRepository >>> GetStaffList >>> ", ex);
                 return null;
             }
         }
@@ -104,7 +107,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
-                                            "A.UserID, CONCAT(A.Surname, A.LastName) AS 'StaffName', A.StaffID, " +
+                                            "A.UserID, CONCAT(A.Surname, ' ', A.LastName) AS 'StaffName', A.StaffID, " +
                                             "B.RoleName, A.Gender, E.CodeName as 'GenderName', A.EmailAddress, A.Status, " + 
                                             "C.CodeName AS 'StatusName', A.BranchID, D.Name AS 'BranchName', D.OrganizationID, " + 
                                             "O.Name as 'Organization', " +
@@ -164,7 +167,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("UserRepository >>> GetUserListingByFilter >>> ", ex);
+				return null;
             }
         }
 
@@ -206,7 +210,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> AddIdentityUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -228,7 +233,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return false;
+				logger.Error("UserRepository >>> ValidateIdentityUser >>> ", ex);
+				return false;
             }
         }
 
@@ -253,7 +259,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> CreateUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -339,7 +346,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> UpdateUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -374,7 +382,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> DeleteUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -432,7 +441,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("UserRepository >>> GetUserProfileByUserID >>> ", ex);
+				return null;
             }
         }
 
@@ -478,7 +488,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("UserRepository >>> GetPatientsSummary >>> ", ex);
+				return null;
             }
         }
     }

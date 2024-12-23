@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Users";
     ViewData["SelectedMenu"] = "AccessMenu";
+    ViewBag.SelectedMenu = "AccessMenu";
 
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
@@ -47,6 +48,9 @@
 <script src="~/js/General.js"></script>
 
 <script>
+    $("#SubMenuAccess").toggleClass('show');
+    document.querySelector("#SubMenuAccessParent").querySelector("#imgArrow").classList.toggle("Up");
+
     $(document).ready(function () 
     {
         $('#btnUpdate').hide();
