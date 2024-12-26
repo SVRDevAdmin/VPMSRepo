@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using VPMS;
+using VPMS.Lib;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
@@ -113,18 +114,21 @@ namespace VPMSWeb.Controllers
 			sNewUser.RoleID = sUserModel.roleID;
 			sNewUser.BranchID = Convert.ToInt32(sUserModel.branchID);
 			sNewUser.CreatedDate = DateTime.Now;
-			sNewUser.CreatedBy = "";
+			sNewUser.CreatedBy = sUserModel.createdBy;
 
 			String sIdentityUserID = "";
 			if (!UserRepository.ValidateIdentityUser(sUserModel.loginID))
 			{
-                if (UserRepository.AddIdentityUser(sNewIdentity, sNewUser.RoleID, out sIdentityUserID))
+				String sTempPass = "Abcd@1234";
+
+                if (UserRepository.AddIdentityUser(sNewIdentity, sNewUser.RoleID, sTempPass, out sIdentityUserID))
                 {
                     sNewUser.UserID = sIdentityUserID;
                     if (UserRepository.CreateUser(sNewUser))
                     {
                         sResp.StatusCode = (int)StatusCodes.Status200OK;
 
+						ProcessSendAccountCreationEmail(sUserModel, sTempPass);
                     }
                 }
                 else
@@ -142,12 +146,55 @@ namespace VPMSWeb.Controllers
 			return Json(sResp);
 		}
 
-		/// <summary>
-		/// Update User Profile
-		/// </summary>
-		/// <param name="sUserModel"></param>
-		/// <returns></returns>
-		public IActionResult UpdateUser(UserInputControllerObj sUserModel)
+		public void ProcessSendAccountCreationEmail(UserInputControllerObj sUserProfileInput, String sTempPass)
+
+        {
+            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+            String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+            int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+            String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+            String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+            String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+
+            try
+			{
+				var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003");
+				emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<user_fullname>###", (sUserProfileInput.surName + " " + sUserProfileInput.lastName))
+																			 .Replace("###<userlogin_id>###", sUserProfileInput.loginID)
+																			 .Replace("###<user_password>###", sTempPass);
+
+				List<String> sRecipient = new List<string>();
+				sRecipient.Add(sUserProfileInput.emailAddress);
+
+                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+				sEmailObj.RecipientEmail = sRecipient;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
+
+                String sErrorMessage = "";
+                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+
+            }
+			catch (Exception ex)
+			{
+				String abc = "xxx";
+			}
+		}
+
+        /// <summary>
+        /// Update User Profile
+        /// </summary>
+        /// <param name="sUserModel"></param>
+        /// <returns></returns>
+        public IActionResult UpdateUser(UserInputControllerObj sUserModel)
 		{
 			Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
 

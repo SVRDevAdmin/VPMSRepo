@@ -74,7 +74,8 @@
                         organizationID: $('#ddlOrganization').val(),
                         branchID: $('#ddlBranch').val(),
                         userStatus: $('#ddlStatus').val(),
-                        loginID: $('#txtLoginID').val()
+                        loginID: $('#txtLoginID').val(),
+                        createdBy: '@sessionUserID'
                     }
 
                     $.post("/User/AddUser",

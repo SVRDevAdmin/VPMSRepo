@@ -179,7 +179,7 @@ namespace VPMS.Lib.Data
         /// <param name="sRoleID"></param>
         /// <param name="sUserID"></param>
         /// <returns></returns>
-        public static Boolean AddIdentityUser(IdentityUserObject sUserObj, String sRoleID,  out String sUserID)
+        public static Boolean AddIdentityUser(IdentityUserObject sUserObj, String sRoleID, String sTempPass, out String sUserID)
         {
             IPasswordHasher<IdentityUser> _passwordHasher = new PasswordHasher<IdentityUser>();
             IdentityUser sUser = new IdentityUser();
@@ -191,7 +191,8 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new UserDBContext())
                 {
-                    sUserObj.PasswordHash = _passwordHasher.HashPassword(sUser, "Abcd@1234");
+                    //sUserObj.PasswordHash = _passwordHasher.HashPassword(sUser, "Abcd@1234");
+                    sUserObj.PasswordHash = _passwordHasher.HashPassword(sUser, sTempPass);
 
                     ctx.aspnetusers.Add(sUserObj);
                     ctx.SaveChanges();
