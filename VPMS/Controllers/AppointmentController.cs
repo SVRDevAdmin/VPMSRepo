@@ -161,7 +161,7 @@ namespace VPMSWeb.Controllers
                         if (sModel.EmailNotify == true)
                         {
                             List<String> sRecipientList = new List<string>();
-                            sRecipientList.Add("kenny@svrtech.com.my");
+                            //sRecipientList.Add("kenny@svrtech.com.my");
 
                             string sApptOwnerName = "";
                             String sApptPetName = "";

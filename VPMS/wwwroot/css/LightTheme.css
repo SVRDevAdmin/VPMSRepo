@@ -710,6 +710,8 @@ input[type='text']:focus, select:focus {
 .frameHeader {
 	/*height: 40px;*/
 	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: black;
 }
 
@@ -954,6 +956,7 @@ a {
 .frameRoleHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: black;
 }
 
@@ -1106,6 +1109,7 @@ a {
 .frameUserHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: black;
 }
 

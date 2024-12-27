@@ -15,16 +15,18 @@ namespace VPMS.Lib.Data
 {
     public class NotificationRepository
     {
-        /// <summary>
-        /// Get Notification List By Group & Pagination
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="sGroup"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="totalRecords"></param>
-        /// <returns></returns>
-        public static List<NotificationExtendedModel> GetNotificationList(IConfiguration config, String sUserID, int sBranchID, String sGroup, int pageSize, int pageIndex, out int totalRecords, out int totalNew)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Notification List By Group & Pagination
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sGroup"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="pageIndex"></param>
+		/// <param name="totalRecords"></param>
+		/// <returns></returns>
+		public static List<NotificationExtendedModel> GetNotificationList(IConfiguration config, String sUserID, int sBranchID, String sGroup, int pageSize, int pageIndex, out int totalRecords, out int totalNew)
         {
             List<NotificationExtendedModel> sNotificationList = new List<NotificationExtendedModel>();
             totalRecords = 0;
@@ -78,7 +80,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("NotificationRepository >>> GetNotificationList >>> ", ex);
+				return null;
             }
 
             return sNotificationList;
@@ -154,7 +157,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("NotificationRepository >>> GetNotificationSettings >>> ", ex);
+				return null;
             }
         }
 
@@ -205,7 +209,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("NotificationRepository >>> UpdateNotificationSettings >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -245,7 +250,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("NotificationRepository >>> UpdateMessageReadStatus >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -291,7 +297,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("NotificationRepository >>> GetReceiverListByNotificationGroup >>> ", ex);
+				return null;
             }
         }
 
@@ -334,7 +341,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("NotificationRepository >>> InsertNotification >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;

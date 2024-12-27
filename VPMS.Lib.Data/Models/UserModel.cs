@@ -83,6 +83,7 @@ namespace VPMS.Lib.Data.Models
         public String branchID { get; set; }
         public String userStatus { get; set; }
         public String loginID { get; set; }
+        public String createdBy { get; set; }
     }
 
     public class IdentityUserObject

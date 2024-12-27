@@ -27,7 +27,7 @@ namespace VPMS.Lib.Data
 			}
 			catch (Exception ex)
 			{
-				logger.Error("Database Error >> ", ex);
+				logger.Error("MastercodeRepository >>> GetMastercodeByGroup >>> ", ex);
 				return null;
 			}
 		}

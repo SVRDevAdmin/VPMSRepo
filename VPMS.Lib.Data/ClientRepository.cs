@@ -30,7 +30,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("ClientRepository >>> GetClientAuth >>> ", ex);
 				return null;
             }
         }
@@ -58,7 +58,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                logger.Error("ClientRepository >> GetClientProfile >> ", ex);
+                logger.Error("ClientRepository >>> GetClientProfile >>> ", ex);
                 return null;
             }
         }

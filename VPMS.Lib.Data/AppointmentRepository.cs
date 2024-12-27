@@ -50,7 +50,7 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isOverlap = false;
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> ValidateAppointmentByDoctor >>> ", ex);
 			}
 
             return isOverlap;
@@ -89,7 +89,7 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isOverlap = false;
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> ValidateAppointmentByPatient >>> ", ex);
 			}
 
             return isOverlap;
@@ -133,7 +133,7 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> CreateAppointment >>> ", ex);
 			}
 
             return isSuccess;
@@ -194,7 +194,7 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> CreateNewClientAppointment >>> ", ex);
 			}
 
             return isSuccess;
@@ -243,7 +243,7 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> UpdatedAppointment >>> ", ex);
 			}
 
             return isSuccess;
@@ -288,7 +288,7 @@ namespace VPMS.Lib.Data
             catch (Exception ex)
             {
                 isSuccess = false;
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> UpdateAppointmentStatus >>> ", ex);
 			}
 
             return isSuccess;
@@ -357,7 +357,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> GetCalendarAppointmentMonthView >>> ", ex);
 				return null;
             }
         }
@@ -417,7 +417,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> GetAppointmentByID >>> ", ex);
 				return null;
             }
         }
@@ -497,7 +497,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> GetAppointmentByUniqueID >>> ", ex);
 				return null;
             }
         }
@@ -590,7 +590,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> GetAppointmentByDateRange >>> ", ex);
 				return null;
             }
         }
@@ -657,7 +657,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("AppointmentRepository >>> GetUpcomingAppointment >>> ", ex);
 			}
 
             return upcomingAppointment;
@@ -730,7 +730,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                logger.Error("Database Error >> ", ex);
+                logger.Error("AppointmentRepository >>> GetTodayUpcomingAppointmentList >>> ", ex);
             }
 
             return upcomingAppointmentList;

@@ -15,11 +15,13 @@ namespace VPMS.Lib.Data
 {
     public class UserRepository
     {
-        /// <summary>
-        /// Get User List Order by Surname
-        /// </summary>
-        /// <returns></returns>
-        public static List<UserModel> GetStaffList(String organizationID)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get User List Order by Surname
+		/// </summary>
+		/// <returns></returns>
+		public static List<UserModel> GetStaffList(String organizationID)
         {
             List<UserModel> sStaffList = new List<UserModel>();
 
@@ -72,6 +74,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("UserRepository >>> GetStaffList >>> ", ex);
                 return null;
             }
         }
@@ -164,7 +167,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("UserRepository >>> GetUserListingByFilter >>> ", ex);
+				return null;
             }
         }
 
@@ -175,7 +179,7 @@ namespace VPMS.Lib.Data
         /// <param name="sRoleID"></param>
         /// <param name="sUserID"></param>
         /// <returns></returns>
-        public static Boolean AddIdentityUser(IdentityUserObject sUserObj, String sRoleID,  out String sUserID)
+        public static Boolean AddIdentityUser(IdentityUserObject sUserObj, String sRoleID, String sTempPass, out String sUserID)
         {
             IPasswordHasher<IdentityUser> _passwordHasher = new PasswordHasher<IdentityUser>();
             IdentityUser sUser = new IdentityUser();
@@ -187,7 +191,8 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new UserDBContext())
                 {
-                    sUserObj.PasswordHash = _passwordHasher.HashPassword(sUser, "Abcd@1234");
+                    //sUserObj.PasswordHash = _passwordHasher.HashPassword(sUser, "Abcd@1234");
+                    sUserObj.PasswordHash = _passwordHasher.HashPassword(sUser, sTempPass);
 
                     ctx.aspnetusers.Add(sUserObj);
                     ctx.SaveChanges();
@@ -206,7 +211,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> AddIdentityUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -228,7 +234,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return false;
+				logger.Error("UserRepository >>> ValidateIdentityUser >>> ", ex);
+				return false;
             }
         }
 
@@ -253,7 +260,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> CreateUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -339,7 +347,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> UpdateUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -374,7 +383,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("UserRepository >>> DeleteUser >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -432,7 +442,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("UserRepository >>> GetUserProfileByUserID >>> ", ex);
+				return null;
             }
         }
 
@@ -478,7 +489,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("UserRepository >>> GetPatientsSummary >>> ", ex);
+				return null;
             }
         }
     }

@@ -30,7 +30,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("TreatmentServicesRepository >>> GetTreatmentServicesList >>> ", ex);
 				return null;
             }
         }
@@ -52,7 +52,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("TreatmentServicesRepository >>> GetServicesDoctorList >>> ", ex);
 				return null;
             }
         }
@@ -74,7 +74,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("TreatmentServicesRepository >>> GetServicesInfoByID >>> ", ex);
 				return null;
             }
         }
