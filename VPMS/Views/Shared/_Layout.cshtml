@@ -290,8 +290,8 @@
                             </a>
                         </li>
                         <li>
-                            @* <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0"> *@
-                            <a href="#" class="nav-link align-middle px-0">
+                            <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="doctorMenu" class="spanMenuBlue"></span>
                                 <img id="iconDoctor" class="menuIcons" />
                                 @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Doctor"]</span> *@
@@ -690,7 +690,7 @@
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
 
-                                                            <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                                <a class='@sClassName' style="border: 0px; color: black !important;">@c.CountryName</a>
                                             }                                            
                                         }
                                         else

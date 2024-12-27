@@ -655,86 +655,6 @@
 						<th class="table-content"> @LangResources["Patient_Label_Allergies"] </th>
 						<th class="table-content"> @LangResources["Patient_Label_Obesity"] </th>
 					</tr>
-					@* <tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr> *@
 				</table>
 			</div>
 
@@ -1003,11 +923,11 @@
 				var tableElement = document.getElementById("petGrowthTable");
 
 				for (let i = 0; i < data.length; i++) {
-					var obesity = "No";
+					var obesity = "@LangResources["Patient_Selection_No"]";
 					var color = "green";
 
 					if (data[i].BMI > 30) {
-						obesity = "Yes";
+						obesity = "@LangResources["Patient_Selection_Yes"]";
 						color = "red";
 					}
 
@@ -1705,7 +1625,7 @@
 			location.reload();
 		}
 		else{
-			alert("Please fill the required field before save.");
+			alert("@LangResources["Patient_Message_FillRequiredField"]");
 		}			
 	}
 

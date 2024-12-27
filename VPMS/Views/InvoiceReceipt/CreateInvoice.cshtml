@@ -306,10 +306,10 @@
 		var petID = petElement.options[petElement.selectedIndex].getAttribute("data-id");	
 
 		if (items.length == 0){
-			alert("Please add atleast one product.");
+			alert("@LangResources["InvoiceReceipt_Message_AddAtleastOneProduct"]");
 		}
 		else if (!checkRequiredField()) {
-			alert("Please fill the required field.");
+			alert("@LangResources["Patient_Message_FillRequiredField"]");
 		}
 		else{
 			var obj = {

@@ -15,6 +15,9 @@ using VPMS.Lib;
 using VPMSWeb.Lib.Settings;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.Extensions.Localization;
+using System.Reflection;
+using VPMSWeb.Interface;
 
 namespace VPMSWeb.Controllers
 {
@@ -37,14 +40,20 @@ namespace VPMSWeb.Controllers
 
         private const string Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+        private readonly IStringLocalizer _localizer;
+
         public LoginController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager
-            , IUserStore<IdentityUser> userStore, RoleManager<IdentityRole> roleManager)
+            , IUserStore<IdentityUser> userStore, RoleManager<IdentityRole> roleManager, IStringLocalizerFactory factory)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = (IUserEmailStore<IdentityUser>)_userStore;
             _roleManager = roleManager;
+
+            var type = typeof(LanguageResource);
+            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
+            _localizer = factory.Create("Resource", assemblyName.Name);
         }
 
         [Authorize]
@@ -179,13 +188,13 @@ namespace VPMSWeb.Controllers
 					}
 					else if (result.IsLockedOut)
 					{
-						ViewData["alert"] = "The account are locked. Please contact administrator.";
+						ViewData["alert"] = _localizer["Login_Message_AccountLocked"];
 
 						return View("Login");
 					}
 					else if (result.IsNotAllowed)
 					{
-						ViewData["alert"] = "The account are have not confirmed yet. Please confirm the account through email and try again.";
+						ViewData["alert"] = _localizer["Login_Message_AccountNotConfirmed"];
 
 						return View("Login");
 					}
@@ -194,14 +203,14 @@ namespace VPMSWeb.Controllers
 						var attempLeft = maxLoginAttempt - user.AccessFailedCount;
 
 						//ViewData["alert"] = "Wrong password. " + attempLeft + " attemp[s] left before the account is locked.";
-						ViewData["alert"] = "Wrong password or username.";
+						ViewData["alert"] = _localizer["Login_Message_WrongUsernamePasword"];
 
 						return View("Login");
 					}
 				}
 				else
 				{
-					ViewData["alert"] = "Account not found based on the username. Please check and try again.";
+					ViewData["alert"] = _localizer["Login_Message_AccountNotFound"];
 
 					return View("Login");
 				}
@@ -210,7 +219,7 @@ namespace VPMSWeb.Controllers
 			{
 				Program.logger.Error("Controller Error >> ", ex);
 
-				ViewData["alert"] = "Error occur. Please try again later.";
+				ViewData["alert"] = _localizer["Login_Message_ErrorOccur"];
 
 				return View("Login");
 			}
@@ -356,22 +365,22 @@ namespace VPMSWeb.Controllers
                             return RedirectToAction("Login", "Login");
                         }
 
-                        ViewData["alert"] = "Fail to reset password.";
+                        ViewData["alert"] = _localizer["Login_Message_FailResetPassword"];
                     }
 					else
 					{
-						ViewData["alert"] = "Wrong email. Please check and try again.";
+						ViewData["alert"] = _localizer["Login_Message_WrongEmail"];
 					}
 				}
 				else
 				{
-					ViewData["alert"] = "Account not found based on the username. Please check and try again.";
+					ViewData["alert"] = _localizer["Login_Message_AccountNotFound"];
 				}
 			}
 			catch (Exception ex)
 			{
 				Program.logger.Error("Controller Error >> ", ex);
-				ViewData["alert"] = "Error occur. Please try again later.";
+				ViewData["alert"] = _localizer["Login_Message_ErrorOccur"];
 			}
 
             return View("PasswordRecovery");

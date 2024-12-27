@@ -893,6 +893,8 @@
 					}
 				}				
 
+				SendNotification(invoiceID);
+
 				location.reload();
 
 			})
@@ -961,5 +963,18 @@
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
+	}
+
+	function SendNotification(id){
+		$.getJSON("/InvoiceReceipt/SendInvoiceEmail", 
+		{
+			id: id,
+			type: "Invoice"
+		})
+		.done(function (result) {
+			if(!result){
+				alert("@LangResources["InvoiceReceipt_Message_SomethingWrongHappen"]");
+			}
+		});
 	}
 </script>
