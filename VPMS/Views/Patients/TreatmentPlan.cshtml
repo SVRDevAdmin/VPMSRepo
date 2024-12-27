@@ -1756,10 +1756,10 @@
 		var treatmentName = e.querySelector("#treatmentPlanName").innerHTML;
 
 		if (serviceGroup.length == 0 && productGroup.length == 0) {
-				alert("@LangResources["TreatmentPlan_Message_ChooseAtleastOneProductService"]");
+				CustomAlertMessageShow("@LangResources["TreatmentPlan_Message_ChooseAtleastOneProductService"]");
 		}
 		else if (treatmentName == ""){
-				alert("@LangResources["TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty"]");
+				CustomAlertMessageShow("@LangResources["TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty"]");
 		}
 		else{
 			var treatmentName = e.querySelector("#treatmentPlanName").innerHTML;

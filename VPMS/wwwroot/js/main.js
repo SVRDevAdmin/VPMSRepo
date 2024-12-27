@@ -42,3 +42,14 @@ function IdleWarning() {
 function IdleTimeout() {
     window.location = logoutUrl;
 }
+
+function CustomAlertMessageShow(message) {
+    $("#alertMessage").html(message);;
+    $("#customAlert").slideDown(500);
+}
+
+function CustomAlertMessageHide() {
+    $("#customAlert").slideUp(500, function () {
+        $("#customAlert")[0].style.setProperty('display', 'none', 'important');
+    });
+}
