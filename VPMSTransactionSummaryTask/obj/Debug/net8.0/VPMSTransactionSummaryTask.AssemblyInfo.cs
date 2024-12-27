@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMSTransactionSummaryTask")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c651053927eeca2f1511820cbec1cfff01cd2d5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f6faa5744d884a8af39646342a41babfa649dc9")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMSTransactionSummaryTask")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMSTransactionSummaryTask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

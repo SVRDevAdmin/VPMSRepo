@@ -11,6 +11,12 @@ using VPMSWeb.Lib.Settings;
 using Spire.Additions.Qt;
 using Spire.Pdf.Graphics;
 using System.Drawing;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Html;
+using System.Resources;
+using Microsoft.Extensions.Localization;
+using System.Reflection;
+using VPMSWeb.Interface;
 
 namespace VPMSWeb.Controllers
 {
@@ -21,9 +27,19 @@ namespace VPMSWeb.Controllers
 		private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 		private readonly InventoryDBContext _inventoryDBContext = new InventoryDBContext();
 
-        int totalInvoiceReceipt;
+        private readonly IStringLocalizer _localizer;
 
-		public IActionResult Index()
+        int totalInvoiceReceipt;
+		float totalAll = 0;
+
+        public InvoiceReceiptController(IStringLocalizerFactory factory)
+        {
+            var type = typeof(LanguageResource);
+            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
+            _localizer = factory.Create("Resource", assemblyName.Name);
+        }
+
+        public IActionResult Index()
         {
             return View();
         }
@@ -268,40 +284,23 @@ namespace VPMSWeb.Controllers
 			_invoiceReceiptDBContext.Update(invoice);
 			_invoiceReceiptDBContext.SaveChanges(true);
 
-			return true;
+
+			return SendInvoiceEmail(id, "Receipt");
 		}
 
 		public ViewInvoiceReceipt ViewInvoiceReceipt(int id)
 		{
-			var invoiceReceipt = _invoiceReceiptDBContext.Mst_InvoiceReceipt.FirstOrDefault(x => x.ID == id);
-			var treatmentPlan = _patientDBContext.Txn_TreatmentPlan.FirstOrDefault(x => x.ID == invoiceReceipt.TreatmentPlanID);
-			var services = _patientDBContext.Txn_TreatmentPlan_Services.Where(x => x.PlanID == invoiceReceipt.TreatmentPlanID).ToList();
-			var products = _inventoryDBContext.GetInventoryInvoice(invoiceReceipt.TreatmentPlanID).ToList();
-			var pet = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == treatmentPlan.PetID);
-			var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == pet.PatientID && invoiceReceipt.OwnerName == x.Name);
-
-			UpcomingAppointment upcomingAppointment = AppointmentRepository.GetUpcomingAppointment(ConfigSettings.GetConfigurationSettings(), owner.ID, pet.ID);
-
-            ViewInvoiceReceipt viewInvoiceReceipt = new ViewInvoiceReceipt()
-			{
-				InvoiceReceipt = invoiceReceipt, TreatmentPlan = treatmentPlan, Services = services, Products = products, Owner = owner, Pet = pet, UpcomingAppointment = upcomingAppointment
-            };
-
-			return viewInvoiceReceipt;
+			return GetInvoiceReceiptInfos(id);
 		}
 
-		public void SendNotification()
-		{
-            List<String> sRecipientList = new List<String>();
-            sRecipientList.Add("azwan@svrtech.com.my");
-
-            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003", "en");
-
-            SendNotificationEmail(sRecipientList, emailTemplate);
-        }
-
-        public void SendNotificationEmail(List<String> sRecipientList, TemplateModel emailTemplate)
+        public bool SendInvoiceEmail(int id, string type)
         {
+            var invoiceReceiptInfos = GetInvoiceReceiptInfos(id);
+            CreateInvoicePDF(invoiceReceiptInfos, type);
+
+            List<String> sRecipientList = new List<String>();
+            sRecipientList.Add(invoiceReceiptInfos.Owner.EmailAddress);
+
             var sEmailConfig = ConfigSettings.GetConfigurationSettings();
             String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
             int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
@@ -309,13 +308,27 @@ namespace VPMSWeb.Controllers
             String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
             String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
 
+            var subject = "";
+            var body = "";
+
+            if (type == "Invoice")
+            {
+                subject = _localizer["InvoiceReceipt_Label_InvoiceCreation"];
+                body = _localizer["InvoiceReceipt_Message_InvoiceCreation"];
+            }
+            else
+            {
+                subject = _localizer["InvoiceReceipt_Label_ReceiptCreation"];
+                body = _localizer["InvoiceReceipt_Message_ReceiptCreation"];
+            }
+
             try
             {
                 VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
                 sEmailObj.SenderEmail = sSender;
                 sEmailObj.RecipientEmail = sRecipientList;
-                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
-                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.Subject = subject;
+                sEmailObj.Body = body;
                 sEmailObj.SMTPHost = sHost;
                 sEmailObj.PortNo = sPortNo.Value;
                 sEmailObj.HostUsername = sUsername;
@@ -324,63 +337,175 @@ namespace VPMSWeb.Controllers
                 sEmailObj.UseDefaultCredentials = false;
                 sEmailObj.IsHtml = true;
 
+                var filename = type + ".pdf";
+                Attachment attachment = new Attachment(ConfigSettings.GetConfigurationSettings().GetValue<string>("InvoiceReceiptFileTemp"));
+                attachment.Name = filename;
+                List<Attachment> attachments = new List<Attachment>() { attachment };
+                sEmailObj.EmailAttachement = attachments;
+
                 String sErrorMessage = "";
                 EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
             }
             catch (Exception ex)
             {
-                Program.logger.Error("Controller Error >> ", ex);
+                return false;
             }
+
+            return true;
         }
 
-		[AllowAnonymous]
-		public void SendHTMLEmail()
+        public void CreateInvoicePDF(ViewInvoiceReceipt invoiceReceiptInfos, string type)
 		{
-            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003", "en");
+            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003", Program.LanguageSelected.ConfigurationValue);
 
-			MailMessage mail = new MailMessage();
-			mail.From = new MailAddress("svrkenny@gmail.com");
-			mail.To.Add("azwan@svrtech.com.my");
-			mail.Subject = "Test Email with attachement";
-			//mail.IsBodyHtml = true;
-            mail.Body = "Here is your image.";
-            CreatePDF(emailTemplate.TemplateContent);
-			mail.Attachments.Add(new Attachment("/Users/azwan/Work/Repo/Git Repo/VPMSRepo/VPMS/bin/Debug/net8.0/HtmlStringToPdf.pdf"));
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<serviceList>###", GetServiceInfos(invoiceReceiptInfos.Services));
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<productList>###", GetProductInfos(invoiceReceiptInfos.Products));
 
-			//         string htmlBody = emailTemplate.TemplateContent;
-			//         //mail.Body = htmlBody;
-			//AlternateView avHtml = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+			if (type == "Invoice")
+            {
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<invoiceReceiptNoLabel>###", _localizer["InvoiceReceipt_Label_InvoiceNo"]);
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<invoiceReceiptNo>###", invoiceReceiptInfos.InvoiceReceipt.InvoiceNo);
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<serviceDate>###", invoiceReceiptInfos.InvoiceReceipt.CreatedDate.ToString("dd/MM/yyyy"));
+            }
+			else
+            {
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<invoiceReceiptNoLabel>###", _localizer["InvoiceReceipt_Label_ReceiptNo"]);
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<invoiceReceiptNo>###", invoiceReceiptInfos.InvoiceReceipt.ReceiptNo);
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<serviceDate>###", invoiceReceiptInfos.InvoiceReceipt.UpdatedDate.Value.ToString("dd/MM/yyyy"));
+            }
+            
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<ownerName>###", invoiceReceiptInfos.Owner.Name);
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<contactNo>###", invoiceReceiptInfos.Owner.ContactNo);
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<address>###", invoiceReceiptInfos.Owner.Address);
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<petName>###", invoiceReceiptInfos.Pet.Name);
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<registrationNo>###", invoiceReceiptInfos.Pet.RegistrationNo);
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<species>###", invoiceReceiptInfos.Pet.Species);
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<serviceName>###", invoiceReceiptInfos.TreatmentPlan.PlanName);
+            
 
-			//LinkedResource inline = new LinkedResource("C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\VPMS\\wwwroot\\images\\Female doctor image.png", MediaTypeNames.Image.Png);
-			//inline.ContentId = "embeddedImage";
-			//avHtml.LinkedResources.Add(inline);
+            if (invoiceReceiptInfos.UpcomingAppointment.ApptDate != null)
+            {
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<nextApptDate>###", invoiceReceiptInfos.UpcomingAppointment.ApptDate.Value.ToString("dd/MM/yyyy") + " " + invoiceReceiptInfos.UpcomingAppointment.ApptStartTime);
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<nextApptName>###", invoiceReceiptInfos.UpcomingAppointment.Service);
+            }
+            else
+            {
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<nextApptDate>###", "N/A");
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<nextApptName>###", _localizer["Appointment_Label_NoFutureAppointment"]);
+            }
 
-			//mail.AlternateViews.Add(avHtml);
+            var tax = (totalAll * 0.06);
+            var grandaDiscount = (totalAll + tax) * (invoiceReceiptInfos.InvoiceReceipt.GrandDiscount / 100);
+            var grandTotal = totalAll + tax - grandaDiscount;
 
-			SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-			smtp.Credentials = new System.Net.NetworkCredential("svrkenny@gmail.com", "lpsnuqpibcswmtoz");
-			smtp.Port = 587;
-			smtp.EnableSsl = true;
-			smtp.UseDefaultCredentials = false;
-			smtp.Send(mail);
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<total>###", totalAll.ToString());
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<tax>###", string.Format("{0:#,##0.##}", tax));
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<grandDiscount>###", invoiceReceiptInfos.InvoiceReceipt.GrandDiscount.ToString());
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent?.Replace("###<grandTotal>###", string.Format("{0:#,##0.##}", grandTotal));
 
-			Console.WriteLine("Email sent successfully!");
-        }
-
-		public void CreatePDF(string htmlString)
-		{
             //Specify the output file path
-            string fileName = "HtmlStringToPdf.pdf";
-
-            //Specify the plugin path
-            string pluginPath = "C:\\Users\\azwan\\Work\\Repo\\Git Repo\\VPMSRepo\\Libraries\\Plugin\\plugins-windows-x64\\plugins";
+            string fileName = "invoiceReceipt-temp.pdf";
 
             //Set the plugin path
-            HtmlConverter.PluginPath = pluginPath;
+            HtmlConverter.PluginPath = ConfigSettings.GetConfigurationSettings().GetValue<string>("PluginPath");
 
             //Convert HTML string to PDF
-            HtmlConverter.Convert(htmlString, fileName, true, 100000, new Size(1080, 1000), new PdfMargins(0), LoadHtmlType.SourceCode);
+            HtmlConverter.Convert(emailTemplate.TemplateContent, fileName, true, 100000, new Size(1080, 1000), new PdfMargins(0), LoadHtmlType.SourceCode);
+        }
 
+		public ViewInvoiceReceipt GetInvoiceReceiptInfos(int id)
+		{
+            var invoiceReceipt = _invoiceReceiptDBContext.Mst_InvoiceReceipt.FirstOrDefault(x => x.ID == id);
+            var treatmentPlan = _patientDBContext.Txn_TreatmentPlan.FirstOrDefault(x => x.ID == invoiceReceipt.TreatmentPlanID);
+            var services = _patientDBContext.Txn_TreatmentPlan_Services.Where(x => x.PlanID == invoiceReceipt.TreatmentPlanID).ToList();
+            var products = _inventoryDBContext.GetInventoryInvoice(invoiceReceipt.TreatmentPlanID).ToList();
+            var pet = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.ID == treatmentPlan.PetID);
+            var owner = _patientDBContext.Mst_Patients_Owner.FirstOrDefault(x => x.PatientID == pet.PatientID && invoiceReceipt.OwnerName == x.Name);
+
+            UpcomingAppointment upcomingAppointment = AppointmentRepository.GetUpcomingAppointment(ConfigSettings.GetConfigurationSettings(), owner.ID, pet.ID);
+
+            ViewInvoiceReceipt invoiceReceiptInfos = new ViewInvoiceReceipt()
+            {
+                InvoiceReceipt = invoiceReceipt,
+                TreatmentPlan = treatmentPlan,
+                Services = services,
+                Products = products,
+                Owner = owner,
+                Pet = pet,
+                UpcomingAppointment = upcomingAppointment
+            };
+
+            return invoiceReceiptInfos;
+        }
+
+		public string GetServiceInfos(List<PatientTreatmentPlanServices> services)
+		{
+			var fullString = "";
+			float total = 0;
+
+			foreach (var service in services)
+			{
+                var temp =
+						"<tbody>" +
+                            "<tr>" +
+                                "<td style=\"padding: 0 1vw;\" class=\"firstColumn\">" + service.ServiceName + "</td>" +
+                                "<td style=\"padding: 0 1vw;\" class=\"secondColumn\">" + service.Discount + "</td>" +
+                                "<td style=\"padding: 0 1vw;\" class=\"thirdColumn totalServices\">" + service.TotalPrice + "</td>" +
+                            "</tr>" +
+                        "</tbody>";
+
+				total += service.TotalPrice;
+
+                fullString += temp;
+            }
+
+            fullString +=
+					"<tbody>" +
+                            "<tr>" +
+                                "<td style=\"padding: 1vw; padding-bottom: 0; font-weight: bold;\" class=\"firstColumn\">"+ _localizer["Patient_Label_TotalCost"] + "</td>" +
+                                "<td style=\"padding: 1vw; padding-bottom: 0;\" class=\"secondColumn\"></td>" +
+                                "<td style=\"padding: 1vw; padding-bottom: 0; font-weight: bold;\" class=\"thirdColumn totalAll\">" + total + "</td>" +
+                            "</tr>" +
+                        "</tbody>";
+
+			totalAll += total;
+
+            return fullString;
+		}
+
+        public string GetProductInfos(List<InventoryInvoice> products)
+        {
+            string fullString = "";
+            float total = 0;
+
+            foreach (var product in products)
+            {
+                string temp =
+						"<tbody>" +
+                            "<tr>" +
+                                "<td style=\"padding: 0 1vw;\" class=\"firstColumn\">" + product.ProductName + " <br> <span style=\"color: red;\">"+ _localizer["Patient_Label_Expiry"] + " : " + product.ExpiryDate.ToString("dd/MM/yyyy") + "</span></td>" +
+                                "<td style=\"padding: 0 1vw;\" class=\"secondColumn\">" + product.Discount + "</td>" +
+                                "<td style=\"padding: 0 1vw;\" class=\"thirdColumn totalProducts\">" + product.TotalPrice + "</td>" +
+                            "</tr>" +
+                        "</tbody>";
+
+                total += product.TotalPrice;
+
+                fullString += temp;
+            }
+
+            fullString +=
+					"<tbody>" +
+                            "<tr>" +
+                                "<td style=\"padding: 1vw; padding-bottom: 0; font-weight: bold;\" class=\"firstColumn\">"+ _localizer["Patient_Label_TotalCost"] + "</td>" +
+                                "<td style=\"padding: 1vw; padding-bottom: 0;\" class=\"secondColumn\"></td>" +
+                                "<td style=\"padding: 1vw; padding-bottom: 0; font-weight: bold;\" class=\"thirdColumn totalAll\">" + total + "</td>" +
+                            "</tr>" +
+                        "</tbody>";
+
+            totalAll += total;
+
+            return fullString;
         }
     }
 }
