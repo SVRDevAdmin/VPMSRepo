@@ -1731,4 +1731,58 @@
   <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
     <value>総任命数</value>
   </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>請求書の作成</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>領収書の作成</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>請求書を添付します。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>領収書を添付いたします。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>少なくとも 1 つの製品を追加してください。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>必須フィールドに入力してください。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>何か問題が起きた！</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>アカウントがロックされています。管理者に連絡してください。</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>アカウントはまだ確認されていません。メールでアカウントを確認して、もう一度お試しください。</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>ユーザー名に基づいてアカウントが見つかりません。確認してもう一度お試しください。</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>エラーが発生します。後でもう一度試してください。</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>パスワードのリセットに失敗しました。</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>メールが間違っています。確認してもう一度お試しください。</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>パスワードまたはユーザー名が間違っています。</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>必須フィールドに入力する必要があります。</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>このカテゴリにはまだ記録がありません。</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>少なくとも 1 つのサービスまたは製品を選択する必要があります。</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>治療計画名を空にすることはできません。</value>
+  </data>
 </root>

@@ -206,6 +206,13 @@
         <div style="margin-left: 1vw;">@LangResources["AccessControl_Label_AccessDenied"]</div>
     </div>
 
+    <div onmousedown="CustomAlertMessageHide();" class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert" id="customAlert" style="position: fixed; z-index: 9999;left: 50%; transform: translate(-50%, 0); display: none !important;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div style="margin-left: 1vw;" id="alertMessage"></div>
+    </div>
+
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 25px; width: 16vw;">
@@ -290,8 +297,8 @@
                             </a>
                         </li>
                         <li>
-                            @* <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0"> *@
-                            <a id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
+                            <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="doctorMenu" class="spanMenuBlue"></span>
                                 <img id="iconDoctor" class="menuIcons" />
                                 @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Doctor"]</span> *@
@@ -690,7 +697,7 @@
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
 
-                                                <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                                <a class='@sClassName' style="border: 0px; color: black !important;">@c.CountryName</a>
                                             }                                            
                                         }
                                         else

@@ -700,19 +700,12 @@
 			setSaleChart(chart);
 		}
 		else{
-			chartPatient.destroy();
-			chartTotalPatient.destroy();
-			chartStaff.destroy();
-			chartGender.destroy();
-			chartSale.destroy();
-			chartTotalSale.destroy();
-
-			setPatientChart("patient");
-			setPatientChart("totalPatient");
-			setStaffChart("staff");
-			setStaffChart("gender");
-			setSaleChart("sale");
-			setSaleChart("totalSale");
+			if(chartPatient){ chartPatient.destroy(); setPatientChart("patient"); }
+			if(chartTotalPatient){ chartTotalPatient.destroy(); setPatientChart("totalPatient"); }
+			if(chartStaff){ chartStaff.destroy(); setStaffChart("staff"); }
+			if(chartGender){ chartGender.destroy(); setStaffChart("gender"); }
+			if(chartSale){ chartSale.destroy(); setSaleChart("sale"); }
+			if(chartTotalSale){ chartTotalSale.destroy(); setSaleChart("totalSale"); }
 		}
 	}
 
@@ -1115,7 +1108,8 @@
 								},
 								afterDataLimits: function(axis) {
 									// axis.max = Math.max(...axis.chart.data.datasets[0].data) + 10; // Add some padding
-									let result = axis.chart.data.datasets[0].data.map(a => a.y);
+									let datasets = axis.chart.data.datasets;
+									let result = datasets[0].data.map(a => a.y);
 									let highestValue = Math.max(...result);
 									let minimum = 0;
 

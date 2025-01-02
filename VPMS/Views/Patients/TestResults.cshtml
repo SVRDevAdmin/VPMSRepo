@@ -218,7 +218,7 @@
 						<td class="table-content"><span>N/A</span></td>
 					}
 
-					@if (isFloat && result.ReferenceRange != null)
+					@if (isFloat && result.ReferenceRange != null && floatValue.ToString() != "NaN")
 					{
 						<td class="table-content" style="padding-right: 1vw;">
 							<div class="slider-container">
@@ -237,7 +237,7 @@
 			else
 			{
 				<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-					<td class="table-content" colspan="4" style="padding-right: 1vw; text-align: center;"> No record exist yet for this category. </td>
+					<td class="table-content" colspan="4" style="padding-right: 1vw; text-align: center;"> @LangResources["TestResults_Message_NoRecords"] </td>
 				</tr>
 			}
 		}
@@ -251,42 +251,8 @@
 
 	if ("@ViewData["Category"]" == "1") {
 		document.getElementById("title").innerHTML = "@LangResources["TestManagement_Label_BloodTest"]"
-		// GetBloodTest();
 	}
 	else if ("@ViewData["Category"]" == "3") {
 		document.getElementById("title").innerHTML = "@LangResources["TestManagement_Label_Analyzer"]";
 	}
-
-	// function GetBloodTest(){
-	// 	cloneRow("Hematocrit", 30.5, 25.8, 41.8, "%");
-	// }
-
-	// function cloneRow(name, value, normalStart, normalEnd, unit) {
-	// 	const clone = document.getElementById("rowTemplate").content.cloneNode(true);
-	// 	var columnElement = clone.querySelectorAll("td");
-	// 	var rangeElement = columnElement[2].querySelectorAll("span");
-	// 	var gaugeElement = columnElement[3].querySelector(".slider");
-	// 	var range = calculateGauge(normalStart, normalEnd);
-
-	// 	columnElement[0].innerHTML = name;
-	// 	columnElement[1].innerHTML = value + unit;
-
-	// 	rangeElement[0].innerHTML = normalStart;
-	// 	rangeElement[1].innerHTML = normalEnd;
-	// 	rangeElement[2].innerHTML = unit;
-
-	// 	gaugeElement.min = range.start;
-	// 	gaugeElement.max = range.end;
-	// 	gaugeElement.value = value;
-
-	// 	tableElement.appendChild(clone);
-	// }
-
-	// function calculateGauge(normalStart, normalEnd) {
-	// 	var differ = normalEnd - normalStart;
-	// 	var rangeStart = normalStart - differ;
-	// 	var rangeEnd = normalEnd + differ;
-
-	// 	return { start: rangeStart, end: rangeEnd };
-	// }
 </script>

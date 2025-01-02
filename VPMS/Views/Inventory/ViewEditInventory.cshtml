@@ -107,27 +107,27 @@
 				<div>
 					<input type="file" placeholder="Upload Image" id="inventoryImgFile" accept="image/*" hidden>
 					<label for="" id="inventoryImgLabel" style="border: 0.1vw solid; border-radius: 0.5vw; width: 18vw; height: 18vw; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-						<img id="inventoryImg" style="height: 18vw;" src="@imgDataURL" />
+						<img id="inventoryImg" class="isValidate" style="height: 18vw;" src="@imgDataURL" />
 					</label>
 				</div>
 
 				<div>
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_InventoryName"]</span>
-							<input id="InventoryName" type="text" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.InventoryName" />
+							<span class="formlabel">@LangResources["Inventory_Label_InventoryName"] <span style="color: red;">*</span></span>
+							<input id="InventoryName" type="text" class="form-control form-field inputField inventoryInfo hideContainer isValidate" value="@inventoryInfo.InventoryName" />
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.InventoryName</span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">SKU</span>
-							<input id="SKU" type="text" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.SKU" />
+							<span class="formlabel">SKU <span style="color: red;">*</span></span>
+							<input id="SKU" type="text" class="form-control form-field inputField inventoryInfo hideContainer isValidate" value="@inventoryInfo.SKU" />
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.SKU</span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_ProductType"]</span>
-							<select id="ProductType" class="form-control form-field inputField inventoryInfo hideContainer">
+							<span class="formlabel">@LangResources["Inventory_Label_ProductType"] <span style="color: red;">*</span></span>
+							<select id="ProductType" class="form-control form-field inputField inventoryInfo hideContainer isValidate">
 								<option value="" selected> -- @LangResources["Inventory_Label_SelectProductType"] --</option>
 								@{
 									var categoryName = "";
@@ -153,13 +153,13 @@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_ProductName"]</span>
-							<input id="ProductName" type="text" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.Name" />
+							<span class="formlabel">@LangResources["Inventory_Label_ProductName"] <span style="color: red;">*</span></span>
+							<input id="ProductName" type="text" class="form-control form-field inputField inventoryInfo hideContainer isValidate" value="@inventoryInfo.Name" />
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.Name</span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Species"]</span>
+							<span class="formlabel">@LangResources["Patient_Label_Species"] <span style="color: red;">*</span></span>
 							@* <select id="Species" onchange="changeSpecies(this.value);" class="form-control form-field inputField inventoryInfo hideContainer">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 								@foreach (var species in ViewData["Species"] as List<string>)
@@ -175,7 +175,7 @@
 								}
 							</select> *@
 							<div class="dropright inventoryInfo hideContainer" style="display: flex;">
-								<input id="Species" type="text" class="form-control form-field inputField" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
+								<input id="Species" type="text" class="form-control form-field inputField isValidate" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
 								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: white; color: black; border-left: none; display: flex; align-items: center; box-shadow: none; border-top-left-radius: 0; border-bottom-left-radius: 0; font-size: 1vw; border-color: black; padding: 0; padding-right: 0.5vw;">
 									<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
 								</button>
@@ -218,8 +218,8 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
-							<select id="Status" class="form-control form-field inputField inventoryInfo hideContainer">
+							<span class="formlabel">@LangResources["Patient_Label_Status"] <span style="color: red;">*</span></span>
+							<select id="Status" class="form-control form-field inputField inventoryInfo hideContainer isValidate">
 								<option value=""> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 								@{
 									var stockStatus = "";
@@ -244,14 +244,14 @@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
-							<input id="ExpiryDate" type="date" class="form-control form-field inputField inventoryInfo hideContainer" value="@expiryDate.ToString("yyyy-MM-dd")" />
+							<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"] <span style="color: red;">*</span></span>
+							<input id="ExpiryDate" type="date" class="form-control form-field inputField inventoryInfo hideContainer isValidate" value="@expiryDate.ToString("yyyy-MM-dd")" />
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@expiryDate.ToString("dd/MM/yyyy")</span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_Organisation"]</span>
-							<select id="Organisation" class="form-control form-field inputField inventoryInfo hideContainer" onchange="getBranch(this.value, false);">
+							<span class="formlabel">@LangResources["Inventory_Label_Organisation"] <span style="color: red;">*</span></span>
+							<select id="Organisation" class="form-control form-field inputField inventoryInfo hideContainer isValidate" onchange="getBranch(this.value, false);">
 								<option value="" selected> -- @LangResources["Inventory_Label_SelectOrganisation"] --</option>
 								@{
 									var organisationName = "";
@@ -275,8 +275,8 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_Branch"]</span>
-							<select id="Branch" class="form-control form-field inputField inventoryInfo hideContainer">
+							<span class="formlabel">@LangResources["Inventory_Label_Branch"] <span style="color: red;">*</span></span>
+							<select id="Branch" class="form-control form-field inputField inventoryInfo hideContainer isValidate">
 								<option value="" selected> -- @LangResources["Inventory_Label_SelectBranch"] --</option>
 							</select>
 							<span class="formlabel inventoryInfo" style="font-weight: normal;"></span>
@@ -285,12 +285,12 @@
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_RecommendedBreed"]</span>
+							<span class="formlabel">@LangResources["Inventory_Label_RecommendedBreed"] <span style="color: red;">*</span></span>
 							@* <select id="RecommendedBreed" class="form-control form-field inputField inventoryInfo hideContainer">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
 							</select> *@
 							<div class="dropright inventoryInfo hideContainer" style="display: flex;">
-								<input id="RecommendedBreed" type="text" class="form-control form-field inputField" value="@inventoryInfo.RecommendedBreed" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
+								<input id="RecommendedBreed" type="text" class="form-control form-field inputField isValidate" value="@inventoryInfo.RecommendedBreed" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
 								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: white; color: black; border-left: none; display: flex; align-items: center; box-shadow: none; border-top-left-radius: 0; border-bottom-left-radius: 0; font-size: 1vw; border-color: black; padding: 0; padding-right: 0.5vw;">
 									<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
 								</button>
@@ -317,37 +317,37 @@
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_RecommendedWeight"]</span>
-							<input id="RecommendedWeight" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.RecommendedWeight" />
+							<span class="formlabel">@LangResources["Inventory_Label_RecommendedWeight"] <span style="color: red;">*</span></span>
+							<input id="RecommendedWeight" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField inventoryInfo hideContainer isValidate" value="@inventoryInfo.RecommendedWeight" />
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.RecommendedWeight</span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_PricePerQty"]</span>
-							<input id="PricePerQty" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.PricePerQty" />
+							<span class="formlabel">@LangResources["Inventory_Label_PricePerQty"] <span style="color: red;">*</span></span>
+							<input id="PricePerQty" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField inventoryInfo hideContainer isValidate" value="@inventoryInfo.PricePerQty" />
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.PricePerQty</span>
 						</div>
 					</div>
 
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container halfSize">
-							<span class="formlabel">@LangResources["Inventory_Label_Usage"]</span>
+							<span class="formlabel">@LangResources["Inventory_Label_Usage"] <span style="color: red;">*</span></span>
 							@* <input id="Usage" type="text" class="form-control form-field inputField inventoryInfo hideContainer" value="@inventoryInfo.Usage" /> *@
-							<textarea id="Usage" rows="4" class="form-control form-field inputField inventoryInfo hideContainer" maxlength="200">@inventoryInfo.Usage</textarea>
+							<textarea id="Usage" rows="4" class="form-control form-field inputField inventoryInfo hideContainer isValidate" maxlength="200">@inventoryInfo.Usage</textarea>
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.Usage</span>
 						</div>
 
 						<div class="field-container quaterSize">
-							<span class="formlabel">@LangResources["Inventory_Label_Quantity"]</span>
-							<input id="Quantity" type="number" min="0" onchange="parseInt(this.value);" class="form-control form-field inputField inventoryInfo hideContainer" value="@ViewData["Quantity"]" />
+							<span class="formlabel">@LangResources["Inventory_Label_Quantity"] <span style="color: red;">*</span></span>
+							<input id="Quantity" type="number" min="0" onchange="parseInt(this.value);" class="form-control form-field inputField inventoryInfo hideContainer isValidate" value="@ViewData["Quantity"]" />
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@ViewData["Quantity"]</span>
 						</div>
 					</div>
 
 					<div style="margin-bottom: 1.5vw;">
 						<div class="field-container">
-							<span class="formlabel">@LangResources["Inventory_Label_Description"]</span>
-							<textarea id="Description" rows="5" class="form-control form-field inputField inventoryInfo hideContainer" style="width: 100%;">@inventoryInfo.Description</textarea>
+							<span class="formlabel">@LangResources["Inventory_Label_Description"] <span style="color: red;">*</span></span>
+							<textarea id="Description" rows="5" class="form-control form-field inputField inventoryInfo hideContainer isValidate" style="width: 100%;">@inventoryInfo.Description</textarea>
 							<span class="formlabel inventoryInfo" style="font-weight: normal;">@inventoryInfo.Description</span>
 						</div>
 					</div>
@@ -630,41 +630,60 @@
 	}
 
 	function saveInventoryInfo() {
-		var data = {
-			ID: document.getElementById("InventoryID").value,
-			ImageFile: document.querySelector('#inventoryImg').src,
-			ImageFileName: document.getElementById("ProductName").value,
-			InventoryName: document.getElementById("InventoryName").value,
-			SKU: document.getElementById("SKU").value,
-			ProductTypeID: document.getElementById("ProductType").value,
-			Name: document.getElementById("ProductName").value,
-			Species: document.getElementById("Species").value,
-			StockStatus: document.getElementById("Status").value,
-			ExpiryDate: document.getElementById("ExpiryDate").value,
-			BranchID: document.getElementById("Branch").value,
-			RecommendedBreed: document.getElementById("RecommendedBreed").value,
-			RecommendedWeight: document.getElementById("RecommendedWeight").value,
-			PricePerQty: document.getElementById("PricePerQty").value,
-			Usage: document.getElementById("Usage").value,
-			Quantity: document.getElementById("Quantity").value,
-			Description: document.getElementById("Description").value,
-			CreatedDate: document.getElementById("InventoryCreatedDate").value,
-			CreatedBy: document.getElementById("InventoryCreatedDate").value
-		};
+		if(validationCheck()){
+			var data = {
+				ID: document.getElementById("InventoryID").value,
+				ImageFile: document.querySelector('#inventoryImg').src,
+				ImageFileName: document.getElementById("ProductName").value,
+				InventoryName: document.getElementById("InventoryName").value,
+				SKU: document.getElementById("SKU").value,
+				ProductTypeID: document.getElementById("ProductType").value,
+				Name: document.getElementById("ProductName").value,
+				Species: document.getElementById("Species").value,
+				StockStatus: document.getElementById("Status").value,
+				ExpiryDate: document.getElementById("ExpiryDate").value,
+				BranchID: document.getElementById("Branch").value,
+				RecommendedBreed: document.getElementById("RecommendedBreed").value,
+				RecommendedWeight: document.getElementById("RecommendedWeight").value,
+				PricePerQty: document.getElementById("PricePerQty").value,
+				Usage: document.getElementById("Usage").value,
+				Quantity: document.getElementById("Quantity").value,
+				Description: document.getElementById("Description").value,
+				CreatedDate: document.getElementById("InventoryCreatedDate").value,
+				CreatedBy: document.getElementById("InventoryCreatedDate").value
+			};
 
-		fetch('/Inventory/UpdateInventory', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data)
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				window.location = "/Inventory/InventoryList";
+			fetch('/Inventory/UpdateInventory', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
 			})
-			.catch(error => {
-				console.error('There was a problem with the fetch operation:', error);
-			});
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					window.location = "/Inventory/InventoryList";
+				})
+				.catch(error => {
+					console.error('There was a problem with the fetch operation:', error);
+				});
+		}
+		else{
+			CustomAlertMessageShow("@LangResources["Patient_Message_FillRequiredField"]");
+		}
+	}
+
+	function validationCheck(){
+		var isValidated = true;
+
+		var validationList = document.querySelectorAll(".isValidate");
+
+		for (let i = 0; i < validationList.length; i++){
+			if (validationList[i].value == "" || validationList[i].value == 0 || (validationList[i].tagName.toLowerCase() === 'img' && validationList[i].src == "")) {
+				isValidated = false;
+			}
+		}
+
+		return isValidated;
 	}
 </script>

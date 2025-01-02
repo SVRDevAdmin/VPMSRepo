@@ -595,6 +595,9 @@
   <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
     <value>大折扣  </value>
   </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>發票創建</value>
+  </data>
   <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
     <value>发票号</value>
   </data>
@@ -619,14 +622,32 @@
   <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
     <value>收据</value>
   </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>收據創建</value>
+  </data>
   <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
     <value>收据号</value>
   </data>
   <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
     <value>手术/疫苗接种/咨询名称</value>
   </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>請添加至少一種產品。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>請填寫必填欄位。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>附上發票。</value>
+  </data>
   <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
     <value>您确定要标记为已付款并转到收据吗？</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>附上收據。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>出事了！</value>
   </data>
   <data name="LanguageCountry_Button_Save" xml:space="preserve">
     <value>儲存</value>
@@ -663,6 +684,27 @@
   </data>
   <data name="Login_Link_ForgotPassword" xml:space="preserve">
     <value>忘記密碼？</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>帳戶已被鎖定。請聯絡管理員。</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>該帳戶尚未確認。請透過電子郵件確認帳戶並重試。</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>根據使用者名稱未找到帳戶。請檢查並重試。</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>發生錯誤。請稍後重試。</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>重置密碼失敗。</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>電子郵件錯誤。請檢查並重試。</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>密碼或使用者名稱錯誤。</value>
   </data>
   <data name="Login_Placeholder_Email" xml:space="preserve">
     <value>電子郵件</value>
@@ -1065,6 +1107,9 @@
   </data>
   <data name="Patient_Label_Year" xml:space="preserve">
     <value>年</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>需要填寫必填欄位。</value>
   </data>
   <data name="Patient_Message_IdleMessage" xml:space="preserve">
     <value>如果繼續閒置，您將自動登出。</value>
@@ -1627,6 +1672,9 @@
   <data name="TestResults_Label_View" xml:space="preserve">
     <value>查看</value>
   </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>此類別尚無記錄。</value>
+  </data>
   <data name="TestResults_Title_Filters" xml:space="preserve">
     <value>篩選</value>
   </data>
@@ -1693,7 +1741,13 @@
   <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
     <value>治療計劃</value>
   </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>需要至少選擇一項服務或一種產品。</value>
+  </data>
   <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
     <value>待確認</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>治療計劃名稱不能為空白。</value>
   </data>
 </root>

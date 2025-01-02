@@ -34,6 +34,7 @@
 	z-index: 9998;
 	position: absolute;
 	right: 0;
+	border-left-style: none;
 }
 
 #path_4043 {
@@ -42,11 +43,24 @@
 	width: 6.5vw;
 	height: 3.5vw;
 	position: absolute;
+	background-color: #f7f7f7;
+	border-radius: 0.5vw;
+}
+
+#path_4043.darktheme {
+	top: 1vw;
+	right: 1vw;
+	width: 6.5vw;
+	border-left-style: none;
+	height: 3.5vw;
+	position: absolute;
+	background-color: #1f2e45;
+	border-radius: 0.5vw;
 }
 
 #group_1138 {
-	top: 1.4vw;
-	right: 1.5vw;
+	top: 0.47vw;
+	right: 0.85vw;
 	width: 2.6vw;
 	position: absolute;
 
@@ -55,8 +69,8 @@
 }
 
 #group_1138.darktheme {
-	top: 1.4vw;
-    right: 3.5vw;
+	top: 0.45vw;
+    right: 2.2vw;
     width: 3.6vw;
     position: absolute;
 
@@ -75,8 +89,8 @@
 #dark_theme_icon.darktheme {
 	visibility: visible;
 	opacity: 1;
-    top: -0.25vw;
-    right: 2.7vw;
+    top: -1.15vw;
+    right: 1.50vw;
     width: 1.6vw;
     position: absolute;
 
@@ -105,8 +119,8 @@
 }
 
 #path_519 {
-	top: 0.15vw;
-	right: 0.15vw;
+	top: -0.90vw;
+	right: -0.50vw;
 	width: 0.9vw;
 	position: absolute;
 	visibility: visible;
@@ -118,8 +132,8 @@
 
 
 #path_520 {
-	top: -0.21vw;
-	right: -0.21vw;
+	top: -1.25vw;
+	right: -0.85vw;
 	width: 1.6vw;
 	position: absolute;
 	visibility: visible;
