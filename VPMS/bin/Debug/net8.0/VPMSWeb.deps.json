@@ -2733,12 +2733,6 @@
       "System.Text.Json/8.0.4": {
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0"
-        },
-        "runtime": {
-          "lib/net8.0/System.Text.Json.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.724.31311"
-          }
         }
       },
       "System.Text.RegularExpressions/4.3.0": {
@@ -2844,12 +2838,18 @@
           "log4net.Ext.Json": "2.0.10.1"
         },
         "runtime": {
-          "VPMS.Lib.Data.dll": {}
+          "VPMS.Lib.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "VPMS.Lib.Helpers/1.0.0": {
         "runtime": {
-          "VPMS.Lib.Helpers.dll": {}
+          "VPMS.Lib.Helpers.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
