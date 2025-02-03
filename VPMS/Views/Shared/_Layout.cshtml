@@ -14,6 +14,7 @@
     var LanguageFullNameSelected = Program.LanguageFullNameSelected;
 
     var CurrentPage = Program.CurrentPage;
+    var AccessDenied = Program.AccessDenied;
 }
 
 <!DOCTYPE html>
@@ -38,24 +39,26 @@
     <script src="~/lib/datepicker/gijgo.min.js" type="text/javascript"></script>
     <script src="~/js/FontAwesomeKit.js" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     @{
         var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
         if (theme != null)
         {
             if (theme == "dark")
             {
-                                    <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
                 ViewBag.DarkTheme = "Dark";
             }
             if (theme == "light")
             {
-                                    <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
                 ViewBag.DarkTheme = "Light";
             }
         }
         else
         {
-                                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
             ViewBag.DarkTheme = "Light";
             /* temp */
         }
@@ -66,125 +69,124 @@
 
     <style>
 
-        /*below are for theme button*/
+    /*below are for theme button*/
 
-        #theme {
-            /* z-index: 9998; */
-            position: absolute;
-            right: 0.8vw;
-        }
+    #theme {
+        /* z-index: 9998; */
+        position: absolute;
+        right: 0.8vw;
+    }
 
-        #path_4043 {
-            top: 1vw;
-            right: 0.5vw;
-            width: 5.5vw;
-            height: 3vw;
-            position: absolute;
-        }
+    #path_4043 {
+        top: 1vw;
+        right: 0.5vw;
+        width: 5.5vw;
+        height: 3vw;
+        position: absolute;
+    }
 
-        #group_1138 {
-            /* top: 1.45vw; */
-            top: 17px;
-            /* right: -0.4vw; */
-            right: -5px;
-            /* width: 3.6vw; */
-            width: 44.5px;
-            position: absolute;
-            /*animation*/
-            transition: all 0.5s linear;
-        }
+    #group_1138 {
+        /* top: 1.45vw; */
+        top: 17px;
+        /* right: -0.4vw; */
+        right: -5px;
+        /* width: 3.6vw; */
+        width: 44.5px;
+        position: absolute;
+        /*animation*/
+        transition: all 0.5s linear;
+    }
 
-            #group_1138.darktheme {
-                /* top: 1.45vw; */
-                top: 17px;
-                /* right: 1.8vw; */
-                right: 21px;
-                /* width: 3.6vw; */
-                position: absolute;
-                transition: all 0.5s linear;
-            }
+    #group_1138.darktheme {
+        /* top: 1.45vw; */
+        top: 17px;
+        /* right: 1.8vw; */
+        right: 21px;
+        /* width: 3.6vw; */
+        position: absolute;
+        transition: all 0.5s linear;
+    }
 
-        #dark_theme_icon {
-            visibility: hidden;
-            opacity: 0;
-            /*animation*/
-            transition: opacity 0.5s linear;
-        }
+    #dark_theme_icon {
+        visibility: hidden;
+        opacity: 0;
+        /*animation*/
+        transition: opacity 0.5s linear;
+    }
 
-            #dark_theme_icon.darktheme {
-                visibility: visible;
-                opacity: 1;
-                /* top: -0.07vw; */
-                top: -1px;
-                /* right: 2vw; */
-                right: 24px;
-                /* width: 1.3vw; */
-                width: 16px;
-                position: absolute;
-                transition: opacity 0.5s linear;
-            }
-
-
-        #rectangle_1045, #rectangle_1046 {
-            /* width: 2.7vw;
-            height: 2.2vw; */
-            width: 33.5px;
-            height: 27.5px;
-            -ms-border-radius: 7px;
-            -o-border-radius: 7px;
-            -moz-border-radius: 7px;
-            -webkit-border-radius: 7px;
-            border-radius: 0.5vw;
-            background: rgba(30, 118, 251, 255);
-            position: absolute;
-        }
-
-        #icon_feather_sun {
-            /* top: 2vw; */
-            top: 24.5px;
-            /* right: 1.3vw; */
-            right: 16px;
-            /* width: 2.05vw; */
-            position: absolute;
-        }
-
-        #path_519 {
-            /* top: 0.22vw; */
-            top: 2px;
-            /* right: 0.22vw; */
-            right: 2.48px;
-            /* width: 0.7vw; */
-            width: 8px;
-            position: absolute;
+        #dark_theme_icon.darktheme {
             visibility: visible;
             opacity: 1;
-            transition: opacity 0.5s linear;
-        }
-
-
-        #path_520 {
-            /* top: -0.21vw; */
-            top: -2.8px;
-            /* right: -0.21vw; */
-            right: -2.86px;
-            /* width: 1.5vw; */
-            width: 18px;
+            /* top: -0.07vw; */
+            top: -1px;
+            /* right: 2vw; */
+            right: 24px;
+            /* width: 1.3vw; */
+            width: 16px;
             position: absolute;
-            visibility: visible;
-            opacity: 1;
             transition: opacity 0.5s linear;
         }
 
-            #path_519.darktheme, #path_520.darktheme {
-                visibility: hidden;
-                opacity: 0;
-                /*animation*/
-                transition: opacity 0.5s linear;
-            }
 
-        .LanguageSelectionFont:hover {
-            color: dodgerblue;
-        }
+    #rectangle_1045, #rectangle_1046 {
+        /* width: 2.7vw;
+        height: 2.2vw; */
+        width: 33.5px;
+        height: 27.5px;
+        -ms-border-radius: 7px;
+        -o-border-radius: 7px;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        border-radius: 0.5vw;
+        background: rgba(30, 118, 251, 255);
+        position: absolute;
+    }
+
+    #icon_feather_sun {
+        /* top: 2vw; */
+        top: 24.5px;
+        /* right: 1.3vw; */
+        right: 16px;
+        /* width: 2.05vw; */
+        position: absolute;
+    }
+
+    #path_519 {
+        /* top: 0.22vw; */
+        top: 2px;
+        /* right: 0.22vw; */
+        right: 2.48px;
+        /* width: 0.7vw; */
+        width: 8px;
+        position: absolute;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+    }
+
+    #path_520 {
+        /* top: -0.21vw; */
+        top: -2.8px;
+        /* right: -0.21vw; */
+        right: -2.86px;
+        /* width: 1.5vw; */
+        width: 18px;
+        position: absolute;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+    }
+
+    #path_519.darktheme, #path_520.darktheme {
+        visibility: hidden;
+        opacity: 0;
+        /*animation*/
+        transition: opacity 0.5s linear;
+    }
+
+    .LanguageSelectionFont:hover {
+        color: dodgerblue;
+    }
     </style>
 </head>
 
@@ -196,21 +198,42 @@
         </svg>
         <div style="margin-left: 1vw;">@LangResources["Patient_Message_IdleMessage"]</div>
     </div>
+
+    <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert" id="accessDenied" style="position: fixed; z-index: 9999;left: 50%; transform: translate(-50%, 0); display: none !important;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div style="margin-left: 1vw;">@LangResources["AccessControl_Label_AccessDenied"]</div>
+    </div>
+
+    <div onmousedown="CustomAlertMessageHide();" class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert" id="customAlert" style="position: fixed; z-index: 9999;left: 50%; transform: translate(-50%, 0); display: none !important;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div style="margin-left: 1vw;" id="alertMessage"></div>
+    </div>
+
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 34px; width: 16vw;">
+            <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 25px; width: 16vw;">
+                <img id="imgVetVitals" style="width: 11vw;" />
+                <!--
                 <img id="imgLogo" style="width: 2vw;" />
                 <img id="imgLogoTitle" style="width: 11vw;" />
+                -->
             </div>
-            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 82vh !important;">
+
+            @* <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;"> *@
+            <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 89px; height: 672px;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 83vh !important; height: 83vh; overflow-x: auto; padding-left: 0 !important;">
                     <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="font-size: 1vw;">
                         <li class="nav-item">
-                            @* <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0"> *@
-                            <a href="#" class="nav-link align-middle px-0">
+                            <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="dashboardMenu" class="spanMenuBlue"></span>
                                 <img id="iconHome" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Dashboard"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Dashboard"]</span>
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Dashboard"]</span> *@
                             </a>
                         </li>
                         <li>
@@ -248,48 +271,71 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="nav-link align-middle px-0">
-                                <span class="spanMenuBlue"></span>
-                                <img id="iconReceipt" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
+                            <a asp-controller="TestManagement" asp-action="Index" class="nav-link align-middle px-0 ">
+                                <span id="TestMgmtMenu" class="spanMenuBlue"></span>
+                                <img id="iconTestMgmt" class="menuIcons" />
+
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_TestManagement"]</span>
                             </a>
                         </li>
                         <li>
-                            @* <a asp-controller="Inventory" asp-action="Index" class="nav-link align-middle px-0"> *@
-                            <a href="#" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
+                            <a asp-controller="InvoiceReceipt" asp-action="InvoiceReceiptListing" class="nav-link align-middle px-0">
+                                <span id="invoiceReceiptMenu" class="spanMenuBlue"></span>
+                                <img id="iconReceipt" class="menuIcons" />
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span> *@
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Inventory" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="inventoryMenu" class="spanMenuBlue"></span>
                                 <img id="iconInventory" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Inventory"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Inventory"]</span>
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Inventory"]</span> *@
                             </a>
                         </li>
                         <li>
                             <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
+                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="doctorMenu" class="spanMenuBlue"></span>
                                 <img id="iconDoctor" class="menuIcons" />
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Doctor"]</span> *@
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Doctor"]</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#SubMenuAccess" class="nav-link align-middle px-0" data-toggle="collapse">
-                                <span class="spanMenuBlue"></span>
+                            <a href="#SubMenuAccess" id="SubMenuAccessParent" class="nav-link align-middle px-0" data-toggle="collapse">
+                                <span id="AccessMenu" class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
-                                <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span>
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span>
+                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span> *@
                                 <img id="imgArrow" style="margin-left: 20px;" />
                             </a>
                             <ul id="SubMenuAccess" class="collapse nav flex-column" data-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Organization"]</span>
+                                    <a asp-controller="AccessControl" asp-action="OrganisationList" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="organisation">@LangResources["MenuBar_Label_Organisation"]</span>
                                     </a>
+                                    @* <a href="#" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="organisation" style="color: darkgray;">@LangResources["MenuBar_Label_Organisation"]</span>
+                                    </a> *@
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">
+                                    @* <a href="#" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_StaffListing"]</span>
+                                    </a> *@
+                                    <a asp-controller="User" asp-action="Index" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="staffListing">@LangResources["MenuBar_Label_StaffListing"]</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0">
+                                    @* <a href="#" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_RoleSetting"]</span>
+                                    </a> *@
+                                    <a asp-controller="Roles" asp-action="Index" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="roleSetting">@LangResources["MenuBar_Label_RoleSetting"]</span>
                                     </a>
                                 </li>
                                 <li>
@@ -308,7 +354,15 @@
                         </li>
                     </ul>
                 </div>
+                @* <div style="text-align: center; margin-top: 2vw;">
+                    <span style="font-size: 0.7vw; color: darkgray;"><i class="fa-regular fa-copyright"></i> Vet Connect. All rights reserved</span>
+                </div>   *@              
             </div>
+
+            <div id="divLogo" class="col-md-12 textColor" style="z-index: 1; position: fixed; bottom: 5px; left: 25px; width: 17vw; font-size: 0.8vw; opacity: 0.5;">
+                <span id="copyrightText"><i class="fa-regular fa-copyright"></i> 2024 Vet Connect. @LangResources["General_Label_CopyrightStatement"]</span>
+            </div>
+
 
 
 
@@ -377,7 +431,7 @@
                             <strong class="sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</strong>
                             <img id="imgArrow" style="margin-left: 20px;" />
                             <ul>
-                                <li>@LangResources["MenuBar_Label_Organization"]</li>
+                                <li>@LangResources["MenuBar_Label_Organisation"]</li>
                                 <li>@LangResources["MenuBar_Label_StaffListing"]</li>
                                 <li>@LangResources["MenuBar_Label_RoleSetting"]</li>
                                 <li>@LangResources["MenuBar_Label_Integration"]</li>
@@ -503,20 +557,23 @@
                                                 @{
                                                     if (LanguageFullNameSelected != null && CountrySelected != null)
                                                     {
-                                                                    <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
+                                                        <label class="LanguageSelectionFont">@LanguageFullNameSelected.CodeName | @CountrySelected.ConfigurationValue</label>
                                                     }
                                                     else
                                                     {
-                                                                    <label class="LanguageSelectionFont">No Configuration Settings</label>
+                                                        <label class="LanguageSelectionFont">No Configuration Settings</label>
                                                     }
                                                 }
-
-
                                             </a>
                                         </div>
                                     </div>
                                     <div style="height: 60px;  border: 0px solid black;">
-                                        <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
+                                        <a asp-controller="Notification" asp-action="Index">
+                                            <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
+                                        </a>
+                                       @*  <a href="#">
+                                            <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
+                                        </a> *@
                                     </div>
                                 </div>
                             </div>
@@ -532,7 +589,8 @@
                                                 <label class="ProfileFont">@user</label>
                                             </div>
                                             <div class="dropdown-menu profilemenu">
-                                                <a class="dropdown-item" asp-controller="User" asp-action="UserProfile">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                <a class="dropdown-item" asp-controller="User" asp-action="UserDetails">@LangResources["MenuBar_Label_MyProfile"]</a>
+                                                @* <a class="dropdown-item" href="#">@LangResources["MenuBar_Label_MyProfile"]</a> *@
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="ChangePassword">@LangResources["Login_Label_ResetPassword"]</a>
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="Logout">@LangResources["MenuBar_Label_Logout"]</a>
                                             </div>
@@ -559,7 +617,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="divContent" class="row" style="border: 0px solid black; overflow-x: auto; max-height: 562px;">
+                <div id="divContent" class="row" style="border: 0px solid black; overflow-x: auto; max-height: 571px;">
                     @RenderBody()
                 </div>
 
@@ -567,7 +625,7 @@
         </div>
     </div>
 
-    <div id="LanguageModal" class="modal fade modal-dialog modal-lg" tabindex="-1" aria-hidden="true" style="margin-top: 0;">
+    <div id="LanguageModal" class="modal fade modal-lg" tabindex="-1" aria-hidden="true" style="margin-top: 0;">
         <div class="modal-dialog" style="margin-top: 0.5vw;">
             <div class="modal-content">
                 <div class="modal-header" style="border-bottom: 0px;">
@@ -639,12 +697,12 @@
                                                     sClassName = "list-group-item list-group-item-action active";
                                                 }
 
-                                                            <a class='@sClassName' style="border: 0px;">@c.CountryName</a>
+                                                <a class='@sClassName' style="border: 0px; color: black !important;">@c.CountryName</a>
                                             }                                            
                                         }
                                         else
                                         {
-                                                        <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
+                                            <label style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoCountrySelection"]</label>
                                         }
                                     }
                                 </ul>
@@ -731,7 +789,14 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-    <script type="text/javascript">        
+    <script type="text/javascript">     
+        if(@AccessDenied){            
+            AccessDenied();   
+
+            $.get("/Login/ResetAccessDenied").done(function (result) {
+                let a = result;
+            });
+        } 
 
         if ('@ViewBag.darkTheme' == 'Dark') {
             toggleTheme(false);
@@ -887,16 +952,38 @@
             lightIcon2.classList.toggle("darktheme");
 
             if (lightIcon1.classList.contains("darktheme")) {
-                if (typeof borderOpacity !== 'undefined') {
+                if (typeof(changeChart) == "function") {
                     borderOpacity = "0.5";
                     axisColor = "white";
-                    changeChart("current");
+                    changeChart("current", "");
+                }
+
+                if(typeof(refreshChart) == "function"){
+                    axisColor = "white";
+                    refreshChart("");
+                    // refreshChart("patient");
+                    // refreshChart("totalPatient");
+                    // refreshChart("staff");
+                    // refreshChart("gender");
+                    // refreshChart("sale");
+                    // refreshChart("totalSale");
                 }
             } else {
-                if (typeof borderOpacity !== 'undefined') {
+                if (typeof(changeChart) == "function") {
                     borderOpacity = "0.1";
                     axisColor = "black";
-                    changeChart("current");
+                    changeChart("current", "");
+                }
+
+                if(typeof(refreshChart) == "function"){
+                    axisColor = "black";
+                    refreshChart("");
+                    // refreshChart("patient");
+                    // refreshChart("totalPatient");
+                    // refreshChart("staff");
+                    // refreshChart("gender");
+                    // refreshChart("sale");
+                    // refreshChart("totalSale");
                 }
             }
 
@@ -971,6 +1058,19 @@
                 $success.modal("hide");
             });
         }
+
+
+        function AccessDenied(){
+            $("#accessDenied").slideDown(500);
+
+            setTimeout(function () {
+                $("#accessDenied").slideUp(500, function () {
+                    $("#accessDenied")[0].style.setProperty('display', 'none', 'important');
+                });
+            }, 2500);
+            
+        }
+
     </script>
 
 @*     @{

@@ -7,6 +7,8 @@
 // Set timeout variables. 1000 = 1 second.
 var timoutWarning = 300000;
 var timoutNow = 600000;
+//var timoutWarning = 3000;
+//var timoutNow = 6000;
 var logoutUrl = '/Login/Logout?autoLogout=true'; // URL to logout page.
 
 var warningTimer;
@@ -39,4 +41,15 @@ function IdleWarning() {
 // Logout the user.
 function IdleTimeout() {
     window.location = logoutUrl;
+}
+
+function CustomAlertMessageShow(message) {
+    $("#alertMessage").html(message);;
+    $("#customAlert").slideDown(500);
+}
+
+function CustomAlertMessageHide() {
+    $("#customAlert").slideUp(500, function () {
+        $("#customAlert")[0].style.setProperty('display', 'none', 'important');
+    });
 }

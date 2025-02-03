@@ -1,0 +1,365 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["SelectedMenu"] = "TestMgmtMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/css/TestMgmt.css" />
+
+<script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
+<script src="~/lib/moment.min.js"></script>
+<script src="~/lib/Base64/Base64Lib.js"></script>
+
+<script>
+    var paginationLimit = 10;
+    var pageSize = 10;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
+    loadDeviceName();
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            loadTestMgmListing();
+        }, 200);
+
+        $('#btnTestMgmtFilter').click(function () {
+            $('#divTestMgmtFilter').toggleClass('collapseHide');
+            $('#divTestResult').toggleClass('col-md-12 col-md-9');
+
+            if ($('#divTestMgmtFilter')[0].className.indexOf('Hide') > 0){
+                resetFields();
+            }
+        });
+
+        $('#btnSearch').click(function () {
+            currentPage = 1;
+
+            loadTestMgmListing();
+        });
+
+        $('#btnReset').click(function () {
+            resetFields();
+        });
+
+        $('#btnDownload').click(function () {
+            downloadListing('0');
+        });
+
+        $('#btnPrint').click(function () {
+            downloadListing('1');
+        });
+    });
+
+    function downloadListing(isPDF)
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/TestManagement/DownloadTestResultListing',
+            dataType: 'json',
+            data: {
+                branchID: '@sessionBranchID',
+                patientID: $('#txtPatientID').val(),
+                deviceName: $('#ddlDevice').val(),
+                sortOrder: $('#ddlSorting').val(),
+                isPDFPrint: isPDF
+            },
+            success: function (filedata) {
+                var contentType = '';
+                var filename = '';
+
+                if (isPDF == '1'){
+                    contentType = 'application/pdf';
+                    filename = 'TestResult_' + moment().format("YYYYMMDD") + '.pdf';
+                }
+                else{
+                    contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                    filename = 'TestResult_' + moment().format("YYYYMMDD") + '.xlsx';
+                }
+                    
+                var blob = base64StringToBlob(filedata.data, contentType);
+                var blobURL = URL.createObjectURL(blob);
+    
+                var element = document.createElement('a');
+                element.href = blobURL;
+                element.download = filename;
+                element.click();
+
+                setTimeout(() => document.body.removeChild(element), 100);
+
+                if (isPDF=='1'){
+                    window.open(blobURL);
+                }              
+            },
+        });
+    }
+
+    function resetFields(){
+        $('#txtPatientID').val('');
+        $('#ddlDevice').val($('#ddlDevice option:first').val());
+        $('#ddlSorting').val($('#ddlSorting option:first').val());
+    }
+
+    function loadDeviceName()
+    {
+        $.getJSON("/TestManagement/GetDeviceNameList", {
+            BranchID: '@sessionBranchID'
+        }).done(function (result) {
+                if (result.length > 0){
+                    $('#ddlDevice').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++)
+                    {
+                        var opt = new Option((result[i]), result[i]);
+                        $('#ddlDevice').append(opt);
+                    }
+                }
+                else{
+                    $('#ddlDevice').find("option:not(:first)").remove();
+                }
+            });
+    }
+
+    function loadTestMgmListing() 
+    {
+        $.getJSON("/TestManagement/GetTestResultListing", {
+            branchID: '@sessionBranchID',
+            patientID: $('#txtPatientID').val(),
+            deviceName: $('#ddlDevice').val(),
+            sortOrder: $('#ddlSorting').val(),
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function (result) {
+            if (result.data != null && result.data.length > 0) {
+                $('#tblTestResult').bootstrapTable('destroy');
+                $('#tblTestResult').bootstrapTable({
+                    data: result.data
+                });
+
+                /*----------- Pagination -----------*/
+                populatePagingControl(result.totalRecord);
+            }
+            else {
+                $('#tblTestResult').bootstrapTable('destroy');
+                document.getElementById("pagination").hidden = true;
+            }
+        });
+    }
+
+    function populateHiddenMenu(value, row) {
+        var hideMenuHtml = '<button type="button" class="btn" data-toggle="dropdown">' +
+            '<img class="TestResultListingMoreIcon"  />' +
+            '</button>' +
+
+            '<div class="dropdown-menu hiddenTestResultMenuStyle" style="min-width: fit-content; font-size: 1vw;">' +
+            '<a class="dropdown-item" href="/TestManagement/ViewResults/' + value + '/View">' + '@Html.Raw(LangResources["TestResults_Label_View"])' + '</a>' +
+            '</div>';
+        return hideMenuHtml;
+    }
+
+    function formatTestResultDate(value, row, index) {
+        return moment(value).format('DD/MM/YYYY HH:mm:ss');
+    }
+
+    function populatePagingControl(totalRecord) {
+        let total = totalRecord;
+        if (total == 0) {
+            document.getElementById("pagination").hidden = true;
+        }
+        else {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end) {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        loadTestMgmListing();
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+
+        loadTestMgmListing();
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        loadTestMgmListing();
+    }
+</script>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <label class="TestMgmtTitle">@LangResources["TestResults_Title_TestManagement"]</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-8" style="display: flex;">
+                    <button id="btnDownload" class="btn btn-primary">
+                        <i class="bi bi-download"></i>
+                    </button>
+                    &nbsp;
+                    <button id="btnPrint" class="btn btn-primary">
+                        <i class="bi bi-printer"></i>
+                    </button>
+                    &nbsp;
+                    <button id="btnTestMgmtFilter" type="button" class="btn">
+                        <img id="imgTestResultSlider" />
+                        @LangResources["TestResults_Button_Filter"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="height: 15px;">
+            <label id="lbTestMgmtError"></label>
+        </div>
+        <div id="divTestResult" class="col-md-12" style="margin-top: 15px;">
+            <table id="tblTestResult" class="table" style="font-size: 1vw;">
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">@LangResources["TestResults_Label_Number"]</th>
+                        <th scope="col" data-field="ResultDateTime" data-formatter="formatTestResultDate" class="text-center" style="width: 20%;">@LangResources["TestResults_Label_Time"]</th>
+                        <th scope="col" data-field="ResultType" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_TestType"]</th>
+                        <th scope="col" data-field="OverallStatus" class="text-center" style="width: 10%;">@LangResources["TestResults_Label_ResultStatus"]</th>
+                        <th scope="col" data-field="PatientID" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_PatientID"]</th>
+                        <th scope="col" data-field="OperatorID" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_OperatorID"]</th>
+                        <th scope="col" data-field="DeviceName" class="text-center" style="width: 15%;">@LangResources["TestResults_Label_DeviceName"]</th>
+                        <th scope="col" data-field="ResultID" data-formatter="populateHiddenMenu" class="text-center" style="width: 5%;"></th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="row">
+                <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <div>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Prev"]</button>
+                    </div>
+                    <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                    </div>
+                    <div>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Next"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divTestMgmtFilter" class="col-md-3 collapseHide">
+            <div class="row TestMgmtFilterBox">
+                <div class="col-md-12" style="border-radius: 5px;">
+                    <div class="row TestMgmtTitleRow">
+                        <label class="TestMgmtFilterTitle">@LangResources["TestResults_Title_Filters"]</label>
+                    </div>
+                    
+                    <!-- Patient ID -->
+                    <div class="row TestMgmtLabelRow">
+                        <label class="TestMgmtFilterLabel">@LangResources["TestResults_Label_PatientID"]</label>
+                    </div>
+                    <div class="row TestMgmtFieldRow">
+                        <input id="txtPatientID" type="text" class="form-control" />
+                    </div>
+
+                    <!-- Device Name -->
+                    <div class="row TestMgmtLabelRow">
+                        <label class="TestMgmtFilterLabel">@LangResources["TestResults_Label_DeviceName"]</label>
+                    </div>
+                    <div class="row TestMgmtFieldRow">
+                        <select id="ddlDevice" class="form-select">
+                            <option value="">@LangResources["TestResults_Label_SearchByName"]</option>
+                        </select>
+                    </div>
+
+                    <!-- Sort By Date -->
+                    <div class="row TestMgmtLabelRow">
+                        <label class="TestMgmtFilterLabel">@LangResources["TestResults_Label_SortByDate"]</label>
+                    </div>
+                    <div class="row TestMgmtFieldRow">
+                        <select id="ddlSorting" class="form-select">
+                            <option value="">@LangResources["TestResults_Label_SortBy"]</option>
+                            <option value="ASC">@LangResources["TestResults_Label_Ascending"]</option>
+                            <option value="DESC">@LangResources["TestResults_Label_Descending"]</option>
+                        </select>
+                    </div>
+
+                    <div class="row TestMgmtBtnSearchRow">
+                        <button id="btnSearch" type="button" class="btn btn-primary">
+                            @LangResources["TestResults_Button_Search"]
+                        </button>
+                    </div>
+                    <div class="row TestMgmtBtnResetRow">
+                        <button id="btnReset" type="button" class="btn btn-secondary">
+                            @LangResources["TestResults_Button_Reset"]
+                        </button>
+                    </div>
+                    <div class="row" style="height: 20px;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

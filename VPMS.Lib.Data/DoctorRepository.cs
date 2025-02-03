@@ -14,16 +14,18 @@ namespace VPMS.Lib.Data
 {
     public class DoctorRepository
     {
-        /// <summary>
-        /// Get Doctor Listing with Search Criteria & Pagination
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="sSearchKeyword"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="totalRecords"></param>
-        /// <returns></returns>
-        public static List<DoctorExtendedModel> GetDoctorViewList(IConfiguration config, String sSearchKeyword, int branchID, int pageSize, int pageIndex, out int totalRecords)
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Doctor Listing with Search Criteria & Pagination
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sSearchKeyword"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="pageIndex"></param>
+		/// <param name="totalRecords"></param>
+		/// <returns></returns>
+		public static List<DoctorExtendedModel> GetDoctorViewList(IConfiguration config, String sSearchKeyword, int branchID, int pageSize, int pageIndex, out int totalRecords)
         {
             List<DoctorExtendedModel> sDoctorList = new List<DoctorExtendedModel>();
             totalRecords = 0;
@@ -76,6 +78,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("DoctorRepository >>> GetDoctorViewList >>> ", ex);
                 return null;
             }
         }
@@ -102,7 +105,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+				logger.Error("DoctorRepository >>> AddDoctor >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -177,7 +181,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                isValid = false;
+				logger.Error("DoctorRepository >>> UpdateDoctor >>> ", ex);
+				isValid = false;
             }
 
             return isValid;
@@ -212,7 +217,8 @@ namespace VPMS.Lib.Data
             }
             catch(Exception ex)
             {
-                isSuccess = false;
+				logger.Error("DoctorRepository >>> DeleteDoctor >>> ", ex);
+				isSuccess = false;
             }
 
             return isSuccess;
@@ -235,7 +241,8 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                return null;
+				logger.Error("DoctorRepository >>> GetDoctorByID >>> ", ex);
+				return null;
             }
         }
     }

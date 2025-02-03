@@ -1,13 +1,1246 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
+@inject IHttpContextAccessor httpContextaccessor
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
 
 @{
-    ViewData["Title"] = "Dashboard Page";
-    ViewBag.SelectedMenu = "dashboardMenu";
+	ViewData["Title"] = "Dashboard Page";
+	ViewBag.SelectedMenu = "dashboardMenu";
+
+	string user = httpContextaccessor.HttpContext.Request.Cookies["user"];
+	var role = httpContextaccessor.HttpContext.Session.GetString("RoleName");
+	var hideElement = "";
+	var hideRightContainer = "";
+	var tabWidth = "16vw";
+	var totalPatient = ViewData["TotalPatients"].ToString().Replace(".00", "");
+
+	if (role != "Superadmin" && role != "Superuser")
+	{
+		hideElement = "hidden";
+	}
+
+	if (role == "User"){
+		tabWidth = "23vw";
+		hideRightContainer = "hidden";
+	}
 }
 
-<div>
-    <h1>@LangResources["MenuBar_Label_Dashboard"]</h1>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+<style>
+	.hideContainer{
+	display: none !important;
+	}
+
+	.dropdown-arrow.showInfo {
+	transform: rotate(180deg);
+	}
+
+	.dropdown-arrow {
+	transition: 0.6s ease;
+	}
+
+	.dropbtn {
+	background-color: transparent;
+	/* color: white; */
+	/* padding: 16px; */
+	font-size: 1.3vw;
+	border: none;
+	}
+
+	.dropdown {
+	position: relative;
+	display: inline-block;
+	}
+
+	.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 9vw;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	right: 0;
+	text-align: center;
+	}
+
+	.dropdown-content a {
+	color: black;
+	padding: 0 1vw;
+	text-decoration: none;
+	display: block;
+	}
+
+	/* .dropdown-content a:hover {
+	background-color: #ddd;
+	} */
+
+	.dropdown:hover .dropdown-content {
+	display: block;
+	}
+
+	.dropdown:hover .dropdown-arrow {
+	transform: rotate(180deg);
+	}
+
+	.leftContainerStyle{
+	width: 97%;
+	}
+</style>
+
+<template id="legendTemplate">
+	<div style="display: flex; align-items: center; margin-right: 1vw;">
+		<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dogs</span>
+	</div>
+</template>
+
+<div style="display: flex; justify-content: center;">
+	<div id="LeftInfoContainer" style="overflow: auto; height: 84.2vh; margin-right: 1vw;">
+		<div>
+			<div class="leftContainerStyle" style="background: #c2d9fc; padding: 0 2vw; padding-top: 1vw; border-radius: 0.5vw; display: flex; margin-bottom: 2vw;">
+				<div style="padding: 1vw 0; font-size: 1vw;">
+					<span>@LangResources["Dashboard_Message_Welcome"] </span> <span style="font-weight: bold;">@user!</span> <br /> <br />
+					<span style="font-size: 2vw; font-weight: bold;">@LangResources["Dashboard_Message_Here"]</span>
+				</div>
+				<div>
+					<img src="~/images/Dashboard image.png" style="height: 14vw;" />
+				</div>
+			</div>
+
+			<div class="leftContainerStyle">
+				<span class="textColor" style="font-size: 1vw; font-weight: bold;">@LangResources["Dashboard_Label_Summary"]</span> <span style="font-size: 0.8vw; color: darkgray;">@LangResources["Dashboard_Label_LatestUpdateOn"] @ViewData["UpdatedOn"]</span>
+
+				<div id="selectionTab" style="display: flex; justify-content: space-between; font-size: 1vw; margin-top: 1vw; margin-bottom: 1vw;">
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<div style="width: @tabWidth;background: #1e76fb; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw; padding-right: 0.4vw;">
+							<div>
+								<span style="font-weight: bold; font-size: 1.5vw;">@totalPatient</span>
+							</div>
+							<div style="display: flex; justify-content: space-between;">
+								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+									<span>@LangResources["Dashboard_Label_TotalPatients"]</span>
+									<a class="patientTab hideContainer currentTab" onclick="changeTab('patientTab', 'patientChart');" style="color: white !important; cursor: pointer;" @hideElement>@LangResources["Dashboard_Label_ShowMore"]</a>
+								</div>
+								<img src="~/images/Total patient image.png" style="height: 5vw;" />
+							</div>
+						</div>
+						<div class="patientTab currentTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #1e76fb" @hideElement></div>
+					</div>
+					<div style="display: flex; flex-direction: column; align-items: center;">
+						<div style="width: @tabWidth;background: #609df8; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
+							<div> 
+								<span style="font-weight: bold; font-size: 1.5vw;">@ViewData["TotalStaff"]</span>
+							</div>
+							<div style="display: flex; justify-content: space-between;">
+								<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+									<span>@LangResources["Dashboard_Label_TotalStaffs"]</span>
+									<a class="staffTab" onclick="changeTab('staffTab', 'staffChart');" style="color: white !important; cursor: pointer;" @hideElement>@LangResources["Dashboard_Label_ShowMore"]</a>
+								</div>
+								<img src="~/images/Total staff image.png" style="height: 5vw;" />
+							</div>
+						</div>
+						<div class="hideContainer staffTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #609df8;" @hideElement></div>
+					</div>
+
+					@{
+						if (role == "Superadmin"){
+							<div style="display: flex; flex-direction: column; align-items: center;">
+								<div style="width: @tabWidth;background: #5e8cd1; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
+									<div>
+										<span style="font-weight: bold; font-size: 1.5vw;">$@ViewData["TotalSales"]</span>
+									</div>
+									<div style="display: flex; justify-content: space-between;">
+										<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+											<span>@LangResources["Dashboard_Label_TotalSales"]</span>
+											<a class="saleTab" onclick="changeTab('saleTab', 'salesChart');" style="color: white !important; cursor: pointer;" @hideElement>@LangResources["Dashboard_Label_ShowMore"]</a>
+										</div>
+										<img src="~/images/Total sale image.png" style="height: 5vw;" />
+									</div>
+								</div>
+								<div class="hideContainer saleTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #5e8cd1;" @hideElement></div>
+							</div>
+						}
+						else
+						{
+							<div style="display: flex; flex-direction: column; align-items: center;">
+								<div style="width: @tabWidth;background: #5e8cd1; border-radius: 0.5vw; color: white; padding: 0 1vw; padding-top: 1vw;">
+									<div>
+										<span style="font-weight: bold; font-size: 1.5vw;">@ViewData["TotalAppointment"]</span>
+									</div>
+									<div style="display: flex; justify-content: space-between;">
+										<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
+											<span>@LangResources["Dashboard_Label_TotalAppointment"]</span>
+											<a href="#" onclick="changeTab('appointmentTab');" style="color: white !important;" hidden>@LangResources["Dashboard_Label_ShowMore"]</a>
+										</div>
+										<img src="~/images/Total sale image.png" style="height: 5vw;" />
+									</div>
+								</div>
+								<div class="hideContainer appointmentTab" style="width: 1vw; height: 1vw; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 15px solid  #5e8cd1;" @hideElement></div>
+							</div>
+						}
+					}
+				</div>
+			</div>
+
+			<div class="containerBorder textColor leftContainerStyle" @hideElement>
+				<div class="patientChart currentChart textColor">
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw; margin-bottom: 0.5vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">
+							<span style="font-weight: bold;">@LangResources["Dashboard_Label_PatientNumberStatistics"]</span>
+							<div style="display: flex;" id="patientLegend">
+								@* <div style="display: flex; align-items: center; margin-right: 1vw;">
+									<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dogs</span>
+								</div>
+								<div style="display: flex; align-items: center; margin-right: 1vw;">
+									<div style="width: 1vw; height: 1vw; background: #1e76fb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Cats</span>
+								</div>
+								<div style="display: flex; align-items: center; margin-right: 1vw">
+									<div style="width: 1vw; height: 1vw; background: #94bbf5; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Others</span>
+								</div> *@
+							</div>
+						</div>
+						<canvas id="patientChart"></canvas>
+					</div>
+
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">
+							<span style="font-size: 1vw; font-weight: bold;">@LangResources["Dashboard_Label_TotalPatientByBreed"]</span>
+							<div style="font-size: 1vw;">
+								<span>@LangResources["TreatmentPlan_Label_Showing"] </span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_Daily"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q1', this);">Q1</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q2', this);">Q2</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q3', this);">Q3</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q4', this);">Q4</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="display: flex; justify-content: space-between;">
+							<div style="width: 49%; height: 13vw; padding: 0 4vw;">
+								<canvas id="totalPatientChart"></canvas>
+							</div>
+							<div id="totalPatientLegend" style="width: 49%; padding: 0 4vw; font-size: 1vw; height: 24.5vh; overflow: auto;">
+								@* <div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dogs</span>
+									</div>
+									<span style="font-weight: bold;">235</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #1e76fb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Cats</span>
+									</div>
+									<span style="font-weight: bold;">221</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #94bbf5; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Others</span>
+									</div>
+									<span style="font-weight: bold;">56</span>
+								</div> *@
+							</div>
+							@* <div style="width: 50%;">
+								<canvas id="totalPatientChart"></canvas>
+							</div> *@
+						</div>
+					</div>
+				</div>
+				<div class="staffChart hideContainer" style="display: flex; justify-content: space-between;">
+					<div style="width: 49%; border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw 0; padding-left: 1vw; font-size: 1vw">
+						<div style="margin-bottom: 1vw;">
+							<span style="font-weight: bold;">@LangResources["Dashboard_Label_StaffBreakdown"]</span>
+						</div>
+						<canvas id="staffChart"></canvas>
+					</div>
+					<div style="width: 49%; border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw 0; padding-left: 1vw; font-size: 1vw">
+						<div style="margin-bottom: 1vw;">
+							<span style="font-weight: bold;">@LangResources["Dashboard_Label_GenderBreakdown"]</span>
+						</div>
+						<canvas id="genderChart"></canvas>
+					</div>
+				</div>
+				<div class="salesChart hideContainer">
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw; margin-bottom: 0.5vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">
+							<span style="font-size: 1vw; font-weight: bold;">@LangResources["Dashboard_Label_OverallRevenue"]</span>
+							<div style="font-size: 1vw;">
+								<span>@LangResources["TreatmentPlan_Label_Showing"] </span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_Daily"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getSaleSummary('Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
+										<a href="#" class="textColor" onclick="getSaleSummary('Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
+										<a href="#" class="textColor" onclick="getSaleSummary('Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
+										<a href="#" class="textColor" onclick="getSaleSummary('Q1', this);">Q1</a>
+										<a href="#" class="textColor" onclick="getSaleSummary('Q2', this);">Q2</a>
+										<a href="#" class="textColor" onclick="getSaleSummary('Q3', this);">Q3</a>
+										<a href="#" class="textColor" onclick="getSaleSummary('Q4', this);">Q4</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getSaleSummary('Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<canvas id="salesChart"></canvas>
+					</div>
+					<div style="border: 0.2vw solid #f7f7f7; border-radius: 1vw; padding: 1vw;">
+						<div style="display: flex; justify-content: space-between; align-items: center; font-size: 1vw; margin-bottom: 1vw;">							
+							<div style="font-size: 1vw;">
+								<span style="font-weight: bold;">@LangResources["Dashboard_Label_RevenueBy"]</span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_TopServices"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', 'Treatments' , '', this);">@LangResources["Dashboard_Label_TopTreatment"]</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', 'Services' , '', this);">@LangResources["Dashboard_Label_TopServices"]</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', 'Breeds' , '', this);">@LangResources["Dashboard_Label_TopBreed"]</a>
+									</div>
+								</div>
+							</div>
+							<div style="font-size: 1vw;">
+								<span>@LangResources["TreatmentPlan_Label_Showing"] </span>
+								<div class="dropdown">
+									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_Daily"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
+									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
+										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', '', 'Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q1', this);">Q1</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q2', this);">Q2</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q3', this);">Q3</a>
+										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q4', this);">Q4</a>
+										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', '', 'Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="display: flex; justify-content: space-between;">
+							<div style="width: 49%; height: 13vw; padding: 0 4vw;">
+								<canvas id="totalSaleChart"></canvas>
+							</div>
+							<div id="totalSaleLegend" style="width: 49%; padding: 0 1vw; font-size: 1vw; height: 24.5vh; overflow: auto;">
+								@* <div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #9faabb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Spaying and Neutering</span>
+									</div>
+									<span style="font-weight: bold;">12000</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #1e76fb; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> ENT</span>
+									</div>
+									<span style="font-weight: bold;">9070</span>
+								</div>
+								<div style="display: flex; justify-content: space-between;">
+									<div style="display: flex; align-items: center;">
+										<div style="width: 1vw; height: 1vw; background: #94bbf5; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> Dental Procedures</span>
+									</div>
+									<span style="font-weight: bold;">6446</span>
+								</div> *@
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<div id="RightInfoContainer" style="margin-left: 1.5vw;" @hideRightContainer>
+		<div>
+			<div class="containerBackground5" style="width: 23vw; padding: 0.7vw; padding-left: 1.5vw; border: 0.2vw solid #f2f2f2 !important; border-radius: 0.5vw; font-size: 1vw;">
+				<span class="formlabel" style="font-weight: bold;">@LangResources["Patient_Title_UpcomingAppointment"]</span>
+
+				<div class="dropdown" style="margin-top: 1vw; margin-bottom: 2vw;">
+					<button class="dropbtn textColor"> 
+						<span class="textColor" style="margin-right: 1vw; font-size: 1vw;">@LangResources["TreatmentPlan_Label_Showing"]</span> 
+						@if (role == "Doctor")
+						{
+							<span id="tabSelection" style="font-size: 1vw; font-weight: bold; color: dodgerblue;">@user</span>
+						}
+						else{
+							<span id="tabSelection" style="font-size: 1vw; font-weight: bold; color: dodgerblue;">@LangResources["Dashboard_Label_AllDoctors"]</span>
+						}
+						<i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i>
+					</button>
+					<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw; width: max-content;">
+
+						@* @if (role == "Doctor")
+						{
+							<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
+							<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getUpcomingAppointment('@user', this);">@user</a>
+						}
+						else{
+							<a href="#" class="textColor" style="border-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
+						} *@
+
+						@if (role == "Doctor")
+						{
+							<a href="#" class="textColor" style="border-radius: 1vw;" onclick="getUpcomingAppointment('@user', this);">@user</a>
+						}
+						else
+						{
+							var doctorList = ViewData["Doctors"] as List<string>;
+							for (int i = 0; i < doctorList.Count; i++)
+							{
+								if(i == 0){
+									<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
+								}
+								else if (i == doctorList.Count - 1){
+									<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
+								}
+								else{
+									<a href="#" class="textColor" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
+								}
+							}
+						}
+                    </div>
+                </div>
+
+				<div id="appointmentList" style="overflow-y: auto; max-height: 66.2vh;">
+					@* <div style="display: flex; align-items: center; margin-bottom: 1vw;">
+						<div style="margin-right: 2vw; background-color: #c2d9fc; border-radius: 0.5vw; padding: 0 0.5vw; padding-top: 1vw; width: 5.4vw;">
+							<img src="~/images/Male doctor image.png" style="height: 5vw;" />
+						</div>
+						<div>
+							<span style="font-weight: bold;">@user</span> <br />
+							<span>Simba</span> <br />
+							<span>10/4/2024 10:10</span> <br />
+						</div>
+					</div>
+
+
+					<div style="display: flex; align-items: center; margin-bottom: 1vw;">
+						<div style="margin-right: 2vw; background-color: #5e8cd1; border-radius: 0.5vw; padding: 0 0.5vw; padding-top: 1vw; width: 5.4vw;">
+							<img src="~/images/Female doctor image.png" style="height: 5vw;" />
+						</div>
+						<div>
+							<span style="font-weight: bold;">@user</span> <br />
+							<span>Simba</span> <br />
+							<span>10/4/2024 10:10</span> <br />
+						</div>
+					</div> *@
+				</div>			
+
+				<a asp-controller="Appointment" asp-action="Index" style="color: dodgerblue !important;">@LangResources["Dashboard_Button_ViewAll"]</a>
+			</div>
+		</div>
+
+    </div>
 </div>
 
+<script>
+	var tabElement = document.getElementById("selectionTab");
+	var appointmentList = document.getElementById("appointmentList");
+	var chartElement;
+	var tensionValue = 0.5;
+	var patientDataset = [];
+	var patientData = [];
+	var saleData = [];
+	var staffData = [];
+	var genderData = [];
+	var totalPatientData = [];
+	var totalSaleData = [];
+	var chartTotalSale, chartSale, chartGender, chartStaff, chartTotalPatient, chartPatient;
+	var axisColor = "black";
+	var breed = [];
+	var typeFilter = "Daily";
+	var groupFilter = "Treatments";
 
+	if('@role' == 'Doctor'){
+		getUpcomingAppointment("@user", "");
+	}
+	else{
+		getUpcomingAppointment("", "");
+	}
+
+	
+	getPatientSummary();
+	getSaleSummary("Daily", "");
+	getStaffSummary();
+	getDougnutSummary("totalSale", "Services", "Daily", "");
+	getDougnutSummary("totalPatient", "PatientByBreed", "Daily", "");
+
+	function getPatientSummary(){
+		$.getJSON("/Dashboard/GetPatientSummary", {})
+		.done(function (result) {
+			if (result != null) {
+				// for(let i = 0; i < result.datasets.length; i++){
+				// 	patientDataset.push(result.datasets[i]);
+				// }
+
+				patientDataset = result.data.datasets;
+
+				patientData = result.data;
+
+				var legendContainer = document.getElementById("patientLegend");
+				legendContainer.innerHTML = "";
+
+				for(let i = 0; i < result.legend.length; i++){
+					legendContainer.innerHTML +=
+						'<div style="display: flex; align-items: center; margin-right: 1vw;">' +
+							'<div style="width: 1vw; height: 1vw; background: ' + result.legend[i].color + '; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> ' + result.legend[i].label + ' </span>' +
+						'</div>';
+				}
+
+				refreshChart("patient");
+			}
+		});
+	}
+
+	function getStaffSummary(){
+		$.getJSON("/Dashboard/GetStaffSummary", {})
+		.done(function (result) {
+			if (result != null) {
+
+				staffData = result.staff;
+				genderData = result.gender;
+
+				refreshChart("staff");
+				refreshChart("gender");
+			}
+		});
+	}
+
+	function getSaleSummary(type, element){
+		if(element != ""){
+			element.parentElement.parentElement.querySelector("#chartSelection").innerHTML = element.innerHTML;
+		}
+
+		$.getJSON("/Dashboard/GetRevenueSummary", {
+			type: type
+		})
+		.done(function (result) {
+			if (result != null) {
+
+				saleData = result;
+
+				refreshChart("sale");
+			}
+		});
+	}
+
+	function getDougnutSummary(chart, group, type, element){
+		if(element != "" && type != ''){
+			element.parentElement.parentElement.querySelector("#chartSelection").innerHTML = element.innerHTML;
+		}
+
+		if(chart == "totalSale"){
+			if(group != ''){ 
+				groupFilter = group; 
+
+				if(element != ""){
+					element.parentElement.parentElement.querySelector("#chartSelection").innerHTML = element.innerHTML;
+				}
+			}
+			if(type != ''){ typeFilter = type;}
+
+			group = groupFilter;
+			type = typeFilter;
+		}
+
+		$.getJSON("/Dashboard/GetDoughnutSummary", {
+			group: group,
+			type: type
+		})
+		.done(function (result) {
+			if (result != null) {
+				if(result.labels.length == 0 ){
+					result =
+						{
+							labels : [],
+							datasets: [{
+								backgroundColor: ["transparent"],
+								data: [1],
+								borderColor: axisColor
+							}]
+						}
+				}
+
+				var sign = "";
+				if(chart == "totalPatient"){ totalPatientData = result; }
+				else{totalSaleData = result; sign = "$";}
+				
+
+				var legendContainer = document.getElementById(chart + "Legend");
+				legendContainer.innerHTML = "";
+
+				for(let i = 0; i < result.labels.length; i++){
+					var value = result.datasets[0].data[i];
+					var valueString = result.datasets[0].data[i].toLocaleString();
+
+					if(value > 1000000000){
+						valueString = (value / 1000000000).toFixed(2) + "B"
+					}
+					else if(value > 1000000){
+						valueString = (value / 1000000).toFixed(2) + "M"
+					}
+
+					legendContainer.innerHTML +=
+						'<div style="display: flex; justify-content: space-between;">' +
+							'<div style="display: flex; align-items: center;">' +
+									'<div style="width: 1vw; height: 1vw; background: ' + result.datasets[0].backgroundColor[i] + '; border-radius: 1vw; margin-right: 0.5vw;"></div> <span> ' + result.labels[i] + ' </span>' +
+							'</div>' +
+							'<span style="font-weight: bold;">' + sign + valueString + '</span>' +
+						'</div>';
+				}
+
+				refreshChart(chart);
+			}
+		});
+	}
+
+	function getUpcomingAppointment(doctor, element){
+		if(element != ""){
+			element.parentElement.parentElement.querySelector("#tabSelection").innerHTML =  element.innerHTML;
+		}
+
+		if(doctor != ""){
+			doctor = "Dr. " + doctor;
+		}
+
+		$.getJSON("/Dashboard/GetUpcomingAppointment", {
+			doctor: doctor
+		})
+		.done(function (result) {			
+
+			appointmentList.innerHTML = "";
+			if (result.length > 0) {
+				for(let i = 0; i < result.length; i++){
+					var image = "";
+
+					if(result[i].Gender == "M"){
+						image = "/images/Male doctor image.png";
+					}
+					else{
+						image = "/images/Female doctor image.png";
+					}
+
+					var nextDate = new Date(result[i].ApptDate);
+					var dateString = [
+						('0' + nextDate.getDate()).slice(-2),
+						('0' + (nextDate.getMonth() + 1)).slice(-2),
+						nextDate.getFullYear()
+					].join('/');
+
+					appointmentList.innerHTML +=
+					'<div style="display: flex; align-items: center; margin-bottom: 1vw;">' +
+						'<div style="margin-right: 2vw; background-color: #c2d9fc; border-radius: 0.5vw; padding: 0 0.5vw; padding-top: 1vw; width: 5.4vw;">' +
+							'<img src="' + image + '" style="height: 5vw;" />' +
+						'</div>' +
+						'<div>' +
+							'<span style="font-weight: bold;">' + result[i].Doctor + '</span> <br />' +
+							'<span>' + result[i].PetName + '</span> <br />' +
+							'<span>' + dateString + ' ' + result[i].ApptStartTime.slice(0, -3) + '</span> <br />' +
+						'</div>' +
+					'</div>';
+				}
+			}
+			else{
+				appointmentList.innerHTML += '<div style="text-align: center; margin-bottom: 1vw;"><span style="font-weight: bold;">@LangResources["Patient_Label_NoUpcomingAppointment"]</span></div>';
+			}
+		});
+	}
+
+	// if(typeof(refreshChart) == "function"){
+	// 	alert("function exist.")
+	// }
+
+	function changeTab(type, chart){
+		var currentTab = document.querySelectorAll(".currentTab");
+		var currentChart = document.querySelector(".currentChart");
+		var selectedTab =  document.querySelectorAll("." + type);
+		var selectedChart =  document.querySelector("." + chart);
+
+		currentTab[0].classList.remove("hideContainer");
+		currentTab[0].classList.remove("currentTab");
+		currentTab[1].classList.add("hideContainer");
+		currentTab[1].classList.remove("currentTab");
+
+		currentChart.classList.add("hideContainer");
+		currentChart.classList.remove("currentChart");
+
+		selectedTab[0].classList.add("hideContainer");
+		selectedTab[0].classList.add("currentTab");
+		selectedTab[1].classList.remove("hideContainer");
+		selectedTab[1].classList.add("currentTab");
+
+		selectedChart.classList.remove("hideContainer");
+		selectedChart.classList.add("currentChart");
+	}
+
+
+	function refreshChart(chart){
+
+		if(chart == "patient"){
+			if(chartPatient){ chartPatient.destroy(); }				
+			setPatientChart(chart);
+		}
+		else if(chart == "totalPatient"){
+			if(chartTotalPatient){ chartTotalPatient.destroy(); }
+			setPatientChart(chart);
+		}
+		else if(chart == "staff"){
+			if(chartStaff){ chartStaff.destroy(); }
+			setStaffChart(chart);
+		}
+		else if(chart == "gender"){
+			if(chartGender){ chartGender.destroy(); }
+			setStaffChart(chart);
+		}
+		else if(chart == "sale"){
+			if(chartSale){ chartSale.destroy(); }
+			setSaleChart(chart);
+		}
+		else if (chart == "totalSale"){
+			if(chartTotalSale){ chartTotalSale.destroy(); }
+			setSaleChart(chart);
+		}
+		else{
+			if(chartPatient){ chartPatient.destroy(); setPatientChart("patient"); }
+			if(chartTotalPatient){ chartTotalPatient.destroy(); setPatientChart("totalPatient"); }
+			if(chartStaff){ chartStaff.destroy(); setStaffChart("staff"); }
+			if(chartGender){ chartGender.destroy(); setStaffChart("gender"); }
+			if(chartSale){ chartSale.destroy(); setSaleChart("sale"); }
+			if(chartTotalSale){ chartTotalSale.destroy(); setSaleChart("totalSale"); }
+		}
+	}
+
+	function setPatientChart(chart){
+			let patientChart = document.getElementById("patientChart").getContext("2d");
+			let totalPatientChart = document.getElementById("totalPatientChart").getContext("2d");
+
+			var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			// var breed = ["Dogs", "Cats", "Others"];
+
+			const firstBackground = patientChart.createLinearGradient(0, 0, 0, 180);
+			firstBackground.addColorStop(0, '#9faabb');
+			firstBackground.addColorStop(1, '#ffffff');
+
+			const secondBackground = patientChart.createLinearGradient(0, 0, 0, 260);
+			secondBackground.addColorStop(0, '#1e76fb');
+			secondBackground.addColorStop(1, '#ffffff');
+
+			const thirdBackground = patientChart.createLinearGradient(0, 0, 0, 360);
+			thirdBackground.addColorStop(0, '#94bbf5');
+			thirdBackground.addColorStop(1, '#ffffff');
+
+			// var fillColor = [firstBackground, secondBackground, thirdBackground];
+			var fillColor = ['rgba(159,170,187,0.5)', 'rgba(30,118,251,0.5)', 'rgba(148,187,245,0.5)'];
+
+			let dataPatient = {
+					labels: months,
+					datasets : patientDataset
+					// datasets: [{
+					// 	label: "Dogs",
+					// 	// data: [400, 500, 400, 500, 400, 500],
+					// 	data: [{x : "Jan", y : 400}, {x : "Feb", y : 500}, {x : "Apr", y : 500}, {x : "May", y : 400}, {x : "June", y : 500}],
+					// 	borderColor: "#9faabb",
+					// 	// backgroundColor: (ctx) => {
+					// 	// 	const canvas = ctx.chart.ctx;
+					// 	// 	const gradient = canvas.createLinearGradient(0, 0, 0, 180);
+
+					// 	// 	gradient.addColorStop(0, '#9faabb');
+					// 	// 	gradient.addColorStop(1, '#ffffff');
+
+					// 	// 	return gradient;
+					// 	// },
+					// 	// backgroundColor: firstBackground,
+					// 	tension: tensionValue,
+					// 	fill: true,
+					// 	// spanGaps: true
+					// },
+					// {
+					// 	label: "Cats",
+					// 	// data: [300, 400, 300, 400, 300],
+					// 	data: [{x : "Feb", y : 300}, {x : "Mar", y : 400}, {x : "Apr", y : 300}, {x : "May", y : 400}, {x : "June", y : 300}],
+					// 	borderColor: "#1e76fb",
+					// 	// backgroundColor: (ctx) => {
+					// 	// 	const canvas = ctx.chart.ctx;
+					// 	// 	const gradient = canvas.createLinearGradient(0, 0, 0, 260);
+
+					// 	// 	gradient.addColorStop(0, '#1e76fb');
+					// 	// 	gradient.addColorStop(1, '#ffffff');
+
+					// 	// 	return gradient;
+					// 	// },
+					// 	// backgroundColor: secondBackground,
+					// 	tension: tensionValue,
+					// 	fill: true,
+					// 	spanGaps: true
+					// },
+					// {
+					// 	label: "Others",
+					// 	// data: [200,300, 200, 300],
+					// 	data: [{x : "Feb", y : 300}, {x : "Apr", y : 200}, {x : "June", y : 300}, {x : "Aug", y : 200}],
+					// 	borderColor: "#94bbf5",
+					// 	// backgroundColor: (ctx) => {
+					// 	// 	const canvas = ctx.chart.ctx;
+					// 	// 	const gradient = canvas.createLinearGradient(0, 0, 0, 360);
+
+					// 	// 	gradient.addColorStop(0, '#94bbf5');
+					// 	// 	gradient.addColorStop(1, '#ffffff');
+
+					// 	// 	return gradient;
+					// 	// },
+					// 	// backgroundColor: thirdBackground,
+					// 	tension: tensionValue,
+					// 	fill: true,
+					// 	spanGaps: true
+					// }]
+				};
+
+				if(chart == "patient"){
+					chartPatient = new Chart(patientChart, {
+						type: 'line',
+						// data: dataPatient,
+						data: patientData,
+						options: {
+							// legend: {display: false},
+							// scales : {
+								// yAxes : [{
+								// 	gridLines: {
+								// 		drawOnChartArea: false
+								// 	},
+								// 	ticks: {
+								// 		beginAtZero: true,
+								// 		fontColor: axisColor
+								// 	}
+								// }],
+								// xAxes : [{
+								// 	gridLines: {
+								// 		drawOnChartArea: false
+								// 	},
+								// 	ticks: {
+								// 		fontColor: axisColor
+								// 	}
+								// }]
+							// },
+							scales : {
+								x : {
+									grid: {
+										drawOnChartArea: false
+									},
+									ticks: {
+										color: axisColor
+									}
+								},
+								y : {
+									beginAtZero: true,
+									grid: {
+										drawOnChartArea: false
+									},
+									ticks: {
+										color: axisColor
+									}
+								}
+							},
+							plugins: {
+								datalabels: {
+									display: false // Disable datalabels
+								},
+								legend: false
+							}
+						}
+					});
+
+					// for(let i = 0; i < chartPatient.data.datasets.length; i++){
+					// 	chartPatient.data.datasets[i].backgroundColor = fillColor[i];
+					// }
+
+					// chartPatient.update();
+				}
+
+				if(chart == "totalPatient"){
+					var enableTooltip = true;
+
+					if(totalPatientData.datasets[0].backgroundColor[0] == "transparent" ){
+						enableTooltip = false;
+					}
+
+					chartTotalPatient = new Chart(totalPatientChart, {
+						type: 'doughnut',
+						// data: {
+						//   labels: breed,
+						//   datasets: [{
+						// 	backgroundColor: ["#9faabb", "#1e76fb", "#94bbf5"],
+						// 	data: [234, 221, 56],
+						// 	borderColor: axisColor
+						//   }]
+						// },
+						data: totalPatientData,
+						options: {
+							// legend: {
+							// 	display: true,
+							// 	position: "right",
+							// 	labels: {
+							// 		usePointStyle: true, // Use circular point style for legend
+							// 		fontColor: axisColor
+							// 	}
+							// },
+							plugins: {
+								tooltip: {
+									enabled : enableTooltip
+								},
+								datalabels: {
+									display: false // Disable datalabels
+								},
+								legend: {
+									display: false,
+									position: "right",
+									labels: {
+										usePointStyle: true, // Use circular point style for legend
+										color: axisColor
+									}
+								},
+							}
+						}
+					});
+
+					// chartTotalPatient.data.datasets[0].borderColor = axisColor;
+				}
+	}
+
+	function setStaffChart(chart){
+			var staffChart = document.getElementById('staffChart').getContext('2d');
+			var genderChart = document.getElementById('genderChart').getContext('2d');
+
+			var data = [ { role: 'Senior Veterinarian', count: 12, color: '#1E88E5', x: 1.5 }, { role: 'Junior Veterinarian', count: 8, color: '#42A5F5', x: 2 }, { role: 'Assistant', count: 6, color: '#90CAF9', x: 2.5 }, { role: 'Receptionist', count: 2, color: '#B0BEC5', x: 3 } ];
+			data.sort((a, b) => b.count - a.count);
+			// let dataStaff = {
+			// 	datasets: data.map(item => ({
+			// 		label: item.role,
+			// 		data: [{ x: item.x, y: 0, r: item.count * 3 }], // Adjust the multiplier for bubble size
+			// 		backgroundColor: item.color ,
+			// 		borderColor: "white"
+			// 	}))
+			// };
+
+			let dataStaff = {
+				labels: ['Senior Veterinarian', 'Junior Veterinarian', 'Assistant', 'Receptionist'],
+				datasets: [{
+					data: [12, 8, 6, 2],
+					backgroundColor: ["#1E88E5", "#42A5F5", "#90CAF9", "#B0BEC5"]
+				}]
+			};
+
+			if(chart == "staff"){
+				// chartStaff = new Chart(staffChart, {
+				// 	type: 'bubble',
+				// 	data: dataStaff,
+				// 	options: {
+				// 		scales: {
+				// 			// xAxes: [{ display: false, ticks: { min: 0, max: 4, fontColor: axisColor },}],
+				// 			// yAxes: [{
+				// 			// 	display: false,
+				// 			// 	ticks: {
+				// 			// 		fontColor: axisColor
+				// 			// 	}
+				// 			// }]
+				// 			x : {
+				// 				display: false,
+				// 				min: 0,
+				// 				max: 4,
+				// 				ticks: {
+				// 					color: axisColor
+				// 				}
+				// 			},
+				// 			y : {
+				// 				display: false,
+				// 				ticks: {
+				// 					color: axisColor
+				// 				}
+				// 			}
+				// 		},
+				// 		// legend: {
+				// 		// 	display: true,
+				// 		// 	position: "right",
+				// 		// 	labels: {
+				// 		// 		generateLabels: function(chart) {
+				// 		// 			return data.map(item => ({
+				// 		// 				text: item.role,
+				// 		// 				fillStyle: item.color
+				// 		// 			}));
+				// 		// 		},
+				// 		// 		usePointStyle: true,
+				// 		// 		fontColor: axisColor
+				// 		// 	}
+				// 		// },
+				// 		plugins: {
+				// 			datalabels: {
+				// 				align: 'center',
+				// 				anchor: 'center',
+				// 				formatter: function(value, context) {
+				// 					return value.r / 3; // Adjust the multiplier to match bubble size calculation
+				// 				},
+				// 				color: '#fff',
+				// 				font: {
+				// 					size: 10 // Adjust this value to change the font size
+				// 				}
+				// 			},
+				// 			legend: {
+				// 				display: true,
+				// 				position: "right",
+				// 				labels: {
+				// 					// generateLabels: function(chart) {
+				// 					// 	return data.map(item => ({
+				// 					// 		text: item.role,
+				// 					// 		fillStyle: item.color
+				// 					// 	}));
+				// 					// },
+				// 					usePointStyle: true,
+				// 					color: axisColor
+				// 				}
+				// 			},
+				// 		}
+				// 	},
+				// 	plugins: [ChartDataLabels]
+				// });
+
+				chartStaff = new Chart(staffChart, {
+					type: 'doughnut',
+					data: staffData,
+					options: {
+						plugins: {
+							datalabels: {
+								display: false // Disable datalabels
+							},
+							legend: {
+								display: true,
+								position: "right",
+								labels: {
+									usePointStyle: true,
+									color: axisColor
+								}
+							},
+						}
+					},
+					plugins: [ChartDataLabels]
+				});
+			}
+
+			if(chart == "gender"){
+				chartGender = new Chart(genderChart, {
+					type: 'doughnut',
+					// data: {
+					//   labels: ["Male Staffs", "Female Staffs"],
+					//   datasets: [{
+					// 	backgroundColor: ["#1d76fb", "#5e8cd1"],
+					// 	data: [11, 17]
+					//   }]
+					// },
+					data: genderData,
+					options: {
+						// legend: {
+						// 	display: true,
+						// 	position: "right",
+						// 	labels: {
+						// 		usePointStyle: true, // Use circular point style for legend
+						// 		fontColor: axisColor
+						// 	}
+						// },
+						plugins: {
+							datalabels: {
+								display: false // Disable datalabels
+							},
+							legend: {
+								display: true,
+								position: "right",
+								labels: {
+									usePointStyle: true, // Use circular point style for legend
+									color: axisColor
+								}
+							},
+						}
+					}
+				});
+			}
+	}
+
+	function setSaleChart(chart){
+			let salesChart = document.getElementById("salesChart").getContext("2d");
+			let totalSaleChart = document.getElementById("totalSaleChart").getContext("2d");
+
+			// var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			// var xData = ['2016-12-25', '2016-12-26', '2016-12-27', '2016-12-28'];
+
+			// let dataSales = {
+			// 	// labels: xData,
+			// 	labels: months,
+			// 	datasets: [{
+			// 		// data: [20, 10, 30, 40],
+			// 		data: [{x : "Jan", y : 400}, {x : "Feb", y : 500}, {x : "Apr", y : 500}, {x : "May", y : 400}, {x : "June", y : 500}],
+			// 		backgroundColor: "#e9f2fd",
+			// 		hoverBackgroundColor: "#5e8cd1",
+			// 		barPercentage: 1.2,
+			// 		borderRadius: {
+			// 			topLeft: 10,
+			// 			topRight: 10,
+			// 			bottomLeft: 0,
+			// 			bottomRight: 0
+			// 		}
+			// 	}]
+			// };
+
+			if(chart == "sale"){
+				chartSale = new Chart(salesChart, {
+					type: 'bar',
+					// data: dataSales,
+					data: saleData,
+					options: {
+						scales : {
+							x : {
+								grid: {
+									drawOnChartArea: false
+								},
+								ticks: {
+									color: axisColor
+								}
+							},
+							y: {
+								beginAtZero: true,
+								display: false,
+								grid: {
+									drawOnChartArea: false
+								},
+								afterDataLimits: function(axis) {
+									// axis.max = Math.max(...axis.chart.data.datasets[0].data) + 10; // Add some padding
+									let datasets = axis.chart.data.datasets;
+									let result = datasets[0].data.map(a => a.y);
+									let highestValue = Math.max(...result);
+									let minimum = 0;
+
+									if(highestValue != 0){
+										minimum = highestValue * 0.1;
+									}
+									else{
+										minimum = 1;
+									}
+
+									axis.max = highestValue + minimum; // Add some padding
+								}
+							}
+						},
+						plugins: {
+							tooltip:{
+								enabled: false
+							},
+							datalabels: {
+								anchor: 'end',
+								align: 'end',
+								// formatter: (value) => '$ ' + value.y,
+								formatter: function(value){
+									var valueString = value.y.toLocaleString();
+
+									if(value.y > 1000000000){
+										valueString = (value.y / 1000000000).toLocaleString() + "B"
+									}
+									else if(value.y > 1000000){
+										valueString = (value.y / 1000000).toFixed(2) + "M"
+									}
+									else if(value.y > 10000){
+										valueString = (value.y / 1000).toFixed(2) + "k"
+									}
+
+									return '$ ' + valueString
+								},
+								color: axisColor,
+								font: {
+									size: 10,
+									weight: 'bold'
+								}
+							},
+							legend: false
+						},
+					},
+					plugins: [ChartDataLabels]
+				});
+			}
+
+			
+			if(chart == "totalSale"){
+				var enableTooltip = true;
+
+				if(totalSaleData.datasets[0].backgroundColor[0] == "transparent" ){
+					enableTooltip = false;
+				}
+				chartTotalSale = new Chart(totalSaleChart, {
+					type: 'doughnut',
+					// data: {
+					//   labels: ["Spaying and Neutering", "ENT", "Dental procedures"],
+					//   datasets: [{
+					// 	backgroundColor: ["#9faabb", "#1e76fb", "#94bbf5"],
+					// 	data: [12000, 9070, 6446]
+					//   }]
+					// },
+					data: totalSaleData,
+					options: {
+						// legend: {
+						// 	display: true,
+						// 	position: "right",
+						// 	labels: {
+						// 		usePointStyle: true, // Use circular point style for legend
+						// 		fontColor: axisColor
+						// 	}
+						// },
+						plugins: {
+							tooltip:{
+								enabled: enableTooltip
+							},
+							datalabels: {
+								display: false // Disable datalabels
+							},
+							legend: {
+								display: false,
+								position: "right",
+								labels: {
+									usePointStyle: true, // Use circular point style for legend
+									color: axisColor
+								}
+							},
+						}
+					}
+				});
+			}			
+	}
+</script>
+
+<script>
+	// var data = [ { role: 'Senior Veterinarian', count: 12, color: '#1E88E5', x: 50 }, { role: 'Junior Veterinarian', count: 8, color: '#42A5F5', x: 150 }, { role: 'Assistant', count: 6, color: '#90CAF9', x: 250 }, { role: 'Receptionist', count: 2, color: '#B0BEC5', x: 350 } ];
+
+	// var canvas = document.getElementById('staffChart');
+	// var ctx = canvas.getContext('2d'); 
+	// var data = [ { role: 'Senior Veterinarian', count: 12, color: '#1E88E5', x: 50 }, { role: 'Junior Veterinarian', count: 8, color: '#42A5F5', x: 150 }, { role: 'Assistant', count: 6, color: '#90CAF9', x: 250 }, { role: 'Receptionist', count: 2, color: '#B0BEC5', x: 350 } ]; 
+	// data.forEach(function(item) { 
+	// 	// Draw bubble 
+	// 	ctx.beginPath(); 
+	// 	ctx.arc(item.x, canvas.height / 2, item.count * 5, 0, Math.PI * 2, false); 
+	// 	ctx.fillStyle = item.color; ctx.fill(); 
+		
+	// 	// Draw text 
+	// 	ctx.fillStyle = '#fff'; 
+	// 	ctx.font = '16px Arial';
+	// 	ctx.textAlign = 'center'; 
+	// 	ctx.textBaseline = 'middle'; 
+	// 	ctx.fillText(item.count, item.x, canvas.height / 2); }); 
+		
+	// 	// Add labels 
+	// 	data.forEach(function(item) { 
+	// 		ctx.fillStyle = '#000';
+	// 		ctx.font = '12px Arial';
+	// 		ctx.textAlign = 'center'; 
+	// 		ctx.textBaseline = 'top'; 
+	// 		ctx.fillText(item.role, item.x, canvas.height / 2 + item.count * 5 + 10); 
+	// 	});
+
+	function getLinearGradient(chartElement, degree, start, end){
+		var gradient = chartElement.createLinearGradient(0, 0, 0, degree);
+		gradient.addColorStop(0, start);
+		gradient.addColorStop(1, end);
+
+		return gradient;
+	}
+</script>

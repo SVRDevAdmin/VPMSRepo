@@ -104,5 +104,6 @@ namespace VPMS.Lib.Data.Models
 		public string PetName { get; set; }
         public string Service { get; set; }
         public string Doctor { get; set; }
+        public string Gender { get; set; }
     }
 }

@@ -14,14 +14,16 @@ namespace VPMS.Lib.Data
 {
     public class TemplateRepository
     {
-        /// <summary>
-        /// Get Template Information By Template code and Language
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="sTemplateCode"></param>
-        /// <param name="sLangCode"></param>
-        /// <returns></returns>
-        public static TemplateModel GetTemplateByCodeLang(IConfiguration config, String sTemplateCode, String sLangCode = "en")
+		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Get Template Information By Template code and Language
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="sTemplateCode"></param>
+		/// <param name="sLangCode"></param>
+		/// <returns></returns>
+		public static TemplateModel GetTemplateByCodeLang(IConfiguration config, String sTemplateCode, String sLangCode = "en")
         {
             var sTemplateObj = new TemplateModel();
 
@@ -58,6 +60,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TemplateRepository >>> GetTemplateByCodeLang >>> ", ex);
                 return null;
             }
         }

@@ -1,0 +1,270 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "ViewResults";
+    ViewData["SelectedMenu"] = "TestMgmtMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    System.Int32? sResultID = new System.Int32();
+    if (ViewData["ResultID"] != null)
+    {
+        sResultID = ViewData["ResultID"] as System.Int32?;
+    }
+}
+
+<link rel="stylesheet" href="~/lib/printJS/print.min.css" />
+<link rel="stylesheet" href="~/css/TestMgmt.css" />
+
+<script src="~/lib/moment.min.js"></script>
+<script src="~/lib/html2pdf/v0.10.1/html2pdf.bundle.min.js"></script>
+<script src="~/lib/printJS/print.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        //--------- Download -----------//
+        $('#btnResultDownload').click(function () {
+            outputPDF(false);
+        });
+
+        //--------- Print --------------//
+        $('#btnResultPrint').click(function () {
+            outputPDF(true);
+        });
+
+        if ('@sResultID' != '') {
+            $.getJSON("/TestManagement/GetTestResultBreakdownDetails", {
+                resultID: '@sResultID'
+            }).done(function (result){
+                if (result.data != null) 
+                {
+                    var dtResult = moment(result.data.ResultDateTime).format("DD/MM/YYYY HH:mm:ss")
+                    $('#lbResultTime').html(dtResult);
+                    $('#lbPatientName').html(result.data.PatientName);
+                    $('#lbPatientID').html(result.data.PatientID);
+                    $('#lbOperatorID').html(result.data.OperatorID);
+                    $('#lbDeviceName').html(result.data.DeviceName);
+
+                    if (result.data.TestResultBreakdown != null && result.data.TestResultBreakdown.length > 0) 
+                    {
+                        for (var i = 0; i < result.data.TestResultBreakdown.length; i++) 
+                        {
+                            var BasePercentages = 25;
+                            var RangePercentages = 40;
+                            var ValPercentages = 0;
+
+                            var sRange = result.data.TestResultBreakdown[i].ResultUnit;
+                            if (result.data.TestResultBreakdown[i].ReferenceRange != null && result.data.TestResultBreakdown[i].ReferenceRange != '') 
+                            {
+                                var splitRange = result.data.TestResultBreakdown[i].ReferenceRange.replace('[', '').replace(']', '');
+                                var sRangeArray = splitRange.split(";");
+                                if (sRangeArray.length > 1){
+                                    sRange = sRangeArray[0] + " ~ " + sRangeArray[1];
+
+                                    var sRangeCount = parseInt(sRangeArray[1]) - parseInt(sRangeArray[0]);
+
+                                    ValPercentages = BasePercentages + 
+                                                     Math.round(result.data.TestResultBreakdown[i].ResultValue) + 
+                                                     (RangePercentages / sRangeCount);
+                                }
+                            }
+
+                            var sPointerDiv = "";
+                            var sContentRow = "<tr>" +
+                                              "<td class='text-left tblGaugeRowHeight'>" + result.data.TestResultBreakdown[i].ResultParameter + "</td>" +
+                                              "<td class='text-left tblGaugeRowHeight'>" + result.data.TestResultBreakdown[i].ResultStatus + "</td>" +
+                                              "<td class='text-left tblGaugeRowHeight'>" + result.data.TestResultBreakdown[i].ResultValue + "</td>" +
+                                              "<td class='text-left tblGaugeRowHeight'>" + sRange + "</td>" +
+                                              "<td class='text-left'>" +
+                                              "<div class='GaugeBox'>";
+
+                            if (result.data.TestResultBreakdown[i].ReferenceRange != null && result.data.TestResultBreakdown[i].ReferenceRange != '') 
+                            {
+                                //----- Populate Resule Gauge ----------//
+                                sContentRow += "<div class='OrangeGaugeBar'></div>" +
+                                               "<div class='GreenGaugeBar'></div>" +
+                                               "<div class='RedGaugeBar'></div>";
+
+                                sPointerDiv += "<div class='GaugeTarget' style='top: -17px; left: " + ValPercentages + "%;'></div>";
+                            }
+
+                            sContentRow += "</div>" +
+
+                                            sPointerDiv +
+                                           //"<div class='GaugeTarget' style='top: -17px; left: " + ValPercentages  + "%;'></div>" +
+
+                                           "</td>" +
+                                           "</tr>";
+
+                            $('#tblTestParamResult').append(sContentRow);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    function outputPDF(isPrint) 
+    {
+        var dtDownload = moment().format("YYYYMMDDTHHmmss");
+        var iResultID = '@sResultID';
+        var sFileName = 'TestResult_ID_' + iResultID + '_' + dtDownload + '.pdf';
+
+        // Clone whole divContent
+        var element = document.getElementById('divContent').cloneNode(true);
+
+        var gauge = element.getElementsByClassName("tblGauge");
+        gauge.forEach(g => {
+            g.style.color = 'black'
+        });
+        var row = element.getElementsByClassName("tblGaugeRowHeight");
+        row.forEach(x => {
+            x.style.color = 'black'
+        });
+        element.getElementsByClassName("CatImageIcon")[0].src = '../../../images/calendar_cat_icon.png';
+
+        var opt = {
+            filename: sFileName,
+            html2canvas: {
+                scale: 2
+            },
+            jsPDF: {
+                orientation: 'portrait'
+            }
+        };
+
+        if (isPrint) 
+        {
+            html2pdf().set(opt)
+                      .from(element)
+                      .outputPdf()
+                      .get('pdf')
+                      .then(function (pdfObj) {
+                            pdfObj.autoPrint();
+                            window.open(pdfObj.output("bloburl"), "F")
+                      });
+        }
+        else 
+        {
+            html2pdf().set(opt)
+                      .from(element)
+                      .save();
+        }
+    }
+</script>
+
+<div class="row" style="border: 0px solid black;  height: auto;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <label class="TestMgmtResultTitle">@LangResources["TestResultDetails_Title_OverallTestResults"]</label>
+            </div>
+        </div>
+    </div>    
+    <div id="divContentRow" class="row">
+        <div class="col-md-10">
+            <div class="row divContentColumn">
+                <div class="row divContentBackground">
+                    <dvi class="col-md-1">
+                        <div class="ImageIconColumn">
+                            <img width="20" height="20" class="CatImageIcon" />
+                        </div>
+                    </dvi>
+                    <div class="col-md-3 ContentColumnRow">
+                        <div class="row">
+                            <label class="ContentRowTitle">@LangResources["TestResultDetails_Label_Time"]</label>
+                        </div>
+                        <div class="row">
+                            <label id="lbResultTime" class="ContentRowValue">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">@LangResources["TestResultDetails_Label_PatientName"]</label>
+                        </div>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbPatientName" class="ContentRowValue">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">@LangResources["TestResultDetails_Label_PatientID"]</label>
+                        </div>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbPatientID" class="ContentRowValue">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">@LangResources["TestResultDetails_Label_OperatorID"]</label>
+                        </div>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbOperatorID" class="ContentRowValue">&nbsp;</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ContentColumnRow">
+                        <div class="row ContentColumnLeftBorder">
+                            <label class="ContentRowTitle">@LangResources["TestResultDetails_Label_DeviceName"]</label>
+                        </div>
+                        <div class="row ContentColumnLeftBorder">
+                            <label id="lbDeviceName" class="ContentRowValue">&nbsp;</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row HeaderButtonRow">
+                <div class="col-md-12 HeaderButtonCol" data-html2canvas-ignore="true">
+                    <button id="btnResultDownload" class="btn btn-primary pull-right">
+                        <i class="bi bi-download"></i>
+                    </button>
+                    &nbsp;
+                    <button id="btnResultPrint" class="btn btn-primary pull-right">
+                        <i class="bi bi-printer"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <table id="tblTestParamResult" class="table" style="font-size: 1vw;">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-left" style="width: 30%;">@LangResources["TestResultDetails_Label_Test"]</th>
+                    <th scope="col" class="text-left" style="width: 15%;">@LangResources["TestResultDetails_Label_Result"]</th>
+                    <th scope="col" class="text-left" style="width: 15%;">@LangResources["TestResultDetails_Label_ResultValue"]</th>
+                    <th scope="col" class="text-left" style="width: 15%;">@LangResources["TestResultDetails_Label_NormalRange"]</th>
+                    <th scope="col" class="text-center" style="width: 25%;">@LangResources["TestResultDetails_Label_ResultGauge"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" style="width: 60%;">&nbsp;</td>
+                    <td style="width: 100%; height: 15px;">
+                        <table id="tblGauge" class="tblGauge" style="width: 100%; height: 15px;">
+                            <tr>
+                                <td>
+                                    <span class="OrangeGaugeBox"></span>
+                                </td>
+                                <td>@LangResources["TestResultDetails_Label_Low"]</td>
+                                <td>
+                                    <span class="GreenGaugeBox"></span>
+                                </td>
+                                <td>@LangResources["TestResultDetails_Label_Normal"]</td>
+                                <td>
+                                    <span class="RedGaugeBox"></span>
+                                </td>
+                                <td>@LangResources["TestResultDetails_Label_High"]</td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row" style="height: 35px;">&nbsp;</div>
+</div>
+

@@ -56,8 +56,24 @@ namespace VPMSWeb.Controllers
 				Program.LanguageSelected = ViewData["LanguageSelected"] as ConfigurationModel;
 				Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
 			}
+			else
+			{
+				ConfigurationModel sUserConfig = new ConfigurationModel();
+				sUserConfig.UserID = sessionUserID;
+				sUserConfig.ConfigurationKey = "UserSettings_Language";
+				sUserConfig.ConfigurationValue = "en";
+				sUserConfig.CreatedDate = DateTime.Now;
+				sUserConfig.CreatedBy = sessionUserID;
 
+                if (ConfigurationRepository.UpdateUserConfigurationSettingsByKey(ConfigSettings.GetConfigurationSettings(), sUserConfig))
+				{
+                    ViewData["LanguageSelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Language").FirstOrDefault();
+                    ViewData["CountrySelected"] = sUserConfigurationSettings.Where(x => x.ConfigurationKey == "UserSettings_Country").FirstOrDefault();
 
+                    Program.LanguageSelected = ViewData["LanguageSelected"] as ConfigurationModel;
+                    Program.CountrySelected = ViewData["CountrySelected"] as ConfigurationModel;
+                }
+            }
 
 			try
 			{
@@ -80,10 +96,12 @@ namespace VPMSWeb.Controllers
 			}	
 
 			Program.CurrentPage = "/Home/Index";
+            Program.CurrentPage = "/Dashboard/Dashboard";
 
-			//return View();
+            //return View();
 
-            return RedirectToAction("Index", "Appointment");
+            //return RedirectToAction("Index", "Appointment");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public IActionResult Privacy()

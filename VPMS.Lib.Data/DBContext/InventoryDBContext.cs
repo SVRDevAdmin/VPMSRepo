@@ -29,6 +29,12 @@ namespace VPMS.Lib.Data.DBContext
 			ObservableCollection<InventoryInfoList> sList = new ObservableCollection<InventoryInfoList>();
 			int No = start + 1;
 			totalInventory = 0;
+			var limit = "";
+
+			if(total != 0)
+			{
+                limit = "LIMIT " + start + ", " + total + ";";
+            }
 
 
 
@@ -41,7 +47,7 @@ namespace VPMS.Lib.Data.DBContext
 
 			var totalInventoryQuery = "(select Count(a.Name) from mst_product a " + joinQuery + filter + ")";
 			var completeQuery = "select a.ID, a.InventoryName, b.TypeName, a.Usage, a.name, a.ImageFilePath, a.ImageFileName, a.SKU, c.QtyInStores, a.PricePerQty, e.Name as 'Organisation', d.Name as 'Branch', c.StockStatus, " + totalInventoryQuery + " as 'TotalInventory' from mst_product a " +
-				joinQuery + filter + "Order by a.ID LIMIT " + start + ", " + total + ";";
+				joinQuery + filter + "Order by a.ID " + limit + ";";
 
 			try
 			{
@@ -74,6 +80,42 @@ namespace VPMS.Lib.Data.DBContext
 							});
 
 							totalInventory = Convert.ToInt32(reader["TotalInventory"]);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.Error("Database Error >> ", ex);
+			}
+
+			return sList;
+		}
+
+		public ObservableCollection<InventoryInvoice> GetInventoryInvoice(int planID)
+		{
+			ObservableCollection<InventoryInvoice> sList = new ObservableCollection<InventoryInvoice>();
+
+			var query = "select a.ProductName, a.Discount, a.TotalPrice, b.ExpiryDate from txn_treatmentplan_products a join mst_product_status b on b.ProductID = a.ProductID where a.PlanID = "+ planID + ";";
+
+			try
+			{
+				using (MySqlConnection conn = new MySqlConnection(connectionString))
+				{
+					conn.Open();
+					MySqlCommand cmd = new MySqlCommand(query, conn);
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							sList.Add(new InventoryInvoice()
+							{
+								ProductName = reader["ProductName"].ToString(),
+								Discount = float.Parse(reader["Discount"].ToString()),
+								TotalPrice = float.Parse(reader["TotalPrice"].ToString()),
+								ExpiryDate = DateOnly.FromDateTime(DateTime.Parse(reader["ExpiryDate"].ToString()))
+							});
 						}
 					}
 				}

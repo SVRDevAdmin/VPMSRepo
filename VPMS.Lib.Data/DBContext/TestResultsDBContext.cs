@@ -13,7 +13,9 @@ namespace VPMS.Lib.Data.DBContext
     public class TestResultsDBContext : DbContext
     {
         private readonly IConfiguration config;
-        public DbSet<TestResultModel> Txn_TestResults {  get; set; }
+        //public DbSet<TestResultModel> Txn_TestResults {  get; set; }
+        public DbSet<TestResultsTxnModel> Txn_TestResults { get; set; }
+        public DbSet<TestResultsDetailTxnModel> Txn_TestResults_details { get; set; }
 
         public TestResultsDBContext(IConfiguration config)
         {

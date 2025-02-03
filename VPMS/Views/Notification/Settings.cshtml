@@ -1,0 +1,170 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Settings";
+
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+}
+
+<link rel="stylesheet" href="~/css/Notification.css" />
+
+<script>
+    $(document).ready(function () {
+        loadNotificationSettings();
+
+        /*--------- TESTING --------------*/
+        // $('#btnTest').on('click', function(ctl){
+
+        //     $.post("/Notification/TestNotification", {
+        //         NotificationGroup: 'SoftwareUpdate',
+        //         NotificationType: 'Stock Reload',
+        //         BranchID: '@sessionBranchID',
+        //         Content: 'We have just released new features for VPMS Version 2.0.1, please kindly logout from system and perform browser cache clearing before login again. Thanks. ',
+        //         CreatedBy: '@sessionUserID'
+        //     }).done(function(result){
+        //         if (result.StatusCode == 200)
+        //         {
+        //             alert('A');
+        //         }
+        //         else{
+        //             alert('B');
+        //         }
+        //     });
+        // });
+
+        /*----------- Cancel Button -------------*/
+        $('#btnSettingsCancel').on('click', function(ctl){
+            window.location.href = '/Notification/Index';
+        });
+
+        /*----------- Save Button ---------------*/
+        $('#btnSettingsSave').on('click', function(ctl)
+        {
+            $('#lbError').html('');
+
+            let configList = [];
+
+            var sSettingCheckList = $('.checkSetting');
+            for (var i = 0; i < sSettingCheckList.length; i++)
+            {
+                let settingObj = {
+                    'key': sSettingCheckList[i].dataset['target'],
+                    'value': sSettingCheckList[i].checked
+                }
+
+                configList.push(settingObj);    
+            }
+
+            $.post("/Notification/UpdateNotificationSettings", {
+                config: configList,
+                userID: '@sessionUserID'
+            }).done(function (result){
+                if (result.StatusCode == 200)
+                {
+                    ShowSuccessMsgBox("@Html.Raw(LangResources["NotificationSetting_Title_UpdateNotifSettings"])", 
+                                      "@Html.Raw(LangResources["NotificationSetting_Message_UpdateSettingsSuccessfully"])",
+                        function (){
+                            window.location.href = '/Notification/Index';
+                        }
+                    );
+                }
+                else
+                {
+                    $('#lbError').html("@Html.Raw(LangResources["NotificationSetting_Message_FailedToUpdateSettings"])");
+                    $('#lbError').css('visibility', 'visible');
+                }
+            });
+        });
+    });
+
+    function loadNotificationSettings(){
+        $.getJSON("/Notification/GetNotificationSettings", {
+            sUserID: '@sessionUserID'
+        }).done(function(result){
+            if (result.data.length > 0){
+                $('#divResult').html('');
+
+                for (i = 0; i < result.data.length; i++)
+                {
+                    var sChecked ='false';
+                    if (result.data[i].ConfigurationValue != null && result.data[i].ConfigurationValue == "true")
+                    {
+                        sChecked = 'checked';
+                    }
+
+                    var sHtml = '';
+                    if ((i + 1) % 2 > 0) 
+                    {
+                        sHtml += '<div class="col-md-1 checkSettingHeight">&nbsp;</div>';
+                    }
+
+                    sHtml += '<div class="col-md-5 form-switch checkSettingHeight">' +
+
+                             '<input id = "chkNotificationSetting" type="checkbox" class="form-check-input checkSetting" ' +
+                                    'data-target="' + ('UserSettings_' + result.data[i].CodeID) + '" ' + sChecked + ' />' +
+                            '<label class="form-check-label NotifSettingsCheckboxFont">' + result.data[i].Description + '</label>' +
+
+                             '</div >';
+
+                    if ((i + 1) % 2 == 0) 
+                    {
+                        sHtml += '<div class="col-md-1 checkSettingHeight">&nbsp;</div>';
+                    }
+
+                    $('#divResult').append(sHtml);
+                }
+                
+            }
+        })
+    }
+</script>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label class="NotificationTitle">
+                @LangResources["NotificationSetting_Title_NotificationSettings"]
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row" style="margin-left: 30px;">
+            <div class="row" style="height: 25px;">
+                <label id="lbError" style="color: red;"></label>
+            </div>
+            <div class="row">
+                <div class="col-md-12 NotifSettingsSubTitle">
+                    @LangResources["NotificationSetting_Label_EnableNotificationToReceive"]
+                </div>
+            </div>
+            <div class="row NotifSettingsContent">
+                <div class="row">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+                <div id="divResult" class="row">
+                    <!-- Content -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+            </div>
+            <div class="row NotifSettingsButtonRow">
+                <div class="col-md-12">
+                    @* <button id="btnTest" type="button" class="btn btn-secondary" style="font-size: 1vw;">Test</button> *@
+                    <button id="btnSettingsCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">
+                        @LangResources["NotificationSetting_Button_Cancel"]
+                    </button>
+                    <button id="btnSettingsSave" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                        @LangResources["NotificationSetting_Button_Save"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

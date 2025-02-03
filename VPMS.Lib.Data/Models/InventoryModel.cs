@@ -93,4 +93,12 @@ namespace VPMS.Lib.Data.Models
 		public int StockStatus { get; set; }
 
 	}
+
+	public class InventoryInvoice
+	{
+		public string ProductName { get; set; }
+		public float Discount { get; set; }
+		public float TotalPrice { get; set; }
+		public DateOnly ExpiryDate { get; set; }
+	}
 }

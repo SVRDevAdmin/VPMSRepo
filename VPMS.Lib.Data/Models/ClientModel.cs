@@ -18,6 +18,7 @@ namespace VPMS.Lib.Data.Models
         public String? CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public String? UpdatedBy { get; set; }
+        public int? BranchID { get; set; }
     }
 
     public class ClientAuthModel

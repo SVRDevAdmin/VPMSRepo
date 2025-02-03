@@ -1,0 +1,745 @@
+﻿﻿@using Microsoft.AspNetCore.Localization
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+	ViewData["Title"] = "Organisation Page";
+	ViewBag.SelectedMenu = "AccessMenu";
+
+	var role = httpContextaccessor.HttpContext.Session.GetString("RoleName");
+	var test = role;
+}
+
+<style>
+	.table-content {
+		text-align: center;
+		height: 2vw;
+	}
+
+	.table-content-center {
+		text-align: center;
+	}
+
+	.table-row-content {
+		padding: 1vw 0;
+	}
+
+	table th:first-child {
+		border-radius: 0.2vw 0 0 0.2vw;
+	}
+
+	table th:last-child {
+		border-radius: 0 0.2vw 0.2vw 0;
+	}
+
+	.form-field {
+		border-style: solid;
+		border-color: black;
+		font-size: 1vw;
+	}
+
+	.field-container {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2vw;
+		font-size: 1vw;
+	}
+
+	.form-label {
+		font-weight: bold;
+		margin-bottom: 0.7vw;
+	}
+
+	/* circle-icon */
+	#container {
+		width: 1.6vw;
+		height: 1.6vw;
+		display: flex;
+		background: transparent;
+		border-radius: 2vw;
+		color: white;
+		border: 0.15vw solid;
+		font-size: 1.5vw;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#organisation {
+		color: dodgerblue !important;
+	}
+
+	.hideContainer {
+		display: none !important;
+	}
+</style>
+
+<div style="display: flex; justify-content: space-between;">
+
+	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
+		<span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Organisation"]</span>
+	</div>
+
+	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
+		<div style="display: flex;">
+			<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["AccessControl_Label_SearchOrganisation"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
+			<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
+		</div>
+		@{
+			var cannotCreate = "";
+			if (role == "Superuser")
+			{
+				cannotCreate = "disabled";
+			}
+		}
+		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 13vw; margin-left: 1vw;" data-bs-toggle="modal" data-bs-target="#organisationModal" @cannotCreate>
+			<span id="container">+</span>
+			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Label_NewOrganisation"]</span>
+		</button>
+	</div>
+
+</div>
+
+<div>
+	<table class="textColor" id="organisationList" style="width: 100%; margin-bottom: 2vw; font-size: 1vw;">
+	</table>
+
+	<div id="pagination" style="display: flex; justify-content: flex-end;">
+		<div>
+			<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
+		</div>
+		<div id="paginationNumbering" style="display: flex; justify-content: flex-end; font-size: 1vw;">
+		</div>
+		<div>
+			<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
+		</div>
+	</div>
+</div>
+
+<template id="branchRowTemplate">
+	<tr style="border-bottom: 0.1vw solid darkgray;">
+		<td class="id" hidden></td>
+		<td class="number" style="padding: 1vw 0;"></td>
+		<td class="name"></td>
+		<td class="contactNo" hidden></td>
+		<td class="address" hidden></td>
+		<td style="width: 7vw;">
+			<div class="editable" style="display: flex; justify-content: space-between;">
+				<button class="btn btn-lg btn-secondary" onclick="editBranch(this.parentElement.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-pen-to-square"></i></button>
+				<button onclick="removeBranch(this);" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-trash-can"></i></button>
+			</div>
+		</td>
+	</tr>
+</template>
+
+<!-- Modal -->
+@* <div class="modal fade" id="organisationModal" tabindex="-1" aria-hidden="true" style="--bs-modal-width: unset; margin: 2vw auto;">
+
+	<div class="modal-dialog" style="margin: 0 auto; width: fit-content;">
+		<div class="modal-content">
+			<div class="modal-header" style="--bs-modal-header-border-color: none; padding-bottom: 0;">
+				<span style="font-weight: bold;">Create Organisation</span>
+			</div>
+			<div class="modal-body" style="width: 46vw; padding: 3vw 3vw; font-size: 1vw;">
+				<div style="margin-bottom: 2vw;">
+					<span class="formlabel" style="font-weight: bold;">Organisation Name</span>
+					<input type="text" id="organisationName" style="margin-top: 0.5vw;" class="form-control form-field inputField" value="" />
+				</div>
+
+				<div style="margin-bottom: 2vw;">
+					<span class="formlabel" style="font-weight: bold;">Branch</span>
+					<table id="branchList" style="margin-top: 0.5vw; width: 100%;"></table>
+				</div>
+
+				<div>
+					<button id="AddBranchButton" onclick="AddBranch();" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; padding: 0;">
+						<span id="container" style="color: blue; width: 1.2vw; height: 1.2vw; font-size: 1vw;">+</span>
+						<span style="font-size: 1vw; margin-left: 0.5vw;">Add Branch</span>
+					</button>
+				</div>
+
+				<div style="text-align: end; margin-top: 2vw;">
+					<button class="btn btn-lg btn-secondary" onclick="Cancel();" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+					<button class="btn btn-lg btn-primary" onclick="SaveOrganisation();" style="width: 11vw; font-size: 1vw;"> Create </button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="branchModal" tabindex="-1" aria-hidden="true" style="--bs-modal-width: unset; margin: 2vw auto;">
+
+	<div class="modal-dialog" style="margin: 0 auto; width: fit-content;">
+		<div class="modal-content">
+			<div class="modal-header" style="--bs-modal-header-border-color: none; padding-bottom: 0;">
+				<span style="font-weight: bold;">Add Branch</span>
+			</div>
+			<div class="modal-body" style="width: 46vw; padding: 3vw 3vw; font-size: 1vw;">
+				<div style="margin-bottom: 2vw;">
+					<span class="formlabel" style="font-weight: bold;">Branch Name</span>
+					<input type="text" id="branchName" style=" margin-top: 0.5vw;" class="form-control form-field inputField" />
+				</div>
+
+				<div style="margin-bottom: 2vw;">
+					<span class="formlabel" style="font-weight: bold;">Branch Address</span>
+					<textarea id="branchAddress" style=" margin-top: 0.5vw;" class="form-control form-field inputField address"></textarea>
+				</div>
+
+				<div style="display: flex; align-items: center; margin-bottom: 3vw;">
+					<img id="imgBackArrow" style=" margin-right: 0.5vw; width: 1vw;" onclick="openModal('branchModal', 'organisationModal');" /> <span class="textColor" style="font-size: 1vw;" onclick="openModal('branchModal', 'organisationModal');">Go Back</span>
+				</div>
+
+				<div style="text-align: end; margin-top: 2vw;">
+					<button class="btn btn-lg btn-secondary" onclick="Cancel();" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+					<button class="btn btn-lg btn-primary" onclick="SaveBranch(this.parentElement.parentElement.querySelector('#branchName').value);" style="width: 11vw; font-size: 1vw;"> Save Branch </button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div> *@
+
+<div class="modal fade" id="organisationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" style="--bs-modal-width: unset; margin: 2vw auto;">
+
+	<div class="modal-dialog" style="margin: 0 auto; width: fit-content;">
+		<div class="modal-content">
+			<div class="modal-header" style="--bs-modal-header-border-color: none; padding-bottom: 0;">
+				<span style="font-weight: bold;" id="title">@LangResources["AccessControl_Label_CreateOrganisation"]</span>
+			</div>
+			<div class="modal-body" style="width: 46vw; padding: 3vw 3vw; font-size: 1vw;">
+				<input type="text" id="organisationID" value="0" hidden/>
+				<div id="organisationContainer" class="organisationBranch">
+					<div style="margin-bottom: 2vw; display: flex; flex-direction: column;">
+						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_OrganisationName"]</span>
+						<span id="organisationNameText" class="formlabel textColor editable hideContainer"></span>
+						<input type="text" id="organisationName" style="margin-top: 0.5vw;" class="form-control form-field inputField editable" value="" />
+					</div>
+
+					<div style="margin-bottom: 2vw;">
+						<span class="formlabel" style="font-weight: bold;">@LangResources["Inventory_Label_Branch"]</span>
+						<table id="branchList" style="margin-top: 0.5vw; width: 100%;"></table>
+					</div>
+
+					<div class="editable">
+						<button id="AddBranchButton" onclick="changeTab('', '', '');" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; padding: 0;">
+							<span id="container" style="color: blue; width: 1.2vw; height: 1.2vw; font-size: 1vw;">+</span>
+							<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Button_AddBranch"]</span>
+						</button>
+					</div>
+				</div>
+
+				<div id="branchContainer" class="organisationBranch hideContainer">
+					<div style="margin-bottom: 2vw;">
+						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchName"]</span>
+						<input type="text" id="branchName" style=" margin-top: 0.5vw;" class="form-control form-field inputField" />
+					</div>
+
+					<div style="margin-bottom: 2vw;">
+						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchContactNo"]</span>
+						<input type="text" id="branchContactNo" style=" margin-top: 0.5vw;" class="form-control form-field inputField" />
+					</div>
+
+					<div style="margin-bottom: 2vw;">
+						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchAddress"]</span>
+						<textarea id="branchAddress" style=" margin-top: 0.5vw;" class="form-control form-field inputField address"></textarea>
+					</div>
+
+					<div style="display: flex; align-items: center; margin-bottom: 3vw;">
+						<a href="#" onclick="changeTab('', '', '');" style="display: flex; align-items: center;">
+							<img id="imgBackArrow" style=" margin-right: 0.5vw; width: 1vw;" /> 
+							<span class="textColor" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Back"]</span>
+						</a>
+						@* <img id="imgBackArrow" onclick="changeTab('', '', '');" style=" margin-right: 0.5vw; width: 1vw;" /> <span class="textColor" onclick="changeTab('', '', '');" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Back"]</span> *@
+					</div>
+				</div>
+
+				<div style="text-align: end; margin-top: 2vw;">
+					<button class="btn btn-lg btn-secondary" data-bs-dismiss="modal" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
+					<button class="btn btn-lg btn-primary organisationBranch editable" id="saveButton" onclick="SaveOrganisation();" style="width: 11vw; font-size: 1vw;"> @LangResources["Inventory_Label_Create"] </button>
+					<button class="btn btn-lg btn-primary editable hideContainer" onclick="toggleViewEdit(false);" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Edit"] </button>
+					<button class="btn btn-lg btn-primary organisationBranch hideContainer" onclick="UpdateBranch(this.parentElement.parentElement);" style="width: 11vw; font-size: 1vw;"> @LangResources["AccessControl_Label_SaveBranch"] </button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var paginationLimit = 5;
+	var rowLimit = 8;
+	var startPagination = 1;
+	var endPagination = 0;
+	var totalPagination = 0;
+	var currentPage = 1;
+	var search = "";
+	var branchDeleted = [];
+
+	$("#SubMenuAccess").toggleClass('show');
+	document.querySelector("#SubMenuAccessParent").querySelector("#imgArrow").classList.toggle("Up");
+
+	filter();
+
+	function getOrganisationList(page, search, reset) {
+		fetch('/AccessControl/GetOrganisationList?rowLimit=' + rowLimit + '&page=' + page + '&search=' + search)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+
+				let total = data.TotalOrganisation;
+
+				if (reset) {
+					if (total == 0) { document.getElementById("pagination").hidden = true; }
+					else {
+						document.getElementById("pagination").hidden = false;
+
+						var totalPage = parseInt(total / rowLimit);
+
+						if (totalPage == 0) { totalPage = totalPage + 1; }
+
+						if ((total > rowLimit) && (total % rowLimit) != 0) { totalPage = totalPage + 1; }
+
+						totalPagination = totalPage;
+
+						if (totalPage > paginationLimit) { endPagination = paginationLimit }
+						else { endPagination = totalPage; }
+
+						pagination(startPagination, endPagination);
+					}
+				}
+
+
+				if (currentPage == totalPagination) { document.getElementById("nextButton").hidden = true; }
+				else { document.getElementById("nextButton").hidden = false; }
+				if (currentPage == 1) { document.getElementById("prevButton").hidden = true; }
+				else { document.getElementById("prevButton").hidden = false; }
+
+				var content = document.getElementById("organisationList");
+
+
+
+				content.innerHTML =
+					'<tr class="containerBackground">' +
+					'<th class="table-content"> @LangResources["Patient_Label_Number"] </th>' +
+					'<th class="table-content" > @LangResources["AccessControl_Label_OrganisationName"] </th>' +
+					'<th class="table-content" > @LangResources["AccessControl_Label_Branches"] </th>' +
+					'<th class="table-content" > @LangResources["AccessControl_Label_TotalStaffs"] </th>' +
+					'<th class="table-content" > </th>' +
+					'</tr>';
+
+				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				else {
+					for (let i = 0; i < data.OrganisationList.length; i++) {
+
+						content.innerHTML = content.innerHTML +
+							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
+							'<td class="table-content" >' + data.OrganisationList[i].No + '</td>' +
+							'<td class="table-content" > ' + data.OrganisationList[i].Name + '</td>' +
+							'<td class="table-content" > ' + data.OrganisationList[i].Branches + ' </td>' +
+							'<td class="table-content" > ' + data.OrganisationList[i].TotalStaff + '</td>' +
+							'<td class="table-content" style = "width: 0;" > ' +
+							'<div class="dropleft" > ' +
+							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
+							'<img class="moreIcon" /> ' +
+							'</button>' +
+							'<div class="dropdown-menu containerBackground5" style = "min-width: fit-content; font-size: 1vw;" > ' +
+							'<a class="dropdown-item" href="#" onclick="editViewOrganisation(true, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_View"] </a>' +
+							'<a class="dropdown-item" href="#" onclick="editViewOrganisation(false, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_Edit"] </a>' +
+							'</div>' +
+							'</div>' +
+							'</td>' +
+							'</tr>';
+					}
+				}
+
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function pagination(start, end) {
+
+		var element = document.getElementById("paginationNumbering");
+
+		element.innerHTML = "";
+
+		for (let i = start; i < end + 1; i++) {
+			var color = "";
+			if (currentPage == i) { background = "#1e76fb"; color = "white" }
+			else { background = "transparent"; color = "#1e76fb"; }
+
+			element.innerHTML = element.innerHTML +
+				'<div>' +
+				'<button onclick="changePage(this);" data-page="' + i + '" style="width: 3vw; height: 3vw; background-color: ' + background + '; color: ' + color + '; margin-right: 1vw; text-align: center; border-radius: 3vw; display: flex; align-items: center; justify-content: center; border: 0.1vw solid; border-color: #1e76fb; font-weight: bold;"> ' + ('0' + i).slice(-2) + ' </button>' +
+				'</div>';
+		}
+
+	}
+
+	function prev() {
+		currentPage = currentPage - 1;
+
+		getOrganisationList(currentPage, search, false);
+
+		if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+	}
+
+	function next() {
+		currentPage = currentPage + 1;
+
+		getOrganisationList(currentPage, search, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		pagination(startPagination, endPagination);
+	}
+
+	function changePage(page) {
+		let pageNum = page.getAttribute("data-page");
+
+		currentPage = Number(pageNum);
+
+		getOrganisationList(currentPage, search, false);
+
+		if ((currentPage == endPagination) && (endPagination != totalPagination)) { startPagination++; endPagination++; }
+		else if ((currentPage != 1) && (currentPage == startPagination)) { startPagination--; endPagination--; }
+		pagination(startPagination, endPagination);
+
+
+	}
+
+	function searchFilter(searchData) {
+		search = searchData;
+		filter();
+	}
+
+	function filter() {
+		currentPage = 1;
+
+		getOrganisationList(1, search, true);
+	}
+
+	function editViewOrganisation(view, organisationID, organisationName){
+		document.getElementById("organisationID").value = organisationID;
+		document.getElementById("organisationName").value = organisationName;
+		document.getElementById("organisationNameText").innerHTML = organisationName;
+		document.getElementById("saveButton").innerHTML = "@LangResources["Patient_Button_Save"]";
+
+		getBranchInfo(view, organisationID);
+
+		$('#organisationModal').modal('toggle');
+	}
+
+	function toggleViewEdit(view) {
+		if (view) {
+			document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_OrganisationDetails"]";
+		}
+		else {
+			document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_EditOrganisation"]";
+		}
+
+		var editableElement = document.querySelectorAll(".editable");
+
+		for (let i = 0; i < editableElement.length; i++) {
+			editableElement[i].classList.toggle("hideContainer");
+		}
+	}
+
+	function getOrganisationInfo(organisationID) {
+		fetch('/AccessControl/GetOrganisationInfo?organisationID=' + organisationID)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				document.getElementById("organisationName").value = data.Name;
+				document.getElementById("organisationNameText").innerHTML = data.Name;
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function getBranchInfo(view, organisationID) {
+		fetch('/AccessControl/GetBranchInfoByOrganisation?organisationID=' + organisationID)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				for (let i = 0; i < data.length; i++) {
+					cloneBranchRow(data[i].ID, data[i].Name, data[i].ContactNo, data[i].Address);
+				}
+
+				if (view) {
+					toggleViewEdit(view);
+				}
+				else{
+					document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_EditOrganisation"]";
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function AddBranch(){
+		document.querySelector("#branchName").value = "";
+		document.querySelector("#branchAddress").value = "";
+
+		openModal('organisationModal', 'branchModal');
+		// swapModals('#organisationModal', '#branchModal');
+	}
+
+	function changeTab(name, contactNo, address){
+		document.querySelector("#branchName").value = name;
+		document.querySelector("#branchAddress").value = address;
+		document.querySelector("#branchContactNo").value = contactNo;
+
+		var element = document.querySelectorAll(".organisationBranch");
+		for (let i = 0; i < element.length; i++) {
+			element[i].classList.toggle("hideContainer");
+		}
+	}
+
+	function editBranch(e) {
+		e.classList.toggle("editCurrent");
+
+		changeTab(e.querySelector(".name").innerHTML, e.querySelector(".contactNo").innerHTML, e.querySelector(".address").innerHTML);
+	}
+
+	function SaveBranch(name) {
+		var address = document.getElementById("branchAddress").value;
+		var contactNo = document.getElementById("branchAddress").value;
+		cloneBranchRow(0, name, contactNo, address);
+
+		openModal('branchModal', 'organisationModal');
+		// swapModals('#branchModal', '#organisationModal');
+	}
+
+	function UpdateBranch(e) {
+		var name = e.querySelector("#branchName").value;
+		var contactNo = e.querySelector("#branchContactNo").value;
+		var address = e.querySelector("#branchAddress").value;
+		var currentEdit = e.querySelector(".editCurrent");
+
+		if (currentEdit) {
+			currentEdit.querySelector(".name").innerHTML = name;
+			currentEdit.querySelector(".contactNo").innerHTML = contactNo;
+			currentEdit.querySelector(".address").innerHTML = address;
+			currentEdit.classList.toggle("editCurrent");
+		}
+		else{
+			cloneBranchRow(0, name, contactNo, address);
+		}
+
+		changeTab("", "", "");
+	}
+
+	function openModal(nameClose, nameOpen) {
+		// $('.modal').modal('hide');
+		// $('#' + nameOpen).modal('show');
+
+		$('#' + nameClose).modal('toggle');
+		$('#' + nameOpen).modal('toggle');
+	}
+
+	function swapModals(nameClose, nameOpen) {
+		$(nameClose).modal('hide');
+		$(nameClose).on('hidden.bs.modal', function () {
+			$(nameOpen).modal('show');
+			$(nameClose).unbind();
+		});
+	}
+
+	function Cancel(nameClose) {
+		// var element = document.querySelectorAll(".modal-backdrop");
+		$('.modal').modal('hide');
+
+		// for (let i = 0; i < element.length; i++){
+		// 	element[i].remove();
+		// }
+
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
+	}
+
+	$('.modal').on('hidden.bs.modal', function () {
+		var element = document.querySelectorAll(".organisationBranch");
+		var mainTab = document.getElementById("organisationContainer");
+		var saveButton = document.getElementById("saveButton");
+		document.getElementById("organisationID").value = "0";
+		document.getElementById("organisationName").value = "";
+		document.getElementById("organisationNameText").innerHTML = "";
+		document.getElementById("branchList").innerHTML = "";
+
+		if (mainTab.classList.contains("hideContainer")) {
+			changeTab("", "", "");
+		}
+
+		if (saveButton.classList.contains("hideContainer")) {
+			toggleViewEdit(false);
+		}
+
+		saveButton.innerHTML = "@LangResources["Inventory_Label_Create"]";
+
+		document.getElementById("title").innerHTML = "@LangResources["AccessControl_Label_CreateOrganisation"]";
+	});
+
+	// $(document).click(function (e) {
+	// 	if ($(e.target).is('#organisationModal')) {
+	// 		Cancel('organisationModal');
+	// 	}
+	// 	if ($(e.target).is('#branchModal')) {
+	// 		Cancel('branchModal');
+	// 	}
+
+	// });
+
+	function cloneBranchRow(id, name, contactNo, address) {
+		var header =
+			'<tr style="color: darkgray;">' +
+			'<th>@LangResources["Patient_Label_Number"]</th>' +
+				'<th>@LangResources["AccessControl_Label_BranchName"]</th>' +
+				'<th></th>' +
+			'</tr> ';
+		var branchTable = document.getElementById("branchList");
+		const template = document.getElementById("branchRowTemplate");
+		const clone = template.content.cloneNode(true);
+
+		if (!branchTable.lastElementChild) {
+			branchTable.innerHTML = header;
+		}
+
+		clone.querySelector(".number").innerHTML = branchTable.childElementCount;
+		clone.querySelector(".name").innerHTML = name;
+		clone.querySelector(".contactNo").innerHTML = contactNo;
+		clone.querySelector(".address").innerHTML = address;
+		clone.querySelector(".id").innerHTML = id;
+
+		branchTable.appendChild(clone);
+	}
+
+	function removeBranch(e){
+		var branchTable = document.getElementById("branchList");
+		branchDeleted.push(e.parentElement.parentElement.parentElement.querySelector(".id").innerHTML);
+
+		if (branchTable.childElementCount == 2) {
+			branchTable.innerHTML = "";
+		}
+		else {
+			e.parentElement.parentElement.parentElement.remove();
+		}
+
+		var rows = branchTable.querySelectorAll(".number");
+		
+		for (let i = 0; i < rows.length; i++) {
+			rows[i].innerHTML = i+1;
+		}
+	}
+
+	function SaveOrganisation(){
+		var organisationName = document.getElementById("organisationName").value;
+		var organisationID = document.getElementById("organisationID").value;
+
+		var obj = {
+			Id: organisationID,
+			Name: organisationName,
+			Status: 1,
+			CreatedDate: new Date(),
+			CreatedBy: "System"
+		};
+
+		fetch('/AccessControl/InsertUpdateOrganisation', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				var branchName = document.querySelectorAll(".name");
+				var branchContactNo = document.querySelectorAll(".contactNo");
+				var branchAddress = document.querySelectorAll(".address");
+				var branchID = document.querySelectorAll(".id");
+
+				for (let i = 0; i < branchName.length; i++) {
+					InsertBranch(data, branchID[i].innerHTML, branchName[i].innerHTML, branchContactNo[i].innerHTML, branchAddress[i].innerHTML);
+				}
+
+				deleteBranch();
+
+				location.reload();
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function InsertBranch(organisationID, branchID, name, contactNo, address) {
+
+		var obj = {
+			OrganizationID: organisationID,
+			ID: branchID,
+			Name: name,
+			ContactNo: contactNo,
+			Address: address,
+			Status: 1,
+			CreatedDate: new Date(),
+			CreatedBy: "System"
+		};
+
+		fetch('/AccessControl/InsertUpdateBranch', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(obj)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				let a = data;
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function deleteBranch() {
+		fetch('/AccessControl/DeleteBranch', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(branchDeleted)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				let a = data;
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+</script>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
+using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
@@ -59,29 +60,29 @@ namespace VPMSWeb.Controllers
 		{
             List<int> treatmentPlanList = new List<int>();
 
-            var role = HttpContext.Session.GetString("RoleName");
-            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+            //var role = HttpContext.Session.GetString("RoleName");
+            //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-            if (role == "Superadmin")
-            {
-                treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Select(y => y.ID).ToList();
-            }
-            else if (organisation != 0)
-            {
-                List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-                treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+            //if (role == "Superadmin")
+            //{
+            //    treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Select(y => y.ID).ToList();
+            //}
+            //else if (organisation != 0)
+            //{
+            //    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+            //    treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-            }
-            else if (branch != 0)
-            {
-                treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-            }
+            //}
+            //else if (branch != 0)
+            //{
+            //    treatmentPlanList = _treatmentPlanDBContext.Mst_TreatmentPlan.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+            //}
 
-            if (!treatmentPlanList.Contains(treatmentPlanId))
-            {
-                return RedirectToAction("TreatmentPlanList", "PatientServices");
-            }
+            //if (!treatmentPlanList.Contains(treatmentPlanId))
+            //{
+            //    return RedirectToAction("TreatmentPlanList", "PatientServices");
+            //}
 
             var treatmentInfo = _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == treatmentPlanId);
 			ViewData["TreatmentPlan"] = treatmentInfo;
@@ -97,29 +98,29 @@ namespace VPMSWeb.Controllers
 		{
 			List<int> serviceList = new List<int>();
 
-            var role = HttpContext.Session.GetString("RoleName");
-            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+            //var role = HttpContext.Session.GetString("RoleName");
+            //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-            if (role == "Superadmin")
-            {
-                serviceList = _servicesDBContext.Mst_Services.Select(y => y.ID).ToList();
-            }
-            else if (organisation != 0)
-            {
-                List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-                serviceList = _servicesDBContext.Mst_Services.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+            //if (role == "Superadmin")
+            //{
+            //    serviceList = _servicesDBContext.Mst_Services.Select(y => y.ID).ToList();
+            //}
+            //else if (organisation != 0)
+            //{
+            //    List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+            //    serviceList = _servicesDBContext.Mst_Services.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-            }
-            else if (branch != 0)
-            {
-                serviceList = _servicesDBContext.Mst_Services.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-            }
+            //}
+            //else if (branch != 0)
+            //{
+            //    serviceList = _servicesDBContext.Mst_Services.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+            //}
 
-            if (!serviceList.Contains(serviceID))
-            {
-                return RedirectToAction("ServiceList", "PatientServices");
-            }
+            //if (!serviceList.Contains(serviceID))
+            //{
+            //    return RedirectToAction("ServiceList", "PatientServices");
+            //}
 
             ViewData["DoctorList"] = _doctorDBContext.mst_doctor.ToList();
 			ViewData["Organisation"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1).ToList();
@@ -137,18 +138,27 @@ namespace VPMSWeb.Controllers
 			int start = (page - 1) * rowLimit;
 			var treatmentPlansInfos = new TreatmentPlanInfos() { totalTreatmentPlan = 0, treatmentPlans = new List<TreatmentPlanModel>() };
 
-            var role = HttpContext.Session.GetString("RoleName");
-            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+            //var role = HttpContext.Session.GetString("RoleName");
+            //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-            if (role != "User")
-            {
-                var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, branch, organisation, out totalTreatmentPlan, search).ToList();
+            //if (role != "User")
+            //{
+            //    var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, branch, organisation, out totalTreatmentPlan, search).ToList();
 
-                treatmentPlansInfos = new TreatmentPlanInfos() { treatmentPlans = treatmentPlanList, totalTreatmentPlan = totalTreatmentPlan };
-            }
+            //    treatmentPlansInfos = new TreatmentPlanInfos() { treatmentPlans = treatmentPlanList, totalTreatmentPlan = totalTreatmentPlan };
+            //}
 
-			return treatmentPlansInfos;
+            var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, 0, 0, out totalTreatmentPlan, search).ToList();
+
+            treatmentPlansInfos = new TreatmentPlanInfos() { treatmentPlans = treatmentPlanList, totalTreatmentPlan = totalTreatmentPlan };
+
+            return treatmentPlansInfos;
+		}
+
+		public TreatmentPlanModel GetTreatmentPlanByID(int planID)
+		{
+			return _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == planID);
 		}
 
 		public List<TreatmentPlanService> GetTreatmentPlanServicesList(int planID)
@@ -178,18 +188,22 @@ namespace VPMSWeb.Controllers
 			int start = (page - 1) * rowLimit;
             ServicesInfo servicesInfo = new ServicesInfo() { ServiceList = new List<ServiceList>(), totalServices = 0 };
 
-            var role = HttpContext.Session.GetString("RoleName");
-            var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-            var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+            //var role = HttpContext.Session.GetString("RoleName");
+            //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+            //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-            if (role != "User")
-            {
-                var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, branch, organisation, out totalServices, search).ToList();
+            //if (role != "User")
+            //{
+            //    var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, branch, organisation, out totalServices, search).ToList();
 
-                servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
-            }
+            //    servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
+            //}
 
-			return servicesInfo;
+            var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, 0, 0, out totalServices, search).ToList();
+
+            servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
+
+            return servicesInfo;
 		}
 
 		public List<BranchModel> GetBranchList(int organisationID)
@@ -452,6 +466,28 @@ namespace VPMSWeb.Controllers
 
 
 			return true;
+		}
+
+		public bool ChangeTreatmentPlanStatus(int treatmentPlanID, int newStatus)
+		{
+			try
+			{
+				var treatmentPlan = _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == treatmentPlanID);
+				treatmentPlan.Status = newStatus;
+
+				_treatmentPlanDBContext.Mst_TreatmentPlan.Update(treatmentPlan);
+				_treatmentPlanDBContext.SaveChanges();
+
+				return true;
+			}
+			catch (Exception ex) 
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+
+				return false;
+			}
+			
+			
 		}
 	}
 }

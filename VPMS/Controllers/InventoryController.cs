@@ -62,9 +62,24 @@ namespace VPMSWeb.Controllers
 			var inventoryInfo = new InventoryInfoLists() { InventoryInfoList = inventoryList, totalInventory = totalInventory };
 
 			return inventoryInfo;
-		}
+        }
 
-		public List<InventoryModel> GetInventoryByCategory(int categoryID)
+        public List<List<InventoryInfoList>> PrintInventoryList(string search = "")
+        {
+			List<List<InventoryInfoList>> inventoryInfoLists = new List<List<InventoryInfoList>>();
+            var inventoryList = _inventoryDBContext.GetInventoryList(0, 0, out totalInventory, search).ToList();
+
+			var distinctBranch = inventoryList.DistinctBy(x => x.Branch).Select(y => y.Branch).ToList();
+
+			foreach (var branch in distinctBranch) 
+			{
+				inventoryInfoLists.Add(inventoryList.Where(x => x.Branch == branch).ToList());
+            }
+
+            return inventoryInfoLists;
+        }
+
+        public List<InventoryModel> GetInventoryByCategory(int categoryID)
 		{
 			return _inventoryDBContext.Mst_Product.Where(x => x.ProductTypeID == categoryID).ToList();
 		}
