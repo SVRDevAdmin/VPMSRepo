@@ -24,4 +24,11 @@ namespace VPMS.Lib.Data.Models
         public DateTime? UpdatedDate {  get; set; }
         public String? UpdatedBy { get; set; }
     }
+
+    public class TreatmentServicesDoctorModel
+    {
+        public int ServiceID { get; set; }
+        public int DoctorID { get; set; }
+        public String DoctorName { get; set; }
+    }
 }

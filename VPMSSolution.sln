@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task", "Task", "{AEBB8128-5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPMSTransactionSummaryTask", "VPMSTransactionSummaryTask\VPMSTransactionSummaryTask.csproj", "{1CF84A77-A07B-432E-A78C-BDF4D73EAB67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VPMSCustomer", "VPMSCustomer\VPMSCustomer.csproj", "{BC0FFC7F-A3D3-40B2-A2A4-2EAB93EE0B58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{1CF84A77-A07B-432E-A78C-BDF4D73EAB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CF84A77-A07B-432E-A78C-BDF4D73EAB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CF84A77-A07B-432E-A78C-BDF4D73EAB67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC0FFC7F-A3D3-40B2-A2A4-2EAB93EE0B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0FFC7F-A3D3-40B2-A2A4-2EAB93EE0B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0FFC7F-A3D3-40B2-A2A4-2EAB93EE0B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0FFC7F-A3D3-40B2-A2A4-2EAB93EE0B58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -651,9 +651,12 @@ input[type='text']:focus, select:focus {
 	background: rgba(255, 255, 255, 0.2);
 }
 
+#viewDropdownMenu {
+	background-color: #1f2e45;
+}
+
 .textColor {
 	color: white !important;
-
 	transition: color 0.5s;
 }
 
