@@ -276,12 +276,20 @@ input[type='text']:focus, select:focus {
 	color: black;
 }
 
+.profilemenu > a:hover {
+	background-color: transparent !important;
+}
+
 #btnBright {
 	background-color: #1e76fb;
 }
 
 #btnDark {
 	background-color: transparent;
+}
+
+#imgVetVitals {
+	content: url('../images/Vet-Vitals-Logo.png');
 }
 
 #imgLogo {
@@ -310,7 +318,13 @@ input[type='text']:focus, select:focus {
 	height: 20px;
 }
 
-#iconReceipt{
+#iconTestMgmt{
+	content: url('../images/flask_icon.png');
+	width: 20px;
+	height: 20px;
+}
+
+#iconReceipt {
 	content: url('../images/receipt_icon.png');
 	width: 24px;
 	height: 24px;
@@ -499,6 +513,10 @@ input[type='text']:focus, select:focus {
 		display: none !important;
 	}
 	*/
+
+	#copyrightText {
+		display: none !important;
+	}
 }
 
 @media(min-width:768px) {
@@ -539,6 +557,10 @@ input[type='text']:focus, select:focus {
 	#SubMenuAccess {
 		visibility: visible !important;
 	}*/
+
+	#copyrightText {
+		visibility: visible !important;
+	}
 }
 
 .errorValidation {
@@ -622,6 +644,14 @@ input[type='text']:focus, select:focus {
 	border-color: black !important;
 }
 
+.containerBackground5 {
+	background-color: white;
+	color: black;
+	border-color: black !important;
+	transition: background-color 1s;
+	transition: color 0.5s;
+}
+
 .dropdown-content a:hover {
 	background-color: #ddd;
 }
@@ -680,6 +710,8 @@ input[type='text']:focus, select:focus {
 .frameHeader {
 	/*height: 40px;*/
 	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: black;
 }
 
@@ -805,19 +837,26 @@ input[type='text']:focus, select:focus {
 .rowNotificationMessage {
 	color: black;
 	border: 0;
-	width: 75%;
+	width: 70%;
 	height: 40px;
-	word-break: break-word;
+	/*word-break: break-word;*/
+}
+
+.rowNotificationMessage p {
+	width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .rowNotificationDate {
 	color: black;
 	border: 0;
-	width: 20%;
+	width: 25%;
 	height: 40px;
 	text-align: center;
+	vertical-align: bottom;
 }
-
 
 .customButton {
 	--bs-btn-color: black;
@@ -846,4 +885,428 @@ input[type='text']:focus, select:focus {
 a {
 	color: black !important;
 	text-decoration: unset;
+}
+
+.NotifSettingsSubTitle {
+	text-align: left;
+	margin-left: 0px;
+	font-size: 12px;
+	font-family: sans-serif;
+	color: black;
+}
+
+.NotifSettingsContent 
+{
+	border: 0px solid #f7f7f7;
+	border-radius: 8px;
+	background-color: #f7f7f7;
+}
+
+.NotifSettingsCheckboxFont {
+	margin-left: 10px;
+	vertical-align: bottom;
+	font-size: 12px;
+	font-family: sans-serif;
+	color: black;
+}
+
+/*-------- Role Settings ------*/
+.rolePageTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 26px;
+	margin-top: 0px;
+	color: black;
+}
+
+#tblRoles {
+	border: 0px !important;
+}
+
+#tblRoles > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+}
+
+#tblRoles > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+}
+
+.roleListingMoreIcon {
+	content: url('../images/more_icon.png');
+	width: 20px;
+	height: 20px;
+}
+
+.frameRoleStyle {
+	margin-left: 10px;
+	margin-right: -5px;
+	border-radius: 6px;
+	border: 1px solid black;
+}
+
+.frameRoleHeader {
+	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	background-color: black;
+}
+
+.frameRoleHeaderLabel {
+	margin-left: 10px;
+	font-weight: bold;
+	margin-top: 5px;
+	color: white;
+}
+
+.LeftColLabel {
+	margin-left: 10px;
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.CenterColLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.RightColLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.permissionSectionLabel {
+	margin-left: 10px;
+	margin-bottom: 15px;
+	font-weight: bold;
+	font-size: 1vw;
+	color: black;
+}
+
+.permissionGrouping {
+	margin-left: 10px;
+	color: black;
+	text-decoration: underline;
+}
+
+.permissionCheckbox {
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 1.75em;
+	height: 1.75em;
+}
+
+.permissionCheckBoxLabel {
+	margin-left: 5px;
+	margin-top: 13px;
+	margin-bottom: 5px;
+	color: black;
+}
+
+.leftColControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-left: 10px;
+	margin-top: 5px
+}
+
+.centerColControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.rightColControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.leftColSpanControl {
+	width: 95%;
+	font-size: 1vw;
+	margin-left: 10px;
+	margin-top: 5px;
+}
+
+.hiddenMenuStyle {
+	background-color: white !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
+
+.hiddenMenuStyle > a:hover {
+	color: black !important;
+	background-color: white !important;
+}
+
+/*-------- User Settings ----------*/
+.staffPageTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 25px;
+	margin-top: 20px;
+	color: black;
+}
+
+#divFilter {
+	margin-top: 15px;
+	background-color: #f7f7f7;
+	border-radius: 6px;
+}
+
+.filterTitle {
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.filterLabel {
+	color: black;
+	font-weight: bold;
+}
+
+#tblUsers {
+	border: 0px !important;
+}
+
+#tblUsers > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+}
+
+#tblUsers > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+}
+
+.frameUserStyle {
+	margin-left: 10px;
+	margin-right: -5px;
+	border-radius: 6px;
+	border: 1px solid black;
+}
+
+.frameUserHeader {
+	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	background-color: black;
+}
+
+.frameUserHeaderLabel {
+	margin-left: 10px;
+	font-weight: bold;
+	margin-top: 5px;
+	color: white;
+}
+
+.LeftColUserLabel {
+	margin-left: 10px;
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.CenterColUserLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.RightColUserLabel {
+	margin-top: 5px;
+	font-weight: bold;
+	color: black;
+}
+
+.leftColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-left: 10px;
+	margin-top: 5px
+}
+
+.centerColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.rightColUserControl {
+	width: 90%;
+	font-size: 1vw;
+	margin-top: 5px
+}
+
+.hiddenUserMenuStyle {
+	background-color: white !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
+
+.hiddenUserMenuStyle > a:hover {
+	color: black !important;
+	background-color: white !important;
+}
+
+/*-------- Test Mgmt -----------*/
+#tblTestResult {
+	border: 0px !important;
+}
+
+#tblTestResult > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+}
+
+#tblTestResult > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+}
+
+.TestResultListingMoreIcon {
+	content: url('../images/more_icon.png');
+	width: 20px;
+	height: 20px;
+}
+
+.hiddenTestResultMenuStyle {
+	background-color: white !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
+
+.hiddenTestResultMenuStyle > a:hover {
+	color: black !important;
+	background-color: white !important;
+}
+
+.TestMgmtTitle {
+	font-size: 24px;
+	font-weight: bold;
+	color: black;
+	margin-left: 25px;
+	margin-top: 20px;
+}
+
+.TestMgmtFilterBox {
+	height: auto;
+	margin-top: 15px;
+	background-color: #f7f7f7;
+	border-radius: 6px;
+}
+
+.TestMgmtFilterTitle {
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.TestMgmtFilterLabel {
+	color: black;
+	font-weight: bold;
+}
+
+#tblTestParamResult > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-bottom: 0px solid black;
+	color: #919191;
+}
+
+#tblTestParamResult > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #C0C0C0;
+	background-color: transparent;
+	color: black;
+}
+
+.TestMgmtResultTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 25px;
+	margin-top: 20px;
+	color: black;
+}
+
+/* Container for the slider */
+.slider-container {
+	/*width: 300px;*/
+	width: 24vw;
+	position: relative;
+	/*height: 8px;*/
+	height: 0.62vw;
+	background: linear-gradient(to right, #fcc11d 33%, white 33%, white 33.5%, #42c0a5 33.5%, #42c0a5 66%, white 66%, white 66.6%, #ea4643 66.6%);
+	/*border-radius: 5px;*/
+	border-radius: 1vw;
+	overflow: visible; /* Allow the thumb to display outside the container */
+}
+
+/* Styling the thumb (indicator) as an arrow */
+/*.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 15px solid black;
+	cursor: pointer;
+	position: relative;
+	top: -7px;
+}
+
+.slider::-moz-range-thumb {
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 15px solid black;
+	cursor: pointer;
+}*/
+
+/* Styling the thumb (indicator) as an arrow */
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	/*width: 16px;*/
+	/*height: 14px;*/
+	width: 1.3vw;
+	height: 1.2vw;
+	border: 0;
+	background: url('../images/Icons/White_border_arrow.png');
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	cursor: pointer;
 }

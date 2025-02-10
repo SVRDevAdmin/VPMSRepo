@@ -10,7 +10,9 @@ namespace VPMS.Lib.Data.Models
 
         public string Name { get; set; } = null!;
 
-        public string Address { get; set; } = null!;
+		public string ContactNo { get; set; } = null!;
+
+		public string Address { get; set; } = null!;
 
         public int Status { get; set; }
     }

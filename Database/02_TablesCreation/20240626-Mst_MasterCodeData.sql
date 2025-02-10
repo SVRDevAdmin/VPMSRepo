@@ -37,3 +37,9 @@ VALUES
 ('HeightUnit','cm','Centimeter','Centimeter Unit',1,1,NOW(),'System'),
 ('HeightUnit','m','Meter','Meter Unit',1,2,NOW(),'System');
 -- ('','','','',,,NOW(),'System')
+
+INSERT INTO mst_mastercodedata(CodeGroup, CodeID, CodeName, Description, IsActive, SeqOrder, createdDate, CreatedBy)
+VALUES('NotificationConfig', 'INV_Notification', 'Inv. Notification', 'Enable Notification from Inventory', 1, 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_mastercodedata(CodeGroup, CodeID, CodeName, Description, IsActive, SeqOrder, createdDate, CreatedBy)
+VALUES('NotificationConfig', 'SWUPD_Notification', 'SW UPD Notification', 'Enable Notification from Software Update', 1, 2, NOW(), 'SYSTEM');

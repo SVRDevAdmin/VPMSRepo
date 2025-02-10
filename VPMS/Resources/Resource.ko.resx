@@ -432,7 +432,7 @@
   <data name="MenuBar_Label_MyProfile" xml:space="preserve">
     <value>내 프로필</value>
   </data>
-  <data name="MenuBar_Label_Organization" xml:space="preserve">
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
     <value>조직</value>
   </data>
   <data name="MenuBar_Label_Patients" xml:space="preserve">
@@ -1040,5 +1040,749 @@
   </data>
   <data name="Patient_Label_NoOtherPet" xml:space="preserve">
     <value>다른 애완동물은 없습니다.</value>
+  </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>역할 설정</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>새로운 역할</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>시퀀스 번호</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>권한</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>할당된 직원 수</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>역할</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>보다</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>편집하다</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>역할 삭제</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>이 역할을 삭제하시겠습니까?</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>레코드를 삭제하지 못했습니다.</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>사용자 접근 제어</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>새로운 역할 추가</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>사용자 역할</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>조직</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>나뭇가지</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>당신은 의사입니까?</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>지점을 선택해주세요</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>옵션을 선택해주세요</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>권한 설정:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>상태를 선택해주세요</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>조직을 선택해주세요</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>만들다</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>업데이트</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>역할 생성</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>새로운 역할이 성공적으로 생성되었습니다.</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>역할을 생성하지 못했습니다.</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>*필수 항목입니다.</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>역할 업데이트</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>역할을 성공적으로 업데이트했습니다.</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>역할을 업데이트하지 못했습니다.</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>직원 목록</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>새로운 직원</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>숫자</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>직원 이름</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>직원 ID</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>역할</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>성별</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>조직</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>나뭇가지</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>직원을 선택해주세요</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>역할을 선택해주세요</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>성별을 선택해주세요</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>조직을 선택해주세요</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>지점을 선택해주세요</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>상태를 선택해주세요</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>찾다</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>다시 놓기</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>보다</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>편집하다</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>직원 삭제</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>직원 삭제를 확인하시겠습니까?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>사용자를 삭제하지 못했습니다. 다시 시도하세요.</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>직원 세부 정보</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>성</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>직원 ID</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>성별</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>역할</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>성별을 선택해주세요</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>역할을 선택해주세요</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>조직</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>나뭇가지</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>조직을 선택해주세요</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>지점을 선택해주세요</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>상태를 선택해주세요</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>로그인 ID</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>만들다</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>업데이트</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>사용자 생성</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>사용자를 성공적으로 생성했습니다.</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*로그인 ID가 시스템에 존재합니다. 다시 시도하세요.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>사용자를 생성하지 못했습니다. 다시 시도해 주세요.</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*필수 입력란입니다.</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>사용자 프로필 업데이트</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>사용자 프로필이 성공적으로 업데이트되었습니다.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>사용자 프로필을 업데이트하지 못했습니다. 다시 시도해 주세요.</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>잘못된 이메일 주소입니다.</value>
+  </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>모든 권리 보유</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>항목 추가</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>지불됨으로 표시</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>인쇄</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>빠른 송장</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>소계</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>행동</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>밸런스</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>할인</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>수수료</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>에서</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>그랜드 할인</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>송장 세부정보</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>송장 번호</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>송장 메모</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>송장/영수증 번호</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>송장</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>다음 약속</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>유급의</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>보류 중</value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>구매 품목 세부정보</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>수량</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>준비가 된</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>영수증</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>영수증 번호</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>고객 선택</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>제품 선택</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>수술/예방 접종/상담 이름</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>에게</value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>총 가격</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>지불됨으로 표시하고 영수증으로 이동하시겠습니까?</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>맞춤 치료 추가</value>
+  </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>기존 치료 계획</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>전시</value>
+  </data>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>지점 추가</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>지점 주소</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>지점</value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>지점명</value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>조직 만들기</value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>새 조직</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>조직 이름</value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>지점 저장</value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>조직 검색</value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>총 직원</value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>조직 편집</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>조직 세부정보</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>보고서 보기</value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>혈압</value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>혈액검사</value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>뼈 질량</value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>심박수</value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>높은</value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>부상 시험</value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>낮은</value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>폐 엑스레이</value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>부정적인</value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>정상</value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>정상 범위</value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>매개변수</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>회복 중</value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>결과</value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>결과 게이지</value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>접근 거부.</value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>지점 연락처 번호</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>고객</value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>긍정적</value>
+  </data>
+  <data name="Appointment_Label_NoFutureAppointment" xml:space="preserve">
+    <value>향후 약속이 없습니다.</value>
+  </data>
+  <data name="Patient_Button_HideFilter" xml:space="preserve">
+    <value>필터 숨기기</value>
+  </data>
+  <data name="Patient_Button_ShowFilter" xml:space="preserve">
+    <value>필터 표시</value>
+  </data>
+  <data name="TestManagement_Label_Analyzer" xml:space="preserve">
+    <value>분석기</value>
+  </data>
+  <data name="Dashboard_Button_ViewAll" xml:space="preserve">
+    <value>모두 보기</value>
+  </data>
+  <data name="Dashboard_Label_AllDoctors" xml:space="preserve">
+    <value>모든 의사</value>
+  </data>
+  <data name="Dashboard_Label_AsOf" xml:space="preserve">
+    <value>현재</value>
+  </data>
+  <data name="Dashboard_Label_ShowMore" xml:space="preserve">
+    <value>더 보기</value>
+  </data>
+  <data name="Dashboard_Label_Summary" xml:space="preserve">
+    <value>요약</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatients" xml:space="preserve">
+    <value>전체 환자</value>
+  </data>
+  <data name="Dashboard_Label_TotalSales" xml:space="preserve">
+    <value>전체 판매</value>
+  </data>
+  <data name="Dashboard_Label_TotalStaffs" xml:space="preserve">
+    <value>전체 직원</value>
+  </data>
+  <data name="Dashboard_Message_Here" xml:space="preserve">
+    <value>여기 환자 관리 시스템 대시보드가 ​​있습니다.</value>
+  </data>
+  <data name="Dashboard_Message_Welcome" xml:space="preserve">
+    <value>환영합니다.</value>
+  </data>
+  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
+    <value>소프트웨어 업데이트</value>
+  </data>
+  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
+    <value>알림 설정</value>
+  </data>
+  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
+    <value>받고 싶은 알림을 활성화하세요.</value>
+  </data>
+  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="NotificationSetting_Button_Save" xml:space="preserve">
+    <value>구하다</value>
+  </data>
+  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
+    <value>업데이트 알림 설정</value>
+  </data>
+  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
+    <value>설정 업데이트가 성공적으로 완료되었습니다.</value>
+  </data>
+  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
+    <value>알림 설정을 업데이트하지 못했습니다.</value>
+  </data>
+  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
+    <value>알림 설정</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>테스트 관리</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>숫자</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>테스트 시간</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>테스트 유형</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>결과 상태 (+/-)</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>환자 ID</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>운영자 ID</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>장치 이름</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>이름으로 검색</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>날짜별 정렬</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>정렬 기준</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>오름차순</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>내림차순</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>찾다</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>다시 놓기</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>다시 놓기</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>전체 테스트 결과</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>테스트 시간</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>환자 이름</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>환자 ID</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>운영자 ID</value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>장치 이름</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>결과 게이지</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>정상 범위</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>결과</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>시험</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>낮은</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>정상</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>높은</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>테스트 관리</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>값</value>
+  </data>
+  <data name="Dashboard_Label_Daily" xml:space="preserve">
+    <value>일일</value>
+  </data>
+  <data name="Dashboard_Label_GenderBreakdown" xml:space="preserve">
+    <value>성별 분석</value>
+  </data>
+  <data name="Dashboard_Label_LatestUpdateOn" xml:space="preserve">
+    <value>최신 업데이트</value>
+  </data>
+  <data name="Dashboard_Label_Monthly" xml:space="preserve">
+    <value>월간 간행물</value>
+  </data>
+  <data name="Dashboard_Label_OverallRevenue" xml:space="preserve">
+    <value>전체 수익</value>
+  </data>
+  <data name="Dashboard_Label_PatientNumberStatistics" xml:space="preserve">
+    <value>환자 수 통계</value>
+  </data>
+  <data name="Dashboard_Label_RevenueBy" xml:space="preserve">
+    <value>수익 기준</value>
+  </data>
+  <data name="Dashboard_Label_StaffBreakdown" xml:space="preserve">
+    <value>직원 분석</value>
+  </data>
+  <data name="Dashboard_Label_TopBreed" xml:space="preserve">
+    <value>최고의 품종</value>
+  </data>
+  <data name="Dashboard_Label_TopServices" xml:space="preserve">
+    <value>최고의 서비스</value>
+  </data>
+  <data name="Dashboard_Label_TopTreatment" xml:space="preserve">
+    <value>탑 트리트먼트</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatientByBreed" xml:space="preserve">
+    <value>품종별 전체 환자</value>
+  </data>
+  <data name="Dashboard_Label_Weekly" xml:space="preserve">
+    <value>주간</value>
+  </data>
+  <data name="Dashboard_Label_Yearly" xml:space="preserve">
+    <value>매년</value>
+  </data>
+  <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
+    <value>총 약속</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>송장 생성</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>영수증 생성</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>청구서가 첨부되어 있습니다.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>영수증이 첨부되어 있습니다.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>제품을 하나 이상 추가하세요.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>필수 입력란을 작성해 주세요.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>뭔가 잘못된 일이 일어났어요!</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>계정이 잠겨 있습니다. 관리자에게 문의하세요.</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>아직 계좌가 확인되지 않았습니다. 이메일을 통해 계정을 확인한 후 다시 시도해 주세요.</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>사용자 이름으로는 계정을 찾을 수 없습니다. 확인하신 후 다시 시도해 주세요.</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>오류가 발생했습니다. 나중에 다시 시도해 주세요.</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>비밀번호를 재설정하지 못했습니다.</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>이메일이 잘못되었습니다. 확인하신 후 다시 시도해 주세요.</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>비밀번호나 사용자 이름이 잘못되었습니다.</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>필수 입력란을 작성해야 합니다.</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>이 분류에 대해서는 아직 기록이 없습니다.</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>서비스나 제품을 하나 이상 선택해야 합니다.</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>치료 계획 이름은 비워둘 수 없습니다.</value>
   </data>
 </root>

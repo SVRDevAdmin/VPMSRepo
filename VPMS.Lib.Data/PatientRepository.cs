@@ -39,7 +39,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("PatientRepository >>> GetPatientOwnerList >>> ", ex);
 				return null;
             }
         }
@@ -69,7 +69,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("PatientRepository >>> GetPetListByOwnerID >>> ", ex);
 				return null;
             }
         }
@@ -91,7 +91,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("PatientRepository >>> GetPatientOwnerByOwnerID >>> ", ex);
 				return null;
             }
         }
@@ -133,7 +133,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-				logger.Error("Database Error >> ", ex);
+				logger.Error("PatientRepository >>> GetPatientPetProfileByOwnerPetID >>> ", ex);
 				return null;
             }
         }

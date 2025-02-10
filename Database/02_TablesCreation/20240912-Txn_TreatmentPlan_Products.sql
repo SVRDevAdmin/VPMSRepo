@@ -5,6 +5,7 @@ CREATE TABLE `Txn_TreatmentPlan_Products` (
     `ProductName` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
     `Units` INT NULL DEFAULT NULL,
 	`PricePerQty` DECIMAL(10,2) NULL DEFAULT NULL, 
+	`Discount` DECIMAL(10,2) NULL DEFAULT NULL, 
 	`TotalPrice` DECIMAL(10,2) NULL DEFAULT NULL, 
     `IsDeleted` INT NULL DEFAULT NULL,
     `CreatedDate` DATETIME NULL DEFAULT NULL,

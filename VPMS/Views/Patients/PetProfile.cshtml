@@ -8,6 +8,7 @@
 	ViewBag.SelectedMenu = "patientsMenu";
 	ViewBag.Breed = Model.Breed;
 	List<string> otherPets = ViewData["OtherPets"] as List<string>;
+	var currentDateTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
 
 	var theme = httpContextaccessor.HttpContext.Request.Cookies["theme"];
 
@@ -189,7 +190,7 @@
 <template id="VaccinationTemplate">
 	<div class="VaccinationGroup" style="margin-bottom: 1vw;">
 		<input class="IDVaccination" type="text" hidden/>
-		<input class="CreatedDateVaccination" type="text" hidden/>
+		<input class="CreatedDateVaccination" type="text" value="@currentDateTime" hidden />
 		<input class="CreatedByVaccination" type="text" hidden/>
 		<div class="medicalRecord">
 			<span class="TypeVaccinationText"></span> </br>
@@ -210,8 +211,8 @@
 		<div class="medicalRecord hideContainer">
 			<div>
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-					<select class="form-control form-field inputField TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination', false, '', '');">
+					<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
+					<select class="form-control form-field inputField TypeVaccination isValidate" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination', false, '', '');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccinationType"] --</option>
 						@foreach (var vaccination in ViewData["VaccinationList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 						{
@@ -221,24 +222,24 @@
 				</div>
 
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-					<select class="form-control form-field inputField NameVaccination">
+					<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
+					<select class="form-control form-field inputField NameVaccination isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccination"] --</option>
 					</select>
 				</div>
 
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
-					<input type="date" class="form-control form-field inputField DueDateVaccination" value="2023-06-02" />
+					<span class="formlabel">@LangResources["Patient_Label_DueDate"] <span style="color: red;">*</span></span>
+					<input type="date" class="form-control form-field inputField DueDateVaccination isValidate" />
 				</div>
 
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["TreatmentPlan_Label_Remarks"]</span>
-					<input type="text" class="form-control form-field inputField RemarksVaccination" value="Need to monitor further." />
+					<input type="text" class="form-control form-field inputField RemarksVaccination" />
 				</div>
 
 				<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
-					<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+					<a onclick="serviceToDelete.push(this.parentElement.parentElement.parentElement.parentElement.querySelector('.IDVaccination').value); removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 				</div>
 			</div>
 		</div>
@@ -248,7 +249,7 @@
 <template id="MedicationTemplate">
 	<div class="MedicationGroup" style="margin-bottom: 1vw;">
 		<input class="IDMedication" type="text" hidden/>
-		<input class="CreatedDateMedication" type="text" hidden/>
+		<input class="CreatedDateMedication" value="@currentDateTime" type="text" hidden />
 		<input class="CreatedByMedication" type="text" hidden/>
 		<div class="medicalRecord">
 			<span class="TypeMedicationText"></span> </br>
@@ -268,8 +269,8 @@
 		<div class="medicalRecord hideContainer">
 			<div>
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-					<select class="form-control form-field inputField TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication', false, '', '');">
+					<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
+					<select class="form-control form-field inputField TypeMedication isValidate" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication', false, '', '');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectMedicationType"] --</option>
 						@foreach (var medication in ViewData["MedicationList"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
 						{
@@ -279,19 +280,19 @@
 				</div>
 
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-					<select class="form-control form-field inputField NameMedication">
+					<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
+					<select class="form-control form-field inputField NameMedication isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] --</option>
 					</select>
 				</div>
 
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"]</span>
-					<input type="date" class="form-control form-field inputField DueDateMedication" value="2023-06-02"/>
+					<span class="formlabel">@LangResources["Patient_Label_ExpiryDate"] <span style="color: red;">*</span></span>
+					<input type="date" class="form-control form-field inputField DueDateMedication isValidate" />
 				</div>
 
 				<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
-					<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+					<a onclick="medicationToDelete.push(this.parentElement.parentElement.parentElement.parentElement.querySelector('.IDMedication').value); removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 				</div>
 			</div>
 		</div>						
@@ -301,7 +302,7 @@
 <template id="SurgeriesTemplate">
 	<div class="SurgeryGroup" style="margin-bottom: 1vw;">
 		<input class="IDSurgeries" type="text" hidden/>
-		<input class="CreatedDateSurgeries" type="text" hidden/>
+		<input class="CreatedDateSurgeries" value="@currentDateTime" type="text" hidden />
 		<input class="CreatedBySurgeries" type="text" hidden/>
 		<div class="medicalRecord">
 			<span class="TypeSurgeriesText"></span> </br>
@@ -322,8 +323,8 @@
 		<div class="medicalRecord hideContainer">
 			<div>
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_Type"]</span>
-					<select class="form-control form-field inputField TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery', false, '', '');">
+					<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
+					<select class="form-control form-field inputField TypeSurgeries isValidate" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery', false, '', '');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgeryType"] --</option>
 						@foreach (var vaccination in ViewData["SurgeryList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 						{
@@ -333,24 +334,24 @@
 				</div>
 
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_Name"]</span>
-					<select class="form-control form-field inputField NameSurgeries">
+					<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
+					<select class="form-control form-field inputField NameSurgeries isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgery"] --</option>
 					</select>
 				</div>
 
 				<div class="field-container" style="margin: 0;">
-					<span class="formlabel">@LangResources["Patient_Label_DueDate"]</span>
-					<input type="date" class="form-control form-field inputField DueDateSurgeries" value="2023-06-02"/>
+					<span class="formlabel">@LangResources["Patient_Label_DueDate"] <span style="color: red;">*</span></span>
+					<input type="date" class="form-control form-field inputField DueDateSurgeries isValidate" />
 				</div>
 
 				<div class="field-container" style="margin: 0;">
 					<span class="formlabel">@LangResources["TreatmentPlan_Label_Remarks"]</span>
-					<input type="text" class="form-control form-field inputField RemarksSurgeries" value="Need to monitor further."/>
+					<input type="text" class="form-control form-field inputField RemarksSurgeries" />
 				</div>
 
 				<div style="display:flex;align-items: center; justify-content: flex-end; margin-top: 1.5vw;">
-					<a onclick="removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
+					<a onclick="serviceToDelete.push(this.parentElement.parentElement.parentElement.parentElement.querySelector('.IDSurgeries').value); removeClone(this.parentElement.parentElement.parentElement.parentElement);"><i class="fa fa-trash-o" style="font-size:2vw;color:red"></i></a>
 				</div>
 			</div>
 		</div>
@@ -572,7 +573,12 @@
 					<span class="formlabel">@LangResources["Patient_Label_Obese"]</span>
 					@{
 						var obesity = "";
-						var bmi = (Model.Weight / (Model.Height * Model.Height)) * 10000;
+						decimal bmi = 0;
+
+						if (Model.Height != 0)
+						{
+							bmi = (Model.Weight / (Model.Height * Model.Height)) * 10000;
+						}
 					}
 					<span class="formlabel Obese" style="color: @(bmi > 30 ? "red" : "green");">@(bmi > 30 ? LangResources["Patient_Selection_Yes"] : @LangResources["Patient_Selection_No"])</span>
 				</div>
@@ -591,16 +597,17 @@
 			<button onclick="editMedicalRecord();" class="btn btn-lg btn-primary medicalRecord" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-pen-to-square"></i>
 			</button>
-			<button onclick="submitMedicalRecord();" class="btn btn-lg btn-primary medicalRecord hideContainer" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+			<button onclick="submitMedicalRecord(this.parentElement.parentElement.querySelector('#medicalRecordContainer'));" class="btn btn-lg btn-primary medicalRecord hideContainer" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
 				<i class="fa-regular fa-floppy-disk"></i>
 			</button>
 		</div>
-		<div class="containerBorder textColor" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
+		<div id="medicalRecordContainer" class="containerBorder textColor" style="width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw; display: flex">
 
 			<div class="medicalRecordPartition">
 
-				<div class="medicalRecordPartitionTitle">
+				<div class="medicalRecordPartitionTitle" style="display: flex; justify-content: space-between;">
 					<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Vaccination"]</span>
+					<a class="medicalRecord hideContainer" href="#" onclick="cloneServices('VaccinationTemplate', 'VaccinationContent', 'Vaccination', 0, '', '', '', '', '', '', '');" style="font-size: 1vw; color: blue !important;"><i class="fa-solid fa-plus"></i></a>
 				</div>
 
 				<div id="VaccinationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
@@ -609,8 +616,9 @@
 			</div>
 
 			<div class="medicalRecordPartition">
-				<div class="medicalRecordPartitionTitle">
+				<div class="medicalRecordPartitionTitle" style="display: flex; justify-content: space-between;">
 					<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Medication"]</span>
+					<a class="medicalRecord hideContainer" href="#" onclick="cloneMedication('MedicationTemplate', 'MedicationContent', 'Medication', 0, '', '', '', '', '', '', '');" style="font-size: 1vw; color: blue !important;"><i class="fa-solid fa-plus"></i></a>
 				</div>
 
 				<div id="MedicationContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
@@ -619,8 +627,9 @@
 			</div>
 
 			<div class="medicalRecordPartition">
-				<div class="medicalRecordPartitionTitle">
+				<div class="medicalRecordPartitionTitle" style="display: flex; justify-content: space-between;">
 					<span class="formlabel" style="color: blue;">@LangResources["Patient_Label_Surgeries"]</span>
+                    <a class="medicalRecord hideContainer" href="#" onclick="cloneServices('SurgeriesTemplate', 'SurgeriesContent', 'Surgeries', 0, '', '', '', '', '', '', '');" style="font-size: 1vw; color: blue !important;"><i class="fa-solid fa-plus"></i></a>
 				</div>
 
 				<div id="SurgeriesContent" style="font-size: 1vw; padding-left: 1.5vw; padding-right: 1.5vw; padding-bottom: 1.5vw;">
@@ -646,86 +655,6 @@
 						<th class="table-content"> @LangResources["Patient_Label_Allergies"] </th>
 						<th class="table-content"> @LangResources["Patient_Label_Obesity"] </th>
 					</tr>
-					@* <tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr>
-					<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">
-						<td class="table-content"> 5/8/2024 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> 50 </td>
-						<td class="table-content"> 5 </td>
-						<td class="table-content"> N/A </td>
-						<td class="table-content"> No </td>
-					</tr> *@
 				</table>
 			</div>
 
@@ -766,17 +695,17 @@
 						{
 							foreach (string otherPet in otherPets)
 							{
-								<div class="field-container" style="text-align: center;">
-									<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw;" />
-									<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
-								</div>
+									<div class="field-container" style="text-align: center;">
+										<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw;" />
+										<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
+									</div>
 							}
 						}
 						else
 						{
-							<div class="field-container" style="text-align: center; width: 100%;">
-								<span class="textColor">@LangResources["Patient_Label_NoOtherPet"]</span>
-							</div>
+								<div class="field-container" style="text-align: center; width: 100%;">
+									<span class="textColor">@LangResources["Patient_Label_NoOtherPet"]</span>
+								</div>
 						}
 					}
 					
@@ -806,13 +735,13 @@
 
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" disabled>
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/InvoiceBilling/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-receipt"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_InvoiceBilling"]</span>
 					</div>
 					<div class="field-container quaterSize" style="display: flex; align-items: center;">
-						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" disabled>
+						<button class="btn btn-lg btn-primary" onclick="window.location = '/Patients/TestManagement/@ViewBag.PatientID/@ViewData["PetName"]';" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;">
 							<i class="fa-solid fa-flask-vial"></i>
 						</button>
 						<span class="formlabel textColor" style="text-wrap: nowrap;">@LangResources["Patient_Label_TestManagement"]</span>
@@ -924,7 +853,7 @@
 							<tr>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Date"]</th>
 								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_MedicationName"]</th>
-								<th style="color: darkgray; padding: 0 2vw;">@LangResources["Patient_Label_Status"]</th>
+								<th style="color: darkgray; padding: 0 2vw;" hidden>@LangResources["Patient_Label_Status"]</th>
 							</tr>
 							@* <tr>
 								<td style="padding: 0 2vw;">01/09/2023</td>
@@ -994,11 +923,11 @@
 				var tableElement = document.getElementById("petGrowthTable");
 
 				for (let i = 0; i < data.length; i++) {
-					var obesity = "No";
+					var obesity = "@LangResources["Patient_Selection_No"]";
 					var color = "green";
 
 					if (data[i].BMI > 30) {
-						obesity = "Yes";
+						obesity = "@LangResources["Patient_Selection_Yes"]";
 						color = "red";
 					}
 
@@ -1038,7 +967,9 @@
 		}
 
 		if(name != currentGraph){
-			currentGraph = name;
+			if (name != "current") {
+				currentGraph = name;
+			}
 
 			if (chartElement) {
 				chartElement.chart.destroy();
@@ -1118,6 +1049,8 @@
 	var species = document.querySelector(".Species").value;
 	var breedElement = document.querySelector(".Breed");
 	breedList(species, breedElement, '@ViewBag.Breed');
+	var serviceToDelete = [];
+	var medicationToDelete = [];
 
 	getMedicalRecord();
 	getUpcomingTreatmentPlan();
@@ -1173,38 +1106,51 @@
 	function cloneServices(templateId, contentId, name, medicalRecordID, typeId, serviceId, createdOn, dueDate, description, remarks, createdBy) {
 		const template = document.getElementById(templateId)
 		const clone = template.content.cloneNode(1).firstElementChild;
-		
+
 		clone.querySelector('.ID' + name).value = medicalRecordID;
-		clone.querySelector('.CreatedDate' + name).value = createdOn;
-		clone.querySelector('.CreatedBy' + name).value = createdBy;
 
-		var serviceTypeElement = clone.querySelector('.Type' + name);
-		serviceTypeElement.value = typeId;
-		var selectedServiceType = serviceTypeElement.options[serviceTypeElement.selectedIndex];
-		clone.querySelector('.Type' + name + 'Text').innerHTML = selectedServiceType.innerHTML;
+		if (medicalRecordID != 0) {
+			clone.querySelector('.CreatedDate' + name).value = createdOn;
+			clone.querySelector('.CreatedBy' + name).value = createdBy;
 
-		var serviceElement = clone.querySelector('.Name' + name);
-		var serviceElementText = clone.querySelector('.Name' + name + 'Text');
-		serviceList(typeId, serviceElement, name, true, serviceId, serviceElementText);
+			var serviceTypeElement = clone.querySelector('.Type' + name);
+			serviceTypeElement.value = typeId;
+			var selectedServiceType = serviceTypeElement.options[serviceTypeElement.selectedIndex];
+			clone.querySelector('.Type' + name + 'Text').innerHTML = selectedServiceType.innerHTML;
 
-		var date = new Date(createdOn);
-		var createdOnText = [
-			('0' + date.getDate()).slice(-2),
-			('0' + (date.getMonth() + 1)).slice(-2),
-			date.getFullYear()
-		].join('/');
-		date = new Date(dueDate);
-		var dueDateText = [
-			('0' + date.getDate()).slice(-2),
-			('0' + (date.getMonth() + 1)).slice(-2),
-			date.getFullYear()
-		].join('/');
-		clone.querySelector('.CreatedOn' + name + 'Text').innerHTML = createdOnText;
-		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Due"]: " + dueDateText;
-		clone.querySelector('.DueDate' + name).value = dueDate;
-		clone.querySelector('.Description' + name + 'Text').innerHTML = description;
-		clone.querySelector('.Remarks' + name + 'Text').innerHTML = remarks;
-		clone.querySelector('.Remarks' + name).value = remarks;
+			var serviceElement = clone.querySelector('.Name' + name);
+			var serviceElementText = clone.querySelector('.Name' + name + 'Text');
+			serviceList(typeId, serviceElement, name, true, serviceId, serviceElementText);
+
+			var date = new Date(createdOn);
+			var createdOnText = [
+				('0' + date.getDate()).slice(-2),
+				('0' + (date.getMonth() + 1)).slice(-2),
+				date.getFullYear()
+			].join('/');
+			date = new Date(dueDate);
+			var dueDateText = [
+				('0' + date.getDate()).slice(-2),
+				('0' + (date.getMonth() + 1)).slice(-2),
+				date.getFullYear()
+			].join('/');
+			clone.querySelector('.CreatedOn' + name + 'Text').innerHTML = createdOnText;
+			clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Due"]: " + dueDateText;
+			clone.querySelector('.DueDate' + name).value = dueDate;
+			clone.querySelector('.Description' + name + 'Text').innerHTML = description;
+			clone.querySelector('.Remarks' + name + 'Text').innerHTML = remarks;
+			clone.querySelector('.Remarks' + name).value = remarks;
+		}		
+		else{
+			// clone.querySelector('.CreatedDate' + name).value = new Date();
+			clone.querySelector('.CreatedBy' + name).value = "System";
+
+			var element = clone.querySelectorAll('.medicalRecord');
+
+			for (let i = 0; i < element.length; i++) {
+				element[i].classList.toggle("hideContainer");
+			}
+		}
 
 		var element = document.querySelector('#' + contentId);
 		element.appendChild(clone);
@@ -1215,28 +1161,40 @@
 		const clone = template.content.cloneNode(1).firstElementChild;
 		
 		clone.querySelector('.ID' + name).value = medicalRecordID;
-		clone.querySelector('.CreatedDate' + name).value = createdDate;
-		clone.querySelector('.CreatedBy' + name).value = createdBy;
 
-		var productTypeElement = clone.querySelector('.Type' + name);
-		productTypeElement.value = typeId;
-		var selectedProductType = productTypeElement.options[productTypeElement.selectedIndex];
-		clone.querySelector('.Type' + name + 'Text').innerHTML = selectedProductType.innerHTML;
+		if(medicalRecordID != 0){
+			clone.querySelector('.CreatedDate' + name).value = createdDate;
+			clone.querySelector('.CreatedBy' + name).value = createdBy;
 
-		var productElement = clone.querySelector('.Name' + name);
-		var productElementText = clone.querySelector('.Name' + name + 'Text');
-		medicationList(typeId, productElement, true, productId, productElementText);
+			var productTypeElement = clone.querySelector('.Type' + name);
+			productTypeElement.value = typeId;
+			var selectedProductType = productTypeElement.options[productTypeElement.selectedIndex];
+			clone.querySelector('.Type' + name + 'Text').innerHTML = selectedProductType.innerHTML;
 
-		date = new Date(dueDate);
-		var dueDateText = [
-			('0' + date.getDate()).slice(-2),
-			('0' + (date.getMonth() + 1)).slice(-2),
-			date.getFullYear()
-		].join('/');
-		clone.querySelector('.Status' + name + 'Text').innerHTML = (status == 1 ? "@LangResources["Patient_Selection_Active"]" : "@LangResources["Patient_Selection_Inactive"]");
-		clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Expiry"]: " + dueDateText;
-		clone.querySelector('.DueDate' + name).value = dueDate;
-		clone.querySelector('.Description' + name + 'Text').innerHTML = description;
+			var productElement = clone.querySelector('.Name' + name);
+			var productElementText = clone.querySelector('.Name' + name + 'Text');
+			medicationList(typeId, productElement, true, productId, productElementText);
+
+			date = new Date(dueDate);
+			var dueDateText = [
+				('0' + date.getDate()).slice(-2),
+				('0' + (date.getMonth() + 1)).slice(-2),
+				date.getFullYear()
+			].join('/');
+			clone.querySelector('.Status' + name + 'Text').innerHTML = (status == 1 ? "@LangResources["Patient_Selection_Active"]" : "@LangResources["Patient_Selection_Inactive"]");
+			clone.querySelector('.DueDate' + name + 'Text').innerHTML = "@LangResources["Patient_Label_Expiry"]: " + dueDateText;
+			clone.querySelector('.DueDate' + name).value = dueDate;
+			clone.querySelector('.Description' + name + 'Text').innerHTML = description;
+		}
+		else{
+			clone.querySelector('.CreatedBy' + name).value = createdBy;
+
+			var element = clone.querySelectorAll('.medicalRecord');
+
+			for (let i = 0; i < element.length; i++) {
+				element[i].classList.toggle("hideContainer");
+			}
+		}		
 
 		var element = document.querySelector('#' + contentId);
 		element.appendChild(clone);
@@ -1290,9 +1248,6 @@
 				for(let i = 0; i < data.length; i++){
 					cloneMedication("MedicationTemplate", "MedicationContent", "Medication", data[i].ID, data[i].CategoryID, data[i].ProductID, data[i].Status, data[i].ExpiryDate, data[i].Description, data[i].CreatedDate, data[i].CreatedBy);				
 				}
-
-				
-				
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
@@ -1487,13 +1442,13 @@
 							date.getFullYear()
 						].join('/');
 
-						var status = data[i].Status == 1 ? "Active" : "Inactive";
+						var status = data[i].Status == 1 ? "@LangResources["Patient_Selection_Active"]" : "@LangResources["Patient_Selection_Inactive"]";
 
 						tableElement.innerHTML = tableElement.innerHTML +
 							'<tr>' +
 							'<td style="padding: 0 2vw;"> ' + dateText + '</td>' +
 							'<td style="padding: 0 2vw;">' + data[i].Name + '</td>' +
-							'<td style="padding: 0 2vw;">' + status + '</td>' +
+							'<td style="padding: 0 2vw;" hidden>' + status + '</td>' +
 							'</tr > '
 					}
 				}
@@ -1646,41 +1601,64 @@
 			});
 	}	
 
-	function submitMedicalRecord(){
-		var vaccinations = document.querySelectorAll(".VaccinationGroup");
-		var surgeries = document.querySelectorAll(".SurgeryGroup");
-		var medications = document.querySelectorAll(".MedicationGroup");
+	function submitMedicalRecord(e){
+		if (validationCheck(e)) {
+			var vaccinations = e.querySelectorAll(".VaccinationGroup");
+			var surgeries = e.querySelectorAll(".SurgeryGroup");
+			var medications = e.querySelectorAll(".MedicationGroup");
 
-		if(vaccinations.length == 0){
-			saveMedicalRecordService(document.querySelector("#PetID").value, "deleted", "", 1);
-		}
-		else{
 			for (let i = 0; i < vaccinations.length; i++) {
 				saveMedicalRecordService(document.querySelector("#PetID").value, "Vaccination", vaccinations[i], 1);
 			}
-		}
 
-		if(surgeries.length == 0){
-			saveMedicalRecordService(document.querySelector("#PetID").value, "deleted", "", 2);
-		}
-		else{
 			for (let i = 0; i < surgeries.length; i++) {
 				saveMedicalRecordService(document.querySelector("#PetID").value, "Surgeries", surgeries[i], 2);
 			}
-		}
 
-		if(medications.length == 0){
-				saveMedicalRecordMedication(document.querySelector("#PetID").value, "deleted");
-		}
-		else{
 			for (let i = 0; i < medications.length; i++) {
 				saveMedicalRecordMedication(document.querySelector("#PetID").value, medications[i]);
 			}
+
+			deleteServices();
+			deleteMedications()
+
+			location.reload();
 		}
+		else{
+			CustomAlertMessageShow("@LangResources["Patient_Message_FillRequiredField"]");
+		}			
+	}
 
-		
+	function deleteServices(){
+		fetch('/Patients/DeleteMedicalRecordService', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(serviceToDelete)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
 
-				
+	function deleteMedications() {
+		fetch('/Patients/DeleteMedicalRecordMedication', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(medicationToDelete)
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
 	}
 
 	function saveMedicalRecordService(petID, name ,element, type){
@@ -1770,8 +1748,6 @@
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
 				}
-
-				location.reload();
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
@@ -1808,5 +1784,19 @@
 		iframe.contentWindow.document.write(input); // write the HTML to be printed
 		iframe.contentWindow.print();  // print it
 		document.body.removeChild(iframe); // remove the iframe from the DOM
+	}
+
+	function validationCheck(e) {
+		var IsValidated = true;
+
+		var validateElements = e.querySelectorAll(".isValidate");
+
+		for (let i = 0; i < validateElements.length; i++) {
+			if (validateElements[i].value == "") {
+				IsValidated = false;
+			}
+		}
+
+		return IsValidated;
 	}
 </script>

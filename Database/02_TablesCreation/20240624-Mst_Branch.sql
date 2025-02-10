@@ -2,6 +2,7 @@ CREATE TABLE `mst_branch` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `OrganizationID` int NOT NULL,
   `Name` varchar(200) NOT NULL,
+  `ContactNo` varchar(20) NOT NULL,
   `Address` varchar(500) NOT NULL,
   `Status` int NOT NULL,
   `CreatedDate` datetime NOT NULL,

@@ -244,43 +244,68 @@ namespace VPMSWeb.Controllers
                     {
                         if (sRequest.body.ValidateRequiredField())
                         {
-                            var sTestResultList = new List<VPMS.Lib.Data.Models.TestResultModel>();
+                            var sTestResultList = new List<VPMS.Lib.Data.Models.TestResultsTxnModel>();
+                            var sTestResult = new VPMS.Lib.Data.Models.TestResultsTxnModel();
+                            var sTestResultDetList = new List<VPMS.Lib.Data.Models.TestResultsDetailTxnModel>();
+
+                            var sClientProfile = ClientRepository.GetClientProfile(ConfigSettings.GetConfigurationSettings(), sRequest.header.authtoken);
 
                             foreach(var r in sRequest.body.results)
                             {
                                 DateTime dtTestResult = DateTime.ParseExact(r.resultdatetime, "yyyyMMddHHmmss",
                                                         System.Globalization.CultureInfo.InvariantCulture);
 
-                                sTestResultList.Add(new VPMS.Lib.Data.Models.TestResultModel
+                                sTestResult.ResultDateTime = dtTestResult;
+                                sTestResult.ResultType = r.resulttype;
+                                sTestResult.PatientID = r.patientid;
+                                sTestResult.PetID = r.petid;
+                                sTestResult.OperatorID = r.operatorid;
+                                sTestResult.InchargeDoctor = r.inchargeperson;
+                                sTestResult.DeviceName = r.devicename;
+                                sTestResult.OverallStatus = r.overallstatus;
+                                sTestResult.CreatedDate = DateTime.Now;
+                                sTestResult.CreatedBy = "SYSTEM";
+
+                                if (sClientProfile != null)
                                 {
-                                    ResultType = r.resulttype,
-                                    ResultDateTime = dtTestResult,
-                                    ResultStatus = r.resultstatus,
-                                    ResultValue = r.resultvalue,
-                                    ResultParameter = r.resultparameter,
-                                    ReferenceRange = r.referencerange,
-                                    PatientID = r.patientid,
-                                    //OwnerID = r.ownerid,
-                                    PetID = r.petid,
-                                    PetName = r.petname,
-                                    OperatorID = r.operatorid,
-                                    InchargeDoctor = r.inchargedoctor,
-                                    CreatedDate = DateTime.Now,
-                                    CreatedBy = "SYSTEM"
-                                });
+                                    sTestResult.BranchID = sClientProfile.BranchID;
+                                }
+
+                                int i = 1;
+                                foreach (var d in r.resultdetails)
+                                {
+                                    sTestResultDetList.Add(new VPMS.Lib.Data.Models.TestResultsDetailTxnModel
+                                    {
+                                        ResultParameter = d.resultparameter,
+                                        ResultSeqID = i,
+                                        ResultStatus = d.resultstatus,
+                                        ResultValue = d.resultvalue,
+                                        ResultUnit = d.ResultUnit,
+                                        ReferenceRange = d.ReferenceRange,
+                                        CreatedDate = DateTime.Now,
+                                        CreatedBy = "SYSTEM"
+                                    });
+
+                                    i++;
+                                }
+
+                                TestResultRepository.InsertTestResults(ConfigSettings.GetConfigurationSettings(), sTestResult, sTestResultDetList);
                             }
 
-                            if (TestResultRepository.InsertTestResults(ConfigSettings.GetConfigurationSettings(), sTestResultList))
-                            {
-                                sRespCode = "VPMS.0001";
-                                sRespStatus = sRespCodeDictionary["VPMS.0001"];
-                                sRespMessage = "";
-                            }
-                            else
-                            {
-                                sRespCode = "VPMS.0014";
-                                sRespStatus = sRespCodeDictionary["VPMS.0014"];
-                            }
+                            sRespCode = "VPMS.0001";
+                            sRespStatus = sRespCodeDictionary["VPMS.0001"];
+                            sRespMessage = "";
+                            //if (TestResultRepository.InsertTestResults(ConfigSettings.GetConfigurationSettings(), sTestResultList))
+                            //{
+                            //    sRespCode = "VPMS.0001";
+                            //    sRespStatus = sRespCodeDictionary["VPMS.0001"];
+                            //    sRespMessage = "";
+                            //}
+                            //else
+                            //{
+                            //    sRespCode = "VPMS.0014";
+                            //    sRespStatus = sRespCodeDictionary["VPMS.0014"];
+                            //}
                         }
                         else
                         {
@@ -364,7 +389,6 @@ namespace VPMSWeb.Controllers
             int timeoutPlusMins = 15;
             int timeoutMinusMins = -15;
 
-            //TimeSpan ts = DateTime.UtcNow.Subtract(sMessageTimeStamp);
             TimeSpan ts = DateTime.Now.Subtract(sMessageTimeStamp);
             if (ts.TotalMinutes < timeoutMinusMins || ts.TotalMinutes > timeoutPlusMins)
             {

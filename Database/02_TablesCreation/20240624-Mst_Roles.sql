@@ -1,13 +1,17 @@
 CREATE TABLE `mst_roles` (
-  `RoleID` varchar(255) NOT NULL,
-  `RoleName` varchar(100) NOT NULL,
-  `RoleType` int NOT NULL,
-  `Status` int NOT NULL,
-  `IsAdmin` int NOT NULL,
-  `IsDoctor` int NOT NULL,
-  `CreatedDate` datetime NOT NULL,
-  `CreatedBy` varchar(50) NOT NULL,
-  `UpdatedDate` datetime DEFAULT NULL,
-  `UpdatedBy` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`RoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+	`RoleID` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`RoleName` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`RoleType` INT NOT NULL,
+	`BranchID` INT NULL DEFAULT NULL,
+	`Status` INT NOT NULL,
+	`IsAdmin` INT NULL DEFAULT NULL,
+	`IsDoctor` INT NULL DEFAULT NULL,
+	`Description` VARCHAR(255) NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NOT NULL,
+	`CreatedBy` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`UpdatedDate` DATETIME NULL DEFAULT NULL,
+	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`RoleID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB

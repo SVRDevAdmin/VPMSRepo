@@ -1,0 +1,228 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Arrow Range Slider</title>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <style>
+		/* Container for the slider */
+		.slider-container {
+			width: 300px;
+			position: relative;
+			height: 8px;
+			background: linear-gradient(to right, #fcc11d 33%, white 33%, white 33.5%, #42c0a5 33.5%, #42c0a5 66%, white 66%, white 66.5%, #ea4643 66.5%);
+			border-radius: 5px;
+			overflow: visible; /* Allow the thumb to display outside the container */
+			margin: 10vw;
+		}
+
+		/* Styling the range input to be invisible but functional */
+		.slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 8px;
+			background: transparent;
+			position: absolute;
+			top: -9px;
+			left: 0;
+			outline: none;
+			cursor: pointer;
+		}
+
+			/* Styling the thumb (indicator) as an arrow */
+			/* .slider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 0;
+				height: 0;
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-top: 15px solid black;
+				cursor: pointer;
+				position: relative;
+				top: -7px;
+
+			} */
+    </style>
+	<style>
+		.slidecontainer {
+			width: 100%;
+			overflow: visible; /* Allow the thumb to display outside the container */
+			margin-top: 10vw;
+		}
+
+		/* .slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 10px;
+			border-radius: 5px;
+			background: #d3d3d3;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+
+			.slider:hover {
+				opacity: 1;
+			} */
+
+		
+	</style>
+	<style>
+		/* Styling the thumb (indicator) as an arrow */
+		.slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 16px;
+			height: 14px;
+			border: 0;
+			background: url('../images/Icons/Black_border_arrow.png');
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+	@* <div class="slidecontainer">
+		<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+	</div> *@
+
+    @* <div class="slider-container">
+        <input type="range" class="slider">
+    </div> *@
+
+	@* <div style="background: black;">
+		<img style="height: 2vw;" src="~/images/Icons/Black_Down_Arrow.png" />
+	</div> *@
+
+
+	@* <button id="btnTest" type="button" class="btn btn-secondary">Create Notification</button> *@
+
+	<canvas id="salesChart"></canvas>
+
+	@* <script>
+		var sliderElement = document.querySelector(".slider");
+		sliderElement.min = -1;
+		sliderElement.max = 2;
+		sliderElement.value = 0.1;
+
+
+		$('#btnTest').on('click', function(ctl){
+
+		    $.post("/Notification/TestNotification", {
+				NotificationGroup: 'LowStock',
+		        NotificationType: 'Low Stock Alert',
+		        BranchID: 1,
+		        Content: 'Prednisalone Suspension 5mg(SKU 6368) is running on low stock. Order soon to avoid issue.',
+		        CreatedBy: 'System'
+		    }).done(function(result){
+		        if (result.StatusCode == 200)
+		        {
+		            alert('A');
+		        }
+		        else{
+		            alert('B');
+		        }
+		    });
+
+			$.post("/Notification/TestNotification", {
+				NotificationGroup: 'SoftwareUpdate',
+				NotificationType: 'Software Update',
+				BranchID: 1,
+				Content: 'We have just released new features for VPMS Version 2.0.1, please kindly logout from system and perform browser cache clearing before login again. Thanks. ',
+				CreatedBy: 'System'
+			}).done(function(result){
+				if (result.StatusCode == 200)
+				{
+					alert('A');
+				}
+				else{
+					alert('B');
+				}
+			});
+		});
+	</script> *@
+
+	<script>
+		let salesChart = document.getElementById("salesChart").getContext("2d");
+		var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		var xData = ['2016-12-25', '2016-12-26', '2016-12-27', '2016-12-28'];
+
+		let dataSales = {
+			// labels: xData,
+			labels: months,
+			datasets: [{
+				label: "Sale Data",
+				// data: [20, 10, 30, 40],
+				data: [{x : "Jan", y : 400}, {x : "Feb", y : 500}, {x : "Apr", y : 500}, {x : "May", y : 400}, {x : "June", y : 500}],
+				backgroundColor: "#e9f2fd",
+				hoverBackgroundColor: "#5e8cd1",
+				// barPercentage: 1.2,
+				// borderRadius: {
+				// 	topLeft: 10,
+				// 	topRight: 10,
+				// 	bottomLeft: 0,
+				// 	bottomRight: 0
+				// }
+			}]
+		};
+
+		chartSale = new Chart(salesChart, {
+			type: 'bar',
+			data: dataSales,
+			options: {
+				scales : {
+					x : {
+						grid: {
+							drawOnChartArea: true
+						},
+						ticks: {
+							color: "black"
+						}
+					},
+					y: {
+						beginAtZero: true,
+						display: true,
+						grid: {
+							drawOnChartArea: true
+						},
+						afterDataLimits: function(axis) {
+							let result = axis.chart.data.datasets[0].data.map(a => a.y);
+							axis.max = Math.max(...result) + 10; // Add some padding
+						}
+					}
+				},
+				plugins: {
+					datalabels: {
+						anchor: 'end',
+						align: 'end',
+						formatter: (value) => '$ ' + value.y,
+						color: "black",
+						font: {
+							size: 10,
+							weight: 'bold'
+						}
+					},
+					legend: false
+				},
+			},
+			plugins: [ChartDataLabels]
+		});
+	</script>
+
+</body>
+</html>

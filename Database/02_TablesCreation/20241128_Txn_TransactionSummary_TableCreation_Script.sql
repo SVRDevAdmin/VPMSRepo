@@ -1,0 +1,30 @@
+CREATE TABLE `txn_transactionsummarylog` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`TransactionType` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`TransactionDate` DATE NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
+
+CREATE TABLE `txn_transactionsummary` (
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+	`SummaryType` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`SummaryDate` DATE NULL DEFAULT NULL,
+	`BranchID` INT NULL DEFAULT NULL,
+	`DateInYear` VARCHAR(4) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`DateInMonth` VARCHAR(2) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`Week` INT NULL DEFAULT NULL,
+	`Quarter` INT NULL DEFAULT NULL,
+	`Group` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`SubGroup` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`TotalAmount` DECIMAL(14,2) NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;

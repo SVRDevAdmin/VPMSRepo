@@ -8,6 +8,7 @@ CREATE TABLE `vpmsdb`.`mst_user` (
   `Status` INT NOT NULL,
   `RoleID` VARCHAR(255) NOT NULL,
   `BranchID` INT NOT NULL,
+  `Level1ID` INT NOT NULL,
   `LastLoginDate` DATETIME NULL,
   `CreatedDate` datetime NOT NULL,
   `CreatedBy` varchar(50) NOT NULL,

@@ -1,0 +1,544 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Users";
+    ViewData["SelectedMenu"] = "AccessMenu";
+    ViewBag.SelectedMenu = "AccessMenu";
+
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+    var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+
+    var sUserObj = new VPMS.Lib.Data.Models.UserProfileExtObj();
+    if (ViewData["UserProfile"] != null)
+    {
+        sUserObj = ViewData["UserProfile"] as VPMS.Lib.Data.Models.UserProfileExtObj;
+    }
+
+    List<VPMS.Lib.Data.Models.MastercodeModel> sStatusDropdown = new List<VPMS.Lib.Data.Models.MastercodeModel>();
+    if (ViewData["UserStatusDropdown"] != null)
+    {
+        sStatusDropdown = ViewData["UserStatusDropdown"] as List<VPMS.Lib.Data.Models.MastercodeModel>;
+    }
+
+    List<VPMS.Lib.Data.Models.MastercodeModel> sGenderDropdown = new List<VPMS.Lib.Data.Models.MastercodeModel>();
+    if (ViewData["UserGenderDropdown"] != null)
+    {
+        sGenderDropdown = ViewData["UserGenderDropdown"] as List<VPMS.Lib.Data.Models.MastercodeModel>;
+    }
+
+    List<VPMS.Lib.Data.Models.RoleDropdownObject> sRoleDropdown = new List<VPMS.Lib.Data.Models.RoleDropdownObject>();
+    if (ViewData["UserRoleDropdown"] != null)
+    {
+        sRoleDropdown = ViewData["UserRoleDropdown"] as List<VPMS.Lib.Data.Models.RoleDropdownObject>;
+    }
+
+    List<VPMS.Lib.Data.Models.OrganisationModel> sOrganizationDropdown = new List<VPMS.Lib.Data.Models.OrganisationModel>();
+    if (ViewData["UserOrganizationDropdown"] != null)
+    {
+        sOrganizationDropdown = ViewData["UserOrganizationDropdown"] as List<VPMS.Lib.Data.Models.OrganisationModel>;
+    }
+
+    var sViewType = ViewData["ViewType"] as String;
+}
+
+<link rel="stylesheet" href="~/css/User.css" />
+<script src="~/js/General.js"></script>
+
+<script>
+    $("#SubMenuAccess").toggleClass('show');
+    document.querySelector("#SubMenuAccessParent").querySelector("#imgArrow").classList.toggle("Up");
+
+    $(document).ready(function () 
+    {
+        $('#btnUpdate').hide();
+
+        /*-------- Create Button ------------------*/
+        $('#btnCreate').on('click', function (ctl) 
+        {
+            if (UserFieldsValidation())
+            {
+                if (isEmail($('#txtEmail').val()))
+                {
+                    $('#txtEmail').removeClass('errorValidation');
+
+                    var sNewUser = {
+                        surName: $('#txtSurname').val(),
+                        lastName: $('#txtLastName').val(),
+                        staffID: $('#txtStaffID').val(),
+                        gender: $('#ddlGender').val(),
+                        emailAddress: $('#txtEmail').val(),
+                        roleID: $('#ddlRole').val(),
+                        organizationID: $('#ddlOrganization').val(),
+                        branchID: $('#ddlBranch').val(),
+                        userStatus: $('#ddlStatus').val(),
+                        loginID: $('#txtLoginID').val(),
+                        createdBy: '@sessionUserID'
+                    }
+
+                    $.post("/User/AddUser",
+                        sNewUser
+                    ).done(function (result) {
+                        if (result.StatusCode == 200) {
+                            ShowSuccessMsgBox("@Html.Raw(LangResources["StaffDetail_Title_CreateUser"])",
+                                              "@Html.Raw(LangResources["StaffDetail_Label_CreateUserSuccessfully"])",
+                                function () {
+                                    window.location.href = '/User/Index';
+                                }
+                            );
+                        
+                        }
+                        else {
+                            if (result.isRecordExists) 
+                            {
+                                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_LoginIDExists"])");
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                            else{
+                                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_FailedToCreateUser"])");
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                        }
+                    });
+                }
+                else{
+                    $('#txtEmail').addClass('errorValidation');
+                    $('#txtEmail').focus();
+
+                    $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_InvalidEmail"])");
+                    $('#lbError').css('visibility', 'visible');
+                }
+            }
+            else
+            {
+                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_MandatoryFieldsRequired"])");
+                $('#lbError').css('visibility', 'visible');
+            }
+        });
+
+        /*-------- Cancel Button ------------------*/
+        $('#btnCancel').on('click', function (ctl) {
+            window.location.href = '/User/Index';
+        });
+
+        /*-------- Update Button ------------------*/
+        $('#btnUpdate').on('click', function (ctl) 
+        {
+            if (UserFieldsValidation()) 
+            {
+                if (isEmail($('#txtEmail').val()))
+                {
+                    var sUpdateUser = {
+                        UserID: $('#hidID').val(),
+                        surName: $('#txtSurname').val(),
+                        lastName: $('#txtLastName').val(),
+                        staffID: $('#txtStaffID').val(),
+                        gender: $('#ddlGender').val(),
+                        emailAddress: $('#txtEmail').val(),
+                        roleID: $('#ddlRole').val(),
+                        organizationID: $('#ddlOrganization').val(),
+                        branchID: $('#ddlBranch').val(),
+                        userStatus: $('#ddlStatus').val(),
+                        loginID: $('#txtLoginID').val()
+                    }
+
+                    $.post("/User/UpdateUser",
+                        sUpdateUser
+                    ).done(function (result) {
+                        if (result.StatusCode == 200) {
+                            ShowSuccessMsgBox("@Html.Raw(LangResources["StaffDetail_Title_UpdateUserProfile"])",
+                                              "@Html.Raw(LangResources["StaffDetail_Label_UpdateUserSuccessfully"])",
+                                function () {
+                                    window.location.href = '/User/Index';
+                                }
+                            )
+                        }
+                        else {
+                            $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_FailedToUpdateUser"])");
+                            $('#lbError').css('visibility', 'visible');
+                        }
+                    });
+                }
+                else{
+                    $('#txtEmail').addClass('errorValidation');
+                    $('#txtEmail').focus();
+
+                    $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_InvalidEmail"])");
+                    $('#lbError').css('visibility', 'visible');
+                }
+            }
+            else {
+                $('#lbError').html("@Html.Raw(LangResources["StaffDetail_Label_MandatoryFieldsRequired"])");
+                $('#lbError').css('visibility', 'visible');
+            }
+        });
+
+        if ('@ViewData["UserProfile"]' != '')
+        {
+            $('#btnUpdate').show();
+            $('#btnCreate').hide();
+
+            $('#hidID').val('@sUserObj.UserID');
+            $('#txtSurname').val('@sUserObj.Surname');
+            $('#txtLastName').val('@sUserObj.LastName');
+            $('#txtStaffID').val('@sUserObj.StaffID');
+            $('#txtEmail').val('@sUserObj.EmailAddress');
+            $('#txtLoginID').val('@sUserObj.LoginID');
+            
+            $('#ddlGender').val('@sUserObj.Gender');
+            $('#ddlGender').trigger('changes');
+
+            $('#ddlRole').val('@sUserObj.RoleID');
+            $('#ddlRole').trigger('changes');
+
+            $('#ddlOrganization').val('@sUserObj.OrganizationID');
+            $('#ddlOrganization').trigger('changes');
+            loadBranchDropdownList('@sUserObj.OrganizationID');
+
+            setTimeout(function () {
+                $('#ddlBranch').val('@sUserObj.BranchID');
+                $('#ddlBranch').trigger('changes');
+            }, 250);
+
+
+            $('#ddlStatus').val('@sUserObj.Status');
+            $('#ddlStatus').trigger('changes');
+
+            if ('@sViewType' == "View")
+            {
+                $('#txtSurname').prop('disabled', true);
+                $('#txtLastName').prop('disabled', true);
+                $('#txtStaffID').prop('disabled', true);
+                $('#ddlGender').prop('disabled', true);
+                $('#txtEmail').prop('disabled', true);
+                $('#ddlRole').prop('disabled', true);
+                $('#ddlOrganization').prop('disabled', true);
+                $('#ddlBranch').prop('disabled', true);
+                $('#ddlStatus').prop('disabled', true);
+                $('#txtLoginID').prop('disabled', true);
+
+                $('#btnUpdate').hide();
+            }
+
+            $('#txtLoginID').prop('disabled', true);
+        }
+        else
+        {
+            if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+            {
+                $('#ddlOrganization').val('@sessionOrganizationID');
+                $('#ddlOrganization').trigger('change');
+                $('#ddlOrganization').prop('disabled', true);
+
+                loadBranchDropdownList('@sessionOrganizationID');
+            }
+        }
+    });
+
+    function UserFieldsValidation()
+    {
+        $('#lbError').css('visibility', 'hidden');
+        let isValid = true;
+
+        if ($('#txtSurname').val() == '') 
+        {
+            $('#txtSurname').addClass('errorValidation');
+            $('#txtSurname').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtSurname').removeClass('errorValidation');
+        }
+
+        if ($('#txtLastName').val() == ''){
+            $('#txtLastName').addClass('errorValidation');
+            $('#txtLastName').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtLastName').removeClass('errorValidation');
+        }
+
+        if ($('#txtStaffID').val() == ''){
+            $('#txtStaffID').addClass('errorValidation');
+            $('#txtStaffID').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtStaffID').removeClass('errorValidation');
+        }
+
+        if ($('#ddlGender').val() == ''){
+            $('#ddlGender').addClass('errorValidation');
+            $('#ddlGender').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlGender').removeClass('errorValidation');
+        }
+
+        if ($('#txtEmail').val() == '') {
+            $('#txtEmail').addClass('errorValidation');
+            $('#txtEmail').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtEmail').removeClass('errorValidation');
+        }
+
+        if ($('#ddlRole').val() == ''){
+            $('#ddlRole').addClass('errorValidation');
+            $('#ddlRole').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#ddlRole').removeClass('errorValidation');
+        }
+
+        if ($('#ddlOrganization').val() ==''){
+            $('#ddlOrganization').addClass('errorValidation');
+            $('#ddlOrganization').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlOrganization').removeClass('errorValidation');
+        }
+
+        if ($('#ddlBranch').val() == '') {
+            $('#ddlBranch').addClass('errorValidation');
+            $('#ddlBranch').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#ddlBranch').removeClass('errorValidation');
+        }
+
+        if ($('#ddlStatus').val() == '') {
+            $('#ddlStatus').addClass('errorValidation');
+            $('#ddlStatus').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlStatus').removeClass('errorValidation');
+        }
+
+        if ($('#txtLoginID').val() == '') {
+            $('#txtLoginID').addClass('errorValidation');
+            $('#txtLoginID').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtLoginID').removeClass('errorValidation');
+        }
+
+        return isValid;
+    }
+
+    function ddlOrganizationChange(data)
+    {
+        loadBranchDropdownList(data.value);
+    }
+
+    function loadBranchDropdownList(sID) {
+        $.getJSON("/Roles/GetBranchList", { organizationID: sID })
+            .done(function (result) {
+                if (result != null && result.length > 0) {
+                    $('#ddlBranch').find("option:not(:first)").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var opt = new Option(result[i].Name, result[i].ID);
+                        $('#ddlBranch').append(opt);
+                    }
+                }
+                else {
+                    $('#ddlBranch').find("option:not(:first)").remove();
+                }
+            });
+    }
+</script>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-6">
+            <label class="staffPageTitle">
+                @LangResources["Staff_Title_StaffListing"]
+            </label>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px; font-size: 1vw;">
+        <div class="col-md-12">
+            <div class="row frameUserStyle">
+                <div class="col-md-12 frameUserHeader">
+                    <label class="frameUserHeaderLabel">
+                        @LangResources["Staff_Label_StaffDetail"]
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label id="lbError" style="color:red; margin-left: 5px;"></label>
+                            <input id="hidID" type="hidden" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Surname"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Name"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_StaffID"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input id="txtSurname" type="text" class="form-control leftColUserControl" />
+                        </div>
+                        <div class="col-md-4">
+                            <input id="txtLastName" type="text" class="form-control centerColUserControl" />
+                        </div>
+                        <div class="col-md-4">
+                            <input id="txtStaffID" type="text" class="form-control rightColUserControl" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Gender"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Email"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_Role"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select id="ddlGender" class="form-select leftColUserControl">
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectGender"]</option>
+
+                                @{
+                                    if (sGenderDropdown != null && sGenderDropdown.Count > 0)
+                                    {
+                                        foreach (var g in sGenderDropdown)
+                                        {
+                                            <option value="@g.CodeID">@g.CodeName</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="txtEmail" type="text" class="form-control centerColUserControl" />
+                        </div>
+                        <div class="col-md-4">
+                            <select id="ddlRole" class="form-select rightColUserControl">
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectRole"]</option>
+
+                                @{
+                                    if (sRoleDropdown != null && sRoleDropdown.Count > 0)
+                                    {
+                                        foreach(var r in sRoleDropdown)
+                                        {
+                                             <option value="@r.RoleID">@r.RoleName</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Organization"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Branch"]</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_Status"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select id="ddlOrganization" class="form-select leftColUserControl" onchange="ddlOrganizationChange(this)">
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectOrganization"]</option>
+
+                                @{
+                                    if (sOrganizationDropdown != null && sOrganizationDropdown.Count > 0)
+                                    {
+                                        foreach (var o in sOrganizationDropdown)
+                                        {
+                                            <option value="@o.Id">@o.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="ddlBranch" class="form-select centerColUserControl">
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectBranch"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="ddlStatus" class="form-select rightColUserControl">
+                                <option value="">@LangResources["StaffDetail_Label_PleaseSelectStatus"]</option>
+
+                                @{
+                                    if (sStatusDropdown != null && sStatusDropdown.Count > 0)
+                                    {
+                                        foreach(var s in sStatusDropdown)
+                                        {
+                                            <option value="@s.CodeID">@s.CodeName</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_LoginID"]</label>
+                        </div>
+                        <div class="col-md-8">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input id="txtLoginID" type="text" class="form-control leftColUserControl" />
+                        </div>
+                        <div class="col-md-8">&nbsp;</div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+            </div>
+            <div class="row userButtonRow">
+                <div class="col-md-12 userButtonBox">
+                    <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">
+                        @LangResources["StaffDetail_Button_Cancel"]
+                    </button>
+                    <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                        @LangResources["StaffDetail_Button_Create"]
+                    </button>
+                    <button id="btnUpdate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                        @LangResources["StaffDetail_Button_Update"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+CREATE TABLE `Mst_InvoiceReceipt` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`TreatmentPlanID` INT NULL DEFAULT NULL,
+	`Branch` INT NULL DEFAULT NULL,
+	`InvoiceNo` VARCHAR(30) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
+	`ReceiptNo` VARCHAR(30) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
+	`PetName` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
+	`OwnerName` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',    
+	`Fee` DECIMAL(18,2) NULL DEFAULT NULL,  
+	`Tax` DECIMAL(18,2) NULL DEFAULT NULL,
+	`GrandDiscount` DECIMAL(18,2) NULL DEFAULT NULL,
+	`Status` INT NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`UpdatedDate` DATETIME NULL DEFAULT NULL,
+	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB;
+
+CREATE TABLE `Txn_InvoiceReceiptNo` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`OrganisationAbbr` VARCHAR(30) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`BranchID` INT NULL DEFAULT NULL,
+	`Year` VARCHAR(4) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
+	`Month` VARCHAR(2) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
+	`Day` VARCHAR(2) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',  
+	`RunningNo` INT NULL DEFAULT NULL,
+	`UpdatedDate` DATETIME NULL DEFAULT NULL,
+	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB;

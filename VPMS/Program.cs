@@ -23,7 +23,9 @@ namespace VPMS
 
         public static string CurrentPage { get; set; }
 
-		public static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public static string AccessDenied { get; set; } = "false";
+
+        public static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public static void Main(string[] args)
         {
@@ -149,7 +151,9 @@ namespace VPMS
 
 			app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Appointment}/{action=Index}/{id?}");
+                //pattern: "{controller=Appointment}/{action=Index}/{id?}"
+                pattern: "{controller=Dashboard}/{action=Index}/{id?}"
+            );
 
             app.Run();
         }

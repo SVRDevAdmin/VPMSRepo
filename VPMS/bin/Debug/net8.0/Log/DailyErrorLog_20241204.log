@@ -1,0 +1,20 @@
+2024-12-04 09:31:06,187 ERROR VPMS.Program.Index [0] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.HomeController.<>c__DisplayClass3_0.<Index>b__2(MastercodeModel x)
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at VPMSWeb.Controllers.HomeController.Index()
+
+----------------------------------------------------------------------------
+
+2024-12-04 10:43:07,165 ERROR VPMS.Program.Index [0] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.HomeController.<>c__DisplayClass3_0.<Index>b__2(MastercodeModel x)
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at VPMSWeb.Controllers.HomeController.Index()
+
+----------------------------------------------------------------------------
+

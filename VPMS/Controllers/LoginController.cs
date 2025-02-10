@@ -10,6 +10,14 @@ using VPMS.Lib.Data.Models;
 using System.Web;
 using System.Data;
 using Microsoft.AspNetCore.Http;
+using VPMS.Lib.Data;
+using VPMS.Lib;
+using VPMSWeb.Lib.Settings;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.Extensions.Localization;
+using System.Reflection;
+using VPMSWeb.Interface;
 
 namespace VPMSWeb.Controllers
 {
@@ -25,19 +33,27 @@ namespace VPMSWeb.Controllers
 
         private readonly RoleDBContext _roleDBContext = new RoleDBContext();
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
+        private readonly OrganisationDBContext _organisationDBContext = new OrganisationDBContext();
         private readonly UserDBContext _userDBContext = new UserDBContext();
         private readonly LoginSessionDBContext _loginSessionDBContext = new LoginSessionDBContext();
+		private readonly OrganisationDBContext _organizationDBContext = new OrganisationDBContext(); 
 
         private const string Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+        private readonly IStringLocalizer _localizer;
+
         public LoginController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager
-            , IUserStore<IdentityUser> userStore, RoleManager<IdentityRole> roleManager)
+            , IUserStore<IdentityUser> userStore, RoleManager<IdentityRole> roleManager, IStringLocalizerFactory factory)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = (IUserEmailStore<IdentityUser>)_userStore;
             _roleManager = roleManager;
+
+            var type = typeof(LanguageResource);
+            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
+            _localizer = factory.Create("Resource", assemblyName.Name);
         }
 
         [Authorize]
@@ -106,17 +122,59 @@ namespace VPMSWeb.Controllers
                         Response.Cookies.Append("user", userInfo.Surname +" "+ userInfo.LastName, cookies);
 						Response.Cookies.Append("userid", userInfo.UserID, cookies);
 
+						HttpContext.Session.SetString("Username", userInfo.Surname + " " + userInfo.LastName);
+						HttpContext.Session.SetString("LoginID", loginInfo.Username);
 						HttpContext.Session.SetString("BranchID", userInfo.BranchID.ToString());
 						HttpContext.Session.SetString("RoleID", userInfo.RoleID);
 						HttpContext.Session.SetString("UserID", userInfo.UserID);
+						HttpContext.Session.SetString("Level1ID", userInfo.Level1ID.ToString());
 
-                        var userRole = await _userManager.GetRolesAsync(user);
+						var userRole = await _userManager.GetRolesAsync(user);
                         HttpContext.Session.SetString("RoleName", userRole.First());
-                        HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
+
+						int iIsAdmin = 0;
+						var sRoleContext = _roleDBContext.Mst_Roles.Where(x => x.RoleID == userInfo.RoleID).FirstOrDefault();
+						if (sRoleContext != null)
+						{
+							iIsAdmin = sRoleContext.IsAdmin;
+						}
+                        HttpContext.Session.SetString("IsAdmin", iIsAdmin.ToString());
+
+                        int iOrgID = -1;
+						var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
+						if (sBranchContext != null)
+						{
+							iOrgID = sBranchContext.OrganizationID;
+
+                        }
+                        HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
+						//HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
+
+						int iLevel = -1;
+						var sOrgContext = _organizationDBContext.Mst_Organisation.Where(x => x.Id == iOrgID).FirstOrDefault();
+						if (sOrgContext != null)
+						{
+							iLevel = sOrgContext.Level;
+                        }
+                        HttpContext.Session.SetString("Level", iLevel.ToString());
+
+                        HttpContext.Session.SetString("BranchCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name) + userInfo.BranchID);
+                        HttpContext.Session.SetString("OrganisationCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name));
+
+                        //var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
+                        //var organisationID = organisation == null ? 0 : organisation.OrganizationID;
+
+                        //HttpContext.Session.SetString("OrganisationID", organisationID.ToString());
 
                         var randomAlphanumeric = GenerateRandomAlphanumeric(32);
 						var sessionCreatedOn = DateTime.Now;
 						var sessionExpiredOn = DateTime.Now.AddMinutes(5);
+
+						var prevLoginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == loginInfo.Username);
+						if(prevLoginSessionLog != null && prevLoginSessionLog.ActionType == "user-login")
+						{
+							_loginSessionDBContext.Txn_LoginSession_Log.Add(new LoginSessionLogModel() { SessionID = prevLoginSessionLog.SessionID, SessionCreatedOn = prevLoginSessionLog.SessionCreatedOn, SessionExpiredOn = prevLoginSessionLog.SessionExpiredOn, UserID = prevLoginSessionLog.UserID, LoginID = prevLoginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = prevLoginSessionLog.LoginID, ActionType = "redundant-logout" });
+						}
 
 						_loginSessionDBContext.Txn_LoginSession.Add(new LoginSessionModel() { UserID = user.Id, LoginID = user.UserName, SessionCreatedOn = sessionCreatedOn, SessionExpiredOn = sessionExpiredOn, SessionID = randomAlphanumeric });
 
@@ -130,13 +188,13 @@ namespace VPMSWeb.Controllers
 					}
 					else if (result.IsLockedOut)
 					{
-						ViewData["alert"] = "The account are locked. Please contact administrator.";
+						ViewData["alert"] = _localizer["Login_Message_AccountLocked"];
 
 						return View("Login");
 					}
 					else if (result.IsNotAllowed)
 					{
-						ViewData["alert"] = "The account are have not confirmed yet. Please confirm the account through email and try again.";
+						ViewData["alert"] = _localizer["Login_Message_AccountNotConfirmed"];
 
 						return View("Login");
 					}
@@ -145,14 +203,14 @@ namespace VPMSWeb.Controllers
 						var attempLeft = maxLoginAttempt - user.AccessFailedCount;
 
 						//ViewData["alert"] = "Wrong password. " + attempLeft + " attemp[s] left before the account is locked.";
-						ViewData["alert"] = "Wrong password or username.";
+						ViewData["alert"] = _localizer["Login_Message_WrongUsernamePasword"];
 
 						return View("Login");
 					}
 				}
 				else
 				{
-					ViewData["alert"] = "Account not found based on the username. Please check and try again.";
+					ViewData["alert"] = _localizer["Login_Message_AccountNotFound"];
 
 					return View("Login");
 				}
@@ -161,12 +219,13 @@ namespace VPMSWeb.Controllers
 			{
 				Program.logger.Error("Controller Error >> ", ex);
 
-				ViewData["alert"] = "Error occur. Please try again later.";
+				ViewData["alert"] = _localizer["Login_Message_ErrorOccur"];
 
 				return View("Login");
 			}
         }
 
+        [Authorize(Roles = "Superadmin")]
         public IActionResult FirstRegister()
         {
 			try
@@ -183,6 +242,7 @@ namespace VPMSWeb.Controllers
 			}
         }
 
+        [Authorize(Roles = "Superadmin")]
         public async Task<IActionResult> SignUp(RegisterModel registerInfo)
         {
 			try
@@ -229,18 +289,18 @@ namespace VPMSWeb.Controllers
         {
 			try
 			{
-				await _signInManager.SignOutAsync();
-
-				var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == User.Identity.Name);
+				var loginSessionLog = _loginSessionDBContext.Txn_LoginSession_Log.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.LoginID == HttpContext.Session.GetString("LoginID"));
 
 				var newLoginSessionLog = new LoginSessionLogModel() { SessionID = loginSessionLog.SessionID, SessionCreatedOn = loginSessionLog.SessionCreatedOn, SessionExpiredOn = loginSessionLog.SessionExpiredOn, UserID = loginSessionLog.UserID, LoginID = loginSessionLog.LoginID, CreatedDate = DateTime.Now, CreatedBy = loginSessionLog.LoginID };
 
-				if (autoLogout) { newLoginSessionLog.ActionType = "expired-logout"; }
+				if (autoLogout) { newLoginSessionLog.ActionType = "idle-logout"; }
 				else { newLoginSessionLog.ActionType = "user-logout"; }
 
 				_loginSessionDBContext.Txn_LoginSession_Log.Add(newLoginSessionLog);
 
 				_loginSessionDBContext.SaveChanges();
+
+				await _signInManager.SignOutAsync();
 
 			}
 			catch (Exception ex)
@@ -253,7 +313,16 @@ namespace VPMSWeb.Controllers
 
         public IActionResult AccessDenied()
         {
-            return View();
+			Program.AccessDenied = "true";
+
+            return RedirectToAction("Index", "Appointment");
+        }
+
+		public bool ResetAccessDenied()
+		{
+            Program.AccessDenied = "false";
+
+			return true;
         }
 
         public IActionResult PasswordRecovery()
@@ -279,22 +348,39 @@ namespace VPMSWeb.Controllers
 
 						var setNewPassword = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
 
-						return RedirectToAction("Login", "Login");
-					}
+						if (setNewPassword.Succeeded)
+                        {
+                            List<String> sRecipientList = new List<String>();
+                            sRecipientList.Add(recoverInfo.Email);
+                            var staffInfo = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == user.Id);
+							var language = ConfigurationRepository.GetUserConfigurationSettings(ConfigSettings.GetConfigurationSettings(), user.Id).FirstOrDefault(x => x.ConfigurationKey == "UserSettings_Language").ConfigurationValue;
+
+                            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN002", language);
+                            emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<staff_fullname>###", staffInfo.Surname + " " + staffInfo.LastName)
+                                                                                         .Replace("###<password>###", newPassword);
+
+
+                            SendNotificationEmail(sRecipientList, emailTemplate);
+
+                            return RedirectToAction("Login", "Login");
+                        }
+
+                        ViewData["alert"] = _localizer["Login_Message_FailResetPassword"];
+                    }
 					else
 					{
-						ViewData["alert"] = "Wrong email. Please check and try again.";
+						ViewData["alert"] = _localizer["Login_Message_WrongEmail"];
 					}
 				}
 				else
 				{
-					ViewData["alert"] = "Account not found based on the username. Please check and try again.";
+					ViewData["alert"] = _localizer["Login_Message_AccountNotFound"];
 				}
 			}
 			catch (Exception ex)
 			{
 				Program.logger.Error("Controller Error >> ", ex);
-				ViewData["alert"] = "Error occur. Please try again later.";
+				ViewData["alert"] = _localizer["Login_Message_ErrorOccur"];
 			}
 
             return View("PasswordRecovery");
@@ -345,44 +431,44 @@ namespace VPMSWeb.Controllers
             return View("ChangePassword");
         }
 
-        private string RandomPasswordGenerator()
-        {
-            Random res = new Random();
+		private string RandomPasswordGenerator()
+		{
+			Random res = new Random();
 
-            // String that contain alphabets, numbers and special character
-            String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-            String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            String number = "0123456789";
-            String specialChar = "!@#$%^&*()_+-={}|[];,./:<>?";
+			// String that contain alphabets, numbers and special character
+			String lowerCase = "abcdefghijklmnopqrstuvwxyz";
+			String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			String number = "0123456789";
+			String specialChar = "!@#$%^&*()_+-={}|[];,./:<>?";
 
-            // Initializing the empty string 
-            String randomstring = "";
+			// Initializing the empty string 
+			String randomstring = "";
 
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
-            randomstring += lowerCase[res.Next(lowerCase.Length)];
-            randomstring += upperCase[res.Next(upperCase.Length)];
-            randomstring += number[res.Next(number.Length)];
-            randomstring += specialChar[res.Next(specialChar.Length)];
+			randomstring += lowerCase[res.Next(lowerCase.Length)];
+			randomstring += upperCase[res.Next(upperCase.Length)];
+			randomstring += number[res.Next(number.Length)];
+			randomstring += specialChar[res.Next(specialChar.Length)];
+			randomstring += lowerCase[res.Next(lowerCase.Length)];
+			randomstring += upperCase[res.Next(upperCase.Length)];
+			randomstring += number[res.Next(number.Length)];
+			randomstring += specialChar[res.Next(specialChar.Length)];
 
-            char[] chars = randomstring.ToCharArray();
+			char[] chars = randomstring.ToCharArray();
 
-            for (int i = 0; i < chars.Length; i++)
-            {
-                int randomIndex = res.Next(0, chars.Length);
-                char temp = chars[randomIndex];
-                chars[randomIndex] = chars[i];
-                chars[i] = temp;
-            }
+			for (int i = 0; i < chars.Length; i++)
+			{
+				int randomIndex = res.Next(0, chars.Length);
+				char temp = chars[randomIndex];
+				chars[randomIndex] = chars[i];
+				chars[i] = temp;
+			}
 
-            randomstring = string.Join("", chars);
+			randomstring = string.Join("", chars);
 
-            return randomstring;
-        }
+			return randomstring;
+		}
 
-        public static string GenerateRandomAlphanumeric(int length)
+		public static string GenerateRandomAlphanumeric(int length)
         {
             return string.Create<object?>(length, null,
                 static (chars, _) => Random.Shared.GetItems(Charset, chars));
@@ -489,5 +575,55 @@ namespace VPMSWeb.Controllers
 
             return View("Login");
         }
-    }
+
+		public void SendNotificationEmail(List<String> sRecipientList, TemplateModel emailTemplate)
+		{
+			var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+			String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+			int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+			String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+			String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+			String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+
+			try
+			{
+				VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+				sEmailObj.SenderEmail = sSender;
+				sEmailObj.RecipientEmail = sRecipientList;
+				sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+				sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+				sEmailObj.SMTPHost = sHost;
+				sEmailObj.PortNo = sPortNo.Value;
+				sEmailObj.HostUsername = sUsername;
+				sEmailObj.HostPassword = sPassword;
+				sEmailObj.EnableSsl = true;
+				sEmailObj.UseDefaultCredentials = false;
+				sEmailObj.IsHtml = true;
+
+				String sErrorMessage = "";
+				EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+			}
+			catch (Exception ex)
+			{
+				Program.logger.Error("Controller Error >> ", ex);
+			}
+		}
+
+		public string GetAbbreviation(string fullString)
+		{
+			var wordList = fullString.Split(" ");
+			var abbreviation = "";
+
+			foreach (var word in wordList) 
+			{
+				abbreviation += word.ElementAt(0);
+            }
+
+			List<string> test = ["CH1-241212-1", "CH1-241212-2", "CH1-241212-3"];
+
+			var test2 = test.Contains("CH1-241212-1");
+
+            return abbreviation;
+		}
+	}
 }

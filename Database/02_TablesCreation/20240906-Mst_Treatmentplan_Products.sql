@@ -14,3 +14,12 @@ CREATE TABLE `mst_treatmentplan_products` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+
+INSERT INTO `vpmsdb`.`mst_producttype`
+(`TypeName`,`Status`,`CreatedDate`,`CreatedBy`)
+VALUES 
+('Vaccination',1,now(),'System'),
+('Medication',1,now(),'System'),
+('Standard',1,now(),'System'),
+('Diagnostic',1,now(),'System'),
+('Procedure',1,now(),'System');
