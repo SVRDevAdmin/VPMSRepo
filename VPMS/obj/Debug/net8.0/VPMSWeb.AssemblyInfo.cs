@@ -15,11 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMSWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6a7b539c012b92e772a49bad1cf6f6d14dc6754")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f6faa5744d884a8af39646342a41babfa649dc9")]
->>>>>>> 5d72b1aa50398bb34803f27f6c05a031ef0191c4
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02b15abef6a74d416a7a6dfeeaae7c85ecbb6320")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMSWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMSWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

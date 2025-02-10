@@ -217,23 +217,16 @@
         <div class="row flex-nowrap">
             <div id="divLogo" class="col-md-12" style="z-index: 1; position: fixed; top: 39px; left: 25px; width: 16vw;">
                 <img id="imgVetVitals" style="width: 11vw;" />
-                <!--
-                <img id="imgLogo" style="width: 2vw;" />
-                <img id="imgLogoTitle" style="width: 11vw;" />
-                -->
             </div>
 
-            @* <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 116px;"> *@
             <div id="leftBar" class="col-auto bar-menu-bg col-md-1 col-xl-2 px-sm-2 px-0" style="border: 0px solid black; padding-top: 89px; height: 672px;">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100" style="min-height: 83vh !important; height: 83vh; overflow-x: auto; padding-left: 0 !important;">
                     <ul id="menu" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="font-size: 1vw;">
                         <li class="nav-item">
                             <a asp-controller="Dashboard" asp-action="Index" class="nav-link align-middle px-0">
-                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="dashboardMenu" class="spanMenuBlue"></span>
                                 <img id="iconHome" class="menuIcons" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Dashboard"]</span>
-                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Dashboard"]</span> *@
                             </a>
                         </li>
                         <li>
@@ -279,29 +272,23 @@
                             </a>
                         </li>
                         <li>
-                            @* <a href="#" class="nav-link align-middle px-0"> *@
                             <a asp-controller="InvoiceReceipt" asp-action="InvoiceReceiptListing" class="nav-link align-middle px-0">
                                 <span id="invoiceReceiptMenu" class="spanMenuBlue"></span>
                                 <img id="iconReceipt" class="menuIcons" />
-                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span> *@
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
                             </a>
                         </li>
                         <li>
                             <a asp-controller="Inventory" asp-action="Index" class="nav-link align-middle px-0">
-                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="inventoryMenu" class="spanMenuBlue"></span>
                                 <img id="iconInventory" class="menuIcons" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Inventory"]</span>
-                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Inventory"]</span> *@
                             </a>
                         </li>
                         <li>
                             <a  id="mnDoctor" asp-controller="Doctor" asp-action="Index" class="nav-link align-middle px-0">
-                            @* <a href="#" class="nav-link align-middle px-0"> *@
                                 <span id="doctorMenu" class="spanMenuBlue"></span>
                                 <img id="iconDoctor" class="menuIcons" />
-                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_Doctor"]</span> *@
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_Doctor"]</span>
                             </a>
                         </li>
@@ -310,7 +297,6 @@
                                 <span id="AccessMenu" class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_AccessControl"]</span>
-                                @* <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_AccessControl"]</span> *@
                                 <img id="imgArrow" style="margin-left: 20px;" />
                             </a>
                             <ul id="SubMenuAccess" class="collapse nav flex-column" data-parent="#menu">
@@ -318,22 +304,13 @@
                                     <a asp-controller="AccessControl" asp-action="OrganisationList" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" id="organisation">@LangResources["MenuBar_Label_Organisation"]</span>
                                     </a>
-                                    @* <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" id="organisation" style="color: darkgray;">@LangResources["MenuBar_Label_Organisation"]</span>
-                                    </a> *@
                                 </li>
                                 <li>
-                                    @* <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_StaffListing"]</span>
-                                    </a> *@
                                     <a asp-controller="User" asp-action="Index" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" id="staffListing">@LangResources["MenuBar_Label_StaffListing"]</span>
                                     </a>
                                 </li>
                                 <li>
-                                    @* <a href="#" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font" style="color: darkgray;">@LangResources["MenuBar_Label_RoleSetting"]</span>
-                                    </a> *@
                                     <a asp-controller="Roles" asp-action="Index" class="nav-link px-0">
                                         <span class="d-none d-sm-inline sidebar-nav-font" id="roleSetting">@LangResources["MenuBar_Label_RoleSetting"]</span>
                                     </a>
@@ -353,10 +330,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
-                @* <div style="text-align: center; margin-top: 2vw;">
-                    <span style="font-size: 0.7vw; color: darkgray;"><i class="fa-regular fa-copyright"></i> Vet Connect. All rights reserved</span>
-                </div>   *@              
+                </div>            
             </div>
 
             <div id="divLogo" class="col-md-12 textColor" style="z-index: 1; position: fixed; bottom: 5px; left: 25px; width: 17vw; font-size: 0.8vw; opacity: 0.5;">
@@ -571,9 +545,6 @@
                                         <a asp-controller="Notification" asp-action="Index">
                                             <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
                                         </a>
-                                       @*  <a href="#">
-                                            <img id="imgBell" style="margin-top: 6px; margin-left: 8px; " />
-                                        </a> *@
                                     </div>
                                 </div>
                             </div>
@@ -590,7 +561,6 @@
                                             </div>
                                             <div class="dropdown-menu profilemenu">
                                                 <a class="dropdown-item" asp-controller="User" asp-action="UserDetails">@LangResources["MenuBar_Label_MyProfile"]</a>
-                                                @* <a class="dropdown-item" href="#">@LangResources["MenuBar_Label_MyProfile"]</a> *@
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="ChangePassword">@LangResources["Login_Label_ResetPassword"]</a>
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="Logout">@LangResources["MenuBar_Label_Logout"]</a>
                                             </div>
@@ -600,7 +570,7 @@
                             </div>
                             <div class="col-md-2" style="border: 0px solid black; flex: 0 0 auto; width: 16.66666667%;">
                                 <!-- Switch Themes -->
-                                <a href="#" id="theme" onclick="toggleTheme(true);">
+                                <a id="theme" onclick="toggleTheme(true);">
                                     <div class="divThemes">
                                         <div id="group_1138">
                                             <div id="rectangle_1045"></div>
@@ -654,24 +624,22 @@
                                                     sFlagChecked = "checked='true'";
                                                 }
 
-                                                            <li class="list-group-item" style="border: 0px">
-                                                                <input id="@m.CodeID" name="listgrpradio" type="radio"
-                                                                       class="form-check-input me-1 border-secondary"
-                                                                       style="margin-left: 30px; vertical-align: middle;"
-                                                                       value=@m.CodeID
-                                                                       @sFlagChecked />
+                                                <li class="list-group-item" style="border: 0px">
+                                                    <input id="@m.CodeID" name="listgrpradio" type="radio"
+                                                            class="form-check-input me-1 border-secondary"
+                                                            style="margin-left: 30px; vertical-align: middle;"
+                                                            value=@m.CodeID
+                                                            @sFlagChecked />
 
-                                                                @*<img src=@sFlagPath class="CountryFlag" />
-                                                    <label class="form-check-label" style="margin-left: 10px;" for="@m.CodeID">@m.CodeName</label>*@
-                                                                <label class="form-check-label" style="vertical-align: top;" for="@m.CodeID"><img src=@sFlagPath class="CountryFlag" /> @m.CodeName</label>
-                                                            </li>
+                                                    <label class="form-check-label" style="vertical-align: top;" for="@m.CodeID"><img src=@sFlagPath class="CountryFlag" /> @m.CodeName</label>
+                                                </li>
                                             }                                           
                                         }
                                         else
                                         {
-                                                        <li class="list-group-item" style="border: 0px">
-                                                            <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
-                                                        </li>
+                                            <li class="list-group-item" style="border: 0px">
+                                                <label class="form-check-label" style="margin-left: 50px;">@LangResources["LanguageCountry_Label_NoLanguageSelection"]</label>
+                                            </li>
                                         }
                                     }
                                 </ul>
@@ -784,7 +752,6 @@
         </div>
     </div>
 
-    @*<script src="~/lib/ajax/popper.js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

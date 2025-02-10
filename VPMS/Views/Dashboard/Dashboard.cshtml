@@ -24,8 +24,8 @@
 	}
 }
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="~/lib/chartumd/chart.umd.min.js"></script>
+<script src="~/lib/chartjs/chartjs-plugin-datalabels.js"></script>
 
 <style>
 	.hideContainer{
@@ -170,7 +170,7 @@
 									<div style="display: flex; justify-content: space-between;">
 										<div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1vw;">
 											<span>@LangResources["Dashboard_Label_TotalAppointment"]</span>
-											<a href="#" onclick="changeTab('appointmentTab');" style="color: white !important;" hidden>@LangResources["Dashboard_Label_ShowMore"]</a>
+											<a onclick="changeTab('appointmentTab');" style="color: white !important;" hidden>@LangResources["Dashboard_Label_ShowMore"]</a>
 										</div>
 										<img src="~/images/Total sale image.png" style="height: 5vw;" />
 									</div>
@@ -210,14 +210,14 @@
 								<div class="dropdown">
 									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_Daily"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
 									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
-										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q1', this);">Q1</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q2', this);">Q2</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q3', this);">Q3</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q4', this);">Q4</a>
-										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
+										<a class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
+										<a class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
+										<a class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
+										<a class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q1', this);">Q1</a>
+										<a class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q2', this);">Q2</a>
+										<a class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q3', this);">Q3</a>
+										<a class="textColor" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Q4', this);">Q4</a>
+										<a class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalPatient', 'PatientByBreed', 'Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
 									</div>
 								</div>
 							</div>
@@ -275,14 +275,14 @@
 								<div class="dropdown">
 									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_Daily"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
 									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
-										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getSaleSummary('Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
-										<a href="#" class="textColor" onclick="getSaleSummary('Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
-										<a href="#" class="textColor" onclick="getSaleSummary('Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
-										<a href="#" class="textColor" onclick="getSaleSummary('Q1', this);">Q1</a>
-										<a href="#" class="textColor" onclick="getSaleSummary('Q2', this);">Q2</a>
-										<a href="#" class="textColor" onclick="getSaleSummary('Q3', this);">Q3</a>
-										<a href="#" class="textColor" onclick="getSaleSummary('Q4', this);">Q4</a>
-										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getSaleSummary('Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
+										<a class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getSaleSummary('Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
+										<a class="textColor" onclick="getSaleSummary('Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
+										<a class="textColor" onclick="getSaleSummary('Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
+										<a class="textColor" onclick="getSaleSummary('Q1', this);">Q1</a>
+										<a class="textColor" onclick="getSaleSummary('Q2', this);">Q2</a>
+										<a class="textColor" onclick="getSaleSummary('Q3', this);">Q3</a>
+										<a class="textColor" onclick="getSaleSummary('Q4', this);">Q4</a>
+										<a class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getSaleSummary('Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
 									</div>
 								</div>
 							</div>
@@ -296,9 +296,9 @@
 								<div class="dropdown">
 									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_TopServices"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
 									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
-										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', 'Treatments' , '', this);">@LangResources["Dashboard_Label_TopTreatment"]</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', 'Services' , '', this);">@LangResources["Dashboard_Label_TopServices"]</a>
-										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', 'Breeds' , '', this);">@LangResources["Dashboard_Label_TopBreed"]</a>
+										<a class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', 'Treatments' , '', this);">@LangResources["Dashboard_Label_TopTreatment"]</a>
+										<a class="textColor" onclick="getDougnutSummary('totalSale', 'Services' , '', this);">@LangResources["Dashboard_Label_TopServices"]</a>
+										<a class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', 'Breeds' , '', this);">@LangResources["Dashboard_Label_TopBreed"]</a>
 									</div>
 								</div>
 							</div>
@@ -307,14 +307,14 @@
 								<div class="dropdown">
 									<button class="dropbtn textColor"> <span id="chartSelection" style="color: dodgerblue; font-size: 1vw;">@LangResources["Dashboard_Label_Daily"]</span> <i class="fa-solid fa-chevron-down dropdown-arrow" style="font-size: 1vw;"></i></button>
 									<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
-										<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', '', 'Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q1', this);">Q1</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q2', this);">Q2</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q3', this);">Q3</a>
-										<a href="#" class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q4', this);">Q4</a>
-										<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', '', 'Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
+										<a class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', '', 'Daily', this);">@LangResources["Dashboard_Label_Daily"]</a>
+										<a class="textColor" onclick="getDougnutSummary('totalSale', '', 'Weekly', this);">@LangResources["Dashboard_Label_Weekly"]</a>
+										<a class="textColor" onclick="getDougnutSummary('totalSale', '', 'Monthly', this);">@LangResources["Dashboard_Label_Monthly"]</a>
+										<a class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q1', this);">Q1</a>
+										<a class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q2', this);">Q2</a>
+										<a class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q3', this);">Q3</a>
+										<a class="textColor" onclick="getDougnutSummary('totalSale', '', 'Q4', this);">Q4</a>
+										<a class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getDougnutSummary('totalSale', '', 'Yearly', this);">@LangResources["Dashboard_Label_Yearly"]</a>
 									</div>
 								</div>
 							</div>
@@ -379,7 +379,7 @@
 
 						@if (role == "Doctor")
 						{
-							<a href="#" class="textColor" style="border-radius: 1vw;" onclick="getUpcomingAppointment('@user', this);">@user</a>
+							<a class="textColor" style="border-radius: 1vw;" onclick="getUpcomingAppointment('@user', this);">@user</a>
 						}
 						else
 						{
@@ -387,13 +387,13 @@
 							for (int i = 0; i < doctorList.Count; i++)
 							{
 								if(i == 0){
-									<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
+									<a class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="getUpcomingAppointment('', this);">@LangResources["Dashboard_Label_AllDoctors"]</a>
 								}
 								else if (i == doctorList.Count - 1){
-									<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
+									<a class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
 								}
 								else{
-									<a href="#" class="textColor" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
+									<a class="textColor" onclick="getUpcomingAppointment('@doctorList[i]', this);">@doctorList[i]</a>
 								}
 							}
 						}

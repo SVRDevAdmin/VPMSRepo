@@ -344,12 +344,15 @@
     { 
         $('#ddlAddDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
-            var doctorArray = data[i].DoctorInCharge.split(';');
+            //var doctorArray = data[i].DoctorInCharge.split(';');
 
-            for (var x = 0; x < doctorArray.length-1; x++) {
-                var opt = new Option(doctorArray[x], doctorArray[x]);
-                    $('#ddlAddDoctor').append(opt);
-            }
+            //for (var x = 0; x < doctorArray.length-1; x++) {
+            //    var opt = new Option(doctorArray[x], doctorArray[x]);
+            //        $('#ddlAddDoctor').append(opt);
+            //}
+
+            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
+            $('#ddlAddDoctor').append(opt);
         }
     }
 
@@ -357,12 +360,14 @@
     {
         $('#ddlNewDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
-            var doctorArray = data[i].DoctorInCharge.split(';');
+            //var doctorArray = data[i].DoctorInCharge.split(';');
 
-            for (var x = 0; x < doctorArray.length - 1; x++) {
-                var opt = new Option(doctorArray[x], doctorArray[x]);
-                $('#ddlNewDoctor').append(opt);
-            }
+            //for (var x = 0; x < doctorArray.length - 1; x++) {
+            //    var opt = new Option(doctorArray[x], doctorArray[x]);
+            //    $('#ddlNewDoctor').append(opt);
+            //}
+            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
+            $('#ddlAddDoctor').append(opt);
         }
     }
 
@@ -412,7 +417,7 @@
                 BranchID: @sessionBranchID,
                 OwnerID: $('#ddlAddOwner').val(),
                 PetID: $('#ddlAddPet').val(),
-                InchargeDoctor: $('#ddlAddDoctor').val(),
+                InchargeDoctor: $('#ddlAddDoctor option:selected').text(),
                 EmailNotify: $('#chkNotify').is(':checked'),
                 ServiceList: [sServicesLit]
             };
@@ -552,13 +557,12 @@
                 ApptStartTime: sNewAppStrDate,
                 ApptEndTime: sNewAppEndDate,
                 PetDOB: sNewPetDOB, 
-                //BranchID : 1,
                 BranchID: @sessionBranchID,
                 OwnerName: $('#txtNewOwnerfullName').val(),
                 ContactNo: $('#txtNewContactNo').val(),
                 PetName: $('#txtNewPetName').val(),
                 Species: $('#ddlNewSpecies').val(),
-                InchargeDoctor: $('#ddlNewDoctor').val(),
+                InchargeDoctor: $('#ddlNewDoctor option:selected').text(),
                 EmailAddress: $('#txtNewEmail').val(),
                 EmailNotify: $('#chkNewNotify').is(':checked'),
                 ServiceList: [sNewServicesList]
