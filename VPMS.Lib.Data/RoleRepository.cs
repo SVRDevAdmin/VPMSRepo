@@ -409,6 +409,29 @@ namespace VPMS.Lib.Data
         }
 
         /// <summary>
+        /// Get Role ID By Name
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
+        public static String GetRoleIDByRoleName(String roleName)
+        {
+            try
+            {
+                using (var ctx = new RoleDBContext())
+                {
+                    return ctx.Mst_Roles.Where(x => x.RoleName.ToLower() == roleName.ToLower() && 
+                                                    x.Status == 1)
+                                        .FirstOrDefault()
+                                        .RoleID;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Get Role's permission by Role ID
         /// </summary>
         /// <param name="sRoleID"></param>

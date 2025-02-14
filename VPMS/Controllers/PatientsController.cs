@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.X509;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using VPMS;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
+using VPMS.Lib.Data;
 
 namespace VPMSWeb.Controllers
 {
@@ -266,6 +268,56 @@ namespace VPMSWeb.Controllers
 			return View();
 		}
 
+		[Route("Patients/PatientIdentityProfile/Add")]
+		public IActionResult AddIdentityPatientProfile(String Username, String EmailAddress)
+		{
+			Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
+
+			try
+			{
+				IdentityUserObject sNewIdentityPatient = new IdentityUserObject();
+				sNewIdentityPatient.Id = Guid.NewGuid().ToString();
+				sNewIdentityPatient.UserName = Username;
+				sNewIdentityPatient.NormalizedUserName = Username.ToUpper();
+				sNewIdentityPatient.Email = EmailAddress;
+				sNewIdentityPatient.NormalizedEmail = EmailAddress.ToUpper();
+				sNewIdentityPatient.EmailConfirmed = 0;
+				sNewIdentityPatient.SecurityStamp = Guid.NewGuid().ToString();
+				sNewIdentityPatient.PhoneNumberConfirmed = 0;
+				sNewIdentityPatient.TwoFactorEnabled = 0;
+				sNewIdentityPatient.AccessFailedCount = 0;
+				sNewIdentityPatient.LockoutEnabled = 1;
+
+				String sPatientIdentityUserID = "";
+				if (!UserRepository.ValidateIdentityUser(sNewIdentityPatient.UserName))
+				{
+					String sRoleID = RoleRepository.GetRoleIDByRoleName("Customer");
+					String sTempPass = "Abcd@1234";
+
+					if (UserRepository.AddIdentityUser(sNewIdentityPatient, sRoleID, sTempPass, out sPatientIdentityUserID))
+					{
+						sResp.StatusCode = (int)StatusCodes.Status200OK;
+
+                    }
+					else
+					{
+						sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+					}
+				}
+				else
+				{
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+					sResp.isRecordExists = true;
+                }
+			}
+			catch (Exception ex)
+			{
+				sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
+
+			return Json(sResp);
+		}
+
 		//[Route("/Patients/BloodTest/{patientid}/{petname}")]
 		//public IActionResult BloodTest(int patientid, string petname)
 		//{
@@ -422,6 +474,28 @@ namespace VPMSWeb.Controllers
 
 			return View();
 		}
+
+		//[Route("/Patients/CreatePatientLoginProfile")]
+		//[HttpPost()]
+		//public IActionResult CreatePatientLoginProfile(Patient_Owner_Login sPatientLogin)
+		//{
+		//	Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
+
+		//	try
+		//	{
+		//		_patientDBContext.Mst_Patients_Login.Add(sPatientLogin);
+		//		_patientDBContext.SaveChanges();
+
+		//		sResp.StatusCode = (int)StatusCodes.Status200OK;
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Program.logger.Error("Controller Error >>> ", ex);
+  //              sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+  //          }
+
+		//	return Json(sResp);
+		//}
 
 		public PatientTreatmentPlan GetUpcomingTreatmentPlan(int petID) 
 		{
@@ -797,9 +871,18 @@ namespace VPMSWeb.Controllers
 			try
 			{
 				_patientDBContext.Mst_Patients_Owner.Add(patientOwner);
-
 				_patientDBContext.SaveChanges();
-			}
+
+				// --- Patients Login ------//
+				Patient_Owner_Login sPatientLogin = new Patient_Owner_Login();
+				sPatientLogin.PatientOwnerID = patientOwner.ID;
+				sPatientLogin.ProfileActivated = 0;
+				sPatientLogin.CreatedDate = DateTime.Now;
+				sPatientLogin.CreatedBy = patientOwner.CreatedBy;
+
+				_patientDBContext.Mst_Patients_Login.Add(sPatientLogin);
+				_patientDBContext.SaveChanges();
+            }
 			catch (Exception ex)
 			{
 				Program.logger.Error("Controller Error >> ", ex);

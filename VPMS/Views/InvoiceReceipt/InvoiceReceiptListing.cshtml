@@ -624,7 +624,7 @@
 							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
 							'<img class="moreIcon" /> ' +
 							'</button>' +
-							'<div class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
+							'<div id="receiptDropdownMenu" class="dropdown-menu" style = "min-width: fit-content; font-size: 1vw;" > ' +
 							'<a class="dropdown-item" href = "#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + ');"  data-bs-toggle="modal" data-bs-target="#viewModal"> @LangResources["Patient_Button_View"] </a>' +
 							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + '); downloadInvoice();" > @LangResources["InvoiceReceipt_Button_Download"] </a>' +
 							'<a class="dropdown-item" href="#" onclick="viewInvoiceReceipt(\'Receipt\', ' + data.invoiceReceiptList[i].ID + '); printInvoice();" > @LangResources["InvoiceReceipt_Button_Print"] </a>' +

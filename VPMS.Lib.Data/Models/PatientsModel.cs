@@ -64,6 +64,19 @@ namespace VPMS.Lib.Data.Models
         public int Status { get; set; }
     }
 
+    public class Patient_Owner_Login
+    {
+        [Key]
+        public long ID { get; set; }
+        public long? PatientOwnerID { get; set; }
+        public int? ProfileActivated { get; set; }
+        public DateTime? ActivationDate { get; set; }
+        public DateTime? CreatedDate {  get; set; }
+        public String? CreatedBy {  get; set; }
+        public DateTime? UpdatedDate {  get; set; }
+        public String? UpdatedBy {  get; set; }
+    }
+
     public class Pets_Breed : AuditPartialModel
     {
         [Key]

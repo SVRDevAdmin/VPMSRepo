@@ -231,6 +231,10 @@ namespace VPMSWeb.Controllers
             return Json(sBranchList);
         }
 
+        /// <summary>
+        /// Get Roles List
+        /// </summary>
+        /// <returns></returns>
         public IActionResult GetRolesList()
         {
             var sRoleList = RoleRepository.GetRolesList();

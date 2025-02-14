@@ -1,0 +1,30 @@
+﻿body {
+}
+
+@media (max-width: 800px){
+    #leftPane {
+        width: 45px !important;
+    }
+
+    .sidebar-nav-font{
+        display: none !important;
+    }
+
+    /*---- menu logo */
+    #menu li img {
+        margin-right: 5px !important;
+        margin-left: 0px !important;
+    }
+
+    #imgLogo {
+        /*display: none !important;*/
+        visibility: hidden !important;
+    }
+
+    #imgLogoResp {
+        visibility: visible !important;
+        content: url('../Vet-VitalsICON.ico');
+        width: 36px;
+        height: 34px;
+    }
+}

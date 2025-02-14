@@ -1,3 +1,11 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.Globalization;
+using VPMSCustomer.Lib.Data.DBContext;
+
 namespace VPMSCustomer
 {
     public class Program
@@ -8,6 +16,43 @@ namespace VPMSCustomer
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            String? strConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<MembershipDBContext>(options => options.UseMySql(strConnection, ServerVersion.AutoDetect(strConnection)));
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                            .AddRoles<IdentityRole>()
+                            .AddEntityFrameworkStores<MembershipDBContext>();
+
+            var identitySettings = builder.Configuration.GetSection("IdentitySettings");
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireNonAlphanumeric = identitySettings.GetValue<bool>("RequireNonAlphanumeric");
+                options.Password.RequiredLength = identitySettings.GetValue<int>("RequireLength");
+
+                //Lockedout setting
+                options.SignIn.RequireConfirmedAccount = identitySettings.GetValue<bool>("RequireConfirmedAccount");
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(identitySettings.GetValue<int>("DefaultLockedOutTimeSpan"));
+                options.Lockout.MaxFailedAccessAttempts = identitySettings.GetValue<int>("MaxFailedAccessAttempts");
+            });
+
+            var cookieSettings = builder.Configuration.GetSection("CookieSetting");
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                //options.ExpireTimeSpan = TimeSpan.FromMinutes(cookieSettings.GetValue<int>("ExpireTimeSpan"));
+                options.ExpireTimeSpan = TimeSpan.FromHours(2); //default are 4 hours
+
+                options.LoginPath = "/Login/Login";
+                options.AccessDeniedPath = "/Login/AccessDenied";
+                //options.SlidingExpiration = true; //default is false
+                //options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+
+                //-----options.EventsType = typeof(CustomCookieAuthenticationEvents);
+            });
 
             var app = builder.Build();
 
@@ -24,11 +69,13 @@ namespace VPMSCustomer
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Index}");
+                //pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

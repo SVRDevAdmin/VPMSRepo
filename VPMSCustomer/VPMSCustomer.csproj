@@ -10,4 +10,14 @@
     <Folder Include="bin\Debug\net8.0\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VPMSCustomer.Lib.Data\VPMSCustomer.Lib.Data.csproj" />
+  </ItemGroup>
+
 </Project>
