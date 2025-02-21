@@ -14,16 +14,10 @@
     <NameOfLastUsedPublishProfile>C:\Dev\VPMS\VPMS\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ItemGroup>
-    <Resource Update="Resources\Resource.de.resx">
-      <SubType>Designer</SubType>
-    </Resource>
     <EmbeddedResource Update="Resources\Resource.en.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.es.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.hi.resx">
+    <EmbeddedResource Update="Resources\Resource.zh-Hant.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

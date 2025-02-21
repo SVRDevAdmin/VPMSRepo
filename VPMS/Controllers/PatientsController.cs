@@ -882,6 +882,15 @@ namespace VPMSWeb.Controllers
 
 				_patientDBContext.Mst_Patients_Login.Add(sPatientLogin);
 				_patientDBContext.SaveChanges();
+
+				Account_Creation_Logs sCreationLog = new Account_Creation_Logs();
+				sCreationLog.EmailAddress = patientOwner.EmailAddress;
+				sCreationLog.InvitationCode = VPMS.Lib.Helpers.GenerateRandomKeyString(16);
+				sCreationLog.LinkCreatedDate = DateTime.Now;
+				sCreationLog.LinkExpiryDate = DateTime.Now.AddHours(24);
+
+				_patientDBContext.Mst_Account_Creation_Logs.Add(sCreationLog);
+				_patientDBContext.SaveChanges();
             }
 			catch (Exception ex)
 			{

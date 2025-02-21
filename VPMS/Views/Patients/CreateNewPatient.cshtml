@@ -844,7 +844,7 @@
 				})
 				.then(data => {
 					createOwnerInfo(data, false);
-					createPatientLoginProfile(document.getElementById("OwnerName").value.replace(/\s+/g, ''), document.getElementById("Email").value);
+					//createPatientLoginProfile(document.getElementById("OwnerName").value.replace(/\s+/g, ''), document.getElementById("Email").value);
 
 					if (hasCoOwner) {
 						createOwnerInfo(data, true);

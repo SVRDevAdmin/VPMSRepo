@@ -54,6 +54,8 @@ namespace VPMSCustomer
                 //-----options.EventsType = typeof(CustomCookieAuthenticationEvents);
             });
 
+            builder.Services.AddSession();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -64,6 +66,7 @@ namespace VPMSCustomer
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

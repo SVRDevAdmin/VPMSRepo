@@ -1,6 +1,22 @@
 ﻿body {
 }
 
+input {
+    outline: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+input:focus {
+    text-decoration: none !important;
+    box-shadow: none;
+}
+
+button {
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
 @media (max-width: 800px){
     #leftPane {
         width: 45px !important;

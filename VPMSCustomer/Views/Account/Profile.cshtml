@@ -1,0 +1,463 @@
+﻿@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+}
+
+<style>
+.editField {
+    display: none;
+}
+
+#btnCancel, #btnSave {
+    display: none;
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#divSecondaryOwner').hide();
+        loadGenderDropdown();
+        loadCountryDropdown();
+        
+        $('#btnEdit').on('click', function(ctl){
+            $('.displayField').hide();
+            $('.editField').show();
+
+            $('#btnEdit').hide();
+            $('#btnCancel').show();
+            $('#btnSave').show();
+
+            loadProfile(true);
+        });
+
+        $('#btnCancel').on('click', function(ctl){
+            $('.displayField').show();
+            $('.editField').hide();
+
+            $('#btnEdit').show();
+            $('#btnCancel').hide();
+            $('#btnSave').hide();
+        });
+
+        if ('@sessionUserID' != '')
+        {
+            loadProfile(false);
+        }
+    });
+
+    function loadProfile(IsEdit)
+    {
+        $.getJSON("/Account/Profile/" + '@sessionUserID')
+            .done(function(result){
+                if (result.data.length > 0){
+                    var sPrimaryProfile = result.data.filter(function(obj){
+                                                return (obj.isPrimary == 1);
+                                          });
+
+                    if (sPrimaryProfile != null && sPrimaryProfile.length > 0)
+                    {
+                        if (IsEdit == true)
+                        {
+                            $('#txtPriOwnerName').val(sPrimaryProfile[0].name);
+                            $('#ddlPriGender').val(sPrimaryProfile[0].gender);
+                            $('#txtPriContactNo').val(sPrimaryProfile[0].contactNo);
+                            $('#txtPriEmail').val(sPrimaryProfile[0].emailAddress);
+                            $('#txtPriAddress').val(sPrimaryProfile[0].address);
+
+                            $('#txtPriPostcode').val(sPrimaryProfile[0].postCode);
+                            $('#ddlPriCountry option').filter(function() {
+                                return this.text == sPrimaryProfile[0].country;
+                            }).attr('selected', true);
+
+                            loadStateDropdown($('#ddlPriCountry').val());
+                            setTimeout(function(){
+                                $('#ddlPriState option').filter(function(){
+                                    return this.text == sPrimaryProfile[0].state;
+                                }).attr('selected', true);
+                            }, 500);
+
+                            setTimeout(function(){
+                                loadPriCityDropdown($('#ddlPriState').val());
+                            }, 550);
+                            
+                            setTimeout(function(){
+                                $('#ddlPriCity option').filter(function(){ 
+                                    return this.text == sPrimaryProfile[0].city;
+                                }).attr('selected', true);
+                            }, 500);
+                        }
+                        else
+                        {
+                            $('#lbPriOwnerName').html(sPrimaryProfile[0].name);
+                            $('#lbPriGender').html(sPrimaryProfile[0].genderName);
+                            $('#lbPriContactNo').html(sPrimaryProfile[0].contactNo);
+                            $('#lbPriEmail').html(sPrimaryProfile[0].emailAddress);
+                            $('#lbPriAddress').html(sPrimaryProfile[0].address);
+                            $('#lbPriCity').html(sPrimaryProfile[0].city);
+                            $('#lbPriPostcode').html(sPrimaryProfile[0].postCode);
+                            $('#lbPriState').html(sPrimaryProfile[0].state);
+                            $('#lbPriCountry').html(sPrimaryProfile[0].country);
+                        }
+
+                    }
+                    
+                    var sSecondaryProfile = result.data.filter(function(obj) { 
+                                                return (obj.isPrimary == 0);
+                                            });
+
+                    if (sSecondaryProfile != null && sSecondaryProfile.length > 0)
+                    {
+                        $('#divSecondaryOwner').show();
+
+                        if (IsEdit == true)
+                        {
+                            $('#txtSecOwnerName').val(sSecondaryProfile[0].name);
+                            $('#ddlSecGender').val(sSecondaryProfile[0].gender);
+                            $('#txtSecContactNo').val(sSecondaryProfile[0].contactNo);
+                            $('#txtSecEmail').val(sSecondaryProfile[0].emailAddress);
+                            $('#txtSecAddress').val(sSecondaryProfile[0].address);
+                            $('#txtSecCity').val(sSecondaryProfile[0].city);
+                            $('#txtSecPostcode').val(sSecondaryProfile[0].postCode);
+                            $('#txtSecState').val(sSecondaryProfile[0].state);
+
+                            //$('#ddlSecCountry').val(sSecondaryProfile[0].country);
+
+                            $('#ddlSecCountry option').filter(function() {
+                                return this.text == sSecondaryProfile[0].country;
+                            }).attr('selected', true);
+
+                            
+                        }
+                        else 
+                        {
+                            $('#lbSecOwnerName').html(sSecondaryProfile[0].name);
+                            $('#lbSecGender').html(sSecondaryProfile[0].genderName);
+                            $('#lbSecContactNo').html(sSecondaryProfile[0].contactNo);
+                            $('#lbSecEmail').html(sSecondaryProfile[0].emailAddress);
+                            $('#lbSecAddress').html(sSecondaryProfile[0].address);
+                            $('#lbSecCity').html(sSecondaryProfile[0].city);
+                            $('#lbSecPostcode').html(sSecondaryProfile[0].postCode);
+                            $('#lbSecState').html(sSecondaryProfile[0].state);
+                            $('#lbSecCountry').html(sSecondaryProfile[0].country);
+                        }
+
+                    }
+                    else
+                    {
+                        $('#divSecondaryOwner').hide();
+                    }
+                }
+                else {
+
+                }
+            });
+    }
+
+    function loadGenderDropdown()
+    {
+        $('#ddlPriGender').empty();
+        $('#ddlSecGender').empty();
+
+        $.getJSON("/Masterdata/Gender")
+            .done(function(result){
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].codeName, result.data[i].codeID);
+                        $('#ddlPriGender').append(opt);
+                    }
+
+                    for (var x = 0; x < result.data.length; x++)
+                    {
+                        var opt1 = new Option(result.data[x].codeName, result.data[x].codeID);
+                        $('#ddlSecGender').append(opt1);
+                    }
+                }
+            });
+    }
+
+    function loadCountryDropdown()
+    {
+        $('#ddlPriCountry').empty();
+
+        $.getJSON("/Masterdata/CountryList")
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].countryName, result.data[i].id);
+                        $('#ddlPriCountry').append(opt);
+                    }
+
+                    for (var x = 0; x < result.data.length; x++)
+                    {
+                        var opt1 = new Option(result.data[x].countryName, result.data[x].id);
+                        $('#ddlSecCountry').append(opt1);
+                    }
+                }
+            });
+    }
+
+    function loadStateDropdown(country)
+    {
+        $('#ddlPriState').empty();
+
+        $.getJSON("/Masterdata/StatesList/" + country)
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].state, result.data[i].id);
+                        $('#ddlPriState').append(opt);
+                    }
+                }
+            });
+    }
+
+    function loadPriCityDropdown(state)
+    {
+        $('#ddlPriCity').empty();
+
+        $.getJSON("/Masterdata/CityList/" + state)
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].city, result.data[i].id);
+                        $('#ddlPriCity').append(opt);
+                    }
+                }
+            });
+    }
+
+    function ddlPriCountryChanges(c)
+    {
+        loadStateDropdown(c.value);
+    }
+
+    function ddlPriStateChanges(s)
+    {
+        loadPriCityDropdown(s.value);
+    }
+</script>
+
+<div class="row ms-3" style="border: 0px solid black;">
+    <div class="row pt-4">
+        <label style="font-size: 24px; font-weight: bold;">Profile</label>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row" style="background-color: #F7F7F7; border-radius: 8px;">
+        <div id="divPrimaryOwner" class="row mt-4">
+            <div class="col-md-2 mt-5 mb-5" style="border: 0px solid black;">
+                <div class="row">
+                    <div class="col-md-12 ms-5 me-5" style="width: 75px; border-radius: 75px; background-color: #fdf6e6;">
+                        <img src="~/Images/AvatarProfile.png" width="75" height="75" style="margin-left: -13px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" style="border: 0px solid black;">
+                <div class="row">
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Owner Name</label>
+                    </div>
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Gender</label>
+                    </div>
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Contact No</label>
+                    </div>
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbPriOwnerName" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtPriOwnerName" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriGender" class="displayField" style="font-size: 12px;"></label>
+                        <!--<input id="txtPriGender" type="text" class="form-control form-control-sm editField" />---->
+                        <select id="ddlPriGender" class="form-select form-select-sm editField">
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriContactNo" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtPriContactNo" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriEmail" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtPriEmail" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label style="font-size: 12px; font-weight: bold;">Address</label>
+                    </div>
+                </div>
+                <div class="row displayRow">
+                    <div class="col-md-12">
+                        <label id="lbPriAddress" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtPriAddress" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">City</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">Postcode</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">State</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">Country</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbPriCity" class="displayField" style="font-size: 12px;"></label>
+                        <select id="ddlPriCity" class="form-select form-select-sm editField">
+                        </select>
+                        <!--<input id="txtPriCity" type="text" class="form-control form-control-sm editField" />-->
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriPostcode" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtPriPostcode" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriState" class="displayField" style="font-size: 12px;"></label>
+                        <select id="ddlPriState" class="form-select form-select-sm editField" onchange="ddlPriStateChanges(this);">
+                        </select>
+                        <!--<input id="txtPriState" type="text" class="form-control form-control-sm editField" />-->
+
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriCountry" class="displayField" style="font-size: 12px;"></label>
+                        <select id="ddlPriCountry" class="form-select form-select-sm editField" onchange="ddlPriCountryChanges(this);">
+                        </select>
+                        <!--<input id="txtPriCountry" type="text" class="form-control form-control-sm editField" />-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1" style="margin-left: 5px; border-bottom: 1px solid black;">
+            <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div id="divSecondaryOwner" class="row mt-2">
+            <div class="col-md-2" style="border: 0px solid black;">
+                <div class="row mt-5 mb-5">
+                    <div class="col-md-12 ms-5 me-5" style="width: 75px; border-radius: 75px; background-color: #fdf6e6;">
+                        <img src="~/Images/AvatarProfile.png" width="75" height="75" style="margin-left: -13px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" style="border: 0px solid black;">
+                <div class="row">
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Owner Name</label>
+                    </div>
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Gender</label>
+                    </div>
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Contact No</label>
+                    </div>
+                    <div class="col-md-3" style="border: 0px solid black;">
+                        <label style="font-size: 12px; font-weight: bold;">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbSecOwnerName" class="displayField" style="font-size: 12px;">Park Min-ji</label>
+                        <input id="txtSecOwnerName" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecGender" class="displayField" style="font-size: 12px;">Park Min-ji</label>
+                        <!---<input id="txtSecGender" type="text" class="form-control form-control-sm editField" />-->
+                        <select id="ddlSecGender" class="form-select form-select-sm editField">
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecContactNo" class="displayField" style="font-size: 12px;">Park Min-ji</label>
+                        <input id="txtSecContactNo" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecEmail" class="displayField" style="font-size: 12px;">Park Min-ji</label>
+                        <input id="txtSecEmail" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label style="font-size: 12px; font-weight: bold;">Address</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label id="lbSecAddress" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtSecAddress" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">City</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">Postcode</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">State</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label style="font-size: 12px; font-weight: bold;">Country</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbSecCity" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtSecCity" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecPostcode" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtSecPostcode" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecState" class="displayField" style="font-size: 12px;"></label>
+                        <!--<input id="txtSecState" type="text" class="form-control form-control-sm editField" />-->
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecCountry" class="displayField" style="font-size: 12px;"></label>
+                        <select id="ddlSecCountry" class="form-select form-select-sm editField">
+
+                        </select>
+                        <!--<input id="txtSecCountry" type="text" class="form-control form-control-sm editField" />-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="row">
+            <div class="col-md-8">&nbsp;</div>
+            <div class="col-md-4" style="display: flex; flex-direction: row;">
+                <input id="btnCancel" type="button" class="btn btn-secondary me-2" value="Cancel" style="width: 100%" />
+                <input id="btnEdit" type="button" class="btn btn-primary me-2" value="Edit Profile" style="width: 100%;" />
+                <input id="btnSave" type="button" class="btn btn-primary me-2" value="Save Changes" style="width: 100%;" />
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -77,6 +77,17 @@ namespace VPMS.Lib.Data.Models
         public String? UpdatedBy {  get; set; }
     }
 
+    public class Account_Creation_Logs
+    {
+        [Key]
+        public long ID { get; set; }
+        public String? EmailAddress { get; set; }
+        public String? InvitationCode { get; set; }
+        public DateTime? LinkCreatedDate {  get; set; }
+        public DateTime? LinkExpiryDate { get; set; }
+        public DateTime? AccountCreationDate { get; set; }
+    }
+
     public class Pets_Breed : AuditPartialModel
     {
         [Key]

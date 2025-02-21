@@ -1,0 +1,319 @@
+﻿@inject IHttpContextAccessor httpContextaccessor
+@model VPMSCustomer.Lib.Data.Models.AccountCreationExtendedObj
+@{
+    Layout = "";
+
+    var sInvitationObj = new VPMSCustomer.Lib.Data.Models.AccountCreationExtendedObj();
+    if (this.Model != null)
+    {
+        sInvitationObj = this.Model;
+    };
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Creation</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/general.js"></script>
+
+    <style>
+    body{
+        background-color: #fdf6e6;
+    }
+    
+    .sectionStep2{
+        display: none;
+    }
+
+    .sectionStep3{
+        display: none;
+    }
+
+    #btnConfirm{
+        display: none;
+    }
+
+    #btnLogin{
+        display: none;
+    }
+
+    .errorValidation {
+        border-color: red !important;
+    }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            // ---- Button Next ------- //
+            $('#btnNext').on('click', function(ctl){
+                $('.sectionStep1').hide();
+                $('#btnNext').hide();
+
+                $('.sectionStep2').show();
+                $('#btnConfirm').show();
+            });
+
+            // --- Button Confirm ------ //
+            $('#btnConfirm').on('click', function(ctl)
+            {
+                $('#txtLoginID').removeClass("errorValidation");
+                $('#lbError').html('');
+
+                if (validateInput()){
+                    if (validatePasswordFormat($('#txtPassword').val()))
+                    {
+                        if ($('#txtPassword').val() == $('#txtConfirmPassword').val())
+                        {
+                            $.post("/Account/RegisterCustomer", {
+                                sUserName: $('#txtLoginID').val(),
+                                sEmail: $('#txtEmail').val(),
+                                sPassword: $('#txtPassword').val(),
+                                iPatientOwnerID: $('#hidPatientOwnerID').val(),
+                                sInvitationCode: '@sInvitationObj.InvitationCode'
+                            }).done(function(result){
+                                if (result.statusCode == 200)
+                                {
+                                    $('.sectionStep2').hide();
+                                    $('.sectionStep3').show();
+
+                                    $('#btnConfirm').hide();
+                                    $('#btnLogin').show();
+                                }
+                                else if (result.statusCode == 400 && result.isRecordExists)
+                                {
+                                    $('#lbError').html('Username already exists in system.');
+
+                                    $('#txtLoginID').addClass("errorValidation");
+                                    $('#txtLoginID').focus();
+                                }
+                                else
+                                {
+                                    $('#lbError').html('Account registration failed.');
+                                }
+                            });
+
+                        }
+                        else
+                        {
+                            $('#lbError').html('Unmatched confirm password.');
+                        }
+                        
+                    }
+                    else{
+                         $('#lbError').html('Invalid password format. Password must contains at lease one uppercase and one lowercase alphanumeric with max 8 character length.');
+                    }
+                }
+                else
+                {
+                     $('#lbError').html('Mandatory Fields Required.');
+                }
+            });
+
+            // ----- Button Login ------ //
+            $('#btnLogin').on('click', function(ctl){
+                window.location.href = '/Login/Index';
+            });
+
+            if ('@sInvitationObj' != '')
+            {
+                if ('@sInvitationObj.isActivated' == 'False')
+                {
+                    if ('@sInvitationObj.isLinkExists' == 'False')
+                    {
+                        $('#lbError').html('Invalid link. Please contact administrator');
+                        $('#btnNext').prop('disabled', true);
+                    }
+                    else if ('@sInvitationObj.isLinkExists' == 'True' && '@sInvitationObj.isLinkExpired' == 'True')
+                    {
+                        $('#lbError').html('Link expired. Please contact administrator.');
+                        $('#btnNext').prop('disabled', true);
+                    }
+                    else if ('@sInvitationObj.isLinkExists' == 'True' && '@sInvitationObj.isLinkExpired' == 'False')
+                    {
+                        $('#txtEmail').val('@sInvitationObj.EmailAddress');
+                        $('#txtEmail').prop('disabled', true);
+
+                        $('#hidPatientOwnerID').val('@sInvitationObj.PatientOwnerID')
+                    }
+                }
+                else
+                {
+                    $('#lbError').html('Account activation completed. No activation allow');
+                    $('#txtEmail').prop('disabled', true);
+                    $('#btnNext').prop('disabled', true);
+                }
+            }
+            else
+            {
+                alert('ccc');
+                //todo : redirect
+            }
+        });
+
+        //function validatePasswordFormat(strpassword)
+        //{
+        //    var pattern = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$");
+        //
+        //    return pattern.test(strpassword);
+        //}
+
+        function validateInput()
+        {
+            let isValid = true;
+
+            if ($('#txtLoginID').val() == '')
+            {
+                $('#txtLoginID').addClass("errorValidation");
+                $('#txtLoginID').focus();
+
+                isValid = false;
+            }
+            else
+            {
+                $('#txtLoginID').removeClass("errorValidation");
+            }
+
+            if ($('#txtPassword').val() == '')
+            {
+                $('#txtPassword').addClass("errorValidation");
+                $('#txtPassword').focus();
+
+                isValid = false;
+            }
+            else
+            {
+                $('#txtPassword').removeClass("errorValidation");
+            }
+
+            if ($('#txtConfirmPassword').val() == '')
+            {
+                $('#txtConfirmPassword').addClass("errorValidation");
+                $('#txtConfirmPassword').focus();
+
+                isValid = false;
+            }
+            else
+            {
+                $('#txtConfirmPassword').removeClass("errorValidation");
+            }
+
+            return isValid;
+        }
+
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+            <div class="col-md-4">&nbsp;</div>
+            <div class="col-md-4 text-center">
+                <img src="~/Images/Logo/Vet-Vitals-Logo.png" width="350" height="90"/>
+            </div>
+            <div class="col-md-4">&nbsp;</div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-md-4">&nbsp;</div>
+            <div class="col-md-4 text-center">
+                <h3>Account Creation</h3>
+            </div>
+            <div class="col-md-4">&nbsp;</div>
+        </div>
+        <div class="row">&nbsp;</div>
+
+        <div class="row sectionStep1">
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <input id="txtEmail" type="text" class="form-control" value="" />
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="row sectionStep2">
+            <div class="row pt-2">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <h6><strong>Login ID</strong></h6>
+                </div>
+                <div class="col-md-4">
+                    <input id="hidPatientOwnerID" type="hidden" value="" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <input id="txtLoginID" type="text" class="form-control" />
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <h6><strong>Password</strong></h6>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <input id="txtPassword" type="password" class="form-control" />
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <h6><strong>Confirm Password</strong></h6>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <input id="txtConfirmPassword" type="password" class="form-control" />
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+        </div>
+        <div class="row sectionStep3">
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4 text-center">
+                    <label><strong>Account registered successfully. Please proceed to login.</strong></label>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">&nbsp;</div>
+            <div class="col-md-4 text-center">
+                <label id="lbError" style="color: red; font-weight: bold; font-size: 13px;"></label>
+            </div>
+            <div class="col-md-4">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <input id="btnNext" type="button" class="btn btn-primary" value="Next" style="width: 100%; margin-left: 10px; margin-right: 0px;" />
+                    <input id="btnConfirm" type="button" class="btn btn-primary" value="Confirm" style="width: 100%" />
+                    <input id="btnLogin" type="button" class="btn btn-primary" value="Login" style="width: 100%;" />
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

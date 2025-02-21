@@ -24,6 +24,7 @@ namespace VPMS.Lib.Data.DBContext
 		public DbSet<PatientMedicalRecordService> Mst_MedicalRecord_VaccinationSurgery { get; set; }
 		public DbSet<PatientMedicalRecordMedication> Mst_MedicalRecord_Medication { get; set; }
 		public DbSet<Patient_Owner_Login> Mst_Patients_Login {  get; set; }
+		public DbSet<Account_Creation_Logs> Mst_Account_Creation_Logs { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 			options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));

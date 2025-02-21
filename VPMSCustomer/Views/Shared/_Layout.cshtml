@@ -9,6 +9,45 @@
     <link rel="stylesheet" href="~/VPMSCustomer.styles.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="~/css/main.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/general.js"></script>
+
+    <style>
+    .profilemenu {
+        background-color: white;
+        font-size: 1vw;
+    }
+
+    .profilemenu > a {
+        color: black;
+    }
+
+    .profilemenu > a:hover {
+        background-color: transparent !important;
+    }
+
+    .ProfileFont {
+        font-size: 1vw;
+        font-weight: bold;
+        color: black;
+        width: 11vw;
+        text-wrap: wrap;
+    }
+
+    .dropdown-toggle::after {
+        color: black;
+    }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#divdropdowntoggle').on('click', function(ctl){
+                $('.profilemenu').toggle('show');
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container-fluid" style="height: 100vh;">
@@ -65,9 +104,32 @@
             <!-- Content -->
             <div class="col-md-10">
                 <div class="row" style="border: 0px solid black; height: 70px;">
-                    <h3> Left sidebar with submenu</h3>
+                    <div class="row">
+                        <div class="col-md-9" style="border: 0px solid black;">&nbsp;</div>
+                        <div class="col-md-3 text-center" style="border: 0px solid black;">
+                            <div style="display: flex; flex-direction: row; align-items: baseline; height: 60px;">
+
+                                <div style="width: 60px; border-radius: 50px; margin-top: 5px; background-color: #fdf6e6;">
+                                    <img src="~/Images/AvatarProfile.png" width="60" height="60" />
+                                </div>
+                                <div style="width: 220px; margin-left: 15px;">
+                                    <div class="dropdown" style="margin-top: 10px;">
+                                        <div id="divdropdowntoggle" class="dropdown-toggle" data-toggle="dropdown" style="width: 11vw;">
+                                            <label class="ProfileFont">Testing</label>
+                                        </div>
+                                        <div class="dropdown-menu profilemenu">
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">View Profile</a>
+                                            <a class="dropdown-item">Account Settings</a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="ResetPassword">Reset Password</a>
+                                            <a class="dropdown-item">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row" style="border: 0px;">
+                <div class="row" style="border: 0px; padding-left: 5px; padding-right: 5px;">
                     @RenderBody()
                 </div>
                 
@@ -112,5 +174,100 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @*await RenderSectionAsync("Scripts", required: false)*@
      -->
+
+    <div id="modalConfirmYesNo" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label id="lblTitleConfirmYesNo" class="modal-title">Confirmation</label>
+                </div>
+                <div class="modal-body">
+                    <p id="lblMsgConfirmYesNo" style="text-align: center;"></p>
+                    <div class="row">
+                        <div class="col-md-2">&nbsp;</div>
+                        <div class="col-md-8" style="text-align: center;">
+                            <button id="btnYesConfirmYesNo"
+                                    type="button" class="btn btn-primary">
+                                Yes
+                            </button>
+                            <button id="btnNoConfirmYesNo"
+                                    type="button" class="btn btn-secondary">
+                                No
+                            </button>
+                        </div>
+                        <div class="col-md-2">&nbsp;</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalSuccess" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label id="lbTitleSuccess" class="modal-title">Success</label>
+                </div>
+                <div class="modal-body">
+                    <p id="lbMsgSuccess" style="text-align: center;"></p>
+                    <div class="row">
+                        <div class="col-md-5">&nbsp;</div>
+                        <div class="col-md-2">
+                            <button id="btnOK" type="button" class="btn btn-primary">OK</button>
+                        </div>
+                        <div class="col-md-5">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Confirmation MessageBox
+        function ShowConfirmCancelMsgBox(MsgTitle, MsgContent, YesButtonCallback, NoButtonCallback) {
+            AsyncConfirmYesNo(
+                MsgTitle,
+                MsgContent,
+                YesButtonCallback,
+                NoButtonCallback
+            );
+        }
+
+        function AsyncConfirmYesNo(title, msg, yesFn, noFn) {
+            var $confirm = $("#modalConfirmYesNo");
+            $confirm.modal('show');
+            $("#lblTitleConfirmYesNo").html(title);
+            $("#lblMsgConfirmYesNo").html(msg);
+            $("#btnYesConfirmYesNo").off('click').click(function () {
+                yesFn();
+                $confirm.modal("hide");
+            });
+            $("#btnNoConfirmYesNo").off('click').click(function () {
+                noFn();
+                $confirm.modal("hide");
+            });
+        }
+
+        function ShowSuccessMsgBox(MsgTitle, MsgContent, ButtonCallback)
+        {
+            AsyncSuccess(
+                MsgTitle,
+                MsgContent,
+                ButtonCallback
+            );
+        }
+
+        function AsyncSuccess(title, msg, btnFn) {
+            var $success = $("#modalSuccess");
+            $success.modal('show');
+            $("#lbTitleSuccess").html(title);
+            $("#lbMsgSuccess").html(msg);
+            $("#btnOK").off('click').click(function () {
+                btnFn();
+                $success.modal("hide");
+            });
+        }
+    </script>
 </body>
 </html>

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VPMSCustomer.Lib.Models;
 using Microsoft.Extensions.Localization;
+using ZstdSharp.Unsafe;
+using VPMSCustomer.Lib.Data;
 
 namespace VPMSCustomer.Controllers
 {
@@ -33,13 +35,6 @@ namespace VPMSCustomer.Controllers
             return View();
         }
 
-        //[HttpPost()]
-        //public IActionResult ValidateLogin(String loginID, String loginPassword)
-        //{
-        //    ResponseCodeObject sResp = new ResponseCodeObject();
-
-        //    return Json(sResp);
-        //}
         [HttpPost()]
         public async Task<IActionResult> ValidateLogin(String sUserName, String sPassword)
         {
@@ -53,6 +48,9 @@ namespace VPMSCustomer.Controllers
                     var result = await _signInManager.PasswordSignInAsync(sUserName, sPassword, false, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
+                        HttpContext.Session.SetString("UserID", user.Id);
+                        HttpContext.Session.SetString("UserName", user.UserName);
+
                         sResp.StatusCode = (int)StatusCodes.Status200OK;
                     }
                     else
@@ -75,73 +73,37 @@ namespace VPMSCustomer.Controllers
 
             return Json(sResp);
         }
-        //// GET: LoginController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
-        //// GET: LoginController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [Route("/Login/ResetPassword/")]
+        [HttpPost()]
+        public async Task<IActionResult> ResetPasswordAsync(string userID, string newPassword)
+        {
+            IPasswordHasher<IdentityUser> _passwordHasher = new PasswordHasher<IdentityUser>();
+            LoginResponseObject sResp = new LoginResponseObject();
 
-        //// POST: LoginController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userID);
 
-        //// GET: LoginController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+                if (user != null)
+                {
+                    var sResult = UserRepository.ResetUserPassword(userID, newPassword);
+                    if (sResult)
+                    {
+                        sResp.StatusCode = (int)StatusCodes.Status200OK;
+                    }
+                    else
+                    {
+                        sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
 
-        //// POST: LoginController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: LoginController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: LoginController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+            return Json(sResp);
+        }
     }
 }
