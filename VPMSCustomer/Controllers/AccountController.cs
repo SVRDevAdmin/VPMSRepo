@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Contracts;
 using VPMSCustomer.Lib.Data;
 using VPMSCustomer.Lib.Data.Models;
 using VPMSCustomer.Lib.Models;
@@ -164,6 +165,32 @@ namespace VPMSCustomer.Controllers
             {
                 return null;
             }
+        }
+
+        //UpdatePatientOwnerProfile
+        [Route("/Account/Profile/UpdateProfile")]
+        [HttpPost]
+        public IActionResult UpdateProfileAccounts(List<PatientOwnerExtendedModel> ownerlist)
+        {
+            ResponseCodeObject sResp = new ResponseCodeObject();
+
+            try
+            {
+                if (PatientRepository.UpdatePatientOwnerProfile(ownerlist))
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status200OK;
+                }
+                else
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                }
+            }
+            catch (Exception ex)
+            {
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
+
+            return Json(sResp);
         }
     }
 

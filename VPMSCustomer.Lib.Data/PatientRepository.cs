@@ -205,5 +205,45 @@ namespace VPMSCustomer.Lib.Data
                 return null;
             }
         }
+
+        public static Boolean UpdatePatientOwnerProfile(List<PatientOwnerExtendedModel> sOwnerProfiles)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new PatientDBContext())
+                {
+                    foreach(var owner in sOwnerProfiles)
+                    {
+                        var sOwnerObj = ctx.mst_patients_Owner.Where(x => x.ID == owner.ID).FirstOrDefault();
+                        if (sOwnerObj != null)
+                        {
+                            sOwnerObj.Name = owner.Name;
+                            sOwnerObj.Gender = owner.Gender;
+                            sOwnerObj.ContactNo = owner.ContactNo;
+                            sOwnerObj.EmailAddress = owner.EmailAddress;
+                            sOwnerObj.Address = owner.Address;
+                            sOwnerObj.PostCode = owner.PostCode;
+                            sOwnerObj.City = owner.City;
+                            sOwnerObj.State = owner.State;
+                            sOwnerObj.Country = owner.Country;
+                            sOwnerObj.UpdatedDate = DateTime.Now;
+                            sOwnerObj.UpdatedBy = owner.UpdatedBy;
+
+                            ctx.SaveChanges();
+
+                            isSuccess = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
     }
 }

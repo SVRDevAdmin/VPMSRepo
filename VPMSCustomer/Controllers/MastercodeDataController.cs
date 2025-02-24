@@ -60,7 +60,6 @@ namespace VPMSCustomer.Controllers
         [HttpGet()]
         public IActionResult GetStatesList(int countryid)
         {
-            //GetStatesList
             List<StateModel> sStatesList = new List<StateModel>();
 
             try

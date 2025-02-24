@@ -17,6 +17,21 @@ button {
     text-decoration: none !important;
 }
 
+.pageTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.errorValidation {
+    border-color: red !important;
+}
+
+.errorLabel {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 @media (max-width: 800px){
     #leftPane {
         width: 45px !important;
