@@ -15,6 +15,8 @@ namespace VPMSCustomer.Lib.Data.DBContext
         public DbSet<PatientLoginModel> mst_patients_login { get; set; }
         public DbSet<PatientModel> mst_patients { get; set; }
         public DbSet<PatientOwnerModel> mst_patients_Owner { get; set; }
+        public DbSet<PatientsConfigurationLogsModel> patients_configuration_logs { get; set; }
+        public DbSet<PatientConfigurationModel> mst_patients_configuration {  get; set; }
 
         private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
 

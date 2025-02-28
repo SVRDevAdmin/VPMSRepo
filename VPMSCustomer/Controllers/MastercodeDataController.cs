@@ -7,6 +7,10 @@ namespace VPMSCustomer.Controllers
 {
     public class MastercodeDataController : Controller
     {
+        /// <summary>
+        /// Get Gender Master List
+        /// </summary>
+        /// <returns></returns>
         [Route("/Masterdata/Gender")]
         [HttpGet()]
         public IActionResult GetGenderMasterdata()
@@ -32,6 +36,10 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Country Master List
+        /// </summary>
+        /// <returns></returns>
         [Route("/Masterdata/CountryList")]
         [HttpGet()]
         public IActionResult GetCountryList()
@@ -56,6 +64,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get State List by Country ID
+        /// </summary>
+        /// <param name="countryid"></param>
+        /// <returns></returns>
         [Route("/Masterdata/StatesList/{countryid}")]
         [HttpGet()]
         public IActionResult GetStatesList(int countryid)
@@ -80,6 +93,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get City List by State ID
+        /// </summary>
+        /// <param name="stateid"></param>
+        /// <returns></returns>
         [Route("/Masterdata/CityList/{stateid}")]
         [HttpGet()]
         public IActionResult GetCityList(int stateid)
@@ -92,6 +110,35 @@ namespace VPMSCustomer.Controllers
                 if (sCityList != null)
                 {
                     return Json(new { data = sCityList });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Language Master list
+        /// </summary>
+        /// <returns></returns>
+        [Route("/Masterdata/LanguageList")]
+        [HttpGet()]
+        public IActionResult GetLanguageList()
+        {
+            List<MasterCodeDataModel> sLanguageObj = new List<MasterCodeDataModel>();
+            String sLanguageGroup = "LanguageSelection";
+
+            try
+            {
+                sLanguageObj = MastercodeRepository.GetMastercodeDataByGroup(sLanguageGroup);
+                if (sLanguageObj != null)
+                {
+                    return Json(new { data = sLanguageObj });
                 }
                 else
                 {

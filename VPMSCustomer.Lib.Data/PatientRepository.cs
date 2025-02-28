@@ -115,21 +115,6 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
-        //public static List<PatientOwnerModel> GetPatientOwnersByPatientID(long iPatientID)
-        //{
-        //    try
-        //    {
-        //        using (var ctx = new PatientDBContext())
-        //        {
-        //            return ctx.mst_patients_Owner.Where(x => x.PatientID == iPatientID).ToList();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
-
         public static List<PatientOwnerExtendedModel> GetPatientOwnersByPatientID(long iPatientID)
         {
             List<PatientOwnerExtendedModel> sResult = new List<PatientOwnerExtendedModel>();
@@ -244,6 +229,67 @@ namespace VPMSCustomer.Lib.Data
             }
 
             return isSuccess;
+        }
+
+        public static Boolean UpdatePatientConfiguration(String sUserID, String sConfigKey, String sConfigValue, String sUpdatedBy)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new PatientDBContext())
+                {
+                    var sConfigurationObj = ctx.mst_patients_configuration
+                                                .Where(x => x.UserID == sUserID && x.ConfigurationKey == sConfigKey)
+                                                .FirstOrDefault();
+
+                    if (sConfigurationObj != null)
+                    {
+                        sConfigurationObj.ConfigurationValue = sConfigValue;
+                        sConfigurationObj.UpdatedBy = sUpdatedBy;
+                        sConfigurationObj.UpdatedDate = DateTime.Now;
+
+                        ctx.SaveChanges();
+
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        PatientConfigurationModel sNewConfiguration = new PatientConfigurationModel();
+                        sNewConfiguration.UserID = sUserID;
+                        sNewConfiguration.ConfigurationKey = sConfigKey;
+                        sNewConfiguration.ConfigurationValue = sConfigValue;
+                        sNewConfiguration.CreatedDate = DateTime.Now;
+                        sNewConfiguration.CreatedBy = sUpdatedBy;
+
+                        ctx.mst_patients_configuration.Add(sNewConfiguration);
+                        ctx.SaveChanges();
+
+                        isSuccess = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        public static List<PatientConfigurationModel> GetPatientConfiguration(String sUserID)
+        {
+            try
+            {
+                using (var ctx = new PatientDBContext())
+                {
+                    return ctx.mst_patients_configuration.Where(x => x.UserID == sUserID).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

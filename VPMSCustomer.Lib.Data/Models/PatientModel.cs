@@ -58,4 +58,25 @@ namespace VPMSCustomer.Lib.Data.Models
     {
         public String? GenderName { get; set; }
     }
+
+    public class PatientConfigurationModel
+    {
+        public long ID { set; get; }
+        public String? UserID { get; set; }
+        public String? ConfigurationKey { get; set; }
+        public String? ConfigurationValue { get; set; }
+        public DateTime? CreatedDate {  set; get; }
+        public String? CreatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public String? UpdatedBy { get; set; }
+    }
+
+    public class PatientsConfigurationLogsModel
+    {
+        public long ID { set; get; }
+        public String? UserID { get; set; }
+        public String? TransactionKey { get; set; }
+        public String? TransactionValue { get; set; }
+        public DateTime? TransactionDate { set; get; }
+    }
 }

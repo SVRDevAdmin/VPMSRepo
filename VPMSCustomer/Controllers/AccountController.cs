@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using VPMSCustomer.Lib.Data;
 using VPMSCustomer.Lib.Data.Models;
 using VPMSCustomer.Lib.Models;
@@ -24,6 +25,16 @@ namespace VPMSCustomer.Controllers
             return View("Profile");
         }
 
+        public ActionResult AccountSettings()
+        {
+            return View("AccountSettings");
+        }
+
+        /// <summary>
+        /// Get create account invitation link details
+        /// </summary>
+        /// <param name="invitationcode"></param>
+        /// <returns></returns>
         [Route("/Account/AccountCreation/{invitationcode}")]
         public IActionResult AccountCreation(String invitationcode)
         {
@@ -68,6 +79,15 @@ namespace VPMSCustomer.Controllers
             return View("Index", sResp);
         }
 
+        /// <summary>
+        /// Register customer login
+        /// </summary>
+        /// <param name="sUserName"></param>
+        /// <param name="sEmail"></param>
+        /// <param name="sPassword"></param>
+        /// <param name="iPatientOwnerID"></param>
+        /// <param name="sInvitationCode"></param>
+        /// <returns></returns>
         [Route("/Account/RegisterCustomer")]
         [HttpPost()]
         public IActionResult RegisterCustomerAccount(String sUserName, String sEmail, String sPassword, long iPatientOwnerID, String sInvitationCode)
@@ -120,6 +140,11 @@ namespace VPMSCustomer.Controllers
             return Json(sResp);
         }
 
+        /// <summary>
+        /// Get Customer profile by User ID
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
         [Route("/Account/GetCustomerAccount/{userID}")]
         [HttpGet]
         public IActionResult GetCustomerAccount(String userID)
@@ -140,8 +165,13 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Customer Profile by Identity ID
+        /// </summary>
+        /// <param name="aspNetUserID"></param>
+        /// <returns></returns>
         [Route("/Account/Profile/{aspNetUserID}")]
-        [HttpGet]
+        [HttpGet()]
         public IActionResult GetProfileAccountByIdentityUserID(String aspNetUserID)
         {
             List<PatientOwnerExtendedModel> sPatientOwnerObj = new List<PatientOwnerExtendedModel>();
@@ -167,9 +197,13 @@ namespace VPMSCustomer.Controllers
             }
         }
 
-        //UpdatePatientOwnerProfile
+        /// <summary>
+        /// Update Customer Profile Info
+        /// </summary>
+        /// <param name="ownerlist"></param>
+        /// <returns></returns>
         [Route("/Account/Profile/UpdateProfile")]
-        [HttpPost]
+        [HttpPost()]
         public IActionResult UpdateProfileAccounts(List<PatientOwnerExtendedModel> ownerlist)
         {
             ResponseCodeObject sResp = new ResponseCodeObject();
@@ -178,6 +212,50 @@ namespace VPMSCustomer.Controllers
             {
                 if (PatientRepository.UpdatePatientOwnerProfile(ownerlist))
                 {
+                    sResp.StatusCode = (int)StatusCodes.Status200OK;
+                }
+                else
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                }
+            }
+            catch (Exception ex)
+            {
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
+
+            return Json(sResp);
+        }
+
+        /// <summary>
+        /// Update Customer's account Settings
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="configKey"></param>
+        /// <param name="configValue"></param>
+        /// <param name="updatedBy"></param>
+        /// <returns></returns>
+        [Route("/Account/Settings/Update")]
+        [HttpPost()]
+        public IActionResult UpdateConfigurationSettings(String userID, String configKey, String configValue, String updatedBy)
+        {
+            ResponseCodeObject sResp = new ResponseCodeObject();
+
+            try
+            {
+                var sResult = PatientRepository.UpdatePatientConfiguration(userID, configKey, configValue, updatedBy);
+                if (sResult)
+                {
+                    HttpContext.Session.SetString(configKey, configValue);
+
+                    if (configKey == "CustomerSettings_Language")
+                    {
+                        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(configValue);
+                        Thread.CurrentThread.CurrentUICulture = new CultureInfo(configValue);
+
+                        Response.Cookies.Append("Language", configValue);
+                    }
+
                     sResp.StatusCode = (int)StatusCodes.Status200OK;
                 }
                 else

@@ -6,6 +6,7 @@ using VPMSCustomer.Lib.Models;
 using Microsoft.Extensions.Localization;
 using ZstdSharp.Unsafe;
 using VPMSCustomer.Lib.Data;
+using VPMSCustomer.Lib.Data.Models;
 
 namespace VPMSCustomer.Controllers
 {
@@ -35,6 +36,52 @@ namespace VPMSCustomer.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Logout
+        /// </summary>
+        /// <returns></returns>
+        [Route("/Login/Logout")]
+        [HttpPost()]
+        public async Task<IActionResult> Logout(String sessionID, String actionType)
+        {
+            LoginResponseObject sResp = new LoginResponseObject();
+
+            try
+            {
+                if (CustomerLoginRepository.InsertSessionLog(sessionID, actionType))
+                {
+                    CustomerLoginRepository.DeleteSession(sessionID);
+
+                    await _signInManager.SignOutAsync();
+
+                    HttpContext.Session.Remove("UserID");
+                    HttpContext.Session.Remove("UserName");
+                    HttpContext.Session.Remove("CustomerSettings_Language");
+                    HttpContext.Session.Remove("CustomerSettings_Country");
+                    HttpContext.Session.Remove("CustomerSettings_Themes");
+                    HttpContext.Session.Remove("LoginSession");
+
+                    sResp.StatusCode = (int)StatusCodes.Status200OK;
+                }
+                else
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                }
+            }
+            catch (Exception ex)
+            {
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
+
+            return Json(sResp);
+        }
+
+        /// <summary>
+        /// Validate Login
+        /// </summary>
+        /// <param name="sUserName"></param>
+        /// <param name="sPassword"></param>
+        /// <returns></returns>
         [HttpPost()]
         public async Task<IActionResult> ValidateLogin(String sUserName, String sPassword)
         {
@@ -50,6 +97,57 @@ namespace VPMSCustomer.Controllers
                     {
                         HttpContext.Session.SetString("UserID", user.Id);
                         HttpContext.Session.SetString("UserName", user.UserName);
+
+                        String sCountrySettings = "";
+                        String sThemesSettings = "";
+                        String sLanguageSettings = "";
+                        var sAccountConfiguration = PatientRepository.GetPatientConfiguration(user.Id);
+                        if (sAccountConfiguration != null)
+                        {
+                            // ---- Language Settings ----- //
+                            var sLanguageConfig = sAccountConfiguration.Where(x => x.ConfigurationKey == "CustomerSettings_Language")
+                                                                       .FirstOrDefault();
+                            if (sLanguageConfig != null)
+                            {
+                                sLanguageSettings = (sLanguageConfig.ConfigurationValue != null) ? sLanguageConfig.ConfigurationValue : "";
+                            }
+
+                            // ----- Country Settings ------ //
+                            var sCountryConfig = sAccountConfiguration.Where(x => x.ConfigurationKey == "CustomerSettings_Country")
+                                                                      .FirstOrDefault();
+                            if (sCountryConfig != null)
+                            {
+                                sCountrySettings = (sCountryConfig.ConfigurationValue != null) ? sCountryConfig.ConfigurationValue : "";
+                            }
+
+                            // ------ Themes Settings ------ //
+                            var sThemesConfig = sAccountConfiguration.Where(x => x.ConfigurationKey == "CustomerSettings_Themes")
+                                                                     .FirstOrDefault();
+                            if (sThemesConfig != null)
+                            {
+                                sThemesSettings = (sThemesConfig.ConfigurationValue != null) ? sThemesConfig.ConfigurationValue : "";
+                            }
+                        }
+
+                        HttpContext.Session.SetString("CustomerSettings_Language", sLanguageSettings);
+                        HttpContext.Session.SetString("CustomerSettings_Country", sCountrySettings);
+                        HttpContext.Session.SetString("CustomerSettings_Themes", sThemesSettings);
+
+                        // ---------- Create Login Session ------------ //
+                        DateTime dtSession = DateTime.Now;
+
+                        CustomerLoginSession sNewSession = new CustomerLoginSession();
+                        sNewSession.SessionID = VPMSCustomer.Lib.Helper.GenerateRandomKeyString(32);
+                        sNewSession.SessionCreatedOn = dtSession;
+                        sNewSession.SessionExpiredOn = dtSession.AddMinutes(60);
+                        sNewSession.UserID = user.Id;
+                        sNewSession.LoginID = user.UserName;
+
+                        CustomerLoginRepository.InsertSession(sNewSession, "Login");
+                        HttpContext.Session.SetString("LoginSession", sNewSession.SessionID);
+
+
+                        Response.Cookies.Append("Language", sLanguageSettings);
 
                         sResp.StatusCode = (int)StatusCodes.Status200OK;
                     }
@@ -74,6 +172,12 @@ namespace VPMSCustomer.Controllers
             return Json(sResp);
         }
 
+        /// <summary>
+        /// Reset user's Password
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
         [Route("/Login/ResetPassword/")]
         [HttpPost()]
         public async Task<IActionResult> ResetPasswordAsync(string userID, string newPassword)

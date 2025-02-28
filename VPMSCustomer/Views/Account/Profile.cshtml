@@ -1,4 +1,5 @@
-﻿@inject IHttpContextAccessor httpContextaccessor
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
     ViewData["Title"] = "Profile";
@@ -39,6 +40,8 @@
             $('#btnEdit').show();
             $('#btnCancel').hide();
             $('#btnSave').hide();
+
+            $('#lbError').html('');
         });
 
         if ('@sessionUserID' != '')
@@ -197,20 +200,21 @@
                 ownerlist
             }).done(function(result) {
                 if (result.statusCode == 200){
-                    ShowSuccessMsgBox("Update Profile", "Profile Updates successfully.",
+                    ShowSuccessMsgBox("@Html.Raw(LangResources["Profile_Title_UpdateProfile"])", 
+                                      "@Html.Raw(LangResources["Profile_Message_ProfileUpdatesSuccess"])",
                         function(){
                             window.location.reload();
                         }
                     );
                 }
                 else{
-                    $('#lbError').html('Update Profile failed. Please try again later.');
+                    $('#lbError').html('@Html.Raw(LangResources["Settings_Message_UpdateSettingsFailed"])');
                 }
             });
         }
         else
         {
-            $('#lbError').html('Mandatory fields required.');
+            $('#lbError').html('@Html.Raw(LangResources["Profile_Message_MandatoryFields"])');
         }
     }
 
@@ -584,7 +588,9 @@
 
 <div class="row ms-3">
     <div class="row pt-4">
-        <label class="pageTitle">Profile</label>
+        <label class="pageTitle">
+            @LangResources["Profile_Title_Profile"]
+        </label>
     </div>
     <div class="row">&nbsp;</div>
     <div class="row borderFrame">
@@ -599,16 +605,16 @@
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="fieldTitle">Owner Name</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_OwnerName"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Gender</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Gender"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Contact No</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_ContactNo"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Email</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Email"]</label>
                     </div>
                 </div>
                 <div class="row">
@@ -634,7 +640,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12">
-                        <label class="fieldTitle">Address</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Address"]</label>
                     </div>
                 </div>
                 <div class="row displayRow">
@@ -645,16 +651,16 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-3">
-                        <label class="fieldTitle">City</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_City"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Postcode</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Postcode"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">State</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_State"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Country</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Country"]</label>
                     </div>
                 </div>
                 <div class="row">
@@ -694,16 +700,16 @@
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="fieldTitle">Owner Name</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_OwnerName"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Gender</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Gender"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Contact No</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_ContactNo"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Email</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Email"]</label>
                     </div>
                 </div>
                 <div class="row">
@@ -729,7 +735,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12">
-                        <label class="fieldTitle">Address</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Address"]</label>
                     </div>
                 </div>
                 <div class="row">
@@ -740,16 +746,16 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-3">
-                        <label class="fieldTitle">City</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_City"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Postcode</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Postcode"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">State</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_State"]</label>
                     </div>
                     <div class="col-md-3">
-                        <label class="fieldTitle">Country</label>
+                        <label class="fieldTitle">@LangResources["Profile_Label_Country"]</label>
                     </div>
                 </div>
                 <div class="row">
@@ -787,9 +793,9 @@
         <div class="row">
             <div class="col-md-8">&nbsp;</div>
             <div class="col-md-4" style="display: flex; flex-direction: row;">
-                <input id="btnCancel" type="button" class="btn btn-secondary btn-sm me-2" value="Cancel" style="width: 100%" />
-                <input id="btnEdit" type="button" class="btn btn-primary btn-sm me-2" value="Edit Profile" style="width: 100%;" />
-                <input id="btnSave" type="button" class="btn btn-primary btn-sm me-2" value="Save Changes" style="width: 100%;" />
+                <input id="btnCancel" type="button" class="btn btn-secondary btn-sm me-2" value="@LangResources["Profile_Button_Cancel"]" style="width: 100%" />
+                <input id="btnEdit" type="button" class="btn btn-primary btn-sm me-2" value="@LangResources["Profile_Button_EditProfile"]" style="width: 100%;" />
+                <input id="btnSave" type="button" class="btn btn-primary btn-sm me-2" value="@LangResources["Profile_Button_Save"]" style="width: 100%;" />
             </div>
         </div>
     </div>

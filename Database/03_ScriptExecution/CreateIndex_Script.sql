@@ -125,3 +125,20 @@ ON txn_testresults (DeviceName);
 
 CREATE INDEX IX_BranchID_DeviceName_Grouping
 ON txn_testresults (BranchID, DeviceName);
+
+
+/*----------- CUSTOMEr MODULE -----------*/
+CREATE INDEX IX_Gender_PatientID
+ON mst_patients_owner (Gender, PatientID);
+
+CREATE INDEX IX_Gender
+ON mst_patients_owner (Gender);
+
+CREATE INDEX IX_CountryID_State
+ON Mst_state (CountryID, State);
+
+CREATE INDEX IX_State
+ON Mst_state (State);
+
+CREATE INDEX IX_CountryID
+ON Mst_state (CountryID);

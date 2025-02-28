@@ -18,35 +18,10 @@
     <title>Account Creation</title>
 
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Account.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/general.js"></script>
-
-    <style>
-    body{
-        background-color: #fdf6e6;
-    }
-    
-    .sectionStep2{
-        display: none;
-    }
-
-    .sectionStep3{
-        display: none;
-    }
-
-    #btnConfirm{
-        display: none;
-    }
-
-    #btnLogin{
-        display: none;
-    }
-
-    .errorValidation {
-        border-color: red !important;
-    }
-    </style>
 
     <script type="text/javascript">
         $(document).ready(function()
@@ -157,13 +132,6 @@
             }
         });
 
-        //function validatePasswordFormat(strpassword)
-        //{
-        //    var pattern = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$");
-        //
-        //    return pattern.test(strpassword);
-        //}
-
         function validateInput()
         {
             let isValid = true;
@@ -214,19 +182,23 @@
         <div class="row">&nbsp;</div>
 
         <div class="row">
-            <div class="col-md-4">&nbsp;</div>
-            <div class="col-md-4 text-center">
-                <img src="~/Images/Logo/Vet-Vitals-Logo.png" width="350" height="90"/>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4 text-center">
+                    <img src="~/Images/Logo/Vet-Vitals-Logo.png" width="350" height="90"/>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
             </div>
-            <div class="col-md-4">&nbsp;</div>
         </div>
         <div class="row">&nbsp;</div>
         <div class="row">
-            <div class="col-md-4">&nbsp;</div>
-            <div class="col-md-4 text-center">
-                <h3>Account Creation</h3>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4 text-center">
+                    <label class="AccCreationPageTitle">Account Creation</label>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
             </div>
-            <div class="col-md-4">&nbsp;</div>
         </div>
         <div class="row">&nbsp;</div>
 
@@ -244,7 +216,7 @@
             <div class="row pt-2">
                 <div class="col-md-4">&nbsp;</div>
                 <div class="col-md-4">
-                    <h6><strong>Login ID</strong></h6>
+                    <label class="ResetFieldLabel">Login ID</label>
                 </div>
                 <div class="col-md-4">
                     <input id="hidPatientOwnerID" type="hidden" value="" />
@@ -260,7 +232,7 @@
             <div class="row pt-2">
                 <div class="col-md-4">&nbsp;</div>
                 <div class="col-md-4">
-                    <h6><strong>Password</strong></h6>
+                    <label class="ResetFieldLabel">Password</label>
                 </div>
                 <div class="col-md-4">&nbsp;</div>
             </div>
@@ -274,7 +246,7 @@
             <div class="row pt-2">
                 <div class="col-md-4">&nbsp;</div>
                 <div class="col-md-4">
-                    <h6><strong>Confirm Password</strong></h6>
+                    <label class="ResetFieldLabel">Confirm Password</label>
                 </div>
                 <div class="col-md-4">&nbsp;</div>
             </div>
@@ -290,25 +262,27 @@
             <div class="row">
                 <div class="col-md-4">&nbsp;</div>
                 <div class="col-md-4 text-center">
-                    <label><strong>Account registered successfully. Please proceed to login.</strong></label>
+                    <label class="resultMsgfont">Account registered successfully. Please proceed to login.</label>
                 </div>
                 <div class="col-md-4">&nbsp;</div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">&nbsp;</div>
-            <div class="col-md-4 text-center">
-                <label id="lbError" style="color: red; font-weight: bold; font-size: 13px;"></label>
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4 text-center">
+                    <label id="lbError" class="errorLabel"></label>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
             </div>
-            <div class="col-md-4">&nbsp;</div>
         </div>
         <div class="row">
             <div class="row">
                 <div class="col-md-4">&nbsp;</div>
                 <div class="col-md-4">
-                    <input id="btnNext" type="button" class="btn btn-primary" value="Next" style="width: 100%; margin-left: 10px; margin-right: 0px;" />
-                    <input id="btnConfirm" type="button" class="btn btn-primary" value="Confirm" style="width: 100%" />
-                    <input id="btnLogin" type="button" class="btn btn-primary" value="Login" style="width: 100%;" />
+                    <input id="btnNext" type="button" class="btn btn-primary" value="Next" />
+                    <input id="btnConfirm" type="button" class="btn btn-primary" value="Confirm" />
+                    <input id="btnLogin" type="button" class="btn btn-primary" value="Login" />
                 </div>
                 <div class="col-md-4">&nbsp;</div>
             </div>

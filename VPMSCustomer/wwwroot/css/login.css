@@ -1,0 +1,42 @@
+﻿body {
+    background-color: #fdf6e6;
+}
+
+input {
+    outline: none;
+}
+
+.errorValidation {
+    border-color: red !important;
+}
+
+.errorLabel {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#btnLogin {
+    width: 100%;
+}
+
+#txtLoginID {
+    width: 100%;
+    margin-left: 8px;
+    border: 0px;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#txtPassword {
+    width: 100%;
+    margin-left: 8px;
+    border: 0px;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#divLoginID, #divPassword {
+    display: flex;
+    flex-direction: row;
+}

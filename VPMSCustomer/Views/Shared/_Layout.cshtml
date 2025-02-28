@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+  
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -47,6 +54,21 @@
                 $('.profilemenu').toggle('show');
             });
         });
+
+        function logoutAccount()
+        {
+            $.post("/Login/Logout", {
+                sessionID: '@LoginSessionID',
+                actionType: 'logout'
+            }).done(function(result){
+                if (result.statusCode == 200){
+                    window.location.href = '/Login/';
+                }
+                else {
+
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -119,9 +141,9 @@
                                         </div>
                                         <div class="dropdown-menu profilemenu">
                                             <a class="dropdown-item" asp-controller="Account" asp-action="Profile">View Profile</a>
-                                            <a class="dropdown-item">Account Settings</a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountSettings">Account Settings</a>
                                             <a class="dropdown-item" asp-controller="Account" asp-action="ResetPassword">Reset Password</a>
-                                            <a class="dropdown-item">Logout</a>
+                                            <a class="dropdown-item" onclick="logoutAccount()">Logout</a>
                                         </div>
                                     </div>
                                 </div>

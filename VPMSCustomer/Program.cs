@@ -10,12 +10,19 @@ namespace VPMSCustomer
 {
     public class Program
     {
+        public static VPMSCustomer.Interface.IResourcesLocalizer _LangResources { get; set; }
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            // --- Resources ----//
+            builder.Services.AddLocalization(options =>
+            {
+                options.ResourcesPath = "Resources";
+            });
 
             String? strConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -23,6 +30,7 @@ namespace VPMSCustomer
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                             .AddRoles<IdentityRole>()
                             .AddEntityFrameworkStores<MembershipDBContext>();
+            builder.Services.AddSingleton<VPMSCustomer.Interface.IResourcesLocalizer, VPMSCustomer.Shared.ResourcesLocalizer>();
 
             var identitySettings = builder.Configuration.GetSection("IdentitySettings");
 
@@ -71,6 +79,22 @@ namespace VPMSCustomer
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.Use(async (context, next) =>
+            {
+                string cookie = String.Empty;
+                if (context.Request.Cookies.TryGetValue("Language", out cookie))
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo(cookie);
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie);
+                }
+                else
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+                }
+                await next.Invoke();
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
