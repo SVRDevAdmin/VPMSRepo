@@ -1,0 +1,26 @@
+CREATE TABLE `txn_customer_loginsession` (
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+	`SessionID` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`SessionCreatedOn` DATETIME NULL DEFAULT NULL,
+	`SessionExpiredOn` DATETIME NULL DEFAULT NULL,
+	`UserID` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`LoginID` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
+
+CREATE TABLE `txn_customer_loginsession_log` (
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+	`ActionType` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`SessionID` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`SessionCreatedOn` DATETIME NULL DEFAULT NULL,
+	`SessionExpiredOn` DATETIME NULL DEFAULT NULL,
+	`LoginID` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
