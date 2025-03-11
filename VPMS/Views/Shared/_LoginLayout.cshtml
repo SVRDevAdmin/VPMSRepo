@@ -56,22 +56,21 @@
             </div>
         }
 
-        <a href="#" id="theme" onclick="toggleTheme(true);">
-            <img src="~/images/skins/path_4043.png" id="path_4043" />
+        <a id="theme" style="cursor: pointer;" onclick="toggleTheme(true);">
+            <!--<img src="~/images/skins/path_4043.png" id="path_4043" /> -->
+            <div id="path_4043">
+                <div id="group_1138">
+                    <div id="rectangle_1045"></div>
+                    <div id="rectangle_1046"></div>
 
-            <div id="group_1138">
-                <div id="rectangle_1045"></div>
-                <div id="rectangle_1046"></div>
+                </div>
+                <div id="icon_feather_sun">
+                    <img src="~/images/skins/path_519.png" id="path_519" />
+                    <img src="~/images/skins/path_520.png" id="path_520" />
+                    <img src="~/images/DarkWhite.png" id="dark_theme_icon" />
+                </div>
 
             </div>
-
-            <div id="icon_feather_sun">
-                <img src="~/images/skins/path_519.png" id="path_519" />
-                <img src="~/images/skins/path_520.png" id="path_520" />
-                <img src="~/images/DarkWhite.png" id="dark_theme_icon" />
-
-            </div>
-
         </a>
 
         <div id="application_logo">
@@ -134,10 +133,12 @@
             var darkIcon = document.getElementById("dark_theme_icon");
             var lightIcon1 = document.getElementById("path_519");
             var lightIcon2 = document.getElementById("path_520");
+            var switchBase = document.getElementById("path_4043");
             element.classList.toggle("darktheme");
             darkIcon.classList.toggle("darktheme");
             lightIcon1.classList.toggle("darktheme");
             lightIcon2.classList.toggle("darktheme");
+            switchBase.classList.toggle("darktheme");
 
             if (changeCookie) {
                 var theme = "";
