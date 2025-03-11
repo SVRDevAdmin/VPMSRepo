@@ -148,6 +148,7 @@ namespace VPMSCustomer.Controllers
 
 
                         Response.Cookies.Append("Language", sLanguageSettings);
+                        Response.Cookies.Append("Theme", sThemesSettings);
 
                         sResp.StatusCode = (int)StatusCodes.Status200OK;
                     }

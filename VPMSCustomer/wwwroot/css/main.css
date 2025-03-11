@@ -17,11 +17,6 @@ button {
     text-decoration: none !important;
 }
 
-.pageTitle {
-    font-size: 24px;
-    font-weight: bold;
-}
-
 .errorValidation {
     border-color: red !important;
 }
@@ -30,6 +25,40 @@ button {
     color: red;
     font-size: 12px;
     font-weight: bold;
+}
+
+.dropdown-toggle::after {
+    color: black;
+}
+
+#lnkLogout {
+    cursor: pointer;
+}
+
+.menuItems {
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.avatarFrame {
+    width: 60px;
+    border-radius: 50px;
+    margin-top: 5px;
+    background-color: #fdf6e6;
+}
+
+.avatarImg {
+    content: url('../Images/AvatarProfile.png');
+    width: 60px;
+    height: 60px;
+}
+
+.upperMenuLayout {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    height: 60px;
 }
 
 @media (max-width: 800px){
