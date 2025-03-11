@@ -133,12 +133,15 @@ namespace VPMSWeb.Controllers
                         HttpContext.Session.SetString("RoleName", userRole.First());
 
 						int iIsAdmin = 0;
-						var sRoleContext = _roleDBContext.Mst_Roles.Where(x => x.RoleID == userInfo.RoleID).FirstOrDefault();
+                        int iIsDoctor = 0;
+                        var sRoleContext = _roleDBContext.Mst_Roles.Where(x => x.RoleID == userInfo.RoleID).FirstOrDefault();
 						if (sRoleContext != null)
 						{
 							iIsAdmin = sRoleContext.IsAdmin;
-						}
+                            iIsDoctor = sRoleContext.IsDoctor;
+                        }
                         HttpContext.Session.SetString("IsAdmin", iIsAdmin.ToString());
+                        HttpContext.Session.SetString("IsDoctor", iIsDoctor.ToString());
 
                         int iOrgID = -1;
 						var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);

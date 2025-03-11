@@ -1,5 +1,7 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
+@using VPMS.Lib.Data
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
 	ViewData["Title"] = "Patients Page";
@@ -94,10 +96,15 @@
 			<i class="fa-solid fa-sliders"></i>
 			<span id="buttonFilter">@LangResources["Patient_Button_ShowFilter"]</span>
 		</button>
-		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewPatient", "Patients")'">
-			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Patient_Button_NewPatient"]</span>
-		</button>
+		@{
+			if (Boolean.Parse(ViewData["CanAdd"] as string))
+			{
+				<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewPatient", "Patients")'">
+					<span id="container">+</span>
+					<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Patient_Button_NewPatient"]</span>
+				</button>
+			}
+		}
 	</div>
 
 </div>
@@ -224,6 +231,8 @@
 				else {
 					for (let i = 0; i < data.petsInfo.length; i++) {
 
+						var html = '';
+
 						var date = new Date(data.petsInfo[i].CreatedOn);
 						var dateString = [
 							('0' + date.getDate()).slice(-2),
@@ -231,7 +240,7 @@
 							date.getFullYear()
 						].join('/');
 
-						content.innerHTML = content.innerHTML +
+						html = html +
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
 							'<td class="table-content" >' + data.petsInfo[i].No + '</td>' +
 							'<td class="table-content" > ' + data.petsInfo[i].OwnerName + '</td>' +
@@ -241,20 +250,37 @@
 							'<td class="table-content" >  ' + data.petsInfo[i].Age + '</td>' +
 							'<td class="table-content" >  ' + data.petsInfo[i].Gender + '</td>' +
 							'<td class="table-content" >  ' + dateString + '</td>' +
-							'<td class="table-content" style = "width: 0;" > ' +
-							'<div class="dropleft" > ' +
-							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
-							'<img class="moreIcon" /> ' +
-							'</button>' +
-							'<div class="dropdown-menu containerBackground5" style="min-width: fit-content; font-size: 1vw;" > ' +
-							'<a class="dropdown-item" href="/Patients/PatientProfile/view/' + data.petsInfo[i].PatientID + '" > @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].PatientID + '" > @LangResources["Patient_Button_Edit"] </a>' +
-							// '<a class="dropdown-item" onclick="deletePet(' + data.petsInfo[i].PatientID + ',\'' + data.petsInfo[i].Name + '\');" > @LangResources["Patient_Button_Delete"] </a>' +
-							// '<a class="dropdown-item" href="#" > @LangResources["Patient_Button_Delete"] </a>' +
-							'</div>' +
-							'</div>' +
-							'</td>' +
-							'</tr>';
+							'<td class="table-content" style = "width: 0;" > ' ;
+
+							if(@ViewData["CanEdit"] || @ViewData["CanView"]){
+								html = html +
+									'<div class="dropleft" > ' +
+									'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
+									'<img class="moreIcon" /> ' +
+									'</button>' +
+									'<div class="dropdown-menu containerBackground5" style="min-width: fit-content; font-size: 1vw;" > ';
+
+								if(@ViewData["CanView"]){
+								html = html +
+									'<a class="dropdown-item" href="/Patients/PatientProfile/view/' + data.petsInfo[i].PatientID + '" > @LangResources["Patient_Button_View"] </a>';
+								}
+
+								if(@ViewData["CanEdit"]){
+								html = html +
+									'<a class="dropdown-item" href="/Patients/PatientProfile/edit/' + data.petsInfo[i].PatientID + '" > @LangResources["Patient_Button_Edit"] </a>';
+								}
+
+								html = html +
+									'</div>' +
+									'</div>' ;
+							}
+
+							html = html +									
+									'</td>' +
+									'</tr>';
+
+							content.innerHTML = content.innerHTML + html;
+							
 					}
 				}
 

@@ -52,14 +52,14 @@ namespace VPMSWeb.Controllers
             else
             {
                 latestUpdateDate = DateTime.Now;
-            }
-            
+            }            
 
             int year = latestUpdateDate.Value.Year;
             int month = latestUpdateDate.Value.Month;
             int day = latestUpdateDate.Value.Day;
             var todayDate = DateTime.Now.Date;
 
+            var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
             var role = HttpContext.Session.GetString("RoleName");
             var branchID = int.Parse(HttpContext.Session.GetString("BranchID"));
             var organisationID = int.Parse(HttpContext.Session.GetString("OrganisationID"));
@@ -68,7 +68,8 @@ namespace VPMSWeb.Controllers
             var appointmentList = _appointmentDBContext.mst_appointment.Select(x => new { x.ApptDate, x.BranchID }).Where(y => y.ApptDate.Value.Year == year).ToList();
             var doctorList = _doctorDBContext.mst_doctor.ToList();
 
-            if (role == "Superuser")
+            if (roles.Contains("General.Superuser"))
+            //if (role == "Superuser")
             {
                 var branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisationID).Select(y => y.ID).ToList();
                 SummaryList = SummaryList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
@@ -76,7 +77,8 @@ namespace VPMSWeb.Controllers
                 appointmentList = appointmentList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
                 doctorList = doctorList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
             }
-            else if (role != "Superadmin")
+            else if (!roles.Contains("General.Superadmin"))
+            //else if (role != "Superadmin")
             {
                 SummaryList = SummaryList.Where(x => x.BranchID == branchID).ToList();
                 userList = userList.Where(x => x.BranchID == branchID).ToList();
