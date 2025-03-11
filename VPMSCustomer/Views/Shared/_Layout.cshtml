@@ -91,10 +91,12 @@
                         </li>
                         <!-- PETS -->
                         <li class="nav-item mb-3 menuItems">
-                            <img class="menuPets" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">
-                                @LangResources["Main_Menu_Pets"]
-                            </span>
+                            <a asp-controller="Pets" asp-action="Index">
+                                <img class="menuPets" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Pets"]
+                                </span>
+                            </a>
                         </li>
                         <!-- APPOINTMENT -->
                         <li class="nav-item mb-3 menuItems">
@@ -145,12 +147,14 @@
                                         </div>
                                         <div class="dropdown-menu profilemenu">
                                             <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
-                                                <!--View Profile-->@LangResources["Main_Menu_ViewProfile"]
+                                                @LangResources["Main_Menu_ViewProfile"]
                                             </a>
                                             <a class="dropdown-item" asp-controller="Account" asp-action="AccountSettings">
-                                                <!--Account Settings-->@LangResources["Main_Menu_AccountSettings"]
+                                                @LangResources["Main_Menu_AccountSettings"]
                                             </a>
-                                            <a id="lnkLogout" class="dropdown-item" onclick="logoutAccount()"><!--Logout-->@LangResources["Main_Menu_Logout"]</a>
+                                            <a id="lnkLogout" class="dropdown-item" onclick="logoutAccount()">
+                                                @LangResources["Main_Menu_Logout"]
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

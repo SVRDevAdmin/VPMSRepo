@@ -91,9 +91,15 @@
 		<div>
 			<div class="containerBackground2" style="width: 50vw; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw; display: flex; justify-content: space-between; align-items: center;">
 				<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_OwnerInfo"]</span>
-				<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-primary ownerInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
-					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-				</button>
+				@{
+					if (Boolean.Parse(ViewData["CanEdit"] as string))
+					{
+						<button onclick="editOwnerInfo(false);" class="btn btn-lg btn-primary ownerInfoProfile" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						</button>
+					}
+				}
+				
 			</div>
 			<div class="containerBorder" style="width: 50vw; color: darkgray; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 2vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
@@ -333,9 +339,13 @@
 			<div>
 				<div class="containerBackground2" style="width: 50vw; color: white; padding: 0.7vw; padding-left: 1.5vw; border-top-left-radius: 0.5vw; border-top-right-radius: 0.5vw;  display: flex; justify-content: space-between; align-items: center;">
 					<span class="formlabel" style="margin-bottom: 0 !important;">@LangResources["Patient_Title_PetInfo"]</span>
-					<button class="btn btn-lg btn-primary" onclick="goToPetProfile('edit', this.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
-						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-					</button>
+					@{
+						if (Boolean.Parse(ViewData["CanEdit"] as string)){
+							<button class="btn btn-lg btn-primary" onclick="goToPetProfile('edit', this.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center;">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							</button>
+						}
+					}
 				</div>
 				<div class="containerBorder" style="color: darkgray; width: 50vw; border-style: solid; border-bottom-left-radius: 0.5vw; border-bottom-right-radius: 0.5vw; padding: 1.5vw; padding-left: 0.5vw; padding-right: 0.5vw; padding-bottom: 0.5vw; margin-bottom: 2vw;">
 
@@ -415,11 +425,15 @@
 					
 
 					
+					@{
+						if (Boolean.Parse(ViewData["CanView"] as string))
+						{
+							<div style="text-align: end; margin-right: 1.6vw;">
+								<button class="btn btn-lg btn-primary customButton" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw; --bs-btn-bg: transparent; --bs-btn-hover-color: white;"> @LangResources["Patient_Button_ViewPetProfile"] </button>
+							</div>
+						}
+					}
 
-
-					<div style="text-align: end; margin-right: 1.6vw;">
-						<button class="btn btn-lg btn-primary customButton" onclick="goToPetProfile('view', this.parentElement.parentElement);" style="width: 10vw; font-size: 1vw; --bs-btn-bg: transparent; --bs-btn-hover-color: white;"> @LangResources["Patient_Button_ViewPetProfile"] </button>
-					</div>
 
 				</div>
 			</div>
@@ -837,11 +851,20 @@
 
 			var link = "location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/" + data.Pets[i].Name + "'";
 
-			allPetsElement.innerHTML = allPetsElement.innerHTML +
-				'<div class="field-container" style="text-align: center;">' +
-				'<img onclick="' + link + '" src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw;" />' +
-				'<a href="/Patients/PetProfile/View/@ViewBag.PatientID/' + data.Pets[i].Name + '" style="font-size: 1vw;" > ' + data.Pets[i].Name + ' </a>' +
-				'</div>'
+			if(@ViewData["CanView"]){
+				allPetsElement.innerHTML = allPetsElement.innerHTML +
+					'<div class="field-container" style="text-align: center;">' +
+					'<img onclick="' + link + '" src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw;" />' +
+					'<a href="/Patients/PetProfile/View/@ViewBag.PatientID/' + data.Pets[i].Name + '" style="font-size: 1vw;" > ' + data.Pets[i].Name + ' </a>' +
+					'</div>'
+			}
+			else{
+				allPetsElement.innerHTML = allPetsElement.innerHTML +
+					'<div class="field-container" style="text-align: center;">' +
+					'<img src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw;" />' +
+					'<span style="font-size: 1vw;" > ' + data.Pets[i].Name + ' </span>' +
+					'</div>'
+			}
 
 			contentElement.appendChild(clone);
 		}

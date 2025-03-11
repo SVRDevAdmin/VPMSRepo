@@ -106,7 +106,7 @@ INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionN
 VALUES ('Access Control', 'Branch.Edit', 'Edit Branch', 1, NOW(), 'SYSTEM');
 
 INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy)
-VALUES ('Access Control', 'StaffListing.Edit', 'View Staff Listing', 1, NOW(), 'SYSTEM');
+VALUES ('Access Control', 'StaffListing.View', 'View Staff Listing', 1, NOW(), 'SYSTEM');
 
 INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy)
 VALUES ('Access Control', 'Staff.Add', 'Add Staff', 1, NOW(), 'SYSTEM');
@@ -134,3 +134,10 @@ VALUES ('Access Control', 'RoleDetails.Edit', 'Edit Role Details', 1, NOW(), 'SY
 
 INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy)
 VALUES ('Access Control', 'Role.Delete', 'Delete Role', 1, NOW(), 'SYSTEM');
+
+/*------ General -------*/
+INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy) 
+VALUES ('General', 'General.Superadmin', 'Superadmin', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy) 
+VALUES ('General', 'General.Superuser', 'Superuser', 1, NOW(), 'SYSTEM');

@@ -41,6 +41,18 @@ button {
     vertical-align: middle;
 }
 
+.menuItems > a {
+    text-decoration: none !important;
+    text-underline-offset: unset;
+    color: black !important;
+}
+
+.menuItems > a::after {
+    text-decoration: none !important;
+    text-underline-offset: unset !important;
+    color: black !important;
+}
+
 .avatarFrame {
     width: 60px;
     border-radius: 50px;

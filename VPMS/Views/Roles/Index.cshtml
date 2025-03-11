@@ -180,13 +180,18 @@
         </div>
         <div class="col-md-7">&nbsp;</div>
         <div class="col-md-2">
-            <div class="row">
-                <button id="btnAddRole" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw"
-                        onclick="location.href='@Url.Action("RoleProfile", "Roles")'">
-                    <i class="bi bi-plus-circle"></i>
-                    <!-- New Role -->@LangResources["Roles_Button_NewRole"]
-                </button>
-            </div>
+            @{
+                if ((bool)ViewData["CanAdd"])
+                {
+                    <div class="row">
+                        <button id="btnAddRole" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw"
+                                onclick="location.href='@Url.Action("RoleProfile", "Roles")'">
+                            <i class="bi bi-plus-circle"></i>
+                            <!-- New Role -->@LangResources["Roles_Button_NewRole"]
+                        </button>
+                    </div>
+                }
+            }
         </div>
     </div>
     <div class="row rowRoleTableMargin">
