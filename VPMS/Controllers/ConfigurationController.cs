@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using VPMS;
 using VPMS.Lib.Data;
@@ -7,6 +8,7 @@ using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
 {
+    [Authorize]
     public class ConfigurationController : Controller
     {
         public IActionResult Index()

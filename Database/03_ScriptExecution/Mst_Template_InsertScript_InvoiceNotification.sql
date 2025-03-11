@@ -61,7 +61,7 @@ VALUES
   <div class="modal-dialog" style="margin: 1vw auto; width: fit-content;">
 		<div class="modal-content modal-content-custom">
 			<div class="modal-header modalHeader" style="display: flex; justify-content: space-between; align-items: center;">
-				<div style="font-weight: bold;" class="printFont invoiceReceiptNo">###<type>### No: ###<invoiceReceiptNo>###</div>
+				<div style="font-weight: bold;" class="printFont invoiceReceiptNo">###<invoiceReceiptNoLabel>###: ###<invoiceReceiptNo>###</div>
 			</div>
 
 			<div class="modal-body" style="display: flex;">

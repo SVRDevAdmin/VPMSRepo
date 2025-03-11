@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySqlX.XDevAPI;
 using System.Drawing;
@@ -7,7 +8,8 @@ using VPMS.Lib.Data.Models;
 
 namespace VPMSWeb.Controllers
 {
-	public class InventoryController : Controller
+    [Authorize]
+    public class InventoryController : Controller
 	{
 		int totalInventory;
 

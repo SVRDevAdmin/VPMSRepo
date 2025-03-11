@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VPMS;
+using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 
@@ -20,7 +21,18 @@ namespace VPMSWeb.Controllers
 
 		public IActionResult OrganisationList()
 		{
-			return View();
+            var organisation = 0;
+            var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+            var havaPermission = hasPermission(roles, "OrganizationListing.View", out organisation);
+
+            if (!havaPermission)
+            {
+                return RedirectToAction("AccessDenied", "Login");
+            }
+
+			SetPermission(roles);
+
+            return View();
 		}
 
 		public OrganisationInfo GetOrganisationList(int rowLimit, int page, string search)
@@ -28,20 +40,25 @@ namespace VPMSWeb.Controllers
 			int start = (page - 1) * rowLimit;
 			var organisationInfos = new OrganisationInfo() { OrganisationList = new List<OrganisationList>(), TotalOrganisation = 0 };
 
-			var role = HttpContext.Session.GetString("RoleName");
-			var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+            //var role = HttpContext.Session.GetString("RoleName");
+            //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-			//var vendorID = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == organisation).ParentID;
-			//var vendor = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == vendorID);
+            //var vendorID = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == organisation).ParentID;
+            //var vendor = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == vendorID);
 
-			if (role != "Clinic Admin" || role != "Doctor" || role != "User")
+
+            var organisation = 0;
+            var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+            var havaPermission = hasPermission(roles, "OrganizationListing.View", out organisation);
+
+            if (havaPermission)
 			{
 				var organisationList = _organisationDBContext.GetOrganisationList(start, rowLimit, organisation, out totalOrganisations, search).ToList(); ;
 
 				organisationInfos = new OrganisationInfo() { OrganisationList = organisationList, TotalOrganisation = totalOrganisations };
 			}
 
-			return organisationInfos;
+            return organisationInfos;
 		}
 
 		public int InsertUpdateOrganisation([FromBody] OrganisationModel organisationModel)
@@ -113,5 +130,71 @@ namespace VPMSWeb.Controllers
 		{
 			return _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisationID && x.Status == 1).ToList();
 		}
-	}
+
+        public bool hasPermission(List<string> roles, string permission, out int organisationID)
+        {
+            organisationID = 0;
+            bool havePermission = false;
+
+            if (roles.Contains("General.Superadmin"))
+            {
+                havePermission = true;
+            }
+            else if (roles.Contains(permission) || roles.Contains("General.Superuser"))
+            {
+                organisationID = int.Parse(HttpContext.Session.GetString("OrganisationID"));
+                havePermission = true;
+            }
+
+            return havePermission;
+        }
+
+		public void SetPermission(List<string> roles)
+		{
+            ViewData["CanAddOrganisation"] = "false";
+            ViewData["CanEditOrganisation"] = "false";
+            ViewData["CanViewOrganisation"] = "false";
+            ViewData["CanAddBranch"] = "false";
+            ViewData["CanEditBranch"] = "false";
+
+            if (roles.Contains("General.Superadmin"))
+            {
+                ViewData["CanAddOrganisation"] = "true";
+                ViewData["CanEditOrganisation"] = "true";
+                ViewData["CanViewOrganisation"] = "true";
+                ViewData["CanAddBranch"] = "true";
+                ViewData["CanEditBranch"] = "true";
+            }
+            else
+            {
+                if (roles.Contains("General.Superuser"))
+                {
+                    ViewData["CanEditOrganisation"] = "true";
+                    ViewData["CanViewOrganisation"] = "true";
+                    ViewData["CanAddBranch"] = "true";
+					ViewData["CanEditBranch"] = "true";
+				}
+
+                if (roles.Contains("OrganizationDetails.View"))
+                {
+                    ViewData["CanViewOrganisation"] = "true";
+                }
+
+                if (roles.Contains("OrganizationDetails.Edit"))
+                {
+                    ViewData["CanEditOrganisation"] = "true";
+                }
+
+                if (roles.Contains("Branch.Add"))
+                {
+                    ViewData["CanAddBranch"] = "true";
+                }
+
+                if (roles.Contains("Branch.Edit"))
+                {
+                    ViewData["CanEditBranch"] = "true";
+                }
+            }
+        }
+    }
 }

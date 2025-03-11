@@ -76,11 +76,16 @@
 		<div style="display: flex;">
 			<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
 			<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
-		</div>		
-		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
-			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Service_Button_NewService"]</span>
-		</button>
+		</div>
+		@{
+			if (Boolean.Parse(ViewData["CanAdd"] as string))
+			{
+				<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
+					<span id="container">+</span>
+					<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Service_Button_NewService"]</span>
+				</button>
+			}
+		}
 	</div>
 
 </div>
@@ -190,7 +195,7 @@
 
 						var doctorList = data.ServiceList[i].DoctorInCharge.replaceAll(";", "</br>");
 
-						content.innerHTML = content.innerHTML +
+						html =
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
 							'<td class="table-content" style="padding-left: 0.5vw;">' + data.ServiceList[i].No + '</td>' +
 							'<td class="table-content" > ' + data.ServiceList[i].Name + '</td>' +
@@ -202,21 +207,38 @@
 							'<td class="table-content table-content-center" >  ' + data.ServiceList[i].Duration + '</td>' +
 							'<td class="table-content table-content-center"> ' +
 							'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">' +
-							status + 
+							status +
 							'</div > ' +
-							' </td>' +
-							'<td class="table-content" style = "width: 0;" > ' +
-							'<div class="dropleft" > ' +
-							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
-							'<img class="moreIcon" /> ' +
-							'</button>' +
-							'<div class="dropdown-menu containerBackground5" style = "min-width: fit-content; font-size: 1vw;" > ' +
-							'<a class="dropdown-item" href="/PatientServices/ViewEditService/View/' + data.ServiceList[i].ID + '" > @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="/PatientServices/ViewEditService/Edit/' + data.ServiceList[i].ID + '"  > @LangResources["Patient_Button_Edit"] </a>' +
-							'</div>' +
-							'</div>' +
-							'</td>' +
-							'</tr>';
+							' </td>' ;
+
+						if(@ViewData["CanEdit"] || @ViewData["CanView"]){
+							html = html +
+								'<td class="table-content" style = "width: 0;" > ' +
+								'<div class="dropleft" > ' +
+								'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
+								'<img class="moreIcon" /> ' +
+								'</button>' +
+								'<div class="dropdown-menu containerBackground5" style = "min-width: fit-content; font-size: 1vw;" > ';
+
+							if(@ViewData["CanView"]){
+								html = html +
+									'<a class="dropdown-item" href="/PatientServices/ViewEditService/View/' + data.ServiceList[i].ID + '" > @LangResources["Patient_Button_View"] </a>';
+							}
+
+							if(@ViewData["CanEdit"]){
+								html = html +
+									'<a class="dropdown-item" href="/PatientServices/ViewEditService/Edit/' + data.ServiceList[i].ID + '"  > @LangResources["Patient_Button_Edit"] </a>';
+							}
+
+							html = html +
+										'</div>' +
+									'</div>' +
+								'</td>';
+						}
+
+						html = html + '</tr > ';
+
+						content.innerHTML = content.innerHTML + html;
 					}
 				}
 

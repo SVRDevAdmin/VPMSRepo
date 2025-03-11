@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using VPMS;
 using VPMS.Lib;
@@ -10,7 +11,8 @@ using VPMSWeb.Models;
 
 namespace VPMSWeb.Controllers
 {
-	public class UserController : Controller
+    [Authorize]
+    public class UserController : Controller
 	{
 		/// <summary>
 		/// Index page
@@ -18,7 +20,15 @@ namespace VPMSWeb.Controllers
 		/// <returns></returns>
 		public IActionResult Index()
 		{
-			return View();
+            var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+            bool hasPermission = SetPermission(roles, "StaffListing.View");
+
+            if (!hasPermission)
+            {
+                return RedirectToAction("AccessDenied", "Login");
+            }
+
+            return View();
 		}
 
 		/// <summary>
@@ -265,32 +275,79 @@ namespace VPMSWeb.Controllers
             return Json(sMasterCodeObj);
         }
 
-		//public IActionResult UserProfile()
-		//{
+        //public IActionResult UserProfile()
+        //{
 
-		//	var profile = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == HttpContext.Session.GetString("UserID"));
-		//	var branch = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == profile.BranchID);
-		//	var organisation = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == branch.OrganizationID);
-		//	var role = _roleDBContext.Mst_Roles.FirstOrDefault(x => x.RoleID == profile.RoleID);
+        //	var profile = _userDBContext.Mst_User.FirstOrDefault(x => x.UserID == HttpContext.Session.GetString("UserID"));
+        //	var branch = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == profile.BranchID);
+        //	var organisation = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == branch.OrganizationID);
+        //	var role = _roleDBContext.Mst_Roles.FirstOrDefault(x => x.RoleID == profile.RoleID);
 
-		//	var userProfile = new StaffProfileInfo()
-		//	{
-		//		UserID = profile.UserID,
-		//		Surname = profile.Surname,
-		//		LastName = profile.LastName,
-		//		StaffID = profile.StaffID,
-		//		Gender = profile.Gender,
-		//		Role = role.RoleName,
-		//		Organisation = organisation.Name,
-		//		Email = profile.EmailAddress,
-		//		Branch = branch.Name,
-		//		Status = profile.Status
-		//	};
+        //	var userProfile = new StaffProfileInfo()
+        //	{
+        //		UserID = profile.UserID,
+        //		Surname = profile.Surname,
+        //		LastName = profile.LastName,
+        //		StaffID = profile.StaffID,
+        //		Gender = profile.Gender,
+        //		Role = role.RoleName,
+        //		Organisation = organisation.Name,
+        //		Email = profile.EmailAddress,
+        //		Branch = branch.Name,
+        //		Status = profile.Status
+        //	};
 
 
-		//	ViewBag.PreviousPage = Program.CurrentPage;
+        //	ViewBag.PreviousPage = Program.CurrentPage;
 
-		//	return View(userProfile);
-		//}
-	}
+        //	return View(userProfile);
+        //}
+
+        public bool SetPermission(List<string> roles, string permissionNeed)
+        {
+            bool havePermission = false;
+            ViewData["CanAdd"] = false;
+            ViewData["CanEdit"] = false;
+            ViewData["CanView"] = false;
+            ViewData["CanDelete"] = false;
+
+            if (roles.Where(x => x.Contains("General.")).Count() > 0 || HttpContext.Session.GetString("IsAdmin") == "1")
+            {
+                ViewData["CanAdd"] = true;
+                ViewData["CanEdit"] = true;
+                ViewData["CanView"] = true;
+                ViewData["CanDelete"] = true;
+                havePermission = true;
+            }
+            else
+            {
+                if (roles.Contains("Staff.Add"))
+                {
+                    ViewData["CanAdd"] = true;
+                }
+
+                if (roles.Contains("StaffDetails.View"))
+                {
+                    ViewData["CanView"] = true;
+                }
+
+                if (roles.Contains("StaffDetails.Edit"))
+                {
+                    ViewData["CanEdit"] = true;
+                }
+
+                if (roles.Contains("StaffDetails.Delete"))
+                {
+                    ViewData["CanDelete"] = true;
+                }
+
+                if (roles.Contains(permissionNeed))
+                {
+                    havePermission = true;
+                }
+            }
+
+            return havePermission;
+        }
+    }
 }

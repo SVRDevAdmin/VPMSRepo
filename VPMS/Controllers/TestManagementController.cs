@@ -15,9 +15,11 @@ using Org.BouncyCastle.Utilities;
 using Microsoft.Extensions.Hosting.Internal;
 using System.Drawing.Text;
 using Spire.Xls;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VPMSWeb.Controllers
 {
+    [Authorize]
     public class TestManagementController : Controller
     {
         public ActionResult Index()

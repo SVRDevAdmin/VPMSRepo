@@ -316,6 +316,12 @@ input[type='text']:focus, select:focus {
 	height: 20px;
 }
 
+#iconTestMgmt {
+	content: url('../images/flask_white_icon.png');
+	width: 20px;
+	height: 20px;
+}
+
 #iconReceipt{
 	content: url('../images/receipt_dark_icon.png');
 	width: 24px;
@@ -688,9 +694,9 @@ input[type='text']:focus, select:focus {
 
 #tblDoctor > thead > tr > th {
 	border: 0px;
-	background-color: transparent;
+	background-color: #1f2e45;
 	border-bottom: 1px solid #ddd;
-	color: #919191;
+	color: white;
 }
 
 #tblDoctor > tbody > tr > td {
@@ -712,6 +718,8 @@ input[type='text']:focus, select:focus {
 .frameHeader {
 	/*height: 40px;*/
 	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -923,13 +931,13 @@ a {
 	border: 0px !important;
 }
 
-	#tblRoles > thead > tr > th {
-		border: 0px;
-		background-color: transparent;
-		border-left: 0px;
-		border-bottom: 1px solid #ddd;
-		color: #919191;
-	}
+#tblRoles > thead > tr > th {
+	border: 0px;
+	background-color: #1f2e45;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: white;
+}
 
 #tblRoles > tbody > tr > td {
 	border-left: 0px;
@@ -956,6 +964,7 @@ a {
 .frameRoleHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -1083,10 +1092,10 @@ a {
 
 #tblUsers > thead > tr > th {
 	border: 0px;
-	background-color: transparent;
+	background-color: #1f2e45;
 	border-left: 0px;
 	border-bottom: 1px solid #ddd;
-	color: #919191;
+	color: white;
 }
 
 #tblUsers > tbody > tr > td {
@@ -1108,6 +1117,7 @@ a {
 .frameUserHeader {
 	height: 28px;
 	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 	background-color: #1f2e45;
 }
 
@@ -1167,15 +1177,95 @@ a {
 	background-color: #1f2e45 !important;
 }
 
+/*-------- Test Mgmt -----------*/
+#tblTestResult {
+	border: 0px !important;
+}
 
+#tblTestResult > thead > tr > th {
+	border: 0px;
+	background-color: #1f2e45;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: white;
+}
 
+#tblTestResult > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: white;
+}
 
+.TestResultListingMoreIcon {
+	content: url('../images/more_white.png');
+	width: 20px;
+	height: 20px;
+}
 
+.hiddenTestResultMenuStyle {
+	background-color: #1f2e45 !important;
+	min-width: fit-content;
+	font-size: 1vw;
+}
 
+.hiddenTestResultMenuStyle > a:hover {
+	color: white !important;
+	background-color: #1f2e45 !important;
+}
 
+.TestMgmtTitle {
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	margin-left: 25px;
+	margin-top: 20px;
+}
 
+.TestMgmtFilterBox {
+	height: auto;
+	margin-top: 15px;
+	background-color: #1f2e45;
+	border-radius: 6px;
+}
 
+.TestMgmtFilterTitle {
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
 
+.TestMgmtFilterLabel {
+	color: white;
+	font-weight: bold;
+}
+
+#tblTestParamResult > thead > tr > th {
+	border: 0px;
+	background-color: transparent;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: #919191;
+}
+
+#tblTestParamResult > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: white;
+}
+
+.TestMgmtResultTitle {
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 25px;
+	margin-top: 20px;
+	color: white;
+}
 
 /* Container for the slider */
 .slider-container {

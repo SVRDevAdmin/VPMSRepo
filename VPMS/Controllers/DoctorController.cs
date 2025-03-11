@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
 
 namespace VPMSWeb.Controllers
 {
+    [Authorize]
     public class DoctorController : Controller
     {
         public String sMasterDataGroupName = "Gender";

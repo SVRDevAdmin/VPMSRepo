@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using VPMS.Lib.Data.DBContext;
 using System.Web;
 using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VPMSWeb.Controllers
 {
-	public class CurrencyController : Controller
+    [Authorize]
+    public class CurrencyController : Controller
 	{
 		private readonly CurrencyDBContext _currencyDBContext = new CurrencyDBContext();
 		private readonly dynamic CountriesList = Host.CreateApplicationBuilder().Configuration.GetSection("Countries");

@@ -20,6 +20,7 @@ using VPMSWeb.Interface;
 
 namespace VPMSWeb.Controllers
 {
+    [Authorize]
     public class InvoiceReceiptController : Controller
     {
 		private readonly InvoiceReceiptDBContext _invoiceReceiptDBContext = new InvoiceReceiptDBContext();
