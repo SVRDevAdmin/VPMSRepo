@@ -329,7 +329,7 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
-        public static List<PetTestResultsModel> GetPetTestResultHistory(int petID, int pageSize, int pageIndex, out int totalRecords)
+        public static List<PetTestResultsModel> GetPetTestResultHistory(int petID, String resultType, int pageSize, int pageIndex, out int totalRecords)
         {
             List<PetTestResultsModel> sResultList = new List<PetTestResultsModel>();
             totalRecords = 0;
@@ -345,7 +345,8 @@ namespace VPMSCustomer.Lib.Data
                                             "A.ResultDateTime, A.ResultType, A.OverallStatus, A.PatientID, A.OperatorID, " +
                                             "A.DeviceName, COUNT(*) OVER() AS 'TotalRows' " +
                                             "FROM txn_testresults AS A " +
-                                            "WHERE A.PetID = '" + petID + "' " +
+                                            "WHERE A.PetID = '" + petID + "' AND " +
+                                            "('" + resultType + "' = 'All' OR A.ResultType = '" + resultType + "') " +
                                             "ORDER BY A.ResultDateTime " +
                                             "LIMIT 20 ";
 

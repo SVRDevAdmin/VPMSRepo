@@ -288,7 +288,7 @@
             loadMedicationHistory(rowID, petID);
             loadActiveTreatmentPlan(rowID, petID);
             loadPastTreatmentPlan(rowID, petID);
-            loadTestResultHistory(rowID, petID);
+            loadTestResultHistory(rowID, petID, 'All');
             loadTestResultTypeToggleMenu(rowID, petID);
         }
     }
@@ -440,7 +440,7 @@
     {
         $('#dropdownmenu-testtype_' + rowID).html('');
 
-        $.getJSON("/Pets/GetPetTestResultHistory/" + petID)
+        $.getJSON("/Pets/GetPetTestResultHistory/" + petID + "/All")
          .done(function(result){
              if (result.data != null && result.data.length > 0)
              {
@@ -453,7 +453,7 @@
                      for (var x = 0; x < sTestGroup.length; x++)
                      {
                          let sToggleMenu = '';
-                         sToggleMenu = '<a class="dropdown-item">' + sTestGroup[x] + '</a>';
+                         sToggleMenu = '<a class="dropdown-item" onclick="loadTestResultHistory(\'' + rowID + '\', \'' + petID + '\', \'' + sTestGroup[x] + '\')">' + sTestGroup[x] + '</a>';
 
                          $('#dropdownmenu-testtype_' + rowID).append(sToggleMenu);
                      }
@@ -463,11 +463,11 @@
          });
     }
 
-    function loadTestResultHistory(rowID, petID)
+    function loadTestResultHistory(rowID, petID, resultType)
     {
         $('#tblTestMgmt_' + rowID + ' tbody').html('');
 
-        $.getJSON("/Pets/GetPetTestResultHistory/" + petID)
+        $.getJSON("/Pets/GetPetTestResultHistory/" + petID + "/" + resultType)
          .done(function(result){
              if (result.data != null && result.data.length > 0)
              {

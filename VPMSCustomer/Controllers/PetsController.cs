@@ -148,14 +148,14 @@ namespace VPMSCustomer.Controllers
             }
         }
 
-        [Route("/Pets/GetPetTestResultHistory/{petID}")]
+        [Route("/Pets/GetPetTestResultHistory/{petID}/{resultType}")]
         [HttpGet()]
-        public IActionResult GetPetTestResultHistory(int petID)
+        public IActionResult GetPetTestResultHistory(int petID, String resultType)
         {
             int iTotalRecords = 0;
             try
             {
-                List<PetTestResultsModel> sResultList = PetRepository.GetPetTestResultHistory(petID, 0, 0, out iTotalRecords);
+                List<PetTestResultsModel> sResultList = PetRepository.GetPetTestResultHistory(petID, resultType, 0, 0, out iTotalRecords);
                 if (sResultList != null)
                 {
                     return Json(new { data = sResultList, TotalRecords = iTotalRecords });
