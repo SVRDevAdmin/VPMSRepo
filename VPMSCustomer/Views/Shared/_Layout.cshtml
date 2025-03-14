@@ -13,6 +13,7 @@
     <title>@ViewData["Title"] - VPMSCustomer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/icons/bootstrap-icons.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VPMSCustomer.styles.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="~/css/main.css" />
@@ -34,6 +35,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/moment.min.js"></script>
     <script src="~/js/general.js"></script>
 
     <style>
@@ -44,6 +46,14 @@
     #lnkLogout{
         cursor: pointer;
     } */
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            min-height: 100%;
+        }
     </style>
 
     <script type="text/javascript">
@@ -70,7 +80,8 @@
     </script>
 </head>
 <body>
-    <div id="divContainer" class="container-fluid" style="height: 100vh;">
+    <!-- style="height: 100vh;"-->
+    <div id="divContainer" class="container-fluid" >
         <div class="row flex-nowrap">
             <div id="leftPane" class="col-auto col-md-2 col-xs-2 px-sm-2 px-0" >
                 <div class="row justify-content-md-center pt-3 pb-5">

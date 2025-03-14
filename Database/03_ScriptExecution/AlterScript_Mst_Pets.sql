@@ -1,0 +1,2 @@
+ALTER TABLE mst_pets
+ADD COLUMN `AvatarID` INT NULL DEFAULT NULL AFTER `UpdatedBy`;
