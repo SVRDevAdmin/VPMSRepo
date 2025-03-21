@@ -39,6 +39,12 @@ namespace VPMSCustomer.Lib.Data.Models
         public String? ColorCode { get; set; }
     }
 
+    public class PetListingDataModel : PetDataModel
+    {
+        public int SeqNo { get; set;  }
+        public int TotalRows { get; set; }
+    }
+
     public class PetTreatmentServiceModel
     {
         public int ServiceID { get; set; }
@@ -77,5 +83,16 @@ namespace VPMSCustomer.Lib.Data.Models
         public String? OperatorID { get; set; }
         public String? DeviceName { get; set; }
         public int? TotalRows { get; set; }
+    }
+
+    public class PetBreedDataModel 
+    {
+        public long ID { get; set; }
+        public String? Species { get; set; }
+        public String? Breed { get; set; }
+        public int? Active { get; set; }
+        public int? SeqOrder { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public String? CreatedBy { get; set; }
     }
 }

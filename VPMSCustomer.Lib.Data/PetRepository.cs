@@ -15,6 +15,11 @@ namespace VPMSCustomer.Lib.Data
 {
     public class PetRepository
     {
+        /// <summary>
+        /// Get Patient's Pet List by Patient ID
+        /// </summary>
+        /// <param name="patientID"></param>
+        /// <returns></returns>
         public static List<PetDataExtendedModel> GetPetsListByPatientID(long patientID)
         {
             List<PetDataExtendedModel> sResultList = new List<PetDataExtendedModel>();
@@ -31,9 +36,9 @@ namespace VPMSCustomer.Lib.Data
                                             "LEFT JOIN ( " +
                                             "SELECT * FROM mst_mastercodedata WHERE CodeGroup ='Gender' " +
                                             ") AS B ON B.CodeID COLLATE UTF8MB4_GENERAL_CI = A.Gender " +
-                                            "LEFT JOIN Mst_Avatar AS C ON C.ID = A.AvatarID " + 
-                                            //"WHERE A.PatientID = '" + patientID + "' ";
-                                            " ";
+                                            "LEFT JOIN Mst_Avatar AS C ON C.ID = A.AvatarID " +
+                                            "WHERE A.PatientID = '" + patientID + "' ";
+                                            //" LIMIT 6 ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
                     {
@@ -78,6 +83,97 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Patient's Pet List (Listing View)
+        /// </summary>
+        /// <param name="patientID"></param>
+        /// <param name="petName"></param>
+        /// <param name="species"></param>
+        /// <param name="breed"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public static List<PetListingDataModel> GetPatientPetListing(long patientID, String petName, String species, String breed, 
+                                                                int pageSize, int pageIndex, out int totalRecords)
+        {
+            List<PetListingDataModel> sResultList = new List<PetListingDataModel>();
+            totalRecords = 0;
+
+            try
+            {
+                using (var ctx = new PetDBContext())
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT ROW_NUMBER() OVER (ORDER BY A.Id) AS 'SeqNo', " +
+                                            "A.*, B.CodeName AS 'GenderName', " +
+                                            "COUNT(*) OVER() AS 'TotalRows' " +
+                                            "FROM mst_pets AS A " +
+                                            "LEFT JOIN ( " +
+                                            "SELECT * FROM mst_mastercodedata WHERE CodeGroup ='Gender' " +
+                                            ") AS B ON B.CodeID COLLATE UTF8MB4_GENERAL_CI = A.Gender " +
+                                            "WHERE A.PatientID = '" + patientID + "' AND " + 
+                                            //"WHERE (" + (petName == null) + " OR A.Name LIKE '%" + petName + "%') AND " +
+                                            "(" + (petName == null) + " OR A.Name LIKE '%" + petName + "%') AND " +
+                                            "(" + (species == null) + " OR A.Species = '" + species + "') AND " +
+                                            "(" + (breed == null) + " OR A.Breed = '" + breed + "') " +
+                                            "ORDER BY A.Id " + 
+                                            "LIMIT " + pageSize + " " +
+                                            "OFFSET " + ((pageIndex - 1) * pageSize);
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                PetListingDataModel sPetObj = new PetListingDataModel();
+                                sPetObj.SeqNo = Convert.ToInt32(sReader["SeqNo"]);
+                                sPetObj.ID = Convert.ToInt64(sReader["ID"]);
+                                sPetObj.PatientID = Convert.ToInt64(sReader["PatientID"]);
+                                sPetObj.Name = sReader["Name"].ToString();
+                                sPetObj.RegistrationNo = sReader["RegistrationNo"].ToString();
+                                sPetObj.Gender = sReader["GenderName"].ToString();
+                                sPetObj.DOB = Convert.ToDateTime(sReader["DOB"]);
+
+                                DateTime dtDOB = Convert.ToDateTime(sReader["DOB"]);
+                                sPetObj.Age = DateTime.Now.Year - dtDOB.Year;
+                                sPetObj.Species = sReader["Species"].ToString();
+                                sPetObj.Breed = sReader["Breed"].ToString();
+                                sPetObj.Color = sReader["Color"].ToString();
+                                sPetObj.Allergies = sReader["Allergies"].ToString();
+                                sPetObj.Weight = Convert.ToDecimal(sReader["Weight"]);
+                                sPetObj.WeightUnit = sReader["WeightUnit"].ToString();
+                                sPetObj.Height = Convert.ToDecimal(sReader["Height"]);
+                                sPetObj.HeightUnit = sReader["HeightUnit"].ToString();
+                                sPetObj.TotalRows = Convert.ToInt32(sReader["TotalRows"]);
+                                sPetObj.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+
+                                totalRecords = sPetObj.TotalRows;
+
+                                sResultList.Add(sPetObj);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResultList;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Pet Profile By Pet ID
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         public static PetDataExtendedModel GetPetProfileByID(int petID)
         {
             PetDataExtendedModel sPetObj = new PetDataExtendedModel();
@@ -137,6 +233,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Pet's Treatment Services History
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         public static List<PetTreatmentServiceModel> GetPetTreatmentServices(int petID)
         {
             List<PetTreatmentServiceModel> sResultlist = new List<PetTreatmentServiceModel>();
@@ -189,6 +290,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Pet's Medication History
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         public static List<PetMedicationModel> GetPetMedicationHistory(int petID)
         {
             List<PetMedicationModel> sResultList = new List<PetMedicationModel>();
@@ -237,6 +343,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Pet's Active Treatment Plan
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         public static List<PetTreatmentPlanModel> GetPetActiveTreatmentPlanHistory(int petID)
         {
             List<PetTreatmentPlanModel> sResultList = new List<PetTreatmentPlanModel>();
@@ -283,6 +394,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Pet's Past Treatment Plan
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         public static List<PetTreatmentPlanModel> GetPetPastTreatmentPlanHistory(int petID)
         {
             List<PetTreatmentPlanModel> sResultList = new List<PetTreatmentPlanModel>();
@@ -329,6 +445,15 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Pet's Test Result History
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <param name="resultType"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
         public static List<PetTestResultsModel> GetPetTestResultHistory(int petID, String resultType, int pageSize, int pageIndex, out int totalRecords)
         {
             List<PetTestResultsModel> sResultList = new List<PetTestResultsModel>();
@@ -347,8 +472,8 @@ namespace VPMSCustomer.Lib.Data
                                             "FROM txn_testresults AS A " +
                                             "WHERE A.PetID = '" + petID + "' AND " +
                                             "('" + resultType + "' = 'All' OR A.ResultType = '" + resultType + "') " +
-                                            "ORDER BY A.ResultDateTime " +
-                                            "LIMIT 20 ";
+                                            "ORDER BY A.ResultDateTime ";
+                                            //" ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
                     {
@@ -369,6 +494,58 @@ namespace VPMSCustomer.Lib.Data
                                 totalRecords = PetTestResultObj.TotalRows.Value;
 
                                 sResultList.Add(PetTestResultObj);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResultList;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Breed List by Species
+        /// </summary>
+        /// <param name="species"></param>
+        /// <returns></returns>
+        public static List<PetBreedDataModel> GetBreedListBySpecies(String species)
+        {
+            List<PetBreedDataModel> sResultList = new List<PetBreedDataModel>();
+
+            try
+            {
+                using (var ctx = new PetDBContext())
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT * FROM mst_pets_breed " +
+                                            "WHERE Species='" + species + "' AND " +
+                                            "ACTIVE = 1 " + 
+                                            "ORDER BY SeqOrder ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                PetBreedDataModel sBreedObj = new PetBreedDataModel();
+                                sBreedObj.ID = Convert.ToInt64(sReader["ID"]);
+                                sBreedObj.Species = sReader["Species"].ToString();
+                                sBreedObj.Breed = sReader["Breed"].ToString();
+                                sBreedObj.Active = Convert.ToInt32(sReader["Active"].ToString());
+                                sBreedObj.SeqOrder = Convert.ToInt32(sReader["SeqOrder"].ToString());
+                                sBreedObj.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                sBreedObj.CreatedBy = sReader["CreatedBy"].ToString();
+
+                                sResultList.Add(sBreedObj);
                             }
                         }
                     }

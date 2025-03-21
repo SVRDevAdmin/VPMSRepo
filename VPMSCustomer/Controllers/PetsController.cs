@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Eventing.Reader;
 using VPMSCustomer.Lib.Data;
 using VPMSCustomer.Lib.Data.Models;
 using VPMSCustomer.Lib.Models;
@@ -14,6 +15,20 @@ namespace VPMSCustomer.Controllers
             return View();
         }
 
+        public ActionResult List()
+        {
+            return View("Listing");
+        }
+
+        [Route("/Pets/View/{petID}")]
+        [HttpGet()]
+        public ActionResult View(long petID)
+        {
+            ViewData["PetSelected"] = petID;
+
+            return View("Details");
+        }
+
         [Route("/Pets/GetPetsList/{patientID}")]
         [HttpGet()]
         public IActionResult GetPetsList(long patientID)
@@ -26,6 +41,31 @@ namespace VPMSCustomer.Controllers
                 if (PetList != null)
                 {
                     return Json(new { data = PetList });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [Route("/Pets/GetPatientPetList")]
+        [HttpGet()]
+        public IActionResult GetPatientPetListing(long patientID, String petName, String species, String breed, int pageSize, int pageIndex)
+        {
+            List<PetListingDataModel> PetList = new List<PetListingDataModel>();
+
+            try
+            {
+                int iTotalRecords = 0;
+                PetList = PetRepository.GetPatientPetListing(patientID, petName, species, breed, pageSize, pageIndex, out iTotalRecords);
+                if (PetList != null)
+                {
+                    return Json(new { data = PetList, totalRecord = iTotalRecords });
                 }
                 else
                 {
@@ -170,74 +210,50 @@ namespace VPMSCustomer.Controllers
                 return null;
             }
         }
-        //// GET: PetsController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
-        //// GET: PetsController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [Route("/Pets/GetSpeciesList")]
+        [HttpGet()]
+        public IActionResult GetSpeciesList()
+        {
+            try
+            {
+                var sResult = MastercodeRepository.GetMastercodeDataByGroup("Species");
+                if (sResult != null)
+                {
+                    return Json(new { data = sResult });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-        //// POST: PetsController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: PetsController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: PetsController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: PetsController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: PetsController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [Route("/Pets/GetBreedList/{species}")]
+        [HttpGet()]
+        public IActionResult GetBreedList(String species)
+        {
+            try
+            {
+                var sResult = PetRepository.GetBreedListBySpecies(species);
+                if (sResult != null)
+                {
+                    return Json(new { data = sResult });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 
     public class CatRespObject : ResponseCodeObject

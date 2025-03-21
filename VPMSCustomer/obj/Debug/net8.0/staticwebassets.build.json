@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VKZaTpiZMsTNmLbQDl3mIwzR6qsA0sfSAdqbo0lTgiM=",
+  "Hash": "Maon1CN6XDVbMd+VyerTxX3JOh5hgggVdoBygRiQrzs=",
   "Source": "VPMSCustomer",
   "BasePath": "_content/VPMSCustomer",
   "Mode": "Default",
@@ -773,27 +773,6 @@
       "OriginalItemSpec": "wwwroot\\Images\\Icons\\Icon-customer-service.png"
     },
     {
-      "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\icon-Grid.png",
-      "SourceId": "VPMSCustomer",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\",
-      "BasePath": "_content/VPMSCustomer",
-      "RelativePath": "Images/Icons/icon-Grid#[.{fingerprint}]?.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "cg7ab3adu5",
-      "Integrity": "PPsSe7mBpowsW9rITdFaG0YtXL7hMjBuW0CYaVjeR4w=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\Icons\\icon-Grid.png"
-    },
-    {
       "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\Icon-home.png",
       "SourceId": "VPMSCustomer",
       "SourceType": "Discovered",
@@ -897,6 +876,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Icons\\Icon-pets.png"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\menu.png",
+      "SourceId": "VPMSCustomer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\",
+      "BasePath": "_content/VPMSCustomer",
+      "RelativePath": "Images/Icons/menu#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "nm2q5v7gq8",
+      "Integrity": "zwBUAXFvmrRzcSFOmpVuUba94wUL0OheWNQL5iOpcX4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Icons\\menu.png"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Logo\\Vet-Vitals-Logo.png",
@@ -8933,88 +8933,6 @@
       ]
     },
     {
-      "Route": "Images/Icons/icon-Grid.cg7ab3adu5.png",
-      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\icon-Grid.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "951"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"PPsSe7mBpowsW9rITdFaG0YtXL7hMjBuW0CYaVjeR4w=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 11 Mar 2025 06:54:31 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "cg7ab3adu5"
-        },
-        {
-          "Name": "label",
-          "Value": "Images/Icons/icon-Grid.png"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-PPsSe7mBpowsW9rITdFaG0YtXL7hMjBuW0CYaVjeR4w="
-        }
-      ]
-    },
-    {
-      "Route": "Images/Icons/icon-Grid.png",
-      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\icon-Grid.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "951"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"PPsSe7mBpowsW9rITdFaG0YtXL7hMjBuW0CYaVjeR4w=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 11 Mar 2025 06:54:31 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-PPsSe7mBpowsW9rITdFaG0YtXL7hMjBuW0CYaVjeR4w="
-        }
-      ]
-    },
-    {
       "Route": "Images/Icons/Icon-home.nh79csp2y2.png",
       "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\Icon-home.png",
       "Selectors": [],
@@ -9421,6 +9339,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-hH6oCjpdNdLBj7M86K+a3e629SQtMwd4SpsWooIm15A="
+        }
+      ]
+    },
+    {
+      "Route": "Images/Icons/menu.nm2q5v7gq8.png",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\menu.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "489"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zwBUAXFvmrRzcSFOmpVuUba94wUL0OheWNQL5iOpcX4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 17 Mar 2025 01:44:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nm2q5v7gq8"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/Icons/menu.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-zwBUAXFvmrRzcSFOmpVuUba94wUL0OheWNQL5iOpcX4="
+        }
+      ]
+    },
+    {
+      "Route": "Images/Icons/menu.png",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\Images\\Icons\\menu.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "489"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zwBUAXFvmrRzcSFOmpVuUba94wUL0OheWNQL5iOpcX4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 17 Mar 2025 01:44:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-zwBUAXFvmrRzcSFOmpVuUba94wUL0OheWNQL5iOpcX4="
         }
       ]
     },
