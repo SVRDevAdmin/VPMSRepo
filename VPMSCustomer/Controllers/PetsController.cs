@@ -9,7 +9,6 @@ namespace VPMSCustomer.Controllers
 {
     public class PetsController : Controller
     {
-        // GET: PetsController
         public ActionResult Index()
         {
             return View();
@@ -20,6 +19,11 @@ namespace VPMSCustomer.Controllers
             return View("Listing");
         }
 
+        /// <summary>
+        /// Get Pet Profile BY Pet ID
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         [Route("/Pets/View/{petID}")]
         [HttpGet()]
         public ActionResult View(long petID)
@@ -29,6 +33,11 @@ namespace VPMSCustomer.Controllers
             return View("Details");
         }
 
+        /// <summary>
+        /// Get Patient's Pet List
+        /// </summary>
+        /// <param name="patientID"></param>
+        /// <returns></returns>
         [Route("/Pets/GetPetsList/{patientID}")]
         [HttpGet()]
         public IActionResult GetPetsList(long patientID)
@@ -53,6 +62,16 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Patient's Pet List View
+        /// </summary>
+        /// <param name="patientID"></param>
+        /// <param name="petName"></param>
+        /// <param name="species"></param>
+        /// <param name="breed"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
         [Route("/Pets/GetPatientPetList")]
         [HttpGet()]
         public IActionResult GetPatientPetListing(long patientID, String petName, String species, String breed, int pageSize, int pageIndex)
@@ -78,6 +97,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Pet Profile By Pet ID
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         [Route("/Pets/GetPetByID/{petID}")]
         [HttpGet()]
         public IActionResult GetPetProfileByID(int petID)
@@ -100,6 +124,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Pet's Treatment Services History
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         [Route("/Pets/GetTreatmentServices/{petID}")]
         [HttpGet()]
         public IActionResult GetPetTreatmentServices(int petID)
@@ -122,6 +151,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Pet's Medical History
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         [Route("/Pets/GetMedicalHistory/{petID}")]
         [HttpGet()]
         public IActionResult GetPetMedicationHistory(int petID)
@@ -144,6 +178,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Pet's Current Treatment Plan
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         [Route("/Pets/GetActiveTreatmentPlan/{petID}")]
         [HttpGet()]
         public IActionResult GetPetActiveTreatmentPlanHistory(int petID)
@@ -166,6 +205,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Pet's Past Treatment Plan
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <returns></returns>
         [Route("/Pets/GetPastTreatmentPlan/{petID}")]
         [HttpGet()]
         public IActionResult GetPetPastTreatmentPlanHistory(int petID)
@@ -188,6 +232,12 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Pet's Test Result History
+        /// </summary>
+        /// <param name="petID"></param>
+        /// <param name="resultType"></param>
+        /// <returns></returns>
         [Route("/Pets/GetPetTestResultHistory/{petID}/{resultType}")]
         [HttpGet()]
         public IActionResult GetPetTestResultHistory(int petID, String resultType)
@@ -211,6 +261,10 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Species Master List
+        /// </summary>
+        /// <returns></returns>
         [Route("/Pets/GetSpeciesList")]
         [HttpGet()]
         public IActionResult GetSpeciesList()
@@ -232,7 +286,12 @@ namespace VPMSCustomer.Controllers
                 return null;
             }
         }
-
+        
+        /// <summary>
+        /// Get Breed List by Species
+        /// </summary>
+        /// <param name="species"></param>
+        /// <returns></returns>
         [Route("/Pets/GetBreedList/{species}")]
         [HttpGet()]
         public IActionResult GetBreedList(String species)

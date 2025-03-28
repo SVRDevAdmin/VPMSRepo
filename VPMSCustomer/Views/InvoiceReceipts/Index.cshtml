@@ -1,0 +1,752 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+}
+
+<style>
+    .FilterBoxCollapsed{
+        visibility: hidden;
+        height: auto;
+    }
+
+    .nav-tabs {
+        border-bottom: 0 !important;
+    }
+
+    .nav-link {
+        border: 0 !important;
+        background-color: transparent !important;
+        font-size: 12px;
+        color: black;
+    }
+
+    .nav-link.active {
+        border-bottom: 2px solid blue !important;
+        color: blue !important;
+        font-weight: bold;
+    }
+
+    #nav-invoices {
+        overflow-y: auto !important;
+        max-height: 400px !important;
+    }
+
+    #nav-receipts{
+        overflow-y: auto !important;
+        max-height: 400px !important;
+    }
+
+    #tblInvoices > thead > tr > th {
+        color: black !important;
+        font-size: 12px !important;
+        font-weight: bold !important;
+        background-color: #f7f7f7 !important;
+    }
+
+    #tblInvoices > tbody > tr > td {
+        color: black !important;
+        font-size: 12px !important;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #tblReceipts > thead > tr > th {
+        color: black !important;
+        font-size: 12px !important;
+        font-weight: bold !important;
+        background-color: #f7f7f7 !important;
+    }
+
+    #tblReceipts > tbody > tr > td {
+        color: black !important;
+        font-size: 12px !important;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #tblInvReceiptsServices > thead > tr > th {
+        background-color: transparent !important;
+        color: black !important;
+        font-size: 12px !important;
+        font-weight: bold !important;
+    }
+
+    #tblInvReceiptsServices > tbody > tr > td {
+        background-color: transparent !important;
+        color: black !important;
+        font-size: 12px !important;
+        border-bottom: none;
+    }
+
+    #tblInvReceiptsProduct > thead > tr > th {
+        background-color: transparent !important;
+        color: black !important;
+        font-size: 12px !important;
+        font-weight: bold !important;
+    }
+
+    #tblInvReceiptsProduct > tbody > tr > td {
+        background-color: transparent !important;
+        color: black !important;
+        font-size: 12px !important;
+        border-bottom: none;
+    }
+
+    #tblTotal > tbody > tr > td{
+        background-color: transparent !important;
+        color: black !important;
+        font-size: 12px !important;
+        border-bottom: none;
+    }
+
+    .containerMenu {
+        background-color: #172232;
+        color: white;
+        border-color: darkgray !important;
+        transition: background-color 1s;
+        transition: color 0.5s;
+    }
+
+    .hiddenMenu{
+        background-color: white !important;
+        min-width: fit-content;
+        font-size: 12px;
+    }
+
+    .hiddenMenu > a:hover{
+        color: black !important;
+        background-color: white !important;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        LoadDoctorDropdown();
+        LoadInvoiceListing();
+        LoadReceiptListing();
+
+        $('#btnFilter').click(function(){
+            $('#divContent').toggleClass('col-md-12 col-md-9');
+            $('#divFilter').toggleClass('FilterBoxCollapsed');
+        });
+
+        $('#btnSearch').click(function(){
+            LoadInvoiceListing();
+            LoadReceiptListing();
+        }); 
+    });
+
+    function LoadInvoiceListing()
+    {
+        $('#tblInvoices tbody').html('');
+
+        $.getJSON("/InvoiceReceipts/GetInvoiceListing", {
+            patientID : '@sessionPatientID',
+            iViewType : 1,
+            invReceiptNo: $('#txtInvoiceReceiptNo').val(),
+            petName: $('#txtPetName').val(),
+            doctorName: $('#ddlDoctor').val()
+        })
+        .done(function(result){
+            if (result != null && result.data.length > 0)
+            {
+                for (var i = 0; i < result.data.length; i++)
+                {
+                    var sInvoiceList = '';
+                    sInvoiceList = '<tr>' + 
+                                   '<td class="text-center">' + result.data[i].seqNo + '</td>' +
+                                   '<td class="text-left">' + result.data[i].invoiceNo + '</td>' +
+                                   '<td class="text-left">' + moment(result.data[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY hh:mm:ss A') + '</td>' +
+                                   '<td class="text-left">' + result.data[i].petName + '</td>' +
+                                   '<td class="text-left">' + result.data[i].doctorName + '</td>' +
+                                   '<td class="text-left">' + result.data[i].fee + '</td>' +
+                                   '<td>' + 
+
+                                   '<button id="btnMore" type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px;">' +
+                                   '<img src="/Images/more_icon.png" style="width: 16px; height: 16px; vertical-align: top;" />' +
+                                   '</button>' +
+                                   '<div class="dropdown-menu hiddenMenu containerMenu">' +
+                                   '<a class="dropdown-item" onclick="showDetailsPopup(\'' + result.data[i].invReceiptID + '\', 1);">View</a>' +
+                                   '</div>' +
+
+                                   '</td>'  +
+                                   '</tr>';
+
+                    $('#tblInvoices').append(sInvoiceList);
+                }
+            }
+            else {
+                var sNoRecordInvoice = '';
+                sNoRecordInvoice = '<tr><td class="text-left" colspan="7">No Records</td></tr>';
+
+                $('#tblInvoices').append(sNoRecordInvoice);
+            }
+        });
+    }
+
+    function LoadReceiptListing()
+    {
+        $('#tblReceipts tbody').html('');
+
+        $.getJSON("/InvoiceReceipts/GetInvoiceListing", {
+            patientID : '@sessionPatientID',
+            iViewType : 0,
+            invReceiptNo: $('#txtInvoiceReceiptNo').val(),
+            petName: $('#txtPetName').val(),
+            doctorName: $('#ddlDoctor').val()
+        })
+        .done(function(result){
+            if (result != null && result.data.length > 0)
+            {
+                for (var i = 0; i < result.data.length; i++)
+                {
+                    var sReceiptList = '';
+                    sReceiptList = '<tr>' +
+                                   '<td class="text-center">' + result.data[i].seqNo + '</td>' +
+                                   '<td class="text-left">' + result.data[i].receiptNo + '</td>' +
+                                   '<td class="text-left">' + moment(result.data[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY hh:mm:ss A') + '</td>' +
+                                   '<td class="text-left">' + result.data[i].petName + '</td>' +
+                                   '<td class="text-left">' + result.data[i].doctorName + '</td>' +
+                                   '<td class="text-left">' + result.data[i].fee + '</td>' +
+                                   '<td>' +
+
+                                   '<button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px;">' +
+                                   '<img src="/Images/more_icon.png" style="width: 16px; height: 16px; vertical-align: top;" />' +
+                                   '</button>' +
+                                   '<div class="dropdown-menu hiddenMenu containerMenu">' + 
+                                   '<a class="dropdown-item" onclick="showDetailsPopup(\'' + result.data[i].invReceiptID + '\', 0);">View</a>' +
+                                   '</div>' +
+
+                                   '</td>'  +
+                                   '</tr>';
+
+                    $('#tblReceipts').append(sReceiptList);
+                }
+            }
+            else {
+                var sNoRecordReceipt = '';
+                sNoRecordReceipt = '<tr><td class="text-left" colspan="7">No Records</td></tr>';
+
+                $('#tblReceipts').append(sNoRecordReceipt);
+            }
+        });
+    }
+
+    function LoadDoctorDropdown()
+    {
+        $.getJSON("/Masterdata/DoctorList/1")
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlDoctor').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].name), result.data[i].id);
+                     $('#ddlDoctor').append(opt);
+                 }
+             }
+             else{
+                 $('#ddlDoctor').find("option:not(:first)").remove();
+             }
+         });
+    }
+
+    function showDetailsPopup(id, itype)
+    {
+        LoadInvoiceDetails(id, itype);
+        LoadInvoicesServiceList(id);
+        LoadInvoicesProductsList(id);
+
+        setTimeout(function(){
+            LoadInvoicesTotal(id);
+        }, 400);
+
+        $('#ReceiptsModal').modal('show');
+    }
+
+    function LoadInvoiceDetails(id, itype)
+    {
+        $.getJSON("/InvoiceReceipts/Detail/" + id)
+         .done(function(result){
+             if (result != null)
+             {
+                 if (itype == 0){
+                     $('#lbType').html('Receipt No :');
+                     $('#lbInvoiceReceiptNo').html(result.data.receiptNo);
+                 }
+
+                 if (itype == 1){
+                     $('#lbType').html('Invoice No :');
+                     $('#lbInvoiceReceiptNo').html(result.data.invoiceNo);
+                 }
+
+                 $('#lbOwner').html(result.data.ownerName);
+                 $('#lbContactNo').html(result.data.contactNo);
+                 $('#lbAddress').html(result.data.address);
+                 $('#lbPetName').html(result.data.petName);
+                 $('#lbRegNo').html(result.data.registrationNo);
+                 $('#lbSpecies').html(result.data.species);
+                 $('#lbServiceName').html(result.data.planName);
+                 $('#lbServiceDate').html(moment(result.data.createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYYY hh:mm:ss A'));
+             }
+         });
+    }
+
+    function LoadInvoicesServiceList(id)
+    {
+        $('#tblInvReceiptsServices tbody').html('');
+
+        $.getJSON("/InvoiceReceipts/ServicesList/" + id)
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sServices = '';
+                     sServices = '<tr>' +
+                                 '<td class="text-left">' + result.data[i].serviceName + '</td>' +
+                                 '<td class="text-left">' + result.data[i].discount + '</td>' +
+                                 '<td class="text-left">' + result.data[i].totalPrice + '</td>' +
+                                 '</tr>';
+
+                     $('#tblInvReceiptsServices').append(sServices);
+                 }
+             }
+         });
+    }
+
+    function LoadInvoicesProductsList(id)
+    {
+        $('#tblInvReceiptsProduct tbody').html('');
+
+        $.getJSON("/InvoiceReceipts/ProductList/" + id)
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sServices = '';
+                     sServices = '<tr>' +
+                                 '<td class="text-left">' + result.data[i].productName + '</td>' +
+                                 '<td class="text-left">' + result.data[i].discount + '</td>' +
+                                 '<td class="text-left">' + result.data[i].totalPrice + '</td>' +
+                                 '</tr>';
+
+                     $('#tblInvReceiptsProduct').append(sServices);
+                 }
+             }
+         });
+    }
+
+    function LoadInvoicesTotal(id)
+    {
+        $('#tblTotal tbody').html('');
+
+        $.getJSON("/InvoiceReceipts/Total/" + id)
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 // ----- Services -------//
+                 var sServiceGrp = result.data.filter(function(obj){
+                                        return (obj.itemName == "Services");
+                                   });
+
+                 if (sServiceGrp != null && sServiceGrp.length > 0)
+                 {
+                     var sService = '';
+                     sService = '<tr>' +
+                                '<td class="text-left" style="width: 45%; font-weight: bold;">Total</td>' +
+                                '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
+                                '<td class="text-left" style="width: 20%;">' + sServiceGrp[0].itemTotalValue + '</td>' +
+                                '</tr>';
+
+                     $('#tblInvReceiptsServices').append(sService);
+                 }
+                 else{
+                     var sService = '';
+                     sService = '<tr>' +
+                                '<td class="text-left" style="width: 45%; font-weight: bold;">Total</td>' +
+                                '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
+                                '<td class="text-left" style="width: 20%;">0</td>' +
+                                '</tr>';
+
+                     $('#tblInvReceiptsServices').append(sService);
+                 }
+
+                 // ------- Product ------//
+                 var sProductGrp = result.data.filter(function(obj){
+                                        return (obj.itemName == "Product");
+                                   });
+
+                 if (sProductGrp != null && sProductGrp.length > 0)
+                 {
+                     var sProduct = '';
+                     sProduct = '<tr>' +
+                                '<td class="text-left" style="width: 45%; font-weight: bold;">Total</td>' +
+                                '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
+                                '<td class="text-left" style="width: 20%;">' + sProductGrp[0].itemTotalValue + '</td>' +
+                                '</tr>';
+
+                     $('#tblInvReceiptsProduct').append(sProduct);
+                 }
+                 else {
+                     var sProduct = '';
+                     sProduct = '<tr>' +
+                                '<td class="text-left" style="width: 45%; font-weight: bold;">Total</td>' +
+                                '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
+                                '<td class="text-left" style="width: 20%;">0</td>' +
+                                '</tr>';
+
+                     $('#tblInvReceiptsProduct').append(sProduct);
+                 }
+
+                 var iTotalBeforeTax = 0;
+                 var sTotalBeforeTax = result.data.filter(function(obj){
+                                            return (obj.itemName == "Product" || obj.itemName == "Services");
+                                       });
+                 if (sTotalBeforeTax != null && sTotalBeforeTax.length > 0)
+                 {
+                    $.each(sTotalBeforeTax, function(index, val){
+                        iTotalBeforeTax += parseFloat(val.itemTotalValue, 10);
+                    });
+
+                    var sTotalPreTax = '';
+                    sTotalPreTax = '<tr>' +
+                           '<td class="text-left" style="width: 45%;">Total</td>' +
+                           '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
+                           '<td class="text-left" style="width: 20%;">' + iTotalBeforeTax + '</td>' +
+                           '</tr>';
+
+                    $('#tblTotal').append(sTotalPreTax);
+                 }
+
+                 // ------- Tax -------- //
+                 var sTaxGrp = result.data.filter(function(obj){
+                                   return (obj.itemName == "Tax");
+                               });
+
+                 if (sTaxGrp != null && sTaxGrp.length > 0)
+                 {
+                    var sTaxValue = (iTotalBeforeTax * (parseInt(sTaxGrp[0].itemTotalValue))) / 100;
+
+                    var sTax = '';
+                    sTax = '<tr>' +
+                           '<td class="text-left" style="width: 45%;">' + sTaxGrp[0].itemName + ' (' + sTaxGrp[0].itemTotalValue + '%) </td>' +
+                           '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
+                           '<td class="text-left" style="width: 20%;">' + sTaxValue.toFixed(2) + '</td>' +
+                           '</tr>';
+
+                    $('#tblTotal').append(sTax);
+                 }
+
+                 // ------- Grand Total ------ //
+                 var sTotalGrp = result.data.filter(function(obj){
+                                    return (obj.itemName == "Total");
+                                 });
+                 
+                 if (sTotalGrp != null && sTotalGrp.length > 0)
+                 {
+                     var sTotal = '';
+                     sTotal = '<tr>' +
+                               '<td class="text-left" style="width: 45%; font-weight: bold; border-top: 1px solid black; border-bottom: 1px solid black;">Grand Total</td>' +
+                               '<td class="text-left" style="width: 35%; border-top: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>' +
+                               '<td class="text-left" style="width: 20%; font-weight: bold; border-top: 1px solid black; border-bottom: 1px solid black;">' + sTotalGrp[0].itemTotalValue + '</td>' +
+                               '</tr>';
+
+                     $('#tblTotal').append(sTotal);
+                 }
+
+             }
+         });
+    }
+
+    function downloadInvoiceReceipt()
+    {
+        var clone = document.getElementById("ReceiptsModal").cloneNode(true);
+
+        clone.querySelector("#btnDownload").style.display = 'none';
+        clone.querySelector("#btnPrint").style.display = 'none';
+
+        var element = clone.querySelector(".modal-dialog");
+        
+        var opt = {
+            margin: [1, 0],
+            filename: 'testing.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2},
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+    }
+
+    function printInvoiceReceipt()
+    {
+        var clone = document.getElementById("ReceiptsModal").cloneNode(true);
+
+        clone.querySelector("#btnDownload").style.display = 'none';
+        clone.querySelector("#btnPrint").style.display = 'none';
+
+        var element = clone.querySelector(".modal-dialog");
+
+        var opt = {
+            margin: [1, 0],
+            filename: 'testing.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2},
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt)
+                  .from(element)
+                  .outputPdf()
+                  .get('pdf')
+                  .then(function (pdfObj){
+                      pdfObj.autoPrint();
+                      window.open(pdfObj.output("bloburl"), "F")
+                  });
+    }
+</script>
+
+<script src="lib/html2pdf/v0.10.1/html2pdf.bundle.min.js"></script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <div class="col-md-10">
+            <label class="pageTitle">
+                Invoice & Receipts
+            </label>
+        </div>
+        <div class="col-md-2">
+            <button id="btnFilter" type="button" class="btn">
+                <i class="bi bi-sliders"></i>
+                Filters
+            </button>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div id="divContent" class="col-md-12">
+            <nav style="display: flex;">
+                <div id="nav-tab" class="nav nav-tabs" role="tablist" style="width: 50%;">
+                    <button id="nav-invoivces-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-invoices" role="tab" aria-controls="nav-invoices" aria-selected="true">Invoices</button>
+                    <button id="nav-receipts-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-receipts" role="tab" aria-controls="nav-receipts" aria-selected="false">Receipts</button>
+                </div>
+            </nav>
+
+            <div id="nav-tabContent" class="tab-content mt-2">
+                <!-- style="overflow-y: auto; max-height: 400px;"-->
+                <div id="nav-invoices" class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-invoices-tab">
+                    
+                    <table id="tblInvoices" class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 10%;">No.</th>
+                                <th scope="col" class="text-left" style="width: 15%">Invoice No</th>
+                                <th scope="col" class="text-left" style="width: 20%">Date</th>
+                                <th scope="col" class="text-left" style="width: 20%">Pet Name</th>
+                                <th scope="col" class="text-left" style="width: 20%">Doctor</th>
+                                <th scope="col" class="text-left" style="width: 10%;">Fees</th>
+                                <th scope="col" class="text-left" style="width: 5%;">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="nav-receipts" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-receipts-tab">
+                    <!-- style="overflow-y: auto; max-height: 400px;"-->
+                    <table id="tblReceipts" class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 10%;">No.</th>
+                                <th scope="col" class="text-left" style="width: 15%">Invoice No</th>
+                                <th scope="col" class="text-left" style="width: 20%">Date</th>
+                                <th scope="col" class="text-left" style="width: 20%">Pet Name</th>
+                                <th scope="col" class="text-left" style="width: 20%">Doctor</th>
+                                <th scope="col" class="text-left" style="width: 10%;">Fees</th>
+                                <th scope="col" class="text-left" style="width: 5%;">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="divFilter" class="col-md-3 FilterBoxCollapsed" style="border: 0px solid red;">
+            <div class="row ms-1" style="background-color: #f7f7f7; border-radius: 6px;">
+                <div class="col-md-12">
+                    <div class="row mt-3 ms-0">
+                        <label style="font-size: 20px; font-weight: bold;">Filters</label>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row ms-0">
+                        <label style="font-size: 14px; font-weight: bold;">Invoice / Receipt No.</label>
+                    </div>
+                    <div class="row ms-1 me-1 mb-3">
+                        <input id="txtInvoiceReceiptNo" type="text" class="form-control" />
+                    </div>
+                    <div class="row ms-0">
+                        <label style="font-size: 14px; font-weight: bold;">Pet Name</label>
+                    </div>
+                    <div class="row ms-1 me-1 mb-3">
+                        <input id="txtPetName" type="text" class="form-control" />
+                    </div>
+                    <div class="row ms-0">
+                        <label style="font-size: 14px; font-weight: bold;">Doctor</label>
+                    </div>
+                    <div class="row ms-1 me-1 mb-3"> 
+                        <select id="ddlDoctor" class="form-select">
+                            <option value="">Select doctor</option>
+                        </select>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row ms-1 me-1 mb-5">
+                        <input id="btnSearch" type="button" class="btn btn-primary" value="Search" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ReceiptsModal" class="modal fade modal-lg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 0px;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-5 ms-3"">
+                                <label id="lbType" style="font-weight: bold;"></label>
+                            </div>
+                            <div class="col-6">
+                                <label id="lbInvoiceReceiptNo" style="font-weight: bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">&nbsp;</div>
+                    <div class="col-md-3 d-flex justify-content-end">
+                        <button id="btnDownload" type="button" class="btn me-2" onclick="downloadInvoiceReceipt();" style="border-radius: 8px; background-color: blue; color: white;">
+                            <i class="bi bi-download"></i>
+                        </button>
+                        <button id="btnPrint" type="button" class="btn me-2" onclick="printInvoiceReceipt();" style="border-radius: 8px; background-color: blue; color: white;">
+                            <i class="bi bi-printer"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="row ms-2 mt-2">
+                            <label id="lbOwner" style="font-size: 12px; font-weight: bold;"></label>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row ms-2">
+                            <label style="font-size: 12px; font-weight: bold; color: grey;">Contact No</label>
+                        </div>
+                        <div class="row ms-2">
+                            <label id="lbContactNo" style="font-weight: bold; font-size: 12px;"></label>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row ms-2">
+                            <label style="font-size: 12px; font-weight: bold; color: grey;">Address</label>
+                        </div>
+                        <div class="row ms-2">
+                            <label id="lbAddress" style="font-weight: bold; font-size: 12px; word-wrap: break-word;"></label>
+                        </div>
+                        <div class="row ms-2" style="border-bottom: 1px solid black;">&nbsp;</div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row ms-2">
+                            <label style="font-size: 12px; font-weight: bold; color: grey;">Pet Name</label>
+                        </div>
+                        <div class="row ms-2">
+                            <label id="lbPetName" style="font-weight: bold; font-size: 12px;"></label>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row ms-2">
+                            <label style="font-size: 12px; font-weight: bold; color: grey;">Registration No.</label>
+                        </div>
+                        <div class="row ms-2">
+                            <label id="lbRegNo" style="font-weight: bold; font-size: 12px;"></label>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row ms-2">
+                            <label style="font-size: 12px; font-weight: bold; color: grey;">Species</label>
+                        </div>
+                        <div class="row ms-2">
+                            <label id="lbSpecies" style="font-weight: bold; font-size: 12px;">Cat</label>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row ms-2">
+                            <div class="col-3">
+                                <label style="font-weight: bold; font-size: 12px;">Service Name :</label>
+                            </div>
+                            <div class="col">
+                                <label id="lbServiceName" style="font-size: 12px;"></label>
+                            </div>
+                        </div>
+                        <div class="row ms-2">
+                            <div class="col-3">
+                                <label style="font-weight: bold; font-size: 12px;">Date :</label>
+                            </div>
+                            <div class="col">
+                                <label id="lbServiceDate" style="font-size: 12px;"></label>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row ms-2 me-1" style="background-color: #f7f7f7;">
+                            <table id="tblInvReceiptsServices" class="table ms-2" style="width: 97%;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" style="width: 45%">Service</th>
+                                        <th class="text-left" style="width: 35%">Discount ($)</th>
+                                        <th class="text-left" style="width: 20%">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row ms-2 me-1" style="background-color: #f7f7f7;">
+                            <table id="tblInvReceiptsProduct" class="table ms-2" style="width: 97%;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" style="width: 45%">Product</th>
+                                        <th class="text-left" style="width: 35%">Discount ($)</th>
+                                        <th class="text-left" style="width: 20%">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row ms-2 me-1">
+                            <table id="tblTotal" class="table ms-2" style="width: 97%;">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

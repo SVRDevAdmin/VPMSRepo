@@ -8,60 +8,8 @@
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
 }
 
-<style>
-    #tblPetListing > thead > tr > th {
-        color: black !important;
-        font-size: 12px !important;
-        font-weight: bold !important;
-        background-color: #f7f7f7 !important;
-    }
+<link rel="stylesheet" href="~/css/PetListing.css" />
 
-    #tblPetListing > tbody > tr > td {
-        color: black !important;
-        font-size: 12px !important;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .collapseFilterBox {
-        visibility: hidden;
-        height: auto;
-    }
-
-    .textColor {
-        color: black !important;
-        transition: color 0.5s;
-    }
-
-    .PaginationButtonSelected {
-        width: 3vw;
-        height: 3vw;
-        background-color: #1E76FB;
-        color: white;
-        margin-right: 1vw;
-        text-align: center;
-        border-radius: 3vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #1E76FB;
-        font-weight: bold;
-    }
-
-    .PaginationButton {
-        width: 3vw;
-        height: 3vw;
-        background-color: transparent;
-        color: #1E76FB;
-        margin-right: 1vw;
-        text-align: center;
-        border-radius: 3vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #1E76FB;
-        font-weight: bold;
-    }
-</style>
 <script type="text/javascript">
     var paginationLimit = 10;
     var pageSize = 10;
@@ -271,13 +219,13 @@
         </div>
         <div class="col-md-7">&nbsp;</div>
         <div class="col-md-2 d-flex">
-            <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; border-radius: 6px;">
-                <i class="bi bi-sliders" style="margin-right: 5px;"></i>
+            <button id="btnFilter" type="button" class="btn">
+                <i class="bi bi-sliders"></i>
                 @LangResources["PetList_Button_Filter"]
             </button>
 
-            <div id="lnkGrid" class="row ms-2" style="width: 34px; height: 36px; border: 1px solid black; border-radius: 6px;">
-                <a class="mt-1 mb-1 me-2 ps-2" asp-controller="Pets" asp-action="Index" style="color: black;">
+            <div id="lnkGrid" class="row ms-2">
+                <a class="mt-1 mb-1 me-2 ps-2" asp-controller="Pets" asp-action="Index">
                     <i class="bi bi-grid"></i>
                 </a>
             </div>
@@ -315,22 +263,22 @@
                 </div>
             </div>
         </div>
-        <div id="divFilter" class="col-md-3 collapseFilterBox" style="border: 0px solid black; ">
-            <div class="row mt-4" style="background-color: #f7f7f7; border-radius: 6px;">
+        <div id="divFilter" class="col-md-3 collapseFilterBox">
+            <div id="divFilterBox" class="row mt-4">
                 <div class="col-md-12">
                     <div class="row mt-3 ms-0">
-                        <label style="font-size: 20px; font-weight: bold;">@LangResources["PetList_Title_Filter"]</label>
+                        <label class="FilterBoxTitle">@LangResources["PetList_Title_Filter"]</label>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row mt-2 ms-0">
-                        <label style="font-weight: bold; font-size: 14px;">@LangResources["PetList_Label_PetName"]</label>
+                        <label class="FilterBoxLabel">@LangResources["PetList_Label_PetName"]</label>
                     </div>
                     <div class="row ms-1 me-1 mb-3">
                         <input id="txtPetName" type="text" class="form-control" />
                     </div>
 
                     <div class="row mt-2 ms-0">
-                        <label style="font-weight: bold; font-size: 14px;">@LangResources["PetList_Label_Species"]</label>
+                        <label class="FilterBoxLabel">@LangResources["PetList_Label_Species"]</label>
                     </div>
                     <div class="row ms-1 me-1 mb-3">
                         <select id="ddlSpecies" class="form-select" onchange="ddlSpeciesChanges();">
@@ -339,7 +287,7 @@
                     </div>
 
                     <div class="row mt-2 ms-0">
-                        <label style="font-weight: bold; font-size: 14px;">@LangResources["PetList_Label_Breed"]</label>
+                        <label class="FilterBoxLabel">@LangResources["PetList_Label_Breed"]</label>
                     </div>
                     <div class="row ms-1 me-1 mb-3">
                         <select id="ddlBreed" class="form-select">

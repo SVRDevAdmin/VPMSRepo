@@ -5,7 +5,9 @@
     var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
     var LoginUseName = httpContextaccessor.HttpContext.Session.GetString("UserName");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+    var sessionGender = httpContextaccessor.HttpContext.Session.GetString("Gender");
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +22,7 @@
     <link rel="stylesheet" href="~/css/main.css" />
 
     @{
-        var theme = httpContextaccessor.HttpContext.Request.Cookies["Theme"];
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["CustomerTheme"];
         if (theme != null){
             if (theme == "Dark"){
                 <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
@@ -40,26 +42,20 @@
     <script src="~/js/general.js"></script>
 
     <style>
-/*     .dropdown-toggle::after {
-        color: black;
+    html {
+        height: 100%;
+        width: 100%;
     }
 
-    #lnkLogout{
-        cursor: pointer;
-    } */
-        html {
-            height: 100%;
-            width: 100%;
-        }
-
-        body {
-            min-height: 100%;
-        }
+    body {
+        min-height: 100%;
+    }
     </style>
 
     <script type="text/javascript">
         $(document).ready(function(){
             checkPetProfiles();
+            checkAvatarProfile();
 
             $('#divdropdowntoggle').on('click', function(ctl){
                 $('.profilemenu').toggle('show');
@@ -99,6 +95,16 @@
                  }
              });
         }
+
+        function checkAvatarProfile()
+        {
+            if ('@sessionGender' == 'F'){
+                $('#avatarProfile').attr('class', 'avatarFemaleImg');
+            }
+            if ('@sessionGender' == 'M'){
+                $('#avatarProfile').attr('class', 'avatarImg');
+            }
+        }
     </script>
 </head>
 <body>
@@ -107,9 +113,8 @@
         <div class="row flex-nowrap">
             <div id="leftPane" class="col-auto col-md-2 col-xs-2 px-sm-2 px-0" >
                 <div class="row justify-content-md-center pt-3 pb-5">
-                    <img id="imgLogo" src="~/Images/Logo/Vet-Vitals-Logo.png" width="180" height="50" />
-
-                    <img id="imgLogoResp" src="Vet-VitalsICON.ico" style="visibility: hidden; display: none;" />
+                    <img id="imgLogo" width="180" height="50" />
+                    <img id="imgLogoResp" />
                 </div>
 
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
@@ -124,7 +129,6 @@
                         </li>
                         <!-- PETS -->
                         <li class="nav-item mb-3 menuItems">
-                            <!--<a id="lnkPet" asp-controller="Pets" asp-action="Index">-->
                             <a id="lnkPet">
                                 <img class="menuPets" />
                                 <span class="d-none d-sm-inline sidebar-nav-font">
@@ -141,10 +145,12 @@
                         </li>
                         <!-- INVOICE & RECEIPTS -->
                         <li class="nav-item mb-3 menuItems">
-                            <img class="menuInvoiceReceipts"  />
-                            <span class="d-none d-sm-inline sidebar-nav-font">
-                                @LangResources["Main_Menu_InvoiceReceipts"]
-                            </span>
+                            <a asp-controller="InvoiceReceipts" asp-action="Index">
+                                <img class="menuInvoiceReceipts"  />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_InvoiceReceipts"]
+                                </span>
+                            </a>
                         </li>
                         <!-- ANALYTICS -->
                         <li class="nav-item mb-3 menuItems" >
@@ -172,7 +178,7 @@
                         <div class="col-md-3 text-center">
                             <div class="upperMenuLayout">
                                 <div class="avatarFrame">
-                                    <img class="avatarImg" />
+                                    <img id="avatarProfile" />
                                 </div>
                                 <div style="width: 220px; margin-left: 15px;">
                                     <div class="dropdown" style="margin-top: 10px;">

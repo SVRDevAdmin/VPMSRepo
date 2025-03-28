@@ -12,7 +12,7 @@ CREATE TABLE `mst_state` (
 CREATE TABLE `mst_city` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `StateID` int NOT NULL,
-  `City` varchar(20) NOT NULL,
+  `City` varchar(50) NOT NULL,
   `CreatedDate` datetime(2) DEFAULT NULL,
   `CreatedBy` varchar(100) DEFAULT NULL,
   `UpdatedDate` datetime(2) DEFAULT NULL,

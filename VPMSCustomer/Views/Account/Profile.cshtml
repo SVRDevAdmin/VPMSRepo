@@ -99,7 +99,17 @@
                             $('#lbPriCountry').html(sPrimaryProfile[0].country);
                         }
 
+                        if (sPrimaryProfile[0].genderName == 'Female')
+                        {
+                            $('#avatarPrimary').attr('class', 'avatarFemale');
+                        }
+
+                        if (sPrimaryProfile[0].genderName == 'Male')
+                        {
+                            $('#avatarPrimary').attr('class', 'avatarMale');
+                        }
                     }
+
                     // --- Secondary Owner ----- //
                     var sSecondaryProfile = result.data.filter(function(obj) { 
                                                 return (obj.isPrimary == 0);
@@ -145,6 +155,16 @@
                             $('#lbSecCountry').html(sSecondaryProfile[0].country);
                         }
 
+
+                        if (sSecondaryProfile[0].genderName == 'Female')
+                        {
+                            $('#avatarSecondary').attr('class', 'avatarFemale');
+                        }
+
+                        if (sSecondaryProfile[0].genderName == 'Male')
+                        {
+                            $('#avatarSecondary').attr('class', 'avatarMale');
+                        }
                     }
                     else
                     {
@@ -598,7 +618,7 @@
             <div class="col-md-2 mt-5 mb-5">
                 <div class="row">
                     <div class="col-md-12 ms-5 me-5 avatarFrame">
-                        <img src="~/Images/AvatarProfile.png" width="75" height="75" style="margin-left: -13px;" />
+                        <img id="avatarPrimary" />
                     </div>
                 </div>
             </div>
@@ -693,7 +713,7 @@
             <div class="col-md-2">
                 <div class="row mt-5 mb-5">
                     <div class="col-md-12 ms-5 me-5 avatarFrame">
-                        <img src="~/Images/AvatarProfile.png" width="75" height="75" style="margin-left: -13px;" />
+                        <img id="avatarSecondary"  />
                     </div>
                 </div>
             </div>

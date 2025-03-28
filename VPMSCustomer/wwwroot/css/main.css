@@ -41,18 +41,6 @@ button {
     vertical-align: middle;
 }
 
-.menuItems > a {
-    text-decoration: none !important;
-    text-underline-offset: unset;
-    color: black !important;
-}
-
-.menuItems > a::after {
-    text-decoration: none !important;
-    text-underline-offset: unset !important;
-    color: black !important;
-}
-
 .avatarFrame {
     width: 60px;
     border-radius: 50px;
@@ -66,6 +54,12 @@ button {
     height: 60px;
 }
 
+.avatarFemaleImg {
+    content: url('../Images/AvatarProfile_Female.png');
+    width: 60px;
+    height: 60px;
+}
+
 .upperMenuLayout {
     display: flex;
     flex-direction: row;
@@ -73,7 +67,12 @@ button {
     height: 60px;
 }
 
-@media (max-width: 800px){
+imgLogoResp {
+    visibility: hidden;
+    display: none;
+}
+
+@media (max-width: 800px) {
     #leftPane {
         width: 45px !important;
     }
@@ -89,14 +88,14 @@ button {
     }
 
     #imgLogo {
-        /*display: none !important;*/
         visibility: hidden !important;
     }
 
     #imgLogoResp {
+        content: url('../Images/Logo/Vet-Vitals-Logo-Only.png');
         visibility: visible !important;
-        content: url('../Vet-VitalsICON.ico');
-        width: 36px;
-        height: 34px;
+        margin-left: 7px;
+        width: 50px;
+        height: 36px;
     }
 }

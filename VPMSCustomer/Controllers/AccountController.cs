@@ -261,7 +261,7 @@ namespace VPMSCustomer.Controllers
                         CookieOptions cookies = new CookieOptions();
                         cookies.Expires = DateTime.Now.AddDays(1);
 
-                        Response.Cookies.Append("Theme", configValue, cookies);
+                        Response.Cookies.Append("CustomerTheme", configValue, cookies);
                     }
 
                     sResp.StatusCode = (int)StatusCodes.Status200OK;

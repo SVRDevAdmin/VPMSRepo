@@ -33,6 +33,18 @@
     font-size: 1vw;
 }
 
+.menuItems > a {
+    text-decoration: none !important;
+    text-underline-offset: unset;
+    color: white !important;
+}
+
+.menuItems > a::after {
+    text-decoration: none !important;
+    text-underline-offset: unset !important;
+    color: white !important;
+}
+
 .menuHome {
     content: url('../Images/Icons/Icon-home.png');
     width: 18px;
@@ -75,6 +87,13 @@
     margin-right: 15px;
 }
 
+#imgLogo {
+    content: url('../Images/Logo/Vet-Vitals-Logo-Dark.png');
+    width: 160px !important;
+    height: 35px !important;
+    margin-top: 10px;
+}
+
 /*------ General --------*/
 .pageTitle {
     color: white;
@@ -105,10 +124,10 @@
 }
 
 .loginLogo {
-    content: url('../Images/Logo/Vet-Vitals-Logo.png');
-    margin-left: -30px;
-    width: 350px;
-    height: 90px;
+    content: url('../Images/Logo/Vet-Vitals-Logo-Dark.png');
+    margin-left: -25px;
+    width: 320px;
+    height: 80px;
 }
 
 /*----- Account Settings ------*/
@@ -149,3 +168,75 @@
     font-size: 14px;
     font-weight: bold;
 }
+
+/*----- Pet Grid -------*/
+.gridButtonBox {
+    width: 34px;
+    height: 34px;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+.gridButtonBox > a {
+    color: white;
+}
+
+/*----- Pet Listing ------*/
+#lnkGrid {
+    width: 34px;
+    height: 36px;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+#lnkGrid > a {
+    color: white;
+}
+
+#btnFilter {
+    border: 1px solid white;
+    border-radius: 6px;
+    color: white;
+}
+
+#btnFilter > i {
+    margin-right: 5px;
+    color: white;
+}
+
+#divFilterBox {
+    background-color: #1f2e45;
+    border-radius: 6px;
+}
+
+.FilterBoxTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.FilterBoxLabel {
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+#tblPetListing{
+    border-radius: 6px !important;
+}
+
+#tblPetListing > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblPetListing > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+

@@ -18,6 +18,7 @@ namespace VPMSCustomer
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
             // --- Resources ----//
             builder.Services.AddLocalization(options =>
             {

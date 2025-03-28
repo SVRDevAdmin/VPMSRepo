@@ -13,6 +13,8 @@ using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
 using VPMS.Lib.Data;
+using ZstdSharp.Unsafe;
+using VPMS.Lib;
 
 namespace VPMSWeb.Controllers
 {
@@ -969,9 +971,15 @@ namespace VPMSWeb.Controllers
 				sCreationLog.InvitationCode = VPMS.Lib.Helpers.GenerateRandomKeyString(16);
 				sCreationLog.LinkCreatedDate = DateTime.Now;
 				sCreationLog.LinkExpiryDate = DateTime.Now.AddHours(24);
+				sCreationLog.PatientOwnerID = patientOwner.ID;
 
 				_patientDBContext.Mst_Account_Creation_Logs.Add(sCreationLog);
 				_patientDBContext.SaveChanges();
+
+				List<String> sRecipientList = new List<string>();
+				sRecipientList.Add(patientOwner.EmailAddress);
+
+				SendAccountCreationShortLink(sRecipientList, patientOwner.Name, sCreationLog.InvitationCode);
             }
 			catch (Exception ex)
 			{
@@ -996,8 +1004,26 @@ namespace VPMSWeb.Controllers
 
 		public int InsertPetsInfo([FromBody] Pets pets)
 		{
-			try
+            Random rRnd = new Random(Environment.TickCount);
+
+            try
 			{
+				int idx = -1;
+
+				var sPetAvatarObj = _patientDBContext.Mst_Avatar.Where(x => x.Species == pets.Species).ToList();
+				if (sPetAvatarObj != null && sPetAvatarObj.Count > 0)
+				{
+                    idx = rRnd.Next(sPetAvatarObj.Count);
+                    PetAvatarObject sSelectedRandom = sPetAvatarObj[idx];
+
+					pets.AvatarID = sSelectedRandom.ID;
+                }
+				else
+				{
+					pets.AvatarID = idx;
+				}
+				
+				
 				_patientDBContext.Mst_Pets.Add(pets);
 
 				var bmi = (pets.Weight / (pets.Height * pets.Height)) * 10000;
@@ -1378,6 +1404,46 @@ namespace VPMSWeb.Controllers
                     ViewData["CanView"] = "true";
                 }
             }
+        }
+
+		public void SendAccountCreationShortLink(List<String> sTargetReceiver, String sTargetReceiverName, String sCreationLink)
+		{
+            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+
+            String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+            int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+            String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+            String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+            String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+			String? sPortalURL = sEmailConfig.GetSection("CustomerPortalAccountCreation").Value;
+
+
+			var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "CPMS_EN001", "en");
+			emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<customer>###", sTargetReceiverName)
+																		 .Replace("###<creationlink>###", (sPortalURL + sCreationLink));
+
+			try
+			{
+				VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = sTargetReceiver;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+				sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
+
+				String sErrorMsg = "";
+				EmailHelpers.SendEmail(sEmailObj, out sErrorMsg);
+            }
+			catch (Exception ex)
+			{
+
+			}
         }
     }
 }

@@ -903,6 +903,7 @@
 			Status: 1,
 			CreatedDate: new Date(),
 			CreatedBy: "System",
+			IsPrimary : (coOwner) ? 0 : 1
 		};
 
 		fetch('/Patients/InsertPatientOwnerInfo', {
