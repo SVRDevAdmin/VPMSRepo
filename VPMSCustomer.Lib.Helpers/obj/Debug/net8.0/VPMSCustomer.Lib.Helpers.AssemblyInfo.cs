@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMSCustomer.Lib.Helpers")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a79686005217b7c86664a2c0fdd41c185f9d80d8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+662ae8cbd060f06331921785639f25bb96c42d25")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMSCustomer.Lib.Helpers")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMSCustomer.Lib.Helpers")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

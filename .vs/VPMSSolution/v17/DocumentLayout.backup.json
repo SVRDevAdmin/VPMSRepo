@@ -1,7 +1,28 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Dev\\VPMS\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\views\\appointment\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\views\\appointment\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\views\\invoicereceipts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\views\\invoicereceipts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\wwwroot\\css\\lighttheme.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\wwwroot\\css\\lighttheme.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\wwwroot\\css\\darktheme.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\wwwroot\\css\\darktheme.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
@@ -9,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 252,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,6 +55,71 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\Views\\InvoiceReceipts\\Index.cshtml",
+              "RelativeDocumentMoniker": "VPMSCustomer\\Views\\InvoiceReceipts\\Index.cshtml",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\Views\\InvoiceReceipts\\Index.cshtml",
+              "RelativeToolTip": "VPMSCustomer\\Views\\InvoiceReceipts\\Index.cshtml",
+              "ViewState": "AgIAAOQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-04T08:42:20.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LightTheme.css",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\LightTheme.css",
+              "RelativeDocumentMoniker": "VPMSCustomer\\wwwroot\\css\\LightTheme.css",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\LightTheme.css",
+              "RelativeToolTip": "VPMSCustomer\\wwwroot\\css\\LightTheme.css",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAAABYBAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-04-04T08:35:45.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DarkTheme.css",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\DarkTheme.css",
+              "RelativeDocumentMoniker": "VPMSCustomer\\wwwroot\\css\\DarkTheme.css",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\DarkTheme.css",
+              "RelativeToolTip": "VPMSCustomer\\wwwroot\\css\\DarkTheme.css",
+              "ViewState": "AgIAAAgBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-04-04T08:35:41.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "VPMSCustomer\\Controllers\\AppointmentController.cs",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "VPMSCustomer\\Controllers\\AppointmentController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T03:24:14.959Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\Views\\Appointment\\Index.cshtml",
+              "RelativeDocumentMoniker": "VPMSCustomer\\Views\\Appointment\\Index.cshtml",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\Views\\Appointment\\Index.cshtml",
+              "RelativeToolTip": "VPMSCustomer\\Views\\Appointment\\Index.cshtml",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAqwJUAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-04T03:12:51.202Z",
+              "EditorCaption": ""
             }
           ]
         }

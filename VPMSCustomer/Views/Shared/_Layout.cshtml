@@ -138,10 +138,12 @@
                         </li>
                         <!-- APPOINTMENT -->
                         <li class="nav-item mb-3 menuItems">
-                            <img class="menuAppointments" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">
-                                @LangResources["Main_Menu_Appointment"]
-                            </span>
+                            <a asp-controller="appointment" asp-action="Index">
+                                <img class="menuAppointments" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Appointment"]
+                                </span>
+                            </a>
                         </li>
                         <!-- INVOICE & RECEIPTS -->
                         <li class="nav-item mb-3 menuItems">
