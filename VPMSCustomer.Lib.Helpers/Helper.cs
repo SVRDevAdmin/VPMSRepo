@@ -9,6 +9,11 @@ namespace VPMSCustomer.Lib
     public class Helper
     {
         #region Generate Random String
+        /// <summary>
+        /// Generate Random String with input string length
+        /// </summary>
+        /// <param name="keylength"></param>
+        /// <returns></returns>
         public static String GenerateRandomKeyString(int keylength)
         {
             Random rRnd = new Random(Environment.TickCount);

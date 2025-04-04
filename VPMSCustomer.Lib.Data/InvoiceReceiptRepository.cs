@@ -16,6 +16,18 @@ namespace VPMSCustomer.Lib.Data
 {
     public class InvoiceReceiptRepository
     {
+        /// <summary>
+        /// Get Invoice / Receipts Listing By Type
+        /// </summary>
+        /// <param name="iViewType"></param>
+        /// <param name="sPetIDs"></param>
+        /// <param name="sInvReceiptNo"></param>
+        /// <param name="sPetName"></param>
+        /// <param name="sDoctorName"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
         public static List<InvoiceReceiptModel> GetInvoiceReceiptViewListing(int iViewType, List<long> sPetIDs, String sInvReceiptNo, String sPetName, String sDoctorName,
                                                                             int pageSize, int pageIndex, out int totalRecords)
         {
@@ -86,6 +98,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Invoice / Receipts detail By ID
+        /// </summary>
+        /// <param name="iInvReceiptID"></param>
+        /// <returns></returns>
         public static InvoiceReceiptDetailsObj GetInvoiceReceiptDetailByID(int iInvReceiptID)
         {
             List<InvoiceReceiptDetailsObj> sResultList = new List<InvoiceReceiptDetailsObj>();
@@ -143,6 +160,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Invoices / Receipts's Services
+        /// </summary>
+        /// <param name="iInvReceiptID"></param>
+        /// <returns></returns>
         public static List<InvoiceReceiptServicesObj> GetInvoiceReceiptServicesList(int iInvReceiptID)
         {
             List<InvoiceReceiptServicesObj> sResultList = new List<InvoiceReceiptServicesObj>();
@@ -190,6 +212,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Invoices / Receipts's Product
+        /// </summary>
+        /// <param name="iInvReceiptID"></param>
+        /// <returns></returns>
         public static List<InvoiceReceiptProductsObj> GetInvoiceReceiptProductList(int iInvReceiptID)
         {
             List<InvoiceReceiptProductsObj> sResultList = new List<InvoiceReceiptProductsObj>();
@@ -238,6 +265,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Total amount of Invoice / Receipts 
+        /// </summary>
+        /// <param name="iInvReceiptID"></param>
+        /// <returns></returns>
         public static List<InvoiceReceiptTotalObj> GetInvoiceReceiptTotal(int iInvReceiptID)
         {
             List<InvoiceReceiptTotalObj> sResultList = new List<InvoiceReceiptTotalObj>();

@@ -168,7 +168,7 @@ namespace VPMSWeb.Controllers
 
             try
 			{
-				var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003");
+				var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN010");
 				emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<user_fullname>###", (sUserProfileInput.surName + " " + sUserProfileInput.lastName))
 																			 .Replace("###<userlogin_id>###", sUserProfileInput.loginID)
 																			 .Replace("###<user_password>###", sTempPass);

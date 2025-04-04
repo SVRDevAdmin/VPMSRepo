@@ -6,12 +6,20 @@ namespace VPMSCustomer.Controllers
 {
     public class InvoiceReceiptsController : Controller
     {
-        // GET: InvoiceReceiptsController
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Get Invoice & Receipts Listing by Type
+        /// </summary>
+        /// <param name="patientID"></param>
+        /// <param name="iViewType"></param>
+        /// <param name="invReceiptNo"></param>
+        /// <param name="petName"></param>
+        /// <param name="doctorName"></param>
+        /// <returns></returns>
         [Route("/InvoiceReceipts/GetInvoiceListing")]
         [HttpGet()]
         public IActionResult GetInvoiceListing(long patientID, int iViewType, String invReceiptNo, String petName, String doctorName)
@@ -42,6 +50,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Invoice / Receipts Details by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("/InvoiceReceipts/Detail/{id}")]
         [HttpGet()]
         public IActionResult GetInvoiceReceiptDetailByID(int id)
@@ -64,6 +77,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Invoice / Receipts's Services List
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("/InvoiceReceipts/ServicesList/{id}")]
         [HttpGet()]
         public IActionResult GetInvoiceReceiptServicesList(int id)
@@ -86,6 +104,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Invoices / Receipt's Product List
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("/InvoiceReceipts/ProductList/{id}")]
         [HttpGet()]
         public IActionResult GetInvoiceReceiptProductList(int id)
@@ -108,6 +131,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get total amount of the Invoice / Receipts
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("/InvoiceReceipts/Total/{id}")]
         [HttpGet()]
         public IActionResult GetInvoiceReceiptTotal(int id)
@@ -129,74 +157,5 @@ namespace VPMSCustomer.Controllers
                 return null;
             }
         }
-
-        //// GET: InvoiceReceiptsController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //// GET: InvoiceReceiptsController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: InvoiceReceiptsController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: InvoiceReceiptsController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: InvoiceReceiptsController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: InvoiceReceiptsController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: InvoiceReceiptsController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }

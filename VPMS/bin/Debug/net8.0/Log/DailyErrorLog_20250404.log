@@ -1,0 +1,36 @@
+2025-04-04 09:31:43,810 ERROR VPMS.Program.OnException [12] - MESSAGE: Unhandled Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptInfos(Int32 id) in C:\Dev\VPMS\VPMS\Controllers\InvoiceReceiptController.cs:line 442
+   at VPMSWeb.Controllers.InvoiceReceiptController.ViewInvoiceReceipt(Int32 id) in C:\Dev\VPMS\VPMS\Controllers\InvoiceReceiptController.cs:line 294
+   at lambda_method1291(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+
+----------------------------------------------------------------------------
+
+2025-04-04 09:47:08,193 ERROR VPMS.Program.OnException [12] - MESSAGE: Unhandled Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptInfos(Int32 id) in C:\Dev\VPMS\VPMS\Controllers\InvoiceReceiptController.cs:line 442
+   at VPMSWeb.Controllers.InvoiceReceiptController.ViewInvoiceReceipt(Int32 id) in C:\Dev\VPMS\VPMS\Controllers\InvoiceReceiptController.cs:line 294
+   at lambda_method1131(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+
+----------------------------------------------------------------------------
+

@@ -239,4 +239,50 @@
     background-color: #1f2e45 !important;
 }
 
+/*------ Invoice & Receipt ---------*/
+.nav-link {
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 12px !important;
+    color: white !important;
+}
 
+#tblInvoices > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblInvoices > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+#tblReceipts > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblReceipts > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+.imgMore {
+    content: url('/Images/more_white.png');
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+}
+
+.divFilterBox {
+    background-color: #1f2e45 !important;
+    border-radius: 6px;
+}

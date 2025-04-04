@@ -66,11 +66,29 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>o05gvb2qv5</Fingerprint>
-      <Integrity>aKg+B0Bdx5Vd9jVZUf655urSodQE4/DGqEdOmKhqd4Y=</Integrity>
+      <Fingerprint>y1gt5u2s7x</Fingerprint>
+      <Integrity>eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi+0AkRwLM=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\DarkTheme.css'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\InvoiceReceipt.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>css/InvoiceReceipt.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>x6ewm2x88b</Fingerprint>
+      <Integrity>J8JY0u5Nm6a7g9Fe9jjzgjrOKoR+oDJzUd6NwN4dOcs=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\InvoiceReceipt.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\LightTheme.css'))">
       <SourceType>Package</SourceType>
@@ -84,8 +102,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>15qogbrimu</Fingerprint>
-      <Integrity>qxl6csWfPXzyR6YYs0NbFCTDjMVknb4mnwQzUvEpMng=</Integrity>
+      <Fingerprint>4ckkckkq8q</Fingerprint>
+      <Integrity>DECZyPboQUzLI0VF2ijGVgtAHSiO7fYgCGmOHTQV83c=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\LightTheme.css'))</OriginalItemSpec>

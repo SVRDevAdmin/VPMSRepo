@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+1yP4M4i1u8w88kU3OnvXzUFXbYE4uORel4PDihIdz8=",
+  "Hash": "4EyP3LCuh/S56ya9P0/yNVX5M0jYrf5VVddSSG0EF0M=",
   "Source": "VPMSCustomer",
   "BasePath": "_content/VPMSCustomer",
   "Mode": "Default",
@@ -136,11 +136,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "o05gvb2qv5",
-      "Integrity": "aKg+B0Bdx5Vd9jVZUf655urSodQE4/DGqEdOmKhqd4Y=",
+      "Fingerprint": "y1gt5u2s7x",
+      "Integrity": "eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi+0AkRwLM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\DarkTheme.css"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\InvoiceReceipt.css",
+      "SourceId": "VPMSCustomer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\",
+      "BasePath": "_content/VPMSCustomer",
+      "RelativePath": "css/InvoiceReceipt#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "x6ewm2x88b",
+      "Integrity": "J8JY0u5Nm6a7g9Fe9jjzgjrOKoR+oDJzUd6NwN4dOcs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\InvoiceReceipt.css"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\LightTheme.css",
@@ -157,8 +178,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "15qogbrimu",
-      "Integrity": "qxl6csWfPXzyR6YYs0NbFCTDjMVknb4mnwQzUvEpMng=",
+      "Fingerprint": "4ckkckkq8q",
+      "Integrity": "DECZyPboQUzLI0VF2ijGVgtAHSiO7fYgCGmOHTQV83c=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\LightTheme.css"
@@ -4349,7 +4370,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4301"
+          "Value": "5427"
         },
         {
           "Name": "Content-Type",
@@ -4357,11 +4378,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"aKg+B0Bdx5Vd9jVZUf655urSodQE4/DGqEdOmKhqd4Y=\""
+          "Value": "\"eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi+0AkRwLM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Mar 2025 03:37:48 GMT"
+          "Value": "Wed, 02 Apr 2025 02:45:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4371,12 +4392,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-aKg+B0Bdx5Vd9jVZUf655urSodQE4/DGqEdOmKhqd4Y="
+          "Value": "sha256-eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi+0AkRwLM="
         }
       ]
     },
     {
-      "Route": "css/DarkTheme.o05gvb2qv5.css",
+      "Route": "css/DarkTheme.y1gt5u2s7x.css",
       "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\DarkTheme.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -4386,7 +4407,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4301"
+          "Value": "5427"
         },
         {
           "Name": "Content-Type",
@@ -4394,11 +4415,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"aKg+B0Bdx5Vd9jVZUf655urSodQE4/DGqEdOmKhqd4Y=\""
+          "Value": "\"eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi+0AkRwLM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Mar 2025 03:37:48 GMT"
+          "Value": "Wed, 02 Apr 2025 02:45:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4408,7 +4429,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "o05gvb2qv5"
+          "Value": "y1gt5u2s7x"
         },
         {
           "Name": "label",
@@ -4416,12 +4437,94 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-aKg+B0Bdx5Vd9jVZUf655urSodQE4/DGqEdOmKhqd4Y="
+          "Value": "sha256-eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi+0AkRwLM="
         }
       ]
     },
     {
-      "Route": "css/LightTheme.15qogbrimu.css",
+      "Route": "css/InvoiceReceipt.css",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\InvoiceReceipt.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2707"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J8JY0u5Nm6a7g9Fe9jjzgjrOKoR+oDJzUd6NwN4dOcs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 04 Apr 2025 02:48:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-J8JY0u5Nm6a7g9Fe9jjzgjrOKoR+oDJzUd6NwN4dOcs="
+        }
+      ]
+    },
+    {
+      "Route": "css/InvoiceReceipt.x6ewm2x88b.css",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\InvoiceReceipt.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2707"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J8JY0u5Nm6a7g9Fe9jjzgjrOKoR+oDJzUd6NwN4dOcs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 04 Apr 2025 02:48:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x6ewm2x88b"
+        },
+        {
+          "Name": "label",
+          "Value": "css/InvoiceReceipt.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-J8JY0u5Nm6a7g9Fe9jjzgjrOKoR+oDJzUd6NwN4dOcs="
+        }
+      ]
+    },
+    {
+      "Route": "css/LightTheme.4ckkckkq8q.css",
       "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\css\\LightTheme.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -4431,7 +4534,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4158"
+          "Value": "5201"
         },
         {
           "Name": "Content-Type",
@@ -4439,11 +4542,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"qxl6csWfPXzyR6YYs0NbFCTDjMVknb4mnwQzUvEpMng=\""
+          "Value": "\"DECZyPboQUzLI0VF2ijGVgtAHSiO7fYgCGmOHTQV83c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Mar 2025 03:37:32 GMT"
+          "Value": "Wed, 02 Apr 2025 02:45:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4453,7 +4556,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "15qogbrimu"
+          "Value": "4ckkckkq8q"
         },
         {
           "Name": "label",
@@ -4461,7 +4564,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-qxl6csWfPXzyR6YYs0NbFCTDjMVknb4mnwQzUvEpMng="
+          "Value": "sha256-DECZyPboQUzLI0VF2ijGVgtAHSiO7fYgCGmOHTQV83c="
         }
       ]
     },
@@ -4476,7 +4579,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4158"
+          "Value": "5201"
         },
         {
           "Name": "Content-Type",
@@ -4484,11 +4587,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"qxl6csWfPXzyR6YYs0NbFCTDjMVknb4mnwQzUvEpMng=\""
+          "Value": "\"DECZyPboQUzLI0VF2ijGVgtAHSiO7fYgCGmOHTQV83c=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Mar 2025 03:37:32 GMT"
+          "Value": "Wed, 02 Apr 2025 02:45:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4498,7 +4601,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-qxl6csWfPXzyR6YYs0NbFCTDjMVknb4mnwQzUvEpMng="
+          "Value": "sha256-DECZyPboQUzLI0VF2ijGVgtAHSiO7fYgCGmOHTQV83c="
         }
       ]
     },

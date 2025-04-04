@@ -1,0 +1,128 @@
+﻿.FilterBoxCollapsed {
+    visibility: hidden;
+    height: auto;
+}
+
+.nav-tabs {
+    border-bottom: 0 !important;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid blue !important;
+    color: blue !important;
+    font-weight: bold;
+}
+
+#nav-invoices {
+    overflow-y: auto !important;
+    max-height: 400px !important;
+}
+
+#nav-receipts {
+    overflow-y: auto !important;
+    max-height: 400px !important;
+}
+
+#tblInvReceiptsServices > thead > tr > th {
+    background-color: transparent !important;
+    color: black !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
+
+#tblInvReceiptsServices > tbody > tr > td {
+    background-color: transparent !important;
+    color: black !important;
+    font-size: 12px !important;
+    border-bottom: none;
+}
+
+#tblInvReceiptsProduct > thead > tr > th {
+    background-color: transparent !important;
+    color: black !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
+
+#tblInvReceiptsProduct > tbody > tr > td {
+    background-color: transparent !important;
+    color: black !important;
+    font-size: 12px !important;
+    border-bottom: none;
+}
+
+#tblTotal > tbody > tr > td {
+    background-color: transparent !important;
+    color: black !important;
+    font-size: 12px !important;
+    border-bottom: none;
+}
+
+.containerMenu {
+    background-color: #172232;
+    color: white;
+    border-color: darkgray !important;
+    transition: background-color 1s;
+    transition: color 0.5s;
+}
+
+.hiddenMenu {
+    background-color: white !important;
+    min-width: fit-content;
+    font-size: 12px;
+}
+
+    .hiddenMenu > a:hover {
+        color: black !important;
+        background-color: white !important;
+    }
+
+.FilterBoxTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.FilterBoxLabel {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.ReceiptInfoText {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ReceiptInfoTextNoBold {
+    font-size: 12px;
+}
+
+.ReceiptTitleText {
+    font-size: 12px;
+    font-weight: bold;
+    color: grey;
+}
+
+.ReceiptInfoTextWrapped {
+    font-weight: bold;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+.ReceiptInfoDivider {
+    border-bottom: 1px solid black;
+}
+
+.ReceiptInfoFuncButton, .ReceiptInfoFuncButton:hover {
+    border-radius: 8px;
+    background-color: blue;
+    color: white;
+}
+
+.ReceiptInfoTable {
+    background-color: #f7f7f7;
+}
+
+.GrandTotalRow {
+    border-top: 1px solid black !important;
+    border-bottom: 1px solid black !important;
+}
