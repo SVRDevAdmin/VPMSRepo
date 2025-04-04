@@ -33,6 +33,7 @@ namespace VPMS.Lib.Data.Models
         public Decimal Height { get; set; }
         public string HeightUnit { get; set; } = null!;
         public int Status { get; set; }
+        public int AvatarID { get; set; }
     }
 
     public class Pet_Growth : AuditPartialModel
@@ -62,6 +63,7 @@ namespace VPMS.Lib.Data.Models
         public string State { get; set; } = null!;
         public string Country { get; set; } = null!;
         public int Status { get; set; }
+        public int IsPrimary { get; set; }
     }
 
     public class Patient_Owner_Login
@@ -86,6 +88,7 @@ namespace VPMS.Lib.Data.Models
         public DateTime? LinkCreatedDate {  get; set; }
         public DateTime? LinkExpiryDate { get; set; }
         public DateTime? AccountCreationDate { get; set; }
+        public int? PatientOwnerID { get; set; }
     }
 
     public class Pets_Breed : AuditPartialModel
@@ -281,4 +284,14 @@ namespace VPMS.Lib.Data.Models
 		public int Status { get; set; }
 		public string Description { get; set; } = null!;
 	}
+
+    public class PetAvatarObject : AuditModel
+    {
+        [Key]
+        public int ID { get; set; }
+        public String? Species { get; set; }
+        public String? AvatarImage { get; set; }
+        public String? ColorCode { get; set; }
+        public int? Status { get; set; }
+    }
 }

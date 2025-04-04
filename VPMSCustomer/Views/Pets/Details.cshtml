@@ -1,0 +1,483 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+
+    var sPetIDSelected = (long)ViewData["PetSelected"];
+}
+
+<link rel="stylesheet" href="~/css/PetProfile.css" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#dropdownmenu-testtype').toggle('hide');
+
+        loadPetOverview();
+        loadPetMedicalHistory();
+        loadPetMedicationHistory();
+        loadActiveTreatmentPlan();
+        loadPastTreatmentPlan();
+        loadTestResulTestTypeToggle();
+        loadTestResultHistory('All');
+    });
+
+    function loadPetOverview()
+    {
+        if ('@sPetIDSelected' != '')
+        {
+            $.getJSON("/Pets/GetPetByID/" + '@sPetIDSelected')
+             .done(function(result){
+                 if (result != null)
+                 {
+                     $('#pageTitle').html(result.data.name + '\'s Profile');
+                     $('#divPetContent').css('background-color', result.data.colorCode);
+                     $('#imgAvatar').attr('src', '/Images/Pets/' + result.data.avatarImage);
+
+                     $('#lbPetName').html(result.data.name);
+                     $('#lbDOB').html(moment(result.data.dob, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY'));
+                     $('#lbAge').html(result.data.age);
+                     $('#lbGender').html(result.data.gender);
+                     $('#lbHeight').html(result.data.height + result.data.heightUnit);
+                     $('#lbWeight').html(result.data.weight + result.data.weightUnit);
+                     $('#lbBreed').html(result.data.breed);
+                     $('#lbRegNo').html(result.data.registrationNo);
+                     $('#lbAllergies').html(result.data.allergies);
+                     $('#lbSpecies').html(result.data.species);
+                     $('#lbColor').html(result.data.color);
+                 }
+             });
+        }
+
+    }
+
+    function loadPetMedicalHistory()
+    {
+        if ('@sPetIDSelected' != '')
+        {
+            $('#divSurgeryHistory').children('.medicalDisplayText').remove();
+            $('#divMedHistory').children('.medicalDisplayText').remove();
+
+            $.getJSON("/Pets/GetTreatmentServices/" + '@sPetIDSelected')
+             .done(function(result){
+                 if (result != null && result.data.length > 0)
+                 {
+                     // -- Medical ----- //
+                     var sVaccinationGroup = result.data.filter(function(obj){
+                                                return (obj.categoryName == 'Vaccination');
+                                            });
+
+                     for (var i = 0; i < sVaccinationGroup.length; i++)
+                     {
+                         var sMedical = '';
+                         sMedical = '<div class="medicalDisplayText mt-3">' +
+                                    sVaccinationGroup[i].subCategoryName + '<br />' +
+                                    '<strong>' + sVaccinationGroup[i].serviceName + '</strong><br />' +
+                                    moment(sVaccinationGroup[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                    '</div>';
+
+                         $('#divMedHistory').append(sMedical);
+                     }
+
+                    // --- Surgery ----- //
+                    var sSurgeryGroup = result.data.filter(function(obj){
+                                            return (obj.categoryName == "Surgery");
+                                        });
+
+                    for (var x = 0; x < sSurgeryGroup.length; x++)
+                    {
+                        var sSurgery = '';
+                        sSurgery = '<div class="medicalDisplayText mt-3">' +
+                                   sSurgeryGroup[x].subCategoryName + '<br />' +
+                                   '<strong>' + sSurgeryGroup[x].serviceName + '</strong><br />' +
+                                   moment(sSurgeryGroup[x].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                   '</div>';
+
+                        $('#divSurgeryHistory').append(sSurgery);
+                    }
+                 }
+             });
+        }
+    }
+
+    function loadPetMedicationHistory()
+    {
+        if ('@sPetIDSelected' != '')
+        {
+            $('#divMedicationHistory').children('.medicalDisplayText').remove();
+
+            $.getJSON("/Pets/GetMedicalHistory/" + '@sPetIDSelected')
+             .done(function(result){
+                 if (result.data != null && result.data.length > 0)
+                 {
+                     for(var i = 0; i < result.data.length; i++)
+                     {
+                         var sMedicine = '';
+                         sMedicine = '<div class="medicalDisplayText mt-3">' +
+                                     result.data[i].productName + '<br />' +
+                                     '<strong>' + result.data[i].usage + '</strong><br />' +
+                                     moment(result.data[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                     '</div>';
+
+                         $('#divMedicationHistory').append(sMedicine);
+                     }
+                 }
+             });
+        }
+    }
+
+    function loadActiveTreatmentPlan()
+    {
+        if ('@sPetIDSelected' != '')
+        {
+            $('#divActiveTreatmentPlan').children('.treatmentDisplayText').remove();
+
+            $.getJSON("/Pets/GetActiveTreatmentPlan/" + '@sPetIDSelected')
+             .done(function(result){
+                 if (result.data != null && result.data.length > 0)
+                 {
+                     for (var i = 0; i < result.data.length; i++)
+                     {
+                         var sActiveTreatment = '';
+                         sActiveTreatment = '<div class="treatmentDisplayText mt-3">' +
+                                            '<strong>' + result.data[i].planName + '</strong><br />' +
+                                            '@Html.Raw(LangResources["PetProfile_Message_TreatmentPeriod"])' + ' : ' + 
+                                            moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' +
+                                            moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                            '</div>';
+
+                         $('#divActiveTreatmentPlan').append(sActiveTreatment);
+                     }
+                 }
+             })
+        }
+    }
+
+    function loadPastTreatmentPlan()
+    {
+        if ('@sPetIDSelected' != '')
+        {
+            $('#divTreatmentPlanHistory').children('.treatmentDisplayText').remove();
+
+            $.getJSON("/Pets/GetPastTreatmentPlan/" + '@sPetIDSelected')
+             .done(function(result){
+                 if (result.data != null && result.data.length > 0)
+                 {
+                     for (var i = 0; i < result.data.length; i++)
+                     {
+                         var sActiveTreatment = '';
+                         sActiveTreatment = '<div class="treatmentDisplayText mt-3">' +
+                                            '<strong>' + result.data[i].planName + '</strong><br />' +
+                                            '@Html.Raw(LangResources["PetProfile_Message_TreatmentPeriod"])' + ' : ' +  
+                                            moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' +
+                                            moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                            '</div>';
+
+                         $('#divTreatmentPlanHistory').append(sActiveTreatment);
+                     }
+                 }
+             })
+        }
+    }
+
+    function loadTestResulTestTypeToggle()
+    {
+        if ('@sPetIDSelected' != '')
+        {
+            $('#dropdownmenu-testtype').html('');
+            $('#lbTestSelection').html('');
+
+            $.getJSON("/Pets/GetPetTestResultHistory/" + '@sPetIDSelected' + "/All")
+             .done(function(result){
+                 if (result.data != null && result.data.length > 0)
+                 {
+                     // --- Menu Toggle ---- //
+                     var sTestGroup = result.data.map(x => x.resultType);
+                     if (sTestGroup != null && sTestGroup.length > 0)
+                     {
+                         $('#dropdownmenu-testtype').append('<a class="dropdown-item" style="font-size: 12px;" onclick="loadTestResultHistory(\'All\')">All</a>');
+                         $('#lbTestSelection').html('All');
+
+                         for (var x = 0; x < sTestGroup.length; x++)
+                         {
+                             let sToggleMenu = '';
+                             sToggleMenu = '<a class="dropdown-item" style="font-size: 12px;" onclick="loadTestResultHistory(\'' + sTestGroup[x] + '\')">' + sTestGroup[x] + '</a>';
+
+                             $('#dropdownmenu-testtype').append(sToggleMenu);
+                         }
+                     }
+                     else
+                     {
+                        $('#lbTestSelection').html('All');
+                     }
+                 }
+                 else{
+                    $('#lbTestSelection').html('All');
+                 }
+             });
+        }
+
+    }
+
+    function loadTestResultHistory(resultType)
+    {
+        if ('@sPetIDSelected' != '')
+        {
+            $('#tblTestMgmt tbody').html('');
+
+            $.getJSON("/Pets/GetPetTestResultHistory/" + '@sPetIDSelected' + "/" + resultType)
+             .done(function(result){
+                 if (result.data != null && result.data.length > 0)
+                 {
+                     for (var i = 0; i < result.data.length; i++)
+                     {
+                         var sTestResult = '';
+                         sTestResult = '<tr>' +
+                                        '<td class="text-center">' + result.data[i].seqNo + '</td>' +
+                                        '<td>' + moment(result.data[i].resultDateTime, 'YYYY-MM-DDThh:mm:ss').format('DD-MM-YYYY hh:mm:ss A') + '</td>' +
+                                        '<td>' + result.data[i].resultType + '</td>' +
+                                        '<td>' + result.data[i].overallStatus + '</td>' +
+                                        '<td>' + result.data[i].patientID + '</td>' +
+                                        '<td>' + result.data[i].operatorID + '</td>' +
+                                        '<td>' + result.data[i].deviceName +'</td>' +
+                                        '</tr>';
+
+                         $('#tblTestMgmt tbody').append(sTestResult);
+                     }
+                 }
+                 else
+                 {
+                     var sNoRecord = '';
+                     sNoRecord = '<tr>' +
+                                 '<td class="text-left" colspan="7">' + '@Html.Raw(LangResources["PetProfile_Message_NoRecord"])' + '</td>' +  //No record.
+                                 '</tr>';
+
+                    $('#tblTestMgmt tbody').append(sNoRecord);
+                 }
+
+                $('#lbTestSelection').html(resultType);
+                $('#dropdownmenu-testtype').toggle('hide');
+             })
+        }
+    }
+
+    function TestTypeMenuToggle()
+    {
+        $('#dropdownmenu-testtype').toggle('show');
+    }
+</script>
+
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <div class="col-md-12">
+            <label id="pageTitle" class="pageTitle">'s Profile</label>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div id="divPetContent" class="row" style="height: auto; border-radius: 6px;">
+        <div class="row mt-4">
+            <nav style="display: flex;">
+                <div id="nav-tab" class="nav nav-tabs" role="tablist" style="width: 50%;">
+                    <button id="nav-overview-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-overview" role="tab" aria-controls="nav-overview" aria-selected="true">@LangResources["PetProfile_Label_Overview"]</button>
+                    <button id="nav-medical-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-medical" role="tab" aria-controls="nav-medical" aria-selected="false">@LangResources["PetProfile_Label_MedicalRecord"]</button>
+                    <button id="nav-treatment-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-treatment" role="tab" aria-controls="nav-treatment" aria-selected="false">@LangResources["PetProfile_Label_TreatmentPlan"]</button>
+                    <button id="nav-testmanagement-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-testmanagement" role="tab" aria-controls="nav-testmanagement" aria-selected="false">@LangResources["PetProfile_Label_TestManagement"]</button>
+                </div>
+                <div style="width: 20%;">
+                    <img id="imgAvatar" />
+                </div>
+                <div class="d-flex justify-content-end" style="width: 30%;">
+                    <button id="btnMedical" type="button" class="btn btn-primary btn-sm">
+                        <i class="bi bi-download"></i>
+                        @LangResources["PetProfile_Button_MedicalRecord"]
+                    </button>
+                    <button id="btnBack" class="btn btn-primary btn-sm" style="margin-left: 5px;" onclick="history.back();">
+                        <i class="bi bi-arrow-left"></i>
+                        @LangResources["PetProfile_Button_Back"]
+                    </button>
+                </div>
+            </nav>
+
+            <div id="nav-tabContent" class="tab-content mt-3 mb-3 ms-3">
+
+                <!-- Overview Tabs -->
+                <div id="nav-overview" class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row" style="background-color: white; border-radius: 6px;">
+                        <div class="row mt-4 ms-2">
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_PetName"]
+                                </label><br />
+                                <label id="lbPetName" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_DateOfBirth"]
+                                </label><br />
+                                <label id="lbDOB" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Age"]
+                                </label><br />
+                                <label id="lbAge" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Gender"]
+                                </label><br />
+                                <label id="lbGender" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Height"]
+                                </label><br />
+                                <label id="lbHeight" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Weight"]
+                                </label><br />
+                                <label id="lbWeight" class="overviewDisplayText"></label>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row mt-4 ms-2">
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Breed"]
+                                </label><br />
+                                <label id="lbBreed" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_RegNo"]
+                                </label><br />
+                                <label id="lbRegNo" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Allergies"]
+                                </label><br />
+                                <label id="lbAllergies" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Species"]
+                                </label><br />
+                                <label id="lbSpecies" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="overviewTitle">
+                                    @LangResources["PetProfile_Label_Color"]
+                                </label><br />
+                                <label id="lbColor" class="overviewDisplayText"></label>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row mb-4">&nbsp;</div>
+                    </div>
+                </div>
+
+                <!-- Medical Record Tabs -->
+                <div id="nav-medical" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-medical-tab">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row me-2 divMedicalBackground">
+                                <div id="divMedHistory" class="col ms-3 divMedicalBox">
+                                    <label class="medicalTitle">@LangResources["PetProfile_Label_Vaccination"]</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row me-2 divMedicalBackground">
+                                <div id="divMedicationHistory" class="col ms-3 divMedicalBox">
+                                    <label class="medicalTitle">@LangResources["PetProfile_Label_Medication"]</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row me-2 divMedicalBackground">
+                                <div id="divSurgeryHistory" class="col ms-3 divMedicalBox">
+                                    <label class="medicalTitle">@LangResources["PetProfile_Label_Surgery"]</label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Treatment History Tabs -->
+                <div id="nav-treatment" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-treatment-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row me-2 divTreatmentBackground">
+                                <div id="divActiveTreatmentPlan" class="col ms-3 divTreatmentBox">
+                                    <label class="treatmentTitle">@LangResources["PetProfile_Label_ActiveTreatments"]</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row me-2 divTreatmentBackground">
+                                <div id="divTreatmentPlanHistory" class="col ms-3 divTreatmentBox">
+                                    <label class="treatmentTitle">@LangResources["PetProfile_Label_PastTreatments"]</label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Result Tabs -->
+                <div id="nav-testmanagement" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-testmanagement-tab">
+                    <div class="row">
+                        <div class="row tblTestMgmtFunctionRow">
+                            <div class="col-md-9">&nbsp;</div>
+                            <div class="col-md-3">
+                                <div class="dropdown d-flex tblTestMgmtDropdownToggle">
+                                    <label class="tblTestMgmtToggleLabel">
+                                        @LangResources["PetProfile_Label_TestType"] : 
+                                    </label>
+                                    <div id="testtypetoggle" class="dropdown-toggle" data-toggle="dropdown" onclick="TestTypeMenuToggle();" style="width: 100px;">
+                                        <label id="lbTestSelection" class="tblTestMgmtToggleSelected">All</label>
+                                    </div>
+                                    <div id="dropdownmenu-testtype" class="dropdown-menu tblTestMgmtDropdownMenu">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row tblTestMgmtContentRow">
+                            <table id="tblTestMgmt" class="table tblTestMgmt mt-4">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center" style="width: 5%;">@LangResources["PetProfile_Label_Number"]</th>
+                                        <th scope="col" class="text-left" style="width: 20%;">@LangResources["PetProfile_Label_Time"]</th>
+                                        <th scope="col" class="text-left" style="width: 15%;">@LangResources["PetProfile_Label_Test_Type"]</th>
+                                        <th scope="col" class="text-left" style="width: 15%;">@LangResources["PetProfile_Label_ResultStatus"]</th>
+                                        <th scope="col" class="text-left" style="width: 15%;">@LangResources["PetProfile_Label_PatientID"]</th>
+                                        <th scope="col" class="text-left" style="width: 10%;">@LangResources["PetProfile_Label_OperatorID"]</th>
+                                        <th scope="col" class="text-left" style="width: 15%;">@LangResources["PetProfile_Label_DeviceName"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

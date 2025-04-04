@@ -309,8 +309,11 @@
     }
 
     function ddlAddOwnerchanges(patient){
+        // added patientID value (azwan - 20250305)
+        const selectedOption = patient.options[patient.selectedIndex];
         $.post("/Appointment/GetPetListByPatientID", {
-            PatientID: patient.value
+            // PatientID: patient.value
+            PatientID: selectedOption.getAttribute('data-patientid')
         }).done(function (result) {
             loadddlPet(result);
         });
@@ -1318,8 +1321,9 @@
                                     {
                                         foreach (var p in sAddOwnerViewObj.PatientSelectionModel)
                                         {
+                                            // added patientID value (azwan - 20250305)
+                                            <option value=@p.ID data-patientid=@p.PatientID>@p.Name</option>
                                             // <option value=@p.ID>@p.Name</option>
-                                            <option value=@p.PatientID>@p.Name</option>
                                         }
                                     }
                                 }

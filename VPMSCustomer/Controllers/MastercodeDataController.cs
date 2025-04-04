@@ -150,5 +150,27 @@ namespace VPMSCustomer.Controllers
                 return null;
             }
         }
+
+        [Route("/Masterdata/DoctorList/{branchid}")]
+        [HttpGet()]
+        public IActionResult GetDoctorList(int branchid)
+        {
+            try
+            {
+                var sDoctorObj = DoctorRepository.GetDoctorList(branchid);
+                if (sDoctorObj != null)
+                {
+                    return Json(new { data = sDoctorObj });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

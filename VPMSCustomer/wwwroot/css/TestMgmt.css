@@ -1,0 +1,224 @@
+﻿/*------ Test Management -----*/
+.TestMgmtTitleRow {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 5px;
+}
+
+.TestMgmtLabelRow {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.TestMgmtFieldRow {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 7px;
+    margin-right: 5px;
+}
+
+.TestMgmtBtnSearchRow {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.TestMgmtBtnResetRow {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#imgTestResultSlider {
+    content: url('../images/Slider_icon.png');
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+#btnTestMgmtFilter {
+    border: 1px solid black;
+    background: white;
+    font-size: 1vw;
+}
+
+.collapseHide {
+    visibility: hidden;
+    height: auto;
+}
+
+.PaginationButtonSelected {
+    width: 3vw;
+    height: 3vw;
+    background-color: #1E76FB;
+    color: white;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}
+
+.PaginationButton {
+    width: 3vw;
+    height: 3vw;
+    background-color: transparent;
+    color: #1E76FB;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}
+
+/*------ Test Result --------*/
+#tblTestParamResult {
+    border: 1px solid #ddd !important;
+    margin-left: 20px !important;
+}
+
+.OrangeGaugeBox {
+    width: 6px;
+    height: 15px;
+    background-color: orange;
+    display: block;
+}
+
+.GreenGaugeBox {
+    width: 6px;
+    height: 15px;
+    background-color: mediumseagreen;
+    display: block;
+}
+
+.RedGaugeBox {
+    width: 6px;
+    height: 15px;
+    background-color: red;
+    display: block;
+}
+
+.OrangeGaugeBar {
+    background-color: orange;
+    height: 10px;
+    width: 30%;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.GreenGaugeBar {
+    background-color: mediumseagreen;
+    height: 10px;
+    width: 40%;
+}
+
+.RedGaugeBar {
+    background-color: red;
+    height: 10px;
+    width: 30%;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.GaugeBox {
+    display: flex;
+    margin-top: 4px;
+
+    position: relative;
+}
+
+.GaugeTarget {
+    position: relative;
+    width: 0;
+    height: 0;
+    z-index: 20;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid black;
+}
+
+#tblGauge > tbody > tr > td {
+    font-weight: bold;
+}
+
+.tblGaugeRowHeight {
+    height: 15px;
+}
+
+.HeaderButtonCol {
+    text-align: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.HeaderButtonRow {
+    display: flex;
+    height: 50px;
+}
+
+#divContentRow {
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 0px;
+    margin-right: 0;
+}
+
+.divContentColumn {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.divContentBackground {
+    margin-left: 0px;
+    border-radius: 6px;
+    background-color: rgb(30, 118, 251);
+}
+
+.ContentColumnRow {
+    padding-top: 5px;
+}
+
+.ContentColumnLeftBorder {
+    border-left: 1px solid white
+}
+
+.ContentRowTitle {
+    font-size: 11px;
+    color: white;
+    font-weight: bold
+}
+
+.ContentRowValue {
+    font-size: 10px;
+    color: white;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.ImageIconColumn {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    background-color: white;
+}
+
+.CatImageIcon {
+    content: url('../images/calendar_cat_icon.png');
+    background-color: transparent;
+    display: block;
+    margin: auto;
+}

@@ -142,3 +142,74 @@ ON Mst_state (State);
 
 CREATE INDEX IX_CountryID
 ON Mst_state (CountryID);
+
+
+CREATE INDEX IX_PatientID_AvatarID_Gender
+ON mst_pets (PatientID, AvatarID, Gender);
+
+CREATE INDEX IX_PatientID
+ON mst_pets (PatientID);
+
+CREATE INDEX IX_Gender
+ON mst_pets (Gender);
+;
+CREATE INDEX IX_Gender_AvatarID
+ON mst_pets (Gender, AvatarID);
+
+CREATE INDEX IX_Gender_PatientID
+ON mst_pets (Gender, PatientID);
+
+CREATE INDEX IX_Listing_Gender_PatientID_Name_Species_Breed
+ON mst_pets (Gender, PatientID, NAME, Species, Breed);
+
+CREATE INDEX IX_Listing_Gender_PatientID_Name_Species
+ON mst_pets (Gender, PatientID, NAME, Species);
+
+CREATE INDEX IX_Listing_Gender_PatientID_Name
+ON mst_pets (Gender, PatientID, NAME);
+
+CREATE INDEX IX_Listing_Gender_PatientID_Species_Breed
+ON mst_pets (Gender, PatientID, Species, Breed);
+
+CREATE INDEX IX_Listing_Gender_PatientID_Species
+ON mst_pets (Gender, PatientID, Species);
+
+CREATE INDEX IX_Listing_Gender_PatientID_Breed
+ON mst_pets (Gender, PatientID, Breed);
+
+CREATE INDEX IX_Listing_Gender_PatientID_Name_Breed
+ON mst_pets (Gender, PatientID, NAME, Breed);
+
+CREATE INDEX IX_Gender_AvatarID_PetID
+ON mst_pets (Gender, AvatarID, ID);
+
+CREATE INDEX IX_PetID_CreatedDate
+ON txn_treatmentplan (ID, PetID, CreatedDate DESC);
+
+CREATE INDEX IX_PlanID_ServiceID
+ON txn_treatmentplan_services (PlanID, ServiceID);
+
+CREATE INDEX IX_PlanId_ProductID
+ON txn_treatmentplan_products (PlanID, ProductID);
+
+CREATE INDEX IX_PetID_TreatmentDate
+ON txn_treatmentplan (PetID, TreatmentStart, TreatmentEnd);
+
+CREATE INDEX IX_PetID_ResultType_ResultDateTime
+ON txn_testresults (PetID, ResultType, ResultDateTime);
+
+CREATE INDEX IX_PetID_ResultDateTime
+ON txn_testresults (PetID, ResultDateTime);
+
+CREATE INDEX IX_ResultDateTime
+ON txn_testresults (ResultDateTime);
+
+CREATE INDEX IX_Species_Active_SeqOrder
+ON mst_pets_breed (species, ACTIVE, SeqOrder);
+
+CREATE INDEX IX_Species_Active
+ON mst_pets_breed (species, ACTIVE);
+
+CREATE INDEX IX_SeqOrder
+ON mst_pets_breed (SeqOrder);
+

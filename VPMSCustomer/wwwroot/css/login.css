@@ -1,8 +1,4 @@
-﻿body {
-    background-color: #fdf6e6;
-}
-
-input {
+﻿input {
     outline: none;
 }
 
@@ -40,3 +36,19 @@ input {
     display: flex;
     flex-direction: row;
 }
+
+.iconPerson {
+    content: url('../Images/Icons/Icon-Person.png');
+    margin-top: 5px;
+    width: 18px;
+    height: 18px;
+}
+
+.iconLocked {
+    content: url('../Images/Icons/Icon-Locked.png');
+    margin-top: 5px;
+    width: 18px;
+    height: 18px;
+}
+
+

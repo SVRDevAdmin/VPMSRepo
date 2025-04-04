@@ -256,6 +256,14 @@ namespace VPMSCustomer.Controllers
                         Response.Cookies.Append("Language", configValue);
                     }
 
+                    if (configKey == "CustomerSettings_Themes")
+                    {
+                        CookieOptions cookies = new CookieOptions();
+                        cookies.Expires = DateTime.Now.AddDays(1);
+
+                        Response.Cookies.Append("CustomerTheme", configValue, cookies);
+                    }
+
                     sResp.StatusCode = (int)StatusCodes.Status200OK;
                 }
                 else

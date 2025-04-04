@@ -349,11 +349,16 @@
                         @LangResources["Staff_Button_Filters"]
                     </button>
                     &nbsp;&nbsp;
-                    <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 1vw"
-                            onclick="location.href='@Url.Action("UserDetails", "User")'">
-                        <i class="bi bi-plus-circle" style="margin-right: 5px;"></i>
-                        @LangResources["Staff_Button_NewStaff"]
-                    </button>
+                    @{
+                        if ((bool)ViewData["CanAdd"])
+                        {
+                            <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 1vw"
+                                    onclick="location.href='@Url.Action("UserDetails", "User")'">
+                                <i class="bi bi-plus-circle" style="margin-right: 5px;"></i>
+                                @LangResources["Staff_Button_NewStaff"]
+                            </button>
+                        }
+                    }
                 </div>
             </div>
         </div>

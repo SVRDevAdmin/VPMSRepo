@@ -117,6 +117,381 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvReceipts_Button_Filters" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="InvReceipts_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="InvReceipts_Label_Address" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="InvReceipts_Label_ContactNo" xml:space="preserve">
+    <value>連絡先番号</value>
+  </data>
+  <data name="InvReceipts_Label_Date" xml:space="preserve">
+    <value>日にち</value>
+  </data>
+  <data name="InvReceipts_Label_Doctor" xml:space="preserve">
+    <value>医者</value>
+  </data>
+  <data name="InvReceipts_Label_Fees" xml:space="preserve">
+    <value>料金</value>
+  </data>
+  <data name="InvReceipts_Label_GrandDiscount" xml:space="preserve">
+    <value>グランドディスカウント</value>
+  </data>
+  <data name="InvReceipts_Label_GrandTotal" xml:space="preserve">
+    <value>総計</value>
+  </data>
+  <data name="InvReceipts_Label_InvoiceNo" xml:space="preserve">
+    <value>請求書番号</value>
+  </data>
+  <data name="InvReceipts_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>請求書/領収書番号</value>
+  </data>
+  <data name="InvReceipts_Label_Invoices" xml:space="preserve">
+    <value>請求書</value>
+  </data>
+  <data name="InvReceipts_Label_Num" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="InvReceipts_Label_PetName" xml:space="preserve">
+    <value>ペット名</value>
+  </data>
+  <data name="InvReceipts_Label_Receipts" xml:space="preserve">
+    <value>領収書</value>
+  </data>
+  <data name="InvReceipts_Label_ReceiptsNo" xml:space="preserve">
+    <value>領収書番号</value>
+  </data>
+  <data name="InvReceipts_Label_RegistrationNo" xml:space="preserve">
+    <value>登録番号</value>
+  </data>
+  <data name="InvReceipts_Label_SelectDoctor" xml:space="preserve">
+    <value>医師を選択</value>
+  </data>
+  <data name="InvReceipts_Label_ServiceName" xml:space="preserve">
+    <value>サービス名</value>
+  </data>
+  <data name="InvReceipts_Label_Species" xml:space="preserve">
+    <value>種</value>
+  </data>
+  <data name="InvReceipts_Label_Tax" xml:space="preserve">
+    <value>税金</value>
+  </data>
+  <data name="InvReceipts_Label_Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="InvReceipts_Label_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="InvReceipts_Message_NoRecords" xml:space="preserve">
+    <value>記録はありません。</value>
+  </data>
+  <data name="InvReceipts_Title_Discount" xml:space="preserve">
+    <value>割引（¥）</value>
+  </data>
+  <data name="InvReceipts_Title_Filters" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="InvReceipts_Title_InvoiceReceipts" xml:space="preserve">
+    <value>請求書と領収書</value>
+  </data>
+  <data name="InvReceipts_Title_Price" xml:space="preserve">
+    <value>価格</value>
+  </data>
+  <data name="InvReceipts_Title_Product" xml:space="preserve">
+    <value>製品</value>
+  </data>
+  <data name="InvReceipts_Title_Service" xml:space="preserve">
+    <value>サービス</value>
+  </data>
+  <data name="Login_Button_Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Login_Message_LoginIDPasswordMissing" xml:space="preserve">
+    <value>ログインIDまたはパスワードがありません。</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Main_Button_No" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="Main_Button_OK" xml:space="preserve">
+    <value>わかりました</value>
+  </data>
+  <data name="Main_Button_Yes" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="Main_Menu_AccountSettings" xml:space="preserve">
+    <value>アカウント設定</value>
+  </data>
+  <data name="Main_Menu_Analytics" xml:space="preserve">
+    <value>分析</value>
+  </data>
+  <data name="Main_Menu_Appointment" xml:space="preserve">
+    <value>予定</value>
+  </data>
+  <data name="Main_Menu_CustomerService" xml:space="preserve">
+    <value>顧客サービス</value>
+  </data>
+  <data name="Main_Menu_Home" xml:space="preserve">
+    <value>ホームページ</value>
+  </data>
+  <data name="Main_Menu_InvoiceReceipts" xml:space="preserve">
+    <value>請求書と領収書</value>
+  </data>
+  <data name="Main_Menu_Logout" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="Main_Menu_Pets" xml:space="preserve">
+    <value>ペット</value>
+  </data>
+  <data name="Main_Menu_ViewProfile" xml:space="preserve">
+    <value>プロフィールを見る</value>
+  </data>
+  <data name="PetGrid_Button_ClosePanel" xml:space="preserve">
+    <value>パネルを閉じる</value>
+  </data>
+  <data name="PetGrid_Button_MedicalRecord" xml:space="preserve">
+    <value>カルテ</value>
+  </data>
+  <data name="PetGrid_Label_ActiveTreatments" xml:space="preserve">
+    <value>現在の治療法</value>
+  </data>
+  <data name="PetGrid_Label_Age" xml:space="preserve">
+    <value>歳</value>
+  </data>
+  <data name="PetGrid_Label_Allergies" xml:space="preserve">
+    <value>アレルギー</value>
+  </data>
+  <data name="PetGrid_Label_Breed" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="PetGrid_Label_Color" xml:space="preserve">
+    <value>カラー</value>
+  </data>
+  <data name="PetGrid_Label_DateOfBirth" xml:space="preserve">
+    <value>生年月日</value>
+  </data>
+  <data name="PetGrid_Label_DeviceName" xml:space="preserve">
+    <value>デバイス名</value>
+  </data>
+  <data name="PetGrid_Label_Gender" xml:space="preserve">
+    <value>ジェンダー</value>
+  </data>
+  <data name="PetGrid_Label_HeightCM" xml:space="preserve">
+    <value>高さ（cm）</value>
+  </data>
+  <data name="PetGrid_Label_MedicalRecord" xml:space="preserve">
+    <value>カルテ</value>
+  </data>
+  <data name="PetGrid_Label_Medication" xml:space="preserve">
+    <value>薬</value>
+  </data>
+  <data name="PetGrid_Label_Num" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="PetGrid_Label_OperatorID" xml:space="preserve">
+    <value>オペレータID</value>
+  </data>
+  <data name="PetGrid_Label_Overview" xml:space="preserve">
+    <value>概要</value>
+  </data>
+  <data name="PetGrid_Label_PastTreatments" xml:space="preserve">
+    <value>過去の治療</value>
+  </data>
+  <data name="PetGrid_Label_PatientID" xml:space="preserve">
+    <value>患者ID</value>
+  </data>
+  <data name="PetGrid_Label_PetName" xml:space="preserve">
+    <value>ペット名</value>
+  </data>
+  <data name="PetGrid_Label_RegistrationNo" xml:space="preserve">
+    <value>登録番号</value>
+  </data>
+  <data name="PetGrid_Label_ResultStatus" xml:space="preserve">
+    <value>結果ステータス (+/-)</value>
+  </data>
+  <data name="PetGrid_Label_Species" xml:space="preserve">
+    <value>種</value>
+  </data>
+  <data name="PetGrid_Label_Surgery" xml:space="preserve">
+    <value>手術</value>
+  </data>
+  <data name="PetGrid_Label_TestManagement" xml:space="preserve">
+    <value>テスト管理</value>
+  </data>
+  <data name="PetGrid_Label_TestType" xml:space="preserve">
+    <value>テストの種類</value>
+  </data>
+  <data name="PetGrid_Label_Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="PetGrid_Label_TreatmentPlan" xml:space="preserve">
+    <value>治療プラン</value>
+  </data>
+  <data name="PetGrid_Label_Vaccination" xml:space="preserve">
+    <value>ワクチン接種</value>
+  </data>
+  <data name="PetGrid_Label_WeightKG" xml:space="preserve">
+    <value>重量（kg）</value>
+  </data>
+  <data name="PetGrid_Message_NoRecord" xml:space="preserve">
+    <value>記録はありません。</value>
+  </data>
+  <data name="PetGrid_Message_TreatmentPeriod" xml:space="preserve">
+    <value>治療期間</value>
+  </data>
+  <data name="PetGrid_Title_Pets" xml:space="preserve">
+    <value>ペット</value>
+  </data>
+  <data name="PetList_Button_Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="PetList_Button_Next" xml:space="preserve">
+    <value>次のページ</value>
+  </data>
+  <data name="PetList_Button_Prev" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="PetList_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="PetList_Label_Age" xml:space="preserve">
+    <value>年齢（歳）</value>
+  </data>
+  <data name="PetList_Label_Breed" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="PetList_Label_CreatedOn" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="PetList_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="PetList_Label_PetName" xml:space="preserve">
+    <value>ペット名</value>
+  </data>
+  <data name="PetList_Label_SelectBreed" xml:space="preserve">
+    <value>品種を選択</value>
+  </data>
+  <data name="PetList_Label_SelectSpecies" xml:space="preserve">
+    <value>種を選択</value>
+  </data>
+  <data name="PetList_Label_Species" xml:space="preserve">
+    <value>種</value>
+  </data>
+  <data name="PetList_Label_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="PetList_Message_NoRecord" xml:space="preserve">
+    <value>記録はありません。</value>
+  </data>
+  <data name="PetList_Title_Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="PetList_Title_Pets" xml:space="preserve">
+    <value>ペット</value>
+  </data>
+  <data name="PetProfile_Button_Back" xml:space="preserve">
+    <value>裏ページ</value>
+  </data>
+  <data name="PetProfile_Button_MedicalRecord" xml:space="preserve">
+    <value>カルテ</value>
+  </data>
+  <data name="PetProfile_Label_ActiveTreatments" xml:space="preserve">
+    <value>現在の治療法</value>
+  </data>
+  <data name="PetProfile_Label_Age" xml:space="preserve">
+    <value>歳</value>
+  </data>
+  <data name="PetProfile_Label_Allergies" xml:space="preserve">
+    <value>アレルギー</value>
+  </data>
+  <data name="PetProfile_Label_Breed" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="PetProfile_Label_Color" xml:space="preserve">
+    <value>カラー</value>
+  </data>
+  <data name="PetProfile_Label_DateOfBirth" xml:space="preserve">
+    <value>生年月日</value>
+  </data>
+  <data name="PetProfile_Label_DeviceName" xml:space="preserve">
+    <value>デバイス名</value>
+  </data>
+  <data name="PetProfile_Label_Gender" xml:space="preserve">
+    <value>ジェンダー</value>
+  </data>
+  <data name="PetProfile_Label_Height" xml:space="preserve">
+    <value>高さ（cm）</value>
+  </data>
+  <data name="PetProfile_Label_MedicalRecord" xml:space="preserve">
+    <value>カルテ</value>
+  </data>
+  <data name="PetProfile_Label_Medication" xml:space="preserve">
+    <value>薬</value>
+  </data>
+  <data name="PetProfile_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="PetProfile_Label_OperatorID" xml:space="preserve">
+    <value>オペレータID</value>
+  </data>
+  <data name="PetProfile_Label_Overview" xml:space="preserve">
+    <value>概要</value>
+  </data>
+  <data name="PetProfile_Label_PastTreatments" xml:space="preserve">
+    <value>過去の治療</value>
+  </data>
+  <data name="PetProfile_Label_PatientID" xml:space="preserve">
+    <value>患者ID</value>
+  </data>
+  <data name="PetProfile_Label_PetName" xml:space="preserve">
+    <value>ペット名</value>
+  </data>
+  <data name="PetProfile_Label_RegNo" xml:space="preserve">
+    <value>登録番号</value>
+  </data>
+  <data name="PetProfile_Label_ResultStatus" xml:space="preserve">
+    <value>結果ステータス (+/-)</value>
+  </data>
+  <data name="PetProfile_Label_Species" xml:space="preserve">
+    <value>種</value>
+  </data>
+  <data name="PetProfile_Label_Surgery" xml:space="preserve">
+    <value>手術</value>
+  </data>
+  <data name="PetProfile_Label_TestManagement" xml:space="preserve">
+    <value>テスト管理</value>
+  </data>
+  <data name="PetProfile_Label_TestType" xml:space="preserve">
+    <value>テストの種類</value>
+  </data>
+  <data name="PetProfile_Label_Test_Type" xml:space="preserve">
+    <value>テストの種類</value>
+  </data>
+  <data name="PetProfile_Label_Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="PetProfile_Label_TreatmentPlan" xml:space="preserve">
+    <value>治療プラン</value>
+  </data>
+  <data name="PetProfile_Label_Vaccination" xml:space="preserve">
+    <value>ワクチン接種</value>
+  </data>
+  <data name="PetProfile_Label_Weight" xml:space="preserve">
+    <value>重量（kg）</value>
+  </data>
+  <data name="PetProfile_Message_NoRecord" xml:space="preserve">
+    <value>記録はありません。</value>
+  </data>
+  <data name="PetProfile_Message_TreatmentPeriod" xml:space="preserve">
+    <value>治療期間</value>
+  </data>
   <data name="Profile_Button_Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>

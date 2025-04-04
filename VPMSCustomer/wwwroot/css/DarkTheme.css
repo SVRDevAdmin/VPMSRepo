@@ -1,0 +1,288 @@
+﻿/*------- Layout --------*/
+#divContainer {
+    background-color: #172232;
+}
+
+#leftPane {
+    background-color: #1f2e45;
+}
+
+#menu > li > span {
+    color: white;
+}
+
+.ProfileFont {
+    font-size: 1vw;
+    font-weight: bold;
+    color: white;
+    width: 11vw;
+    text-wrap: wrap;
+}
+
+.profilemenu > a {
+    color: white;
+}
+
+.profilemenu > a:hover {
+    color: white !important;
+    background-color: transparent !important;
+}
+
+.profilemenu {
+    background-color: #1f2e45;
+    font-size: 1vw;
+}
+
+.menuItems > a {
+    text-decoration: none !important;
+    text-underline-offset: unset;
+    color: white !important;
+}
+
+.menuItems > a::after {
+    text-decoration: none !important;
+    text-underline-offset: unset !important;
+    color: white !important;
+}
+
+.menuHome {
+    content: url('../Images/Icons/Icon-home.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuPets {
+    content: url('../Images/Icons/Icon-pets.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuAppointments {
+    content: url('../Images/Icons/Icon-appointment.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuInvoiceReceipts {
+    content: url('../Images/Icons/Icon-invoice-receipts.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuAnalytics {
+    content: url('../Images/Icons/Icon-analytics.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuCustomerServices {
+    content: url('../Images/Icons/Icon-customer-service.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+#imgLogo {
+    content: url('../Images/Logo/Vet-Vitals-Logo-Dark.png');
+    width: 160px !important;
+    height: 35px !important;
+    margin-top: 10px;
+}
+
+/*------ General --------*/
+.pageTitle {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.borderFrame {
+    background-color: #172232;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.dividerLine {
+    border-bottom: 1px solid #ddd;
+    margin-left: 5px;
+}
+
+/*----- Login --------*/
+#loginBody {
+    background-color: #172232;
+}
+
+.loginSmallTitle {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.loginLogo {
+    content: url('../Images/Logo/Vet-Vitals-Logo-Dark.png');
+    margin-left: -25px;
+    width: 320px;
+    height: 80px;
+}
+
+/*----- Account Settings ------*/
+.SectionTitle {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkBoxLanguage {
+    vertical-align: top;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/*----- Profile -------*/
+.fieldTitle {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.displayField {
+    color: white;
+    font-size: 12px;
+}
+
+/*----- Reset Password ----*/
+.borderResetPassFrame {
+    background-color: #172232;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.ResetFieldTitle {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*----- Pet Grid -------*/
+.gridButtonBox {
+    width: 34px;
+    height: 34px;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+.gridButtonBox > a {
+    color: white;
+}
+
+/*----- Pet Listing ------*/
+#lnkGrid {
+    width: 34px;
+    height: 36px;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+#lnkGrid > a {
+    color: white;
+}
+
+#btnFilter {
+    border: 1px solid white;
+    border-radius: 6px;
+    color: white;
+}
+
+#btnFilter > i {
+    margin-right: 5px;
+    color: white;
+}
+
+#divFilterBox {
+    background-color: #1f2e45;
+    border-radius: 6px;
+}
+
+.FilterBoxTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.FilterBoxLabel {
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+#tblPetListing{
+    border-radius: 6px !important;
+}
+
+#tblPetListing > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblPetListing > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+/*------ Invoice & Receipt ---------*/
+.nav-link {
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 12px !important;
+    color: white !important;
+}
+
+#tblInvoices > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblInvoices > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+#tblReceipts > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblReceipts > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+.imgMore {
+    content: url('/Images/more_white.png');
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+}
+
+.divFilterBox {
+    background-color: #1f2e45 !important;
+    border-radius: 6px;
+}

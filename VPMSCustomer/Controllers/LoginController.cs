@@ -98,6 +98,15 @@ namespace VPMSCustomer.Controllers
                         HttpContext.Session.SetString("UserID", user.Id);
                         HttpContext.Session.SetString("UserName", user.UserName);
 
+                        long? iPatientID = 0;
+                        String? PatientGender = "";
+                        var sPatientOwner = PatientRepository.GetPatientOwnerByIdentityUserID(user.Id);
+                        if (sPatientOwner != null)
+                        {
+                            iPatientID = sPatientOwner.PatientID;
+                            PatientGender = sPatientOwner.Gender;
+                        }
+
                         String sCountrySettings = "";
                         String sThemesSettings = "";
                         String sLanguageSettings = "";
@@ -133,6 +142,9 @@ namespace VPMSCustomer.Controllers
                         HttpContext.Session.SetString("CustomerSettings_Country", sCountrySettings);
                         HttpContext.Session.SetString("CustomerSettings_Themes", sThemesSettings);
 
+                        HttpContext.Session.SetString("PatientID", iPatientID.ToString());
+                        HttpContext.Session.SetString("Gender", PatientGender);
+
                         // ---------- Create Login Session ------------ //
                         DateTime dtSession = DateTime.Now;
 
@@ -148,6 +160,7 @@ namespace VPMSCustomer.Controllers
 
 
                         Response.Cookies.Append("Language", sLanguageSettings);
+                        Response.Cookies.Append("CustomerTheme", sThemesSettings);
 
                         sResp.StatusCode = (int)StatusCodes.Status200OK;
                     }

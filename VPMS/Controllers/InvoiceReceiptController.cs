@@ -20,6 +20,7 @@ using VPMSWeb.Interface;
 
 namespace VPMSWeb.Controllers
 {
+    [Authorize]
     public class InvoiceReceiptController : Controller
     {
 		private readonly InvoiceReceiptDBContext _invoiceReceiptDBContext = new InvoiceReceiptDBContext();
@@ -313,13 +314,29 @@ namespace VPMSWeb.Controllers
 
             if (type == "Invoice")
             {
-                subject = _localizer["InvoiceReceipt_Label_InvoiceCreation"];
-                body = _localizer["InvoiceReceipt_Message_InvoiceCreation"];
+                var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN004", "en");
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<customer>###", invoiceReceiptInfos.Owner.Name)
+                                                                             .Replace("###<invoiceno>###", invoiceReceiptInfos.InvoiceReceipt.InvoiceNo);
+
+                emailTemplate.TemplateTitle = emailTemplate.TemplateTitle.Replace("###<invoiceno>###", invoiceReceiptInfos.InvoiceReceipt.InvoiceNo);
+
+                subject = emailTemplate.TemplateTitle;
+                body = emailTemplate.TemplateContent;
+                //subject = _localizer["InvoiceReceipt_Label_InvoiceCreation"];
+                //body = _localizer["InvoiceReceipt_Message_InvoiceCreation"];
             }
             else
             {
-                subject = _localizer["InvoiceReceipt_Label_ReceiptCreation"];
-                body = _localizer["InvoiceReceipt_Message_ReceiptCreation"];
+                var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN005", "en");
+                emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<customer>###", invoiceReceiptInfos.Owner.Name)
+                                                                             .Replace("###<invoiceno>###", invoiceReceiptInfos.InvoiceReceipt.InvoiceNo);
+
+                emailTemplate.TemplateTitle = emailTemplate.TemplateTitle.Replace("###<receiptno>###", invoiceReceiptInfos.InvoiceReceipt.ReceiptNo);
+
+                subject = emailTemplate.TemplateTitle;
+                body = emailTemplate.TemplateContent;
+                //subject = _localizer["InvoiceReceipt_Label_ReceiptCreation"];
+                //body = _localizer["InvoiceReceipt_Message_ReceiptCreation"];
             }
 
             try

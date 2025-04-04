@@ -3,8 +3,11 @@
 
 @{
     var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
-  
+    var LoginUseName = httpContextaccessor.HttpContext.Session.GetString("UserName");
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+    var sessionGender = httpContextaccessor.HttpContext.Session.GetString("Gender");
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,43 +16,47 @@
     <title>@ViewData["Title"] - VPMSCustomer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/icons/bootstrap-icons.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VPMSCustomer.styles.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="~/css/main.css" />
 
+    @{
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["CustomerTheme"];
+        if (theme != null){
+            if (theme == "Dark"){
+                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+            }
+            else{
+                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+            }
+        }
+        else{
+            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+        }
+    }
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/moment.min.js"></script>
     <script src="~/js/general.js"></script>
 
     <style>
-    .profilemenu {
-        background-color: white;
-        font-size: 1vw;
+    html {
+        height: 100%;
+        width: 100%;
     }
 
-    .profilemenu > a {
-        color: black;
-    }
-
-    .profilemenu > a:hover {
-        background-color: transparent !important;
-    }
-
-    .ProfileFont {
-        font-size: 1vw;
-        font-weight: bold;
-        color: black;
-        width: 11vw;
-        text-wrap: wrap;
-    }
-
-    .dropdown-toggle::after {
-        color: black;
+    body {
+        min-height: 100%;
     }
     </style>
 
     <script type="text/javascript">
         $(document).ready(function(){
+            checkPetProfiles();
+            checkAvatarProfile();
+
             $('#divdropdowntoggle').on('click', function(ctl){
                 $('.profilemenu').toggle('show');
             });
@@ -69,55 +76,95 @@
                 }
             });
         }
+
+        function checkPetProfiles()
+        {
+            $.getJSON("/Pets/GetPetsList/" + '@sessionPatientID')
+             .done(function(result){
+                 if (result != null)
+                 {
+                     if (result.data.length > 6){
+                         $('#lnkPet').attr('href', '/Pets/List');
+                     }
+                     else {
+                         $('#lnkPet').attr('href', '/Pets');
+                     }
+                 }
+                 else {
+                     $('#lnkPet').attr('href', '/Pets');
+                 }
+             });
+        }
+
+        function checkAvatarProfile()
+        {
+            if ('@sessionGender' == 'F'){
+                $('#avatarProfile').attr('class', 'avatarFemaleImg');
+            }
+            if ('@sessionGender' == 'M'){
+                $('#avatarProfile').attr('class', 'avatarImg');
+            }
+        }
     </script>
 </head>
 <body>
-    <div class="container-fluid" style="height: 100vh;">
+    <!-- style="height: 100vh;"-->
+    <div id="divContainer" class="container-fluid" >
         <div class="row flex-nowrap">
-
-            <div id="leftPane" class="col-auto col-md-2 col-xs-2 px-sm-2 px-0" style="background-color: #F7F7F7;">
+            <div id="leftPane" class="col-auto col-md-2 col-xs-2 px-sm-2 px-0" >
                 <div class="row justify-content-md-center pt-3 pb-5">
-                    <img id="imgLogo" src="~/Images/Logo/Vet-Vitals-Logo.png" width="180" height="50" />
-
-                    <img id="imgLogoResp" src="Vet-VitalsICON.ico" style="visibility: hidden; display: none;" />
+                    <img id="imgLogo" width="180" height="50" />
+                    <img id="imgLogoResp" />
                 </div>
 
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
 
                     <ul id="menu" class="nav nav-pills flex-column ps-2 mb-sm-auto align-items-center align-items-sm-start">
-                        <li class="nav-item mb-3" style="font-size: 13px; font-weight: bold; vertical-align: middle;">
-
-                            <img src="~/Images/Icons/Icon-home.png" width="18" height="18" style="margin-right: 15px;" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">Home</span>
+                        <!-- HOME -->
+                        <li class="nav-item mb-3 menuItems">
+                            <img class="menuHome" />
+                            <span class="d-none d-sm-inline sidebar-nav-font">
+                                @LangResources["Main_Menu_Home"]
+                            </span>
                         </li>
-                        <li class="nav-item mb-3" style="font-size: 13px; font-weight: bold; vertical-align: middle;">
-
-                            <img src="~/Images/Icons/Icon-pets.png" width="18" height="18" style="margin-right: 15px;" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">Pets</span>
+                        <!-- PETS -->
+                        <li class="nav-item mb-3 menuItems">
+                            <a id="lnkPet">
+                                <img class="menuPets" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Pets"]
+                                </span>
+                            </a>
                         </li>
-
-                        <li class="nav-item mb-3" style="font-size: 13px; font-weight: bolder; vertical-align: middle;">
-
-                            <img src="~/Images/Icons/Icon-appointment.png" width="18" height="18" style="margin-right: 15px;" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">Appointment</span>
+                        <!-- APPOINTMENT -->
+                        <li class="nav-item mb-3 menuItems">
+                            <img class="menuAppointments" />
+                            <span class="d-none d-sm-inline sidebar-nav-font">
+                                @LangResources["Main_Menu_Appointment"]
+                            </span>
                         </li>
-
-                        <li class="nav-item mb-3" style="font-size: 13px; font-weight: bolder; vertical-align: middle;">
-
-                            <img src="~/Images/Icons/Icon-invoice-receipts.png" width="18" height="18" style="margin-right: 15px;" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">Invoice & Receipts</span>
+                        <!-- INVOICE & RECEIPTS -->
+                        <li class="nav-item mb-3 menuItems">
+                            <a asp-controller="InvoiceReceipts" asp-action="Index">
+                                <img class="menuInvoiceReceipts"  />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_InvoiceReceipts"]
+                                </span>
+                            </a>
                         </li>
-
-                        <li class="nav-item mb-3" style="font-size: 13px; font-weight: bold; vertical-align: middle;">
-
-                            <img src="~/Images/Icons/Icon-analytics.png" width="18" height="18" style="margin-right: 15px;" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">Analytics</span>
+                        <!-- ANALYTICS -->
+                        <li class="nav-item mb-3 menuItems" >
+                            <img class="menuAnalytics"  />
+                            <span class="d-none d-sm-inline sidebar-nav-font">
+                                @LangResources["Main_Menu_Analytics"]
+                            </span>
                         </li>
-
-                        <li class="nav-item mb-3" style="font-size: 13px; font-weight: bold; vertical-align: middle;">
-
-                            <img src="~/Images/Icons/Icon-customer-service.png" width="18" height="18" style="margin-right: 15px;" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">Customer Service</span>
+                        <!-- CUSTOMER SERVICES -->
+                        <li class="nav-item mb-3 menuItems">
+                            <img class="menuCustomerServices"  />
+                            <span class="d-none d-sm-inline sidebar-nav-font">
+                                @LangResources["Main_Menu_CustomerService"]
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -125,25 +172,29 @@
 
             <!-- Content -->
             <div class="col-md-10">
-                <div class="row" style="border: 0px solid black; height: 70px;">
+                <div class="row" style="height: 70px;">
                     <div class="row">
-                        <div class="col-md-9" style="border: 0px solid black;">&nbsp;</div>
-                        <div class="col-md-3 text-center" style="border: 0px solid black;">
-                            <div style="display: flex; flex-direction: row; align-items: baseline; height: 60px;">
-
-                                <div style="width: 60px; border-radius: 50px; margin-top: 5px; background-color: #fdf6e6;">
-                                    <img src="~/Images/AvatarProfile.png" width="60" height="60" />
+                        <div class="col-md-9">&nbsp;</div>
+                        <div class="col-md-3 text-center">
+                            <div class="upperMenuLayout">
+                                <div class="avatarFrame">
+                                    <img id="avatarProfile" />
                                 </div>
                                 <div style="width: 220px; margin-left: 15px;">
                                     <div class="dropdown" style="margin-top: 10px;">
                                         <div id="divdropdowntoggle" class="dropdown-toggle" data-toggle="dropdown" style="width: 11vw;">
-                                            <label class="ProfileFont">Testing</label>
+                                            <label id="lbProfileName" class="ProfileFont">@LoginUseName</label>
                                         </div>
                                         <div class="dropdown-menu profilemenu">
-                                            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">View Profile</a>
-                                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountSettings">Account Settings</a>
-                                            <a class="dropdown-item" asp-controller="Account" asp-action="ResetPassword">Reset Password</a>
-                                            <a class="dropdown-item" onclick="logoutAccount()">Logout</a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                                                @LangResources["Main_Menu_ViewProfile"]
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountSettings">
+                                                @LangResources["Main_Menu_AccountSettings"]
+                                            </a>
+                                            <a id="lnkLogout" class="dropdown-item" onclick="logoutAccount()">
+                                                @LangResources["Main_Menu_Logout"]
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -158,44 +209,6 @@
             </div>
         </div>
     </div>
-    <!--
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VPMSCustomer</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @*RenderBody()*@
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - VPMSCustomer - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @*await RenderSectionAsync("Scripts", required: false)*@
-     -->
 
     <div id="modalConfirmYesNo" class="modal fade">
         <div class="modal-dialog">
@@ -210,11 +223,11 @@
                         <div class="col-md-8" style="text-align: center;">
                             <button id="btnYesConfirmYesNo"
                                     type="button" class="btn btn-primary">
-                                Yes
+                                @LangResources["Main_Button_Yes"]
                             </button>
                             <button id="btnNoConfirmYesNo"
                                     type="button" class="btn btn-secondary">
-                                No
+                                @LangResources["Main_Button_No"]
                             </button>
                         </div>
                         <div class="col-md-2">&nbsp;</div>
@@ -236,7 +249,9 @@
                     <div class="row">
                         <div class="col-md-5">&nbsp;</div>
                         <div class="col-md-2">
-                            <button id="btnOK" type="button" class="btn btn-primary">OK</button>
+                            <button id="btnOK" type="button" class="btn btn-primary">
+                                @LangResources["Main_Button_OK"]
+                            </button>
                         </div>
                         <div class="col-md-5">&nbsp;</div>
                     </div>
@@ -246,7 +261,6 @@
     </div>
 
     <script type="text/javascript">
-        // Confirmation MessageBox
         function ShowConfirmCancelMsgBox(MsgTitle, MsgContent, YesButtonCallback, NoButtonCallback) {
             AsyncConfirmYesNo(
                 MsgTitle,
