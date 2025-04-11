@@ -172,5 +172,71 @@ namespace VPMSCustomer.Controllers
                 return null;
             }
         }
+
+        [Route("/Masterdata/BranchList/{organizationID}")]
+        [HttpGet()]
+        public IActionResult GetBranchList(int organizationID)
+        {
+            try
+            {
+                var sBranchObj = MastercodeRepository.GetBranchList(organizationID);
+                if (sBranchObj != null)
+                {
+                    return Json(new { data = sBranchObj });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [Route("/Masterdata/ServiceList/{branchID}")]
+        [HttpGet()]
+        public IActionResult GetServicesList(int branchID)
+        {
+            try
+            {
+                var sServiceObj = ServicesRepository.GetServicesListByBranchID(branchID);
+                if (sServiceObj != null)
+                {
+                    return Json(new { data = sServiceObj });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [Route("/Masterdata/DoctorListByService/{serviceID}")]
+        [HttpGet()]
+        public IActionResult GetDoctorListByServices(int serviceID)
+        {
+            try
+            {
+                var sDoctorObj = MastercodeRepository.GetDoctorListByServices(serviceID);
+                if (sDoctorObj != null)
+                {
+                    return Json(new { data = sDoctorObj });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

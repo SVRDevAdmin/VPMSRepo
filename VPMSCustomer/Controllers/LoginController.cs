@@ -99,10 +99,12 @@ namespace VPMSCustomer.Controllers
                         HttpContext.Session.SetString("UserName", user.UserName);
 
                         long? iPatientID = 0;
+                        long? iPatientOwnerID = 0;
                         String? PatientGender = "";
                         var sPatientOwner = PatientRepository.GetPatientOwnerByIdentityUserID(user.Id);
                         if (sPatientOwner != null)
                         {
+                            iPatientOwnerID = sPatientOwner.ID;
                             iPatientID = sPatientOwner.PatientID;
                             PatientGender = sPatientOwner.Gender;
                         }
@@ -144,6 +146,7 @@ namespace VPMSCustomer.Controllers
 
                         HttpContext.Session.SetString("PatientID", iPatientID.ToString());
                         HttpContext.Session.SetString("Gender", PatientGender);
+                        HttpContext.Session.SetString("PatientOwnerID", iPatientOwnerID.ToString());
 
                         // ---------- Create Login Session ------------ //
                         DateTime dtSession = DateTime.Now;

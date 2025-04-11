@@ -16,6 +16,7 @@ namespace VPMSCustomer.Lib.Data.DBContext
         public DbSet<CountryModel> mst_countrylist { get; set; }
         public DbSet<StateModel> mst_state { get; set; }
         public DbSet<CityModel> mst_city { get; set; }
+        public DbSet<BranchModel> mst_branch { get; set; }
 
         private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
 

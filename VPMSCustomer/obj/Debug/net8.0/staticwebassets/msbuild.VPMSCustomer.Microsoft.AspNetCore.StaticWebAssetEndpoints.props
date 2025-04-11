@@ -48,17 +48,41 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"y1gt5u2s7x"},{"Name":"integrity","Value":"sha256-eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi\u002B0AkRwLM="},{"Name":"label","Value":"_content/VPMSCustomer/css/DarkTheme.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5427"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022eoxDGFgCnjrrgfIfRDLf3QkYPh0RxFdb1bi\u002B0AkRwLM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:05:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/font-awesome.min.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\font-awesome.min.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-sTnyQ8M6MgmLmP4QTSBw9lZi1HyTy97puArJ6k4GCDA="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"31002"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sTnyQ8M6MgmLmP4QTSBw9lZi1HyTy97puArJ6k4GCDA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/font-awesome.min.r972pzx8kc.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\font-awesome.min.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"r972pzx8kc"},{"Name":"integrity","Value":"sha256-sTnyQ8M6MgmLmP4QTSBw9lZi1HyTy97puArJ6k4GCDA="},{"Name":"label","Value":"_content/VPMSCustomer/css/font-awesome.min.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"31002"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sTnyQ8M6MgmLmP4QTSBw9lZi1HyTy97puArJ6k4GCDA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/gijgo.min.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\gijgo.min.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-vv8YcBRyeWnfJC8EPuJ0g3eaR6mAI3l4cUWTsRmQVL8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"46355"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022vv8YcBRyeWnfJC8EPuJ0g3eaR6mAI3l4cUWTsRmQVL8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/gijgo.min.mz0lg23u04.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\gijgo.min.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mz0lg23u04"},{"Name":"integrity","Value":"sha256-vv8YcBRyeWnfJC8EPuJ0g3eaR6mAI3l4cUWTsRmQVL8="},{"Name":"label","Value":"_content/VPMSCustomer/css/gijgo.min.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"46355"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022vv8YcBRyeWnfJC8EPuJ0g3eaR6mAI3l4cUWTsRmQVL8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/InvoiceReceipt.1vfnb00oe8.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\InvoiceReceipt.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"1vfnb00oe8"},{"Name":"integrity","Value":"sha256-82Qx9Wh7f07RhQUmv85hhBT89vIWhEhO2ckFSL9ZQdg="},{"Name":"label","Value":"_content/VPMSCustomer/css/InvoiceReceipt.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2591"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u002282Qx9Wh7f07RhQUmv85hhBT89vIWhEhO2ckFSL9ZQdg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 08:35:36 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/InvoiceReceipt.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\InvoiceReceipt.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Zmg8fx4Blvp529rpRGTO0F0gG4VdBwzOMsQ6ka1cz/8="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2607"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Zmg8fx4Blvp529rpRGTO0F0gG4VdBwzOMsQ6ka1cz/8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:05:51 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/InvoiceReceipt.u6jx9o0i6u.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\InvoiceReceipt.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"u6jx9o0i6u"},{"Name":"integrity","Value":"sha256-Zmg8fx4Blvp529rpRGTO0F0gG4VdBwzOMsQ6ka1cz/8="},{"Name":"label","Value":"_content/VPMSCustomer/css/InvoiceReceipt.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2607"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Zmg8fx4Blvp529rpRGTO0F0gG4VdBwzOMsQ6ka1cz/8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:05:51 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-82Qx9Wh7f07RhQUmv85hhBT89vIWhEhO2ckFSL9ZQdg="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2591"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u002282Qx9Wh7f07RhQUmv85hhBT89vIWhEhO2ckFSL9ZQdg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 08:35:36 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/css/LightTheme.4ckkckkq8q.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\LightTheme.css'))</AssetFile>
@@ -192,6 +216,126 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"pdvth73jlm"},{"Name":"integrity","Value":"sha256-HWGcOcsiXSIqvA\u002Be2Ur9A1HDZ5iklXiopkRDmvdrkw8="},{"Name":"label","Value":"_content/VPMSCustomer/favicon.ico"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"175701"},{"Name":"Content-Type","Value":"image/x-icon"},{"Name":"ETag","Value":"\u0022HWGcOcsiXSIqvA\u002Be2Ur9A1HDZ5iklXiopkRDmvdrkw8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:05:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.2hr3gl3r5x.woff2">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.woff2'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"2hr3gl3r5x"},{"Name":"integrity","Value":"sha256-Kt78vAQefRj88tQXh53FoJmXqmTWdbejxLbOM9oT8/4="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/fontawesome-webfont.woff2"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"77160"},{"Name":"Content-Type","Value":"font/woff2"},{"Name":"ETag","Value":"\u0022Kt78vAQefRj88tQXh53FoJmXqmTWdbejxLbOM9oT8/4=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.eot">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.eot'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-e/yrbbmdXPvxcFygU23ceFhUMsxfpBu9etDwCQM7KXk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"165742"},{"Name":"Content-Type","Value":"application/vnd.ms-fontobject"},{"Name":"ETag","Value":"\u0022e/yrbbmdXPvxcFygU23ceFhUMsxfpBu9etDwCQM7KXk=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.eyrbpue749.woff">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.woff'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"eyrbpue749"},{"Name":"integrity","Value":"sha256-ugxZ3rVFD1y0Gz\u002BTYJ7i0NmVQVh33foiPoqKdTNHTwc="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/fontawesome-webfont.woff"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"98024"},{"Name":"Content-Type","Value":"application/font-woff"},{"Name":"ETag","Value":"\u0022ugxZ3rVFD1y0Gz\u002BTYJ7i0NmVQVh33foiPoqKdTNHTwc=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.pz0qgnv39v.eot">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.eot'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"pz0qgnv39v"},{"Name":"integrity","Value":"sha256-e/yrbbmdXPvxcFygU23ceFhUMsxfpBu9etDwCQM7KXk="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/fontawesome-webfont.eot"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"165742"},{"Name":"Content-Type","Value":"application/vnd.ms-fontobject"},{"Name":"ETag","Value":"\u0022e/yrbbmdXPvxcFygU23ceFhUMsxfpBu9etDwCQM7KXk=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-/DeCMvna1QCJCqngvdAwpT0vMX1Rc5OjuRQAtN3OTHw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"447050"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022/DeCMvna1QCJCqngvdAwpT0vMX1Rc5OjuRQAtN3OTHw=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.ttf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.ttf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-qljzPyOaD7AvXHpsRcBD16msmgkzNYBmlOzW1O3A1qg="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"165548"},{"Name":"Content-Type","Value":"application/x-font-ttf"},{"Name":"ETag","Value":"\u0022qljzPyOaD7AvXHpsRcBD16msmgkzNYBmlOzW1O3A1qg=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.woff">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.woff'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ugxZ3rVFD1y0Gz\u002BTYJ7i0NmVQVh33foiPoqKdTNHTwc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"98024"},{"Name":"Content-Type","Value":"application/font-woff"},{"Name":"ETag","Value":"\u0022ugxZ3rVFD1y0Gz\u002BTYJ7i0NmVQVh33foiPoqKdTNHTwc=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.woff2">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.woff2'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Kt78vAQefRj88tQXh53FoJmXqmTWdbejxLbOM9oT8/4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"77160"},{"Name":"Content-Type","Value":"font/woff2"},{"Name":"ETag","Value":"\u0022Kt78vAQefRj88tQXh53FoJmXqmTWdbejxLbOM9oT8/4=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.wxwxrej6pw.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"wxwxrej6pw"},{"Name":"integrity","Value":"sha256-/DeCMvna1QCJCqngvdAwpT0vMX1Rc5OjuRQAtN3OTHw="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/fontawesome-webfont.svg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"447050"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022/DeCMvna1QCJCqngvdAwpT0vMX1Rc5OjuRQAtN3OTHw=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/fontawesome-webfont.yex6mt8az7.ttf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\fontawesome-webfont.ttf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yex6mt8az7"},{"Name":"integrity","Value":"sha256-qljzPyOaD7AvXHpsRcBD16msmgkzNYBmlOzW1O3A1qg="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/fontawesome-webfont.ttf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"165548"},{"Name":"Content-Type","Value":"application/x-font-ttf"},{"Name":"ETag","Value":"\u0022qljzPyOaD7AvXHpsRcBD16msmgkzNYBmlOzW1O3A1qg=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/FontAwesome.otf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\FontAwesome.otf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-RE3UNmYV/8ShbQErL6kBNwZdPMtBD6b9Xk3de15P/NU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"134808"},{"Name":"Content-Type","Value":"font/otf"},{"Name":"ETag","Value":"\u0022RE3UNmYV/8ShbQErL6kBNwZdPMtBD6b9Xk3de15P/NU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/FontAwesome.sgabxu717i.otf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\FontAwesome.otf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"sgabxu717i"},{"Name":"integrity","Value":"sha256-RE3UNmYV/8ShbQErL6kBNwZdPMtBD6b9Xk3de15P/NU="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/FontAwesome.otf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"134808"},{"Name":"Content-Type","Value":"font/otf"},{"Name":"ETag","Value":"\u0022RE3UNmYV/8ShbQErL6kBNwZdPMtBD6b9Xk3de15P/NU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.0yc00fo4hn.woff">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.woff'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"0yc00fo4hn"},{"Name":"integrity","Value":"sha256-eKIQAnuOtCC1SYJagK9TdhF9GswvzzVN/H4MuW53WD4="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/gijgo-material.woff"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6716"},{"Name":"Content-Type","Value":"application/font-woff"},{"Name":"ETag","Value":"\u0022eKIQAnuOtCC1SYJagK9TdhF9GswvzzVN/H4MuW53WD4=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.9xv6is7st3.ttf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.ttf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"9xv6is7st3"},{"Name":"integrity","Value":"sha256-HZnt8X3uYuRAS1n2KPcne/ga7PaGf9XbPrTvK1J/AUw="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/gijgo-material.ttf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6636"},{"Name":"Content-Type","Value":"application/x-font-ttf"},{"Name":"ETag","Value":"\u0022HZnt8X3uYuRAS1n2KPcne/ga7PaGf9XbPrTvK1J/AUw=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.alkft7oewz.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"alkft7oewz"},{"Name":"integrity","Value":"sha256-/s6pIMx0liUnwCYx/EpJutp\u002B7qzsYehX1EZzPqQFL7k="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/gijgo-material.svg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"23345"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022/s6pIMx0liUnwCYx/EpJutp\u002B7qzsYehX1EZzPqQFL7k=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.eot">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.eot'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-etp2HgvUCRq7JuwZfkeu7vwHBd2Y\u002BgVu3X6DHv5QWL8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6828"},{"Name":"Content-Type","Value":"application/vnd.ms-fontobject"},{"Name":"ETag","Value":"\u0022etp2HgvUCRq7JuwZfkeu7vwHBd2Y\u002BgVu3X6DHv5QWL8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.svg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.svg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-/s6pIMx0liUnwCYx/EpJutp\u002B7qzsYehX1EZzPqQFL7k="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"23345"},{"Name":"Content-Type","Value":"image/svg\u002Bxml"},{"Name":"ETag","Value":"\u0022/s6pIMx0liUnwCYx/EpJutp\u002B7qzsYehX1EZzPqQFL7k=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.ttf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.ttf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-HZnt8X3uYuRAS1n2KPcne/ga7PaGf9XbPrTvK1J/AUw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6636"},{"Name":"Content-Type","Value":"application/x-font-ttf"},{"Name":"ETag","Value":"\u0022HZnt8X3uYuRAS1n2KPcne/ga7PaGf9XbPrTvK1J/AUw=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.woff">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.woff'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-eKIQAnuOtCC1SYJagK9TdhF9GswvzzVN/H4MuW53WD4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6716"},{"Name":"Content-Type","Value":"application/font-woff"},{"Name":"ETag","Value":"\u0022eKIQAnuOtCC1SYJagK9TdhF9GswvzzVN/H4MuW53WD4=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/fonts/gijgo-material.y57xjw10jp.eot">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\fonts\gijgo-material.eot'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"y57xjw10jp"},{"Name":"integrity","Value":"sha256-etp2HgvUCRq7JuwZfkeu7vwHBd2Y\u002BgVu3X6DHv5QWL8="},{"Name":"label","Value":"_content/VPMSCustomer/fonts/gijgo-material.eot"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6828"},{"Name":"Content-Type","Value":"application/vnd.ms-fontobject"},{"Name":"ETag","Value":"\u0022etp2HgvUCRq7JuwZfkeu7vwHBd2Y\u002BgVu3X6DHv5QWL8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/Images/AvatarProfile.8noopd26xu.png">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Images\AvatarProfile.png'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -263,6 +407,30 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-MNARCmjgXqS8r1zg5DSAEy9NrAywPh80PlE2gWu0qoE="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"10693"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022MNARCmjgXqS8r1zg5DSAEy9NrAywPh80PlE2gWu0qoE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:05:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/Images/Icons/calendar_white.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Images\Icons\calendar_white.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Ll3gqguVPDuU58oFjrVwEhuJwAitiANOahXX7CphF3I="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"234"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Ll3gqguVPDuU58oFjrVwEhuJwAitiANOahXX7CphF3I=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 07:50:15 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/Images/Icons/calendar_white.yox1u1cs7m.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Images\Icons\calendar_white.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yox1u1cs7m"},{"Name":"integrity","Value":"sha256-Ll3gqguVPDuU58oFjrVwEhuJwAitiANOahXX7CphF3I="},{"Name":"label","Value":"_content/VPMSCustomer/Images/Icons/calendar_white.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"234"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Ll3gqguVPDuU58oFjrVwEhuJwAitiANOahXX7CphF3I=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 07:50:15 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/Images/Icons/clock_white.p228zlhcn5.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Images\Icons\clock_white.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"p228zlhcn5"},{"Name":"integrity","Value":"sha256-f7yj6ThzVeyuiyrEti6/LxvF92Ecdc\u002BLd3/7iXGkheU="},{"Name":"label","Value":"_content/VPMSCustomer/Images/Icons/clock_white.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"598"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022f7yj6ThzVeyuiyrEti6/LxvF92Ecdc\u002BLd3/7iXGkheU=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 07:53:44 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/Images/Icons/clock_white.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Images\Icons\clock_white.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-f7yj6ThzVeyuiyrEti6/LxvF92Ecdc\u002BLd3/7iXGkheU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"598"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022f7yj6ThzVeyuiyrEti6/LxvF92Ecdc\u002BLd3/7iXGkheU=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 07:53:44 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/Images/Icons/Country/de.5b1kp6k869.png">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Images\Icons\Country\de.png'))</AssetFile>
@@ -672,6 +840,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"poohn3q39w"},{"Name":"integrity","Value":"sha256-OVo1Qbtoqx15ByVZ4IYgBrqPF\u002BeCuOj6KVhdmRO\u002BCDg="},{"Name":"label","Value":"_content/VPMSCustomer/Images/Pets/Avatar_Dog_3.png"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"76100"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022OVo1Qbtoqx15ByVZ4IYgBrqPF\u002BeCuOj6KVhdmRO\u002BCDg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:05:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/js/FontAwesomeKit.443v25u9rs.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\FontAwesomeKit.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"443v25u9rs"},{"Name":"integrity","Value":"sha256-fEiCpq8/ut35zqr\u002BNATTnNWIvvjK1vh3RAFqwwXJ7Ok="},{"Name":"label","Value":"_content/VPMSCustomer/js/FontAwesomeKit.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"13166"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022fEiCpq8/ut35zqr\u002BNATTnNWIvvjK1vh3RAFqwwXJ7Ok=\u0022"},{"Name":"Last-Modified","Value":"Wed, 04 Sep 2024 00:42:09 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/js/FontAwesomeKit.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\FontAwesomeKit.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-fEiCpq8/ut35zqr\u002BNATTnNWIvvjK1vh3RAFqwwXJ7Ok="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"13166"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022fEiCpq8/ut35zqr\u002BNATTnNWIvvjK1vh3RAFqwwXJ7Ok=\u0022"},{"Name":"Last-Modified","Value":"Wed, 04 Sep 2024 00:42:09 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/js/general.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\general.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -707,6 +887,30 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"nxron99sg5"},{"Name":"integrity","Value":"sha256-lZHmgb/\u002BLyieVGexiZMGirkh4fgs/J1LTyGvVO7DYXM="},{"Name":"label","Value":"_content/VPMSCustomer/lib/Base64/Base64Lib.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"714"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022lZHmgb/\u002BLyieVGexiZMGirkh4fgs/J1LTyGvVO7DYXM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:05:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.5riy4qw8l4.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"5riy4qw8l4"},{"Name":"integrity","Value":"sha256-j0BjZo9FKlqH1xSoPUKIPhuinPdaBD70FLgHJjM\u002B08c="},{"Name":"label","Value":"_content/VPMSCustomer/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9410"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022j0BjZo9FKlqH1xSoPUKIPhuinPdaBD70FLgHJjM\u002B08c=\u0022"},{"Name":"Last-Modified","Value":"Thu, 10 Apr 2025 01:51:43 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-j0BjZo9FKlqH1xSoPUKIPhuinPdaBD70FLgHJjM\u002B08c="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"9410"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022j0BjZo9FKlqH1xSoPUKIPhuinPdaBD70FLgHJjM\u002B08c=\u0022"},{"Name":"Last-Modified","Value":"Thu, 10 Apr 2025 01:51:43 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-7sxJBHfaUsZT4Y0gPBGr5dFnrfbzYzEY8pOlCne4AI8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"38511"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00227sxJBHfaUsZT4Y0gPBGr5dFnrfbzYzEY8pOlCne4AI8=\u0022"},{"Name":"Last-Modified","Value":"Thu, 10 Apr 2025 01:52:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.m25daq4lk0.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"m25daq4lk0"},{"Name":"integrity","Value":"sha256-7sxJBHfaUsZT4Y0gPBGr5dFnrfbzYzEY8pOlCne4AI8="},{"Name":"label","Value":"_content/VPMSCustomer/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"38511"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00227sxJBHfaUsZT4Y0gPBGr5dFnrfbzYzEY8pOlCne4AI8=\u0022"},{"Name":"Last-Modified","Value":"Thu, 10 Apr 2025 01:52:48 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/bootstrap-switch-button/dist/css/bootstrap-switch-button.min.awkg88221q.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap-switch-button\dist\css\bootstrap-switch-button.min.css'))</AssetFile>
@@ -1392,6 +1596,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"81b7ukuj9c"},{"Name":"integrity","Value":"sha256-ZH6pA6BSx6fuHZvdaKph1DwUJ\u002BVSYilIiEQu8ilnvqk="},{"Name":"label","Value":"_content/VPMSCustomer/lib/bootstrap/LICENSE"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1153"},{"Name":"Content-Type","Value":"application/octet-stream"},{"Name":"ETag","Value":"\u0022ZH6pA6BSx6fuHZvdaKph1DwUJ\u002BVSYilIiEQu8ilnvqk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Feb 2025 08:41:01 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/datepicker/gijgo.min.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\datepicker\gijgo.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-1tqylytcbuAWBFBOlWMr2kGIIT49lQb5xruJh6a4UzA="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"179161"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00221tqylytcbuAWBFBOlWMr2kGIIT49lQb5xruJh6a4UzA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/datepicker/gijgo.min.mk3nl97o9s.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\datepicker\gijgo.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mk3nl97o9s"},{"Name":"integrity","Value":"sha256-1tqylytcbuAWBFBOlWMr2kGIIT49lQb5xruJh6a4UzA="},{"Name":"label","Value":"_content/VPMSCustomer/lib/datepicker/gijgo.min.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"179161"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00221tqylytcbuAWBFBOlWMr2kGIIT49lQb5xruJh6a4UzA=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Aug 2024 11:43:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/html2pdf/v0.10.1/html2pdf.bundle.min.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\html2pdf\v0.10.1\html2pdf.bundle.min.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -1600,13 +1816,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\VPMSCustomer.xo8rnfft2g.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-waexzZfb6jdOq8c7gOdSxyOTEYiJFjOPKQv18MKb0u8="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1130"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022waexzZfb6jdOq8c7gOdSxyOTEYiJFjOPKQv18MKb0u8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:06:31 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1130"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022waexzZfb6jdOq8c7gOdSxyOTEYiJFjOPKQv18MKb0u8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 07 Apr 2025 05:30:57 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/VPMSCustomer.xo8rnfft2g.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\VPMSCustomer.xo8rnfft2g.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xo8rnfft2g"},{"Name":"integrity","Value":"sha256-waexzZfb6jdOq8c7gOdSxyOTEYiJFjOPKQv18MKb0u8="},{"Name":"label","Value":"_content/VPMSCustomer/VPMSCustomer.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1130"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022waexzZfb6jdOq8c7gOdSxyOTEYiJFjOPKQv18MKb0u8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 03:06:31 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1130"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022waexzZfb6jdOq8c7gOdSxyOTEYiJFjOPKQv18MKb0u8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 07 Apr 2025 05:30:57 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

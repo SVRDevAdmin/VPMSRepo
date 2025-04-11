@@ -6,4 +6,10 @@
         public Boolean? isRecordExists { get; set; }
         public int? TotalRecords { get; set; }
     }
+
+    public class AppointmentResponseCodeObject  : ResponseCodeObject
+    { 
+        public Boolean? isOverlap { get; set; }
+    }
+
 }
