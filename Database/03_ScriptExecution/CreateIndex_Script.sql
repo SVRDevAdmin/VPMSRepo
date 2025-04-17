@@ -213,3 +213,28 @@ ON mst_pets_breed (species, ACTIVE);
 CREATE INDEX IX_SeqOrder
 ON mst_pets_breed (SeqOrder);
 
+/*----------- Appointment ---------*/
+CREATE INDEX IX_OwnerID
+ON mst_appointment (OwnerID);
+
+CREATE INDEX IX_ApptID_BranchID
+ON mst_appointment (AppointmentID, BranchID);
+
+CREATE INDEX IX_CustView_ValidateAppt
+ON mst_appointment (AppointmentID, STATUS, BranchID, ApptDate, ApptStartTime, ApptEndTime);
+
+CREATE INDEX IX_CustView_ValidateApptByDoc
+ON mst_appointment (STATUS, BranchID, InchargeDoctor, ApptDate, ApptStartTime, ApptEndTime);
+
+CREATE INDEX IX_ApptID_ServicesID_IsDeleted
+ON mst_appointment_services (ApptID, ServicesID, IsDeleted);
+
+CREATE INDEX IX_ApptID_IsDeleted
+ON mst_appointment_services (ApptID, IsDeleted);
+
+CREATE INDEX IX_ApptGrp_SeqNo
+ON mst_appointment_grouping (AppointmentGroup, SeqNo);
+
+
+
+

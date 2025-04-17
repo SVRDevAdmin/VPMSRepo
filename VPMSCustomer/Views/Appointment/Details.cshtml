@@ -14,22 +14,11 @@
 <link rel="stylesheet" href="~/css/font-awesome.min.css">
 <link rel="stylesheet" href="~/css/gijgo.min.css" type="text/css" />
 <link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="~/css/AppointmentDetails.css" />
 
 <script src="~/lib/datepicker/gijgo.min.js" type="text/javascript"></script>
 <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
-
-<style>
-.bootstrap-datetimepicker-widget {
-    width: 200px !important;
-}
-
-#ddlPets:disabled{
-    background: grey !important;
-    border-color: grey !important;
-}
-
-</style>
 <script type="text/javascript">
     $(document).ready(function(){
         /*----- initiate Date Picker -----*/
@@ -190,6 +179,10 @@
                      }, 500);
                  }, 500);
                  
+                 var sContactLabel = '@Html.Raw(LangResources["AppointmentDetails_Message_CallPhoneNo"])';
+                 sContactLabel = sContactLabel.replace('####<clinicPhoneNo>###', sApptRow.contactNo);
+
+                 $('#lbCallContact').html(sContactLabel);
              }
          });
     }
@@ -207,7 +200,8 @@
             updatedBy: '@sessionUserName'
         }).done(function(result){
             if (result.statusCode == 200){
-                ShowSuccessMsgBox("Update Appointment", "Appointment update successfully.",
+                ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
+                                  '@Html.Raw(LangResources["AppointmentDetails_Message_UpdateSuccess"])',
                     function(){
                         window.location.href = '/Appointment/Index';
                     }
@@ -217,12 +211,14 @@
             {
                 if (result.isOverlap)
                 {
-                    ShowSuccessMsgBox("Update Appointment", "Appointment date time slot occupied, please try again with other time slot",
+                    ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
+                                      '@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentOverlap"])',
                         function(){}
                     );
                 }
                 else{
-                    ShowSuccessMsgBox("Update Appointment", "Failed to update appointment, please try again later.",
+                    ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
+                                      '@Html.Raw(LangResources["AppointmentDetails_Message_FailedToUpdate"])',
                         function(){}
                     );
                 }
@@ -233,21 +229,24 @@
 
     function cancelAppointment()
     { 
-        ShowConfirmCancelMsgBox("Cancel Appointment", "Confirm cancel this appointment?",
+        ShowConfirmCancelMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
+                                '@Html.Raw(LangResources["AppointmentDetails_Message_ConfirmCancelAppt"])',
             function(){
                 $.post("/Appointment/UpdateAppointmentStatus", {
                     appointmentID: '@appointmentSelected',
                     sUpdatedBy : '@sessionUserName'
                 }).done(function(result){
                     if (result){
-                        ShowSuccessMsgBox("Cancel Appointment", "Appointment Cancelled.",
+                        ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
+                                          '@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentCancelled"])',
                             function(){
                                 window.location.href = '/Appointment/Index';
                             }
                         );
                     }
                     else {
-                        ShowSuccessMsgBox("Cancel Appointment", "Failed to cancel appointment, please try again later.",
+                        ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
+                                          '@Html.Raw(LangResources["AppointmentDetails_Message_FailedToCancelAppt"])',
                             function(){}
                         );
                     }
@@ -267,75 +266,75 @@
     <div class="row pt-4">
         <div class="col-md-12">
             <label class="pageTitle">
-                Edit Appointments
+                @LangResources["AppointmentDetails_Title_EditAppointments"]
             </label>
         </div>
     </div>
-    <div class="row mt-4" style="border: 0px solid black;">
-        <div class="col-md-9" style="border: 0px solid black;">
-            <div class="row me-1" style="background-color: #1e76fc; border-radius: 6px;">
+    <div class="row mt-4">
+        <div class="col-md-9">
+            <div class="row me-1 DetailBoxFrame">
                 <div class="row mt-3">
                     <div class="col-md-12 ms-3">
-                        <label style="font-size: 14px; font-weight: bold; color: white;">Edit Appointment Details</label>
+                        <label class="HeaderTitle">@LangResources["AppointmentDetails_Label_EditAppointmentDetails"]</label>
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row" >
-                    <div class="col-md-6" style="border: 0px solid black;">
-                        <label class="ms-3" style="font-size: 12px; font-weight: bold; color: white;">Pets</label>
+                    <div class="col-md-6">
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Pets"]</label>
                     </div>
-                    <div class="col-md-6" style="border: 0px solid black;">
-                        <label class="ms-3" style="font-size: 12px; font-weight: bold; color: white;">Clinic</label>
+                    <div class="col-md-6">
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Clinic"]</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <select id="ddlPets" class="form-select form-select-sm ms-3" style="width: 90%;">
-                            <option value="">Select Pet</option>
+                        <select id="ddlPets" class="form-select form-select-sm ms-3">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectPet"]</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <select id="ddlClinic" class="form-select form-select-sm ms-3" style="width: 90%;" onchange="LoadServicesDropdownList(this);">
-                            <option value="">Select Clinic</option>
+                        <select id="ddlClinic" class="form-select form-select-sm ms-3" onchange="LoadServicesDropdownList(this);">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectClinic"]</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="ms-3" style="font-size: 12px; font-weight: bold; color: white;">Services</label>
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Services"]</label>
                     </div>
                     <div class="col-md-6">
-                        <label class="ms-3" style="font-size: 12px; font-weight: bold; color: white;">Date</label>
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Date"]</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <select id="ddlServices" class="form-select form-select-sm ms-3" style="width: 90%;" onchange="LoadDoctorDropdownList(this);">
-                            <option value="">Select Services</option>
+                        <select id="ddlServices" class="form-select form-select-sm ms-3" onchange="LoadDoctorDropdownList(this);">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectServices"]</option>
                         </select>
                     </div>
-                    <div class="col-md-6" style="display: flex; flex-direction: row;">
-                        <div class="ms-3 me-1" style="width: 40%;">
+                    <div class="col-md-6 ColumnDateTimeLayout">
+                        <div class="ms-3 me-1 ColumnDateBorder">
                             <input id="dtAppt" class="form-control-sm" />
                         </div>
-                        <div style="width: 50%; height: 30px; display: flex; flex-direction: row; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border: 0px solid black; background-color: white;">
-                            <input id="dtStart" class="form-control-sm" style="width: 40%; background-color: transparent; text-align: center; border: 0;" />
-                            <div style="width: 5%; text-align: center; color: grey">--</div>
-                            <input id="dtEnd" class="form-control-sm" style="width: 40%; background-color: transparent; text-align: center; border: 0;" />
+                        <div class="ColumnDateTimeBorder">
+                            <input id="dtStart" class="form-control-sm ColumnStartTimeBorder" />
+                            <div class="ColumnDateTimeDivider">--</div>
+                            <input id="dtEnd" class="form-control-sm ColumnEndTimeBorder"  />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="ms-3" style="font-size: 12px; font-weight: bold; color: white;">Doctor</label>
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Doctor"]</label>
                     </div>
                     <div class="col-md-6">&nbsp;</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <select id="ddlDoctor" class="form-select form-select-sm ms-3" style="width: 90%;">
-                            <option value="">Select Doctor</option>
+                        <select id="ddlDoctor" class="form-select form-select-sm ms-3">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectDoctor"]</option>
                         </select>
                     </div>
                     <div class="col-md-6">&nbsp;</div>
@@ -343,32 +342,39 @@
                 <div class="row">&nbsp;</div>
                 <div class="row">&nbsp;</div>
             </div>
-            <div class="row mt-3 me-1" style="border: 0px solid black;">
+            <div class="row mt-3 me-1">
                 <div class="row justify-content-end">
-                    <button id="btnBack" class="btn btn-secondary" onclick="backToMainPage();" style="font-size: 12px; width: 20%;">Back</button>&nbsp;
-                    <button id="btnCancel" class="btn btn-danger" onclick="cancelAppointment();" style="font-size: 12px; width: 20%;">Cancel Appointment</button>&nbsp;
-                    <button id="btnUpdate" class="btn btn-primary" onclick="updateAppointment();" style="font-size: 12px; width: 20%;">Update</button>
+                    <button id="btnBack" class="btn btn-secondary FunctionButton" onclick="backToMainPage();">
+                        @LangResources["AppointmentDetails_Button_Back"]
+                    </button>&nbsp;
+                    <button id="btnCancel" class="btn btn-danger FunctionButton" onclick="cancelAppointment();">
+                        @LangResources["AppointmentDetails_Button_CancelAppointment"]
+                    </button>&nbsp;
+                    <button id="btnUpdate" class="btn btn-primary FunctionButton" onclick="updateAppointment();">
+                        @LangResources["AppointmentDetails_Button_Update"]
+                    </button>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3" style="border: 0px solid black;">
-            <div class="row" style="background-color: #f7f7f7; border-radius: 6px; height: stretch;">
+        <div class="col-md-3">
+            <div class="row InformationFrame">
                 <div class="row mt-4">
-                    <label class="ms-2 me-1" style="font-size: 17px; border: 0px solid black;">Would you like to contact the clinic instead?</label>
+                    <label class="ms-2 me-1 InformationTextFont">
+                        @LangResources["AppointmentDetails_Message_ContactClinicInstead"]
+                    </label>
                 </div>
                 <div class="row">&nbsp;</div>
-                <div class="row" style="display: flex; flex-direction: row;">
+                <div class="row InformationItemLayout">
                     <span>
                         <i class="bi bi-envelope ms-2 me-1"></i>
-                        <label style="font-size: 15px; word-wrap: break-word;">Send a message</label>
+                        <label class="InformationItemTextFont">@LangResources["AppointmentDetails_Message_SendAMessage"]</label>
                     </span>
-
                 </div>
-                <div class="row" style="display: flex; flex-direction: row;">
+                <div class="row InformationItemLayout">
                     <span>
                         <i class="bi bi-telephone ms-2 me-1"></i>
-                        <label style="font-size: 15px; word-wrap: break-word;">Or call +012313432444</label>
+                        <label id="lbCallContact" class="InformationItemTextFont"></label>
                     </span> 
                 </div>
                 <div class="row">&nbsp;</div>

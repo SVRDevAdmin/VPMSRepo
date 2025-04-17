@@ -7,6 +7,7 @@ using VPMS;
 using Microsoft.AspNetCore.Authorization;
 using VPMS.Lib;
 using VPMS.Lib.Data.DBContext;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace VPMSWeb.Controllers
 {
@@ -84,11 +85,11 @@ namespace VPMSWeb.Controllers
         /// <param name="ApptEndTime"></param>
         /// <param name="ApptID"></param>
         /// <returns></returns>
-        public IActionResult UpdateAppointment(DateTime ApptDate, DateTime ApptStartTime, DateTime ApptEndTime, long ApptID)
+        public IActionResult UpdateAppointment(DateTime ApptDate, DateTime ApptStartTime, DateTime ApptEndTime, long ApptID, Boolean RespReschedule)
         {
             ResponseStatusObject sResp = new ResponseStatusObject();
 
-            if (AppointmentRepository.UpdatedAppointment(ConfigSettings.GetConfigurationSettings(), ApptDate, ApptStartTime, ApptEndTime, ApptID))
+            if (AppointmentRepository.UpdatedAppointment(ConfigSettings.GetConfigurationSettings(), ApptDate, ApptStartTime, ApptEndTime, ApptID, RespReschedule))
             {
                 sResp.StatusCode = (int)StatusCodes.Status200OK;
             }
@@ -106,12 +107,17 @@ namespace VPMSWeb.Controllers
         /// <param name="ApptID"></param>
         /// <param name="ApptStatus"></param>
         /// <returns></returns>
-        public IActionResult UpdateAppointmentStatus(long ApptID, int ApptStatus)
+        public IActionResult UpdateAppointmentStatus(long ApptID, int ApptStatus, Boolean ApprovalType = false)
         {
             ResponseStatusObject sResp = new ResponseStatusObject();
 
             if (AppointmentRepository.UpdateAppointmentStatus(ConfigSettings.GetConfigurationSettings(), ApptID, ApptStatus))
             {
+                if (ApprovalType)
+                {
+                    SendAppointmentConfirmedEmail(ApptID);
+                }
+
                 sResp.StatusCode = (int)StatusCodes.Status200OK;
             }
             else
@@ -419,6 +425,67 @@ namespace VPMSWeb.Controllers
             {
 				Program.logger.Error("Controller Error >> ", ex);
 			}
+        }
+
+        public void SendAppointmentConfirmedEmail(long iApptID)
+        {
+            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+            String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+            int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+            String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+            String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+            String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+
+            String sPetName = "";
+            String sOwnerName = "";
+            String sApptDate = "";
+            String sApptTime = "";
+            String sServiceName = "";
+            List<String> lstRecipients = new List<String>();
+            var sApptObj = AppointmentRepository.GetAppointmentByID(ConfigSettings.GetConfigurationSettings(), iApptID.ToString());
+            if (sApptObj != null)
+            {
+                sPetName = sApptObj.PetName;
+                sOwnerName = sApptObj.OwnerName;
+                sApptDate = sApptObj.ApptDate.Value.ToString("dd/MM/yyyy");
+                sApptTime = sApptObj.ApptStartTimeString;
+                sServiceName = sApptObj.ServiceName;
+
+                lstRecipients.Add(sApptObj.EmailAddress);
+            }
+
+            var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "CPMS_EN003", "en");
+            emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<customer>###", sOwnerName)
+                                                                         .Replace("###<appointmetdate>###", sApptDate)
+                                                                         .Replace("###<appointmenttime>###", sApptTime)
+                                                                         .Replace("###<petname>###", sPetName)
+                                                                         .Replace("###<services>###", sServiceName);
+
+            emailTemplate.TemplateTitle = emailTemplate.TemplateTitle.Replace("###<services>###", sServiceName);
+
+
+            try
+            {
+                VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = lstRecipients;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+                sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
+
+                String sErrorMessage = "";
+                EmailHelpers.SendEmail(sEmailObj, out sErrorMessage);
+            }
+            catch (Exception ex)
+            {
+                Program.logger.Error("Controller Error >> ", ex);
+            }
         }
 
 		/// <summary>

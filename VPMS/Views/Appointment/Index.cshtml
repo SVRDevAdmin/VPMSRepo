@@ -16,7 +16,18 @@
 <script src="~/lib/moment.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap-datetimepicker.min.js"> </script>
 
+<style>
+    .styleBtnResch{
+        content: url('/images/icons-accept.png');
+        width: 24px;
+        height: 24px;
+    }
+</style>
+
 <script>
+    var iPendingApproved = 3;
+    var iPendingAccept = 4;
+
     var sCalendarView = 'dayGridMonth';
     if (sessionStorage.getItem("CalendarView") != null) 
     {
@@ -66,7 +77,19 @@
                         $('#lbPet').html(extendedObj.Pet);
                         $('#lbOwner').html(extendedObj.Owner);
 
+                        if (extendedObj.status == 3){
+                            $('#divFuncBtn').show();
+                        }
+                        else {
+                            $('#divFuncBtn').hide();
+                        }
+
                         $('#EventModal').modal('show');
+                    },
+                    eventDidMount: function(info){
+                          if (info.event.extendedProps.background) {
+                            info.el.style.background = info.event.extendedProps.background;
+                          }
                     }
                 },
                 timeGridWeek: {
@@ -121,7 +144,20 @@
                         $('#lbPet').html(extendedObj.Pet);
                         $('#lbOwner').html(extendedObj.Owner);
 
+                        if (extendedObj.status == 3){
+                            $('#divFuncBtn').show();
+                        }
+                        else{
+                            $('#divFuncBtn').hide();
+                        }
+
                         $('#EventModal').modal('show');
+                    },
+                    eventDidMount: function(info){
+                          if (info.event.extendedProps.background) {
+                                info.el.style.background = info.event.extendedProps.background;
+                                info.el.style.borderColor = info.event.extendedProps.background;
+                          }
                     }
                 },
                 customDayGrid: {
@@ -150,6 +186,13 @@
                         return {
                             html: contentHtml
                         }
+                    },
+                    eventDidMount: function(info){
+                          if (info.event.extendedProps.background) {
+                                debugger;
+                                info.el.style.background = info.event.extendedProps.background;
+                                info.el.style.borderColor = info.event.extendedProps.background;
+                          }
                     }
                 }
             },
@@ -218,13 +261,15 @@
                         title: result[i].ServiceName,
                         start: moment(result[i].ApptDate).format("YYYY-MM-DD") + 'T' + result[i].ApptStartTimeString,
                         end: moment(result[i].ApptDate).format("YYYY-MM-DD") + 'T' + result[i].ApptEndTimeString,
+                        background: (result[i].Status == 3) ? '#ffc5c4' : '#1D76FB',
                         extendedProps: {
                             apptid: result[i].AppointmentID,
                             doctor: result[i].DoctorName,
                             Pet: result[i].PetName,
                             Owner: result[i].OwnerName,
                             starttime: result[i].ApptStartTimeString,
-                            endtime: result[i].ApptEndTimeString
+                            endtime: result[i].ApptEndTimeString,
+                            status: result[i].Status
                         }
                     });
 
@@ -238,6 +283,18 @@
 
     function PopulateCustomViewsEvent(args, extendedObj)
     {
+        var sButtonRowHtml = '';
+        if (extendedObj.status == 3){
+            sButtonRowHtml += "<button id='btnTimeGridReschedule' type='button' class='fa-regular fa-circle-xmark' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridRescheduleClick()'></button>" +
+                              "<button id='btnTimeGridAccept' type='button' class='fa-regular fa-circle-check' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridAcceptClick()'></button>";
+        }
+        else {
+            sButtonRowHtml += "<button id='btnTimeGridEdit' type='button' class='bi bi-pencil-fill' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridEditClick()'></button>" +
+                              "<button id='btnTimeGridCancel' type='button' class='bi bi-trash3' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridCancelClick()'></button>";
+        }
+
+
+
         var sHtmlContent = "<div class='row' style='height: 100% !important; display: flex;'>" +
                             "<div class='row' style='border: 0px solid black; margin-top: auto; margin-bottom: auto; vertical-align: middle;'>" +
 
@@ -268,10 +325,10 @@
                             "</div>" +
 
                             "<div style='width: 10%;'>" +
-                            "<div style='margin-left: 5%; margin-right: 5%; margin-top: 30%; margin-bottom: 5%; display: flex;'>" +
-                            "<button id='btnTimeGridEdit' type='button' class='bi bi-pencil-fill' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridEditClick()'></button>" +
-                            "<button id='btnTimeGridCancel' type='button' class='bi bi-trash3' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridCancelClick()'></button>" +
+                            "<div style='margin-left: 5%; margin-right: 5%; margin-top: 30%; margin-bottom: 5%; display: flex;'>" +            
+                            sButtonRowHtml +
                             "<input id='timeGridApptID' type='text' style='visibility: hidden;' value='" + extendedObj.apptid + "' />" +
+                            "<input id='timeGridStatus' type='text' style='visibility: hidden;' value='" + extendedObj.status + "' />" +
                             "</div>" +
                             "</div>" +
 
@@ -346,14 +403,8 @@
     function loadddlDoctor(data) 
     { 
         $('#ddlAddDoctor').find("option:not(:first)").remove();
-        for (var i = 0; i < data.length; i++){
-            //var doctorArray = data[i].DoctorInCharge.split(';');
-
-            //for (var x = 0; x < doctorArray.length-1; x++) {
-            //    var opt = new Option(doctorArray[x], doctorArray[x]);
-            //        $('#ddlAddDoctor').append(opt);
-            //}
-
+        for (var i = 0; i < data.length; i++)
+        {
             var opt = new Option(data[i].DoctorName, data[i].DoctorID);
             $('#ddlAddDoctor').append(opt);
         }
@@ -362,13 +413,8 @@
     function loadddlNewDoctor(data)
     {
         $('#ddlNewDoctor').find("option:not(:first)").remove();
-        for (var i = 0; i < data.length; i++){
-            //var doctorArray = data[i].DoctorInCharge.split(';');
-
-            //for (var x = 0; x < doctorArray.length - 1; x++) {
-            //    var opt = new Option(doctorArray[x], doctorArray[x]);
-            //    $('#ddlNewDoctor').append(opt);
-            //}
+        for (var i = 0; i < data.length; i++)
+        {
             var opt = new Option(data[i].DoctorName, data[i].DoctorID);
             $('#ddlAddDoctor').append(opt);
         }
@@ -749,6 +795,7 @@
                 $('#txtServices').val(result.ServiceName);
                 $('#txtDoctor').val(result.DoctorName);
                 $('#hidEditID').val(result.AppointmentID);
+                $('#hidEditStatus').val(result.Status);
 
                 $('#dtEditAppt').val(moment(result.ApptDate).format("DD-MM-YYYY"));
                 $('#EditStrttimePicker').val(moment(result.ApptStartTimeString,'hh:mm:ss').format('HH:mm'));
@@ -863,7 +910,7 @@
             }
         }).on('dp.show', function () {
             time = "09:00 AM";
-            $(this).data('DateTimePicker').date(time);
+            //$(this).data('DateTimePicker').date(time);
             $(this).data('DateTimePicker').minDate(time);
         }).on('dp.change', function () {
             var min_endtime = $(this).val();
@@ -948,12 +995,19 @@
             var sAppEditStrDate = $('#EditStrttimePicker').val();
             var sAppEditEndDate = $('#EditEndtimePicker').val();
             var sApptEditID = $('#hidEditID').val();
+            var sApptEditStatus = $('#hidEditStatus').val();
+
+            var isResp = false;
+            if (sApptEditStatus == iPendingApproved){
+                isResp = true;
+            }
 
             $.post("/Appointment/UpdateAppointment", {
                 ApptDate: sAppEditDate,
                 ApptStartTime: sAppEditStrDate,
                 ApptEndTime: sAppEditEndDate,
-                ApptID: sApptEditID
+                ApptID: sApptEditID,
+                RespReschedule: isResp
             }).done(function (result) {
                 if (result.StatusCode == 200) {
                     $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_UpdateSuccessfully"])');
@@ -994,21 +1048,6 @@
                     $('#lbEditError').css('visibility', 'visible');
                 }
             });
-            // var result = cancelAppointment(sApptEditID, sStatus);
-            // if (result.StatusCode == 200) {
-            //     $('#lbEditError').html('Appointment Cancelled Updated.');
-            //     $('#lbEditError').css('visibility', 'visible');
-
-            //     setTimeout(function () {
-            //         $('#AppointmentModal').modal('hide');
-
-            //         window.location.reload();
-            //     }, 2500);
-            // }
-            // else {
-            //     $('#lbEditError').html('Failed to update appointment, please try again later.');
-            //     $('#lbEditError').css('visibility', 'visible');
-            // }
         });
 
         $('#btnDirectCancel').on('click', function (ctl) {
@@ -1147,6 +1186,83 @@
 
         $('#lbNewError').html('');
     }
+
+    function rescheduleAppt(){
+        $('#divNewAppt').hide();
+        $('#divNewClientAppt').hide();
+        $('#divEditAppt').show();
+
+        var sApptID = $('#hidApptID').val()
+
+        loadAppointmentData(sApptID);
+
+        $('#EventModal').modal('hide');
+        $('#AppointmentModal').modal('show');
+    }
+
+    function acceptAppt()
+    {
+        var sApptID = $('#hidApptID').val();
+        var sStatus = 0;
+
+        $.post("/Appointment/UpdateAppointmentStatus", {
+            ApptID: sApptID,
+            ApptStatus: sStatus,
+            ApprovalType: true
+        }).done(function (result) {
+            if (result.StatusCode == 200) {
+                $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_AppointmentAccepted"])');
+                $('#lbEventError').css('visibility', 'visible');
+
+                setTimeout(function () {
+                    $('#EventModal').modal('hide');
+                    window.location.reload();
+                }, 2000);
+            }
+            else {
+                $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
+                $('#lbEventError').css('visibility', 'visible');
+            }
+        });
+    }
+
+    function btnTimeGridRescheduleClick()
+    {
+        $('#divNewAppt').hide();
+        $('#divNewClientAppt').hide();
+        $('#divEditAppt').show();
+
+        var sApptID = $('#timeGridApptID').val()
+        loadAppointmentData(sApptID);
+
+        $('#AppointmentModal').modal('show');
+    }
+
+    function btnTimeGridAcceptClick()
+    {
+        var sApptID = $('#timeGridApptID').val();
+        var sStatus = 0;
+
+        $.post("/Appointment/UpdateAppointmentStatus", {
+            ApptID: sApptID,
+            ApptStatus: sStatus
+        }).done(function (result) {
+            if (result.StatusCode == 200) {
+                ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_AcceptAppointment"])', 
+                                  '@Html.Raw(LangResources["Appointment_Message_AppointmentAccepted"])',
+                    function(){
+                        window.location.reload();
+                    }
+                );
+            }
+            else {
+                ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_AcceptAppointment"])',
+                                  '@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])',
+                    function(){ }
+                );
+            }
+        });
+    }
 </script>
 
 
@@ -1275,7 +1391,7 @@
     </div>
 </div>
 
-<div id="AppointmentModal" class="modal fade modal-xl" tabindex="-1" aria-hidden="true">
+<div id="AppointmentModal" class="modal fade modal-xl" tabindex="-1" aria-hidden="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content popupAppointment">
             <div class="modal-header" style="border-bottom: 0px;">
@@ -1590,6 +1706,7 @@
                         </div>
                         <div class="col-md-6">&nbsp;
                             <input id="hidEditID" type="text" style="visibility: hidden;" />
+                            <input id="hidEditStatus" type="text" style="visibility: hidden;" />
                         </div>
                     </div>
                     <div class="row" style="height: 30px;">&nbsp;</div>
@@ -1714,8 +1831,20 @@
                         @LangResources["Appointment_Label_Owner"] :<label id="lbOwner">&nbsp;</label>
                     </div>
                 </div>
+                <!--
                 <div class="row" style="height: 10px;">
                     <div class="col-md-12">&nbsp;</div>
+                </div>
+                -->
+                <div id="divFuncBtn" class="row">
+                    <div class="col-md-6 justify-content-end">
+                        <button id="btnReschedule" class="btn btn-secondary mt-4" style="width: 90%; font-size: 12px;" onclick="rescheduleAppt();">
+                            Reschedule
+                        </button>
+                    </div>
+                    <div class="col-md-6 justify-content-start">
+                        <button id="btnAccept" class="btn btn-primary mt-4" style="width: 90%; font-size: 12px;" onclick="acceptAppt();">Accept</button>
+                    </div>
                 </div>
                 <div class="row" style="height: 20px;">
                     <div class="col-md-12">

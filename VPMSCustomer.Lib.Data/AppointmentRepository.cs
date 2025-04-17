@@ -13,6 +13,11 @@ namespace VPMSCustomer.Lib.Data
 {
     public class AppointmentRepository
     {
+        /// <summary>
+        /// Get customer's appointment records
+        /// </summary>
+        /// <param name="patientID"></param>
+        /// <returns></returns>
         public static List<AppointmentGridDisplayModel> GetAppointmentViewListingByPatientID(long patientID)
         {
             List<AppointmentGridDisplayModel> sResultList = new List<AppointmentGridDisplayModel>();
@@ -25,7 +30,7 @@ namespace VPMSCustomer.Lib.Data
                     sConn.Open();
 
                     string sSelectCommand = "SELECT A.AppointmentID, A.ApptDate, A.ApptStartTime,  A.ApptEndTime, A.OwnerID, A.PetID, " +
-                                            "A.Status, A.InchargeDoctor, B.ServicesID, C.Name AS 'ServicesName' " +
+                                            "A.Status, A.InchargeDoctor, B.ServicesID, C.Name AS 'ServicesName', A.BranchID, D.Name as 'BranchName' " +
                                             "FROM ( " +
                                             "SELECT A1.*, A2.PatientID " +
                                             "FROM mst_appointment AS A1 " +
@@ -33,7 +38,8 @@ namespace VPMSCustomer.Lib.Data
                                             "WHERE A2.PatientID = '" + patientID + "' " +
                                             ") AS A " +
                                             "INNER JOIN mst_appointment_services AS B ON B.ApptID = A.AppointmentID AND B.IsDeleted = 0 " +
-                                            "INNER JOIN mst_services AS C ON C.ID = B.ServicesID ";
+                                            "INNER JOIN mst_services AS C ON C.ID = B.ServicesID " + 
+                                            "INNER JOIN mst_branch AS D on D.ID = A.BranchID ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
                     {
@@ -52,6 +58,7 @@ namespace VPMSCustomer.Lib.Data
                                 sAppointmentObj.InchargeDoctor = sReader["InchargeDoctor"].ToString();
                                 sAppointmentObj.ServicesID = Convert.ToInt64(sReader["ServicesID"]);
                                 sAppointmentObj.ServicesName = sReader["ServicesName"].ToString();
+                                sAppointmentObj.BranchName = sReader["BranchName"].ToString();
 
                                 sResultList.Add(sAppointmentObj);
                             }
@@ -69,6 +76,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get appointment details by ID
+        /// </summary>
+        /// <param name="appointmentID"></param>
+        /// <returns></returns>
         public static List<AppointmentDetailsModel> GetAppointmentDetailsByID(long appointmentID)
         {
             List<AppointmentDetailsModel> sResultList = new List<AppointmentDetailsModel>();
@@ -81,9 +93,10 @@ namespace VPMSCustomer.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.AppointmentID, A.UniqueIDKey, A.BranchID, A.ApptDate, A.ApptStartTime, " +
-                                            "A.ApptEndTime, A.PetID, A.Status, B.ServicesID , A.InchargeDoctor " +
+                                            "A.ApptEndTime, A.PetID, A.Status, B.ServicesID , A.InchargeDoctor, C.ContactNo " +
                                             "FROM mst_appointment AS A " +
                                             "INNER JOIN mst_appointment_services AS B ON B.ApptID = A.AppointmentID AND B.IsDeleted = 0 " +
+                                            "LEFT JOIN mst_branch AS C ON C.ID = A.BranchID AND C.Status = '1' " +
                                             "WHERE A.AppointmentID = '" + appointmentID + "' ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
@@ -103,6 +116,7 @@ namespace VPMSCustomer.Lib.Data
                                 sApptObj.Status = Convert.ToInt32(sReader["Status"]);
                                 sApptObj.ServicesID = Convert.ToInt64(sReader["ServicesID"]);
                                 sApptObj.InchargeDoctor = sReader["InchargeDoctor"].ToString();
+                                sApptObj.ContactNo = sReader["ContactNo"].ToString();
 
                                 sResultList.Add(sApptObj);
                             }
@@ -120,6 +134,13 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Update Appointment Status changes
+        /// </summary>
+        /// <param name="appointmentID"></param>
+        /// <param name="iStatus"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
         public static Boolean UpdateAppointmentStatus(long appointmentID, int iStatus, String? sUpdatedBy)
         {
             Boolean isSuccess = false;
@@ -149,6 +170,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Appointment Views grouping
+        /// </summary>
+        /// <param name="sAppointmentGroup"></param>
+        /// <returns></returns>
         public static List<AppointmentGroupingModel> GetAppointmentGrouping(String sAppointmentGroup)
         {
             try
@@ -166,6 +192,18 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Update Appointment Details
+        /// </summary>
+        /// <param name="appointmentID"></param>
+        /// <param name="branchID"></param>
+        /// <param name="dtAppointment"></param>
+        /// <param name="dtStart"></param>
+        /// <param name="dtEnd"></param>
+        /// <param name="servicesID"></param>
+        /// <param name="inchargeDoctor"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
         public static Boolean UpdateAppointmentDetails(long appointmentID, int branchID, DateTime dtAppointment, DateTime dtStart, DateTime dtEnd, long servicesID, String inchargeDoctor, String sUpdatedBy)
         {
             Boolean isSuccess = false;
@@ -253,6 +291,15 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Validate Appointment update request for overalap
+        /// </summary>
+        /// <param name="appointmentID"></param>
+        /// <param name="branchID"></param>
+        /// <param name="dtAppt"></param>
+        /// <param name="dtStart"></param>
+        /// <param name="dtEnd"></param>
+        /// <returns></returns>
         public static Boolean ValidateAppointmentRequested(long appointmentID, long branchID, DateTime dtAppt, DateTime dtStart, DateTime dtEnd)
         {
             Boolean isOverlap = false;
@@ -283,6 +330,13 @@ namespace VPMSCustomer.Lib.Data
             return isOverlap;
         }
 
+        /// <summary>
+        /// Create appointment
+        /// </summary>
+        /// <param name="appointmentObject"></param>
+        /// <param name="serviceID"></param>
+        /// <param name="submittedBy"></param>
+        /// <returns></returns>
         public static Boolean CreateAppointment(AppointmentModel appointmentObject, long serviceID, String submittedBy)
         {
             Boolean isSuccess = false;
@@ -313,6 +367,42 @@ namespace VPMSCustomer.Lib.Data
             }
 
             return isSuccess;
+        }
+
+        /// <summary>
+        /// Validate Appointment creation request for overlap
+        /// </summary>
+        /// <param name="appointmentObject"></param>
+        /// <returns></returns>
+        public static Boolean ValidateAppointmentCreation(AppointmentModel appointmentObject)
+        {
+            Boolean isOverlap = false;
+
+            try
+            {
+                using (var ctx = new AppointmentDBContext())
+                {
+                    var isExists = ctx.mst_appointment
+                                      .Where(x => x.Status == 0 &&
+                                                  x.BranchID == appointmentObject.BranchID &&
+                                                  x.InchargeDoctor == appointmentObject.InchargeDoctor &&
+                                                  x.ApptDate == appointmentObject.ApptDate &&
+                                                  ((x.ApptStartTime <= appointmentObject.ApptStartTime && x.ApptEndTime >= appointmentObject.ApptStartTime) ||
+                                                  (x.ApptStartTime <= appointmentObject.ApptEndTime && x.ApptEndTime >= appointmentObject.ApptEndTime))
+                                      ).Count();
+
+                    if (isExists > 0)
+                    {
+                        isOverlap = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isOverlap = false;
+            }
+
+            return isOverlap;
         }
     }
 }

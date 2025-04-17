@@ -117,6 +117,174 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppointmentDetails_Button_Back" xml:space="preserve">
+    <value>atrás</value>
+  </data>
+  <data name="AppointmentDetails_Button_CancelAppointment" xml:space="preserve">
+    <value>Cancelar cita</value>
+  </data>
+  <data name="AppointmentDetails_Button_Update" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="AppointmentDetails_Label_Clinic" xml:space="preserve">
+    <value>Clínica</value>
+  </data>
+  <data name="AppointmentDetails_Label_Date" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="AppointmentDetails_Label_Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="AppointmentDetails_Label_EditAppointmentDetails" xml:space="preserve">
+    <value>Editar detalles de la cita</value>
+  </data>
+  <data name="AppointmentDetails_Label_Pets" xml:space="preserve">
+    <value>Mascotas</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectClinic" xml:space="preserve">
+    <value>Seleccione Clínica</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectDoctor" xml:space="preserve">
+    <value>Seleccionar doctor</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectPet" xml:space="preserve">
+    <value>Seleccionar mascota</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectServices" xml:space="preserve">
+    <value>Seleccionar servicio</value>
+  </data>
+  <data name="AppointmentDetails_Label_Services" xml:space="preserve">
+    <value>Servicios</value>
+  </data>
+  <data name="AppointmentDetails_Message_AppointmentCancelled" xml:space="preserve">
+    <value>Cita cancelada.</value>
+  </data>
+  <data name="AppointmentDetails_Message_AppointmentOverlap" xml:space="preserve">
+    <value>La fecha y hora de la cita están ocupadas, por favor, inténtelo de nuevo con otra franja horaria.</value>
+  </data>
+  <data name="AppointmentDetails_Message_CallPhoneNo" xml:space="preserve">
+    <value>O llame al ####&lt;clinicPhoneNo&gt;###</value>
+  </data>
+  <data name="AppointmentDetails_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>¿Confirmar cancelar esta cita?</value>
+  </data>
+  <data name="AppointmentDetails_Message_ContactClinicInstead" xml:space="preserve">
+    <value>¿Preferiría contactar con la clínica en su lugar?</value>
+  </data>
+  <data name="AppointmentDetails_Message_FailedToCancelAppt" xml:space="preserve">
+    <value>No se pudo cancelar la cita, por favor intente nuevamente más tarde.</value>
+  </data>
+  <data name="AppointmentDetails_Message_FailedToUpdate" xml:space="preserve">
+    <value>Error al actualizar la cita, inténtelo nuevamente más tarde.</value>
+  </data>
+  <data name="AppointmentDetails_Message_SendAMessage" xml:space="preserve">
+    <value>Enviar un mensaje</value>
+  </data>
+  <data name="AppointmentDetails_Message_UpdateSuccess" xml:space="preserve">
+    <value>Actualización de cita exitosamente.</value>
+  </data>
+  <data name="AppointmentDetails_Title_CancelAppointment" xml:space="preserve">
+    <value>Cancelar cita</value>
+  </data>
+  <data name="AppointmentDetails_Title_EditAppointments" xml:space="preserve">
+    <value>Editar citas</value>
+  </data>
+  <data name="AppointmentDetails_Title_UpdateAppointment" xml:space="preserve">
+    <value>Actualizar cita</value>
+  </data>
+  <data name="Appointment_Button_Accept" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="Appointment_Button_BookAppointment" xml:space="preserve">
+    <value>Reservar cita</value>
+  </data>
+  <data name="Appointment_Button_SuggestNew" xml:space="preserve">
+    <value>Sugerir nuevo</value>
+  </data>
+  <data name="Appointment_Label_Clinic" xml:space="preserve">
+    <value>Clínica</value>
+  </data>
+  <data name="Appointment_Label_Confirmed" xml:space="preserve">
+    <value>Confirmada</value>
+  </data>
+  <data name="Appointment_Label_ConfirmedAppointments" xml:space="preserve">
+    <value>Citas confirmadas</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>Fecha y hora</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="Appointment_Label_PastAppointments" xml:space="preserve">
+    <value>Nombramientos anteriores</value>
+  </data>
+  <data name="Appointment_Label_Pending" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="Appointment_Label_Pets" xml:space="preserve">
+    <value>Mascotas</value>
+  </data>
+  <data name="Appointment_Label_RescheduledAppointments" xml:space="preserve">
+    <value>Citas reprogramadas</value>
+  </data>
+  <data name="Appointment_Label_SelectClinic" xml:space="preserve">
+    <value>Seleccione Clínica</value>
+  </data>
+  <data name="Appointment_Label_SelectDoctor" xml:space="preserve">
+    <value>Seleccionar doctor</value>
+  </data>
+  <data name="Appointment_Label_SelectPet" xml:space="preserve">
+    <value>Seleccionar mascota</value>
+  </data>
+  <data name="Appointment_Label_SelectService" xml:space="preserve">
+    <value>Seleccionar servicio</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>Servicios</value>
+  </data>
+  <data name="Appointment_Label_View" xml:space="preserve">
+    <value>Vista</value>
+  </data>
+  <data name="Appointment_Message_AcceptTimeRequest" xml:space="preserve">
+    <value>La clínica ha solicitado cita para ###&lt;newTIME&gt;### el ###&lt;newDATE&gt;###. ¿Desea aceptarla?</value>
+  </data>
+  <data name="Appointment_Message_AppointmentOverlap" xml:space="preserve">
+    <value>La fecha y hora de la cita está ocupada, por favor intente nuevamente con otro horario.</value>
+  </data>
+  <data name="Appointment_Message_ClinicRequestedNewTime" xml:space="preserve">
+    <value>*La clínica solicitó una nueva hora.</value>
+  </data>
+  <data name="Appointment_Message_CreateSuccessfully" xml:space="preserve">
+    <value>Termin erfolgreich erstellt.</value>
+  </data>
+  <data name="Appointment_Message_FailedToAcceptAppointment" xml:space="preserve">
+    <value>No se pudo aceptar la cita, por favor inténtelo nuevamente.</value>
+  </data>
+  <data name="Appointment_Message_FailedToCreateAppointment" xml:space="preserve">
+    <value>Error al crear la cita, por favor inténtelo nuevamente más tarde.</value>
+  </data>
+  <data name="Appointment_Message_MandatoryFields" xml:space="preserve">
+    <value>Campos obligatorios requeridos.</value>
+  </data>
+  <data name="Appointment_Message_NoRecord" xml:space="preserve">
+    <value>No hay registro.</value>
+  </data>
+  <data name="Appointment_Message_YouHaveRequestedNewTime" xml:space="preserve">
+    <value>*Has solicitado una nueva hora</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>Cita</value>
+  </data>
+  <data name="Appointment_Title_AppointmentAccepted" xml:space="preserve">
+    <value>Cita aceptada</value>
+  </data>
+  <data name="Appointment_Title_BookAppointment" xml:space="preserve">
+    <value>Reservar cita</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>Crear cita</value>
+  </data>
   <data name="InvReceipts_Button_Filters" xml:space="preserve">
     <value>Filtros</value>
   </data>

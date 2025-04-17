@@ -84,6 +84,9 @@ namespace VPMS.Lib.Data.Models
         public String? OwnerName {  get; set; }
         public String? DoctorName { get; set; }
         public long? AppointmentID { get; set; }
+        public int? BranchID { get; set; }
+        public int? Status { get; set; }
+        public String? EmailAddress { get; set; }
     }
 
     public class AppointmentListModel : AppointmentModel

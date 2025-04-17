@@ -50,6 +50,7 @@ namespace VPMSCustomer.Lib.Data.Models
         public int? Status { get; set; }
         public long? ServicesID { get; set; }
         public String? InchargeDoctor { get; set; }
+        public String? ContactNo { get; set; }
     }
 
     public class AppointmentGridDisplayModel
@@ -64,6 +65,7 @@ namespace VPMSCustomer.Lib.Data.Models
         public String? InchargeDoctor { get; set; }
         public long? ServicesID { get; set; }
         public String? ServicesName { get; set; }
+        public String? BranchName { get; set; }
     }
 
     public class AppointmentGroupingModel

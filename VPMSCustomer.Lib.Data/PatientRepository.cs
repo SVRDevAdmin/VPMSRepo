@@ -291,5 +291,20 @@ namespace VPMSCustomer.Lib.Data
                 return null;
             }
         }
+
+        public static PatientOwnerModel GetPatientOwnerByID(long iOwnerID)
+        {
+            try
+            {
+                using (var ctx = new PatientDBContext())
+                {
+                    return ctx.mst_patients_Owner.Where(x => x.ID == iOwnerID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

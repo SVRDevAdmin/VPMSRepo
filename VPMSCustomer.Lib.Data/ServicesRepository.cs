@@ -24,5 +24,20 @@ namespace VPMSCustomer.Lib.Data
                 return null;
             }
         }
+
+        public static ServiceModel GetServiceDetailsByID(long serviceID)
+        {
+            try
+            {
+                using (var ctx = new ServiceDBContext())
+                {
+                    return ctx.mst_services.Where(x => x.ID == serviceID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

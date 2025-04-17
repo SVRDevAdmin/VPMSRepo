@@ -209,7 +209,7 @@ namespace VPMS.Lib.Data
         /// <param name="sApptEndTime"></param>
         /// <param name="iApptID"></param>
         /// <returns></returns>
-        public static Boolean UpdatedAppointment(IConfiguration config, DateTime sApptDate, DateTime sApptStartTime, DateTime sApptEndTime, long iApptID)
+        public static Boolean UpdatedAppointment(IConfiguration config, DateTime sApptDate, DateTime sApptStartTime, DateTime sApptEndTime, long iApptID, Boolean RespReschedule)
         {
             Boolean isSuccess = false;
 
@@ -220,12 +220,19 @@ namespace VPMS.Lib.Data
                     MySqlConnection sConn = new MySql.Data.MySqlClient.MySqlConnection(ctx.Database.GetConnectionString());
                     sConn.Open();
 
+                    String sStatusString = "";
+                    if (RespReschedule)
+                    {
+                        sStatusString = ", Status = '4' ";
+                    }
+
                     String sUpdateCommand = "UPDATE Mst_Appointment " + 
                                             "Set ApptDate = '" + sApptDate.ToString("yyyy-MM-dd") + "', " +
                                             " ApptStartTime = '" + sApptStartTime.ToString("HH:mm:ss") + "', " +
                                             " ApptEndTime = '" + sApptEndTime.ToString("HH:mm:ss") + "', " +
                                             " UpdatedDate = NOW(), " +
                                             " UpdatedBy = 'SYSTEM' " +
+                                            sStatusString + 
                                             "WHERE AppointmentID = '" + iApptID + "'";
 
                     using (MySqlCommand cmd = sConn.CreateCommand())
@@ -314,7 +321,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.AppointmentID, A.ApptDate, A.ApptStartTime, A.ApptEndTime, C.`Name`, P.Name AS 'PetName', " + 
-                                            "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor' " +
+                                            "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.BranchID, A.Status " +
                                             "FROM mst_appointment AS A " +
                                             "INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
                                             "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " +
@@ -322,7 +329,7 @@ namespace VPMS.Lib.Data
                                             "LEFT JOIN mst_patients_owner AS PA ON PA.ID = A.OwnerID " +
                                             "WHERE (YEAR(A.ApptDate) = '" + Convert.ToInt32(sYear) + "' AND MONTH(A.ApptDate) = '" + Convert.ToInt32(sMonth) + "') AND " +
                                             "B.IsDeleted = 0 AND " +
-                                            "A.Status = 0 AND " +
+                                            "(A.Status = 0 OR A.Status = 3) AND " +
                                             "(" + (searchOwner == null) + " OR A.OwnerID = '" + searchOwner + "') AND " + 
                                             "(" + (searchPet == null) + " OR A.PetID = '" + searchPet + "') AND " +
                                             "(" + (searchServices == null) + " OR b.ServicesID = '" + searchServices + "') AND " +
@@ -344,7 +351,9 @@ namespace VPMS.Lib.Data
                                     ServiceName = sReader["Name"].ToString(),
                                     PetName = sReader["PetName"].ToString(),
                                     DoctorName = sReader["Doctor"].ToString(),
-                                    OwnerName = sReader["OwnerName"].ToString()
+                                    OwnerName = sReader["OwnerName"].ToString(),
+                                    BranchID = Convert.ToInt32(sReader["BranchID"]),
+                                    Status = Convert.ToInt32(sReader["Status"])
                                 });
                             }
                         }
@@ -381,7 +390,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String selectCommand = "SELECT A.AppointmentID, A.ApptDate, A.ApptStartTime, A.ApptEndTime, C.`Name`, P.Name AS 'PetName', " + 
-                                           "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor' " + 
+                                           "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.Status, PA.EmailAddress " + 
                                            "FROM mst_appointment AS A " +
                                            "INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
                                            "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " + 
@@ -405,6 +414,8 @@ namespace VPMS.Lib.Data
                                     sResult.PetName = sReader["PetName"].ToString();
                                     sResult.DoctorName = sReader["Doctor"].ToString();
                                     sResult.OwnerName = sReader["OwnerName"].ToString();
+                                    sResult.Status = Convert.ToInt32(sReader["Status"]);
+                                    sResult.EmailAddress = sReader["EmailAddress"].ToString();
                                 }
                             }
                         }

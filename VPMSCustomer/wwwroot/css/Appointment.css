@@ -1,0 +1,139 @@
+﻿#ddlViewSelection:focus, #ddlViewSelection:active {
+    border: none;
+}
+
+#ulViewSelection > li {
+    font-size: 12px;
+}
+
+.TitleDisplay {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.TextInfoDisplay {
+    font-size: 14px;
+}
+
+.HeaderLabel {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.BookingApptFrame {
+    background-color: #f7f7f7;
+    border-radius: 6px;
+}
+
+.AppointmentTimeBorder {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+}
+
+.AppointmentStartEndTimeBorder {
+    width: 40%;
+    border: 1px solid #ddd;
+}
+
+.AppointmentTimeDivider {
+    width: 20%;
+    text-align: center;
+    color: grey
+}
+
+.AppointmentRemarkLabel {
+    font-size: 12px;
+    color: red;
+}
+
+.NoRecordAppointmentBox {
+    border: 1px dashed black;
+    border-radius: 6px;
+}
+
+.AppointmentBox {
+    background-color: #1e76fc !important;
+    border-radius: 6px !important;
+}
+
+.AppointmentBoxCompleted {
+    background-color: #c6c6c6 !important;
+    border-radius: 6px !important;
+}
+
+.PendingStatusLabel {
+    width: 60%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #ffc5c4;
+    color: #f18d8b;
+    border: 1px solid #ffc5c4;
+}
+
+.ConfirmedStatusLabel {
+    width: 60%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #c2f7ea;
+    color: #7ac1b3;
+    border: 1px solid #c2f7ea;
+}
+
+.CompletedStatusLabel {
+    width: 60%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #c6c6c6;
+    color: #c6c6c6;
+    border: 1px solid #c6c6c6;
+}
+
+.ApptBoxStatusRow {
+    height: 30px;
+}
+
+.ApptBoxServiceFont {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.ApptBoxInfoFont {
+    font-size: 12px;
+    color: white;
+}
+
+.ApptBoxStatusFont {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.ApptBoxDateIcon {
+    content: url("../Images/Icons/calendar_white.png");
+    width: 20px;
+    height: 20px;
+}
+
+.ApptBoxClockIcon {
+    content: url("../Images/Icons/clock_white.png");
+    width: 18px;
+    height: 18px;
+}
+
+.ApptBoxDoctorIcon {
+    content: url("../Images/Icons/Icon-Doctor.png");
+    width: 20px;
+    height: 20px;
+}
+
+.ApptBoxClinicIcon {
+    content: url("../Images/Icons/Icon-Clinic.png");
+    width: 18px;
+    height: 18px;
+}
+
+.modalButton {
+    width: 45%;
+    font-size: 12px;
+}
