@@ -11,6 +11,11 @@ namespace VPMSCustomer.Lib.Data
 {
     public class RolesRepository
     {
+        /// <summary>
+        /// Get Identity Roles Info
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
         public static String GetRoleIDByName(String roleName)
         {
             try

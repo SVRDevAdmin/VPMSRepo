@@ -240,6 +240,7 @@ namespace VPMSCustomer.Controllers
         public IActionResult UpdateConfigurationSettings(String userID, String configKey, String configValue, String updatedBy)
         {
             ResponseCodeObject sResp = new ResponseCodeObject();
+            String sNotificationContent = "";
 
             try
             {
@@ -250,6 +251,8 @@ namespace VPMSCustomer.Controllers
 
                     if (configKey == "CustomerSettings_Language")
                     {
+                        sNotificationContent = "Language Settings updated to " + configValue + ".";
+
                         Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(configValue);
                         Thread.CurrentThread.CurrentUICulture = new CultureInfo(configValue);
 
@@ -258,11 +261,34 @@ namespace VPMSCustomer.Controllers
 
                     if (configKey == "CustomerSettings_Themes")
                     {
+                        sNotificationContent = "Themes Settings updated to " + configValue + ".";
+
                         CookieOptions cookies = new CookieOptions();
                         cookies.Expires = DateTime.Now.AddDays(1);
 
                         Response.Cookies.Append("CustomerTheme", configValue, cookies);
                     }
+
+                    if (configKey == "CustomerSettings_Country")
+                    {
+                        sNotificationContent = "Country Settings updated to " + configValue + ".";
+                    }
+
+                    NotificationModel sNotificationObj = new NotificationModel();
+                    sNotificationObj.NotificationGroup = "Message";
+                    sNotificationObj.Title = "Account Settings Changes";
+                    sNotificationObj.Content = sNotificationContent;
+                    sNotificationObj.CreatedDate = DateTime.Now;
+                    sNotificationObj.CreatedBy = updatedBy;
+
+                    List<String> sUserIDLst = new List<String>();
+                    if (!String.IsNullOrEmpty(userID))
+                    {
+                        sUserIDLst.Add(userID);
+                    }
+
+                    NotificationRepository.InsertNotification(sNotificationObj, sUserIDLst, updatedBy);
+                    
 
                     sResp.StatusCode = (int)StatusCodes.Status200OK;
                 }

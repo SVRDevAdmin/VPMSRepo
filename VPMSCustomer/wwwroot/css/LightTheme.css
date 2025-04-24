@@ -91,6 +91,18 @@
     content: url('../Images/Logo/Vet-Vitals-Logo.png');
 }
 
+.iconBell {
+    color: black;
+}
+
+#prevButton{
+    color: black !important;
+}
+
+#nextButton {
+    color: black !important;
+}
+
 /*------ General --------*/
 .pageTitle {
     color: black;
@@ -278,4 +290,106 @@
 .divFilterBox {
     background-color: #f7f7f7 !important;
     border-radius: 6px;
+}
+
+/*------ appointment --------*/
+.TitleDisplay {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+.TextInfoDisplay {
+    font-size: 14px;
+    color: black;
+}
+
+.TextInfoDisplay:hover, .TextInfoDisplay:focus {
+    color: black;
+}
+
+.BookingApptFrame {
+    background-color: #f7f7f7;
+    border-radius: 6px;
+}
+
+.HeaderLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+/*------ Appointment Details ------*/
+.InformationFrame {
+    background-color: #f7f7f7;
+    border-radius: 6px;
+    height: stretch;
+}
+
+.InformationTextFont {
+    color: black;
+    font-size: 17px;
+}
+
+.InformationItemTextFont {
+    color: black;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+
+.InformationItemLayout > span > i {
+    color: black;
+}
+
+/*------ Customer Services -----*/
+.sectionTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+.selectionLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+#ddlViewSelection {
+    color: black;
+    font-size: 14px;
+}
+
+.emptyBoxFrame {
+    border: 1px dashed black;
+    border-radius: 8px;
+}
+
+/*------ Notification -------------*/
+.notificationFrame {
+    border-radius: 8px;
+    background-color: #f7f7f7;
+}
+
+.tblNotificationTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: black !important;
+}
+
+.tblNotificationDate {
+    width: 20%;
+    font-size: 12px;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: black !important;
+}
+
+.tdContent {
+    width: 80%;
+    font-size: 12px;
+    color: black !important;
+}
+
+.dividerRow {
+    border-bottom: 1px solid black !important;
 }

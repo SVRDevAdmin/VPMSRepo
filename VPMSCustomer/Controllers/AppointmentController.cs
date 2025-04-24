@@ -9,7 +9,6 @@ namespace VPMSCustomer.Controllers
 {
     public class AppointmentController : Controller
     {
-        // GET: AppointmentController
         public ActionResult Index()
         {
             return View();
@@ -310,6 +309,11 @@ namespace VPMSCustomer.Controllers
             return Json(sRespObj);
         }
 
+        /// <summary>
+        /// Send New Appointment Submit Notification
+        /// </summary>
+        /// <param name="sNewAppointment"></param>
+        /// <param name="sServiceID"></param>
         public void SendNotificationAppointmentSubmitEmail(AppointmentModel sNewAppointment, long sServiceID)
         {
             var sEmailConfig = VPMSCustomer.Lib.Shared.ConfigSettings.GetConfigurationSettings();

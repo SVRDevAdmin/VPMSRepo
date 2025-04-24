@@ -72,22 +72,7 @@ select {
     width: 20%;
 }
 
-.InformationFrame {
-    background-color: #f7f7f7;
-    border-radius: 6px;
-    height: stretch;
-}
-
-.InformationTextFont {
-    font-size: 17px;
-}
-
 .InformationItemLayout {
     display: flex;
     flex-direction: row;
-}
-
-.InformationItemTextFont {
-    font-size: 15px;
-    word-wrap: break-word;
 }

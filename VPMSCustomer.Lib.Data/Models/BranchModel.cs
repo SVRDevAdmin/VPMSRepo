@@ -20,5 +20,8 @@ namespace VPMSCustomer.Lib.Data.Models
         public String? CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public String? UpdatedBy { get; set; }
+        public String? Postcode { get; set; }
+        public String? City { get; set; }
+        public String? State { get; set; }
     }
 }

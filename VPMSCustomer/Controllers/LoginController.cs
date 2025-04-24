@@ -101,13 +101,31 @@ namespace VPMSCustomer.Controllers
                         long? iPatientID = 0;
                         long? iPatientOwnerID = 0;
                         String? PatientGender = "";
+                        String? PatientStateStay = "";
+                        String? PatientPostCode = "";
+                        String? PatientCity = "";
+                        String? PatientCountry = "";
                         var sPatientOwner = PatientRepository.GetPatientOwnerByIdentityUserID(user.Id);
                         if (sPatientOwner != null)
                         {
                             iPatientOwnerID = sPatientOwner.ID;
                             iPatientID = sPatientOwner.PatientID;
                             PatientGender = sPatientOwner.Gender;
+
+                            PatientStateStay = sPatientOwner.State;
+                            PatientPostCode = sPatientOwner.PostCode;
+                            PatientCity = sPatientOwner.City;
+                            PatientCountry = sPatientOwner.Country;
                         }
+
+                        //GetCountryInfoByName
+                        String sCountryID = "0";
+                        var sCountryObj = MastercodeRepository.GetCountryInfoByName(PatientCountry);
+                        if (sCountryObj != null)
+                        {
+                            sCountryID = sCountryObj.ID.ToString();
+                        }
+                        
 
                         String sCountrySettings = "";
                         String sThemesSettings = "";
@@ -147,6 +165,10 @@ namespace VPMSCustomer.Controllers
                         HttpContext.Session.SetString("PatientID", iPatientID.ToString());
                         HttpContext.Session.SetString("Gender", PatientGender);
                         HttpContext.Session.SetString("PatientOwnerID", iPatientOwnerID.ToString());
+                        HttpContext.Session.SetString("PatientState", PatientStateStay);
+                        HttpContext.Session.SetString("PatientPostCode", PatientPostCode);
+                        HttpContext.Session.SetString("PatientCity", PatientCity);
+                        HttpContext.Session.SetString("PatientCountryID", sCountryID);
 
                         // ---------- Create Login Session ------------ //
                         DateTime dtSession = DateTime.Now;

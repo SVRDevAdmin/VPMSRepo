@@ -94,6 +94,18 @@
     margin-top: 10px;
 }
 
+.iconBell {
+    color: white;
+}
+
+#prevButton {
+    color: white !important;
+}
+
+#nextButton {
+    color: white !important;
+}
+
 /*------ General --------*/
 .pageTitle {
     color: white;
@@ -285,4 +297,106 @@
 .divFilterBox {
     background-color: #1f2e45 !important;
     border-radius: 6px;
+}
+
+/*------ appointment --------*/
+.TitleDisplay {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.TextInfoDisplay {
+    font-size: 14px;
+    color: white;
+}
+
+.TextInfoDisplay:hover, .TextInfoDisplay:focus{
+    color: white;
+}
+
+.BookingApptFrame {
+    background-color: #1f2e45;
+    border-radius: 6px;
+}
+
+.HeaderLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+/*------ Appointment Details ------*/
+.InformationFrame {
+    background-color: #1f2e45;
+    border-radius: 6px;
+    height: stretch;
+}
+
+.InformationTextFont {
+    color: white;
+    font-size: 17px;
+}
+
+.InformationItemTextFont {
+    color: white;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+
+.InformationItemLayout > span > i {
+    color: white;
+}
+
+/*------ Customer Services -----*/
+.sectionTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.selectionLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+#ddlViewSelection {
+    color: white;
+    font-size: 14px;
+}
+
+.emptyBoxFrame {
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+}
+
+/*------ Notification -------------*/
+.notificationFrame {
+    border-radius: 8px;
+    background-color: #1f2e45;
+}
+
+.tblNotificationTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.tblNotificationDate {
+    width: 20%;
+    font-size: 12px;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: white !important;
+}
+
+.tdContent {
+    width: 80%;
+    font-size: 12px;
+    color: white !important;
+}
+
+.dividerRow {
+    border-bottom: 1px solid #ddd !important;
 }

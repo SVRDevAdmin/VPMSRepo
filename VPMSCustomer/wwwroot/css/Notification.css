@@ -1,0 +1,60 @@
+﻿.table {
+    background-color: transparent !important;
+}
+
+    .table > tbody > tr > td {
+        border: 0;
+        background-color: transparent !important;
+        padding: 2px;
+    }
+
+#tblNotification {
+    width: 98%;
+    background-color: transparent;
+}
+
+.tdContent p {
+    width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#spanReadMore {
+    color: #6495ED;
+    font-weight: bold;
+}
+
+    #spanReadMore a:hover {
+        cursor: pointer;
+    }
+
+.PaginationButtonSelected {
+    width: 3vw;
+    height: 3vw;
+    background-color: #1E76FB;
+    color: white;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}
+
+.PaginationButton {
+    width: 3vw;
+    height: 3vw;
+    background-color: transparent;
+    color: #1E76FB;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}

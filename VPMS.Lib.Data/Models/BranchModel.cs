@@ -15,5 +15,11 @@ namespace VPMS.Lib.Data.Models
 		public string Address { get; set; } = null!;
 
         public int Status { get; set; }
+
+        public string? Postcode { get; set; }
+
+        public string? City { get; set; } 
+
+        public string? State { get; set; } 
     }
 }

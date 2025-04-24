@@ -130,6 +130,9 @@
 		<td class="name"></td>
 		<td class="contactNo" hidden></td>
 		<td class="address" hidden></td>
+		<td class="postcode" hidden></td>
+		<td class="city" hidden></td>
+		<td class="state" hidden></td>
 		@{
 			if (Boolean.Parse(ViewData["CanEditBranch"] as string))
 			{
@@ -247,23 +250,43 @@
 				</div>
 
 				<div id="branchContainer" class="organisationBranch hideContainer">
-					<div style="margin-bottom: 2vw;">
+					<div style="margin-bottom: 1vw;">
 						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchName"]</span>
 						<input type="text" id="branchName" style=" margin-top: 0.5vw;" class="form-control form-field inputField" />
 					</div>
 
-					<div style="margin-bottom: 2vw;">
+					<div style="margin-bottom: 1vw;">
 						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchContactNo"]</span>
 						<input type="text" id="branchContactNo" style=" margin-top: 0.5vw;" class="form-control form-field inputField" />
 					</div>
 
-					<div style="margin-bottom: 2vw;">
+					<div style="margin-bottom: 1vw;">
 						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchAddress"]</span>
 						<textarea id="branchAddress" style=" margin-top: 0.5vw;" class="form-control form-field inputField address"></textarea>
 					</div>
 
+					<div style="margin-bottom: 1vw;">
+						<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchPostcode"]</span>
+						<input type="text" id="branchPostcode" style="margin-top: 0.5vw;" maxlength="5" class="form-control form-field inputField" />
+					</div>
+
+					<div class="row" style="margin-bottom: 1vw">
+						<div class="col-md-6">
+							<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchCity"]</span>
+							<select id="ddlBranchCity" class="form-select form-field">
+								<option value="">@LangResources["AccessControl_Label_SelectCity"]</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<span class="formlabel" style="font-weight: bold;">@LangResources["AccessControl_Label_BranchState"]</span>
+							<select id="ddlBranchState" class="form-select form-field" onchange="LoadCityDropDownList(this);">
+								<option value="">@LangResources["AccessControl_Label_SelectState"]</option>
+							</select>
+						</div>
+					</div>
+
 					<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-						<a href="#" onclick="changeTab('', '', '');" style="display: flex; align-items: center;">
+						<a href="#" onclick="changeTab('', '', '', '', '', '');" style="display: flex; align-items: center;">
 							<img id="imgBackArrow" style=" margin-right: 0.5vw; width: 1vw;" /> 
 							<span class="textColor" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Back"]</span>
 						</a>
@@ -303,6 +326,10 @@
 	var currentPage = 1;
 	var search = "";
 	var branchDeleted = [];
+
+	$(document).ready(function(){
+		LoadStateDropDownList();
+	});
 
 	$("#SubMenuAccess").toggleClass('show');
 	document.querySelector("#SubMenuAccessParent").querySelector("#imgArrow").classList.toggle("Up");
@@ -526,7 +553,7 @@
 			})
 			.then(data => {
 				for (let i = 0; i < data.length; i++) {
-					cloneBranchRow(data[i].ID, data[i].Name, data[i].ContactNo, data[i].Address);
+					cloneBranchRow(data[i].ID, data[i].Name, data[i].ContactNo, data[i].Address, data[i].Postcode, data[i].City, data[i].State);
 				}
 
 				if (view) {
@@ -549,10 +576,42 @@
 		// swapModals('#organisationModal', '#branchModal');
 	}
 
-	function changeTab(name, contactNo, address){
+	function changeTab(name, contactNo, address, postcode, city, state){
 		document.querySelector("#branchName").value = name;
 		document.querySelector("#branchAddress").value = address;
 		document.querySelector("#branchContactNo").value = contactNo;
+		document.querySelector("#branchPostcode").value = postcode;
+
+		/*----- State -------*/
+		var stateOption = document.querySelector("#ddlBranchState");
+		for (var i = 0; i < stateOption.length; i++)
+		{
+			var opt = stateOption[i];
+			if (opt.innerText == state){
+				opt.selected = true;
+			}
+			else {
+				opt.selected = false;
+			}
+		}
+		LoadCityDropDownList(document.querySelector("#ddlBranchState"));
+
+		/*-------- City -------*/
+		setTimeout(function(){
+			var cityOption = document.querySelector("#ddlBranchCity");
+			for (var i = 0; i < cityOption.length; i++)
+			{
+				var opt = cityOption[i];
+				if (opt.innerText == city){
+					debugger;
+					opt.selected = true;
+				}
+				else {
+					opt.selected = false;
+				}
+			}
+		}, 500);
+
 
 		var element = document.querySelectorAll(".organisationBranch");
 		for (let i = 0; i < element.length; i++) {
@@ -563,13 +622,21 @@
 	function editBranch(e) {
 		e.classList.toggle("editCurrent");
 
-		changeTab(e.querySelector(".name").innerHTML, e.querySelector(".contactNo").innerHTML, e.querySelector(".address").innerHTML);
+		changeTab(e.querySelector(".name").innerHTML, e.querySelector(".contactNo").innerHTML, e.querySelector(".address").innerHTML, 
+				  e.querySelector(".postcode").innerHTML, e.querySelector(".city").innerHTML, e.querySelector(".state").innerHTML);
 	}
 
 	function SaveBranch(name) {
 		var address = document.getElementById("branchAddress").value;
 		var contactNo = document.getElementById("branchAddress").value;
-		cloneBranchRow(0, name, contactNo, address);
+		var postcode = document.getElementById("branchPostcode").value;
+
+		var cityid = document.getElementById("ddlBranchCity");
+		var city = cityid.options[cityid.selectedIndex].innerHTML;
+		var stateid = document.getElementById("ddlBranchState").value;
+		var state = stateid.options[stateid.selectedIndex].innerHTML;
+
+		cloneBranchRow(0, name, contactNo, address, postcode, city, state);
 
 		openModal('branchModal', 'organisationModal');
 		// swapModals('#branchModal', '#organisationModal');
@@ -579,16 +646,24 @@
 		var name = e.querySelector("#branchName").value;
 		var contactNo = e.querySelector("#branchContactNo").value;
 		var address = e.querySelector("#branchAddress").value;
+		var postcode = e.querySelector("#branchPostcode").value;
+		var cityid = e.querySelector("#ddlBranchCity");
+		var city = cityid.options[cityid.selectedIndex].innerHTML;
+		var stateid = e.querySelector("#ddlBranchState");
+		var state = stateid.options[stateid.selectedIndex].innerHTML;
 		var currentEdit = e.querySelector(".editCurrent");
 
 		if (currentEdit) {
 			currentEdit.querySelector(".name").innerHTML = name;
 			currentEdit.querySelector(".contactNo").innerHTML = contactNo;
 			currentEdit.querySelector(".address").innerHTML = address;
+			currentEdit.querySelector(".postcode").innerHTML = postcode;
+			currentEdit.querySelector(".city").innerHTML = city;
+			currentEdit.querySelector(".state").innerHTML = state;
 			currentEdit.classList.toggle("editCurrent");
 		}
 		else{
-			cloneBranchRow(0, name, contactNo, address);
+			cloneBranchRow(0, name, contactNo, address, postcode, city, state);
 		}
 
 		changeTab("", "", "");
@@ -654,7 +729,7 @@
 
 	// });
 
-	function cloneBranchRow(id, name, contactNo, address) {
+	function cloneBranchRow(id, name, contactNo, address, postcode, city, state) {
 		var header =
 			'<tr style="color: darkgray;">' +
 			'<th>@LangResources["Patient_Label_Number"]</th>' +
@@ -674,6 +749,9 @@
 		clone.querySelector(".contactNo").innerHTML = contactNo;
 		clone.querySelector(".address").innerHTML = address;
 		clone.querySelector(".id").innerHTML = id;
+		clone.querySelector(".postcode").innerHTML = postcode;
+		clone.querySelector(".city").innerHTML = city;
+		clone.querySelector(".state").innerHTML = state;
 
 		branchTable.appendChild(clone);
 	}
@@ -724,9 +802,14 @@
 				var branchContactNo = document.querySelectorAll(".contactNo");
 				var branchAddress = document.querySelectorAll(".address");
 				var branchID = document.querySelectorAll(".id");
+				var branchPostcode = document.querySelectorAll(".postcode");
+				var branchCity = document.querySelectorAll(".city");
+				var branchState = document.querySelectorAll(".state");
 
 				for (let i = 0; i < branchName.length; i++) {
-					InsertBranch(data, branchID[i].innerHTML, branchName[i].innerHTML, branchContactNo[i].innerHTML, branchAddress[i].innerHTML);
+					InsertBranch(data, branchID[i].innerHTML, branchName[i].innerHTML, branchContactNo[i].innerHTML, 
+								branchAddress[i].innerHTML, branchPostcode[i].innerHTML, branchCity[i].innerHTML, 
+								branchState[i].innerHTML);
 				}
 
 				deleteBranch();
@@ -738,7 +821,7 @@
 			});
 	}
 
-	function InsertBranch(organisationID, branchID, name, contactNo, address) {
+	function InsertBranch(organisationID, branchID, name, contactNo, address, postcode, city, state) {
 
 		var obj = {
 			OrganizationID: organisationID,
@@ -746,6 +829,9 @@
 			Name: name,
 			ContactNo: contactNo,
 			Address: address,
+			Postcode : postcode,
+			City: city,
+			State: state,
 			Status: 1,
 			CreatedDate: new Date(),
 			CreatedBy: "System"
@@ -788,5 +874,49 @@
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
+	}
+
+	function LoadStateDropDownList()
+	{
+		$.getJSON("/Mastercode/GetStatesListByCountry", {
+			countryID: 107
+		}).done(function(result){ 
+			if (result != null && result.data.length > 0)
+			{
+				$('#ddlBranchState').find("option:not(:first)").remove();
+
+				for (var i = 0; i < result.data.length; i++)
+				{
+					var opt = new Option((result.data[i].State), result.data[i].ID);
+					$('#ddlBranchState').append(opt);
+				}
+			}
+			else 
+			{
+				$('#ddlBranchState').find("option:not(:first)").remove();
+			}
+		});
+	}
+
+	function LoadCityDropDownList(state)
+	{
+		$.getJSON("/Mastercode/GetCityListByState", {
+			stateID: state.value
+		}).done(function(result){
+			if (result != null && result.data.length > 0)
+			{
+				$('#ddlBranchCity').find("option:not(:first)").remove();
+
+				for (var i = 0; i < result.data.length; i++)
+				{
+					var opt = new Option((result.data[i].City), result.data[i].ID);
+					$('#ddlBranchCity').append(opt);
+				}
+			}
+			else
+			{
+				$('#ddlBranchCity').find("option:not(:first)").remove();
+			}
+		});
 	}
 </script>

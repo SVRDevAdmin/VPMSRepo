@@ -163,10 +163,12 @@
                         </li>
                         <!-- CUSTOMER SERVICES -->
                         <li class="nav-item mb-3 menuItems">
-                            <img class="menuCustomerServices"  />
-                            <span class="d-none d-sm-inline sidebar-nav-font">
-                                @LangResources["Main_Menu_CustomerService"]
-                            </span>
+                            <a asp-controller="CustomerServices" asp-action="Index">
+                                <img class="menuCustomerServices"  />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_CustomerService"]
+                                </span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -176,7 +178,14 @@
             <div class="col-md-10">
                 <div class="row" style="height: 70px;">
                     <div class="row">
-                        <div class="col-md-9">&nbsp;</div>
+                        <div class="col-md-8">&nbsp;</div>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <a class="ms-3 mt-3 iconBell" asp-controller="Notifications" asp-action="Index">
+                                    <i class="bi bi-bell"></i>
+                                </a>
+                            </div>
+                        </div>
                         <div class="col-md-3 text-center">
                             <div class="upperMenuLayout">
                                 <div class="avatarFrame">

@@ -1,0 +1,158 @@
+2025-04-22 15:23:51,929 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.Core.Row.GetString(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 355
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:23:57,033 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.Core.Row.GetString(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 355
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:24:06,276 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.Core.Row.GetString(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 355
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:24:18,590 ERROR VPMS.Program.MoveNext [102] - MESSAGE: Controller Error >> 
+ System.ArgumentNullException: Value cannot be null. (Parameter 'userName')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at Microsoft.AspNetCore.Identity.UserManager`1.FindByNameAsync(String userName)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 102
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:24:26,687 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:24:33,381 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:24:50,801 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:26:43,808 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.Core.Row.GetString(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 355
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:28:17,925 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.Core.Row.GetString(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 355
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:28:31,330 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.Core.Row.GetString(Int32 ordinal) in /_/src/MySqlConnector/Core/Row.cs:line 355
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:29:17,206 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+
+2025-04-22 15:29:24,736 ERROR VPMS.Program.MoveNext [147] - MESSAGE: Controller Error >> 
+ System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.String'.
+   at MySqlConnector.MySqlDataReader.GetString(Int32 ordinal) in /_/src/MySqlConnector/MySqlDataReader.cs:line 293
+   at lambda_method438(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method439(Closure, QueryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 147
+
+----------------------------------------------------------------------------
+

@@ -25,6 +25,9 @@
     var statusPendingAppr = 3;
     var statusPendingAccpt = 4;
 
+    var doctorArray = ["MaleDoctorImg", "FemaleDoctorImg", "MaleDoctorImg", "FemaleDoctorImg", "MaleDoctorImg", "FemaleDoctorImg",
+                       "FemaleDoctorImg", "MaleDoctorImg", "FemaleDoctorImg", "MaleDoctorImg", "FemaleDoctorImg", "MaleDoctorImg"]
+
     $(document).ready(function()
     {
         /*----- initiatie date picker -----*/
@@ -328,28 +331,29 @@
                   '<div class="row mt-3 align-items-center ApptBoxStatusRow">' +
                   '<label class="ms-2 ApptBoxServiceFont">' + dataObj.servicesName + '</label>' +
                   '</div>' + 
-                  '<div class="row mt-2 mb-2">' + 
+                  '<div class="row mt-2 mb-1">' + 
                   '<span class="align-items-center ms-2">'  + 
                   '<img class="ApptBoxDateIcon" />' +
                   '<label class="ms-2 ApptBoxInfoFont">' + moment(dataObj.apptDate).format('DD/MM/YYYY') + '</label>'  +
                   '</span>' +
                   '</div>' +
-                  '<div class="row mb-2">' +
+                  '<div class="row mb-1">' +
                   '<span class="align-items-center ms-2">' + 
                   '<img class="ApptBoxClockIcon" />' +
                   '<label class="ms-2 ApptBoxInfoFont">'+ dataObj.apptStartTime + '</label>' +
                   '</span>'  + 
                   '</div>' +
-                  '<div class="row mb-2">' +
+                  '<div class="row mb-1">' +
                   '<span class="align-items-center ms-2">' +  
                   '<img class="ApptBoxDoctorIcon" />' +
                   '<label class="ms-2 ApptBoxInfoFont">' + dataObj.inchargeDoctor + '</label>' +
                   '</span>' +
                   '</div>' +
-                  '<div class="row mb-2">' +
+                  '<div class="row mb-1">' +
                   '<span class="align-items-center ms-2">' + 
                   '<img class="ApptBoxClinicIcon" />' +
                   '<label class="ms-2 ApptBoxInfoFont">' + dataObj.branchName + '</label>' +
+                  //'<i id="brachTooltip" class="fa fa-info-circle ms-2 fa-1x" data-toggle="tooltip" data-trigger="manual" title="testing 123" style="color: white;"></i>' +
                   '</span>' +
                   '</div>' +
                   '<div class="row mb-3">' +
@@ -362,6 +366,10 @@
                   '<div class="ms-4 text-center ' + statusStyle + '">' +
                   '<label class="ApptBoxStatusFont">' + statusText + '</label>' +
                   '</div>' +
+                  '</div>' +
+                  '<div class="row mt-2">&nbsp;</div>' + 
+                  '<div class="row">' +
+                  '<img class="' + randomGetDoctorImg() + '" />'
                   '</div>' +
                   '</div>' +
 
@@ -578,6 +586,12 @@
         }
 
         return isValid;
+    }
+
+    function randomGetDoctorImg()
+    {
+        var sIdx = Math.floor(Math.random() * doctorArray.length);
+        return doctorArray[sIdx];
     }
 </script>
 

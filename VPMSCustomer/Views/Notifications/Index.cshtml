@@ -1,0 +1,260 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+}
+
+<link rel="stylesheet" href="~/css/Notification.css" />
+
+<script type="text/javascript">
+    var paginationLimit = 5;
+    var pageSize = 4;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
+    $(document).ready(function(){
+        LoadNotificationViewListing();
+    });
+
+    function LoadNotificationViewListing()
+    {
+        $.getJSON("Notifications/GetNotificationViewListing", {
+            userID: '@sessionUserID',
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function(result) { 
+            LoadNotificationTable(result);
+        });
+    }
+
+    function LoadNotificationTable(sRecords)
+    {
+        $('#tblNotification').html('');
+
+        if (sRecords != null && sRecords.data.length > 0)
+        {
+            for (var i = 0; i < sRecords.data.length; i++)
+            {
+                var dtNotification = moment(sRecords.data[i].createdDate);
+
+                var sNotificationHTML = '';
+                sNotificationHTML = '<tr>' +
+                                    '<td class="dividerRow">' + 
+
+                                    '<table class="table mt-2">' +
+                                    '<tr>' +
+                                    '<td class="tblNotificationTitle" colspan="3">' + sRecords.data[i].title + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td class="tdContent" colspan="2">' + 
+                                    '<p>' + sRecords.data[i].content + '</p>' +
+                                    '<span id="spanReadMore">' + 
+                                    '<a onclick="showNotificationDetails(\'' + sRecords.data[i].notificationReceiverID + '\', \'' + 
+                                    sRecords.data[i].title + '\',  \'' + sRecords.data[i].content + '\');">' +  
+                                    '@Html.Raw(LangResources["Notifications_Label_ReadMore"])' + 
+                                    '</a>' +
+                                    '</span>' +
+                                    '</td>' +
+                                    '<td class="tblNotificationDate">' + dtNotification.format('D MMMM YYYY HH:mm') + '</td>' + 
+                                    '</tr>' +
+                                    '</table>' +
+
+                                    '</td>' +
+                                    '</tr>';
+
+                $('#tblNotification').append(sNotificationHTML);
+            }
+
+            populatePagingControl(sRecords.totalRecords);
+        }
+        else 
+        {
+            document.getElementById("pagination").hidden = true;
+
+            $('#tblNotification').html('');
+        }
+    }
+
+    function showNotificationDetails(NotifReceiverID, title, content)
+    {
+        $('#lbContent').html(content);
+        $('#lbTitle').html(title);
+
+        $('#NotificationModal').modal('show');
+
+        // ------- Update Read Status -------//
+        setTimeout(function(){
+            UpdateMessageReadStatus(NotifReceiverID);
+        }, 1000);
+    }
+
+    function UpdateMessageReadStatus(msgrecvID)
+    {
+        $.post("/Notification/UpdateMessageReadStatus", {
+            msgReceiverID : msgrecvID,
+            userID : '@sessionUserID'
+        }).done(function(result)
+        {
+            if (result.StatusCode == 200)
+            {
+                LoadNotificationViewListing();
+            }
+        })
+    }
+
+    function populatePagingControl(totalRecord) {
+        let total = totalRecord;
+        if (total == 0) {
+            document.getElementById("pagination").hidden = true;
+        }
+        else {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end) {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        LoadNotificationViewListing();
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+        LoadNotificationViewListing();
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        LoadNotificationViewListing();
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <label class="pageTitle">
+            @LangResources["Notifications_Title_Notifications"]
+        </label>
+    </div>
+    <div class="row mt-3">
+        <div class="row">
+            <div class="col-md-12 ms-2 me-2">
+
+                <div class="row notificationFrame">
+                   <div class="col-md-12">
+                        <table id="tblNotification" class="table mt-2 ms-3">
+                            <!--- CONTENT -->
+                       </table>
+                   </div>
+                </div>
+                <div class="row">
+                    <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                        <div>
+                            <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notifications_Button_Prev"]</button>
+                        </div>
+                        <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                        </div>
+                        <div>
+                            <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold;">@LangResources["Notifications_Button_Next"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="NotificationModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content popupEvent">
+            <div class="modal-header" style="border-bottom: 0px; text-align: right !important;">
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 0px; margin-top: 0px; margin-left: 0px;">
+                <div class="row">
+                    <div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-10">
+                        <label id="lbTitle" style="font-weight: bold;"></label>
+                    </div>
+                    <div class="col-md-1">&nbsp;</div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-10">
+                        <label id="lbContent" style="word-break: break-all;"></label>
+                    </div>
+                    <div class="col-md-1">&nbsp;</div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-10" style="text-align: right;">
+                        <button id="btnCloseNotif" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="font-size: 1vw;">@LangResources["Notifications_Button_Close"]</button>
+                    </div>
+                    <div class="col-md-1">&nbsp;</div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</div>
+

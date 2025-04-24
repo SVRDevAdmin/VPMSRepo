@@ -13,6 +13,11 @@ namespace VPMSCustomer.Lib.Data
     public class MastercodeRepository
     {
         #region "MasterCode Data"
+        /// <summary>
+        /// Get Mastercode Data By Group Name
+        /// </summary>
+        /// <param name="sGroup"></param>
+        /// <returns></returns>
         public static List<MasterCodeDataModel> GetMastercodeDataByGroup(String sGroup)
         {
             try
@@ -30,6 +35,10 @@ namespace VPMSCustomer.Lib.Data
         #endregion
 
         #region "Country & State & City"
+        /// <summary>
+        /// Get coyntry List
+        /// </summary>
+        /// <returns></returns>
         public static List<CountryModel> GetCountryList()
         {
             try
@@ -45,6 +54,31 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Country Master record By Name
+        /// </summary>
+        /// <param name="sCountryName"></param>
+        /// <returns></returns>
+        public static CountryModel GetCountryInfoByName(String sCountryName)
+        {
+            try
+            {
+                using (var ctx = new MasterCodeDBContext())
+                {
+                    return ctx.mst_countrylist.Where(x => x.CountryName == sCountryName && x.IsActive == 1).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get State list by Country ID
+        /// </summary>
+        /// <param name="CountryID"></param>
+        /// <returns></returns>
         public static List<StateModel> GetStatesList(int CountryID)
         {
             try
@@ -60,6 +94,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get City List by State ID
+        /// </summary>
+        /// <param name="StateID"></param>
+        /// <returns></returns>
         public static List<CityModel> GetCityList(int StateID)
         {
             try
@@ -76,6 +115,11 @@ namespace VPMSCustomer.Lib.Data
         }
         #endregion
 
+        /// <summary>
+        /// Get Clinic Branch List
+        /// </summary>
+        /// <param name="organizationID"></param>
+        /// <returns></returns>
         public static List<BranchModel> GetBranchList(int organizationID)
         {
             try
@@ -91,6 +135,31 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Branch List in View Listing
+        /// </summary>
+        /// <param name="sState"></param>
+        /// <returns></returns>
+        public static List<BranchModel> GetBranchViewListing(String sState)
+        {
+            try
+            {
+                using (var ctx = new MasterCodeDBContext())
+                {
+                    return ctx.mst_branch.Where(x => sState == "All" || x.State == sState).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Doctor incharge for specific services
+        /// </summary>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
         public static List<DoctorModel> GetDoctorListByServices(int serviceID)
         {
             List<DoctorModel> sResultList = new List<DoctorModel>();
