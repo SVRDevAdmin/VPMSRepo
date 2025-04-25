@@ -1716,6 +1716,30 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"81b7ukuj9c"},{"Name":"integrity","Value":"sha256-ZH6pA6BSx6fuHZvdaKph1DwUJ\u002BVSYilIiEQu8ilnvqk="},{"Name":"label","Value":"_content/VPMSCustomer/lib/bootstrap/LICENSE"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1153"},{"Name":"Content-Type","Value":"application/octet-stream"},{"Name":"ETag","Value":"\u0022ZH6pA6BSx6fuHZvdaKph1DwUJ\u002BVSYilIiEQu8ilnvqk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Feb 2025 08:41:01 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/chartjs-plugin-annotation.f7u0xncnkm.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\chartjs-plugin-annotation.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"f7u0xncnkm"},{"Name":"integrity","Value":"sha256-65VrZtDIgFNXMsE\u002BkzBqH4uB8vpABjMijjAnb9x8ViY="},{"Name":"label","Value":"_content/VPMSCustomer/lib/chartjs-plugin-annotation.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"26848"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u002265VrZtDIgFNXMsE\u002BkzBqH4uB8vpABjMijjAnb9x8ViY=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Apr 2025 06:14:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/chartjs-plugin-annotation.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\chartjs-plugin-annotation.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-65VrZtDIgFNXMsE\u002BkzBqH4uB8vpABjMijjAnb9x8ViY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"26848"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u002265VrZtDIgFNXMsE\u002BkzBqH4uB8vpABjMijjAnb9x8ViY=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Apr 2025 06:14:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/chartjs-plugin-annotation.min.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\chartjs-plugin-annotation.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC\u002BGdCKd4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"13748"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC\u002BGdCKd4=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Apr 2025 06:14:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/chartjs-plugin-annotation.min.yhsmd828fl.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\chartjs-plugin-annotation.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yhsmd828fl"},{"Name":"integrity","Value":"sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC\u002BGdCKd4="},{"Name":"label","Value":"_content/VPMSCustomer/lib/chartjs-plugin-annotation.min.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"13748"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC\u002BGdCKd4=\u0022"},{"Name":"Last-Modified","Value":"Fri, 25 Apr 2025 06:14:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSCustomer/lib/datepicker/gijgo.min.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\datepicker\gijgo.min.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

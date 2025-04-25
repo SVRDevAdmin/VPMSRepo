@@ -156,10 +156,12 @@
                         </li>
                         <!-- ANALYTICS -->
                         <li class="nav-item mb-3 menuItems" >
-                            <img class="menuAnalytics"  />
-                            <span class="d-none d-sm-inline sidebar-nav-font">
-                                @LangResources["Main_Menu_Analytics"]
-                            </span>
+                            <a asp-controller="Analytics" asp-action="Index">
+                                <img class="menuAnalytics"  />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Analytics"]
+                                </span>
+                            </a>
                         </li>
                         <!-- CUSTOMER SERVICES -->
                         <li class="nav-item mb-3 menuItems">

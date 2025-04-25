@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+@* <script src="../lib/chartjs-plugin-annotation.js"></script>
+<script src="../lib/chartjs-plugin-annotation.min.js"></script> *@
+
+
+
+
+<script>
+    $(document).ready(function(){
+        loadchart();
+    });
+
+    function loadchart(){
+        const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+        const yValues = [55, 49, 44, 24, 15];
+        const barColors = [
+            "#fed3a8",
+            "#b8e9fa",
+            "#d6f0d5",
+            "#e2cbff",
+            "#5c8c9c"
+        ];
+
+        new Chart("myChart", {
+          type: "doughnut",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            title: {
+                display: true,
+                text: 'testing',
+                position: 'bottom'
+            },
+            legend: {
+                display: false
+            },
+            plugins: {
+                labels: [
+                    {
+                        render: 'label',
+                        fontSize: 12,
+                        fontStyle: 'bold',
+                        position: 'outside'
+                    },
+                    {
+                        render: 'percentage',
+                        fontSize: 12,
+                        fontStyle: 'bold',
+                        precision: 2
+                    }
+                ]
+                // annotation: {
+                //     annotations: {
+                //         dLabel: {
+                //           type: 'doughnutLabel',
+                //           content: ({Chart}) => ['Total xxxxx'],
+                //           font: [{size: 60}, {size: 50}, {size: 30}],
+                //           color: ['black']
+                //         }
+                //     }
+                // }
+            }
+          }
+        });
+    }
+
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <label class="pageTitle">Analytics</label>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="row" style="border: 1px solid black; border-radius: 10px;">
+                <div class="row">
+                    <div class="col-md-12 ms-2 mt-1">
+                        <label style="font-size: 17px; font-weight: bold;">Expenses Summary</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">&nbsp;</div>
+                    <div class="col-md-3 justify-content-end">
+                        <select id="ddlt" class="form-select">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-5">
+                    <div class="col-md-5" style="border: 0px solid black; max-width: 600px;">
+                        <canvas id="myChart" width="500" height="400"></canvas>
+                    </div>
+                    <div class="col-md-7" style="border: 0px solid black;">
+                        <div class="row mb-5" style="border: 0px solid black;">
+                            <label class="ms-2" style="font-size: 16px; font-weight: bold;">Elsa</label>
+                            <label class="ms-2" style="font-size: 14px;">$32.35</label>
+                            <div class="mt-1 ms-2" style="width: 95%; border: 0px solid green; height: 15px; display: flex; ">
+                                
+                                <span style="width: 20%; height: 15px; display: inline-block; vertical-align: top; background-color: red; border-top-left-radius: 6px; border-bottom-left-radius: 6px;">tt</span>
+                                <span style="width: 30%; height: 15px; display: inline-block; vertical-align: top; background-color: #d6f0d5;">t1</span>
+                                <span style="width: 50%; height: 15px; display: inline-block; vertical-align: top; background-color: #5c8c9c; border-top-right-radius: 6px; border-bottom-right-radius: 6px;">t2</span>
+                            </div>
+                        </div>
+                        <div class="row mb-3" style="border: 0px solid black;">
+                            <label class="ms-2" style="font-size: 16px; font-weight: bold;">Elsa</label>
+                            <label class="ms-2" style="font-size: 14px;">$32.35</label>
+                            <!--
+                            <span>
+                                <span style="width: 20%; background-color: #d6f0d5;">tt</span>
+                                <span style="width: 30%; background-color: red;">tt</span>
+                                <span style="width: 60%; background-color: #5c8c9c;">tt</span>
+                            </span>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

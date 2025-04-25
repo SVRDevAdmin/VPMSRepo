@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "d8BkfV8Z5/y43mjYqoeDsKydVtN8NQDuBpanqi59090=",
+  "Hash": "JEUV2fyaaoNXQiBLHBJCU4WFbZ6wbcDXus5qBF2ud1Y=",
   "Source": "VPMSCustomer",
   "BasePath": "_content/VPMSCustomer",
   "Mode": "Default",
@@ -3060,6 +3060,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap-switch-button\\dist\\js\\bootstrap-switch-button.min.js"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\lib\\chartjs-plugin-annotation.js",
+      "SourceId": "VPMSCustomer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\",
+      "BasePath": "_content/VPMSCustomer",
+      "RelativePath": "lib/chartjs-plugin-annotation#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "f7u0xncnkm",
+      "Integrity": "65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\chartjs-plugin-annotation.js"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\lib\\chartjs-plugin-annotation.min.js",
+      "SourceId": "VPMSCustomer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\",
+      "BasePath": "_content/VPMSCustomer",
+      "RelativePath": "lib/chartjs-plugin-annotation.min#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yhsmd828fl",
+      "Integrity": "Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\chartjs-plugin-annotation.min.js"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\lib\\datepicker\\gijgo.min.js",
@@ -18644,6 +18686,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-AnFLd1scVv9WVrMIfwu4uUnkwTJ3i/Zd3LMhquM0MEM="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation.f7u0xncnkm.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\lib\\chartjs-plugin-annotation.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "26848"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Apr 2025 06:14:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "f7u0xncnkm"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/chartjs-plugin-annotation.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\lib\\chartjs-plugin-annotation.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "26848"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Apr 2025 06:14:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation.min.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\lib\\chartjs-plugin-annotation.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13748"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Apr 2025 06:14:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation.min.yhsmd828fl.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\lib\\chartjs-plugin-annotation.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13748"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Apr 2025 06:14:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yhsmd828fl"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/chartjs-plugin-annotation.min.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4="
         }
       ]
     },

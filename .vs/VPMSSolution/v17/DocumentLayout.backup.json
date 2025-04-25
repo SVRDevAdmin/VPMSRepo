@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Dev\\VPMS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\views\\analytics\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\views\\analytics\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|c:\\dev\\vpms\\vpmscustomer\\controllers\\analyticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BDB4F31-C159-4AA2-AA7F-9BB900A447E8}|VPMSCustomer\\VPMSCustomer.csproj|solutionrelative:vpmscustomer\\controllers\\analyticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|c:\\dev\\vpms\\vpms\\views\\dashboard\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AADC18B6-A252-4C82-95F5-13F43DEA70E5}|VPMS\\VPMSWeb.csproj|solutionrelative:vpms\\views\\dashboard\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 252,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,15 +50,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "VPMSCustomer\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\Controllers\\AccountController.cs*",
-              "RelativeToolTip": "VPMSCustomer\\Controllers\\AccountController.cs*",
-              "ViewState": "AgIAABEBAAAAAAAAAAAAACABAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMS\\Views\\Dashboard\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "VPMS\\Views\\Dashboard\\Dashboard.cshtml",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMS\\Views\\Dashboard\\Dashboard.cshtml",
+              "RelativeToolTip": "VPMS\\Views\\Dashboard\\Dashboard.cshtml",
+              "ViewState": "AgIAAD8CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-25T01:00:08.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AnalyticsController.cs",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\Controllers\\AnalyticsController.cs",
+              "RelativeDocumentMoniker": "VPMSCustomer\\Controllers\\AnalyticsController.cs",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\Controllers\\AnalyticsController.cs",
+              "RelativeToolTip": "VPMSCustomer\\Controllers\\AnalyticsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T06:46:24.688Z",
+              "WhenOpened": "2025-04-24T08:34:54.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Dev\\VPMS\\VPMSCustomer\\Views\\Analytics\\Index.cshtml",
+              "RelativeDocumentMoniker": "VPMSCustomer\\Views\\Analytics\\Index.cshtml",
+              "ToolTip": "C:\\Dev\\VPMS\\VPMSCustomer\\Views\\Analytics\\Index.cshtml",
+              "RelativeToolTip": "VPMSCustomer\\Views\\Analytics\\Index.cshtml",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAAHAAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-24T08:34:30.945Z",
               "EditorCaption": ""
             }
           ]
