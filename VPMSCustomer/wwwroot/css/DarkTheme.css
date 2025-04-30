@@ -400,3 +400,40 @@
 .dividerRow {
     border-bottom: 1px solid #ddd !important;
 }
+
+/*------ Analytics --------*/
+.analyticsTitle {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.analyticsFrame {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+#ddlYearSelection {
+    color: white;
+    font-size: 12px;
+    width: 100px;
+    height: 25px;
+    padding-top: 0;
+}
+
+.yearSelectionLabel {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.breakdownPetName {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.breakdownAmount {
+    color: white;
+    font-size: 14px;
+}

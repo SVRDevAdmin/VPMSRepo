@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VPMSCustomer.Lib.Data;
 
 namespace VPMSCustomer.Controllers
 {
@@ -9,6 +10,51 @@ namespace VPMSCustomer.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        //GetExpensesSummaryByYear
+        [Route("/Analytics/GetExpensesSummaryByYear")]
+        [HttpGet()]
+        public IActionResult GetExpensesSummaryByYear(String summaryYear, long iPatientID)
+        {
+            try
+            {
+                var sResult = AnalyticsRepository.GetExpensesSummaryByYear(summaryYear, iPatientID);
+                if (sResult != null)
+                {
+                    return Json(new { data = sResult });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [Route("/Analytics/GetExpensesSummaryBreakdown")]
+        [HttpGet()]
+        public IActionResult GetExpensesSummaryBreakdown(String summaryYear, long iPatientID)
+        {
+            try
+            {
+                var sResult = AnalyticsRepository.GetExpensesSummaryBreakdown(summaryYear, iPatientID);
+                if (sResult != null)
+                {
+                    return Json(new { data = sResult });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         // GET: AnalyticsController/Details/5

@@ -393,3 +393,40 @@
 .dividerRow {
     border-bottom: 1px solid black !important;
 }
+
+/*------ Analytics --------*/
+.analyticsTitle {
+    color: black;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.analyticsFrame {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#ddlYearSelection {
+    color: black;
+    font-size: 12px;
+    width: 100px;
+    height: 25px;
+    padding-top: 0;
+}
+
+.yearSelectionLabel {
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.breakdownPetName {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.breakdownAmount {
+    color: black;
+    font-size: 14px;
+}
