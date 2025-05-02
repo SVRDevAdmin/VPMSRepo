@@ -69,4 +69,14 @@ namespace VPMSCustomer.Lib.Data.Models
         public String? ItemName { get; set; }
         public Decimal? ItemTotalValue { get; set; }
     }
+
+    public class DailyExpenseSummObject 
+    { 
+        public DateTime InvoiceDate { get; set; }
+        public long? PatientID { get; set; }
+        public long? PetID { get; set; }
+        public int? ServiceID { get; set; }
+        public String? ServiceName { get; set; }
+        public Decimal? ServicePrice { get; set; }
+    }
 }

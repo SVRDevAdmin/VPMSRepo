@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VPMSCustomer.Lib.Data.DBContext;
 using VPMSCustomer.Lib.Data.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace VPMSCustomer.Lib.Data
 {
@@ -321,6 +322,57 @@ namespace VPMSCustomer.Lib.Data
                             }
                         }
                     }
+                    sConn.Close();
+                }
+
+                return sResultList;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static List<DailyExpenseSummObject> GetCustomerExpensesSummary(DateTime sTransStartDate, DateTime sTransEndDate)
+        {
+            List<DailyExpenseSummObject> sResultList = new List<DailyExpenseSummObject>();
+
+            try
+            {
+                using (var ctx = new InvoiceReceiptDBContext())
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.UpdatedDate AS 'InvoiceDate', M.PatientID, B.PetID, " +
+                                            "C.ServiceID, C.ServiceName, C.TotalPrice AS 'ServicePrice' " +
+                                            "FROM mst_invoicereceipt AS A " + 
+                                            "INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
+                                            "INNER JOIN txn_treatmentplan_services AS C ON C.PlanID = B.ID " +
+                                            "INNER JOIN mst_pets AS M ON M.ID = B.PetID " + 
+                                            "WHERE (A.UpdatedDate >= '" + sTransStartDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " +
+                                            "A.UpdatedDate <= '" + sTransEndDate.ToString("yyyy-MM-dd HH:mm:ss") + "') AND " +
+                                            "A.Status = '3' ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                DailyExpenseSummObject sExpensesObj = new DailyExpenseSummObject();
+                                sExpensesObj.InvoiceDate = Convert.ToDateTime(sReader["InvoiceDate"]);
+                                sExpensesObj.PatientID = Convert.ToInt64(sReader["PatientID"]);
+                                sExpensesObj.PetID = Convert.ToInt64(sReader["PetID"]);
+                                sExpensesObj.ServiceID = Convert.ToInt32(sReader["ServiceID"]);
+                                sExpensesObj.ServiceName = sReader["ServiceName"].ToString();
+                                sExpensesObj.ServicePrice = Convert.ToDecimal(sReader["ServicePrice"]);
+
+                                sResultList.Add(sExpensesObj);
+                            }
+                        }
+                    }
+
                     sConn.Close();
                 }
 

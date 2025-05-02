@@ -15,6 +15,7 @@ namespace VPMSCustomer.Lib.Data.DBContext
     public class AnalyticsDBContext : DbContext
     {
         public DbSet<AnalyticsModel> txn_customer_expenses_summary { get; set; }
+        public DbSet<ExpensesSummaryLog> txn_customer_expenses_summarylog { get; set; }
 
         private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
 

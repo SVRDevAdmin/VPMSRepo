@@ -122,5 +122,75 @@ namespace VPMSCustomer.Lib.Data
                 return null;
             }
         }
+
+        public static Boolean InsertExpensesSummary(List<AnalyticsModel> sModel)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new AnalyticsDBContext())
+                {
+                    ctx.txn_customer_expenses_summary.AddRange(sModel);
+                    ctx.SaveChanges();
+
+                    isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        public static Boolean DeleteExpensesSummaryByDate(DateTime sTargetDate)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new AnalyticsDBContext())
+                {
+                    var sResult = ctx.txn_customer_expenses_summary.Where(x => x.TransDate == sTargetDate.Date).ToList();
+                    if (sResult.Count > 0)
+                    {
+                        ctx.txn_customer_expenses_summary.RemoveRange(sResult);
+                        ctx.SaveChanges();
+
+                        isSuccess = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        public static Boolean InsertExpensesSummaryLog(ExpensesSummaryLog sLog)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new AnalyticsDBContext())
+                {
+                    ctx.txn_customer_expenses_summarylog.Add(sLog);
+                    ctx.SaveChanges();
+
+                    isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
     }
 }
