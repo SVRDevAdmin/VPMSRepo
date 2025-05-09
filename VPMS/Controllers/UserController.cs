@@ -37,10 +37,16 @@ namespace VPMSWeb.Controllers
 		/// <returns></returns>
 		public IActionResult UserDetails()
 		{
+            int iOrganizationID = -1;
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+            {
+                iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            }
+
             ViewData["UserStatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Status");
             ViewData["UserGenderDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Gender");
             ViewData["UserOrganizationDropdown"] = OrganizationRepository.GetOrganizationList(2);
-			ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList();
+			ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList(iOrganizationID);
 
             return View("UserDetails");
 		}
@@ -54,10 +60,16 @@ namespace VPMSWeb.Controllers
 		[Route("/User/UserProfile/{UserID}/{ViewType}")]
 		public IActionResult UserProfile(String UserID, String ViewType)
 		{
+            int iOrganizationID = -1;
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+            {
+                iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            }
+
             ViewData["UserStatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Status");
             ViewData["UserGenderDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Gender");
             ViewData["UserOrganizationDropdown"] = OrganizationRepository.GetOrganizationList(2);
-            ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList();
+            ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList(iOrganizationID);
 
             UserProfileExtObj sUserObj = UserRepository.GetUserProfileByUserID(UserID);
 			ViewData["UserProfile"] = sUserObj;

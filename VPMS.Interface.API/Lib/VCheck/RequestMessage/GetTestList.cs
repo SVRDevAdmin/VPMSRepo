@@ -9,16 +9,16 @@ namespace VPMS.Interface.API.VCheck.RequestMessage
 {
     public class GetTestListRequest
     {
-        public RequestHeaderObject header { get; set;  }
-        public RequestBodyObject body { get; set; }
+        public GetTestListRequestHeader header { get; set;  }
+        public GetTestListRequestBody body { get; set; }
     }
 
-    public class RequestHeaderObject : ReqeustHeaderBase
+    public class GetTestListRequestHeader : RequestHeaderBase
     {
 
     }
 
-    public class RequestBodyObject
+    public class GetTestListRequestBody
     {
 
     }

@@ -24,11 +24,13 @@ namespace VPMS.Lib.Data.Models
 
         public string RoleID { get; set; } = null!;
 
-        public int BranchID { get; set; }
+        public int? BranchID { get; set; }
 
 		public int Level1ID { get; set; }
 
 		public DateTime? LastLoginDate { get; set; }
+
+        public int? OrganizationID { get; set; }
     }
 
     public class StaffProfileInfo

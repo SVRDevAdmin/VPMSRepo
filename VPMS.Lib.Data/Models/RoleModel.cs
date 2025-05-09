@@ -6,19 +6,14 @@ namespace VPMS.Lib.Data.Models
     {
         [Key]
         public string RoleID { get; set; } = null!;
-
         public string RoleName { get; set; } = null!;
-
         public int RoleType { get; set; }
-
         public int Status { get; set; }
-
 		public int IsAdmin { get; set; }
-
 		public int IsDoctor { get; set; }
-
         public String? Description { get; set; }
         public int? BranchID { get; set; }
+        public int? OrganizationID { get; set; }
 	}
 
     public class RoleModelExtObject : RoleModel
@@ -68,7 +63,9 @@ namespace VPMS.Lib.Data.Models
         public String? roleDescription { get; set; }
         public int? status {  get; set; }
         public int? branchID {  get; set; }
+        public int? organizationID { get; set; }
         public int? isDoctor { get; set; }
+        public int? roleType { get; set; }
         public String? userID { get; set; }
         public List<String>? permissionsList { get; set; }
     }

@@ -944,6 +944,10 @@ a {
 	color: black;
 }
 
+#tblRoles > tbody > tr > td:nth-child(4) {
+	word-break: break-word !important;
+}
+
 .roleListingMoreIcon {
 	content: url('../images/more_icon.png');
 	width: 20px;

@@ -26,6 +26,11 @@ namespace VPMS.Interface.API
             iConfig = sBuilder.Build();
         }
 
+        /// <summary>
+        /// Get Test List master
+        /// </summary>
+        /// <param name="sRequest"></param>
+        /// <returns></returns>
         public GetTestListResponse GetTestList(GetTestListRequest sRequest)
         {
             String? sRequestURL = iConfig.GetSection("VCheckAPI:GetTestList").Value;
@@ -52,6 +57,37 @@ namespace VPMS.Interface.API
             }
         }
 
+        public GetLocationListResponse GetLocationList(GetLocationListRequest sRequest)
+        {
+            String? sRequestURL = iConfig.GetSection("VCheckAPI:GetLocationList").Value;
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    HttpResponseMessage resp = client.PostAsJsonAsync(sRequestURL, sRequest).Result;
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        String strResult = resp.Content.ReadAsStringAsync().Result;
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<VCheck.ResponseMessage.GetLocationListResponse>(strResult);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Submit scheduled Test to VCheckViewer
+        /// </summary>
+        /// <param name="sRequest"></param>
+        /// <returns></returns>
         public CreateScheduledTestResponse CreateScheduledTest(CreateScheduledTestRequest sRequest)
         {
             String? sRequestURL = iConfig.GetSection("VCheckAPI:CreateScheduledTest").Value;

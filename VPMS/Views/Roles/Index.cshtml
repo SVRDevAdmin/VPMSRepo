@@ -8,6 +8,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
@@ -35,6 +36,7 @@
         $('#lbRoleSettingError').css('visibility', 'hidden');
 
         $.getJSON("/Roles/GetRoleListing", {
+            organizationid: '@sessionOrganizationID',
             pageSize: pageSize,
             pageIndex: currentPage
         }).done(function (result) {
@@ -176,7 +178,9 @@
 <div class="row">
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-3">
-            <label class="rolePageTitle"><!--Role Settings-->@LangResources["Roles_Title_RoleSettings"]</label>
+            <label class="rolePageTitle">
+                @LangResources["Roles_Title_RoleSettings"]
+            </label>
         </div>
         <div class="col-md-7">&nbsp;</div>
         <div class="col-md-2">
@@ -187,7 +191,7 @@
                         <button id="btnAddRole" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw"
                                 onclick="location.href='@Url.Action("RoleProfile", "Roles")'">
                             <i class="bi bi-plus-circle"></i>
-                            <!-- New Role -->@LangResources["Roles_Button_NewRole"]
+                            @LangResources["Roles_Button_NewRole"]
                         </button>
                     </div>
                 }
@@ -203,9 +207,9 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center" data-field="SeqNo" style="width: 5%;">@LangResources["Roles_Label_Number"]</th>
-                        <th scope="col" class="text-left" data-field="RoleName" style="width: 20%;">@LangResources["Roles_Label_Role"]</th>
+                        <th scope="col" class="text-left" data-field="RoleName" style="width: 30%;">@LangResources["Roles_Label_Role"]</th>
                         <th scope="col" class="text-left" data-field="TotalAssigned" style="width: 15%;">@LangResources["Roles_Label_AssignedNoofStaffs"]</th>
-                        <th scope="col" class="text-left" data-field="sPermission" style="width: 55%;">@LangResources["Roles_Label_Permission"]</th>
+                        <th scope="col" class="text-left" data-field="sPermission" style="width: 45%;">@LangResources["Roles_Label_Permission"]</th>
                         <th scope="col" class="text-center" data-field="RoleID" data-formatter="populateHideMenu" style="width: 5%;"></th>
                     </tr>
                 </thead>

@@ -15,6 +15,7 @@ namespace VPMS.Lib.Data.DBContext
         private readonly IConfiguration config;
 
         public DbSet<TestsListModel> mst_testslist { get; set; }
+        public DbSet<scheduledTestsSubmission> txn_scheduledtests_submission { get; set; }
 
         public TestsListDBContext(IConfiguration config)
         {

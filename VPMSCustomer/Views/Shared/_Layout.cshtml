@@ -109,7 +109,6 @@
     </script>
 </head>
 <body>
-    <!-- style="height: 100vh;"-->
     <div id="divContainer" class="container-fluid" >
         <div class="row flex-nowrap">
             <div id="leftPane" class="col-auto col-md-2 col-xs-2 px-sm-2 px-0" >
@@ -123,10 +122,12 @@
                     <ul id="menu" class="nav nav-pills flex-column ps-2 mb-sm-auto align-items-center align-items-sm-start">
                         <!-- HOME -->
                         <li class="nav-item mb-3 menuItems">
-                            <img class="menuHome" />
-                            <span class="d-none d-sm-inline sidebar-nav-font">
-                                @LangResources["Main_Menu_Home"]
-                            </span>
+                            <a asp-controller="Home" asp-action="Index">
+                                <img class="menuHome" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Home"]
+                                </span>
+                            </a>
                         </li>
                         <!-- PETS -->
                         <li class="nav-item mb-3 menuItems">
@@ -181,7 +182,7 @@
             <div class="col-md-10">
                 <div class="row" style="height: 70px;">
                     <div class="row">
-                        <div class="col-md-8">&nbsp;</div>
+                        <div class="col-md-8"></div>
                         <div class="col-md-1">
                             <div class="row">
                                 <a class="ms-3 mt-3 iconBell" asp-controller="Notifications" asp-action="Index">
@@ -196,7 +197,7 @@
                                 </div>
                                 <div style="width: 220px; margin-left: 15px;">
                                     <div class="dropdown" style="margin-top: 10px;">
-                                        <div id="divdropdowntoggle" class="dropdown-toggle" data-toggle="dropdown" style="width: 11vw;">
+                                        <div id="divdropdowntoggle" class="dropdown-toggle" data-toggle="dropdown">
                                             <label id="lbProfileName" class="ProfileFont">@LoginUseName</label>
                                         </div>
                                         <div class="dropdown-menu profilemenu">

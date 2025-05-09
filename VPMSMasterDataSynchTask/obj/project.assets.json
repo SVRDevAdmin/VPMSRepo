@@ -72,7 +72,7 @@
           }
         }
       },
-      "log4net/3.0.0": {
+      "log4net/3.0.4": {
         "type": "package",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.5.0"
@@ -2783,10 +2783,10 @@
         "lib/netstandard2.1/K4os.Hash.xxHash.xml"
       ]
     },
-    "log4net/3.0.0": {
-      "sha512": "qMdZQuo3u7aurPbcyO55xe6GykvhVOxIFqzdA1uMPQb4IldIMez8z4jA71PBSuZqTljzYxtjIGcIhiKjt5F1cw==",
+    "log4net/3.0.4": {
+      "sha512": "4jJlhW7fTLIm0Ktq1FGlmgavlkEbfHCbqWEusacKQBq7NQ85vJOu5jjISCeOI4Pyu3kqIiAktv8WLKvyq6evwA==",
       "type": "package",
-      "path": "log4net/3.0.0",
+      "path": "log4net/3.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2797,7 +2797,7 @@
         "lib/netstandard2.0/log4net.dll",
         "lib/netstandard2.0/log4net.pdb",
         "lib/netstandard2.0/log4net.xml",
-        "log4net.3.0.0.nupkg.sha512",
+        "log4net.3.0.4.nupkg.sha512",
         "log4net.nuspec",
         "package-icon.png"
       ]
@@ -8029,7 +8029,8 @@
       "Microsoft.Extensions.Configuration.Binder >= 9.0.4",
       "Microsoft.Extensions.Configuration.Json >= 9.0.4",
       "VPMS.Interface.API >= 1.0.0",
-      "VPMS.Lib.Data >= 1.0.0"
+      "VPMS.Lib.Data >= 1.0.0",
+      "log4net >= 3.0.4"
     ]
   },
   "packageFolders": {
@@ -8105,6 +8106,10 @@
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
             "version": "[9.0.4, )"
+          },
+          "log4net": {
+            "target": "Package",
+            "version": "[3.0.4, )"
           }
         },
         "imports": [

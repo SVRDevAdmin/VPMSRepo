@@ -60,6 +60,13 @@ namespace VPMSCustomer.Controllers
                     HttpContext.Session.Remove("CustomerSettings_Country");
                     HttpContext.Session.Remove("CustomerSettings_Themes");
                     HttpContext.Session.Remove("LoginSession");
+                    HttpContext.Session.Remove("PatientID");
+                    HttpContext.Session.Remove("Gender");
+                    HttpContext.Session.Remove("PatientOwnerID");
+                    HttpContext.Session.Remove("PatientState");
+                    HttpContext.Session.Remove("PatientPostCode");
+                    HttpContext.Session.Remove("PatientCity");
+                    HttpContext.Session.Remove("PatientCountryID");
 
                     sResp.StatusCode = (int)StatusCodes.Status200OK;
                 }
@@ -184,7 +191,7 @@ namespace VPMSCustomer.Controllers
                         HttpContext.Session.SetString("LoginSession", sNewSession.SessionID);
 
 
-                        Response.Cookies.Append("Language", sLanguageSettings);
+                        Response.Cookies.Append("CustomerLanguage", sLanguageSettings);
                         Response.Cookies.Append("CustomerTheme", sThemesSettings);
 
                         sResp.StatusCode = (int)StatusCodes.Status200OK;

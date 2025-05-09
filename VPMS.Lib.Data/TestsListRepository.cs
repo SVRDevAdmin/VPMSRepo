@@ -95,5 +95,80 @@ namespace VPMS.Lib.Data
                 return null;
             }
         }
+
+        public static Boolean InsertScheduledTestSubmission(IConfiguration config, scheduledTestsSubmission sSubmissionObj, out long iID)
+        {
+            Boolean isSuccess = false;
+            iID = 0;
+
+            try
+            {
+                using (var ctx = new TestsListDBContext(config))
+                {
+                    ctx.txn_scheduledtests_submission.Add(sSubmissionObj);
+                    ctx.SaveChanges();
+
+                    iID = sSubmissionObj.ID;
+
+                    isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        public static scheduledTestsSubmission GetScheduledTestSubmission(IConfiguration config, long iSubmissionID)
+        {
+            try
+            {
+                using (var ctx = new TestsListDBContext(config))
+                {
+                    return ctx.txn_scheduledtests_submission.Where(x => x.ID == iSubmissionID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static Boolean UpdateScheduledTestSubmissionStatus(IConfiguration config, long iSubmissionID, int sentStatus, DateTime sentDate, String respStatus, String sUpdatedBy)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new TestsListDBContext(config))
+                {
+                    var sSubmissionObj = ctx.txn_scheduledtests_submission.Where(x => x.ID == iSubmissionID).FirstOrDefault();
+                    if (sSubmissionObj != null)
+                    {
+                        sSubmissionObj.Status = sentStatus;
+                        sSubmissionObj.ResponseStatus = respStatus;
+                        sSubmissionObj.SubmissionSent = sentDate;
+                        sSubmissionObj.UpdatedDate = DateTime.Now;
+                        sSubmissionObj.UpdatedBy = sUpdatedBy;
+
+                        ctx.SaveChanges();
+
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        isSuccess = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
     }
 }

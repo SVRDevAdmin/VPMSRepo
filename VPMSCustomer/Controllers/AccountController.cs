@@ -256,7 +256,7 @@ namespace VPMSCustomer.Controllers
                         Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(configValue);
                         Thread.CurrentThread.CurrentUICulture = new CultureInfo(configValue);
 
-                        Response.Cookies.Append("Language", configValue);
+                        Response.Cookies.Append("CustomerLanguage", configValue);
                     }
 
                     if (configKey == "CustomerSettings_Themes")

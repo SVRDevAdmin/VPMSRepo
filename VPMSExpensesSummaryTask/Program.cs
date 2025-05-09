@@ -47,7 +47,12 @@ namespace VPMSExpensesSummaryTask
                     endDate = new DateTime(executionDate.Year, executionDate.Month, executionDate.Day, 23, 59, 59);
                 }
 
+                log.Info("Summary Daily Expenses [Date : " + startDate.ToString("dd/MM/yyyy hh:mm:ss") + " ~ " + 
+                         endDate.ToString("dd/MM/yyyy hh:mm:ss") + "] BEGIN.");
+
                 ExpensesSummaryUpdate(startDate, endDate);
+
+                log.Info("Summary Daily Expenses COMPLETED.");
             }      
         }
 
@@ -57,8 +62,10 @@ namespace VPMSExpensesSummaryTask
 
             try
             {
+                log.Info("Delete Data for Summary Date [" + sStartDate.ToString("dd/MM/yyyy") + "]");
                 AnalyticsRepository.DeleteExpensesSummaryByDate(sStartDate);
 
+                log.Info("Summarize expense data.");
                 var sDailyExpenses = InvoiceReceiptRepository.GetCustomerExpensesSummary(sStartDate, sEndDate);
                 if (sDailyExpenses != null && sDailyExpenses.Count > 0)
                 {
@@ -80,6 +87,8 @@ namespace VPMSExpensesSummaryTask
 
                         AnalyticsRepository.InsertExpensesSummary(sSummaryObj);
                     }
+
+                    log.Info("Update Expenses Summary data completed.");
                 }
 
                 // ------ Insert Execution Log ------- //
@@ -94,7 +103,7 @@ namespace VPMSExpensesSummaryTask
             }
             catch (Exception ex)
             {
-                
+                log.Info("VPMSExpensesSummaryTask >>> ExpensesSummaryUpdate >>> " + ex.ToString());
             }
         }
 

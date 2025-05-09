@@ -12,10 +12,12 @@
 }
 
 .ProfileFont {
-    font-size: 1vw;
+    /*font-size: 1vw;*/
+    font-size: 13px;
     font-weight: bold;
     color: white;
-    width: 11vw;
+    /*width: 11vw;*/
+    width: 130px;
     text-wrap: wrap;
 }
 
@@ -30,7 +32,8 @@
 
 .profilemenu {
     background-color: #1f2e45;
-    font-size: 1vw;
+    /*font-size: 1vw;*/
+    font-size: 12px;
 }
 
 .menuItems > a {

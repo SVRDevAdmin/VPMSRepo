@@ -16,6 +16,9 @@ using VPMS.Lib.Data;
 using ZstdSharp.Unsafe;
 using VPMS.Lib;
 using Microsoft.Extensions.Localization;
+using VPMS.Interface.API.VCheck.RequestMessage;
+using SkiaSharp;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace VPMSWeb.Controllers
 {
@@ -31,6 +34,9 @@ namespace VPMSWeb.Controllers
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 		private readonly InvoiceReceiptDBContext _invoiceReceiptDBContext = new InvoiceReceiptDBContext();
 		private readonly TestManagementDBContext _testManagementDBContext = new TestManagementDBContext();
+		private readonly TestsListDBContext _testsListDBContext = new TestsListDBContext(ConfigSettings.GetConfigurationSettings());
+		private readonly LocationDBContext _locationDBContext = new LocationDBContext(ConfigSettings.GetConfigurationSettings());
+		private readonly DoctorDBContext _doctorDBContext = new DoctorDBContext(ConfigSettings.GetConfigurationSettings());
 
 		int totalPets;
 
@@ -174,8 +180,12 @@ namespace VPMSWeb.Controllers
 				ViewData["VaccinationList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Vaccination").ToList();
 				ViewData["SurgeryList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Surgery").ToList();
 				ViewData["MedicationList"] = _inventoryDBContext.Mst_ProductType.ToList();
+				ViewData["TestsList"] = _testsListDBContext.mst_testslist.Where(x => x.IsActive == 1).OrderBy(x => x.System_TestID).ToList();
+				ViewData["LocationList"] = _locationDBContext.mst_locationlist.Where(x => x.System_Status == 1).ToList();
+				ViewData["DoctorList"] = _doctorDBContext.mst_doctor.Where(x => x.IsDeleted == 0).ToList();
 
-				petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
+
+                petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 			}
 			catch (Exception ex)
 			{
@@ -376,97 +386,223 @@ namespace VPMSWeb.Controllers
 			return Json(sResp);
 		}
 
-		//[Route("/Patients/BloodTest/{patientid}/{petname}")]
-		//public IActionResult BloodTest(int patientid, string petname)
-		//{
-		//	List<int> patientList = new List<int>();
+		[Route("Patients/SubmitScheduledTests")]
+		[HttpPost()]
+		public IActionResult InsertScheduledTestSubmission(String scheduledDate, String scheduledTime, String locationID, String locationName,
+														   String testID, String testName, long patientID, String patientName, String gender,
+														   String species, String doctorIncharges, String submittedBy)
+		{
+            Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
 
-		//	try
-		//	{
-		//		var role = HttpContext.Session.GetString("RoleName");
-		//		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-		//		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+			try
+			{
+				DateTime dtScheduled = DateTime.ParseExact((scheduledDate + " " + scheduledTime), "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+				DateTime dtCreated = DateTime.Now;
 
-		//		if (role == "Superadmin")
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-		//		}
-		//		else if (organisation != 0)
-		//		{
-		//			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
 
-		//		}
-		//		else if (branch != 0)
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-		//		}
+				scheduledTestsSubmission sSubmissionObject = new scheduledTestsSubmission();
+				sSubmissionObject.PatientID = patientID;
+				sSubmissionObject.ScheduledDate = dtScheduled;
+				sSubmissionObject.TestID = testID;
+				sSubmissionObject.TestName = testName;
+				sSubmissionObject.LocationID = locationID;
+				sSubmissionObject.LocationName = locationName;
+				sSubmissionObject.Status = 0;
+				sSubmissionObject.CreatedDate = dtCreated;
+				sSubmissionObject.CreatedBy = submittedBy;
 
-		//		if (!patientList.Contains(patientid))
-		//		{
-		//			return RedirectToAction("PatientsList", "Patients");
-		//		}
+				long iSubmissionID = 0;
+				if (TestsListRepository.InsertScheduledTestSubmission(ConfigSettings.GetConfigurationSettings(), sSubmissionObject, out iSubmissionID))
+				{
+					String sUniqueID = testID + "-" + iSubmissionID.ToString("00000");
+					String sResponseStatus = "";
 
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Program.logger.Error("Controller Error >> ", ex);
-		//	}
+					DateTime sUpdatedDate;
+                    int newStatus = 0;
 
-		//	ViewData["PetName"] = petname;
-		//	ViewBag.PatientID = patientid;
+                    Boolean isSent = SendScheduledTest(dtScheduled, locationID, locationName, sUniqueID, testID, testName, patientID,
+													   patientName, gender, species, doctorIncharges, submittedBy, dtCreated, 
+													   out sResponseStatus);
+					if (isSent)
+					{
+						sUpdatedDate = DateTime.Now;
+						newStatus = 1;
 
-		//	Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
+                        sResp.StatusCode = (int)StatusCodes.Status200OK;
+                    }
+					else
+					{
+                        sUpdatedDate = DateTime.Now;
+                        newStatus = 2;
 
-		//	return View();
-		//}
+                        sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                    }
 
-		//[Route("/Patients/VCheck/{patientid}/{petname}")]
-		//public IActionResult VCheck(int patientid, string petname)
-		//{
-		//	List<int> patientList = new List<int>();
+                    TestsListRepository.UpdateScheduledTestSubmissionStatus(ConfigSettings.GetConfigurationSettings(), iSubmissionID,
+																			newStatus, sUpdatedDate, sResponseStatus, submittedBy);
+                }
+                else
+				{
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                }
+			}
+            catch (Exception ex)
+			{
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
 
-		//	try
-		//	{
-		//		var role = HttpContext.Session.GetString("RoleName");
-		//		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-		//		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+            return Json(sResp);
+        }
 
-		//		if (role == "Superadmin")
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-		//		}
-		//		else if (organisation != 0)
-		//		{
-		//			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+		public static Boolean SendScheduledTest(DateTime dtScheduled, String locationID, String locationName,
+												String sUniquerID, String testID, String testName, long patientID, 
+												String patientName, String gender, String species, String doctorIncharges, 
+												String submiitedBy, DateTime dtCreated, out String responseStatus)
+		{
+			Boolean isSuccess = false;
+			responseStatus = "";
 
-		//		}
-		//		else if (branch != 0)
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-		//		}
+			var config = ConfigSettings.GetConfigurationSettings();
+			String sClientKey = config.GetSection("VCheckAPI:ClientKey").Value;
 
-		//		if (!patientList.Contains(patientid))
-		//		{
-		//			return RedirectToAction("PatientsList", "Patients");
-		//		}
+            try
+			{
+				VPMS.Interface.API.VCheckAPI vcheckAPI = new VPMS.Interface.API.VCheckAPI();
 
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Program.logger.Error("Controller Error >> ", ex);
-		//	}
+				CreateScheduledTestRequest sReq = new CreateScheduledTestRequest();
+				CreateScheduledTestBody sReqBody = new CreateScheduledTestBody();
+				CreateScheduledTestHeader sReqHeader = new CreateScheduledTestHeader();
+				sReqHeader.timestamp = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ"); ;
+				sReqHeader.clientkey = sClientKey;
 
-		//	ViewData["PetName"] = petname;
-		//	ViewBag.PatientID = patientid;
+				sReqBody.locationid = locationID;
+				sReqBody.scheduledtestname = testName;
+				sReqBody.scheduleddatetime = dtScheduled.ToString("yyyyMMddHHmmss");
+				sReqBody.testuniqueid = sUniquerID;
 
-		//	Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
+                sReqBody.scheduledby = submiitedBy;
+				sReqBody.personincharges = doctorIncharges;
+				sReqBody.patientid = patientID.ToString();
+				sReqBody.patientname = patientName;
+				sReqBody.gender = gender;
+				sReqBody.species = species;
+				sReqBody.ownername = "";
+				sReqBody.scheduledcreateddate = dtCreated.ToString("yyyyMMddHHmmss");
 
-		//	return View();
-		//}
+				sReq.header = sReqHeader;
+				sReq.body = sReqBody;
 
-		[Route("/Patients/TestManagement/{category}/{patientid}/{petname}")]
+				var sResp = vcheckAPI.CreateScheduledTest(sReq);
+				if (sResp.body.responseCode == "VV.0001")
+				{
+					isSuccess = true;
+                }
+				else
+				{
+					isSuccess = false;
+                }
+
+				responseStatus = (sResp != null) ? sResp.body.responseCode : "";
+            }
+			catch (Exception ex)
+			{
+				isSuccess = false;
+            }
+
+			return isSuccess;
+		}
+
+        //[Route("/Patients/BloodTest/{patientid}/{petname}")]
+        //public IActionResult BloodTest(int patientid, string petname)
+        //{
+        //	List<int> patientList = new List<int>();
+
+        //	try
+        //	{
+        //		var role = HttpContext.Session.GetString("RoleName");
+        //		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+        //		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+        //		if (role == "Superadmin")
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+        //		}
+        //		else if (organisation != 0)
+        //		{
+        //			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+        //		}
+        //		else if (branch != 0)
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+        //		}
+
+        //		if (!patientList.Contains(patientid))
+        //		{
+        //			return RedirectToAction("PatientsList", "Patients");
+        //		}
+
+        //	}
+        //	catch (Exception ex)
+        //	{
+        //		Program.logger.Error("Controller Error >> ", ex);
+        //	}
+
+        //	ViewData["PetName"] = petname;
+        //	ViewBag.PatientID = patientid;
+
+        //	Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
+
+        //	return View();
+        //}
+
+        //[Route("/Patients/VCheck/{patientid}/{petname}")]
+        //public IActionResult VCheck(int patientid, string petname)
+        //{
+        //	List<int> patientList = new List<int>();
+
+        //	try
+        //	{
+        //		var role = HttpContext.Session.GetString("RoleName");
+        //		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+        //		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+        //		if (role == "Superadmin")
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+        //		}
+        //		else if (organisation != 0)
+        //		{
+        //			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+        //		}
+        //		else if (branch != 0)
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+        //		}
+
+        //		if (!patientList.Contains(patientid))
+        //		{
+        //			return RedirectToAction("PatientsList", "Patients");
+        //		}
+
+        //	}
+        //	catch (Exception ex)
+        //	{
+        //		Program.logger.Error("Controller Error >> ", ex);
+        //	}
+
+        //	ViewData["PetName"] = petname;
+        //	ViewBag.PatientID = patientid;
+
+        //	Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
+
+        //	return View();
+        //}
+
+        [Route("/Patients/TestManagement/{category}/{patientid}/{petname}")]
 		public IActionResult TestResults(int category, int patientid, string petname)
 		{
 			List<int> patientList = new List<int>();

@@ -32,5 +32,21 @@ namespace VPMS.Lib.Data
                 return null;
             }
         }
+
+        public static OrganisationModel GetOrganizationByID(int iOrganizationID)
+        {
+            try
+            {
+                using (var ctx = new OrganisationDBContext())
+                {
+                    return ctx.Mst_Organisation.Where(x => x.Id == iOrganizationID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("OrganizationRepository >>> GetOrganizationByID >>> ", ex);
+                return null;
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace VPMS.Lib.Data
 		/// <param name="pageIndex"></param>
 		/// <param name="totalRecords"></param>
 		/// <returns></returns>
-		public static List<RoleListingObject> GetRolesListing(int pageSize, int pageIndex, out int totalRecords)
+		public static List<RoleListingObject> GetRolesListing(int organizationid, int pageSize, int pageIndex, out int totalRecords)
         {
             List<RoleListingObject> sRoleList = new List<RoleListingObject>();
             totalRecords = 0;
@@ -38,13 +38,35 @@ namespace VPMS.Lib.Data
                                             "A.RoleID, A.RoleName, COUNT(B.UserID) AS 'TotalAssigned', " +
                                             "COUNT(*) OVER() AS 'TotalRows', " +
                                             "GROUP_CONCAT(DISTINCT(C.PermissionKey)) AS 'Permissions' " +
-                                            "FROM mst_roles AS A " +
-                                            "LEFT JOIN mst_user AS B ON B.RoleID = A.RoleID AND B.Status = '1' " +
+                                            "FROM ( " +
+
+                                            "SELECT A1.* " +
+                                            "FROM mst_roles AS A1 " +
+                                            "INNER JOIN mst_organisation AS C1 ON C1.ID = A1.OrganizationID " +
+                                            "WHERE A1.Status = '1' AND " +
+                                            "(" +
+                                            "((A1.RoleType = 997 OR A1.RoleType = 998 OR A1.RoleType = 999) AND A1.OrganizationID = '" + organizationid + "') OR " +
+                                            "((A1.RoleType <> 997 AND A1.RoleType <> 998 AND A1.RoleType <> 999) AND A1.OrganizationID = '" + organizationid + "') " +
+                                            ") " +
+
+                                            ") AS A " +
+                                            "LEFT JOIN mst_user AS B ON B.RoleID = A.RoleID AND B.Status = '1' " + 
                                             "LEFT JOIN mst_rolepermissions AS C ON C.RoleID = A.RoleID AND c.IsDeleted = '0' " +
-                                            "WHERE A.Status = '1' " +
                                             "GROUP BY A.RoleID, A.RoleName " +
                                             "LIMIT " + pageSize + " " +
                                             "OFFSET " + ((pageIndex - 1) * pageSize);
+
+                    //String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
+                    //                        "A.RoleID, A.RoleName, COUNT(B.UserID) AS 'TotalAssigned', " +
+                    //                        "COUNT(*) OVER() AS 'TotalRows', " +
+                    //                        "GROUP_CONCAT(DISTINCT(C.PermissionKey)) AS 'Permissions' " +
+                    //                        "FROM mst_roles AS A " +
+                    //                        "LEFT JOIN mst_user AS B ON B.RoleID = A.RoleID AND B.Status = '1' " +
+                    //                        "LEFT JOIN mst_rolepermissions AS C ON C.RoleID = A.RoleID AND c.IsDeleted = '0' " +
+                    //                        "WHERE A.Status = '1' " +
+                    //                        "GROUP BY A.RoleID, A.RoleName " +
+                    //                        "LIMIT " + pageSize + " " +
+                    //                        "OFFSET " + ((pageIndex - 1) * pageSize);
 
                     using (MySqlCommand cmd = new MySqlCommand(sSelectCommand, sConn))
                     {
@@ -366,7 +388,7 @@ namespace VPMS.Lib.Data
                     String sSelectCommand = "SELECT A.RoleID, A.RoleName, A.RoleType, A.`Status`, A.IsAdmin, A.IsDoctor, " +
                                             "A.CreatedDate, A.CreatedBy, A.UpdatedDate, A.UpdatedBy, B.OrganizationID , A.BranchID, A.Description " +
                                             "FROM mst_roles AS A " +
-                                            "INNER JOIN mst_branch AS B ON B.ID = A.BranchID " +
+                                            "LEFT JOIN mst_branch AS B ON B.ID = A.BranchID " +
                                             "WHERE A.RoleID = '" + sRoleID + "' AND A.Status = '1'";
 
                     using (MySqlCommand cmd = new MySqlCommand(sSelectCommand, sConn))
@@ -390,8 +412,17 @@ namespace VPMS.Lib.Data
                                 }
                                 
                                 sResult.UpdatedBy = (sReader["UpdatedBy"] != null) ? sReader["UpdatedBy"].ToString() : "";
-                                sResult.OrganisationID = Convert.ToInt32(sReader["OrganizationID"]);
-                                sResult.BranchID = Convert.ToInt32(sReader["BranchID"]);
+
+                                if (sReader["OrganizationID"] != null && !String.IsNullOrEmpty(sReader["OrganizationID"].ToString()))
+                                {
+                                    sResult.OrganisationID = Convert.ToInt32(sReader["OrganizationID"]);
+                                }                                
+
+                                if (sReader["BranchID"] != null && !String.IsNullOrEmpty(sReader["BranchID"].ToString()))
+                                {
+                                    sResult.BranchID = Convert.ToInt32(sReader["BranchID"]);
+                                }
+                                
                                 sResult.Description = sReader["Description"].ToString();
                             }
                         }
@@ -461,27 +492,73 @@ namespace VPMS.Lib.Data
         /// Get Roles List
         /// </summary>
         /// <returns></returns>
-        public static List<RoleDropdownObject> GetRolesList()
+    //    public static List<RoleDropdownObject> GetRolesList()
+    //    {
+    //        try
+    //        {
+    //            using (var ctx = new RoleDBContext())
+    //            {
+    //                return ctx.Mst_Roles
+    //                          .Where(x => x.Status == 1)
+    //                          .OrderBy(x => x.RoleName)
+    //                          .Select(x => new RoleDropdownObject
+    //                          {
+    //                              RoleID = x.RoleID,
+    //                              RoleName = x.RoleName
+    //                          })
+    //                          .ToList();
+    //            };
+    //        }
+    //        catch (Exception ex)
+    //        {
+				//logger.Error("RoleRepository >>> GetRolesList >>> ", ex);
+				//return null;
+    //        }
+    //    }
+
+        public static List<RoleDropdownObject> GetRolesList(int iOrganizationID)
         {
+            List<RoleDropdownObject> sResultList = new List<RoleDropdownObject>();
+
             try
             {
                 using (var ctx = new RoleDBContext())
                 {
-                    return ctx.Mst_Roles
-                              .Where(x => x.Status == 1)
-                              .OrderBy(x => x.RoleName)
-                              .Select(x => new RoleDropdownObject
-                              {
-                                  RoleID = x.RoleID,
-                                  RoleName = x.RoleName
-                              })
-                              .ToList();
-                };
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.RoleID, A.RoleName " +
+                                            "FROM mst_roles AS A " +
+                                            "LEFT JOIN mst_branch AS B ON B.ID = A.BranchID " +
+                                            "INNER JOIN mst_organisation AS C ON C.ID = B.OrganizationID " +
+                                            "WHERE A.`Status`= '1' AND " + 
+                                            "(" + (iOrganizationID == -1) + " OR C.ID = '" + iOrganizationID +"') " +
+                                            "ORDER BY A.RoleName ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                RoleDropdownObject roleObject = new RoleDropdownObject();
+                                roleObject.RoleID = sReader["RoleID"].ToString();
+                                roleObject.RoleName = sReader["RoleName"].ToString();
+
+                                sResultList.Add(roleObject);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResultList;
             }
             catch (Exception ex)
             {
-				logger.Error("RoleRepository >>> GetRolesList >>> ", ex);
-				return null;
+                logger.Error("RoleRepository >>> GetRolesList >>> ", ex);
+                return null;
             }
         }
     }

@@ -29,9 +29,14 @@
 	}
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="~/css/gijgo.min.css" type="text/css" />
+<link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" type="text/css" />
 
+<script src="~/lib/moment.min.js"></script>
+<script src="~/lib/datepicker/gijgo.min.js" type="text/javascript"></script>
+<script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/lib/chartjs/js/v2.9.4/Chart.js"></script>
+@* <script src="~/lib/html2pdf/v0.9.3/html2pdf.bundle.min.js"></script> *@
 
 <style>
 	.field-container {
@@ -696,7 +701,7 @@
 							foreach (string otherPet in otherPets)
 							{
 									<div class="field-container" style="text-align: center;">
-										<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw;" />
+									<img onclick="location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet'" src="~/images/Cat profile image.png" style="width: 4vw; border-radius: 50px;" />
 										<a href="/Patients/PetProfile/View/@ViewBag.PatientID/@otherPet" style="font-size: 1vw;"> @otherPet </a>
 									</div>
 							}
@@ -748,7 +753,15 @@
 					</div>
 				</div>
 
-
+				<div style="display: flex; margin-bottom: 1.5vw;">
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">
+						<button class="btn btn-lg btn-primary" style="width: 5vw; height: 4vw; font-size: 2vw; display: flex; justify-content: center;  align-items: center;" onclick="openScheduledModal();">
+							<i class="fa-solid fa-clock"></i>
+						</button>
+						<span class="formlabel textColor">@LangResources["Patient_Label_ScheduledTest"]</span>
+					</div>
+					<div class="field-container quaterSize" style="display: flex; align-items: center;">&nbsp;</div>
+				</div>
 				
 
 			</div>
@@ -884,7 +897,94 @@
 			</div>
 		</div>
 	</div>
+</div>
 
+<!-- Scheduled Test -->
+<div id="modalScheduled" class="modal fade" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="width: 700px; height: auto; background-color: #f7f7f7; font-family: sans-serif; font-size: 14px;">
+			<div class="modal-header" style="border-bottom: 0px; text-align: right !important">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="padding: 0px;">
+				<div class="row">
+					<div class="col-md-12 ms-5">
+						<label style="font-size: 17px; font-weight: bold;">@LangResources["Patient_Title_CreateScheduleTests"]</label>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-5" style="border: 0px solid black;">
+						<label for="dtSchedule" style="width: 100%; font-size: 14px; font-weight: bold">@LangResources["Patient_Label_Date"]</label>
+						<input id="dtSchedule" class="form-control-sm" />
+					</div>
+					<div class="col-md-5">
+						<label for="tmSchedule" style="font-size: 14px; font-weight: bold">@LangResources["Patient_Label_Time"]</label>
+						<input id="tmSchedule" class="form-control-sm" style="border: 1px solid #ddd; background-color: white;" />
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>
+				<div class="row mb-3" style="border: 0px solid black;">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-10">
+						<label for="ddlLocation" style="font-size: 14px; font-weight: bold">@LangResources["Patient_Label_Location"]</label>
+						<select id="ddlLocation" class="form-select form-select-sm">
+							<option value="">@LangResources["Patient_Label_SelectLocation"]</option>
+							@foreach (var l in ViewData["LocationList"] as List<VPMS.Lib.Data.Models.LocationModel>)
+							{
+								<option value="@l.System_LocationID">@l.System_LocationName</option>
+							}
+						</select>
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-10">
+						<label for="ddlTests" style="font-size: 14px; font-weight: bold;">@LangResources["Patient_Label_Tests"]</label>
+						<select id="ddlTests" class="form-select form-select-sm">
+							<option value="">@LangResources["Patient_Label_SelectTests"]</option>
+							@foreach (var t in ViewData["TestsList"] as List<VPMS.Lib.Data.Models.TestsListModel>)
+							{
+								<option value="@t.System_TestID">@t.System_TestName</option>
+							}
+						</select>
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-10">
+						<label style="font-size: 14px; font-weight: bold;">@LangResources["Patient_Label_InchargesDoctor"]</label>
+						<select id="ddlDoctor" class="form-select form-select-sm">
+							<option value="">@LangResources["Patient_Label_SelectInchargeDoctor"]</option>
+							@foreach (var d in ViewData["DoctorList"] as List<VPMS.Lib.Data.Models.DoctorModel>)
+							{
+								<option value="@d.ID">@d.Name</option>
+							}
+						</select>
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">&nbsp;</div>
+					<div class="col-md-5">
+						<label id="lbError" style="color: red;"></label>
+					</div>
+					<div class="col-md-3">&nbsp;</div>
+				</div>
+				<div class="row mt-2">
+					<div class="col-md-4">&nbsp;</div>
+					<div class="col-md-5">
+						<button id="btnCreate" class="btn btn-primary" onclick="SubmitScheduledTest();">@LangResources["Patient_Button_Submit"]</button>
+						<button id="btnCancel" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">@LangResources["Patient_Button_Cancel"]</button>
+					</div>
+					<div class="col-md-3">&nbsp;</div>
+				</div>
+				<div class="row mt-2">&nbsp;</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <span id="age" hidden>@LangResources["Patient_Label_Age"]</span>
@@ -1060,6 +1160,138 @@
 
 	if ('@ViewBag.type' == 'edit') {
 		editPetInfo();
+	}
+
+	$(document).ready(function() {
+		$('#dtSchedule').datepicker({
+			 uiLibrary: 'bootstrap5',
+			 format: 'dd/mm/yyyy'
+		});
+
+		$('#tmSchedule').datetimepicker({
+			 useCurrent: false,
+			 format: 'HH:mm',
+			 icons: {
+				 up: 'fa fa-angle-up',
+				 down: 'fa fa-angle-down'
+			 }
+		}).on('dp.show', function () {
+			 time = "09:00 AM";
+			 $(this).data('DateTimePicker').minDate(time);
+		}).on('dp.change', function () {
+
+		});
+	});
+
+	function SubmitScheduledTest()
+	{
+		if (validateSubmission())
+		{
+			$.post("/Patients/SubmitScheduledTests", {
+				scheduledDate: $('#dtSchedule').val(),
+				scheduledTime: $('#tmSchedule').val(),
+				locationID: $('#ddlLocation').val(),
+				locationName: $('#ddlLocation option:selected').text(),
+				testID: $('#ddlTests').val(),
+				testName: $('#ddlTests option:selected').text(),
+				patientID: '@ViewBag.PatientID',
+				patientName: '@Model.Name',
+				gender: '@Model.Gender',
+				species: '@Model.Species',
+				doctorIncharges: $('#ddlDoctor option:selected').text(),
+				submittedBy:  ''
+			}).done(function(result){
+				if (result.StatusCode == 200){
+					//ShowSuccessMsgBox('Submit Schedule Tests', 'Schedule Tests sent successfully.',
+					ShowSuccessMsgBox('@Html.Raw(LangResources["Patient_Title_SubmitScheduleTests"])', 
+									  '@Html.Raw(LangResources["Patient_Message_ScheduleTestsSentSuccess"])',
+						function(){
+							window.location.reload();
+						}
+					);
+				}
+				else {
+					//ShowSuccessMsgBox('Submit Schedule Tests', 'Schedule Tests fail to send, please try again later.',
+					ShowSuccessMsgBox('@Html.Raw(LangResources["Patient_Title_SubmitScheduleTests"])', 
+									 '@Html.Raw(LangResources["Patient_Message_ScheduleTestsFailToSend"])',
+						function(){}
+					);
+				}
+			});
+		}
+		else 
+		{
+			//$('#lbError').html('Mandatory fields required.');
+			$('#lbError').html('@Html.Raw(LangResources["Patient_Message_MandatoryFieldsRequired"])');
+		}
+
+	}
+
+	function validateSubmission()
+	{
+		$('#lbError').html('');
+		let isValid = true;
+
+
+		if ($('#dtSchedule').val() == '')
+		{
+			$('#dtSchedule').addClass("errorValidation");
+			$('#dtSchedule').focus();
+
+			isValid = false;
+		}
+		else 
+		{
+			$('#dtSchedule').removeClass("errorValidation");
+		}
+
+		if ($('#tmSchedule').val() == '')
+		{
+			$('#tmSchedule').addClass("errorValidation");
+			$('#tmSchedule').focus();
+
+			isValid = false;
+		}
+		else {
+			$('#tmSchedule').removeClass("errorValidation");
+		}
+
+		if ($('#ddlLocation').val() == '')
+		{
+			$('#ddlLocation').addClass("errorValidation");
+			$('#ddlLocation').focus();
+
+			isValid = false;
+		}
+		else 
+		{
+			$('#ddlLocation').removeClass("errorValidation");
+		}
+
+		if ($('#ddlTests').val() == '')
+		{
+			$('#ddlTests').addClass("errorValidation");
+			$('#ddlTests').focus();
+
+			isValid = false;
+		}
+		else 
+		{
+			$('#ddlTests').removeClass("errorValidation");
+		}
+
+		if ($('#ddlDoctor').val() == '')
+		{
+			$('#ddlDoctor').addClass("errorValidation");
+			$('#ddlDoctor').focus();
+
+			isValid = false;
+		}
+		else {
+			$('#ddlDoctor').removeClass("errorValidation");
+		}
+
+		return isValid;
 	}
 
 	function updateAge(e){
@@ -1798,5 +2030,10 @@
 		}
 
 		return IsValidated;
+	}
+
+	function openScheduledModal()
+	{
+		$('#modalScheduled').modal('show');
 	}
 </script>

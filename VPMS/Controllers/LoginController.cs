@@ -144,16 +144,18 @@ namespace VPMSWeb.Controllers
                         HttpContext.Session.SetString("IsDoctor", iIsDoctor.ToString());
 
                         int iOrgID = -1;
-						var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
-						if (sBranchContext != null)
-						{
-							iOrgID = sBranchContext.OrganizationID;
+						iOrgID = userInfo.OrganizationID.Value;
+                        //var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
+                        //if (sBranchContext != null)
+                        //{
+                        //	iOrgID = sBranchContext.OrganizationID;
 
-                        }
+                        //}
+                        // HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
+                        //HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
                         HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
-						//HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
 
-						int iLevel = -1;
+                        int iLevel = -1;
 						var sOrgContext = _organizationDBContext.Mst_Organisation.Where(x => x.Id == iOrgID).FirstOrDefault();
 						if (sOrgContext != null)
 						{

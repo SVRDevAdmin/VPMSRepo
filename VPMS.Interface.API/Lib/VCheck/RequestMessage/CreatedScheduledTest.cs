@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VPMS.Interface.API.General;
 
 namespace VPMS.Interface.API.VCheck.RequestMessage
 {
@@ -12,7 +13,7 @@ namespace VPMS.Interface.API.VCheck.RequestMessage
         public CreateScheduledTestBody body { get; set; }
     }
 
-    public class CreateScheduledTestHeader : RequestHeaderObject
+    public class CreateScheduledTestHeader : RequestHeaderBase
     {
 
     }

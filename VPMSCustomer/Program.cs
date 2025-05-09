@@ -84,7 +84,7 @@ namespace VPMSCustomer
             app.Use(async (context, next) =>
             {
                 string cookie = String.Empty;
-                if (context.Request.Cookies.TryGetValue("Language", out cookie))
+                if (context.Request.Cookies.TryGetValue("CustomerLanguage", out cookie))
                 {
                     Thread.CurrentThread.CurrentCulture = new CultureInfo(cookie);
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie);
