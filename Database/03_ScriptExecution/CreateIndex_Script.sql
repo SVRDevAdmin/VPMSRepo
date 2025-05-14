@@ -60,6 +60,9 @@ ON Mst_User (UserID, BranchID);
 CREATE INDEX IX_UserViewListing_Sorting
 ON Mst_User (UserID, RoleID, BranchID, STATUS, Gender, Surname);
 
+CREATE INDEX IX_Status_OrgID_BranchID
+ON Mst_user (Status, OrganizationID, BranchID);
+
 /*---------- Branch ------------*/
 CREATE INDEX IX_OrganizationID
 ON Mst_Branch (OrganizationID);
@@ -69,6 +72,10 @@ ON Mst_Branch (OrganizationID, Status);
 
 CREATE INDEX IX_BranchID_Status
 ON Mst_Branch (ID, Status);
+
+/*--------- Organization --------*/
+CREATE INDEX IX_ID_Level
+ON Mst_Organisation (ID, Level);
 
 /*---------- Notification --------*/
 CREATE INDEX IX_NotiGroup_CreatedDate
@@ -127,7 +134,7 @@ CREATE INDEX IX_BranchID_DeviceName_Grouping
 ON txn_testresults (BranchID, DeviceName);
 
 
-/*----------- CUSTOMEr MODULE -----------*/
+/*----------- CUSTOMER MODULE -----------*/
 CREATE INDEX IX_Gender_PatientID
 ON mst_patients_owner (Gender, PatientID);
 
@@ -142,7 +149,6 @@ ON Mst_state (State);
 
 CREATE INDEX IX_CountryID
 ON Mst_state (CountryID);
-
 
 CREATE INDEX IX_PatientID_AvatarID_Gender
 ON mst_pets (PatientID, AvatarID, Gender);
@@ -234,6 +240,8 @@ ON mst_appointment_services (ApptID, IsDeleted);
 
 CREATE INDEX IX_ApptGrp_SeqNo
 ON mst_appointment_grouping (AppointmentGroup, SeqNo);
+
+
 
 
 

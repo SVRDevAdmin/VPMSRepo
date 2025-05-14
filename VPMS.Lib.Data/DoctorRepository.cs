@@ -25,7 +25,7 @@ namespace VPMS.Lib.Data
 		/// <param name="pageIndex"></param>
 		/// <param name="totalRecords"></param>
 		/// <returns></returns>
-		public static List<DoctorExtendedModel> GetDoctorViewList(IConfiguration config, String sSearchKeyword, int branchID, int pageSize, int pageIndex, out int totalRecords)
+		public static List<DoctorExtendedModel> GetDoctorViewList(IConfiguration config, int isSuperadmin, String sSearchKeyword, int organizationID, int branchID, int pageSize, int pageIndex, out int totalRecords)
         {
             List<DoctorExtendedModel> sDoctorList = new List<DoctorExtendedModel>();
             totalRecords = 0;
@@ -40,9 +40,19 @@ namespace VPMS.Lib.Data
                     String sSelectCommnd = "SELECT D.ID, D.Name, D.Gender, M.CodeName AS 'GenderName', D.LicenseNo, D.Designation, " + 
                                            "D.Specialty, D.IsDeleted, D.CreatedDate, D.CreatedBy, Count(*) OVER() as 'TotalRows' " +
                                            "FROM Mst_Doctor as D " +
-                                           "LEFT JOIN (SELECT * FROM mst_mastercodedata WHERE CodeGroup='Gender') AS M ON M.CodeID = D.Gender " +
-                                           "WHERE D.IsDeleted = '0' AND D.BranchID ='" + branchID  + "' AND " +
-                                           "(" + (sSearchKeyword == null) + " OR D.Name LIKE '%" + sSearchKeyword + "%' )" +
+                                           "LEFT JOIN (" +
+                                           "SELECT * FROM " +
+                                           "mst_mastercodedata WHERE CodeGroup='Gender'" +
+                                           ") AS M ON M.CodeID = D.Gender " +
+                                           "INNER JOIN mst_branch AS B on B.ID = D.BranchID " +
+                                           "INNER JOIN mst_organisation AS C on C.ID = B.OrganizationID " +
+                                           "WHERE D.IsDeleted = '0' AND " +
+                                           //"D.BranchID = '" + branchID  + "' AND " +
+                                           "(" + 
+                                           "(" + (isSuperadmin == 1) + " AND C.Level >= 2) OR " +
+                                           "(" + (isSuperadmin == 0) + " AND C.ID = '" + organizationID + "' ) " +
+                                           ") AND " +
+                                           "(" + (sSearchKeyword == null) + " OR D.Name LIKE '%" + sSearchKeyword + "%' ) " +
                                            "ORDER BY D.ID, D.Name " +
                                            "LIMIT " + pageSize + " " +
                                            "OFFSET " + ((pageIndex - 1) * pageSize);
@@ -167,6 +177,12 @@ namespace VPMS.Lib.Data
                             isChanges = true;
                         }
 
+                        if (sDoctorProfile.BranchID != sModel.BranchID)
+                        {
+                            sDoctorProfile.BranchID = sModel.BranchID;
+                            isChanges = true;
+                        }
+
                         if (isChanges)
                         {
                             sDoctorProfile.UpdatedDate = DateTime.Now;
@@ -230,14 +246,51 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="doctorid"></param>
         /// <returns></returns>
-        public static DoctorModel GetDoctorByID(IConfiguration config, int doctorid)
+        public static DoctorDetailModel GetDoctorByID(IConfiguration config, int doctorid)
         {
+            DoctorDetailModel sDoctorObj = new DoctorDetailModel();
+
             try
             {
                 using (var ctx = new DoctorDBContext(config))
                 {
-                    return ctx.mst_doctor.Where(x => x.ID == doctorid && x.IsDeleted == 0).FirstOrDefault();
+                    //return ctx.mst_doctor.Where(x => x.ID == doctorid && x.IsDeleted == 0).FirstOrDefault();
+
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.ID, A.Name, A.Gender, A.LicenseNo, A.Designation, A.Specialty, A.system_ID, " +
+                                            "A.IsDeleted, A.CreatedDate, A.CreatedBy, A.BranchID, B.OrganizationID " +
+                                            "FROM mst_doctor AS A " +
+                                            "LEFT JOIN mst_branch AS B ON B.ID = A.BranchID " +
+                                            "WHERE A.IsDeleted = 0 AND A.ID = '" + doctorid + "' ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                sDoctorObj.ID = Convert.ToInt32(sReader["ID"]);
+                                sDoctorObj.Name = sReader["Name"].ToString();
+                                sDoctorObj.Gender = sReader["Gender"].ToString();
+                                sDoctorObj.LicenseNo = sReader["LicenseNo"].ToString();
+                                sDoctorObj.Designation = sReader["Designation"].ToString();
+                                sDoctorObj.Specialty = sReader["Specialty"].ToString();
+                                sDoctorObj.System_ID = sReader["System_ID"].ToString();
+                                sDoctorObj.IsDeleted = Convert.ToInt32(sReader["IsDeleted"]);
+                                sDoctorObj.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                sDoctorObj.CreatedBy = sReader["CreatedBy"].ToString();
+                                sDoctorObj.BranchID = Convert.ToInt32(sReader["BranchID"]);
+                                sDoctorObj.OrganizationID = Convert.ToInt32(sReader["OrganizationID"]);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
                 }
+
+                return sDoctorObj;
             }
             catch (Exception ex)
             {

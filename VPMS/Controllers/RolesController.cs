@@ -54,10 +54,17 @@ namespace VPMSWeb.Controllers
             }
 
             int iTotalRecords;
-
+            int isSuperadmin = 0;
             var organizationObj = OrganizationRepository.GetOrganizationByID(organizationid);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1)
+                {
+                    isSuperadmin = 1;
+                }
+            }
 
-            var sResult = RoleRepository.GetRolesListing(organizationid, pageSize, pageIndex, out iTotalRecords);
+            var sResult = RoleRepository.GetRolesListing(organizationid, isSuperadmin, pageSize, pageIndex, out iTotalRecords);
             if (sResult != null)
             {
                 return Json(new { data = sResult, totalRecord = iTotalRecords });
@@ -259,11 +266,11 @@ namespace VPMSWeb.Controllers
         /// Get Roles List
         /// </summary>
         /// <returns></returns>
-        //public IActionResult GetRolesList()
-        //{
-        //    var sRoleList = RoleRepository.GetRolesList();
-        //    return Json(sRoleList);
-        //}
+        public IActionResult GetRolesList()
+        {
+            var sRoleList = RoleRepository.GetRolesList(-1);
+            return Json(sRoleList);
+        }
 
         public bool SetPermission(List<string> roles, string permissionNeed)
         {

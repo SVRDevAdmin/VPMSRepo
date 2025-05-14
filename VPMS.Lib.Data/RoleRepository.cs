@@ -22,7 +22,7 @@ namespace VPMS.Lib.Data
 		/// <param name="pageIndex"></param>
 		/// <param name="totalRecords"></param>
 		/// <returns></returns>
-		public static List<RoleListingObject> GetRolesListing(int organizationid, int pageSize, int pageIndex, out int totalRecords)
+		public static List<RoleListingObject> GetRolesListing(int organizationid, int isSuperadmin, int pageSize, int pageIndex, out int totalRecords)
         {
             List<RoleListingObject> sRoleList = new List<RoleListingObject>();
             totalRecords = 0;
@@ -35,19 +35,21 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
-                                            "A.RoleID, A.RoleName, COUNT(B.UserID) AS 'TotalAssigned', " +
+                                            "A.RoleID, A.RoleName, A.TotalAssigned, " +
                                             "COUNT(*) OVER() AS 'TotalRows', " +
                                             "GROUP_CONCAT(DISTINCT(C.PermissionKey)) AS 'Permissions' " +
                                             "FROM ( " +
 
-                                            "SELECT A1.* " +
+                                            "SELECT A1.RoleID, A1.RoleName, Count(D1.UserID) As 'TotalAssigned' " +
                                             "FROM mst_roles AS A1 " +
                                             "INNER JOIN mst_organisation AS C1 ON C1.ID = A1.OrganizationID " +
+                                            "LEFT JOIN mst_user AS D1 on D1.RoleID = A1.RoleID " +
                                             "WHERE A1.Status = '1' AND " +
                                             "(" +
-                                            "((A1.RoleType = 997 OR A1.RoleType = 998 OR A1.RoleType = 999) AND A1.OrganizationID = '" + organizationid + "') OR " +
-                                            "((A1.RoleType <> 997 AND A1.RoleType <> 998 AND A1.RoleType <> 999) AND A1.OrganizationID = '" + organizationid + "') " +
+                                            "(" + (isSuperadmin == 1) + " AND C1.Level >= 2) OR " +
+                                            "(" + (isSuperadmin == 0) + " AND A1.OrganizationID = '" + organizationid + "' AND Not IsNull(A1.BranchID)) " +
                                             ") " +
+                                            "GROUP BY A1.RoleID, A1.RoleName " +
 
                                             ") AS A " +
                                             "LEFT JOIN mst_user AS B ON B.RoleID = A.RoleID AND B.Status = '1' " + 
@@ -386,7 +388,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.RoleID, A.RoleName, A.RoleType, A.`Status`, A.IsAdmin, A.IsDoctor, " +
-                                            "A.CreatedDate, A.CreatedBy, A.UpdatedDate, A.UpdatedBy, B.OrganizationID , A.BranchID, A.Description " +
+                                            "A.CreatedDate, A.CreatedBy, A.UpdatedDate, A.UpdatedBy, A.OrganizationID , A.BranchID, A.Description " +
                                             "FROM mst_roles AS A " +
                                             "LEFT JOIN mst_branch AS B ON B.ID = A.BranchID " +
                                             "WHERE A.RoleID = '" + sRoleID + "' AND A.Status = '1'";

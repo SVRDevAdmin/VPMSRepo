@@ -6,6 +6,7 @@
     ViewData["SelectedMenu"] = "doctorMenu";
 
     var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
@@ -38,6 +39,7 @@
         $.getJSON("/Doctor/GetDoctorViewList", {
             sKeyword: searchKeyword,
             branchID: @sessionBranchID,
+            organizationID: '@sessionOrganizationID',
             pageSize: pageSize,
             pageIndex: currentPage
         }).done(function (result) {

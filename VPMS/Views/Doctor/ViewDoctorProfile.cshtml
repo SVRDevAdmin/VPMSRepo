@@ -6,12 +6,16 @@
     ViewData["Title"] = "ViewDoctorProfile";
     ViewData["SelectedMenu"] = "doctorMenu";
 
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("LoginID");
     var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+    var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 
-    var sDoctorObj = new VPMS.Lib.Data.Models.DoctorModel();
+    var sDoctorObj = new VPMS.Lib.Data.Models.DoctorDetailModel();
     if (ViewData["DoctorProfile"] != null)
     {
-        sDoctorObj = ViewData["DoctorProfile"] as VPMS.Lib.Data.Models.DoctorModel;
+        sDoctorObj = ViewData["DoctorProfile"] as VPMS.Lib.Data.Models.DoctorDetailModel;
     }
 
     var sViewType = ViewData["ViewType"] as String;
@@ -20,14 +24,16 @@
 <link rel="stylesheet" href="~/css/Doctor.css" />
 
 <script>
-    loadGenderDropdownlist();
-
     $(document).ready(function () {
+        loadGenderDropdownlist();
+        loadOrganizationDropdownlist();
+
         /*---- Add Button -------*/
         $('#btnCreate').on('click', function (ctl) {
             
             if (DoctorFieldsValidation()) 
             {
+                debugger;
                 var sNewDoctorObj = {
                     doctorName: $('#txtName').val(),
                     doctorGender: $('#ddlGender').val(),
@@ -35,7 +41,9 @@
                     systemID: $('#txtSystemID').val(),
                     designation: $('#txtDesignation').val(),
                     specialty: $('#txtSpecialty').val(),
-                    branchID: @sessionBranchID
+                    branchID: $('#ddlBranch').val(),
+                    createdBy: '@sessionUserName'
+                    //branchID: @sessionBranchID
                 }
 
                 $.post("/Doctor/AddDoctor",
@@ -80,7 +88,9 @@
                     systemID: $('#txtSystemID').val(),
                     designation: $('#txtDesignation').val(),
                     specialty: $('#txtSpecialty').val(),
-                    ID: $('#hidID').val()
+                    ID: $('#hidID').val(),
+                    branchID: $('#ddlBranch').val(),
+                    updatedBy:  '@sessionUserName'
                 }
 
                 $.post("/Doctor/UpdateDoctor",
@@ -127,6 +137,22 @@
             $('#txtSpecialty').val('@sDoctorObj.Specialty');
             $('#hidID').val('@sDoctorObj.ID');
 
+            setTimeout(function(){
+                $('#ddlOrganization').val('@sDoctorObj.OrganizationID');
+                $('#ddlOrganization').trigger('changes');
+                loadBranchDropdownlist($('#ddlOrganization').val());
+            }, 250);
+
+            setTimeout(function(){
+                $('#ddlBranch').val('@sDoctorObj.BranchID');
+                $('#ddlBranch').trigger('changes');
+            }, 310);
+
+            if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+            {
+                $('#ddlOrganization').prop('disabled', true);
+            }
+
             $('#btnUpdate').show();
             $('#btnBack').show();
 
@@ -140,8 +166,22 @@
                 $('#txtSystemID').prop('disabled', true);
                 $('#txtDesignation').prop('disabled', true);
                 $('#txtSpecialty').prop('disabled', true);
+                $('#ddlBranch').prop('disabled', true);
+                $('#ddlOrganization').prop('disabled', true);
 
                 $('#btnUpdate').hide();
+            }
+        }
+        else {
+            if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+            {
+                setTimeout(function(){
+                    $('#ddlOrganization').val('@sessionOrganizationID');
+                    $('#ddlOrganization').trigger('changee');
+                    $('#ddlOrganization').prop('disabled', true);
+
+                    loadBranchDropdownlist('@sessionOrganizationID');
+                }, 250);
             }
         }
     });
@@ -162,6 +202,54 @@
                     $('#ddlGender').find("option:not(:first)").remove();
                 }
             })
+    }
+
+    function loadOrganizationDropdownlist()
+    {
+        $.getJSON("/AccessControl/GetOrganisationByLevelID/2")
+         .done(function(result){ 
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlOrganization').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].Name), result.data[i].Id);
+                     $('#ddlOrganization').append(opt);
+                 }
+             }
+             else 
+             {
+                $('#ddlOrganization').find("option:not(:first)").remove();
+             }
+         });
+    }
+
+    function ddlOrganizationChanges(org)
+    {
+        loadBranchDropdownlist(org.value);
+    }
+
+    function loadBranchDropdownlist(orgID)
+    {
+        $.getJSON("/AccessControl/GetBranchInfoByOrganisation", {
+            organisationID: orgID
+        }).done(function(result){ 
+             if (result != null && result.length > 0)
+             {
+                 $('#ddlBranch').find("option:not(:first)").remove();
+                 debugger;
+                 for (var i = 0; i < result.length; i++)
+                 {
+                     var opt = new Option((result[i].Name), result[i].ID);
+                     $('#ddlBranch').append(opt);
+                 }
+             }
+             else
+             {
+                $('#ddlBranch').find("option:not(:first)").remove();
+             }
+        });
     }
 
     function DoctorFieldsValidation(){
@@ -226,6 +314,28 @@
             $('#txtSpecialty').removeClass("errorValidation");
         }
 
+        /*------- Organization --------*/
+        if ($('#ddlOrganization').val() == ''){
+            $('#ddlOrganization').addClass("errorValidation");
+            $('#ddlOrganization').focus();
+
+            isValid = false;
+        }
+        else {
+             $('#ddlOrganization').removeClass("errorValidation");
+        }
+
+        /*-------- Branch -------------*/
+        if ($('#ddlBranch').val() == ''){
+            $('#ddlBranch').addClass("errorValidation");
+            $('#ddlBranch').focus();
+
+            isValid = false;
+        }
+        else {
+             $('#ddlBranch').removeClass("errorValidation");
+        }
+
         return isValid;
     }
 
@@ -253,7 +363,7 @@
     }
 </script>
 
-<div class="row" @* style="margin-left: 5px; margin-right: 5px;" *@>
+<div class="row">
     <div class="row" style="height: 45px;">&nbsp;</div>
     <div class="row" style="font-size: 1vw;">
         <div class="col-md-12">
@@ -322,6 +432,27 @@
                     <div class="row">
                         <div class="col-md-12">
                             <input id="txtSpecialty" type="text" class="form-control doctorComboColControl" maxlength="200" style="font-size: 1vw;" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="doctorLeftColLabel">Organization</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="doctorRightColLabel">Branch</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlOrganization" class="form-select doctorLeftColControl" style="font-size: 1vw;" onchange="ddlOrganizationChanges(this);">
+                                <option value="">Please select organization</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="ddlBranch" class="form-select doctorRightColControl" style="font-size: 1vw;">
+                                <option value="">Please select branch</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row" style="height: 45px;">&nbsp;

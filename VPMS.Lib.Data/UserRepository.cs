@@ -82,18 +82,20 @@ namespace VPMS.Lib.Data
         /// <summary>
         /// Get User Listing View by filter
         /// </summary>
+        /// <param name="isSuperadmin"></param>
         /// <param name="UserID"></param>
         /// <param name="RoleID"></param>
         /// <param name="GenderID"></param>
         /// <param name="OrganizationID"></param>
         /// <param name="BranchID"></param>
         /// <param name="Status"></param>
+        /// <param name="LoginOrganizationID"></param>
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
         /// <param name="totalRecords"></param>
         /// <returns></returns>
-        public static List<UserListingViewObject> GetUserListingByFilter(String UserID, String RoleID, String GenderID, 
-                                                String OrganizationID, String BranchID, String Status, int pageSize, 
+        public static List<UserListingViewObject> GetUserListingByFilter(int isSuperadmin, String UserID, String RoleID, String GenderID, 
+                                                String OrganizationID, String BranchID, String Status, int LoginOrganizationID, int pageSize, 
                                                 int pageIndex, out int totalRecords)
         {
             List<UserListingViewObject> sResult = new List<UserListingViewObject>();
@@ -109,20 +111,29 @@ namespace VPMS.Lib.Data
                     String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
                                             "A.UserID, CONCAT(A.Surname, ' ', A.LastName) AS 'StaffName', A.StaffID, " +
                                             "B.RoleName, A.Gender, E.CodeName as 'GenderName', A.EmailAddress, A.Status, " + 
-                                            "C.CodeName AS 'StatusName', A.BranchID, D.Name AS 'BranchName', D.OrganizationID, " + 
-                                            "O.Name as 'Organization', " +
-                                            "COUNT(*) OVER() AS 'TotalRows' " +
-                                            "FROM mst_user AS A " +
+                                            "C.CodeName AS 'StatusName', A.BranchID, D.Name AS 'BranchName', A.OrganizationID, " +
+                                            "A.Organization, COUNT(*) OVER() AS 'TotalRows' " +
+                                            "FROM (" + 
+                                            
+                                            "SELECT A1.*, C1.Name AS 'Organization' " +
+                                            "FROM mst_user AS A1 " +
+                                            "INNER JOIN mst_organisation AS C1 on C1.ID = A1.OrganizationID " +
+                                            "WHERE A1.Status <> '2' AND " +
+                                            "(" +
+                                            "(" + (isSuperadmin == 1) + " AND C1.Level >= 2) OR " +
+                                            "(" + (isSuperadmin == 0) + " AND A1.OrganizationID = '" + LoginOrganizationID + "' AND Not IsNull(A1.BranchID)) " +
+                                            ")" +
+
+                                            ") AS A " +
                                             "LEFT JOIN mst_roles AS B ON B.RoleID = A.RoleID " +
                                             "LEFT JOIN mst_branch AS D ON D.ID = A.BranchID " +
-                                            "LEFT JOIN mst_organisation AS O ON O.ID = D.OrganizationID " +
                                             "LEFT JOIN (" +
                                                 "SELECT * FROM mst_mastercodedata WHERE codeGroup='Status' AND IsActive=1" +
                                             ") AS C ON C.CodeID = A.Status " +
                                             "LEFT JOIN (" +
                                                 "SELECT * FROM mst_mastercodedata WHERE codeGroup='Gender' AND IsActive=1" +
                                             ") AS E on E.CodeID = A.Gender " +
-                                            "WHERE (A.Status <> '2') AND " +
+                                            "WHERE " +
                                             "(" + (UserID == null) + " OR A.UserID = '" + UserID + "') AND " +
                                             "(" + (RoleID == null) + " OR A.RoleID = '" + RoleID + "') AND " +
                                             "(" + (GenderID == null) + " OR A.Gender = '" + GenderID + "') AND " +

@@ -47,7 +47,8 @@
             if ($('#divFilterCollapse')[0].className.indexOf('Hide') > 0){
                 resetFields();
             }
-            else{
+            else
+            {
                 if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
                 {
                     $('#ddlOrganization').val('@sessionOrganizationID');
@@ -89,6 +90,7 @@
             OrganizationID: $('#ddlOrganization').val(),
             BranchID: $('#ddlBranch').val(),
             Status: $('#ddlStatus').val(),
+            loginOrganizationID: '@sessionOrganizationID',
             pageSize: pageSize,
             pageIndex: currentPage
         }).done(function (result) {

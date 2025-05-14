@@ -78,24 +78,34 @@ namespace VPMSWeb.Controllers
             return View("UserDetails", sUserObj);
 		}
 
-		/// <summary>
-		/// Get User Listing View by Filter
-		/// </summary>
-		/// <param name="UserID"></param>
-		/// <param name="RoleID"></param>
-		/// <param name="GenderID"></param>
-		/// <param name="OrganizationID"></param>
-		/// <param name="BranchID"></param>
-		/// <param name="Status"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="pageIndex"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// Get User Listing View by Filter
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <param name="RoleID"></param>
+        /// <param name="GenderID"></param>
+        /// <param name="OrganizationID"></param>
+        /// <param name="BranchID"></param>
+        /// <param name="Status"></param>
+        /// <param name="loginOrganizationID"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
 		public IActionResult GetUserListingView(String UserID, String RoleID, String GenderID, String OrganizationID, String BranchID, 
-												String Status, int pageSize, int pageIndex)
+												String Status, int loginOrganizationID, int pageSize, int pageIndex)
 		{
 			int iTotalRecords;
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(loginOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1)
+                {
+                    isSuperadmin = 1;
+                }
+            }
 
-			var sResult = UserRepository.GetUserListingByFilter(UserID, RoleID, GenderID, OrganizationID, BranchID, Status, pageSize, pageIndex, out iTotalRecords);
+            var sResult = UserRepository.GetUserListingByFilter(isSuperadmin, UserID, RoleID, GenderID, OrganizationID, BranchID, Status, loginOrganizationID, pageSize, pageIndex, out iTotalRecords);
 			if (sResult != null)
 			{
 				return Json(new { data = sResult, totalRecord = iTotalRecords });

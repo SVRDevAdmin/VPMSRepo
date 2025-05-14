@@ -61,7 +61,30 @@ namespace VPMSWeb.Controllers
             return organisationInfos;
 		}
 
-		public int InsertUpdateOrganisation([FromBody] OrganisationModel organisationModel)
+		[Route("/AccessControl/GetOrganisationByLevelID/{iLevel}")]
+		[HttpGet()]
+		public IActionResult GetOrganisationByLevelID(int iLevel)
+		{
+			try
+			{
+				var sOrgList = _organisationDBContext.Mst_Organisation.Where(x => x.Level == iLevel && x.Status == 1).ToList();
+				if (sOrgList != null)
+				{
+					return Json(new { data = sOrgList });
+				}
+				else
+				{
+					return null;
+				}
+            }
+			catch (Exception ex)
+			{
+				return null;
+			}
+			
+		}
+
+        public int InsertUpdateOrganisation([FromBody] OrganisationModel organisationModel)
 		{
 			var Level1ID = int.Parse(HttpContext.Session.GetString("Level1ID"));
 			organisationModel.TotalStaff = 1;
