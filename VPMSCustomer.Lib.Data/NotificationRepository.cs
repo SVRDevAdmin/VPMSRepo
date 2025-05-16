@@ -118,6 +118,13 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Insert Notification Record
+        /// </summary>
+        /// <param name="sNotificationObj"></param>
+        /// <param name="sUserID"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
         public static Boolean InsertNotification(NotificationModel sNotificationObj, List<String> sUserID, String sUpdatedBy)
         {
             Boolean isSuccess = false;

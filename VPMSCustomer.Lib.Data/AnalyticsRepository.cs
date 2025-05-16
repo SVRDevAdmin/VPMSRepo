@@ -13,6 +13,12 @@ namespace VPMSCustomer.Lib.Data
 {
     public class AnalyticsRepository
     {
+        /// <summary>
+        /// Get Customer Expenses Summary By Year
+        /// </summary>
+        /// <param name="sYear"></param>
+        /// <param name="sPatientID"></param>
+        /// <returns></returns>
         public static List<ExpensesSummaryModel> GetExpensesSummaryByYear(String sYear, long sPatientID)
         {
             List<ExpensesSummaryModel> sResultList = new List<ExpensesSummaryModel>();
@@ -58,6 +64,12 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Customer Expenses Summary Breakdown By Year
+        /// </summary>
+        /// <param name="sYear"></param>
+        /// <param name="sPatientID"></param>
+        /// <returns></returns>
         public static List<ExpensesSummaryBreakdownModel> GetExpensesSummaryBreakdown(String sYear, long sPatientID)
         {
             List<ExpensesSummaryBreakdownModel> sResultList = new List<ExpensesSummaryBreakdownModel>();
@@ -123,6 +135,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Insert Expenses Summary data
+        /// </summary>
+        /// <param name="sModel"></param>
+        /// <returns></returns>
         public static Boolean InsertExpensesSummary(List<AnalyticsModel> sModel)
         {
             Boolean isSuccess = false;
@@ -145,6 +162,11 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Remove Expenses Summary data
+        /// </summary>
+        /// <param name="sTargetDate"></param>
+        /// <returns></returns>
         public static Boolean DeleteExpensesSummaryByDate(DateTime sTargetDate)
         {
             Boolean isSuccess = false;
@@ -171,6 +193,11 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Insert Summary Log
+        /// </summary>
+        /// <param name="sLog"></param>
+        /// <returns></returns>
         public static Boolean InsertExpensesSummaryLog(ExpensesSummaryLog sLog)
         {
             Boolean isSuccess = false;

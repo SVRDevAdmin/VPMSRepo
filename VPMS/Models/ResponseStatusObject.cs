@@ -8,4 +8,10 @@
         public Boolean? isRecordExists { get; set; }
         public int? TotalRecords { get; set; }
     }
+
+    public class ResponseBannerUploadObject
+    {
+        public int? StatusCode { get; set; }
+        public Boolean? isBannerSelected { get; set; }
+    }
 }

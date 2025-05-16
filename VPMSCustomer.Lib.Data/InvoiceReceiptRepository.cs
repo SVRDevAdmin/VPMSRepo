@@ -333,6 +333,12 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Customer's Expenses Summary By Date
+        /// </summary>
+        /// <param name="sTransStartDate"></param>
+        /// <param name="sTransEndDate"></param>
+        /// <returns></returns>
         public static List<DailyExpenseSummObject> GetCustomerExpensesSummary(DateTime sTransStartDate, DateTime sTransEndDate)
         {
             List<DailyExpenseSummObject> sResultList = new List<DailyExpenseSummObject>();

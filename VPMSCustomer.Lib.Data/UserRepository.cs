@@ -13,6 +13,13 @@ namespace VPMSCustomer.Lib.Data
 {
     public class UserRepository
     {
+        /// <summary>
+        /// Create record to ASPNet User
+        /// </summary>
+        /// <param name="sUserObj"></param>
+        /// <param name="sRoleID"></param>
+        /// <param name="sPassword"></param>
+        /// <returns></returns>
         public static Boolean AddAspNetUser(IdentityUserObject sUserObj, String sRoleID, String sPassword)
         {
             IPasswordHasher<IdentityUser> _passwordHasher = new PasswordHasher<IdentityUser>();
@@ -50,6 +57,12 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Reset customer login Password
+        /// </summary>
+        /// <param name="sUserID"></param>
+        /// <param name="sNewPassword"></param>
+        /// <returns></returns>
         public static Boolean ResetUserPassword(String sUserID, String sNewPassword)
         {
             IPasswordHasher<IdentityUser> _passwordHasher = new PasswordHasher<IdentityUser>();
@@ -80,6 +93,11 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Update User Name
+        /// </summary>
+        /// <param name="sUsername"></param>
+        /// <returns></returns>
         public static Boolean ValidateAspNetUserUserName(String sUsername)
         {
             Boolean isValid = false;
@@ -123,6 +141,11 @@ namespace VPMSCustomer.Lib.Data
             return isValid;
         }
 
+        /// <summary>
+        /// Get ASPNet User Profile by UserID
+        /// </summary>
+        /// <param name="sUserID"></param>
+        /// <returns></returns>
         public static IdentityUserObject GetAspNetUserByUserID(String sUserID)
         {
             try

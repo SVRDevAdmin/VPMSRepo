@@ -10,6 +10,11 @@ namespace VPMSCustomer.Lib.Data
 {
     public class ServicesRepository
     {
+        /// <summary>
+        /// Get Services List By Branch ID
+        /// </summary>
+        /// <param name="branchID"></param>
+        /// <returns></returns>
         public static List<ServiceModel> GetServicesListByBranchID(int branchID)
         {
             try
@@ -25,6 +30,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Service Details by Service ID
+        /// </summary>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
         public static ServiceModel GetServiceDetailsByID(long serviceID)
         {
             try

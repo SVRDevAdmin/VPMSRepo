@@ -10,6 +10,11 @@ namespace VPMSCustomer.Lib.Data
 {
     public class DoctorRepository
     {
+        /// <summary>
+        /// Get Doctor List by Branch ID
+        /// </summary>
+        /// <param name="branchid"></param>
+        /// <returns></returns>
         public static List<DoctorModel> GetDoctorList(int branchid)
         {
             try

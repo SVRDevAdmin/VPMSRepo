@@ -13,6 +13,13 @@ namespace VPMSCustomer.Lib.Data
 {
     public class PatientRepository
     {
+        /// <summary>
+        /// Create Patient Login Profile
+        /// </summary>
+        /// <param name="PatientOwnerID"></param>
+        /// <param name="sAspNetUserID"></param>
+        /// <param name="dtActivation"></param>
+        /// <returns></returns>
         public static Boolean AddPatientLogin(long PatientOwnerID, String sAspNetUserID, DateTime? dtActivation)
         {
             Boolean isSuccess = false;
@@ -42,7 +49,12 @@ namespace VPMSCustomer.Lib.Data
 
             return isSuccess;
         }
-
+        
+        /// <summary>
+        /// Get Patient's Owner profile by GUID
+        /// </summary>
+        /// <param name="sAspNetUserID"></param>
+        /// <returns></returns>
         public static PatientOwnerModel GetPatientOwnerByIdentityUserID(String sAspNetUserID)
         {
             List<PatientOwnerModel> sResult = new List<PatientOwnerModel>();
@@ -115,6 +127,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Patient's Owner Profile by Patient ID
+        /// </summary>
+        /// <param name="iPatientID"></param>
+        /// <returns></returns>
         public static List<PatientOwnerExtendedModel> GetPatientOwnersByPatientID(long iPatientID)
         {
             List<PatientOwnerExtendedModel> sResult = new List<PatientOwnerExtendedModel>();
@@ -191,6 +208,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Update Patient's Owner Profile
+        /// </summary>
+        /// <param name="sOwnerProfiles"></param>
+        /// <returns></returns>
         public static Boolean UpdatePatientOwnerProfile(List<PatientOwnerExtendedModel> sOwnerProfiles)
         {
             Boolean isSuccess = false;
@@ -231,6 +253,14 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Update Patients Configuration
+        /// </summary>
+        /// <param name="sUserID"></param>
+        /// <param name="sConfigKey"></param>
+        /// <param name="sConfigValue"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
         public static Boolean UpdatePatientConfiguration(String sUserID, String sConfigKey, String sConfigValue, String sUpdatedBy)
         {
             Boolean isSuccess = false;
@@ -277,6 +307,11 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Get Patient's Configuration Settings
+        /// </summary>
+        /// <param name="sUserID"></param>
+        /// <returns></returns>
         public static List<PatientConfigurationModel> GetPatientConfiguration(String sUserID)
         {
             try
@@ -292,6 +327,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Patient's Owner By OwnerID
+        /// </summary>
+        /// <param name="iOwnerID"></param>
+        /// <returns></returns>
         public static PatientOwnerModel GetPatientOwnerByID(long iOwnerID)
         {
             try

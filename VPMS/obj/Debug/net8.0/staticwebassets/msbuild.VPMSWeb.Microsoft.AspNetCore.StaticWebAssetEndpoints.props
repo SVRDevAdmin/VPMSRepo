@@ -1128,6 +1128,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"wx36w1dqhj"},{"Name":"integrity","Value":"sha256-jJLp6QYII8ejsrm3Lit659lwv4MKKMdf5tevUuz9u6o="},{"Name":"label","Value":"_content/VPMSWeb/images/Male doctor image.png"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"23076"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022jJLp6QYII8ejsrm3Lit659lwv4MKKMdf5tevUuz9u6o=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Feb 2025 08:41:01 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSWeb/images/management.6c1qep4qtg.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\management.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"6c1qep4qtg"},{"Name":"integrity","Value":"sha256-Rhvf\u002BHa0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ\u002BvvRQ="},{"Name":"label","Value":"_content/VPMSWeb/images/management.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"827"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Rhvf\u002BHa0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ\u002BvvRQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 01:59:23 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VPMSWeb/images/management.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\management.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Rhvf\u002BHa0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ\u002BvvRQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"827"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Rhvf\u002BHa0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ\u002BvvRQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 01:59:23 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VPMSWeb/images/more_icon.png">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\more_icon.png'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

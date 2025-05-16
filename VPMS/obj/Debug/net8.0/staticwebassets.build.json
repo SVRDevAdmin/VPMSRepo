@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9DyrM0DG/GhNVdEKOlYcCIrr9+BPfm00sPgwZqDW4mI=",
+  "Hash": "hH6YoXUn3DoCbzCmNcJQ0B21cq6vbH2Y/1Yg+aK0z3s=",
   "Source": "VPMSWeb",
   "BasePath": "_content/VPMSWeb",
   "Mode": "Default",
@@ -2031,6 +2031,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Male doctor image.png"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\management.png",
+      "SourceId": "VPMSWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\",
+      "BasePath": "_content/VPMSWeb",
+      "RelativePath": "images/management#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6c1qep4qtg",
+      "Integrity": "Rhvf+Ha0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ+vvRQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\management.png"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\more_icon.png",
@@ -16012,6 +16033,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-jJLp6QYII8ejsrm3Lit659lwv4MKKMdf5tevUuz9u6o="
+        }
+      ]
+    },
+    {
+      "Route": "images/management.6c1qep4qtg.png",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\management.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "827"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Rhvf+Ha0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ+vvRQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 01:59:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6c1qep4qtg"
+        },
+        {
+          "Name": "label",
+          "Value": "images/management.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Rhvf+Ha0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ+vvRQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/management.png",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\management.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "827"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Rhvf+Ha0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ+vvRQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 01:59:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Rhvf+Ha0W4ZbW/zN4Yhel7NafGQ1LWCFlkW2TJ+vvRQ="
         }
       ]
     },

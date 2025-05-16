@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewData["Title"] = "BannerProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css">
+
+<script src="~/lib/moment.min.js"></script>
+<script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"> </script>
+
+<script type="text/javascript">
+    $(document).ready(function() 
+    {
+        LoadStatusListDropdown();
+
+        $('#txtStartDate').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+
+        $('#txtEndDate').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+
+        $('#btnCreate').on('click', function(ctl)
+        {
+            var formData = new FormData();
+            formData.append("bannerFile", $('input[id="fileUpload"]').get(0).files[0]);
+
+            var bannerData = {
+                description: $('#txtDescription').val(),
+                startDate: $('#txtStartDate').val(),
+                endDate: $('#txtEndDate').val(),
+                status: $('#ddlStatus').val()
+            };
+            formData.append("Data", JSON.stringify(bannerData));
+
+            $.ajax({
+                url: '/Customer/UploadBanner',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(result){
+                    if (result.StatusCode == 200){
+                        ShowSuccessMsgBox("Upload Banner", "Upload successfully.",
+                            function () {
+                                window.location.href = '/Customer/Banners';
+                            }
+                        )
+                    }
+                    else {
+                        if (result.isBannerSelected != true){
+                            $('#lbError').html('No Banner file selected.');
+                            $('#lbError').css('visibility', 'visible');
+                        }
+                        else {
+                            $('#lbError').html('Fail');
+                            $('#lbError').css('visibility', 'visible');
+                        }
+                    }
+                },
+                error: function(ex){
+                    $('#lbError').html('Fail');
+                    $('#lbError').css('visibility', 'visible');
+                }
+            });
+        })
+    });
+
+
+    function LoadStatusListDropdown()
+    {
+        $.getJSON("/Customer/GetStatusList")
+         .done(function(result){
+            if (result.length > 0)
+            {
+                $('#ddlStatus').find("option:not(:first)").remove();
+                for (var i = 0; i < result.length; i++) {
+                    var opt = new Option(result[i].CodeName, result[i].CodeID);
+                    $('#ddlStatus').append(opt);
+                }
+             }
+             else {
+                 $('#ddlStatus').find("option:not(:first)").remove();
+             }
+         })
+    }
+</script>
+
+<div class="row">
+    <div class="row mt-3 ms-3">
+        <div class="col-md-12">
+            <div class="row ms-2 me-2">
+                <div class="col-md-12" style="background-color: black; font-size: 12px; font-weight: bold; color: white; border: 1px solid black; border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                    <label style="font-size: 14px; font-weight: bold;">Banner Details</label>
+                </div>
+                <div class="col-md-12" style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
+                    <div class="row mt-4 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="txtDescription" style="font-size: 14px; font-weight: bold;">Description</label>
+                            <input id="txtDescription" type="text" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div class="row mt-2 ms-1 me-1">
+                        <div class="col-md-6">
+                            <label for="txtStartDate" style="font-size: 14px; font-weight: bold;">Start Date</label>
+                            <input id="txtStartDate" class="form-control form-control-sm" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="txtEndDate" style="font-size: 14px; font-weight:bold">End Date</label>
+                            <input id="txtEndDate" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div class="row mt-1 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="ddlStatus" style="font-size: 14px; font-weight: bold;">Status</label>
+                            <select id="ddlStatus" class="form-select form-select-sm">
+                                <option value="">Please select status</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="fileUpload" style="font-size: 14px; font-weight: bold;">Upload</label>
+                            <input id="fileUpload" type="file" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <!--
+                    <div class="row mt-2 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="lbBannerName" style="font-size: 14px; font-weight: bold;">Banner Name</label>
+                            <label id="lbBannerName" class="form-check-label"></label>
+                        </div>
+                    </div>
+                    -->
+                    <div class="row mt-2 mb-2 ms-1 me-1" style="height: 35px;">
+                        <div class="col-md-12">
+                            <label id="lbError" style="font-size: 12px; color: red; font-weight: bold; margin-left: 10px; visibility: hidden;"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row mt-3">
+                    <div class="col-md-8">&nbsp;</div>
+                    <div class="col-md-4">
+                        <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 12px;">Cancel</button>&nbsp;
+                        <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 12px;">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

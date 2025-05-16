@@ -293,6 +293,26 @@
                             </a>
                         </li>
                         <li>
+                            <a id="SubMenuConfigParent" href="#SubMenuConfig" class="nav-link align-middle px-0" data-toggle="collapse">
+                                <span id="MgmtMenu" class="spanMenuBlue"></span>
+                                <img src="~/images/management.png" class="menuIcons" style="width:24px; height: 24px;" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">Customer Mgmt</span>
+                                <img id="imgArrow" style="margin-left: 20px;" />
+                            </a>
+                            <ul id="SubMenuConfig" class="collapse nav flex-column" data-parent="#menu">
+                                <li class="w-100">
+                                    <a asp-controller="Customer" asp-action="Banners" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font">Banners</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Customer" asp-action="" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font">Blogs</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#SubMenuAccess" id="SubMenuAccessParent" class="nav-link align-middle px-0" data-toggle="collapse">
                                 <span id="AccessMenu" class="spanMenuBlue"></span>
                                 <img id="iconAccess" class="menuIcons" />

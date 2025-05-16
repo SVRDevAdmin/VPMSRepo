@@ -1,10 +1,141 @@
-﻿@{
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <h5 class="mt-5 ms-5" style="font-size: 25px; color: white;">Dashboard</h5>
-        <h5 class="mt-5 ms-5" style="font-size: 25px; color: black;">Dashboard</h5>
+<link rel="stylesheet" href="~/css/Dashboard.css" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        LoadBanners();
+        LoadBlogs();
+    });
+
+    function LoadBanners()
+    {
+        $('#divBannerInner').html('');
+
+        $.getJSON("/Dashboard/GetBannersList")
+         .done(function(result){ 
+             if (result != null && result.data.length > 0)
+             {
+                 var sBannerHtml = '';
+                 for (i = 0; i < result.data.length; i++)
+                 {
+                     var isActive = '';
+                     if (i == 0)
+                     {
+                         isActive = 'active';
+                     }
+
+                     sBannerHtml += '<div class="carousel-item '+ isActive + '">' +
+                                    '<img src="' + result.data[i].bannerFilePath + '" class="d-block w-100 bannerImageFrame" />' +  
+                                    '</div>';
+                 }
+
+                 $('#divBannerInner').append(sBannerHtml);
+
+                 $('.carousel-control-prev').show();
+                 $('.carousel-control-next').show();
+             }
+             else 
+             {
+                 var sEmptyBannerHtml = '';
+                 sEmptyBannerHtml += '<div class="carousel-item bannerEmptyFrame active">' + 
+                                     '<div class="d-block w-100 text-center bannerEmptyBox">' + '@Html.Raw(LangResources["Dashboard_Label_NoBanner"])' + '</div>' + 
+                                     '</div>';
+
+                 $('#divBannerInner').append(sEmptyBannerHtml);
+
+                 $('.carousel-control-prev').hide();
+                 $('.carousel-control-next').hide();
+             }
+         });
+    }
+
+    function LoadBlogs()
+    {
+        $('#divBlog').html('');
+
+        $.getJSON("/Dashboard/GetBlogsList")
+         .done(function(result) { 
+             if (result != null && result.data.length > 0)
+             {
+                 var sBlogHtml = '';
+                 for (i = 0; i < result.data.length; i++)
+                 {
+                     sBlogHtml += '<div class="col-md-4">' +
+
+                                  '<div class="row me-3">' +
+                                  '<div class="col-md-12 mt-2">' + 
+                                  '<a href="' + result.data[i].urLtoRedirect + '" target="_blank">' +
+                                  '<img src="' + result.data[i].thumbnailImage + '" class="blogThumbnail" />' + 
+                                  '</a>' +
+                                  '</div>' +
+                                  '</div>' +
+
+                                  '<div class="row mt-1">' +
+                                  '<label class="blogTitle">' + 
+                                  result.data[i].title +
+                                  '</label>' +
+                                  '</div>' +
+                                  '<div class="row">' + 
+                                  '<label class="blogDateTime">' + moment(result.data[i].createdDate).format("DD MMM YYYY") + '</label>' +
+                                  '</div>' + 
+
+                                  '</div>';
+                 }
+
+                 $('#divBlog').append(sBlogHtml);
+             }
+             else 
+             {
+                 var sEmptyBlog = '';
+                 sEmptyBlog += '<div class="col-md-4">' +
+                               '<div class="row me-3">' +
+                               '<div class="col-md-12 mt-2 blogEmptyBox text-center">' + '@Html.Raw(LangResources["Dashboard_Label_NoBlog"])' + '</div>' +
+                               '</div>' +
+                               '</div>';
+
+                 $('#divBlog').append(sEmptyBlog);
+             }
+         });
+    }
+
+</script>
+
+<div class="row ms-2">
+    <div class="row pt-4">
+        <label class="dashboardTitle">
+            @LangResources["Dashboard_Title_PromotionsEvents"]
+        </label>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12 bannerFrame">
+            <div id="divBanner" class="carousel slide" data-bs-ride="carousel">
+                <div id="divBannerInner" class="carousel-inner">
+                    <!-- Banner Content -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#divBanner" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#divBanner" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="row mt-4">
+        <label class="blogSectionTitle">
+            @LangResources["Dashboard_Title_Blogs"]
+        </label>
+    </div>
+    <div id="divBlog" class="row ms-0">
+        <!-- Blog Content -->
     </div>
 </div>

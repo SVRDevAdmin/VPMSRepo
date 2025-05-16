@@ -10,6 +10,12 @@ namespace VPMSCustomer.Lib.Data
 {
     public class CustomerLoginRepository
     {
+        /// <summary>
+        /// Insert Session record
+        /// </summary>
+        /// <param name="sSession"></param>
+        /// <param name="sAction"></param>
+        /// <returns></returns>
         public static Boolean InsertSession(CustomerLoginSession sSession, String sAction)
         {
             Boolean isSuccess = false;
@@ -43,6 +49,11 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Remove Session Record
+        /// </summary>
+        /// <param name="sSessionID"></param>
+        /// <returns></returns>
         public static Boolean DeleteSession(String sSessionID)
         {
             Boolean isSuccess = false;
@@ -69,6 +80,12 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Insert Summary Log
+        /// </summary>
+        /// <param name="sSessionID"></param>
+        /// <param name="sAction"></param>
+        /// <returns></returns>
         public static Boolean InsertSessionLog(String sSessionID, String sAction)
         {
             Boolean isSuccess = false;

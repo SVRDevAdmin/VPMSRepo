@@ -433,3 +433,42 @@
     color: black;
     font-size: 14px;
 }
+
+/*------- Dashboard --------*/
+.blogEmptyBox {
+    width: 303px;
+    height: 150px;
+    border: 1px dashed black;
+    border-radius: 6px;
+    color: grey;
+}
+
+.bannerEmptyFrame {
+    border: 1px dashed black;
+    color: black;
+}
+
+.blogTitle {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -10px;
+}
+
+.blogDateTime {
+    color: black;
+    font-size: 14px;
+    margin-left: -10px;
+}
+
+.dashboardTitle {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.blogSectionTitle {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
