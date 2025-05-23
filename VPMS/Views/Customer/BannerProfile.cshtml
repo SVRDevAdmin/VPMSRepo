@@ -1,77 +1,330 @@
-﻿
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+@model VPMS.Lib.Data.Models.BannerDisplayModel
+
 @{
     ViewData["Title"] = "BannerProfile";
+    ViewData["SelectedMenu"] = "MgmtMenu";
+    ViewBag.SelectedMenu = "MgmtMenu";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("LoginID");
+
+    var sBannerObj = new VPMS.Lib.Data.Models.BannerDisplayModel();
+    if (ViewData["BannerProfile"] != null)
+    {
+        sBannerObj = ViewData["BannerProfile"] as VPMS.Lib.Data.Models.BannerDisplayModel;
+    }
+    var sViewType = ViewData["ViewType"] as String;
 }
 
+<link rel="stylesheet" href="~/css/BannerList.css" />
 <link rel="stylesheet" href="~/css/font-awesome.min.css">
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css">
+
 
 <script src="~/lib/moment.min.js"></script>
 <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"> </script>
 
 <script type="text/javascript">
+    $("#SubMenuConfig").toggleClass('show');
+    document.querySelector("#SubMenuConfigParent").querySelector("#imgArrow").classList.toggle("Up");
+
     $(document).ready(function() 
     {
         LoadStatusListDropdown();
 
+        let dtMin = moment();
+        let dtMinTo = moment().add(1, 'd');
+
         $('#txtStartDate').datepicker({
             uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+            minDate: dtMin.format('DD/MM/YYYY'),
+            startDate: new Date()
         });
 
         $('#txtEndDate').datepicker({
             uiLibrary: 'bootstrap5',
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+            minDate: dtMinTo.format('DD/MM/YYYY'),
+            startDate: new Date()
+        });
+
+        $('#txtStartDate').datepicker().on("change", function(){
+            var startDate = moment($('#txtStartDate').val(), 'DD/MM/YYYY');
+            var endDate = moment($('#txtEndDate').val(), 'DD/MM/YYYY');
+
+            if ($('#txtEndDate').val() == '' || startDate >= endDate){
+                endDate = startDate.add(1, 'd');
+
+                $('#txtEndDate').val(endDate.format('DD/MM/YYYY'));
+            }
+            
+        });
+
+        $('#txtEndDate').datepicker().on("change", function(){
+
         });
 
         $('#btnCreate').on('click', function(ctl)
         {
-            var formData = new FormData();
-            formData.append("bannerFile", $('input[id="fileUpload"]').get(0).files[0]);
+            if (validateMandatoryFields())
+            {
+                var formData = new FormData();
+                formData.append("bannerFile", $('input[id="fileUpload"]').get(0).files[0]);
 
-            var bannerData = {
-                description: $('#txtDescription').val(),
-                startDate: $('#txtStartDate').val(),
-                endDate: $('#txtEndDate').val(),
-                status: $('#ddlStatus').val()
-            };
-            formData.append("Data", JSON.stringify(bannerData));
+                var bannerData = {
+                    description: $('#txtDescription').val(),
+                    startDate: $('#txtStartDate').val(),
+                    endDate: $('#txtEndDate').val(),
+                    status: $('#ddlStatus').val(),
+                    uploadedBy: '@sessionUserName'
+                };
+                formData.append("Data", JSON.stringify(bannerData));
 
-            $.ajax({
-                url: '/Customer/UploadBanner',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function(result){
+                $.ajax({
+                    url: '/Customer/UploadBanner',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function(result){
+                        if (result.StatusCode == 200){
+                            ShowSuccessMsgBox("@Html.Raw(LangResources["BannerProfile_Title_UploadBanner"])", 
+                                              "@Html.Raw(LangResources["BannerProfile_Message_UploadSuccessfully"])",
+                                function () {
+                                    window.location.href = '/Customer/Banners';
+                                }
+                            )
+                        }
+                        else {
+                            if (result.isBannerSelected != true && result.isFileUploadSuccess == false){
+                                $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_NoBannerSelected"])');
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                            else if (result.isFileUploadSuccess == false && result.isBannerSelected == true){
+                                $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_UploadFailed"])');
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                            else {
+                                $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_Fail"])');
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                        }
+                    },
+                    error: function(ex){
+                        $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_Fail"])');
+                        $('#lbError').css('visibility', 'visible');
+                    }
+                });
+            }
+            else {
+                let sErrorText = $('#lbError').html();
+
+                if (sErrorText.length > 0)
+                {
+                    sErrorText = sErrorText + '<br/>' + '@Html.Raw(LangResources["BannerProfile_Message_MandatoryFieldsRequired"])';
+                    $('#lbError').html(sErrorText);
+                    $('#lbError').css('visibility', 'visible');
+                }
+                else 
+                {
+                    $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_MandatoryFieldsRequired"])');
+                    $('#lbError').css('visibility', 'visible');
+                }
+
+            }
+
+        });
+
+        $('#btnCancel').on('click', function(ctl){ 
+            window.location.href = '/Customer/Banners';
+        });
+
+        $('#btnUpdate').on('click', function(ctl) 
+        { 
+            if (validateMandatoryFields())
+            {
+                $.post("/Customer/UpdateBannerInfo",
+                {
+                    bannerID : $('#hidID').val(),
+                    sUpdateForm : {
+                        description: $('#txtDescription').val(),
+                        startDate: $('#txtStartDate').val(),
+                        endDate: $('#txtEndDate').val(),
+                        status: $('#ddlStatus').val(),
+                        uploadedBy: '@sessionUserName'
+                    }
+                }).done(function(result){
                     if (result.StatusCode == 200){
-                        ShowSuccessMsgBox("Upload Banner", "Upload successfully.",
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["BannerProfile_Title_UpdateBannerInfo"])", 
+                                          "@Html.Raw(LangResources["BannerProfile_Message_UpdateSuccessfully"])",
                             function () {
                                 window.location.href = '/Customer/Banners';
                             }
                         )
                     }
-                    else {
-                        if (result.isBannerSelected != true){
-                            $('#lbError').html('No Banner file selected.');
+                    else
+                    {
+                        if  (result.isNoChanges)
+                        {
+                            $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_NoChangesUpdates"])');
                             $('#lbError').css('visibility', 'visible');
                         }
-                        else {
-                            $('#lbError').html('Fail');
+                        else
+                        {
+                            $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_UpdateFailed"])');
                             $('#lbError').css('visibility', 'visible');
                         }
+
                     }
-                },
-                error: function(ex){
-                    $('#lbError').html('Fail');
+                });
+            }
+            else {
+                let sErrorText = $('#lbError').html();
+
+                if (sErrorText.length > 0)
+                {
+                    sErrorText = sErrorText + '<br/>' + '@Html.Raw(LangResources["BannerProfile_Message_MandatoryFieldsRequired"])';
+                    $('#lbError').html(sErrorText);
                     $('#lbError').css('visibility', 'visible');
                 }
-            });
-        })
+                else
+                {
+                    $('#lbError').html('@Html.Raw(LangResources["BannerProfile_Message_MandatoryFieldsRequired"])');
+                    $('#lbError').css('visibility', 'visible');
+                }
+            }
+
+        });
+
+        if ('@ViewData["BannerProfile"]' != '')
+        {
+            $('#txtDescription').val('@sBannerObj.Description');
+            $('#txtStartDate').val('@sBannerObj.StartDateString');
+            $('#txtEndDate').val('@sBannerObj.EndDateString');
+            $('#hidID').val('@sBannerObj.ID');
+            
+            setTimeout(function(){
+                $('#ddlStatus').val('@sBannerObj.IsActive');
+            }, 250);
+            
+
+            if ('@ViewData["ViewType"]' == "View")
+            {
+                $('#txtDescription').prop('disabled', true);
+                $('#txtStartDate').prop('disabled', true);
+                $('#txtEndDate').prop('disabled', true);
+                $('#ddlStatus').prop('disabled', true);
+                $('#lbBannerName').prop('disabled', true);
+
+                $('.btn-outline-secondary').hide();
+
+                $('#lbBannerName').val('@sBannerObj.BannerName');
+                $('#divFileName').show();
+                $('#divFileUpload').hide();
+
+                $('#btnCreate').hide();
+                $('#btnUpdate').hide();
+            }
+            else if ('@ViewData["ViewType"]' == "Edit")
+            {
+                $('#lbBannerName').prop('disabled', true);
+
+                $('#lbBannerName').val('@sBannerObj.BannerName');
+                $('#divFileName').show();
+                $('#divFileUpload').hide();
+
+                $('#btnCreate').hide();
+                $('#btnUpdate').show();
+            }
+        }
+        else {
+            $('#divFileName').hide();
+            $('#divFileUpload').show();
+
+            $('#btnCreate').show();
+            $('#btnUpdate').hide();
+        }
     });
 
+    function validateMandatoryFields()
+    {
+        $('#lbError').html('');
+        let isValid = true;
+
+        if ($('#txtDescription').val() =='')
+        {
+            $('#txtDescription').addClass("errorValidation");
+            $('#txtDescription').focus();
+
+            isValid = false;
+        }
+        else 
+        {
+            $('#txtDescription').removeClass("errorValidation");
+        }
+
+        if ($('#ddlStatus').val() == '')
+        {
+            $('#ddlStatus').addClass("errorValidation");
+            $('#ddlStatus').focus();
+
+            isValid = false;
+        }
+        else 
+        {
+            $('#ddlStatus').removeClass("errorValidation");
+        }
+
+        if ($('#txtStartDate').val() == '')
+        {
+            $('#txtStartDate').addClass("errorValidation");
+            $('#txtStartDate').focus();
+
+            isValid = false;
+        }
+        else 
+        {
+            $('#txtStartDate').removeClass("errorValidation");
+        }
+
+        if ($('#txtEndDate').val() == '')
+        {
+            $('#txtEndDate').addClass("errorValidation");
+            $('#txtEndDate').focus();
+
+            isValid = false;
+        }
+        else 
+        {
+            $('#txtEndDate').removeClass("errorValidation");
+        }
+
+        var startDate = moment($('#txtStartDate').val(), 'DD/MM/YYYY');
+        var endDate = moment($('#txtEndDate').val(), 'DD/MM/YYYY');
+
+        if (startDate >= endDate)
+        {
+            $('#txtEndDate').addClass("errorValidation");
+            $('#txtEndDate').focus();
+
+            $('#lbError').html('End Date shuld be greater than Start Date.');
+            $('#lbError').css('visibility', 'visible');
+
+            isValid = false;
+        }
+        else {
+            $('#txtEndDate').removeClass("errorValidation");
+
+            $('#lbError').html('');
+            $('#lbError').css('visibility', 'hidden');
+        }
+
+        return isValid;
+    }
 
     function LoadStatusListDropdown()
     {
@@ -96,61 +349,82 @@
     <div class="row mt-3 ms-3">
         <div class="col-md-12">
             <div class="row ms-2 me-2">
-                <div class="col-md-12" style="background-color: black; font-size: 12px; font-weight: bold; color: white; border: 1px solid black; border-top-left-radius: 6px; border-top-right-radius: 6px;">
-                    <label style="font-size: 14px; font-weight: bold;">Banner Details</label>
+                <div class="col-md-12 frameTitle">
+                    <label class="frameTitleLabel">
+                        @LangResources["BannerProfile_Title_BannerDetails"]
+                    </label>
                 </div>
-                <div class="col-md-12" style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
+                <div class="col-md-12 frameBody">
                     <div class="row mt-4 ms-1 me-1">
                         <div class="col-md-12">
-                            <label for="txtDescription" style="font-size: 14px; font-weight: bold;">Description</label>
+                            <label for="txtDescription" class="fieldsLabel">
+                                @LangResources["BannerProfile_Label_Description"]
+                            </label>
                             <input id="txtDescription" type="text" class="form-control form-control-sm" />
                         </div>
                     </div>
                     <div class="row mt-2 ms-1 me-1">
                         <div class="col-md-6">
-                            <label for="txtStartDate" style="font-size: 14px; font-weight: bold;">Start Date</label>
+                            <label for="txtStartDate" class="fieldsLabel">
+                                @LangResources["BannerProfile_Label_StartDate"]
+                            </label>
                             <input id="txtStartDate" class="form-control form-control-sm" />
                         </div>
                         <div class="col-md-6">
-                            <label for="txtEndDate" style="font-size: 14px; font-weight:bold">End Date</label>
+                            <label for="txtEndDate" class="fieldsLabel">
+                                @LangResources["BannerProfile_Label_EndDate"]
+                            </label>
                             <input id="txtEndDate" class="form-control form-control-sm" />
                         </div>
                     </div>
                     <div class="row mt-1 ms-1 me-1">
                         <div class="col-md-12">
-                            <label for="ddlStatus" style="font-size: 14px; font-weight: bold;">Status</label>
+                            <label for="ddlStatus" class="fieldsLabel">
+                                @LangResources["BannerProfile_Label_Status"]
+                            </label>
                             <select id="ddlStatus" class="form-select form-select-sm">
-                                <option value="">Please select status</option>
+                                <option value="">@LangResources["BannerProfile_Label_PleaseSelectStatus"]</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mt-2 ms-1 me-1">
+                    <div id="divFileUpload" class="row mt-2 ms-1 me-1">
                         <div class="col-md-12">
-                            <label for="fileUpload" style="font-size: 14px; font-weight: bold;">Upload</label>
+                            <label for="fileUpload" class="fieldsLabel">
+                                @LangResources["BannerProfile_Label_Upload"]
+                            </label>
                             <input id="fileUpload" type="file" class="form-control form-control-sm" />
+                            <label class="remarksLabel">@LangResources["BannerProfile_Message_RecommendRemark"]</label>
                         </div>
                     </div>
-                    <!--
-                    <div class="row mt-2 ms-1 me-1">
+                    <div id="divFileName" class="row mt-2 ms-1 me-1">
                         <div class="col-md-12">
-                            <label for="lbBannerName" style="font-size: 14px; font-weight: bold;">Banner Name</label>
-                            <label id="lbBannerName" class="form-check-label"></label>
+                            <label for="lbBannerName" class="fieldsLabel">
+                                @LangResources["BannerProfile_Label_Banner"]
+                            </label>
+                            <input id="lbBannerName" type="text" class="form-control form-control-sm" />
                         </div>
                     </div>
-                    -->
                     <div class="row mt-2 mb-2 ms-1 me-1" style="height: 35px;">
                         <div class="col-md-12">
-                            <label id="lbError" style="font-size: 12px; color: red; font-weight: bold; margin-left: 10px; visibility: hidden;"></label>
+                            <label id="lbError" class="errorLabel"></label>
+                            <input type="hidden" id="hidID" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="row mt-3">
-                    <div class="col-md-8">&nbsp;</div>
-                    <div class="col-md-4">
-                        <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 12px;">Cancel</button>&nbsp;
-                        <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 12px;">Create</button>
+                    <div class="col-md-9">&nbsp;</div>
+                    <div class="col-md-3 text-right">
+                        <button id="btnCancel" type="button" class="btn btn-secondary">
+                            @LangResources["BannerProfile_Button_Cancel"]
+                        </button>&nbsp;
+                        <button id="btnCreate" type="button" class="btn btn-primary">
+                            @LangResources["BannerProfile_Button_Create"]
+                        </button>
+                        <button id="btnUpdate" type="button" class="btn btn-primary">
+                            @LangResources["BannerProfile_Button_Update"]
+                        </button>
                     </div>
                 </div>
             </div>

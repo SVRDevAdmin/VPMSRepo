@@ -7,6 +7,21 @@
 	ViewData["Title"] = "Login Page";
 }
 
+<link rel="stylesheet" href="~/css/font-awesome.min.css">
+
+<style>
+.hide{
+	display: none !important;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#loginSubmit').on('click', function(ctl){ 
+			$('.loading-icon').removeClass('hide');
+		});
+	});
+</script>
+
 <form id="registerForm" method="post" asp-controller="Login" asp-action="SignIn">
 	<h1 class="form-title textColor">@LangResources["Login_Title_Login"]</h1>
 	<div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
@@ -23,7 +38,10 @@
 		</div>
 		<span asp-validation-for="Password" class="text-danger"></span>
 	</div>
-	<button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">@LangResources["Login_Title_Login"]</button>
+	<button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">
+		<i class="loading-icon fa fa-spinner fa-spin hide"></i>
+		@LangResources["Login_Title_Login"]
+	</button>
 	<a class="link" style="color: darkgray;" asp-controller="Login" asp-action="PasswordRecovery">@LangResources["Login_Link_ForgotPassword"]</a>
 </form>
 

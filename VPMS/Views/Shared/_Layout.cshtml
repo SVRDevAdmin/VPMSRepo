@@ -295,19 +295,19 @@
                         <li>
                             <a id="SubMenuConfigParent" href="#SubMenuConfig" class="nav-link align-middle px-0" data-toggle="collapse">
                                 <span id="MgmtMenu" class="spanMenuBlue"></span>
-                                <img src="~/images/management.png" class="menuIcons" style="width:24px; height: 24px;" />
-                                <span class="d-none d-sm-inline sidebar-nav-font">Customer Mgmt</span>
+                                <img id="imgManagement" class="menuIcons" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">@LangResources["MenuBar_Label_CustomerPortal"]</span>
                                 <img id="imgArrow" style="margin-left: 20px;" />
                             </a>
                             <ul id="SubMenuConfig" class="collapse nav flex-column" data-parent="#menu">
                                 <li class="w-100">
                                     <a asp-controller="Customer" asp-action="Banners" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font">Banners</span>
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="menuBanner">@LangResources["MenuBar_Label_Banners"]</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-controller="Customer" asp-action="" class="nav-link px-0">
-                                        <span class="d-none d-sm-inline sidebar-nav-font">Blogs</span>
+                                    <a asp-controller="Customer" asp-action="Blogs" class="nav-link px-0">
+                                        <span class="d-none d-sm-inline sidebar-nav-font" id="menuBlogs">@LangResources["MenuBar_Label_Blogs"]</span>
                                     </a>
                                 </li>
                             </ul>

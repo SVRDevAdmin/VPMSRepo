@@ -427,6 +427,10 @@ namespace VPMSWeb.Controllers
 			}
         }
 
+        /// <summary>
+        /// Populate appointment confirmed email
+        /// </summary>
+        /// <param name="iApptID"></param>
         public void SendAppointmentConfirmedEmail(long iApptID)
         {
             var sEmailConfig = ConfigSettings.GetConfigurationSettings();
@@ -547,11 +551,4 @@ namespace VPMSWeb.Controllers
         public List<PatientSelectionModel> PatientSelectionModel {  get; set; }
         public List<MastercodeModel> SpeciesModel { get; set; }
     }
-
-    //public class ResponseResultCode
-    //{
-    //    public int? StatusCode { get; set; }
-    //    public Boolean? isDoctApptOverlap { get; set; }
-    //    public Boolean? isPatientAppOverlap { get; set; }
-    //}
 }

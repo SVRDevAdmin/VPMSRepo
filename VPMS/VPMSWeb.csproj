@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Upload\**" />
+    <Compile Remove="wwwrootupload\**" />
+    <Content Remove="Upload\**" />
+    <Content Remove="wwwrootupload\**" />
+    <EmbeddedResource Remove="Upload\**" />
+    <EmbeddedResource Remove="wwwrootupload\**" />
+    <None Remove="Upload\**" />
+    <None Remove="wwwrootupload\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Lib\ExtensionMethods\HtmlHelperExtensionMethods.cs" />
     <Compile Remove="Lib\Interface\ISharedViewLocalizer.cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer .cs" />

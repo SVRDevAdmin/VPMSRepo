@@ -1,83 +1,15 @@
-﻿
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
 @{
     ViewData["Title"] = "BannersList";
+    ViewData["SelectedMenu"] = "MgmtMenu";
+    ViewBag.SelectedMenu = "MgmtMenu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="~/css/BannerList.css" />
 <script src="~/lib/moment.min.js"></script>
-
-<style>
-#tblBanner {
-    border: 1px solid #ddd !important;
-    border-radius: 8px !important;
-}
-
-#tblBanner > thead > tr > th {
-    border: 0px !important;
-    background-color: #f7f7f7 !important;
-    color: black !important;
-}
-
-#tblBanner > tbody > tr > td {
-    border-left: 0px;
-    border-right: 0px;
-    border-top: 0px;
-    border-bottom: 1px solid #ddd !important;
-    background-color: transparent !important;
-    color: black !important;
-    vertical-align: middle !important;
-}
-
-#tblBanner thead {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-#tblBanner tbody {
-    font-size: 12px;
-}
-
-.hiddenBannerMenuStyle{
-    background-color: white !important;
-    min-width: fit-content;
-    font-size: 12px;
-}
-
-.hiddenBannerMenuStyle > a:hover {
-    color: black !important;
-    background-color: white !important;
-}
-
-.PaginationButtonSelected {
-    width: 3vw;
-    height: 3vw;
-    background-color: #1E76FB;
-    color: white;
-    margin-right: 1vw;
-    text-align: center;
-    border-radius: 3vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #1E76FB;
-    font-weight: bold;
-}
-
-.PaginationButton {
-    width: 3vw;
-    height: 3vw;
-    background-color: transparent;
-    color: #1E76FB;
-    margin-right: 1vw;
-    text-align: center;
-    border-radius: 3vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #1E76FB;
-    font-weight: bold;
-}
-</style>
 
 <script type="text/javascript">
     var paginationLimit = 5;
@@ -88,6 +20,10 @@
     var totalPagination = 0;
     var startPagination = 1;
     var endPagination = 0;
+
+    debugger;
+    $("#SubMenuConfig").toggleClass('show');
+    document.querySelector("#SubMenuConfigParent").querySelector("#imgArrow").classList.toggle("Up");
 
     $(document).ready(function(){ 
         LoadBannersList();
@@ -111,10 +47,10 @@
                                 '<td scope="col">' + result.data[i].Description + '</td>' +
                                 '<td scope="col">' + moment(result.data[i].StartDate).format("DD-MM-YYYY") + '</td>' +
                                 '<td scope="col">' + moment(result.data[i].EndDate).format("DD-MM-YYYY") + '</td>' + 
-                                '<td scope="col">' + (result.data[i].IsActive == '1' ? 'Active' : 'IActive') + '</td>' +
+                                '<td scope="col">' + (result.data[i].IsActive == '1' ? 'Active' : 'Inactive') + '</td>' +
                                 '<td scope="col">' + result.data[i].BannerName + '</td>' +
                                 '<td scope="col">' + moment(result.data[i].CreatedDate).format("DD-MM-YYYY HH:mm:ss") + '</td>' +
-                                '<td scope="col">' + generatePopupMenu() + '</td>' +
+                                '<td scope="col">' + generatePopupMenu(result.data[i].ID) + '</td>' +
                                 '</tr>';
                 }
 
@@ -126,24 +62,27 @@
             else 
             {
                 var sEmptyRowHtml = '';
-                sEmptyRowHtml += '<tr><td colspan="8">No Records</td></tr>';
+                sEmptyRowHtml += '<tr><td colspan="8">' + '@Html.Raw(LangResources["BannersList_Message_NoRecords"])' + '</td></tr>';
 
                 $('#tblBanner tbody').append(sEmptyRowHtml);
+
+                $('#prevButton').hide();
+                $('#nextButton').hide();
             }
         });
     }
 
-    function generatePopupMenu()
+    function generatePopupMenu(id)
     {
         var sPopMenuHtml = '';
 
         sPopMenuHtml += '<button type="button" class="btn" data-toggle="dropdown">' +
-                        '<img src="../images/more_icon.png" style="width: 14px; height: 14px;" />' +
+                        '<img class="moreMenu" />' +
                         '</button>' +
 
                         '<div class="dropdown-menu hiddenBannerMenuStyle containerBackground5">' +
-                        '<a class="dropdown-item" href="">View</a>' +
-                        '<a class="dropdown-item" href="">Edit</a>' +
+                        '<a class="dropdown-item" href="/Customer/ViewBannerProfile/' + id + '/View">' + '@Html.Raw(LangResources["BannersList_Label_View"])' + '</a>' +
+                        '<a class="dropdown-item" href="/Customer/ViewBannerProfile/' + id + '/Edit">' + '@Html.Raw(LangResources["BannersList_Label_Edit"])' + '</a>' +
                         '</div>';
 
         return sPopMenuHtml;
@@ -236,13 +175,15 @@
 <div class="row">
     <div class="row ms-3">
         <div class="col-md-12">
-            <label style="font-size: 24px; font-weight: bold;">Banners Management</label>
+            <label class="bannerPageTitle">
+                @LangResources["BannersList_Title_BannersManagement"]
+            </label>
         </div>
         <div class="col-md-10">&nbsp;</div>
         <div class="col-md-2">
-            <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 12px;" onclick="location.href='@Url.Action("BannerProfile", "Customer")'">
+            <button id="btnNew" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("BannerProfile", "Customer")'">
                 <i class="bi bi-plus-circle"></i>
-                New banner
+                @LangResources["BannersList_Button_NewBanner"]
             </button>
         </div>
     </div>
@@ -252,13 +193,13 @@
             <table id="tblBanner" class="table">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 5%;">No.</th>
-                        <th scope="col" style="width: 20%;">Banner</th>
-                        <th scope="col" style="width: 10%;">Start Date</th>
-                        <th scope="col" style="width: 10%;">End Date</th>
-                        <th scope="col" style="width: 10%;">Status</th>
-                        <th scope="col" style="width: 20%;">File Name</th>
-                        <th scope="col" style="width: 15%;">Created Date</th>
+                        <th scope="col" style="width: 5%;">@LangResources["BannersList_Label_Number"]</th>
+                        <th scope="col" style="width: 20%;">@LangResources["BannersList_Label_Banner"]</th>
+                        <th scope="col" style="width: 10%;">@LangResources["BannersList_Label_StartDate"]</th>
+                        <th scope="col" style="width: 10%;">@LangResources["BannersList_Label_EndDate"]</th>
+                        <th scope="col" style="width: 10%;">@LangResources["BannersList_Label_Status"]</th>
+                        <th scope="col" style="width: 20%;">@LangResources["BannersList_Label_FileName"]</th>
+                        <th scope="col" style="width: 15%;">@LangResources["BannersList_Label_CreatedDate"]</th>
                         <th scope="col" style="width: 5%;">&nbsp;</th>
                     </tr>
                 </thead>
@@ -269,12 +210,12 @@
             <div class="row">
                 <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
                     <div>
-                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">Prev</button>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["BannersList_Button_Prev"]</button>
                     </div>
                     <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
                     </div>
                     <div>
-                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">Next</button>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["BannersList_Button_Next"]</button>
                     </div>
                 </div>
             </div>

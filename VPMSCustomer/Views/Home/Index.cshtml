@@ -63,15 +63,21 @@
          .done(function(result) { 
              if (result != null && result.data.length > 0)
              {
+                 let iMax = 3;
                  var sBlogHtml = '';
-                 for (i = 0; i < result.data.length; i++)
+                 if (result.data.length < iMax)
+                 {
+                     iMax = result.data.length;
+                 }
+
+                 for (i = 0; i < iMax; i++)
                  {
                      sBlogHtml += '<div class="col-md-4">' +
 
                                   '<div class="row me-3">' +
                                   '<div class="col-md-12 mt-2">' + 
                                   '<a href="' + result.data[i].urLtoRedirect + '" target="_blank">' +
-                                  '<img src="' + result.data[i].thumbnailImage + '" class="blogThumbnail" />' + 
+                                  '<img src="' + result.data[i].thumbnailFilePath + '" class="blogThumbnail" />' + 
                                   '</a>' +
                                   '</div>' +
                                   '</div>' +

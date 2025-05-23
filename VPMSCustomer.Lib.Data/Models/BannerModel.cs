@@ -37,6 +37,7 @@ namespace VPMSCustomer.Lib.Data.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public String? ThumbnailImage { get; set; }
+        public String? ThumbnailFilePath { get; set; }
         public DateTime? CreatedDate { get; set; }
         public String? CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
