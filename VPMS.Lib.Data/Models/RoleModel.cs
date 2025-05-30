@@ -37,6 +37,7 @@ namespace VPMS.Lib.Data.Models
         public String RoleName { get; set; }
         public int TotalAssigned {  get; set; }
         public String sPermission {  get; set; }
+        public int TotalPermissions { get; set; }
     }
 
     public class RoleDropdownObject

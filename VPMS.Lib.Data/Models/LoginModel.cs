@@ -44,6 +44,8 @@ namespace VPMS.Lib.Data.Models
 
         public List<BranchModel> Branches { get; set; } = null!;
 
+        public List<OrganisationModel> Organization { get; set; } = null;
+
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
         public string LastName { get; set; } = null!;

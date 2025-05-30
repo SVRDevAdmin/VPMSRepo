@@ -11,6 +11,14 @@ namespace VPMS.Lib.Data
 {
     public class LocationRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
+        /// Insert New Location
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sLocationObject"></param>
+        /// <returns></returns>
         public static Boolean InsertLocationList(IConfiguration config, LocationModel sLocationObject)
         {
             Boolean isSuccess = false;
@@ -27,12 +35,22 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("LocationRepository >>> InsertLocationList >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
         }
 
+        /// <summary>
+        /// Update Location List
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sLocationID"></param>
+        /// <param name="sLocationName"></param>
+        /// <param name="sLocationStatus"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
         public static Boolean UpdateLocationList(IConfiguration config, String sLocationID, String sLocationName, int sLocationStatus, String sUpdatedBy)
         {
             Boolean isSuccess = true;
@@ -58,12 +76,19 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("LocationRepository >>> UpdateLocationList >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
         }
 
+        /// <summary>
+        /// Get Location record by System ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="systemID"></param>
+        /// <returns></returns>
         public static LocationModel GetLocationListMasterByID(IConfiguration config, String systemID)
         {
             try
@@ -75,10 +100,16 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("LocationRepository >>> GetLocationListMasterByID >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Get Location Listing
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static List<LocationModel> GetLocationListMaster(IConfiguration config)
         {
             try
@@ -90,6 +121,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("LocationRepository >>> GetLocationListMaster >>> " + ex.ToString());
                 return null;
             }
         }

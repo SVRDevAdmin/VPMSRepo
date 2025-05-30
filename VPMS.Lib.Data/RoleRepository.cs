@@ -37,7 +37,8 @@ namespace VPMS.Lib.Data
                     String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
                                             "A.RoleID, A.RoleName, A.TotalAssigned, " +
                                             "COUNT(*) OVER() AS 'TotalRows', " +
-                                            "GROUP_CONCAT(DISTINCT(C.PermissionKey)) AS 'Permissions' " +
+                                            "GROUP_CONCAT(DISTINCT(C.PermissionKey)) AS 'Permissions', " +
+                                            "COUNT(DISTINCT(C.PermissionKey)) AS 'TotalPermissions' " +
                                             "FROM ( " +
 
                                             "SELECT A1.RoleID, A1.RoleName, Count(D1.UserID) As 'TotalAssigned' " +
@@ -82,7 +83,8 @@ namespace VPMS.Lib.Data
                                     RoleID = sReader["RoleID"].ToString(),
                                     RoleName = sReader["RoleName"].ToString(),
                                     TotalAssigned = (sReader["TotalAssigned"] != null) ? Convert.ToInt32(sReader["TotalAssigned"]) : 0,
-                                    sPermission = (sReader["Permissions"] != null) ? sReader["Permissions"].ToString() : ""
+                                    sPermission = (sReader["Permissions"] != null) ? sReader["Permissions"].ToString() : "",
+                                    TotalPermissions = (sReader["TotalPermissions"] != null) ? Convert.ToInt32(sReader["TotalPermissions"]) : 0
                                 });
 
                                 totalRecords = Convert.ToInt32(sReader["TotalRows"]);
@@ -517,7 +519,6 @@ namespace VPMS.Lib.Data
 				//return null;
     //        }
     //    }
-
         public static List<RoleDropdownObject> GetRolesList(int iOrganizationID)
         {
             List<RoleDropdownObject> sResultList = new List<RoleDropdownObject>();
@@ -532,9 +533,13 @@ namespace VPMS.Lib.Data
                     String sSelectCommand = "SELECT A.RoleID, A.RoleName " +
                                             "FROM mst_roles AS A " +
                                             "LEFT JOIN mst_branch AS B ON B.ID = A.BranchID " +
-                                            "INNER JOIN mst_organisation AS C ON C.ID = B.OrganizationID " +
+                                            "INNER JOIN mst_organisation AS C ON C.ID = A.OrganizationID " +
                                             "WHERE A.`Status`= '1' AND " + 
-                                            "(" + (iOrganizationID == -1) + " OR C.ID = '" + iOrganizationID +"') " +
+                                            "(" + 
+                                            "(" + (iOrganizationID == -1) + " AND A.RoleType <> '999') OR " +
+                                            "(C.ID = '" + iOrganizationID +"' AND " +
+                                            "(A.RoleType <> '999' AND A.RoleType <> '998' AND A.RoleType <> '997')) " +
+                                            ") " +
                                             "ORDER BY A.RoleName ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
@@ -559,7 +564,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
-                logger.Error("RoleRepository >>> GetRolesList >>> ", ex);
+                logger.Error("RoleRepository >>> GetRolesList >>> " + ex.ToString());
                 return null;
             }
         }

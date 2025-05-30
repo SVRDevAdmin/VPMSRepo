@@ -6,6 +6,8 @@
     ViewData["SelectedMenu"] = "AccessMenu";
     ViewBag.SelectedMenu = "AccessMenu";
 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
     var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
@@ -346,7 +348,7 @@
             <div class="row" style="margin-top: 20px;">
                 <div class="col-md-3">&nbsp;</div>
                 <div class="col-md-9" style="display: flex;">
-                    <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 1vw;">
+                    <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 12px;">
                         <img id="imgSlider" />
                         @LangResources["Staff_Button_Filters"]
                     </button>
@@ -354,7 +356,7 @@
                     @{
                         if ((bool)ViewData["CanAdd"])
                         {
-                            <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 1vw"
+                            <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 12px;"
                                     onclick="location.href='@Url.Action("UserDetails", "User")'">
                                 <i class="bi bi-plus-circle" style="margin-right: 5px;"></i>
                                 @LangResources["Staff_Button_NewStaff"]

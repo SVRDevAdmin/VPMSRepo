@@ -241,6 +241,10 @@ ON mst_appointment_services (ApptID, IsDeleted);
 CREATE INDEX IX_ApptGrp_SeqNo
 ON mst_appointment_grouping (AppointmentGroup, SeqNo);
 
+/*------------ Session --------------*/
+CREATE INDEX IX_SessionExpiredOn
+ON txn_loginsession (SessionExpiredOn);
+
 
 
 

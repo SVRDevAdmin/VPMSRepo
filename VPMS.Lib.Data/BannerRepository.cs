@@ -16,6 +16,16 @@ namespace VPMS.Lib.Data
 {
     public class BannerRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
+        /// Get Banners Listing
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
         public static List<BannerViewModel> GetBannersViewList(IConfiguration config, int pageSize, int pageIndex, out int totalRecords)
         {
             List<BannerViewModel> sResultList = new List<BannerViewModel>();
@@ -74,10 +84,17 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> GetBannersViewList >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Add new banner profile
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sInputObject"></param>
+        /// <returns></returns>
         public static Boolean InsertBanners(IConfiguration config, BannerModel sInputObject)
         {
             Boolean isSuccess = false;
@@ -98,12 +115,19 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> InsertBanners >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
         }
 
+        /// <summary>
+        /// Get Banner profile by ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iBannerID"></param>
+        /// <returns></returns>
         public static BannerDisplayModel GetBannerByID(IConfiguration config, int iBannerID)
         {
             BannerDisplayModel sBannerProfile = new BannerDisplayModel();
@@ -162,10 +186,19 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> GetBannerByID >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Update Banner Profile
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iBannerID"></param>
+        /// <param name="sBannerProfile"></param>
+        /// <param name="isNochanges"></param>
+        /// <returns></returns>
         public static Boolean UpdateBannerInfo(IConfiguration config, int iBannerID, BannerModel sBannerProfile, out Boolean isNochanges)
         {
             Boolean isUpdated = false;
@@ -219,12 +252,21 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> UpdateBannerInfo >>> " + ex.ToString());
                 isUpdated = false;
             }
 
             return isUpdated;
         }
 
+        /// <summary>
+        /// Get Blogs entry List
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
         public static List<BlogViewModel> GetBlogsViewList(IConfiguration config, int pageSize, int pageIndex, out int totalRecords)
         {
             List<BlogViewModel> sBlogList = new List<BlogViewModel>();
@@ -292,10 +334,17 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> GetBlogsViewList >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Add New Blog
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sInputObject"></param>
+        /// <returns></returns>
         public static Boolean InsertBlogs(IConfiguration config, BlogModel sInputObject)
         {
             Boolean isSuccess = false;
@@ -316,12 +365,19 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> InsertBlogs >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
         }
 
+        /// <summary>
+        /// Get Blog Profile by ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iBlogID"></param>
+        /// <returns></returns>
         public static BlogDisplayModel GetBlogByID(IConfiguration config, int iBlogID)
         {
             BlogDisplayModel sBlogObj = new BlogDisplayModel();
@@ -377,10 +433,19 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> GetBlogByID >>> " + ex.ToString());
                 return null;
             }
         }
         
+        /// <summary>
+        /// Update Blog Profile Info
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iBlogID"></param>
+        /// <param name="sBlogProfile"></param>
+        /// <param name="isNochanges"></param>
+        /// <returns></returns>
         public static Boolean UpdateBlogInfo(IConfiguration config, int iBlogID, BlogModel sBlogProfile, out Boolean isNochanges)
         {
             Boolean isUpdated = false;
@@ -446,6 +511,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> UpdateBlogInfo >>> " + ex.ToString());
                 isUpdated = false;
             }
 

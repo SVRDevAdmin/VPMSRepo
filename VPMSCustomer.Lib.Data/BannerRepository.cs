@@ -11,6 +11,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class BannerRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get the Banners List
         /// </summary>
@@ -28,6 +30,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> GetDashboardBannersList >>> " + ex.ToString());
                 return null;
             }
         }
@@ -49,6 +52,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("BannerRepository >>> GetBlogsList >>> " + ex.ToString());
                 return null;
             }
         }

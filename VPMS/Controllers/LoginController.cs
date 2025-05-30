@@ -230,15 +230,16 @@ namespace VPMSWeb.Controllers
 			}
         }
 
-        [Authorize(Roles = "Superadmin")]
+        //[Authorize(Roles = "Superadmin")]
         public IActionResult FirstRegister()
         {
 			try
 			{
 				var Roles = _roleDBContext.Mst_Roles.ToList();
 				var Branches = _branchDBContext.Mst_Branch.ToList();
+				var Organization = _organisationDBContext.Mst_Organisation.Where(x => x.Level == 0).ToList();
 
-				return View(new RegisterModel() { Roles = Roles, Branches = Branches });
+				return View(new RegisterModel() { Roles = Roles, Branches = Branches, Organization = Organization });
 			}
 			catch (Exception ex)
 			{

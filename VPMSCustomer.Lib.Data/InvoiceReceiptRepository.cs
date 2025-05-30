@@ -17,6 +17,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class InvoiceReceiptRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Invoice / Receipts Listing By Type
         /// </summary>
@@ -95,6 +97,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("InvoiceReceiptRepository >>> GetInvoiceReceiptViewListing >>> " + ex.ToString());
                 return null;
             }
         }
@@ -157,6 +160,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("InvoiceReceiptRepository >>> GetInvoiceReceiptDetailByID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -209,6 +213,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("InvoiceReceiptRepository >>> GetInvoiceReceiptServicesList >>> " + ex.ToString());
                 return null;
             }
         }
@@ -262,6 +267,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("InvoiceReceiptRepository >>> GetInvoiceReceiptProductList >>> " + ex.ToString());
                 return null;
             }
         }
@@ -329,6 +335,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("InvoiceReceiptRepository >>> GetInvoiceReceiptTotal >>> " + ex.ToString());
                 return null;
             }
         }
@@ -386,6 +393,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("InvoiceReceiptRepository >>> GetCustomerExpensesSummary >>> " + ex.ToString());
                 return null;
             }
         }

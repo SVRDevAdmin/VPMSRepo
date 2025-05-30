@@ -2,9 +2,11 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Customer Services";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionPostcode = httpContextaccessor.HttpContext.Session.GetString("PatientPostCode");
     var sessionState = httpContextaccessor.HttpContext.Session.GetString("PatientState");
     var sessionCountryID = httpContextaccessor.HttpContext.Session.GetString("PatientCountryID");
@@ -17,7 +19,10 @@
                         "#d6f0d5", "#b8e9fa", "#e2cbff", "#f9dee7", "#fed3a8",
                         "#fed3a8", "#e2cbff", "#d6f0d5", "#b8e9fa", "#f9dee7"];
 
-    $(document).ready(function(){
+    $(document).ready(function()
+    {
+        validateSession('@LoginSessionID');
+
         LoadStateSelection();
         LoadClinicViewListing('All', '@Html.Raw(LangResources["CustomerServices_Menu_All"])');
     });

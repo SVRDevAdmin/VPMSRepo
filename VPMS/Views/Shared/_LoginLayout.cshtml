@@ -118,6 +118,18 @@
             $("#alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#alert").alert("close");
             });
+
+            $('#ddlOrgz').prop('multiple', false);
+            $('#ddlOrgz option').filter(function(){
+                debugger;
+                return $(this).val == 1;
+            }).prop('selected', true);
+            $('#ddlOrgz').prop('disabled', true);
+
+            $('#ddlRole option').filter(function(){
+                return $(this).text() == "Superadmin";
+            }).prop('selected', true);
+            $('#ddlRole').prop('disabled', true);
         });
 
         function updateThemes(themes) {

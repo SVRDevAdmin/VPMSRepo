@@ -38,10 +38,18 @@ namespace VPMSWeb.Controllers
 		public IActionResult UserDetails()
 		{
             int iOrganizationID = -1;
-            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+            if (HttpContext.Session.GetString("Level") == "0")
             {
-                iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                iOrganizationID = -1;
             }
+            else
+            {
+                if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+                {
+                    iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                }
+            }
+
 
             ViewData["UserStatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Status");
             ViewData["UserGenderDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Gender");

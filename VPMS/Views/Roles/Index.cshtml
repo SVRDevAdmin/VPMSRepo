@@ -42,10 +42,28 @@
         }).done(function (result) {
             if (result.data != null && result.data.length > 0) 
             {
-                $('#tblRoles').bootstrapTable('destroy');
-                $('#tblRoles').bootstrapTable({
-                    data: result.data
-                });
+                //$('#tblRoles').bootstrapTable('destroy');
+                //$('#tblRoles').bootstrapTable({
+                //    data: result.data
+                //});
+
+                var sRowHtml = '';
+                for (i = 0; i < result.data.length; i++)
+                {
+                    sRowHtml += '<tr>' +
+                                '<td scope="col" class="text-center">' + result.data[i].SeqNo + '</td>' +
+                                '<td scope="col">' + result.data[i].RoleName + '</td>' +
+                                '<td scope="col">' + result.data[i].TotalAssigned + '</td>' +
+                                '<td scope="col">' + result.data[i].TotalPermissions + '</td>' +
+                                '<td scope="col">' +                           
+                                '<button class="btn btn-outline-primary" style="font-size: 12px;" onclick="showPermission(\'' +  result.data[i].sPermission+ '\')">' +
+                                '@Html.Raw(LangResources["Roles_Button_PermissionDetails"])' +
+                                '</button>' + 
+                                '</td>' +
+                                '<td scope="col">' + populateHideMenu(result.data[i].RoleID) + '</td>' +
+                                '</tr>';
+                }
+                $('#tblRoles tbody').append(sRowHtml);
 
                 /*------- Pagination -------*/
                 populatePagingControl(result.totalRecord);
@@ -59,17 +77,35 @@
         });
     }
 
-    function populateHideMenu(value, row) {
+    function populateHideMenu(id) {
         var hideMenuHtml = '<button type="button" class="btn" data-toggle="dropdown">' +
             '<img class="roleListingMoreIcon"  />' +
             '</button>' +
-            
+
             '<div class="dropdown-menu hiddenMenuStyle containerBackground5">' +
-            '<a class="dropdown-item" href="/Roles/ViewRoleProfile/' + value + '/View">' + '@Html.Raw(LangResources["Roles_Menu_View"])' + '</a>' +
-            '<a class="dropdown-item" href="/Roles/ViewRoleProfile/' + value + '/Edit">' + '@Html.Raw(LangResources["Roles_Menu_Edit"])' + '</a>' +
-            '<a class="dropdown-item" onclick="mnDeleteOnClick(\'' + value + '\')">' + '@Html.Raw(LangResources["Roles_Menu_Delete"])' + '</a>' +
+            '<a class="dropdown-item" href="/Roles/ViewRoleProfile/' + id + '/View">' + '@Html.Raw(LangResources["Roles_Menu_View"])' + '</a>' +
+            '<a class="dropdown-item" href="/Roles/ViewRoleProfile/' + id + '/Edit">' + '@Html.Raw(LangResources["Roles_Menu_Edit"])' + '</a>' +
+            '<a class="dropdown-item" onclick="mnDeleteOnClick(\'' + id + '\')">' + '@Html.Raw(LangResources["Roles_Menu_Delete"])' + '</a>' +
             '</div>';
         return hideMenuHtml;
+    }
+
+    function showPermission(permissions)
+    {
+        $('#lstPermission').html('');
+
+        var sPermissionHtml = permissions.trim().split(",");
+        if (sPermissionHtml.length > 0)
+        {
+            var sRowHtml = '';
+            for (i = 0; i < sPermissionHtml.length; i ++)
+            {
+                sRowHtml += sPermissionHtml[i] + '<br />';
+            }
+            $('#lstPermission').append(sRowHtml);
+        }
+
+        $('#modalPermissionViews').modal('show');
     }
 
     function populatePagingControl(totalRecord) {
@@ -175,6 +211,7 @@
         );
     }
 </script>
+
 <div class="row">
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-3">
@@ -188,7 +225,7 @@
                 if ((bool)ViewData["CanAdd"])
                 {
                     <div class="row">
-                        <button id="btnAddRole" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw"
+                        <button id="btnAddRole" type="button" class="btn btn-primary" style="margin: 5px; font-size: 12px;"
                                 onclick="location.href='@Url.Action("RoleProfile", "Roles")'">
                             <i class="bi bi-plus-circle"></i>
                             @LangResources["Roles_Button_NewRole"]
@@ -206,13 +243,17 @@
             <table id="tblRoles" class="table" style="font-size: 1vw;">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-center" data-field="SeqNo" style="width: 5%;">@LangResources["Roles_Label_Number"]</th>
-                        <th scope="col" class="text-left" data-field="RoleName" style="width: 30%;">@LangResources["Roles_Label_Role"]</th>
-                        <th scope="col" class="text-left" data-field="TotalAssigned" style="width: 15%;">@LangResources["Roles_Label_AssignedNoofStaffs"]</th>
-                        <th scope="col" class="text-left" data-field="sPermission" style="width: 45%;">@LangResources["Roles_Label_Permission"]</th>
-                        <th scope="col" class="text-center" data-field="RoleID" data-formatter="populateHideMenu" style="width: 5%;"></th>
+                        <th scope="col" class="text-center" style="width: 5%;">@LangResources["Roles_Label_Number"]</th>
+                        <th scope="col" class="text-left" style="width: 20%;">@LangResources["Roles_Label_Role"]</th>
+                        <th scope="col" class="text-left" style="width: 20%;">@LangResources["Roles_Label_AssignedNoofStaffs"]</th>
+                        <th scope="col" class="text-left" style="width: 20%;">@LangResources["Roles_Label_TotalPermissionGranted"]</th>
+                        <th scope="col" class="text-left" style="width: 15%;"></th>
+                        <th scope="col" class="text-center" style="width: 5%;"></th>
                     </tr>
                 </thead>
+                <tbody>
+
+                </tbody>
             </table>
             <div class="row">
                 <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
@@ -225,6 +266,27 @@
                         <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Next"]</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalPermissionViews" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 1px solid #ddd; text-align: right !important;">
+                <p class="modal-title">
+                    @LangResources["Roles_Title_Permissions"]
+                </p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 0px; margin-top: 5px; margin-left: 20px;">
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <div id="lstPermission" style="font-size: 12px;"></div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
             </div>
         </div>
     </div>

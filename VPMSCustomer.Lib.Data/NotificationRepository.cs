@@ -14,6 +14,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class NotificationRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Notification View Listing
         /// </summary>
@@ -78,6 +80,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("NotificationRepository >>> GetNotificationViewListing >>> " + ex.ToString());
                 return null;
             }
         }
@@ -112,6 +115,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch(Exception ex)
             {
+                logger.Error("NotificationRepository >>> UpdateNotificationReadStatus >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -155,8 +159,9 @@ namespace VPMSCustomer.Lib.Data
                     isSuccess = true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                logger.Error("NotificationRepository >>> InsertNotification >>> " + ex.ToString());
                 isSuccess = false;
             }
 

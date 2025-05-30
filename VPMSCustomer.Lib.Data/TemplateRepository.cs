@@ -13,6 +13,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class TemplateRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Template Information By Template code and Language
         /// </summary>
@@ -32,8 +34,10 @@ namespace VPMSCustomer.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.TemplateID, A.TemplateType, A.TemplateCode, B.LangCode, B.TemplateTitle, B.TemplateContent " +
-                                            "FROM mst_template AS A LEFT JOIN mst_template_details AS B ON B.TemplateID = A.TemplateID " +
-                                            "Where A.TemplateCode = '" + sTemplateCode + "' AND B.LangCode = '" + sLangCode + "'";
+                                            "FROM mst_template AS A " +
+                                            "LEFT JOIN mst_template_details AS B ON B.TemplateID = A.TemplateID " +
+                                            "WHERE A.TemplateCode = '" + sTemplateCode + "' AND " +
+                                            "B.LangCode = '" + sLangCode + "' ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
                     {
@@ -57,6 +61,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TemplateRepository >>> GetTemplateByCodeLang >>> " + ex.ToString());
                 return null;
             }
         }

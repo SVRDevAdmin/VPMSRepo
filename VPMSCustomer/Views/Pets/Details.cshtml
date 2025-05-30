@@ -2,9 +2,11 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Pet Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
 
     var sPetIDSelected = (long)ViewData["PetSelected"];
@@ -13,7 +15,10 @@
 <link rel="stylesheet" href="~/css/PetProfile.css" />
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function()
+    {
+        validateSession('@LoginSessionID');
+
         $('#dropdownmenu-testtype').toggle('hide');
 
         loadPetOverview();

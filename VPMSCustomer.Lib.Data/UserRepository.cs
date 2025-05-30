@@ -13,6 +13,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class UserRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Create record to ASPNet User
         /// </summary>
@@ -26,7 +28,6 @@ namespace VPMSCustomer.Lib.Data
             IdentityUser sUser = new IdentityUser();
 
             Boolean isSuccess = false;
-            //sUserID = "";
 
             try
             {
@@ -44,13 +45,12 @@ namespace VPMSCustomer.Lib.Data
                     ctx.aspnetuserroles.Add(sUserRoleObj);
                     ctx.SaveChanges();
 
-                    //sUserID = sUserObj.Id;
-
                     isSuccess = true;
                 }
             }
             catch (Exception ex)
             {
+                logger.Error("UserRepository >>> AddAspNetUser >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -87,6 +87,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("UserRepository >>> ResetUserPassword >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -135,6 +136,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("UserRepository >>> ValidateAspNetUserUserName >>> " + ex.ToString());
                 isValid = false;
             }
 
@@ -157,6 +159,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("UserRepository >>> GetAspNetUserByUserID >>> " + ex.ToString());
                 return null;
             }
         }

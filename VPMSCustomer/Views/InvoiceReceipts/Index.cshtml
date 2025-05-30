@@ -2,9 +2,11 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Invoice & Receipts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
 }
 
@@ -12,7 +14,10 @@
 <script src="lib/html2pdf/v0.10.1/html2pdf.bundle.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function()
+    {
+        validateSession('@LoginSessionID');
+
         LoadDoctorDropdown();
         LoadInvoiceListing();
         LoadReceiptListing();

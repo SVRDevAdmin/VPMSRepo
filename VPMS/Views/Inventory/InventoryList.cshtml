@@ -9,79 +9,82 @@
 	string reload = httpContextaccessor.HttpContext.Request.Cookies["reload"];
 }
 
+<link rel="stylesheet" href="~/css/InventoryList.css" />
+
 <style>
-	.table-content {
+/* 	.table-content {
 		height: 2vw;
 		padding: 0 2vw;
 	}
 
 	.tableOriginal {
 		width: max-content;
-		font-size: 1vw;
+		font-size: 12px;
 		margin-bottom: 1vw;
 	}
 
 	.form-field {
 		border-style: solid;
 		border-color: black;
-		font-size: 1vw;
+		font-size: 12px;
 	}
 
-	/* circle-icon */
-	#container {
-		width: 1.6vw;
-		height: 1.6vw;
-		display: flex;
-		background: transparent;
-		border-radius: 2vw;
-		color: white;
-		border: 0.15vw solid;
-		font-size: 1.5vw;
-		justify-content: center;
-		align-items: center;
-	}
+	#btnNewInventory, #btnDownload, #btnPrint {
+		font-size: 12px;
+		margin-left: 5px;
+	} */
 </style>
 
-<div style="display: flex; justify-content: space-between;">
-
-	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Inventory"]</span>
-	</div>
-
-	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<div style="display: flex;">
-			<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
-			<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
+<div class="row">
+	<div class="row ms-2">
+		<div class="col-md-5">
+			<div class="d-flex">
+				<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> 
+				<span class="textColor" style="font-size: 24px; font-weight: bold;">@LangResources["MenuBar_Label_Inventory"]</span>
+			</div>
 		</div>
-		<button class="btn btn-lg btn-primary" style="display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewInventory", "Inventory")'">
-			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Inventory_Button_NewInventory"]</span>
-		</button>
-		<button class="btn btn-lg btn-primary" style="display: flex; justify-content: center; align-items: center; margin-left: 1vw;" onclick="getInventoryListPrintDownload('download');">
-			<i class="fa-solid fa-download"></i>
-		</button>
-		<button class="btn btn-lg btn-primary" style="display: flex; justify-content: center; align-items: center; margin-left: 1vw;" onclick="getInventoryListPrintDownload('print');"><i class="fa-solid fa-print"></i></button>
+		<div class="col-md-7 d-flex justify-content-end" style="border: 0px solid black;">
+			<div style="display: flex;">
+				<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
+				<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 12px; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+			</div>
+			<button id="btnNewInventory" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateNewInventory", "Inventory")'">
+				<i class="bi bi-plus-circle"></i>
+				@LangResources["Inventory_Button_NewInventory"]
+			</button>
+			<button id="btnDownload" class="btn btn-primary" onclick="getInventoryListPrintDownload('download');">
+				<i class="fa-solid fa-download"></i>
+			</button>
+			<button id="btnPrint" class="btn btn-primary" onclick="getInventoryListPrintDownload('print');">
+				<i class="fa-solid fa-print"></i>
+			</button>
+		</div>
 	</div>
 
+	<div class="row mt-4 ms-2">
+		<div class="col-md-12">
+			<div style="overflow:auto; width: 78vw;">
+				<table id="inventoryList"  class="textColor tableStyle tableOriginal">
+				</table>
+			</div>
+
+			<div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 1vw;">
+				<div>
+					<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
+				</div>
+				<div id="paginationNumbering" style="display: flex; justify-content: flex-end; font-size: 1vw;">
+				</div>
+				<div>
+					<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div>
-	<div style="overflow:auto; width: 78vw;">
-		<table class="textColor tableStyle tableOriginal" id="inventoryList">
-		</table>
-	</div>
-	
-
-	<div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 1vw;">
-		<div>
-			<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
-		</div>
-		<div id="paginationNumbering" style="display: flex; justify-content: flex-end; font-size: 1vw;">
-		</div>
-		<div>
-			<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
-		</div>
-	</div>
 
 	<div id="tablePrintDownload" class="hideContainer">
 		<style>
@@ -210,7 +213,8 @@
 
 
 				content.innerHTML = 
-				'<tr class="containerBackground">' +
+					'<thead>' +
+					'<tr class="containerBackground">' +
 					'<th class="table-content" style="padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_InventoryName"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_Category"] </th>' +
@@ -224,7 +228,8 @@
 					'<th class="table-content"> @LangResources["Inventory_Label_Branch"] </th>' +
 					'<th class="table-content table-content-center"> @LangResources["Patient_Label_Status"] </th>' +
 					'<th class="table-content headcol">  </th>' +
-				'</tr> ';
+					'</tr> ' + 
+					'</thead>';
 
 				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {

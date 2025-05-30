@@ -53,6 +53,12 @@ namespace VPMS.Lib.Data
             }
 		}
 
+		/// <summary>
+		/// Get City List by State
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="stateID"></param>
+		/// <returns></returns>
 		public static List<CityModel> GetCityListByState(IConfiguration config, int stateID)
 		{
 			try

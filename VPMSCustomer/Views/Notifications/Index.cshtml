@@ -2,9 +2,10 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Notification";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
 }
 
@@ -20,6 +21,8 @@
     var endPagination = 0;
 
     $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
         LoadNotificationViewListing();
     });
 

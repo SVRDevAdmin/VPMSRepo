@@ -33,6 +33,11 @@ namespace VPMS.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Organization Profile by ID
+        /// </summary>
+        /// <param name="iOrganizationID"></param>
+        /// <returns></returns>
         public static OrganisationModel GetOrganizationByID(int iOrganizationID)
         {
             try

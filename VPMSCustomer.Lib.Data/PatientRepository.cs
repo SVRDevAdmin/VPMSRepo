@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Configuration;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class PatientRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Create Patient Login Profile
         /// </summary>
@@ -44,6 +47,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PatientRepository >>> AddPatientLogin >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -123,6 +127,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PatientRepository >>> GetPatientOwnerByIdentityUserID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -204,6 +209,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PatientRepository >>> GetPatientOwnersByPatientID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -247,6 +253,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PatientRepository >>> UpdatePatientOwnerProfile >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -301,6 +308,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PatientRepository >>> UpdatePatientConfiguration >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -323,6 +331,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PatientRepository >>> GetPatientConfiguration >>> " + ex.ToString());
                 return null;
             }
         }
@@ -343,6 +352,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PatientRepository >>> GetPatientOwnerByID >>> " + ex.ToString());
                 return null;
             }
         }

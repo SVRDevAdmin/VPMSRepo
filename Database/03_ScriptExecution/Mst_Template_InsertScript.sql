@@ -332,11 +332,11 @@ NOW(), 'SYSTEM');
 
 /*---------- Email : New Account Creation ----------------*/
 INSERT INTO mst_template(TemplateType, TemplateCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES('Email Notification', 'VPMS_EN003', 'New Login Account Creation', '', NOW(), 'SYSTEM');
+VALUES('Email Notification', 'VPMS_EN010', 'New Login Account Creation', '', NOW(), 'SYSTEM');
 
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'en', 'New Login Account Creation',
 '<!DOCTYPE html>
 <html>
@@ -359,7 +359,7 @@ NOW(), 'SYSTEM');
 
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'zh-Hant', '建立新登入帳戶',
 '<!DOCTYPE html>
 <html>
@@ -381,7 +381,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'zh-Hans', '创建新登录账户',
 '<!DOCTYPE html>
 <html>
@@ -403,7 +403,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'de', 'Neues Login-Konto erstellen',
 '<!DOCTYPE html>
 <html>
@@ -425,7 +425,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'es', 'Creación de una nueva cuenta de inicio de sesión',
 '<!DOCTYPE html>
 <html>
@@ -447,7 +447,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'fr', 'Création d''un nouveau compte de connexion',
 '<!DOCTYPE html>
 <html>
@@ -469,7 +469,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'hi', 'नया लॉगिन खाता निर्माण',
 '<!DOCTYPE html>
 <html>
@@ -491,7 +491,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'id', 'Pembuatan Akun Login Baru',
 '<!DOCTYPE html>
 <html>
@@ -513,7 +513,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'ja', '新しいログインアカウントの作成',
 '<!DOCTYPE html>
 <html>
@@ -536,7 +536,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'ko', '새로운 로그인 계정 생성',
 '<!DOCTYPE html>
 <html>
@@ -558,7 +558,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'pt', 'Criação de nova conta de login',
 '<!DOCTYPE html>
 <html>
@@ -580,7 +580,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'ru', 'Создание новой учетной записи',
 '<!DOCTYPE html>
 <html>
@@ -602,7 +602,7 @@ VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
 NOW(), 'SYSTEM');
 
 INSERT INTO mst_template_details(TemplateID, LangCode, TemplateTitle, TemplateContent, CreatedDate, CreatedBy)
-VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN003'),
+VALUES((SELECT TemplateID FROM mst_template WHERE TemplateCode='VPMS_EN010'),
 'vi', 'Tạo tài khoản đăng nhập mới',
 '<!DOCTYPE html>
 <html>

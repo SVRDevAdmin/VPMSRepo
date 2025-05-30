@@ -7,6 +7,7 @@ body {
 
 input[type='text'], input[type='password'], input[type='email'], button, select, .timePicker {
 	box-shadow: none !important;
+	border: 0 !important;
 }
 
 input[type='text']:focus, select:focus {
@@ -407,6 +408,29 @@ input[type='text']:focus, select:focus {
 	#copyrightText {
 		display: none !important;
 	}
+
+	/*------ Role -------*/
+	.LeftColLabel {
+		margin-left: 0px !important;
+		margin-top: 5px;
+		font-size: 12px !important;
+		font-weight: bold;
+		color: black;
+	}
+
+	.leftColControl {
+		width: 90%;
+		font-size: 12px !important;
+		margin-left: 0px !important;
+		margin-top: 5px
+	}
+
+	.leftColSpanControl {
+		width: 95%;
+		font-size: 12px !important;
+		margin-left: 0px !important;
+		margin-top: 5px;
+	}
 }
 
 @media(min-width:768px) {
@@ -414,9 +438,9 @@ input[type='text']:focus, select:focus {
 		padding-left: 0;
 	}
 
-	#wrapper.toggled {
-		padding-left: 250px;
-	}
+		#wrapper.toggled {
+			padding-left: 250px;
+		}
 
 	#sidebar-wrapper {
 		width: 0;
@@ -565,6 +589,7 @@ input[type='text']:focus, select:focus {
 
 #tblDoctor {
 	border: 0px !important;
+	font-size: 12px;
 }
 
 #tblDoctor > thead > tr > th {
@@ -607,6 +632,7 @@ input[type='text']:focus, select:focus {
 	margin: 5px;
 	border: 1px solid black;
 	color: black;
+	font-size: 12px;
 }
 
 .searchFields:focus {
@@ -797,7 +823,7 @@ a {
 }
 
 #tblRoles {
-	border: 0px !important;
+	border: 1px solid #ddd !important;
 }
 
 #tblRoles > thead > tr > th {
@@ -806,6 +832,8 @@ a {
 	border-left: 0px;
 	border-bottom: 1px solid #ddd;
 	color: black;
+	font-size: 12px;
+	font-weight: bold;
 }
 
 #tblRoles > tbody > tr > td {
@@ -815,6 +843,7 @@ a {
 	border-bottom: 1px solid #ddd;
 	background-color: transparent;
 	color: black;
+	font-size: 12px;
 }
 
 #tblRoles > tbody > tr > td:nth-child(4) {
@@ -898,26 +927,26 @@ a {
 
 .leftColControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-left: 10px;
 	margin-top: 5px
 }
 
 .centerColControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
 .rightColControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
 .leftColSpanControl {
 	width: 95%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-left: 10px;
 	margin-top: 5px;
 }
@@ -1053,6 +1082,7 @@ a {
 /*-------- Test Mgmt -----------*/
 #tblTestResult {
 	border: 0px !important;
+	font-size: 12px !important;
 }
 
 #tblTestResult > thead > tr > th {
@@ -1113,6 +1143,7 @@ a {
 .TestMgmtFilterLabel {
 	color: black;
 	font-weight: bold;
+	font-size: 14px;
 }
 
 #tblTestParamResult > thead > tr > th {
@@ -1314,5 +1345,208 @@ a {
 .blogFieldLabel {
 	color: black;
 	font-size: 14px;
+	font-weight: bold;
+}
+
+/*------ Organization -------*/
+#organisationList {
+	border: 1px solid #ddd !important;
+}
+
+#organisationList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#organisationList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+}
+
+/*------- Patient -------------*/
+#petInfoList {
+	border: 1px solid #ddd !important;
+}
+
+#petInfoList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#petInfoList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+.form-label {
+	font-size: 12px;
+	font-weight: bold;
+	color: black;
+	margin-bottom: 0.7vw;
+}
+
+.divPatientBox {
+	border-radius: 6px;
+	background-color: #f7f7f7;
+}
+
+.filterTitle {
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+}
+
+/*------- Inventory ------*/
+#inventoryList {
+	border: 1px solid #ddd !important;
+}
+
+#inventoryList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#inventoryList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*------- Treatment Plan List ------*/
+#treatmentPlanList {
+	border: 1px solid #ddd !important;
+}
+
+#treatmentPlanList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#treatmentPlanList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*------- Services List ---------*/
+#serviceList {
+	border: 1px solid #ddd !important;
+}
+
+#serviceList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#serviceList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*---- Invoice Receipt Listing -----*/
+#invoiceList {
+	border: 1px solid #ddd !important;
+}
+
+#invoiceList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#invoiceList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+#receiptList {
+	border: 1px solid #ddd !important;
+}
+
+#receiptList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#receiptList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+.divInvoiceLstBox {
+	border-radius: 6px;
+	background-color: #f7f7f7;
+}
+
+.invoiceFilterTitle{
+	color: black;
+	font-size: 12px;
 	font-weight: bold;
 }

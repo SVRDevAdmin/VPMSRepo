@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yTWqh3GQyqA1AfaQ294PFlYu8p5lhxb53fc+/sOmUZM=",
+  "Hash": "MzD9Yo1XJq75hSymOYH6jkMgL1qy6nb379Lt4eJFHFs=",
   "Source": "VPMSCustomer",
   "BasePath": "_content/VPMSCustomer",
   "Mode": "Default",
@@ -2031,6 +2031,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\general.js"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\js\\main.js",
+      "SourceId": "VPMSCustomer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\",
+      "BasePath": "_content/VPMSCustomer",
+      "RelativePath": "js/main#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4jvicld8yd",
+      "Integrity": "4L9zpCok9or4rcWcpN93+VPQyVyALOFfPhbzpKYfaCQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\main.js"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\js\\site.js",
@@ -14924,6 +14945,88 @@
       ]
     },
     {
+      "Route": "js/main.4jvicld8yd.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\js\\main.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "263"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4L9zpCok9or4rcWcpN93+VPQyVyALOFfPhbzpKYfaCQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 01:03:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4jvicld8yd"
+        },
+        {
+          "Name": "label",
+          "Value": "js/main.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4L9zpCok9or4rcWcpN93+VPQyVyALOFfPhbzpKYfaCQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/main.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\js\\main.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "263"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4L9zpCok9or4rcWcpN93+VPQyVyALOFfPhbzpKYfaCQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 01:03:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4L9zpCok9or4rcWcpN93+VPQyVyALOFfPhbzpKYfaCQ="
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
       "AssetFile": "C:\\Dev\\VPMS\\VPMSCustomer\\wwwroot\\js\\site.js",
       "Selectors": [],
@@ -21588,7 +21691,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 24 Apr 2025 06:44:54 GMT"
+          "Value": "Tue, 27 May 2025 06:58:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -21625,7 +21728,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 24 Apr 2025 06:44:54 GMT"
+          "Value": "Tue, 27 May 2025 06:58:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -21662,7 +21765,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 24 Apr 2025 06:44:54 GMT"
+          "Value": "Tue, 27 May 2025 06:58:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -21707,7 +21810,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 24 Apr 2025 06:44:54 GMT"
+          "Value": "Tue, 27 May 2025 06:58:24 GMT"
         },
         {
           "Name": "Cache-Control",

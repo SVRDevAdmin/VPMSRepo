@@ -1,14 +1,19 @@
 ﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
 }
 
 <link rel="stylesheet" href="~/css/Dashboard.css" />
 
 <script type="text/javascript">
     $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
         LoadBanners();
         LoadBlogs();
     });

@@ -125,7 +125,6 @@ namespace VPMSCustomer.Controllers
                             PatientCountry = sPatientOwner.Country;
                         }
 
-                        //GetCountryInfoByName
                         String sCountryID = "0";
                         var sCountryObj = MastercodeRepository.GetCountryInfoByName(PatientCountry);
                         if (sCountryObj != null)
@@ -133,7 +132,6 @@ namespace VPMSCustomer.Controllers
                             sCountryID = sCountryObj.ID.ToString();
                         }
                         
-
                         String sCountrySettings = "";
                         String sThemesSettings = "";
                         String sLanguageSettings = "";
@@ -190,7 +188,11 @@ namespace VPMSCustomer.Controllers
                         CustomerLoginRepository.InsertSession(sNewSession, "Login");
                         HttpContext.Session.SetString("LoginSession", sNewSession.SessionID);
 
+                        CookieOptions c = new CookieOptions();
+                        //c.Expires = sNewSession.SessionExpiredOn;
+                        c.Expires = DateTime.Now.AddMinutes(5);
 
+                        Response.Cookies.Append("CustomerSession", sNewSession.SessionID, c);
                         Response.Cookies.Append("CustomerLanguage", sLanguageSettings);
                         Response.Cookies.Append("CustomerTheme", sThemesSettings);
 
@@ -245,6 +247,36 @@ namespace VPMSCustomer.Controllers
                     {
                         sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
+
+            return Json(sResp);
+        }
+
+        /// <summary>
+        /// Validate Session Expiry Status
+        /// </summary>
+        /// <param name="sessionID"></param>
+        /// <returns></returns>
+        [Route("/Login/ValidateSession")]
+        [HttpPost()]
+        public async Task<IActionResult> ValidateSession(String sessionID)
+        {
+            SessionResponseObject sResp = new SessionResponseObject();
+
+            try
+            {
+                if (CustomerLoginRepository.ValidateSession(sessionID))
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status200OK;
+                }
+                else
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
                 }
             }
             catch (Exception ex)

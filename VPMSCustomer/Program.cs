@@ -6,11 +6,15 @@ using Microsoft.Extensions.FileProviders;
 using System.Globalization;
 using VPMSCustomer.Lib.Data.DBContext;
 
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]
+
 namespace VPMSCustomer
 {
     public class Program
     {
         public static VPMSCustomer.Interface.IResourcesLocalizer _LangResources { get; set; }
+
+        public static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static void Main(string[] args)
         {

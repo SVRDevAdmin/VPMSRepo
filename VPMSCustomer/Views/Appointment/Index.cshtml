@@ -2,9 +2,10 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Appointment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
     var sessionPatientOwnerID = httpContextaccessor.HttpContext.Session.GetString("PatientOwnerID");
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
@@ -30,6 +31,8 @@
 
     $(document).ready(function()
     {
+        validateSession('@LoginSessionID');
+
         /*----- initiatie date picker -----*/
         $('#dtDate').datepicker({
              uiLibrary: 'bootstrap5',

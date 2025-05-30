@@ -10,6 +10,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class CustomerLoginRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Insert Session record
         /// </summary>
@@ -43,6 +45,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("CustomerLoginRepository >>> InsertSession >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -74,6 +77,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("CustomerLoginRepository >>> DeleteSession >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -89,7 +93,7 @@ namespace VPMSCustomer.Lib.Data
         public static Boolean InsertSessionLog(String sSessionID, String sAction)
         {
             Boolean isSuccess = false;
-
+           
             try
             {
                 using (var ctx = new CustomerLoginDBContext())
@@ -114,10 +118,47 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("CustomerLoginRepository >>> InsertSessionLog >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
+        }
+
+        public static Boolean ValidateSession(String sSessionID)
+        {
+            Boolean isValid = false;
+            DateTime sNow = DateTime.Now;
+
+            try
+            {
+                using (var ctx = new CustomerLoginDBContext())
+                {
+                    var sResult = ctx.txn_customer_loginsession.Where(x => x.SessionID == sSessionID).FirstOrDefault();
+                    if (sResult != null)
+                    {
+                        if (sResult.SessionExpiredOn < sNow)
+                        {
+                            isValid = false;
+                        }
+                        else
+                        {
+                            isValid = true;
+                        }
+                    }
+                    else
+                    {
+                        isValid = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CustomerLoginRepository >>> ValidateSession >>> " + ex.ToString());
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }

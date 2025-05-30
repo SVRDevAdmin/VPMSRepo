@@ -6,8 +6,6 @@
 	ViewData["Title"] = "Invoice & Receipt Page";
 	ViewBag.SelectedMenu = "invoiceReceiptMenu";
 
-	// var role = httpContextaccessor.HttpContext.Session.GetString("RoleName");
-	// var test = role;
 }
 
 <style>
@@ -50,20 +48,6 @@
 		margin-bottom: 0.7vw;
 	}
 
-	/* circle-icon */
-	#container {
-		width: 1.6vw;
-		height: 1.6vw;
-		display: flex;
-		background: transparent;
-		border-radius: 2vw;
-		color: white;
-		border: 0.15vw solid;
-		font-size: 1.5vw;
-		justify-content: center;
-		align-items: center;
-	}
-
 	#organisation {
 		color: dodgerblue !important;
 	}
@@ -77,7 +61,7 @@
 		border-style: none;
 		--bs-btn-hover-bg: unset;
 		border-radius: 0;
-		font-size: 1vw;
+		font-size: 12px;
 	}
 
 	.selectedTab{
@@ -87,124 +71,124 @@
 		border-width: 0.2vw;
 	}
 
-	/* for filter hide and show */
-	.tableFullWidth {
-		width: 78vw;
+	#btnQuickInvoice {
+		font-size: 12px;
+		margin-left: 5px;
 	}
 
-	.tablePartialWidth {
-		width: 57vw;
+	#btnInvoiceFilter{
+		font-size: 12px;
+		color: black;
+		margin-left: 5px;
+		background-color: white;
+		border: 1px solid black;
 	}
 
-	.filterHide {
-		display: none;
+	#btnInvoiceFilter:hover{
+		background-color: white !important;
 	}
 
-	.filterShow {
-		visibility: visible !important;
-	}
-
-	.filterButton {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		font-size: 1vw;
-		padding: 0 1vw;
-		width: 9vw;
-		--bs-btn-hover-color: unset;
-		--bs-btn-hover-bg: unset;
-		--bs-btn-active-color: unset;
-		--bs-btn-active-bg: unset;
+	.collapseHide{
+		visibility: hidden;
+		height: auto;
 	}
 </style>
 
-<div style="display: flex; justify-content: space-between;">
-
-	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
-	</div>
-
-
-	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<button class="btn btn-lg btn-primary filterButton containerBackground5" onclick="filterToggle();">
-			<i class="fa-solid fa-sliders"></i>
-			<span id="buttonFilter">@LangResources["Patient_Button_ShowFilter"]</span>
-		</button>
-		<button class="btn btn-lg btn-primary" style=" display: flex; align-items: center; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateInvoice", "InvoiceReceipt")'">
-			<span id="container">+</span>
-			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["InvoiceReceipt_Button_QuickInvoice"]</span>
-		</button>
-	</div>
-
-</div>
-
-<div style="display: flex;">
-	<div>
-		<div style="margin-bottom: 1vw;">
-			<button class="btn btn-lg btn-primary textColor tabButton selectedTab" onclick="changeTab(this);">@LangResources["InvoiceReceipt_Label_Invoices"]</button>
-			<button class="btn btn-lg btn-primary textColor tabButton" onclick="changeTab(this);">@LangResources["InvoiceReceipt_Label_Receipt"]</button>
-		</div>
-		<div class="tableContainer">
-			<table class="textColor tableFullWidth" id="invoiceList" style="margin-bottom: 2vw; font-size: 1vw;">
-			</table>
-
-			<div id="paginationInvoice" style="display: flex; justify-content: flex-end;">
-				<div>
-					<button id="prevButtonInvoice" onclick="prev('invoice');" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
-				</div>
-				<div id="paginationNumberingInvoice" style="display: flex; justify-content: flex-end; font-size: 1vw;">
-				</div>
-				<div>
-					<button id="nextButtonInvoice" onclick="next('invoice');" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
-				</div>
+<div class="row">
+	<div class="row ms-2">
+		<div class="col-md-6">
+			<div class="d-flex">
+				<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> 
+				<span class="textColor" style="font-size: 24px; font-weight: bold;">@LangResources["MenuBar_Label_InvoiceReceipts"]</span>
 			</div>
 		</div>
-		<div class="tableContainer hideContainer">
-			<table class="textColor tableFullWidth" id="receiptList" style="margin-bottom: 2vw; font-size: 1vw;">
-			</table>
-
-			<div id="paginationReceipt" style="display: flex; justify-content: flex-end;">
-				<div>
-					<button id="prevButtonReceipt" onclick="prev('receipt');" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
-				</div>
-				<div id="paginationNumberingReceipt" style="display: flex; justify-content: flex-end; font-size: 1vw;">
-				</div>
-				<div>
-					<button id="nextButtonReceipt" onclick="next('receipt');" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
-				</div>
+		<div class="col-md-6 d-flex justify-content-end">
+			<div style="display: flex;">
+				<button id="btnInvoiceFilter" type="button" class="btn btn-outline-light" onclick="filterToggle();">
+					<i class="fa-solid fa-sliders"></i>
+					@LangResources["Patient_Button_ShowFilter"]
+				</button>
+				<button id="btnQuickInvoice" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateInvoice", "InvoiceReceipt")'">
+					<i class="bi bi-plus-circle"></i>
+					@LangResources["InvoiceReceipt_Button_QuickInvoice"]
+				</button>
 			</div>
 		</div>
 	</div>
-	<div class="containerBackground filterHide" id="filterContainer" style="width: 20vw; border-radius: 0.2vw; margin-left: 1vw; padding: 2vw;">
-		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">@LangResources["Patient_Label_Filter"]</h3>
+	<div class="row mt-4 ms-2">
+		<div id="divInvoiceList" class="col-md-12">
+			<div style="margin-bottom: 1vw;">
+				<button class="btn btn-lg btn-primary textColor tabButton selectedTab" onclick="changeTab(this);">@LangResources["InvoiceReceipt_Label_Invoices"]</button>
+				<button class="btn btn-lg btn-primary textColor tabButton" onclick="changeTab(this);">@LangResources["InvoiceReceipt_Label_Receipt"]</button>
+			</div>
+			<div class="tableContainer">
+				<table id="invoiceList" class="table">
+				</table>
 
-		<div class="field-container">
-			<span class="form-label">@LangResources["InvoiceReceipt_Label_InvoiceReceiptNo"]</span>
-			<input id="InvoiceReceiptNo" type="text" class="form-control form-field" />
+				<div id="paginationInvoice" style="display: flex; justify-content: flex-end;">
+					<div>
+						<button id="prevButtonInvoice" onclick="prev('invoice');" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
+					</div>
+					<div id="paginationNumberingInvoice" style="display: flex; justify-content: flex-end; font-size: 1vw;">
+					</div>
+					<div>
+						<button id="nextButtonInvoice" onclick="next('invoice');" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
+					</div>
+				</div>
+			</div>
+			<div class="tableContainer hideContainer">
+				<table id="receiptList" class="table">
+				</table>
+
+				<div id="paginationReceipt" style="display: flex; justify-content: flex-end;">
+					<div>
+						<button id="prevButtonReceipt" onclick="prev('receipt');" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
+					</div>
+					<div id="paginationNumberingReceipt" style="display: flex; justify-content: flex-end; font-size: 1vw;">
+					</div>
+					<div>
+						<button id="nextButtonReceipt" onclick="next('receipt');" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<div class="field-container">
-			<span class="form-label">@LangResources["Patient_Label_PetName"]</span>
-			<input id="PetName" type="text" class="form-control form-field" />
-		</div>
+		<div id="divInvoiceLstFilter" class="col-md-3 collapseHide">
+			<div class="row divInvoiceLstBox">
+				<div class="col-md-12 mb-4 ms-1 me-1">
+					<h3 class="invoiceFilterTitle mt-4 mb-3" style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">@LangResources["Patient_Label_Filter"]</h3>
 
-		<div class="field-container">
-			<span class="form-label">@LangResources["Patient_Label_OwnerName"]</span>
-			<select id="Owner" class="form-control form-field">
-				<option value="" selected> -- @LangResources["Appointment_Selection_SelectOwner"] --</option>
-			</select>
-		</div>
+					<div class="field-container">
+						<span class="form-label">@LangResources["InvoiceReceipt_Label_InvoiceReceiptNo"]</span>
+						<input id="InvoiceReceiptNo" type="text" class="form-control form-field" />
+					</div>
 
-		<div class="field-container">
-			<span class="form-label">@LangResources["Appointment_Label_Doctor"]</span>
-			<select id="Doctor" class="form-control form-field">
-				<option value="" selected> -- @LangResources["Appointment_Selection_SelectDoctor"] -- </option>
-			</select>
-		</div>
+					<div class="field-container">
+						<span class="form-label">@LangResources["Patient_Label_PetName"]</span>
+						<input id="PetName" type="text" class="form-control form-field" />
+					</div>
 
-		<button class="w-100 btn btn-lg btn-primary" onclick="filter();" style="font-size: 1vw;">@LangResources["Patient_Button_Search"]</button>
+					<div class="field-container">
+						<span class="form-label">@LangResources["Patient_Label_OwnerName"]</span>
+						<select id="Owner" class="form-control form-field">
+							<option value="" selected> -- @LangResources["Appointment_Selection_SelectOwner"] --</option>
+						</select>
+					</div>
+
+					<div class="field-container">
+						<span class="form-label">@LangResources["Appointment_Label_Doctor"]</span>
+						<select id="Doctor" class="form-control form-field">
+							<option value="" selected> -- @LangResources["Appointment_Selection_SelectDoctor"] -- </option>
+						</select>
+					</div>
+
+					<button class="w-100 btn btn-lg btn-primary" onclick="filter();" style="font-size: 1vw;">@LangResources["Patient_Button_Search"]</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="--bs-modal-width: unset; margin: 2vw auto;">
@@ -481,6 +465,7 @@
 				var content = document.getElementById("invoiceList");
 
 				content.innerHTML =
+					'<thead>' +
 					'<tr class="containerBackground">' +
 					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_InvoiceNo"] </th>' +
@@ -490,7 +475,8 @@
 					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_Fee"] ($) </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_Status"] </th>' +
 					'<th class="table-content" > </th>' +
-					'</tr>';
+					'</tr>' +
+					'</thead>';
 
 				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
@@ -588,6 +574,7 @@
 				var content = document.getElementById("receiptList");
 
 				content.innerHTML =
+					'<thead>' +
 					'<tr class="containerBackground">' +
 					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_ReceiptNo"] </th>' +
@@ -596,7 +583,8 @@
 					'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
 					'<th class="table-content" > @LangResources["InvoiceReceipt_Label_Fee"] ($) </th>' +
 					'<th class="table-content" > </th>' +
-					'</tr>';
+					'</tr>' +
+					'</thead>';
 
 				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
@@ -996,24 +984,27 @@
 		document.querySelector(".grandTotal").innerHTML = (Number(totalAll) + Number(tax) - Number(grandDiscount)).toFixed(2).replace(/[.,]00$/, "");
 	}
 
-	function filterToggle(){
-		var tableInvoiceElement = document.getElementById("invoiceList");
-		var tableReceiptElement = document.getElementById("receiptList");
-		var filterElement = document.getElementById("filterContainer");
-		var buttonElement = document.getElementById("buttonFilter");
+	function filterToggle()
+	{
+		$('#divInvoiceLstFilter').toggleClass('collapseHide');
+		$('#divInvoiceList').toggleClass('col-md-12 col-md-9');
+		// var tableInvoiceElement = document.getElementById("invoiceList");
+		// var tableReceiptElement = document.getElementById("receiptList");
+		// var filterElement = document.getElementById("filterContainer");
+		// var buttonElement = document.getElementById("buttonFilter");
 
-		if(tableInvoiceElement.classList.contains("tableFullWidth")){
-			buttonElement.innerHTML = "@LangResources["Patient_Button_HideFilter"]";
-		}
-		else{
-			buttonElement.innerHTML = "@LangResources["Patient_Button_ShowFilter"]";
-		}
+		// if(tableInvoiceElement.classList.contains("tableFullWidth")){
+		// 	buttonElement.innerHTML = "@LangResources["Patient_Button_HideFilter"]";
+		// }
+		// else{
+		// 	buttonElement.innerHTML = "@LangResources["Patient_Button_ShowFilter"]";
+		// }
 
-		tableInvoiceElement.classList.toggle("tableFullWidth");
-		tableInvoiceElement.classList.toggle("tablePartialWidth");
-		tableReceiptElement.classList.toggle("tableFullWidth");
-		tableReceiptElement.classList.toggle("tablePartialWidth");
-		filterElement.classList.toggle("filterHide");
-		filterElement.classList.toggle("filterShow");
+		// tableInvoiceElement.classList.toggle("tableFullWidth");
+		// tableInvoiceElement.classList.toggle("tablePartialWidth");
+		// tableReceiptElement.classList.toggle("tableFullWidth");
+		// tableReceiptElement.classList.toggle("tablePartialWidth");
+		// filterElement.classList.toggle("filterHide");
+		// filterElement.classList.toggle("filterShow");
 	}
 </script>

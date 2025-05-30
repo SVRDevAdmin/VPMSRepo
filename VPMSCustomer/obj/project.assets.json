@@ -666,6 +666,22 @@
           }
         }
       },
+      "log4net/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/log4net.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/log4net.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/8.0.6": {
         "type": "package",
         "compile": {
@@ -3113,7 +3129,8 @@
           "Microsoft.Extensions.Hosting": "8.0.0",
           "Microsoft.Extensions.Identity.Core": "8.0.6",
           "MySql.Data": "8.4.0",
-          "Pomelo.EntityFrameworkCore.MySql": "8.0.2"
+          "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
+          "log4net": "3.1.0"
         },
         "compile": {
           "bin/placeholder/VPMSCustomer.Lib.Data.dll": {}
@@ -3985,6 +4002,25 @@
         "lib/netstandard2.0/K4os.Hash.xxHash.xml",
         "lib/netstandard2.1/K4os.Hash.xxHash.dll",
         "lib/netstandard2.1/K4os.Hash.xxHash.xml"
+      ]
+    },
+    "log4net/3.1.0": {
+      "sha512": "GT7ZYyNcBNbMENUSSQsH8HkjrELe55UOwOkxMvUBfoSyq/K/c1SPi5aXCNHFqpyeCPlrq8nVx40z9pBVwnqkmA==",
+      "type": "package",
+      "path": "log4net/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net462/log4net.dll",
+        "lib/net462/log4net.pdb",
+        "lib/net462/log4net.xml",
+        "lib/netstandard2.0/log4net.dll",
+        "lib/netstandard2.0/log4net.pdb",
+        "lib/netstandard2.0/log4net.xml",
+        "log4net.3.1.0.nupkg.sha512",
+        "log4net.nuspec",
+        "package-icon.png"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/8.0.6": {
@@ -8763,7 +8799,8 @@
       "Microsoft.EntityFrameworkCore >= 8.0.6",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.7",
       "VPMSCustomer.Lib.Data >= 1.0.0",
-      "VPMSCustomer.Lib.Helpers >= 1.0.0"
+      "VPMSCustomer.Lib.Helpers >= 1.0.0",
+      "log4net >= 3.1.0"
     ]
   },
   "packageFolders": {
@@ -8835,6 +8872,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[8.0.7, )"
+          },
+          "log4net": {
+            "target": "Package",
+            "version": "[3.1.0, )"
           }
         },
         "imports": [

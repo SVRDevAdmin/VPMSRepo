@@ -2,9 +2,11 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Listing";
+    ViewData["Title"] = "Pets Listing";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
 }
 
@@ -20,6 +22,8 @@
     var endPagination = 0;
 
     $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
         LoadSpeciesDropdown();
         LoadPatientPetListing();
 

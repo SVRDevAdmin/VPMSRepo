@@ -13,6 +13,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class AnalyticsRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Customer Expenses Summary By Year
         /// </summary>
@@ -60,6 +62,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AnalyticsRepository >>> GetExpensesSummaryByYear >>> " + ex.ToString());
                 return null;
             }
         }
@@ -131,6 +134,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AnalyticsRepository >>> GetExpensesSummaryBreakdown >>> " + ex.ToString());
                 return null;
             }
         }
@@ -156,6 +160,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AnalyticsRepository >>> InsertExpensesSummary >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -187,6 +192,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AnalyticsRepository >>> DeleteExpensesSummaryByDate >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -214,6 +220,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AnalyticsRepository >>> InsertExpensesSummaryLog >>> " + ex.ToString());
                 isSuccess = false;
             }
 

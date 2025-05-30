@@ -14,6 +14,14 @@ namespace VPMS.Lib.Data
 {
     public class TestsListRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
+        /// Insert new tests 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sTestObject"></param>
+        /// <returns></returns>
         public static Boolean InsertTestsList(IConfiguration config, TestsListModel sTestObject)
         {
             Boolean isSuccess = false;
@@ -30,12 +38,22 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestsListRepository >>> InsertTestsList >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
         }
 
+        /// <summary>
+        /// Update Tests List
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sTestID"></param>
+        /// <param name="sTestName"></param>
+        /// <param name="sTestDesc"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
         public static Boolean UpdateTestsList(IConfiguration config, String sTestID, String sTestName, String sTestDesc, String sUpdatedBy)
         {
             Boolean isSuccess = false;
@@ -60,12 +78,19 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestsListRepository >>> UpdateTestsList >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
         }
 
+        /// <summary>
+        /// Get Tests Info by ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="systemID"></param>
+        /// <returns></returns>
         public static TestsListModel GetTestsListMasterByID(IConfiguration config, String systemID)
         {
             try
@@ -77,10 +102,16 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestsListRepository >>> GetTestsListMasterByID >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Get Tests Master Listing
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static List<TestsListModel> GetTestsListMaster(IConfiguration config)
         {
             try
@@ -92,10 +123,18 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestsListRepository >>> GetTestsListMaster >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Insert Scheduled Test 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sSubmissionObj"></param>
+        /// <param name="iID"></param>
+        /// <returns></returns>
         public static Boolean InsertScheduledTestSubmission(IConfiguration config, scheduledTestsSubmission sSubmissionObj, out long iID)
         {
             Boolean isSuccess = false;
@@ -115,12 +154,19 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestsListRepository >>> InsertScheduledTestSubmission >>> " + ex.ToString());
                 isSuccess = false;
             }
 
             return isSuccess;
         }
 
+        /// <summary>
+        /// Get Scheduled Test Info by ID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iSubmissionID"></param>
+        /// <returns></returns>
         public static scheduledTestsSubmission GetScheduledTestSubmission(IConfiguration config, long iSubmissionID)
         {
             try
@@ -132,10 +178,21 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestsListRepository >>> GetScheduledTestSubmission >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Update Scheduled Test Info
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iSubmissionID"></param>
+        /// <param name="sentStatus"></param>
+        /// <param name="sentDate"></param>
+        /// <param name="respStatus"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
         public static Boolean UpdateScheduledTestSubmissionStatus(IConfiguration config, long iSubmissionID, int sentStatus, DateTime sentDate, String respStatus, String sUpdatedBy)
         {
             Boolean isSuccess = false;
@@ -165,6 +222,7 @@ namespace VPMS.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("TestsListRepository >>> UpdateScheduledTestSubmissionStatus >>> " + ex.ToString());
                 isSuccess = false;
             }
 

@@ -12,7 +12,7 @@
           "Microsoft.Extensions.Configuration.Json": "9.0.0",
           "VPMS.Lib.Data": "1.0.0",
           "VPMS.Lib.Helpers": "1.0.0",
-          "log4net": "3.0.3"
+          "log4net": "3.1.0"
         },
         "runtime": {
           "VPMSTransactionSummaryTask.dll": {}
@@ -63,14 +63,14 @@
           }
         }
       },
-      "log4net/3.0.3": {
+      "log4net/3.1.0": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/log4net.dll": {
-            "assemblyVersion": "3.0.3.0",
-            "fileVersion": "3.0.3.0"
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
           }
         }
       },
@@ -79,7 +79,7 @@
           "NETStandard.Library": "1.6.1",
           "System.Data.Common": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
-          "log4net": "3.0.3"
+          "log4net": "3.1.0"
         },
         "runtime": {
           "lib/netstandard1.3/log4net.Ext.Json.dll": {
@@ -1555,7 +1555,7 @@
           "Microsoft.Extensions.Hosting": "8.0.0",
           "MySql.Data": "8.4.0",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
-          "log4net": "3.0.3",
+          "log4net": "3.1.0",
           "log4net.Ext.Json": "2.0.10.1"
         },
         "runtime": {
@@ -1616,12 +1616,12 @@
       "path": "k4os.hash.xxhash/1.0.8",
       "hashPath": "k4os.hash.xxhash.1.0.8.nupkg.sha512"
     },
-    "log4net/3.0.3": {
+    "log4net/3.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LAZBO0rHo4DM56GIt124NaXKo6LVZcfiuWVgODdUnhPNMzTOlRJWOEIXo8zVNLm426B+coDc4ocfTsTw7R7Zeg==",
-      "path": "log4net/3.0.3",
-      "hashPath": "log4net.3.0.3.nupkg.sha512"
+      "sha512": "sha512-GT7ZYyNcBNbMENUSSQsH8HkjrELe55UOwOkxMvUBfoSyq/K/c1SPi5aXCNHFqpyeCPlrq8nVx40z9pBVwnqkmA==",
+      "path": "log4net/3.1.0",
+      "hashPath": "log4net.3.1.0.nupkg.sha512"
     },
     "log4net.Ext.Json/2.0.10.1": {
       "type": "package",

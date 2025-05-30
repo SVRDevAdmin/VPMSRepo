@@ -10,6 +10,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class DoctorRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Doctor List by Branch ID
         /// </summary>
@@ -26,6 +28,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("DoctorRepository >>> GetDoctorList >>> " + ex.ToString());
                 return null;
             }
         }

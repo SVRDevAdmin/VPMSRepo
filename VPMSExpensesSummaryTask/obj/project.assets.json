@@ -72,7 +72,7 @@
           }
         }
       },
-      "log4net/3.0.4": {
+      "log4net/3.1.0": {
         "type": "package",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.5.0"
@@ -1388,7 +1388,8 @@
           "Microsoft.Extensions.Hosting": "8.0.0",
           "Microsoft.Extensions.Identity.Core": "8.0.6",
           "MySql.Data": "8.4.0",
-          "Pomelo.EntityFrameworkCore.MySql": "8.0.2"
+          "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
+          "log4net": "3.1.0"
         },
         "compile": {
           "bin/placeholder/VPMSCustomer.Lib.Data.dll": {}
@@ -1506,10 +1507,10 @@
         "lib/netstandard2.1/K4os.Hash.xxHash.xml"
       ]
     },
-    "log4net/3.0.4": {
-      "sha512": "4jJlhW7fTLIm0Ktq1FGlmgavlkEbfHCbqWEusacKQBq7NQ85vJOu5jjISCeOI4Pyu3kqIiAktv8WLKvyq6evwA==",
+    "log4net/3.1.0": {
+      "sha512": "GT7ZYyNcBNbMENUSSQsH8HkjrELe55UOwOkxMvUBfoSyq/K/c1SPi5aXCNHFqpyeCPlrq8nVx40z9pBVwnqkmA==",
       "type": "package",
-      "path": "log4net/3.0.4",
+      "path": "log4net/3.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1520,7 +1521,7 @@
         "lib/netstandard2.0/log4net.dll",
         "lib/netstandard2.0/log4net.pdb",
         "lib/netstandard2.0/log4net.xml",
-        "log4net.3.0.4.nupkg.sha512",
+        "log4net.3.1.0.nupkg.sha512",
         "log4net.nuspec",
         "package-icon.png"
       ]
@@ -3861,7 +3862,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "VPMSCustomer.Lib.Data >= 1.0.0",
-      "log4net >= 3.0.4"
+      "log4net >= 3.1.0"
     ]
   },
   "packageFolders": {
@@ -3921,7 +3922,7 @@
         "dependencies": {
           "log4net": {
             "target": "Package",
-            "version": "[3.0.4, )"
+            "version": "[3.1.0, )"
           }
         },
         "imports": [

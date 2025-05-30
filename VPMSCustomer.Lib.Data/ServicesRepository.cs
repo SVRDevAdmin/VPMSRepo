@@ -10,6 +10,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class ServicesRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Services List By Branch ID
         /// </summary>
@@ -26,6 +28,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("ServicesRepository >>> GetServicesListByBranchID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -46,6 +49,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("ServicesRepository >>> GetServiceDetailsByID >>> " + ex.ToString());
                 return null;
             }
         }

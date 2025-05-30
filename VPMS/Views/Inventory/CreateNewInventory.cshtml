@@ -5,6 +5,10 @@
 @{
 	ViewData["Title"] = "Inventory Page";
 	ViewBag.SelectedMenu = "inventoryMenu";
+
+	var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+	var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+	var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 }
 
 <style>
@@ -318,7 +322,19 @@
 
 		document.querySelector('#inventoryImg').src = my_image;
 		document.querySelector('#inventoryImg').classList.remove("hideContainer");
-	})
+	});
+
+	$(document).ready(function(){
+
+		if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+		{
+			$('#Organisation').val('@sessionOrganizationID');
+			$('#Organisation').trigger('change');
+			$('#Organisation').prop('disabled', true);
+
+			getBranch($('#Organisation').val());
+		}
+	});
 
 	function disablePropagation(selection) {
 		var selections = document.querySelectorAll(selection);

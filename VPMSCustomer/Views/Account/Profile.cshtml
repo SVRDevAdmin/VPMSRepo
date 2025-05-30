@@ -5,6 +5,7 @@
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("UserName");
 }
@@ -14,6 +15,8 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        validateSession('@LoginSessionID');
+
         $('#divSecondaryOwner').hide();
         loadGenderDropdown();
         loadCountryDropdown();

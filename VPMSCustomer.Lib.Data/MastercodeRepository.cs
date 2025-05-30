@@ -12,6 +12,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class MastercodeRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #region "MasterCode Data"
         /// <summary>
         /// Get Mastercode Data By Group Name
@@ -29,6 +31,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetMastercodeDataByGroup >>> " + ex.ToString());
                 return null;
             }
         }
@@ -50,6 +53,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetCountryList >>> " + ex.ToString());
                 return null;
             }
         }
@@ -70,6 +74,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetCountryInfoByName >>> " + ex.ToString());
                 return null;
             }
         }
@@ -90,6 +95,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetStatesList >>> " + ex.ToString());
                 return null;
             }
         }
@@ -110,6 +116,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetCityList >>> " + ex.ToString());
                 return null;
             }
         }
@@ -131,6 +138,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetBranchList >>> " + ex.ToString());
                 return null;
             }
         }
@@ -151,6 +159,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetBranchViewListing >>> " + ex.ToString());
                 return null;
             }
         }
@@ -203,6 +212,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("MastercodeRepository >>> GetDoctorListByServices >>> " + ex.ToString());
                 return null;
             }
         }

@@ -9,7 +9,7 @@
       "VPMSExpensesSummaryTask/1.0.0": {
         "dependencies": {
           "VPMSCustomer.Lib.Data": "1.0.0",
-          "log4net": "3.0.4"
+          "log4net": "3.1.0"
         },
         "runtime": {
           "VPMSExpensesSummaryTask.dll": {}
@@ -60,14 +60,14 @@
           }
         }
       },
-      "log4net/3.0.4": {
+      "log4net/3.1.0": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/log4net.dll": {
-            "assemblyVersion": "3.0.4.0",
-            "fileVersion": "3.0.4.0"
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
           }
         }
       },
@@ -852,7 +852,8 @@
           "Microsoft.Extensions.Hosting": "8.0.0",
           "Microsoft.Extensions.Identity.Core": "8.0.6",
           "MySql.Data": "8.4.0",
-          "Pomelo.EntityFrameworkCore.MySql": "8.0.2"
+          "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
+          "log4net": "3.1.0"
         },
         "runtime": {
           "VPMSCustomer.Lib.Data.dll": {
@@ -904,12 +905,12 @@
       "path": "k4os.hash.xxhash/1.0.8",
       "hashPath": "k4os.hash.xxhash.1.0.8.nupkg.sha512"
     },
-    "log4net/3.0.4": {
+    "log4net/3.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4jJlhW7fTLIm0Ktq1FGlmgavlkEbfHCbqWEusacKQBq7NQ85vJOu5jjISCeOI4Pyu3kqIiAktv8WLKvyq6evwA==",
-      "path": "log4net/3.0.4",
-      "hashPath": "log4net.3.0.4.nupkg.sha512"
+      "sha512": "sha512-GT7ZYyNcBNbMENUSSQsH8HkjrELe55UOwOkxMvUBfoSyq/K/c1SPi5aXCNHFqpyeCPlrq8nVx40z9pBVwnqkmA==",
+      "path": "log4net/3.1.0",
+      "hashPath": "log4net.3.1.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/8.0.6": {
       "type": "package",

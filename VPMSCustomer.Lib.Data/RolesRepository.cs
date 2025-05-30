@@ -11,6 +11,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class RolesRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Identity Roles Info
         /// </summary>
@@ -30,6 +32,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("RolesRepository >>> GetRoleIDByName >>> " + ex.ToString());
                 return null;
             }
         }

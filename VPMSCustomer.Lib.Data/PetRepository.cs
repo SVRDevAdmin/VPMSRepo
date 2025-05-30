@@ -15,6 +15,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class PetRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get Patient's Pet List by Patient ID
         /// </summary>
@@ -79,6 +81,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetPetsListByPatientID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -165,6 +168,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch(Exception ex)
             {
+                logger.Error("PetRepository >>> GetPatientPetListing >>> " + ex.ToString());
                 return null;
             }
         }
@@ -229,6 +233,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetPetProfileByID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -286,6 +291,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetPetTreatmentServices >>> " + ex.ToString());
                 return null;
             }
         }
@@ -339,6 +345,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetPetMedicationHistory >>> " + ex.ToString());
                 return null;
             }
         }
@@ -390,6 +397,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetPetActiveTreatmentPlanHistory >>> " + ex.ToString());
                 return null;
             }
         }
@@ -441,6 +449,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetPetPastTreatmentPlanHistory >>> " + ex.ToString());
                 return null;
             }
         }
@@ -505,6 +514,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetPetTestResultHistory >>> " + ex.ToString());
                 return null;
             }
         }
@@ -557,6 +567,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("PetRepository >>> GetBreedListBySpecies >>> " + ex.ToString());
                 return null;
             }
         }

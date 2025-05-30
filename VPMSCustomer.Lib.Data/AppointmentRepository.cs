@@ -13,6 +13,8 @@ namespace VPMSCustomer.Lib.Data
 {
     public class AppointmentRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Get customer's appointment records
         /// </summary>
@@ -72,6 +74,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> GetAppointmentViewListingByPatientID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -130,6 +133,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> GetAppointmentDetailsByID >>> " + ex.ToString());
                 return null;
             }
         }
@@ -166,6 +170,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> UpdateAppointmentStatus >>> " + ex.ToString());
                 return false;
             }
         }
@@ -188,6 +193,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> GetAppointmentGrouping >>> " + ex.ToString());
                 return null;
             }
         }
@@ -285,6 +291,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> UpdateAppointmentDetails >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -324,6 +331,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> ValidateAppointmentRequested >>> " + ex.ToString());
                 isOverlap = false;
             }
 
@@ -363,6 +371,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> CreateAppointment >>> " + ex.ToString());
                 isSuccess = false;
             }
 
@@ -399,6 +408,7 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AppointmentRepository >>> ValidateAppointmentCreation >>> " + ex.ToString());
                 isOverlap = false;
             }
 

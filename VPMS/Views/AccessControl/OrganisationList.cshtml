@@ -6,12 +6,15 @@
 	ViewData["Title"] = "Organisation Page";
 	ViewBag.SelectedMenu = "AccessMenu";
 
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
 	var role = httpContextaccessor.HttpContext.Session.GetString("RoleName");
 	var test = role;
 }
 
 <style>
 	.table-content {
+		vertical-align: middle;
 		text-align: center;
 		height: 2vw;
 	}
@@ -76,7 +79,7 @@
 <div style="display: flex; justify-content: space-between;">
 
 	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Organisation"]</span>
+		<span class="textColor" style="font-size: 24px; font-weight: bold;">@LangResources["MenuBar_Label_Organisation"]</span>
 	</div>
 
 	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
@@ -108,7 +111,7 @@
 </div>
 
 <div>
-	<table class="textColor" id="organisationList" style="width: 100%; margin-bottom: 2vw; font-size: 1vw;">
+	<table id="organisationList" class="table textColor" style="width: 100%; margin-bottom: 2vw; font-size: 1vw;">
 	</table>
 
 	<div id="pagination" style="display: flex; justify-content: flex-end;">
@@ -379,13 +382,15 @@
 
 
 				content.innerHTML =
+					'<thead>' +
 					'<tr class="containerBackground">' +
 					'<th class="table-content"> @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content" > @LangResources["AccessControl_Label_OrganisationName"] </th>' +
 					'<th class="table-content" > @LangResources["AccessControl_Label_Branches"] </th>' +
 					'<th class="table-content" > @LangResources["AccessControl_Label_TotalStaffs"] </th>' +
 					'<th class="table-content" > </th>' +
-					'</tr>';
+					'</tr>' +
+					'</thead>';
 
 				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {

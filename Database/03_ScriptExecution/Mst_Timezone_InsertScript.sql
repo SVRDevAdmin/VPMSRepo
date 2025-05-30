@@ -698,7 +698,7 @@ INSERT INTO mst_timezone (TimezoneID, Location, IsActive, CreatedDate, CreatedBy
 VALUES ('Africa/Juba', '(GMT+03:00) Juba', 1, NOW(), 'SYSTEM');
 
 INSERT INTO mst_timezone (TimezoneID, Location, IsActive, CreatedDate, CreatedBy) 
-VALUES ('Africa/Kampala', '(GMT+03:00) Kampala', 1, NOW(), 'SYSTEM')
+VALUES ('Africa/Kampala', '(GMT+03:00) Kampala', 1, NOW(), 'SYSTEM');
 
 INSERT INTO mst_timezone (TimezoneID, Location, IsActive, CreatedDate, CreatedBy) 
 VALUES ('Africa/Mogadishu', '(GMT+03:00) Mogadishu', 1, NOW(), 'SYSTEM');

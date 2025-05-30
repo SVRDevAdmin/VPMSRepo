@@ -3,6 +3,9 @@
 
 @{
     Layout = "";
+
+    // --- Session in Cookies -------//
+    var sCustomerSession = httpContextaccessor.HttpContext.Request.Cookies["CustomerSession"];
 }
 
 <!DOCTYPE html>
@@ -38,9 +41,9 @@
     }
 
     <script type="text/javascript">
-
-        $(document).ready(function(){
-
+       
+        $(document).ready(function()
+        {
             $('#btnLogin').on('click', function(ctl){
                 if (validateFields())
                 {

@@ -10,6 +10,13 @@ namespace VPMSCustomer.Lib.Data
 {
     public class AccountRepository
     {
+        private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>
+        /// Get Account Creation Log record by Code
+        /// </summary>
+        /// <param name="invitationCode"></param>
+        /// <returns></returns>
         public static AccountCreationModel GetInvitationLinkDetails(String invitationCode)
         {
             try
@@ -21,11 +28,17 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
-                //todo
+                logger.Error("AccountRepository >>> GetInvitationLinkDetails >>> " + ex.ToString());
                 return null;
             }
         }
 
+        /// <summary>
+        /// Update Account Creation Status
+        /// </summary>
+        /// <param name="invitationCode"></param>
+        /// <param name="dtActivation"></param>
+        /// <returns></returns>
         public static Boolean UpdateInvitationLinkStatus(String invitationCode, DateTime dtActivation)
         {
             Boolean isSuccess = false;
@@ -46,8 +59,10 @@ namespace VPMSCustomer.Lib.Data
             }
             catch (Exception ex)
             {
+                logger.Error("AccountRepository >>> UpdateInvitationLinkStatus >>> " + ex.ToString());
                 isSuccess = false;
             }
+
             return isSuccess;
         }
     }

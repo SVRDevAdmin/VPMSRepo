@@ -2,9 +2,10 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "AccountSettings";
+    ViewData["Title"] = "Account Settings";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("UserName");
     var sessionLanguage = httpContextaccessor.HttpContext.Session.GetString("CustomerSettings_Language");
@@ -22,6 +23,8 @@
     let sThemesKey = 'CustomerSettings_Themes';
 
     $(document).ready(function(){ 
+        validateSession('@LoginSessionID');
+
         loadLanguageList();
         loadCountryList();
 

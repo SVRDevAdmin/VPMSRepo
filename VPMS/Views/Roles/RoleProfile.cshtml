@@ -155,7 +155,7 @@
                 $('#lbError').css('visibility', 'visible');
             }
         });
-
+        debugger;
         if ('@ViewData["RoleProfile"]' != '')
         {
             $('#btnUpdate').show();
@@ -204,7 +204,7 @@
                     }
                 }
             });
-
+            
             if ('@sViewType' == "View")
             {
                 $('#txtRoleName').prop('disabled', true);
@@ -411,27 +411,18 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-12">&nbsp;
+                        <div class="col-md-12">
                             <label id="lbError" style="color: red;"></label>
                             <input id="hidID" type="hidden" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColLabel">@LangResources["Roles_Label_UserRole"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="CenterColLabel">@LangResources["Roles_Label_Status"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="RightColLabel"><!--Role Type-->@LangResources["Roles_Label_RoleType"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                            <label for="txtRoleName" class="LeftColLabel">@LangResources["Roles_Label_UserRole"]</label>
                             <input id="txtRoleName" type="text" class="form-control leftColControl" />
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlStatus" class="CenterColLabel">@LangResources["Roles_Label_Status"]</label>
                             <select id="ddlStatus" class="form-select centerColControl" >
                                 <option value="">@LangResources["Roles_Label_PleaseSelectStatus"]</option>
 
@@ -447,6 +438,7 @@
                             </select>
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlRoleType" class="RightColLabel">@LangResources["Roles_Label_RoleType"]</label>
                             <select id="ddlRoleType" class="form-select rightColControl" onchange="ddlRoleTypeChanges(this);">
                                 <option value="">Please Select Role Type</option>
 
@@ -467,30 +459,15 @@
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <label class="LeftColLabel">@LangResources["Roles_Label_Description"]</label>
-                        </div>
-                        <div class="col-md-8">&nbsp;</div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
+                            <label for="txtDescription" class="LeftColLabel">@LangResources["Roles_Label_Description"]</label>
                             <textarea id="txtDescription" class="form-control leftColSpanControl" maxlength="255" rows="4" ></textarea>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColLabel">@LangResources["Roles_Label_Organization"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="CenterColLabel">@LangResources["Roles_Label_Branch"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="RightColLabel">@LangResources["Roles_Label_AreYouDoctor"]</label>
-                        </div>      
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                            <label for="ddlOrganization" class="LeftColLabel">@LangResources["Roles_Label_Organization"]</label>
                             <select id="ddlOrganization" class="form-select leftColControl" onchange="ddlOrganizationChange(this);">
                                 <option value="">@LangResources["Roles_Label_PleaseSelectOrganization"]</option>
                                 @{
@@ -505,11 +482,13 @@
                             </select>
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlBranch" class="CenterColLabel">@LangResources["Roles_Label_Branch"]</label>
                             <select id="ddlBranch" class="form-select centerColControl">
                                 <option value="">@LangResources["Roles_Label_PleaseSelectBranch"]</option>
                             </select>
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlIsDoctor" class="RightColLabel">@LangResources["Roles_Label_AreYouDoctor"]</label>
                             <select id="ddlIsDoctor" class="form-select rightColControl">
                                 <option value="">@LangResources["Roles_Label_PleaseSelectOption"]</option>
                                 <option value="1">Yes</option>

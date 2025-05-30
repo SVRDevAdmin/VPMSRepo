@@ -2,9 +2,11 @@
 @inject IHttpContextAccessor httpContextaccessor
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Analytics";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
     var sessionThemes = httpContextaccessor.HttpContext.Session.GetString("CustomerSettings_Themes");
 }
@@ -58,6 +60,8 @@
     }
 
     $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
         var sDefaultYear = moment().format('YYYY');
 
         LoadYearDropdown(sDefaultYear);
@@ -96,14 +100,12 @@
 
                 let totalExpenses = totalArray.reduce((a, b) => a + b, 0);
                 
-                //LoadSummaryChart(serviceArray, totalArray, 'Total Spent $' + totalExpenses);
                 LoadSummaryChart(serviceArray, totalArray, '@Html.Raw(LangResources["Analytics_Label_TotalSpent"])' + totalExpenses);
 
                 $('#ddlYearSelection').html(iYear);
             }
             else 
             {
-                //LoadSummaryChart([], [], 'Total Spent $0');
                 LoadSummaryChart([], [], '@Html.Raw(LangResources["Analytics_Label_TotalSpent"])' + '0');
 
                 $('#ddlYearSelection').html(iYear);
@@ -213,8 +215,7 @@
                             spanPercentage = 'RightPercentageBar';
                         }
 
-                        sBarHtml += '<span data-bs-toggle="tooltip" data-bs-placement="top" title="' + sPetObject[x].serviceName + '" class="' + spanPercentage + '" style="width: ' + sPetObject[x].servcExpsPercentage + '%; background-color: ' + barColors[x] + ';"></span>';
-                        //sBarHtml += '<span data-bs-toggle="' + sPetObject[x].serviceName + '" data-bs-placement="top" class="' + spanPercentage + '" style="width: ' + sPetObject[x].servcExpsPercentage + '%; background-color: ' + barColors[x] + ';"></span>';
+                        sBarHtml += '<span data-bs-toggle="tooltip" data-bs-placement="top" title="' + sPetObject[x].serviceName + '" class="' + spanPercentage + '" style="width: ' + sPetObject[x].servcExpsPercentage + '%; background-color: ' + barColors[x] + ';"></span>';           
                     }
 
                     var sBreakdownHtml = '';
@@ -243,7 +244,7 @@
 <div class="row ms-3">
     <div class="row pt-4">
         <label class="pageTitle">
-            <!--Analytics-->@LangResources["Analytics_Title_Analytics"]
+            @LangResources["Analytics_Title_Analytics"]
         </label>
     </div>
     <div class="row mt-3">
@@ -251,13 +252,15 @@
             <div class="row analyticsFrame">
                 <div class="row">
                     <div class="col-md-12 ms-2 mt-1">
-                        <label class="analyticsTitle"><!--Expenses Summary-->@LangResources["Analytics_Label_ExpensesSummary"]</label>
+                        <label class="analyticsTitle">
+                            @LangResources["Analytics_Label_ExpensesSummary"]
+                        </label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-9">&nbsp;</div>
                     <div class="col-md-3 d-flex justify-content-end">
-                        <label class="mt-1 yearSelectionLabel"><!--Showing-->@LangResources["Analytics_Label_Showing"] :</label>
+                        <label class="mt-1 yearSelectionLabel">@LangResources["Analytics_Label_Showing"] :</label>
                         <div class="dropdown" style="width: 70px;">
                             <button id="ddlYearSelection" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
