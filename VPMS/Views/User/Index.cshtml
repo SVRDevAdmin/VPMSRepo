@@ -6,6 +6,8 @@
     ViewData["SelectedMenu"] = "AccessMenu";
     ViewBag.SelectedMenu = "AccessMenu";
 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
     var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
@@ -47,7 +49,8 @@
             if ($('#divFilterCollapse')[0].className.indexOf('Hide') > 0){
                 resetFields();
             }
-            else{
+            else
+            {
                 if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
                 {
                     $('#ddlOrganization').val('@sessionOrganizationID');
@@ -89,6 +92,7 @@
             OrganizationID: $('#ddlOrganization').val(),
             BranchID: $('#ddlBranch').val(),
             Status: $('#ddlStatus').val(),
+            loginOrganizationID: '@sessionOrganizationID',
             pageSize: pageSize,
             pageIndex: currentPage
         }).done(function (result) {
@@ -343,8 +347,8 @@
         <div class="col-md-4">
             <div class="row" style="margin-top: 20px;">
                 <div class="col-md-3">&nbsp;</div>
-                <div class="col-md-9" style="display: flex;">
-                    <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 1vw;">
+                <div class="col-md-9 d-flex justify-content-end">
+                    <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 12px;">
                         <img id="imgSlider" />
                         @LangResources["Staff_Button_Filters"]
                     </button>
@@ -352,7 +356,7 @@
                     @{
                         if ((bool)ViewData["CanAdd"])
                         {
-                            <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 1vw"
+                            <button id="btnNew" type="button" class="btn btn-primary" style="font-size: 12px;"
                                     onclick="location.href='@Url.Action("UserDetails", "User")'">
                                 <i class="bi bi-plus-circle" style="margin-right: 5px;"></i>
                                 @LangResources["Staff_Button_NewStaff"]
@@ -364,12 +368,12 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row ms-2">
         <div class="col-md-12" style="height: 20px">
             <label id="lbUserListingError"></label>
         </div>
         <div id="divUserContent" class="col-md-12" style="margin-top: 15px;">
-            <table id="tblUsers" class="table" style="font-size: 1vw;">
+            <table id="tblUsers" class="table">
                 <thead>
                     <tr>
                         <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">@LangResources["Staff_Label_Number"]</th>

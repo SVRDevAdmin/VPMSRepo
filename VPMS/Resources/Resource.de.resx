@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessControl_Label_BranchCity" xml:space="preserve">
+    <value>Stadt</value>
+  </data>
+  <data name="AccessControl_Label_BranchPostcode" xml:space="preserve">
+    <value>Postleitzahl</value>
+  </data>
+  <data name="AccessControl_Label_BranchState" xml:space="preserve">
+    <value>Zustand</value>
+  </data>
+  <data name="AccessControl_Label_SelectCity" xml:space="preserve">
+    <value>Stadt auswählen</value>
+  </data>
+  <data name="AccessControl_Label_SelectState" xml:space="preserve">
+    <value>Bundesland auswählen</value>
+  </data>
   <data name="Appointment_Button_Cancel" xml:space="preserve">
     <value />
   </data>
@@ -204,6 +219,9 @@
   <data name="Appointment_Label_Week" xml:space="preserve">
     <value />
   </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>Termin angenommen</value>
+  </data>
   <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
     <value />
   </data>
@@ -237,6 +255,9 @@
   <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
     <value />
   </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>Termin annehmen</value>
+  </data>
   <data name="Appointment_Title_Appointment" xml:space="preserve">
     <value />
   </data>
@@ -252,6 +273,225 @@
   <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
     <value />
   </data>
+  <data name="BannerProfile_Button_Cancel" xml:space="preserve">
+    <value>Stornieren</value>
+  </data>
+  <data name="BannerProfile_Button_Create" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="BannerProfile_Button_Update" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="BannerProfile_Label_Banner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="BannerProfile_Label_Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="BannerProfile_Label_EndDate" xml:space="preserve">
+    <value>Enddatum</value>
+  </data>
+  <data name="BannerProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Bitte wählen Sie den Status</value>
+  </data>
+  <data name="BannerProfile_Label_StartDate" xml:space="preserve">
+    <value>Startdatum</value>
+  </data>
+  <data name="BannerProfile_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BannerProfile_Label_Upload" xml:space="preserve">
+    <value>Hochladen</value>
+  </data>
+  <data name="BannerProfile_Message_Fail" xml:space="preserve">
+    <value>Scheitern</value>
+  </data>
+  <data name="BannerProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Pflichtfelder sind erforderlich.</value>
+  </data>
+  <data name="BannerProfile_Message_NoBannerSelected" xml:space="preserve">
+    <value>Keine Bannerdatei ausgewählt.</value>
+  </data>
+  <data name="BannerProfile_Message_NoChangesUpdates" xml:space="preserve">
+    <value>Keine Änderungsaktualisierungen.</value>
+  </data>
+  <data name="BannerProfile_Message_RecommendRemark" xml:space="preserve">
+    <value>* Empfohlene Größe: 1450px (Breite) x 340px (Höhe)</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>Aktualisierung fehlgeschlagen. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>Aktualisierung erfolgreich.</value>
+  </data>
+  <data name="BannerProfile_Message_UploadFailed" xml:space="preserve">
+    <value>Das Hochladen der Datei ist fehlgeschlagen.</value>
+  </data>
+  <data name="BannerProfile_Message_UploadSuccessfully" xml:space="preserve">
+    <value>Hochladen erfolgreich.</value>
+  </data>
+  <data name="BannerProfile_Title_BannerDetails" xml:space="preserve">
+    <value>Bannerdetails</value>
+  </data>
+  <data name="BannerProfile_Title_UpdateBannerInfo" xml:space="preserve">
+    <value>Bannerinformationen aktualisieren</value>
+  </data>
+  <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
+    <value>Banner hochladen</value>
+  </data>
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>Neues Banner</value>
+  </data>
+  <data name="BannersList_Button_Next" xml:space="preserve">
+    <value>Nächste Seite</value>
+  </data>
+  <data name="BannersList_Button_Prev" xml:space="preserve">
+    <value>zurück</value>
+  </data>
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="BannersList_Label_CreatedDate" xml:space="preserve">
+    <value>Erstellungsdatum</value>
+  </data>
+  <data name="BannersList_Label_Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>Enddatum</value>
+  </data>
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>Dateiname</value>
+  </data>
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>Startdatum</value>
+  </data>
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BannersList_Label_View" xml:space="preserve">
+    <value>Sicht</value>
+  </data>
+  <data name="BannersList_Message_NoRecords" xml:space="preserve">
+    <value>Keine Aufzeichnungen</value>
+  </data>
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>Bannerverwaltung</value>
+  </data>
+  <data name="BlogList_Button_NewBlog" xml:space="preserve">
+    <value>Neuer Blog</value>
+  </data>
+  <data name="BlogList_Button_Next" xml:space="preserve">
+    <value>Nächste Seite</value>
+  </data>
+  <data name="BlogList_Button_Prev" xml:space="preserve">
+    <value>zurück</value>
+  </data>
+  <data name="BlogList_Label_CreatedDate" xml:space="preserve">
+    <value>Erstellungsdatum</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="BlogList_Label_EndDate" xml:space="preserve">
+    <value>Enddatum</value>
+  </data>
+  <data name="BlogList_Label_Num" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="BlogList_Label_StartDate" xml:space="preserve">
+    <value>Startdatum</value>
+  </data>
+  <data name="BlogList_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BlogList_Label_Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="BlogList_Label_URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogList_Label_View" xml:space="preserve">
+    <value>Sicht</value>
+  </data>
+  <data name="BlogList_Message_NoRecords" xml:space="preserve">
+    <value>Keine Aufzeichnungen</value>
+  </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>Blog-Verwaltung</value>
+  </data>
+  <data name="BlogProfile_Button_Cancel" xml:space="preserve">
+    <value>Stornieren</value>
+  </data>
+  <data name="BlogProfile_Button_Create" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="BlogProfile_Button_Update" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="BlogProfile_Label_Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="BlogProfile_Label_EndDate" xml:space="preserve">
+    <value>Enddatum</value>
+  </data>
+  <data name="BlogProfile_Label_FileName" xml:space="preserve">
+    <value>Dateiname</value>
+  </data>
+  <data name="BlogProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Bitte wählen Sie den Status</value>
+  </data>
+  <data name="BlogProfile_Label_StartDate" xml:space="preserve">
+    <value>Startdatum</value>
+  </data>
+  <data name="BlogProfile_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BlogProfile_Label_Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="BlogProfile_Label_Upload" xml:space="preserve">
+    <value>Hochladen</value>
+  </data>
+  <data name="BlogProfile_Label_URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
+    <value>Blog erfolgreich erstellt.</value>
+  </data>
+  <data name="BlogProfile_Message_Fail" xml:space="preserve">
+    <value>Scheitern</value>
+  </data>
+  <data name="BlogProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Pflichtfelder sind erforderlich.</value>
+  </data>
+  <data name="BlogProfile_Message_NoChangesUpdate" xml:space="preserve">
+    <value>Keine Änderungsaktualisierung.</value>
+  </data>
+  <data name="BlogProfile_Message_NoThumbnailSelected" xml:space="preserve">
+    <value>Kein Miniaturbild ausgewählt.</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateBlogSuccessfully" xml:space="preserve">
+    <value>Blog erfolgreich aktualisieren</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>Aktualisierung fehlgeschlagen. Bitte versuchen Sie es später erneut.</value>
+  </data>
+  <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
+    <value>Das Hochladen der Miniaturansicht ist fehlgeschlagen.</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>Blog Details</value>
+  </data>
+  <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
+    <value>Blogeintrag erstellen</value>
+  </data>
+  <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
+    <value>Blog-Informationen aktualisieren</value>
+  </data>
   <data name="DoctorProfile_Button_Back" xml:space="preserve">
     <value />
   </data>
@@ -263,6 +503,9 @@
   </data>
   <data name="DoctorProfile_Button_Update" xml:space="preserve">
     <value />
+  </data>
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>Zweig</value>
   </data>
   <data name="DoctorProfile_Label_Designation" xml:space="preserve">
     <value />
@@ -276,8 +519,17 @@
   <data name="DoctorProfile_Label_Name" xml:space="preserve">
     <value />
   </data>
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>Organisationen</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Bitte wählen Sie eine Filiale</value>
+  </data>
   <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
     <value />
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Bitte wählen Sie eine Organisation</value>
   </data>
   <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
     <value />
@@ -384,6 +636,15 @@
   <data name="MenuBar_Label_Appointments" xml:space="preserve">
     <value />
   </data>
+  <data name="MenuBar_Label_Banners" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="MenuBar_Label_Blogs" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
+    <value>Kundenportal</value>
+  </data>
   <data name="MenuBar_Label_CustomerService" xml:space="preserve">
     <value />
   </data>
@@ -471,6 +732,45 @@
   <data name="Notification_Title_Notification" xml:space="preserve">
     <value />
   </data>
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>Einreichen</value>
+  </data>
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>Verantwortlicher Arzt</value>
+  </data>
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>Standort</value>
+  </data>
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>Planmäßiger Test</value>
+  </data>
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>Wählen Sie den verantwortlichen Arzt</value>
+  </data>
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>Standort auswählen</value>
+  </data>
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>Tests auswählen</value>
+  </data>
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>Tests</value>
+  </data>
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Pflichtfelder sind erforderlich.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>Das Senden der geplanten Tests ist fehlgeschlagen. Bitte versuchen Sie es später erneut.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>Geplante Tests erfolgreich gesendet.</value>
+  </data>
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>Erstellen Sie geplante Tests</value>
+  </data>
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>Senden Sie geplante Tests</value>
+  </data>
   <data name="Roles_Button_Cancel" xml:space="preserve">
     <value />
   </data>
@@ -479,6 +779,9 @@
   </data>
   <data name="Roles_Button_NewRole" xml:space="preserve">
     <value />
+  </data>
+  <data name="Roles_Button_PermissionDetails" xml:space="preserve">
+    <value>Berechtigungsdetails</value>
   </data>
   <data name="Roles_Button_Update" xml:space="preserve">
     <value />
@@ -540,8 +843,14 @@
   <data name="Roles_Label_Role" xml:space="preserve">
     <value />
   </data>
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>Rollentyp</value>
+  </data>
   <data name="Roles_Label_Status" xml:space="preserve">
     <value />
+  </data>
+  <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
+    <value>Gesamtzahl der erteilten Berechtigungen</value>
   </data>
   <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
     <value />
@@ -566,6 +875,9 @@
   </data>
   <data name="Roles_Title_DeleteRole" xml:space="preserve">
     <value />
+  </data>
+  <data name="Roles_Title_Permissions" xml:space="preserve">
+    <value>Berechtigungen</value>
   </data>
   <data name="Roles_Title_RoleSettings" xml:space="preserve">
     <value />

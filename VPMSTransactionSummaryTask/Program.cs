@@ -58,7 +58,7 @@ namespace VPMSTransactionSummaryTask
                 TransactionSummaryUpdate(config, executionDate, startDate, endDate);
             }
 
-            Console.WriteLine("Hello, World!");
+            //Console.WriteLine("Hello, World!");
         }
 
         private static void TransactionSummaryUpdate(IConfiguration config, DateTime executionDate, DateTime startDate, DateTime endDate)

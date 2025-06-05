@@ -49,9 +49,9 @@
     font-weight: bold !important;
 }
 
-.fc-event {
+/*.fc-event {
     background-color: #1D76FB !important;
-}
+}*/
 
 .fc-event:hover {
     cursor: pointer !important;
@@ -136,7 +136,8 @@
 }
 
 .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
-    box-shadow: 0 0 0 1px #1D76FB !important;
+    /*box-shadow: 0 0 0 1px #1D76FB !important;*/
+    box-shadow: 0 0 0 1px transparent !important;
 }
 
 .SearchRowTitle {
@@ -332,4 +333,8 @@
     margin-top: 30px;
     margin-bottom: 30px;
     margin-left: 5px;
+}
+
+#btnCreate{
+    font-size: 12px;
 }

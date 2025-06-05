@@ -1,0 +1,214 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Customer Services";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionPostcode = httpContextaccessor.HttpContext.Session.GetString("PatientPostCode");
+    var sessionState = httpContextaccessor.HttpContext.Session.GetString("PatientState");
+    var sessionCountryID = httpContextaccessor.HttpContext.Session.GetString("PatientCountryID");
+}
+
+<link rel="stylesheet" href="~/css/CustomerServices.css" />
+
+<script type="text/javascript">
+    const colorArray = ["#f9dee7", "#fed3a8", "#b8e9fa", "#d6f0d5", "#e2cbff",
+                        "#d6f0d5", "#b8e9fa", "#e2cbff", "#f9dee7", "#fed3a8",
+                        "#fed3a8", "#e2cbff", "#d6f0d5", "#b8e9fa", "#f9dee7"];
+
+    $(document).ready(function()
+    {
+        validateSession('@LoginSessionID');
+
+        LoadStateSelection();
+        LoadClinicViewListing('All', '@Html.Raw(LangResources["CustomerServices_Menu_All"])');
+    });
+
+    function LoadStateSelection()
+    {
+        $('#ulViewSelection').children("li:not(:first)").remove();
+
+        $.getJSON("/Masterdata/StatesList/" + '@sessionCountryID')
+         .done(function(result){ 
+             if (result != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sDropdownMenu = '';
+                     sDropdownMenu = '<li><a class="dropdown-item" onclick="LoadClinicViewListing(\'' + result.data[i].state + '\', \'' + result.data[i].state + '\')">' + result.data[i].state + '</a></li>';
+
+                     $('#ulViewSelection').append(sDropdownMenu);
+                 }
+             }
+         });
+    }
+
+    function LoadClinicViewListing(selectedState, selectedStateName)
+    {
+        $('#divNearby').html('');
+        $('#divOthers').html('');
+
+        $.getJSON("/CustomerServices/GetClinicList", {
+            state: selectedState
+        }).done(function(result){
+            if (result != null && result.data.length > 0)
+            {
+                /*-------- Nearby Clinic --------------*/
+                var sSamePostcodeArea = result.data.filter(function(obj){
+                                             return (obj.postcode == '@sessionPostcode');
+                                         });
+
+                if (sSamePostcodeArea.length > 0)
+                {
+                    for (var i = 0; i < sSamePostcodeArea.length; i++)
+                    {
+                        $('#divNearby').append(generateClinicBox(sSamePostcodeArea[i]));
+                    }
+                }
+                else
+                {
+                    $('#divNearby').append(generateEmptyBox());
+                }
+
+
+                /*-------- Other Clinic ----------------*/
+                var sOtherPostcodeArea = result.data.filter(function(obj){
+                                             return (obj.postcode != '@sessionPostcode');
+                                         });
+
+                if (sOtherPostcodeArea.length > 0)
+                {
+                    for (var i = 0; i < sOtherPostcodeArea.length; i++)
+                    {
+                        $('#divOthers').append(generateClinicBox(sOtherPostcodeArea[i]));
+                    }
+                }
+                else 
+                {
+                    $('#divOthers').append(generateEmptyBox());
+                }
+            }
+            else 
+            {
+                $('#divNearby').append(generateEmptyBox());
+                $('#divOthers').append(generateEmptyBox());
+            }
+
+            $('#ddlViewSelection').html(selectedStateName);
+        });
+    }
+
+    function generateClinicBox(sRow)
+    {
+        var fullAddress = sRow.address + '</br>' +
+                          ((sRow.postcode != null) ? sRow.postcode : '') + ' ' +
+                          ((sRow.city != null) ? sRow.city : '');
+
+
+        var sClinicHtml = '';
+        sClinicHtml = '<div class="col-md-4 mt-2 mb-3">' +
+                        '<div class="row ms-1 clinicBoxFrame" style="background-color: ' + randomGetBckgrdColor() + ';" onclick="openWhatsapplink(\'' + sRow.contactNo + '\');">' +
+
+                        '<div class="col-md-8">' +
+                        '<div class="row mt-3">' +
+                        '<label class="ms-1 clinicTitle">' + sRow.name + '</label>' +
+                        '</div>' +
+                        '<div class="row mt-1">' +
+                        '<label class="ms-1 clinicAddress">' + fullAddress +  '</label>' +
+                        '</div>' +
+                        '<div class="row mt-1 mb-2">' +
+                        '<label id="lbDistance" class="ms-1" style="font-size: 10px;"></label>' +
+                        '</div>' +
+                        '</div>' +
+
+                        '<div class="col-md-4">' +
+                        '<div class="row mt-2">' +
+                        '<img class="SpeechBubble" />' +
+                        '</div>' +
+                        '</div>' +
+
+                        '</div>' +
+                        '</div>';
+
+        return sClinicHtml;
+    }
+
+    function generateEmptyBox()
+    {
+        var sEmptyHtml = '';
+        sEmptyHtml = '<div class="col-md-4 mt-2 mb-3">' +
+                     '<div class="row ms-1 emptyBoxFrame">' +
+
+                     '<div class="col-md-12">' +
+                     '<div class="row">&nbsp;</div>' +
+                     '<div class="row" style="color: grey;"><h3 class="text-center">' + '@Html.Raw(LangResources["CustomerServices_Label_NoRecord"])' + '</h3></div>' +
+                     '<div class="row">&nbsp;</div>' +
+                     '</div>' +
+
+                     '</div>' +
+                     '</div>';
+
+        return sEmptyHtml;
+    }
+
+    function openWhatsapplink(contact)
+    {
+        var sURL = 'https://wa.me/' + (contact.replace("+", ""));
+
+        window.open(sURL, '_blank').focus();
+    }
+
+    function randomGetBckgrdColor()
+    {
+        var sIdx = Math.floor(Math.random() * colorArray.length);
+        return colorArray[sIdx];
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <label class="pageTitle">
+            @LangResources["CustomerServices_Title_CustomerServices"]
+        </label>
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-12 d-flex justify-content-end">
+            <label class="align-content-center selectionLabel">@LangResources["CustomerServices_Label_Showing"] :</label>
+            <div class="dropdown">
+                <button id="ddlViewSelection" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                </button>
+                <ul id="ulViewSelection" class="dropdown-menu" aria-labelledby="ddlViewSelection">
+                    <li><a class="dropdown-item" onclick="LoadClinicViewListing('All', '@Html.Raw(LangResources["CustomerServices_Menu_All"])')">@LangResources["CustomerServices_Menu_All"]</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row pt-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="ms-1 sectionTitle">@LangResources["CustomerServices_Label_NearbyClinic"]</label>
+                    </div>
+                </div>
+                <div id="divNearby" class="row">
+                    <!-- CONTENT -->
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="ms-1 sectionTitle">@LangResources["CustomerServices_Label_OtherClinic"]</label>
+                    </div>
+                </div>
+                <div id="divOthers" class="row">
+                    <!-- Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

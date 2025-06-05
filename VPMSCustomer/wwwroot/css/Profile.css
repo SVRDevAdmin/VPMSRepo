@@ -1,0 +1,27 @@
+﻿.editField {
+    display: none;
+}
+
+#btnCancel, #btnSave {
+    display: none;
+}
+
+.avatarFrame {
+    width: 75px;
+    border-radius: 75px;
+    background-color: #fdf6e6;
+}
+
+.avatarMale {
+    content: url('../Images/AvatarProfile.png');
+    width: 75px !important;
+    height: 75px !important;
+    margin-left: -13px !important;
+}
+
+.avatarFemale{
+    content: url('../Images/AvatarProfile_Female.png');
+    width: 75px !important;
+    height: 75px !important;
+    margin-left: -13px !important;
+}

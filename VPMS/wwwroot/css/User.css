@@ -19,6 +19,7 @@
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 5px;
+    font-size: 14px;
 }
 
 .FilterRowFields {
@@ -28,6 +29,10 @@
     margin-right: 5px;
 }
 
+.FilterRowFields > .form-select {
+    font-size: 14px;
+}
+
 .FilterRowButtonSearch {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -35,11 +40,19 @@
     margin-right: 5px;
 }
 
+.FilterRowButtonSearch > button {
+    font-size: 14px !important;
+}
+
 .FilterRowButtonReset {
     margin-top: 10px;
     margin-bottom: 30px;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.FilterRowButtonReset > button {
+    font-size: 14px !important;
 }
 
 .collapseHide {
@@ -90,5 +103,9 @@
 
 #staffListing {
     color: dodgerblue !important;
+}
+
+#btnCancel, #btnCreate, #btnUpdate {
+    font-size: 12px;
 }
 

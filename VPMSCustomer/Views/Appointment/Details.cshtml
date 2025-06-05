@@ -1,0 +1,395 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Appointment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("UserName");
+
+    var appointmentSelected = (long)ViewData["appointmentSelected"];
+}
+
+<link rel="stylesheet" href="~/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/css/gijgo.min.css" type="text/css" />
+<link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="~/css/AppointmentDetails.css" />
+
+<script src="~/lib/datepicker/gijgo.min.js" type="text/javascript"></script>
+<script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
+        /*----- initiate Date Picker -----*/
+        $('#dtAppt').datepicker({
+             uiLibrary: 'bootstrap5',
+             format: 'dd/mm/yyyy'
+        });
+
+        $('.gj-icon').parent().hide();
+        $('.gj-icon').hide();
+
+        /*----- initiate TimePicker --------*/
+        $('#dtStart').datetimepicker({
+             useCurrent: false,
+             format: 'HH:mm',
+             icons: {
+                 up: 'fa fa-angle-up',
+                 down: 'fa fa-angle-down'
+             }
+        }).on('dp.show', function () {
+             time = "09:00 AM";
+             //$(this).data('DateTimePicker').date(time);
+             $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+             var min_endtime = $(this).val();
+             var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+             $('#dtEnd').val(min_time);
+        });
+
+        $('#dtEnd').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#dtStart').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+
+        LoadPetDropdownList();
+        LoadBranchDropdownList();
+
+        setTimeout(function(){
+            LoadAppointmentDetails();
+        }, 200);
+    });
+
+    function LoadPetDropdownList(){
+        $.getJSON("/Pets/GetPetsList/" + '@sessionPatientID')
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlPets').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].name), result.data[i].id);
+                     $('#ddlPets').append(opt);
+                 }
+             }
+             else {
+                 $('#ddlPets').find("option:not(:first)").remove();
+             }
+         })
+    }
+
+    function LoadBranchDropdownList(){
+        $.getJSON("/Masterdata/BranchList/-1")
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlClinic').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].name), result.data[i].id);
+                     $('#ddlClinic').append(opt);
+                 }
+             }
+             else{
+                 $('#ddlClinic').find("option:not(:first)").remove();
+             }
+         });
+    }
+
+    function LoadServicesDropdownList(clinic)
+    {
+        $.getJSON("/Masterdata/ServiceList/" + clinic.value)
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlServices').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].name), result.data[i].id);
+                     $('#ddlServices').append(opt);
+                 }
+             }
+             else 
+             {
+                 $('#ddlServices').find("option:not(:first)").remove();
+             }
+         });
+    }
+
+    function LoadDoctorDropdownList(service)
+    { 
+        $.getJSON("/Masterdata/DoctorListByService/" + service.value)
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlDoctor').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].name), result.data[i].id);
+                     $('#ddlDoctor').append(opt);
+                 }
+             }
+             else 
+             {
+                 $('#ddlDoctor').find("option:not(:first)").remove();
+             }
+         });
+    }
+
+    function LoadAppointmentDetails()
+    {
+        $.getJSON("/Appointment/GetAppointmentDetail/" + '@appointmentSelected')
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 var sApptRow = result.data[0];
+
+                 $('#ddlPets').val(sApptRow.petID);
+                 $('#ddlPets').attr('disabled','disabled');
+                 $('#dtAppt').val(moment(sApptRow.apptDate).format("DD/MM/YYYY"));
+                 $('#dtStart').val(moment(sApptRow.apptStartTime, 'hh:mm:ss').format('HH:mm'));
+                 $('#dtEnd').val(moment(sApptRow.apptEndTime, 'hh:mm:ss').format('HH:mm'));
+
+                 $('#ddlClinic').val(sApptRow.branchID);
+                 $('#ddlClinic').trigger('change');
+
+                 setTimeout(function(){
+                     $('#ddlServices').val(sApptRow.servicesID);
+                     $('#ddlServices').trigger('change');
+
+                     setTimeout(function(){
+                        $('#ddlDoctor option:contains("' + sApptRow.inchargeDoctor + '")').attr('selected', true);
+                     }, 500);
+                 }, 500);
+                 
+                 var sContactLabel = '@Html.Raw(LangResources["AppointmentDetails_Message_CallPhoneNo"])';
+                 sContactLabel = sContactLabel.replace('####<clinicPhoneNo>###', sApptRow.contactNo);
+
+                 $('#lbCallContact').html(sContactLabel);
+             }
+         });
+    }
+
+    function updateAppointment()
+    {
+        $.post("/Appointment/UpdateAppointmentDetails", {
+            appointmentID: '@appointmentSelected',
+            branchID: $('#ddlClinic').val(),
+            appointmentDate: $('#dtAppt').val(),
+            startTime: $('#dtStart').val(),
+            endTime: $('#dtEnd').val(),
+            servicesID: $('#ddlServices').val(),
+            inchargeDoctor: $('#ddlDoctor option:selected').text(),
+            updatedBy: '@sessionUserName'
+        }).done(function(result){
+            if (result.statusCode == 200){
+                ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
+                                  '@Html.Raw(LangResources["AppointmentDetails_Message_UpdateSuccess"])',
+                    function(){
+                        window.location.href = '/Appointment/Index';
+                    }
+                );
+            }
+            else 
+            {
+                if (result.isOverlap)
+                {
+                    ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
+                                      '@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentOverlap"])',
+                        function(){}
+                    );
+                }
+                else{
+                    ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
+                                      '@Html.Raw(LangResources["AppointmentDetails_Message_FailedToUpdate"])',
+                        function(){}
+                    );
+                }
+
+            }
+        })
+    }
+
+    function cancelAppointment()
+    { 
+        ShowConfirmCancelMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
+                                '@Html.Raw(LangResources["AppointmentDetails_Message_ConfirmCancelAppt"])',
+            function(){
+                $.post("/Appointment/UpdateAppointmentStatus", {
+                    appointmentID: '@appointmentSelected',
+                    sUpdatedBy : '@sessionUserName'
+                }).done(function(result){
+                    if (result){
+                        ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
+                                          '@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentCancelled"])',
+                            function(){
+                                window.location.href = '/Appointment/Index';
+                            }
+                        );
+                    }
+                    else {
+                        ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
+                                          '@Html.Raw(LangResources["AppointmentDetails_Message_FailedToCancelAppt"])',
+                            function(){}
+                        );
+                    }
+                });
+            },
+            function() {}
+        );
+
+    }
+
+    function backToMainPage(){
+        window.location.href = '/Appointment/Index';
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <div class="col-md-12">
+            <label class="pageTitle">
+                @LangResources["AppointmentDetails_Title_EditAppointments"]
+            </label>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-9">
+            <div class="row me-1 DetailBoxFrame">
+                <div class="row mt-3">
+                    <div class="col-md-12 ms-3">
+                        <label class="HeaderTitle">@LangResources["AppointmentDetails_Label_EditAppointmentDetails"]</label>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row" >
+                    <div class="col-md-6">
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Pets"]</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Clinic"]</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="ddlPets" class="form-select form-select-sm ms-3">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectPet"]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="ddlClinic" class="form-select form-select-sm ms-3" onchange="LoadServicesDropdownList(this);">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectClinic"]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Services"]</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Date"]</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="ddlServices" class="form-select form-select-sm ms-3" onchange="LoadDoctorDropdownList(this);">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectServices"]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 ColumnDateTimeLayout">
+                        <div class="ms-3 me-1 ColumnDateBorder">
+                            <input id="dtAppt" class="form-control-sm" />
+                        </div>
+                        <div class="ColumnDateTimeBorder">
+                            <input id="dtStart" class="form-control-sm ColumnStartTimeBorder" />
+                            <div class="ColumnDateTimeDivider">--</div>
+                            <input id="dtEnd" class="form-control-sm ColumnEndTimeBorder"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Doctor"]</label>
+                    </div>
+                    <div class="col-md-6">&nbsp;</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="ddlDoctor" class="form-select form-select-sm ms-3">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectDoctor"]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">&nbsp;</div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+            </div>
+            <div class="row mt-3 me-1">
+                <div class="row justify-content-end">
+                    <button id="btnBack" class="btn btn-secondary FunctionButton" onclick="backToMainPage();">
+                        @LangResources["AppointmentDetails_Button_Back"]
+                    </button>&nbsp;
+                    <button id="btnCancel" class="btn btn-danger FunctionButton" onclick="cancelAppointment();">
+                        @LangResources["AppointmentDetails_Button_CancelAppointment"]
+                    </button>&nbsp;
+                    <button id="btnUpdate" class="btn btn-primary FunctionButton" onclick="updateAppointment();">
+                        @LangResources["AppointmentDetails_Button_Update"]
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="row InformationFrame">
+                <div class="row mt-4">
+                    <label class="ms-2 me-1 InformationTextFont">
+                        @LangResources["AppointmentDetails_Message_ContactClinicInstead"]
+                    </label>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row InformationItemLayout">
+                    <span>
+                        <i class="bi bi-envelope ms-2 me-1"></i>
+                        <label class="InformationItemTextFont">@LangResources["AppointmentDetails_Message_SendAMessage"]</label>
+                    </span>
+                </div>
+                <div class="row InformationItemLayout">
+                    <span>
+                        <i class="bi bi-telephone ms-2 me-1"></i>
+                        <label id="lbCallContact" class="InformationItemTextFont"></label>
+                    </span> 
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</div>
+

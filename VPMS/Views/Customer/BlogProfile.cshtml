@@ -1,0 +1,451 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+@model VPMS.Lib.Data.Models.BlogDisplayModel;
+
+@{
+    ViewData["Title"] = "BlogProfile";
+    ViewData["SelectedMenu"] = "MgmtMenu";
+    ViewBag.SelectedMenu = "MgmtMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("LoginID");
+
+    var sBlogObj = new VPMS.Lib.Data.Models.BlogDisplayModel();
+    if (ViewData["BlogProfile"] != null)
+    {
+        sBlogObj = ViewData["BlogProfile"] as VPMS.Lib.Data.Models.BlogDisplayModel;
+    }
+    var sViewType = ViewData["ViewType"] as String;
+}
+
+<link rel="stylesheet" href="~/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="~/css/BlogList.css" />
+
+<script src="~/lib/moment.min.js"></script>
+<script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"> </script>
+
+<script type="text/javascript">
+    $("#SubMenuConfig").toggleClass('show');
+    document.querySelector("#SubMenuConfigParent").querySelector("#imgArrow").classList.toggle("Up");
+
+    $(document).ready(function()
+    {
+        LoadStatusListDropdown();
+
+        let dtMin = moment();
+        let dtMinTo = moment().add(1, 'd');
+
+        $('#txtStartDate').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy',
+            minDate: dtMin.format('DD/MM/YYYY'),
+            startDate: new Date()
+        });
+
+        $('#txtEndDate').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy',
+            minDate: dtMinTo.format('DD/MM/YYYY'),
+            startDate: new Date()
+        });
+
+
+        $('#txtStartDate').datepicker().on("change", function(){
+            var startDate = moment($('#txtStartDate').val(), 'DD/MM/YYYY');
+            var endDate = moment($('#txtEndDate').val(), 'DD/MM/YYYY');
+
+            if ($('#txtEndDate').val() == '' || startDate >= endDate){
+                endDate = startDate.add(1, 'd');
+
+                $('#txtEndDate').val(endDate.format('DD/MM/YYYY'));
+            }
+
+        });
+
+        $('#txtEndDate').datepicker().on("change", function(){
+
+        });
+
+        $('#btnCreate').on('click', function(ctl)
+        { 
+            if (validateFields())
+            {
+                var formData = new FormData();
+                formData.append("thumbnailFile", $('input[id="thumbnailUpload"]').get(0).files[0])
+
+                var blogData = {
+                    title: $('#txtTitle').val(),
+                    description: $('#txtDescription').val(),
+                    startDate: $('#txtStartDate').val(),
+                    endDate: $('#txtEndDate').val(),
+                    urlLink:$('#txtURL').val(),
+                    status: $('#ddlStatus').val(),
+                    uploadedBy: '@sessionUserName'
+                };
+                formData.append("Data", JSON.stringify(blogData));
+
+                $.ajax({
+                    url: '/Customer/UploadBlog',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function(result){
+                        if (result.StatusCode == 200){
+                            ShowSuccessMsgBox("@Html.Raw(LangResources["BlogProfile_Title_CreateBlogEntry"])", 
+                                              "@Html.Raw(LangResources["BlogProfile_Message_CreateBlogSuccessfully"])",
+                                function () {
+                                    window.location.href = '/Customer/Blogs';
+                                }
+                            )
+                        }
+                        else
+                        {
+                            if (result.isThumbnailSelected != true && result.isThumbnailUploadSuccess == false)
+                            {
+                                $('#lbError').html("@Html.Raw(LangResources["BlogProfile_Message_NoThumbnailSelected"])");
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                            else if (result.isThumbnailUploadSuccess == false && result.isThumbnailSelected == true)
+                            {
+                                $('#lbError').html("@Html.Raw(LangResources["BlogProfile_Message_UploadThumbnailFailed"])");
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                            else
+                            {
+                                $('#lbError').html("@Html.Raw(LangResources["BlogProfile_Message_Fail"])");
+                                $('#lbError').css('visibility', 'visible');
+                            }
+                        }
+                    },
+                    error: function(ex)
+                    {
+                        $('#lbError').html("@Html.Raw(LangResources["BlogProfile_Message_Fail"])");
+                        $('#lbError').css('visibility', 'visible');
+                    }
+                });
+            }
+            else 
+            {
+                $('#lbError').html("@Html.Raw(LangResources["BlogProfile_Message_MandatoryFieldsRequired"])");
+                $('#lbError').css('visibility', 'visible');
+            }
+
+        });
+
+        $('#btnCancel').on('click', function(ctl){
+            window.location.href = '/Customer/Blogs';
+        });
+
+        $('#btnUpdate').on('click', function(ctl)
+        {
+            if (validateFields())
+            {
+                $.post("/Customer/UpdateBlogInfo", {
+                    blogID: $('#hidID').val(),
+                    sUpdateForm : {
+                        title: $('#txtTitle').val(),
+                        description: $('#txtDescription').val(),
+                        startDate: $('#txtStartDate').val(),
+                        endDate: $('#txtEndDate').val(),
+                        urlLink: $('#txtURL').val(),
+                        status: $('#ddlStatus').val(),
+                        uploadedBy: '@sessionUserName'
+                    }
+                }).done(function(result){
+                    if (result.StatusCode == 200){
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["BlogProfile_Title_UpdateBlogInfo"])", 
+                                          "@Html.Raw(LangResources["BlogProfile_Message_UpdateBlogSuccessfully"])",
+                            function () {
+                                window.location.href = '/Customer/Blogs';
+                            }
+                        )
+                    }
+                    else
+                    {
+                        if  (result.isNoChanges)
+                        {
+                            $('#lbError').html('@Html.Raw(LangResources["BlogProfile_Message_NoChangesUpdate"])');
+                            $('#lbError').css('visibility', 'visible');
+                        }
+                        else
+                        {
+                            $('#lbError').html('@Html.Raw(LangResources["BlogProfile_Message_UpdateFailed"])');
+                            $('#lbError').css('visibility', 'visible');
+                        }
+
+                    }
+                });
+            }
+            else 
+            {
+                let sErrorText = $('#lbError').html();
+
+                if (sErrorText.length > 0)
+                {
+                    sErrorText = sErrorText + '<br/>' + '@Html.Raw(LangResources["BlogProfile_Message_MandatoryFieldsRequired"])';
+                    $('#lbError').html(sErrorText);
+                    $('#lbError').css('visibility', 'visible');
+                }
+                else
+                {
+                    $('#lbError').html('@Html.Raw(LangResources["BlogProfile_Message_MandatoryFieldsRequired"])');
+                    $('#lbError').css('visibility', 'visible');
+                }
+            }
+
+        });
+
+        if ('@ViewData["BlogProfile"]' != '')
+        {
+            $('#txtTitle').val('@sBlogObj.Title');
+            $('#txtDescription').val('@sBlogObj.Description');
+            $('#txtURL').val('@sBlogObj.URLtoRedirect');
+            $('#txtStartDate').val('@sBlogObj.StartDateString');
+            $('#txtEndDate').val('@sBlogObj.EndDateString');
+            $('#txtFileName').val('@sBlogObj.ThumbnailImage');
+            $('#hidID').val('@sBlogObj.ID');
+
+            setTimeout(function(){
+                $('#ddlStatus').val('@sBlogObj.IsActive');
+            }, 250);
+
+            if ('@ViewData["ViewType"]' == "View")
+            {
+                $('#txtTitle').prop('disabled', true);
+                $('#txtDescription').prop('disabled', true);
+                $('#txtURL').prop('disabled', true);
+                $('#txtStartDate').prop('disabled', true);
+                $('#txtEndDate').prop('disabled', true);
+                $('#ddlStatus').prop('disabled', true);
+                $('#txtFileName').prop('disabled', true);
+
+                $('.btn-outline-secondary').hide();
+
+                $('#divThubmnailUpload').hide();
+                $('#divFile').show();
+
+                $('#btnCreate').hide();
+                $('#btnUpdate').hide();
+            }
+            else if ('@ViewData["ViewType"]' == "Edit")
+            {
+                $('#txtFileName').prop('disabled', true);
+
+                $('#divThubmnailUpload').hide();
+                $('#divFileName').show();
+
+                $('#btnCreate').hide();
+                $('#btnUpdate').show();
+            }
+        }
+        else 
+        {
+            $('#divThubmnailUpload').show();
+            $('#divFile').hide();
+
+            $('#btnUpdate').hide();
+            $('#btnCreate').show();
+        }
+    });
+
+    function validateFields()
+    {
+        let isValid = true;
+
+        if ($('#txtTitle').val() == '')
+        {
+            $('#txtTitle').addClass("errorValidation");
+            $('#txtTitle').focus();
+
+            isValid = false;
+        }
+        else 
+        {
+            $('#txtTitle').removeClass("errorValidation");
+        }
+
+        if ($('#txtDescription').val() == '')
+        {
+            $('#txtDescription').addClass("errorValidation");
+            $('#txtDescription').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#txtDescription').removeClass("errorValidation");
+        }
+
+        if ($('#txtURL').val() == '')
+        {
+            $('#txtURL').addClass("errorValidation");
+            $('#txtURL').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#txtURL').removeClass("errorValidation");
+        }
+
+        if ($('#txtStartDate').val() == '')
+        {
+            $('#txtStartDate').addClass("errorValidation");
+            $('#txtStartDate').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#txtStartDate').removeClass("errorValidation");
+        }
+
+        if ($('#txtEndDate').val() == '')
+        {
+            $('#txtEndDate').addClass("errorValidation");
+            $('#txtEndDate').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#txtEndDate').removeClass("errorValidation");
+        }
+
+        if ($('#ddlStatus').val() == '')
+        {
+            $('#ddlStatus').addClass("errorValidation");
+            $('#ddlStatus').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#ddlStatus').removeClass("errorValidation");
+        }
+
+        return isValid;
+    }
+
+    function LoadStatusListDropdown()
+    {
+        $.getJSON("/Customer/GetStatusList")
+         .done(function(result){
+            if (result.length > 0)
+            {
+                $('#ddlStatus').find("option:not(:first)").remove();
+                for (var i = 0; i < result.length; i++) {
+                    var opt = new Option(result[i].CodeName, result[i].CodeID);
+                    $('#ddlStatus').append(opt);
+                }
+             }
+             else {
+                 $('#ddlStatus').find("option:not(:first)").remove();
+             }
+         })
+    }
+</script>
+
+<div class="row">
+    <div class="row mt-3 ms-3">
+        <div class="col-md-12">
+            <div class="row ms-2 me-2">
+                <div class="col-md-12 blogFrameTitle">
+                    <label class="blogTitleLabel">
+                        @LangResources["BlogProfile_Title_BlogDetails"]
+                    </label>
+                </div>
+                <div class="col-md-12 blogFrameBody">
+                    <div class="row mt-4 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="txtTitle" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_Title"]
+                            </label>
+                            <input id="txtTitle" type="text" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div class="row mt-2 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="txtDescription" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_Description"]
+                            </label>
+                            <input id="txtDescription" type="text" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div class="row mt-2 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="txtURL" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_URL"]
+                            </label>
+                            <input id="txtURL" type="text" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div class="row mt-2 ms-1 me-1">
+                        <div class="col-md-6">
+                            <label for="txtStartDate" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_StartDate"]
+                            </label>
+                            <input id="txtStartDate" class="form-control form-control-sm" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="txtEndDate" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_EndDate"]
+                            </label>
+                            <input id="txtEndDate" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div class="row mt-1 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="ddlStatus" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_Status"]
+                            </label>
+                            <select id="ddlStatus" class="form-select form-select-sm">
+                                <option value="">@LangResources["BlogProfile_Label_PleaseSelectStatus"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="divThubmnailUpload" class="row mt-2 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="thumbnailUpload" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_Upload"]
+                            </label>
+                            <input id="thumbnailUpload" type="file" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div id="divFile" class="row mt-2 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label for="txtFileName" class="blogFieldLabel">
+                                @LangResources["BlogProfile_Label_FileName"]
+                            </label>
+                            <input id="txtFileName" type="text" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-2 ms-1 me-1">
+                        <div class="col-md-12">
+                            <label id="lbError" class="errorLabel"></label>
+                            <input type="hidden" id="hidID" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-9">&nbsp;</div>
+                <div class="col-md-3">
+                    <button id="btnCancel" type="button" class="btn btn-secondary">
+                        @LangResources["BlogProfile_Button_Cancel"]
+                    </button>
+                    <button id="btnCreate" type="button" class="btn btn-primary">
+                        @LangResources["BlogProfile_Button_Create"]
+                    </button>&nbsp;
+                    <button id="btnUpdate" type="button" class="btn btn-primary">
+                        @LangResources["BlogProfile_Button_Update"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

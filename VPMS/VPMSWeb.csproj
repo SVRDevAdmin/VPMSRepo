@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Upload\**" />
+    <Compile Remove="wwwrootupload\**" />
+    <Content Remove="Upload\**" />
+    <Content Remove="wwwrootupload\**" />
+    <EmbeddedResource Remove="Upload\**" />
+    <EmbeddedResource Remove="wwwrootupload\**" />
+    <None Remove="Upload\**" />
+    <None Remove="wwwrootupload\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Lib\ExtensionMethods\HtmlHelperExtensionMethods.cs" />
     <Compile Remove="Lib\Interface\ISharedViewLocalizer.cs" />
     <Compile Remove="Lib\Shared\SharedViewLocalizer .cs" />
@@ -18,6 +29,7 @@
   <ItemGroup>
     <Content Remove="Views\User\UserProfile.cshtml" />
     <Content Remove="wwwroot\js\Appointment.js" />
+    <Content Remove="wwwroot\js\Roles.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,7 +92,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Library\VPMS.Lib.Helpers\VPMS.Lib.Helpers.csproj" />
+    <ProjectReference Include="..\VPMS.Interface.API\VPMS.Interface.API.csproj" />
     <ProjectReference Include="..\VPMS.Lib.Data\VPMS.Lib.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

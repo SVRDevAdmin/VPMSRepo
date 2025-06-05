@@ -3,6 +3,9 @@
 
 @{
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+    var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 
     var sRoleObj = new VPMS.Lib.Data.Models.RoleModelExtObject();
     if (ViewData["RoleProfile"] != null)
@@ -28,6 +31,12 @@
         sOrganizationDDL = ViewData["OrganizationDropdown"] as List<VPMS.Lib.Data.Models.OrganisationModel>;
     }
 
+    List<VPMS.Lib.Data.Models.MastercodeModel> sRoleTypeDDL = new List<VPMS.Lib.Data.Models.MastercodeModel>();
+    if (ViewData["RoleTypeDropdown"] != null)
+    {
+        sRoleTypeDDL = ViewData["RoleTypeDropdown"] as List<VPMS.Lib.Data.Models.MastercodeModel>;
+    }
+
     var sViewType = ViewData["ViewType"] as String;
     ViewBag.SelectedMenu = "AccessMenu";
 }
@@ -37,6 +46,8 @@
 <script>
     $("#SubMenuAccess").toggleClass('show');
     document.querySelector("#SubMenuAccessParent").querySelector("#imgArrow").classList.toggle("Up");
+
+    let iRoleType = 3;
 
     $(document).ready(function () {
         $('#btnUpdate').hide();
@@ -61,8 +72,10 @@
                     roleDescription: $('#txtDescription').val(),
                     userID: '@sessionUserID',
                     status: $('#ddlStatus').val(),
+                    organizationID: $('#ddlOrganization').val(),
                     branchID: $('#ddlBranch').val(),
                     isDoctor: $('#ddlIsDoctor').val(),
+                    roleType: iRoleType,
                     permissionsList: permList
                 }
 
@@ -155,6 +168,9 @@
             $('#ddlStatus').val('@sRoleObj.Status');
             $('#ddlStatus').trigger('changes');
 
+            $('#ddlRoleType').val('@sRoleObj.RoleType');
+            $('#ddlRoleType').trigger('changes');
+
             $('#ddlIsDoctor').val('@sRoleObj.IsDoctor');
             $('#ddlIsDoctor').trigger('changes');
 
@@ -188,13 +204,14 @@
                     }
                 }
             });
-
+            
             if ('@sViewType' == "View")
             {
                 $('#txtRoleName').prop('disabled', true);
                 $('#txtDescription').prop('disabled', true);
 
                 $('#ddlStatus').prop('disabled', true);
+                $('#ddlRoleType').prop('disabled', true);
                 $('#ddlIsDoctor').prop('disabled', true);
                 $('#ddlOrganization').prop('disabled', true);
                 $('#ddlBranch').prop('disabled', true);
@@ -203,6 +220,17 @@
 
                 $('#btnUpdate').hide();
             }
+        }
+        else 
+        {
+            if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+            {
+                $('#ddlOrganization').val('@sessionOrganizationID');
+                $('#ddlOrganization').trigger('changee');
+                $('#ddlOrganization').prop('disabled', true);
+
+                loadBranchDropdownlist('@sessionOrganizationID');
+            } 
         }
     });
 
@@ -231,6 +259,18 @@
         }
         else{
             $('#ddlStatus').removeClass("errorValidation");
+        }
+
+        if ($('#ddlRoleType').val() == '')
+        {
+            $('#ddlRoleType').addClass("errorValidation");
+            $('#ddlRoleType').focus();
+
+            isValid = false;
+        }
+        else 
+        {
+            $('#ddlRoleType').removeClass("errorValidation");
         }
 
         if ($('#ddlOrganization').val() == '') {
@@ -340,6 +380,21 @@
                 }
         });
     }
+
+    function ddlRoleTypeChanges(data)
+    {
+        var roleType = data.value;
+        if (roleType == 1){
+            $('#ddlIsDoctor').val(1);
+            $('#ddlIsDoctor').trigger('changes');
+
+            $('#ddlIsDoctor').prop('disabled', true);
+        }
+        else {
+            $('#ddlIsDoctor').prop('selectedIndex', 0);
+            $('#ddlIsDoctor').prop('disabled', false);
+        }
+    }
 </script>
 <div class="row">
     <div class="row" style="margin-top: 20px;">
@@ -348,7 +403,7 @@
         </div>
         <div class="col-md-5">&nbsp;</div>
     </div>
-    <div class="row" style="margin-top: 15px; font-size: 1vw">
+    <div class="row" style="margin-top: 15px;">
         <div class="col-md-12">
             <div class="row frameRoleStyle">
                 <div class="col-md-12 frameRoleHeader">
@@ -356,27 +411,18 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-12">&nbsp;
+                        <div class="col-md-12">
                             <label id="lbError" style="color: red;"></label>
                             <input id="hidID" type="hidden" />
                         </div>
                     </div>
-                    <div class="row" style="border: 0px solid black;">
-                        <div class="col-md-4">
-                            <label class="LeftColLabel">@LangResources["Roles_Label_UserRole"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="CenterColLabel">@LangResources["Roles_Label_Status"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="RightColLabel">@LangResources["Roles_Label_Organization"]</label>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-4">
+                            <label for="txtRoleName" class="LeftColLabel">@LangResources["Roles_Label_UserRole"]</label>
                             <input id="txtRoleName" type="text" class="form-control leftColControl" />
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlStatus" class="CenterColLabel">@LangResources["Roles_Label_Status"]</label>
                             <select id="ddlStatus" class="form-select centerColControl" >
                                 <option value="">@LangResources["Roles_Label_PleaseSelectStatus"]</option>
 
@@ -385,22 +431,26 @@
                                     {
                                         foreach(var m in sStatusDDL)
                                         {
-                                                    <option value="@m.CodeID">@m.CodeName</option>
+                                            <option value="@m.CodeID">@m.CodeName</option>
                                         }
                                     }
                                 }
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <select id="ddlOrganization" class="form-select rightColControl" onchange="ddlOrganizationChange(this);" >
-                                <option value="">@LangResources["Roles_Label_PleaseSelectOrganization"]</option>
+                            <label for="ddlRoleType" class="RightColLabel">@LangResources["Roles_Label_RoleType"]</label>
+                            <select id="ddlRoleType" class="form-select rightColControl" onchange="ddlRoleTypeChanges(this);">
+                                <option value="">Please Select Role Type</option>
 
                                 @{
-                                    if (sOrganizationDDL != null && sOrganizationDDL.Count > 0)
+                                    if (sRoleTypeDDL != null && sRoleTypeDDL.Count > 0)
                                     {
-                                        foreach(var org in sOrganizationDDL)
+                                        foreach (var r in sRoleTypeDDL)
                                         {
-                                                    <option value="@org.Id">@org.Name</option>
+                                            if (@r.CodeID != "999" && @r.CodeID != "998" && @r.CodeID != "997")
+                                            {
+                                                <option value="@r.CodeID">@r.CodeName</option>
+                                            }
                                         }
                                     }
                                 }
@@ -409,40 +459,43 @@
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <label class="LeftColLabel">@LangResources["Roles_Label_Description"]</label>
-                        </div>
-                        <div class="col-md-8">&nbsp;</div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
+                            <label for="txtDescription" class="LeftColLabel">@LangResources["Roles_Label_Description"]</label>
                             <textarea id="txtDescription" class="form-control leftColSpanControl" maxlength="255" rows="4" ></textarea>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColLabel">@LangResources["Roles_Label_Branch"]</label>
+                            <label for="ddlOrganization" class="LeftColLabel">@LangResources["Roles_Label_Organization"]</label>
+                            <select id="ddlOrganization" class="form-select leftColControl" onchange="ddlOrganizationChange(this);">
+                                <option value="">@LangResources["Roles_Label_PleaseSelectOrganization"]</option>
+                                @{
+                                    if (sOrganizationDDL != null && sOrganizationDDL.Count > 0)
+                                    {
+                                        foreach (var org in sOrganizationDDL)
+                                        {
+                                            <option value="@org.Id">@org.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
                         </div>
                         <div class="col-md-4">
-                            <label class="CenterColLabel">@LangResources["Roles_Label_AreYouDoctor"]</label>
-                        </div>
-                        <div class="col-md-4">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <select id="ddlBranch" class="form-select leftColControl">
+                            <label for="ddlBranch" class="CenterColLabel">@LangResources["Roles_Label_Branch"]</label>
+                            <select id="ddlBranch" class="form-select centerColControl">
                                 <option value="">@LangResources["Roles_Label_PleaseSelectBranch"]</option>
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <select id="ddlIsDoctor" class="form-select centerColControl">
+                            <label for="ddlIsDoctor" class="RightColLabel">@LangResources["Roles_Label_AreYouDoctor"]</label>
+                            <select id="ddlIsDoctor" class="form-select rightColControl">
                                 <option value="">@LangResources["Roles_Label_PleaseSelectOption"]</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
                         </div>
-                        <div class="col-md-4">&nbsp;</div>
+                        
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">&nbsp;</div>
@@ -458,21 +511,20 @@
                                 var sGroupListing = ViewData["PermissionGroup"] as List<String>;
                                 foreach(var g in sGroupListing)
                                 {
-                                            <div class="col-md-12">
-                                                <label class="permissionGrouping">@g</label>
-                                            </div>
-
+                                    <div class="col-md-12">
+                                        <label class="permissionGrouping">@g</label>
+                                    </div>
 
                                     var sPermissionListing = ViewData["PermissionObject"] as List<VPMS.Lib.Data.Models.AccessPermissionObject>;
                                     foreach (var p in sPermissionListing.Where(x => x.PermissionGrouping == g).ToList())
                                     {
-                                                <div class="col-md-3">
-                                                    <input name="chkPermission" class="form-check-input permissionCheckbox" type="checkbox" value="" data-target="@p.PermissionKey" />
-                                                    <label class="form-check-label permissionCheckBoxLabel">@p.PermissionName</label>
-                                                </div>
+                                        <div class="col-md-3">
+                                            <input name="chkPermission" class="form-check-input permissionCheckbox" type="checkbox" value="" data-target="@p.PermissionKey" />
+                                            <label class="form-check-label permissionCheckBoxLabel">@p.PermissionName</label>
+                                        </div>
                                     }
 
-                                            <div class="col-md-12">&nbsp;</div>
+                                    <div class="col-md-12">&nbsp;</div>
                                 }
                             }
                         }
@@ -483,13 +535,13 @@
             </div>
             <div class="row roleButtonRow">
                 <div class="col-md-12 roleButtonBox">
-                    <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">
+                    <button id="btnCancel" type="button" class="btn btn-secondary">
                         @LangResources["Roles_Button_Cancel"]
                     </button>
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                    <button id="btnCreate" type="button" class="btn btn-primary">
                         @LangResources["Roles_Button_Create"]
                     </button>
-                    <button id="btnUpdate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                    <button id="btnUpdate" type="button" class="btn btn-primary">
                         @LangResources["Roles_Button_Update"]
                     </button>
                 </div>

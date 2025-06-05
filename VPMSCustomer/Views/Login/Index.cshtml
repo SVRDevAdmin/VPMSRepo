@@ -1,0 +1,183 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    Layout = "";
+
+    // --- Session in Cookies -------//
+    var sCustomerSession = httpContextaccessor.HttpContext.Request.Cookies["CustomerSession"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @{
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["CustomerTheme"];
+        if (theme != null)
+        {
+            if (theme == "Dark")
+            {
+                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+            }
+            else
+            {
+                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+            }
+        }
+        else
+        {
+            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+        }
+    }
+
+    <script type="text/javascript">
+       
+        $(document).ready(function()
+        {
+            $('#btnLogin').on('click', function(ctl){
+                if (validateFields())
+                {
+                    validateLogin();
+                }
+                else
+                {
+                    $('#lbError').html('@Html.Raw(LangResources["Login_Message_LoginIDPasswordMissing"])');
+                }
+            });
+        });
+
+        function validateLogin()
+        {
+            $('.loading-icon').removeClass('hide');
+            $('#btnLogin').attr('disabled', true);
+
+            $.post("/Login/ValidateLogin", {
+                sUserName: $('#txtLoginID').val(),
+                sPassword: $('#txtPassword').val()
+            }).done(function(result){
+                if (result.statusCode == 200)
+                {
+                    window.location.href = '/Home/';
+                }
+                else{
+                    $('.loading-icon').addClass('hide');
+                    $('#btnLogin').attr('disabled', false);
+
+                    $('#lbError').html(result.statusCodeMessage);
+                }
+            });
+        }
+
+        function validateFields()
+        {
+            let isValid = true;
+
+            // ------- Login ID --------- //
+            if ($('#txtLoginID').val() == '')
+            {
+                $('#divLoginID').addClass("errorValidation");
+                $('#txtLoginID').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#divLoginID').removeClass("errorValidation");
+            }
+
+            // ------- Password ---------- //
+            if ($('#txtPassword').val() == '')
+            {
+                $('#divPassword').addClass("errorValidation");
+                $('#txtPassword').focus();
+
+                isValid = false;
+            }
+            else
+            {
+                $('#divPassword').removeClass("errorValidation");
+            }
+
+            return isValid;
+        }
+    </script>
+</head>
+<body id="loginBody">
+    <div class="row">
+        <div class="row"></div>
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-3">
+                <img class="loginLogo" />
+            </div>
+            <div class="col-md-7">
+                <img src="~/Images/Login_Landing_Image.png" width="700" height="600" style="position: absolute"  />
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-3 text-center">
+                <label class="loginSmallTitle">
+                    @LangResources["Login_Title_Login"]
+                </label>
+            </div>
+            <div class="col-md-7">&nbsp;</div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-3">
+                <div id="divLoginID" class="form-control">
+                    <img class="iconPerson" />
+                    <input id="txtLoginID" type="text" />
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-3">
+                <div id="divPassword" class="form-control">
+                    <img class="iconLocked" />
+                    <input id="txtPassword" type="password" />
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-3">
+                <label id="lbError" class="errorLabel" />
+            </div>
+        </div>  
+        <div class="row">
+            <div class="col-md-2">&nbsp</div>
+            <div class="col-md-3">
+                <button id="btnLogin" class="btn btn-primary">
+                    <i class="loading-icon fa fa-spinner fa-spin hide"></i>
+                    @LangResources["Login_Button_Login"]
+                </button>
+                @* <input id="btnLogin" type="button" class="btn btn-primary" value="@LangResources["Login_Button_Login"]" /> *@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">&nbsp</div>
+            <div class="col-md-3">
+                <img src="~/Images/Footsteps.png" width="130" height="70" style="margin-top: 80px; margin-left: 120px;"/>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

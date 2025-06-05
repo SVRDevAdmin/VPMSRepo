@@ -1,0 +1,1788 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Appointment_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
+    <value>予約をキャンセル</value>
+  </data>
+  <data name="Appointment_Button_Confirm" xml:space="preserve">
+    <value>確認する</value>
+  </data>
+  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
+    <value>新しい予定</value>
+  </data>
+  <data name="Appointment_Button_Reset" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="Appointment_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Appointment_Button_Update" xml:space="preserve">
+    <value>アップデート</value>
+  </data>
+  <data name="Appointment_Label_ContactNo" xml:space="preserve">
+    <value>連絡先番号</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>予約日時</value>
+  </data>
+  <data name="Appointment_Label_Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>ドクター</value>
+  </data>
+  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
+    <value>予定を編集</value>
+  </data>
+  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
+    <value>電子メールアドレス</value>
+  </data>
+  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
+    <value>既存の顧客ですか?</value>
+  </data>
+  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
+    <value>*必須項目です。</value>
+  </data>
+  <data name="Appointment_Label_Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Appointment_Label_NewClient" xml:space="preserve">
+    <value>新しい顧客ですか？</value>
+  </data>
+  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
+    <value>メールで通知する</value>
+  </data>
+  <data name="Appointment_Label_Owner" xml:space="preserve">
+    <value>オーナー</value>
+  </data>
+  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
+    <value>ペットの飼い主の氏名</value>
+  </data>
+  <data name="Appointment_Label_OwnerName" xml:space="preserve">
+    <value>ペットの所有者名</value>
+  </data>
+  <data name="Appointment_Label_Pet" xml:space="preserve">
+    <value>ペット</value>
+  </data>
+  <data name="Appointment_Label_PetDOB" xml:space="preserve">
+    <value>ペットの生年月日</value>
+  </data>
+  <data name="Appointment_Label_PetName" xml:space="preserve">
+    <value>ペットネーム</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>サービス</value>
+  </data>
+  <data name="Appointment_Label_Species" xml:space="preserve">
+    <value>種族</value>
+  </data>
+  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
+    <value>予約に戻る</value>
+  </data>
+  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
+    <value>クイック予約に切り替える</value>
+  </data>
+  <data name="Appointment_Label_Week" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
+    <value>予約がキャンセルされました。更新されました。</value>
+  </data>
+  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>この予約をキャンセルしますか?</value>
+  </data>
+  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
+    <value>*上記の予約日時は医師の診察ができません。</value>
+  </data>
+  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
+    <value>*システム内に同じ患者の予約が存在します。</value>
+  </data>
+  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
+    <value>予約を更新できませんでした。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>更新に成功しました。</value>
+  </data>
+  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
+    <value>医師を選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
+    <value>所有者を選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
+    <value>ペットを選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
+    <value>サービスを選択してください</value>
+  </data>
+  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
+    <value>ペットの種類を選択してください</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>予定</value>
+  </data>
+  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
+    <value>予約をキャンセル</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>予約を作成</value>
+  </data>
+  <data name="Appointment_Title_Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
+    <value>予約の作成（新規クライアント）</value>
+  </data>
+  <data name="DoctorProfile_Button_Back" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="DoctorProfile_Button_Create" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="DoctorProfile_Button_Update" xml:space="preserve">
+    <value>アップデート</value>
+  </data>
+  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
+    <value>指定</value>
+  </data>
+  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
+    <value>ジェンダー</value>
+  </data>
+  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
+    <value>ライセンス番号</value>
+  </data>
+  <data name="DoctorProfile_Label_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
+    <value>性別を選択してください</value>
+  </data>
+  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
+    <value>専門</value>
+  </data>
+  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
+    <value>システムID</value>
+  </data>
+  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
+    <value>医師が追加されました</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
+    <value>*医師を追加できませんでした。後でもう一度お試しください。</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
+    <value>*医師情報を更新できませんでした。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
+    <value>*必須フィールドです。</value>
+  </data>
+  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
+    <value>更新に成功しました</value>
+  </data>
+  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
+    <value>医師を追加</value>
+  </data>
+  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
+    <value>医師の詳細</value>
+  </data>
+  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
+    <value>ドクターアップデート</value>
+  </data>
+  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
+    <value>医師を追加</value>
+  </data>
+  <data name="Doctor_Button_Next" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="Doctor_Button_Prev" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="Doctor_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
+    <value>指定</value>
+  </data>
+  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
+    <value>ジェンダー</value>
+  </data>
+  <data name="Doctor_Label_ColumnID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
+    <value>ライセンス番号</value>
+  </data>
+  <data name="Doctor_Label_ColumnName" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
+    <value>名前で医師を検索</value>
+  </data>
+  <data name="Doctor_Label_Specialty" xml:space="preserve">
+    <value>専門</value>
+  </data>
+  <data name="Doctor_Menu_Delete" xml:space="preserve">
+    <value>消去</value>
+  </data>
+  <data name="Doctor_Menu_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Doctor_Menu_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
+    <value>医師の記録を削除しますか?</value>
+  </data>
+  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
+    <value>レコードの削除に失敗しました。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
+    <value>医師の記録を削除する</value>
+  </data>
+  <data name="Doctor_Title_Doctor" xml:space="preserve">
+    <value>ドクター</value>
+  </data>
+  <data name="LanguageCountry_Button_Save" xml:space="preserve">
+    <value>保存された</value>
+  </data>
+  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
+    <value>国を選択できません。</value>
+  </data>
+  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
+    <value>言語選択はできません。</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
+    <value>国を選択</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
+    <value>言語を選択</value>
+  </data>
+  <data name="Login_Button_Back" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="Login_Button_RecoverPassword" xml:space="preserve">
+    <value>パスワードを回復する</value>
+  </data>
+  <data name="Login_Link_ForgotPassword" xml:space="preserve">
+    <value>パスワードをお忘れですか？</value>
+  </data>
+  <data name="Login_Placeholder_Email" xml:space="preserve">
+    <value>電子メール</value>
+  </data>
+  <data name="Login_Placeholder_LoginID" xml:space="preserve">
+    <value>ログインID</value>
+  </data>
+  <data name="Login_Placeholder_Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Login_Title_PasswordRecovery" xml:space="preserve">
+    <value>パスワードの回復</value>
+  </data>
+  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
+    <value>アクセス制御</value>
+  </data>
+  <data name="MenuBar_Label_Appointments" xml:space="preserve">
+    <value>予定</value>
+  </data>
+  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
+    <value>顧客サービス</value>
+  </data>
+  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
+    <value>ダッシュボード</value>
+  </data>
+  <data name="MenuBar_Label_Doctor" xml:space="preserve">
+    <value>ドクター</value>
+  </data>
+  <data name="MenuBar_Label_Integration" xml:space="preserve">
+    <value>統合</value>
+  </data>
+  <data name="MenuBar_Label_Inventory" xml:space="preserve">
+    <value>在庫</value>
+  </data>
+  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
+    <value>請求書と領収書</value>
+  </data>
+  <data name="MenuBar_Label_Logout" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="MenuBar_Label_MyProfile" xml:space="preserve">
+    <value>マイプロフィール</value>
+  </data>
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="MenuBar_Label_Patients" xml:space="preserve">
+    <value>患者</value>
+  </data>
+  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
+    <value>患者サービス</value>
+  </data>
+  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
+    <value>患者治療計画</value>
+  </data>
+  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
+    <value>役割設定</value>
+  </data>
+  <data name="MenuBar_Label_Service" xml:space="preserve">
+    <value>サービス</value>
+  </data>
+  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
+    <value>スタッフ一覧</value>
+  </data>
+  <data name="Notification_Label_All" xml:space="preserve">
+    <value>全て</value>
+  </data>
+  <data name="Notification_Label_Inventory" xml:space="preserve">
+    <value>インベントリー</value>
+  </data>
+  <data name="Notification_Label_Messages" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="Notification_Label_Next" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="Notification_Label_Prev" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="Notification_Title_Notification" xml:space="preserve">
+    <value>お知らせ</value>
+  </data>
+  <data name="Patient_Button_AddCoOwner" xml:space="preserve">
+    <value>共同所有者を追加</value>
+  </data>
+  <data name="Patient_Button_AddNew" xml:space="preserve">
+    <value>新規追加</value>
+  </data>
+  <data name="Patient_Button_AddPet" xml:space="preserve">
+    <value>ペットを追加</value>
+  </data>
+  <data name="Patient_Button_AddSelections" xml:space="preserve">
+    <value>選択項目を追加</value>
+  </data>
+  <data name="Patient_Button_AddTreatment" xml:space="preserve">
+    <value>トリートメントを追加</value>
+  </data>
+  <data name="Patient_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Patient_Button_ClearAll" xml:space="preserve">
+    <value>すべてクリア</value>
+  </data>
+  <data name="Patient_Button_CreateTreatmentPlan" xml:space="preserve">
+    <value>治療計画の作成</value>
+  </data>
+  <data name="Patient_Button_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Patient_Button_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Patient_Button_Finish" xml:space="preserve">
+    <value>終える</value>
+  </data>
+  <data name="Patient_Button_GoBack" xml:space="preserve">
+    <value>戻ってください</value>
+  </data>
+  <data name="Patient_Button_NewPatient" xml:space="preserve">
+    <value>新規患者様</value>
+  </data>
+  <data name="Patient_Button_Next" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="Patient_Button_NextStep" xml:space="preserve">
+    <value>次のステップ</value>
+  </data>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>継続的な治療</value>
+  </data>
+  <data name="Patient_Button_PastTreatment" xml:space="preserve">
+    <value>過去の治療</value>
+  </data>
+  <data name="Patient_Button_Previous" xml:space="preserve">
+    <value>先の</value>
+  </data>
+  <data name="Patient_Button_RemoveCoOwner" xml:space="preserve">
+    <value>共同所有者の削除</value>
+  </data>
+  <data name="Patient_Button_Save" xml:space="preserve">
+    <value>セーブ</value>
+  </data>
+  <data name="Patient_Button_SaveMedication" xml:space="preserve">
+    <value>薬を節約する</value>
+  </data>
+  <data name="Patient_Button_SaveSurgery" xml:space="preserve">
+    <value>手術の保存</value>
+  </data>
+  <data name="Patient_Button_SaveVaccination" xml:space="preserve">
+    <value>予防接種の保存</value>
+  </data>
+  <data name="Patient_Button_Search" xml:space="preserve">
+    <value>捜索</value>
+  </data>
+  <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
+    <value>今後の治療</value>
+  </data>
+  <data name="Patient_Button_View" xml:space="preserve">
+    <value>眺める</value>
+  </data>
+  <data name="Patient_Button_ViewPetProfile" xml:space="preserve">
+    <value>ペットのプロフィールを見る</value>
+  </data>
+  <data name="Patient_Label_Address" xml:space="preserve">
+    <value>住所</value>
+  </data>
+  <data name="Patient_Label_AddressLine1" xml:space="preserve">
+    <value>住所1</value>
+  </data>
+  <data name="Patient_Label_AddressLine2" xml:space="preserve">
+    <value>住所2</value>
+  </data>
+  <data name="Patient_Label_Age" xml:space="preserve">
+    <value>年齢</value>
+  </data>
+  <data name="Patient_Label_AgeYear" xml:space="preserve">
+    <value>年齢(年)</value>
+  </data>
+  <data name="Patient_Label_Allergies" xml:space="preserve">
+    <value>アレルギー</value>
+  </data>
+  <data name="Patient_Label_BMI" xml:space="preserve">
+    <value>BMIの</value>
+  </data>
+  <data name="Patient_Label_Breed" xml:space="preserve">
+    <value>繁殖</value>
+  </data>
+  <data name="Patient_Label_City" xml:space="preserve">
+    <value>都市</value>
+  </data>
+  <data name="Patient_Label_Color" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="Patient_Label_ContactNo" xml:space="preserve">
+    <value>連絡先番号</value>
+  </data>
+  <data name="Patient_Label_CoOwnerInformationOptional" xml:space="preserve">
+    <value>共同所有者情報(オプション)</value>
+  </data>
+  <data name="Patient_Label_CoOwnerName" xml:space="preserve">
+    <value>共同所有者の名前</value>
+  </data>
+  <data name="Patient_Label_Country" xml:space="preserve">
+    <value>国</value>
+  </data>
+  <data name="Patient_Label_CreatedOn" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="Patient_Label_Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="Patient_Label_DOB" xml:space="preserve">
+    <value>生年月日</value>
+  </data>
+  <data name="Patient_Label_Doctor" xml:space="preserve">
+    <value>医者</value>
+  </data>
+  <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>期日</value>
+  </data>
+  <data name="Patient_Label_ExpiryDate" xml:space="preserve">
+    <value>有効 期限</value>
+  </data>
+  <data name="Patient_Label_Gender" xml:space="preserve">
+    <value>ジェンダー</value>
+  </data>
+  <data name="Patient_Label_GrandTotal" xml:space="preserve">
+    <value>総計</value>
+  </data>
+  <data name="Patient_Label_HealthCard" xml:space="preserve">
+    <value>健康カード</value>
+  </data>
+  <data name="Patient_Label_Height" xml:space="preserve">
+    <value>高さ</value>
+  </data>
+  <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
+    <value>請求書 &amp; 請求</value>
+  </data>
+  <data name="Patient_Label_Medication" xml:space="preserve">
+    <value>薬</value>
+  </data>
+  <data name="Patient_Label_MedicationName" xml:space="preserve">
+    <value>薬の名前</value>
+  </data>
+  <data name="Patient_Label_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Patient_Label_Number" xml:space="preserve">
+    <value>数</value>
+  </data>
+  <data name="Patient_Label_Obese" xml:space="preserve">
+    <value>肥満。</value>
+  </data>
+  <data name="Patient_Label_Obesity" xml:space="preserve">
+    <value>肥満</value>
+  </data>
+  <data name="Patient_Label_OwnerName" xml:space="preserve">
+    <value>オーナー名</value>
+  </data>
+  <data name="Patient_Label_Payment" xml:space="preserve">
+    <value>支払い</value>
+  </data>
+  <data name="Patient_Label_Pet" xml:space="preserve">
+    <value>ペット</value>
+  </data>
+  <data name="Patient_Label_PetAge" xml:space="preserve">
+    <value>ペットの年齢(Y)</value>
+  </data>
+  <data name="Patient_Label_PetName" xml:space="preserve">
+    <value>ペットネーム</value>
+  </data>
+  <data name="Patient_Label_Postcode" xml:space="preserve">
+    <value>郵便 番号</value>
+  </data>
+  <data name="Patient_Label_Price" xml:space="preserve">
+    <value>価格</value>
+  </data>
+  <data name="Patient_Label_Product" xml:space="preserve">
+    <value>積</value>
+  </data>
+  <data name="Patient_Label_RegistrationNo" xml:space="preserve">
+    <value>登録番号</value>
+  </data>
+  <data name="Patient_Label_SearchTreatment" xml:space="preserve">
+    <value>検索処理</value>
+  </data>
+  <data name="Patient_Label_Service" xml:space="preserve">
+    <value>サービス</value>
+  </data>
+  <data name="Patient_Label_Sex" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="Patient_Label_Species" xml:space="preserve">
+    <value>種</value>
+  </data>
+  <data name="Patient_Label_State" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="Patient_Label_Status" xml:space="preserve">
+    <value>地位</value>
+  </data>
+  <data name="Patient_Label_Surgeries" xml:space="preserve">
+    <value>手術</value>
+  </data>
+  <data name="Patient_Label_Tax" xml:space="preserve">
+    <value>税金</value>
+  </data>
+  <data name="Patient_Label_TestManagement" xml:space="preserve">
+    <value>テスト管理</value>
+  </data>
+  <data name="Patient_Label_Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="Patient_Label_TotalCost" xml:space="preserve">
+    <value>合計コスト</value>
+  </data>
+  <data name="Patient_Label_TreatmentPeriod" xml:space="preserve">
+    <value>治療期間</value>
+  </data>
+  <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
+    <value>治療計画</value>
+  </data>
+  <data name="Patient_Label_Type" xml:space="preserve">
+    <value>種類</value>
+  </data>
+  <data name="Patient_Label_Unit" xml:space="preserve">
+    <value>単位</value>
+  </data>
+  <data name="Patient_Label_Vaccination" xml:space="preserve">
+    <value>ワクチン接種</value>
+  </data>
+  <data name="Patient_Label_VaccinationTreatment" xml:space="preserve">
+    <value>予防接種・治療</value>
+  </data>
+  <data name="Patient_Label_Weight" xml:space="preserve">
+    <value>重量</value>
+  </data>
+  <data name="Patient_Label_Year" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="Patient_Message_IdleMessage" xml:space="preserve">
+    <value>アイドル状態を続けると、自動的にログアウトされます。</value>
+  </data>
+  <data name="Patient_Message_NoRecord" xml:space="preserve">
+    <value>レコードはありません。</value>
+  </data>
+  <data name="Patient_Selection_Active" xml:space="preserve">
+    <value>能動</value>
+  </data>
+  <data name="Patient_Selection_Female" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="Patient_Selection_Inactive" xml:space="preserve">
+    <value>不活発な</value>
+  </data>
+  <data name="Patient_Selection_Male" xml:space="preserve">
+    <value>男性</value>
+  </data>
+  <data name="Patient_Selection_No" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="Patient_Selection_SelectBreed" xml:space="preserve">
+    <value>品種を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectCity" xml:space="preserve">
+    <value>都市を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectColor" xml:space="preserve">
+    <value>色を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectCountry" xml:space="preserve">
+    <value>国を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectGender" xml:space="preserve">
+    <value>性別を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectSex" xml:space="preserve">
+    <value>性別を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectSpecies" xml:space="preserve">
+    <value>種を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectState" xml:space="preserve">
+    <value>状態を選択</value>
+  </data>
+  <data name="Patient_Selection_SelectStatus" xml:space="preserve">
+    <value>ステータスを選択</value>
+  </data>
+  <data name="Patient_Selection_Yes" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="Patient_Title_AdditionalInformation" xml:space="preserve">
+    <value>追加情報</value>
+  </data>
+  <data name="Patient_Title_AllPets" xml:space="preserve">
+    <value>すべてのペット</value>
+  </data>
+  <data name="Patient_Title_CoOwnerInfo" xml:space="preserve">
+    <value>共同所有者情報</value>
+  </data>
+  <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
+    <value>患者プロファイルの作成</value>
+  </data>
+  <data name="Patient_Title_MedicalRecord" xml:space="preserve">
+    <value>医療記録</value>
+  </data>
+  <data name="Patient_Title_MedicationHistory" xml:space="preserve">
+    <value>投薬歴</value>
+  </data>
+  <data name="Patient_Title_OwnerInfo" xml:space="preserve">
+    <value>オーナー情報</value>
+  </data>
+  <data name="Patient_Title_PatientProfile" xml:space="preserve">
+    <value>患者様プロファイル</value>
+  </data>
+  <data name="Patient_Title_Patients" xml:space="preserve">
+    <value>患者</value>
+  </data>
+  <data name="Patient_Title_PetGrowthHistory" xml:space="preserve">
+    <value>ペットの成長履歴</value>
+  </data>
+  <data name="Patient_Title_PetGrowthTrend" xml:space="preserve">
+    <value>ペットの成長トレンド</value>
+  </data>
+  <data name="Patient_Title_PetInfo" xml:space="preserve">
+    <value>ペット情報</value>
+  </data>
+  <data name="Patient_Title_Profile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
+    <value>今後の予定</value>
+  </data>
+  <data name="Patient_Title_UpcomingVaccinationTreatment" xml:space="preserve">
+    <value>今後のワクチン接種/治療</value>
+  </data>
+  <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
+    <value>予防接種・治療歴</value>
+  </data>
+  <data name="Inventory_Button_NewInventory" xml:space="preserve">
+    <value>新しいインベントリ</value>
+  </data>
+  <data name="Inventory_Label_Branch" xml:space="preserve">
+    <value>枝</value>
+  </data>
+  <data name="Inventory_Label_Category" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
+  <data name="Inventory_Label_Create" xml:space="preserve">
+    <value>創造する</value>
+  </data>
+  <data name="Inventory_Label_Description" xml:space="preserve">
+    <value>形容</value>
+  </data>
+  <data name="Inventory_Label_Image" xml:space="preserve">
+    <value>画像</value>
+  </data>
+  <data name="Inventory_Label_InStock" xml:space="preserve">
+    <value>在庫あり</value>
+  </data>
+  <data name="Inventory_Label_InventoryDetails" xml:space="preserve">
+    <value>インベントリの詳細</value>
+  </data>
+  <data name="Inventory_Label_InventoryName" xml:space="preserve">
+    <value>インベントリ名</value>
+  </data>
+  <data name="Inventory_Label_Organisation" xml:space="preserve">
+    <value>機構</value>
+  </data>
+  <data name="Inventory_Label_OutOfStock" xml:space="preserve">
+    <value>在庫切れ</value>
+  </data>
+  <data name="Inventory_Label_PricePerQty" xml:space="preserve">
+    <value>数量あたりの価格 ($)</value>
+  </data>
+  <data name="Inventory_Label_ProductName" xml:space="preserve">
+    <value>商品名</value>
+  </data>
+  <data name="Inventory_Label_ProductType" xml:space="preserve">
+    <value>製品タイプ</value>
+  </data>
+  <data name="Inventory_Label_Quantity" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="Inventory_Label_RecommendedBreed" xml:space="preserve">
+    <value>推奨犬種</value>
+  </data>
+  <data name="Inventory_Label_RecommendedWeight" xml:space="preserve">
+    <value>推奨重量</value>
+  </data>
+  <data name="Inventory_Label_SearchBreed" xml:space="preserve">
+    <value>品種を検索</value>
+  </data>
+  <data name="Inventory_Label_SearchInventory" xml:space="preserve">
+    <value>インベントリの検索</value>
+  </data>
+  <data name="Inventory_Label_SearchSpecies" xml:space="preserve">
+    <value>検索種</value>
+  </data>
+  <data name="Inventory_Label_SelectBranch" xml:space="preserve">
+    <value>ブランチを選択</value>
+  </data>
+  <data name="Inventory_Label_SelectOrganisation" xml:space="preserve">
+    <value>組織を選択</value>
+  </data>
+  <data name="Inventory_Label_SelectProductType" xml:space="preserve">
+    <value>製品タイプを選択</value>
+  </data>
+  <data name="Inventory_Label_UploadImage" xml:space="preserve">
+    <value>画像をアップロード</value>
+  </data>
+  <data name="Inventory_Label_Usage" xml:space="preserve">
+    <value>使い</value>
+  </data>
+  <data name="Service_Button_NewService" xml:space="preserve">
+    <value>新サービス</value>
+  </data>
+  <data name="Service_Label_DoctorInCharge" xml:space="preserve">
+    <value>担当医</value>
+  </data>
+  <data name="Service_Label_DurationHr" xml:space="preserve">
+    <value>デュレーション(時間)</value>
+  </data>
+  <data name="Service_Label_Precaution" xml:space="preserve">
+    <value>予防策</value>
+  </data>
+  <data name="Service_Label_SearchDoctor" xml:space="preserve">
+    <value>検索医者</value>
+  </data>
+  <data name="Service_Label_SearchService" xml:space="preserve">
+    <value>検索サービス</value>
+  </data>
+  <data name="Service_Label_SelectCategory" xml:space="preserve">
+    <value>カテゴリを選択</value>
+  </data>
+  <data name="Service_Label_ServiceDetails" xml:space="preserve">
+    <value>サービス内容</value>
+  </data>
+  <data name="Service_Label_ServiceName" xml:space="preserve">
+    <value>サービス名</value>
+  </data>
+  <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
+    <value>勤務時間(時間)</value>
+  </data>
+  <data name="TreatmentPlan_Label_Add" xml:space="preserve">
+    <value>足す</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
+    <value>サービスを追加</value>
+  </data>
+  <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
+    <value>費用</value>
+  </data>
+  <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
+    <value>作成者</value>
+  </data>
+  <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
+    <value>アクティブにする</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeInactive" xml:space="preserve">
+    <value>非アクティブにする</value>
+  </data>
+  <data name="TreatmentPlan_Label_NewTreatment" xml:space="preserve">
+    <value>新しい治療法</value>
+  </data>
+  <data name="TreatmentPlan_Label_Remarks" xml:space="preserve">
+    <value>備考</value>
+  </data>
+  <data name="TreatmentPlan_Label_SearchService" xml:space="preserve">
+    <value>検索サービス</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
+    <value>ユーザーを選択</value>
+  </data>
+  <data name="TreatmentPlan_Label_Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="TreatmentPlan_Label_Treatment" xml:space="preserve">
+    <value>処遇</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentDetails" xml:space="preserve">
+    <value>治療の詳細</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentName" xml:space="preserve">
+    <value>治療名</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
+    <value>治療計画</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>製品の追加</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>確認待ち</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>パスワードを認証する</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>新しいパスワード</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>以前のパスワード</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>パスワードのリセット</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>薬の選択</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>薬の種類を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>手術を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>手術の種類を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>予防接種を選択してください</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>予防接種の種類を選択してください</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>期限</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>有効期限</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>継続的な治療なし</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>過去の治療なし</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>今後の予定はありません</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>今後の治療はありません</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>更新日</value>
+  </data>
+  <data name="Patient_Label_NoOtherPet" xml:space="preserve">
+    <value>他にペットはいません。</value>
+  </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>役割設定</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>新しい役割</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>権限</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>割り当てられたスタッフの数</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>役割を削除</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>このロールを削除しますか?</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>レコードの削除に失敗しました。</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>ユーザーアクセス制御</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>新しい役割を追加</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>ユーザーロール</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>支店</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>あなたは医者ですか？</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>支店を選択してください</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>オプションを選択してください</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>権限設定:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>状態を選択してください</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>組織を選択してください</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>ロールの作成</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>新しいロールが正常に作成されました。</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>ロールの作成に失敗しました。</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>*必須フィールドです。</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>役割の更新</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>ロールを正常に更新しました。</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>ロールの更新に失敗しました。</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>スタッフ一覧</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>新スタッフ</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>スタッフ名</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>スタッフID</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>ブランチ</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>スタッフを選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>役割を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>性別を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>組織を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>支店を選択してください</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>ステータスを選択してください</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>スタッフを削除</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>スタッフを削除しますか?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>ユーザーの削除に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>スタッフ詳細</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>スタッフID</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>性別を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>役割を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>ブランチ</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>組織を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>支店を選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>ステータスを選択してください</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>ログインID</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>ユーザーを作成</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>ユーザーを正常に作成しました。</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*ログインIDはシステム内に存在します。もう一度お試しください。</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>ユーザーの作成に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*必須フィールドです。</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>ユーザープロフィールの更新</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>ユーザー プロファイルを正常に更新しました。</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>ユーザープロファイルの更新に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>メールアドレスが無効です。</value>
+  </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>無断転載を禁じます</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>アイテムの追加</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>支払済みとしてマーク</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>印刷</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>クイック請求書</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>小計</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>残高</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>割引</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>料金</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>グランドディスカウント</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>請求書の詳細</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>請求書番号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>請求書メモ</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>請求書/領収書番号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>請求書</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>次回の予約</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>有料</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>保留中</value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>購入商品詳細</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>準備ができて</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>領収書</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>領収書番号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>顧客の選択</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>製品の選択</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>手術/予防接種/診察名</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>に</value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>合計価格</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>支払済みとしてマークして領収書に移動しますか?</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>カスタム処理を追加する</value>
+  </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>既存の治療計画</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>表示中</value>
+  </data>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>ブランチの追加</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>支店住所</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>支店</value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>支店名</value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>組織の作成</value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>新組織</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>組織名</value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>ブランチの保存</value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>検索組織</value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>総スタッフ数</value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>組織の編集</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>組織の詳細</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>レポートを見る</value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>血圧</value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>血液検査</value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>骨量</value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>心拍</value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>高い</value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>傷害検査</value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>低い</value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>肺X線検査</value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>ネガティブ</value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>通常範囲</value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>パラメータ</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>回復</value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>リザルトゲージ</value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>アクセスが拒否されました。</value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>支店連絡先番号</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>顧客</value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>肯定的</value>
+  </data>
+  <data name="Appointment_Label_NoFutureAppointment" xml:space="preserve">
+    <value>今後の予定はありません。</value>
+  </data>
+  <data name="Patient_Button_HideFilter" xml:space="preserve">
+    <value>フィルターを非表示</value>
+  </data>
+  <data name="Patient_Button_ShowFilter" xml:space="preserve">
+    <value>フィルターを表示</value>
+  </data>
+  <data name="TestManagement_Label_Analyzer" xml:space="preserve">
+    <value>アナライザー</value>
+  </data>
+  <data name="Dashboard_Button_ViewAll" xml:space="preserve">
+    <value>すべて表示</value>
+  </data>
+  <data name="Dashboard_Label_AllDoctors" xml:space="preserve">
+    <value>すべての医師</value>
+  </data>
+  <data name="Dashboard_Label_AsOf" xml:space="preserve">
+    <value>現在</value>
+  </data>
+  <data name="Dashboard_Label_ShowMore" xml:space="preserve">
+    <value>さらに表示</value>
+  </data>
+  <data name="Dashboard_Label_Summary" xml:space="preserve">
+    <value>概要</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatients" xml:space="preserve">
+    <value>患者総数</value>
+  </data>
+  <data name="Dashboard_Label_TotalSales" xml:space="preserve">
+    <value>売上総数</value>
+  </data>
+  <data name="Dashboard_Label_TotalStaffs" xml:space="preserve">
+    <value>スタッフ総数</value>
+  </data>
+  <data name="Dashboard_Message_Here" xml:space="preserve">
+    <value>こちらが患者管理システムのダッシュボードです。</value>
+  </data>
+  <data name="Dashboard_Message_Welcome" xml:space="preserve">
+    <value>ようこそ、</value>
+  </data>
+  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
+    <value>ソフトウェア更新</value>
+  </data>
+  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
+    <value>通知設定</value>
+  </data>
+  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
+    <value>受け取りたい通知を有効にする</value>
+  </data>
+  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="NotificationSetting_Button_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
+    <value>通知設定の更新</value>
+  </data>
+  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
+    <value>설정 업데이트가 성공적으로 완료되었습니다.</value>
+  </data>
+  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
+    <value>通知設定の更新に失敗しました。</value>
+  </data>
+  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
+    <value>通知設定</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>テスト管理</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>フィルタ</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>テスト時間</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>テストの種類</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>結果ステータス (+/-)</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>患者ID</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>オペレータID</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>デバイス名</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>フィルタ</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>名前で検索</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>日付で並べ替え</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>並べ替え</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>上昇</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>降順</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>チェック</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>全体的な試験結果</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>テスト時間</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>患者名</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>患者ID</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>オペレータID</value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>デバイス名</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>結果ゲージ</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>正常範囲</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>テスト</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>低い</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>テスト管理</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="Dashboard_Label_Daily" xml:space="preserve">
+    <value>毎日</value>
+  </data>
+  <data name="Dashboard_Label_GenderBreakdown" xml:space="preserve">
+    <value>性別の内訳</value>
+  </data>
+  <data name="Dashboard_Label_LatestUpdateOn" xml:space="preserve">
+    <value>の最新情報</value>
+  </data>
+  <data name="Dashboard_Label_Monthly" xml:space="preserve">
+    <value>毎月</value>
+  </data>
+  <data name="Dashboard_Label_OverallRevenue" xml:space="preserve">
+    <value>全体の収益</value>
+  </data>
+  <data name="Dashboard_Label_PatientNumberStatistics" xml:space="preserve">
+    <value>患者数の統計</value>
+  </data>
+  <data name="Dashboard_Label_RevenueBy" xml:space="preserve">
+    <value>収益別</value>
+  </data>
+  <data name="Dashboard_Label_StaffBreakdown" xml:space="preserve">
+    <value>スタッフの内訳</value>
+  </data>
+  <data name="Dashboard_Label_TopBreed" xml:space="preserve">
+    <value>トップブリード</value>
+  </data>
+  <data name="Dashboard_Label_TopServices" xml:space="preserve">
+    <value>トップサービス</value>
+  </data>
+  <data name="Dashboard_Label_TopTreatment" xml:space="preserve">
+    <value>トップトリートメント</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatientByBreed" xml:space="preserve">
+    <value>犬種別の総患者数</value>
+  </data>
+  <data name="Dashboard_Label_Weekly" xml:space="preserve">
+    <value>毎週</value>
+  </data>
+  <data name="Dashboard_Label_Yearly" xml:space="preserve">
+    <value>毎年</value>
+  </data>
+  <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
+    <value>総任命数</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>請求書の作成</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>領収書の作成</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>請求書を添付します。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>領収書を添付いたします。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>少なくとも 1 つの製品を追加してください。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>必須フィールドに入力してください。</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>何か問題が起きた！</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>アカウントがロックされています。管理者に連絡してください。</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>アカウントはまだ確認されていません。メールでアカウントを確認して、もう一度お試しください。</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>ユーザー名に基づいてアカウントが見つかりません。確認してもう一度お試しください。</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>エラーが発生します。後でもう一度試してください。</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>パスワードのリセットに失敗しました。</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>メールが間違っています。確認してもう一度お試しください。</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>パスワードまたはユーザー名が間違っています。</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>必須フィールドに入力する必要があります。</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>このカテゴリにはまだ記録がありません。</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>少なくとも 1 つのサービスまたは製品を選択する必要があります。</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>治療計画名を空にすることはできません。</value>
+  </data>
+</root>

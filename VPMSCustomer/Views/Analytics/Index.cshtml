@@ -1,0 +1,292 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Analytics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+    var sessionThemes = httpContextaccessor.HttpContext.Session.GetString("CustomerSettings_Themes");
+}
+
+<link rel="stylesheet" href="~/css/Analytics.css">
+
+<script src="~/lib/chartjs/js/Chart.js"></script>
+<script src="~/lib/chartjs-plugin-labels/js/chartjs-plugin-labels.js"></script>
+
+<script>
+    const barColors = [
+        "#fed3a8",
+        "#b8e9fa",
+        "#d6f0d5",
+        "#e2cbff",
+        "#5c8c9c"
+    ];
+
+    const emptyPlugin = {
+        id: 'emptyDoughnut',
+        afterDraw(chart, args, options) {
+            const {datasets} = chart.data;
+            const {color, width, radiusDecrease} = options;
+            let hasData = false;
+
+            for (let i = 0; i < datasets.length; i += 1) {
+                const dataset = datasets[i];
+                hasData |= dataset.data.length > 0;
+            }
+
+            if (!hasData) {
+                const {chartArea: {left, top, right, bottom}, ctx} = chart;
+                const centerX = (left + right) / 2;
+                const centerY = (top + bottom) / 2;
+                const r = Math.min(right - left, bottom - top) / 2;
+
+                ctx.beginPath();
+                ctx.lineWidth = width || 2;
+                ctx.strokeStyle = color || 'rgba(255, 128, 0, 0.5)';
+                ctx.arc(centerX, centerY, (r - radiusDecrease || 0), 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+        }
+    };
+
+    var myChart;
+    var sChartFontColor = 'black';
+    if ('@sessionThemes' == 'Dark')
+    {
+        sChartFontColor = 'white';
+    }
+
+    $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
+        var sDefaultYear = moment().format('YYYY');
+
+        LoadYearDropdown(sDefaultYear);
+        LoadExpensesSummary(sDefaultYear);
+        LoadSummaryBreakdown(sDefaultYear);
+    });
+
+    function LoadYearDropdown(sYear)
+    {
+        let iYear = parseInt(sYear);
+
+        var sYearHtml = '';
+        for (i = iYear; i > (iYear - 10); i--)
+        {
+            sYearHtml += '<li><a class="dropdown-item" onclick="yearSelectionChanges(\'' + i + '\')">' + i + '</a></li>';
+        }
+
+        $('#ulYearSelection').append(sYearHtml);
+    }
+
+    function LoadExpensesSummary(iYear)
+    {
+        $.getJSON("/Analytics/GetExpensesSummaryByYear", {
+            summaryYear: iYear,
+            iPatientID: '@sessionPatientID'
+        }).done(function(result){
+            if (result != null && result.data.length > 0)
+            {
+                var serviceArray = Object.keys(result.data).map(function(key) { 
+                    return result.data[key].serviceName; 
+                });
+
+                var totalArray =  Object.keys(result.data).map(function(key) {
+                    return result.data[key].total;
+                });
+
+                let totalExpenses = totalArray.reduce((a, b) => a + b, 0);
+                
+                LoadSummaryChart(serviceArray, totalArray, '@Html.Raw(LangResources["Analytics_Label_TotalSpent"])' + totalExpenses);
+
+                $('#ddlYearSelection').html(iYear);
+            }
+            else 
+            {
+                LoadSummaryChart([], [], '@Html.Raw(LangResources["Analytics_Label_TotalSpent"])' + '0');
+
+                $('#ddlYearSelection').html(iYear);
+            }
+        })
+    }
+
+    function LoadSummaryChart(xValues, yValues, sTitle){
+        //const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+        //const yValues = [55, 49, 44, 24, 15];
+        //const barColors = [
+        //    "#fed3a8",
+        //   "#b8e9fa",
+        //    "#d6f0d5",
+        //    "#e2cbff",
+        //    "#5c8c9c"
+        //];
+
+        if (myChart){
+            myChart.destroy();
+        }
+
+        myChart = new Chart("myChart", {
+              type: "doughnut",
+              data: {
+                labels: xValues,
+                datasets: [{
+                  backgroundColor: barColors,
+                  data: yValues
+                }]
+              },
+              options: {
+                title: {
+                    display: true,
+                    text: sTitle,
+                    position: 'bottom'
+                },
+                legend: {
+                    display: false
+                },
+                plugins: {
+                    labels: [
+                        {
+                            render: 'label',
+                            fontSize: 12,
+                            fontStyle: 'bold',
+                            fontColor: sChartFontColor,
+                            position: 'outside'
+                        },
+                        {
+                            render: 'percentage',
+                            fontSize: 12,
+                            fontStyle: 'bold',
+                            precision: 2
+                        }
+                    ], 
+                    emptyDoughnut: {
+                        color: 'rgba(255, 128, 0, 0.5)',
+                        width: 2,
+                        radiusDecrease: 20
+                    }
+                }
+              },
+              plugins: [emptyPlugin]
+        });
+    }
+
+    function LoadSummaryBreakdown(iYear)
+    {
+        $('#divBreakdown').html('');
+
+        $.getJSON("/Analytics/GetExpensesSummaryBreakdown", {
+            summaryYear: iYear,
+            iPatientID: '@sessionPatientID'
+        }).done(function(result){ 
+            if (result != null && result.data.length > 0)
+            {
+                let distinctPetName = [];
+                $.map(result.data, obj => {
+                    if (!distinctPetName.includes(obj.petID)){
+                        distinctPetName.push(obj.petID);
+                    }
+                });
+
+                for (i = 0; i < distinctPetName.length; i++)
+                {
+                    var sPetObject = result.data.filter(function(obj) {
+                                        return obj.petID == distinctPetName[i]
+                                     });
+
+                    var sBarHtml = '';
+                    for (x = 0; x < sPetObject.length; x++)
+                    {
+                        let spanPercentage = 'MiddlePercentageBar';
+                        if ((x + 1) == 1 && (x + 1) != sPetObject.length)
+                        {
+                            spanPercentage = 'leftPercentageBar';
+                        }
+
+                        if ((x + 1) == 1 && (x + 1) == sPetObject.length)
+                        {
+                            spanPercentage = 'FullPercentageBar';
+                        }
+
+                        if ((x + 1) == sPetObject.length && (x + 1) != 1)
+                        {
+                            spanPercentage = 'RightPercentageBar';
+                        }
+
+                        sBarHtml += '<span data-bs-toggle="tooltip" data-bs-placement="top" title="' + sPetObject[x].serviceName + '" class="' + spanPercentage + '" style="width: ' + sPetObject[x].servcExpsPercentage + '%; background-color: ' + barColors[x] + ';"></span>';           
+                    }
+
+                    var sBreakdownHtml = '';
+                    sBreakdownHtml = '<div class="row mb-5">' +
+                                     '<label class="ms-2 breakdownPetName">' + (sPetObject != null ? sPetObject[0].petName : '') + '</label>' + 
+                                     '<label class="ms-2 breakdownAmount">' + sPetObject[0].petTotal + '</label>' +  
+                                     '<div id="barContainer" class="mt-1 ms-2 container">' + 
+
+                                     sBarHtml +
+
+                                     '</div>' +
+                                     '</div>';
+
+                    $('#divBreakdown').append(sBreakdownHtml);
+                }
+            }
+        })
+    }
+
+    function yearSelectionChanges(yearSelected){
+        LoadExpensesSummary(yearSelected);
+        LoadSummaryBreakdown(yearSelected);
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <label class="pageTitle">
+            @LangResources["Analytics_Title_Analytics"]
+        </label>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="row analyticsFrame">
+                <div class="row">
+                    <div class="col-md-12 ms-2 mt-1">
+                        <label class="analyticsTitle">
+                            @LangResources["Analytics_Label_ExpensesSummary"]
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">&nbsp;</div>
+                    <div class="col-md-3 d-flex justify-content-end">
+                        <label class="mt-1 yearSelectionLabel">@LangResources["Analytics_Label_Showing"] :</label>
+                        <div class="dropdown" style="width: 70px;">
+                            <button id="ddlYearSelection" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul id="ulYearSelection" class="dropdown-menu" aria-labelledby="ddlYearSelection">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-5">
+                    <div id="divChartContent" class="col-md-5">
+                        <canvas id="myChart" width="500" height="400"></canvas>
+                    </div>
+                    <div id="divBreakdown" class="col-md-7">
+                        <!--- CONTENT --->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+

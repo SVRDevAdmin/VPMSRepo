@@ -30,5 +30,49 @@ namespace VPMS.Lib.Data
 				return null;
 			}
 		}
+
+		/// <summary>
+		/// Get State List By Country
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="countryID"></param>
+		/// <returns></returns>
+		public static List<StateModel> GetStatesListByCountry(IConfiguration config, int countryID)
+		{
+			try
+			{
+				using (var ctx = new CountryDBContext(config))
+				{
+					return ctx.mst_state.Where(x => x.CountryID == countryID).OrderBy(x => x.State).ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+                logger.Error("CountryRepository >>> GetStatesListByCountry >>> ", ex);
+                return null;
+            }
+		}
+
+		/// <summary>
+		/// Get City List by State
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="stateID"></param>
+		/// <returns></returns>
+		public static List<CityModel> GetCityListByState(IConfiguration config, int stateID)
+		{
+			try
+			{
+				using (var ctx = new CountryDBContext(config))
+				{
+					return ctx.mst_city.Where(x => x.StateID == stateID).OrderBy(x => x.City).ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+                logger.Error("CountryRepository >>> GetCityListByState >>> ", ex);
+                return null;
+            }
+		}
 	}
 }

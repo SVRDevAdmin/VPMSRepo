@@ -126,6 +126,9 @@
   <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
     <value>分支地址  </value>
   </data>
+  <data name="AccessControl_Label_BranchCity" xml:space="preserve">
+    <value>城市</value>
+  </data>
   <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
     <value>分行联系电话</value>
   </data>
@@ -134,6 +137,12 @@
   </data>
   <data name="AccessControl_Label_BranchName" xml:space="preserve">
     <value>分支名称  </value>
+  </data>
+  <data name="AccessControl_Label_BranchPostcode" xml:space="preserve">
+    <value>邮政编码</value>
+  </data>
+  <data name="AccessControl_Label_BranchState" xml:space="preserve">
+    <value>州</value>
   </data>
   <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
     <value>创建组织  </value>
@@ -155,6 +164,12 @@
   </data>
   <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
     <value>搜索组织  </value>
+  </data>
+  <data name="AccessControl_Label_SelectCity" xml:space="preserve">
+    <value>选择城市</value>
+  </data>
+  <data name="AccessControl_Label_SelectState" xml:space="preserve">
+    <value>选择州</value>
   </data>
   <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
     <value>总员工数  </value>
@@ -249,6 +264,9 @@
   <data name="Appointment_Label_Week" xml:space="preserve">
     <value>周</value>
   </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>已接受预约</value>
+  </data>
   <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
     <value>预约已取消更新。</value>
   </data>
@@ -282,6 +300,9 @@
   <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
     <value>请选择宠物种类</value>
   </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>接受预约</value>
+  </data>
   <data name="Appointment_Title_Appointment" xml:space="preserve">
     <value>预约</value>
   </data>
@@ -296,6 +317,225 @@
   </data>
   <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
     <value>新的预约（新客户）</value>
+  </data>
+  <data name="BannerProfile_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="BannerProfile_Button_Create" xml:space="preserve">
+    <value>创造</value>
+  </data>
+  <data name="BannerProfile_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="BannerProfile_Label_Banner" xml:space="preserve">
+    <value>横幅</value>
+  </data>
+  <data name="BannerProfile_Label_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="BannerProfile_Label_EndDate" xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="BannerProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>请选择状态</value>
+  </data>
+  <data name="BannerProfile_Label_StartDate" xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="BannerProfile_Label_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="BannerProfile_Label_Upload" xml:space="preserve">
+    <value>上传</value>
+  </data>
+  <data name="BannerProfile_Message_Fail" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="BannerProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>必填字段。</value>
+  </data>
+  <data name="BannerProfile_Message_NoBannerSelected" xml:space="preserve">
+    <value>未选择横幅文件。</value>
+  </data>
+  <data name="BannerProfile_Message_NoChangesUpdates" xml:space="preserve">
+    <value>没有变化更新。</value>
+  </data>
+  <data name="BannerProfile_Message_RecommendRemark" xml:space="preserve">
+    <value>* 建议尺寸：1450px（宽）x 340px（高）</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>更新失败，请重试。</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>更新成功。</value>
+  </data>
+  <data name="BannerProfile_Message_UploadFailed" xml:space="preserve">
+    <value>文件上传失败。</value>
+  </data>
+  <data name="BannerProfile_Message_UploadSuccessfully" xml:space="preserve">
+    <value>上传成功。</value>
+  </data>
+  <data name="BannerProfile_Title_BannerDetails" xml:space="preserve">
+    <value>横幅详情</value>
+  </data>
+  <data name="BannerProfile_Title_UpdateBannerInfo" xml:space="preserve">
+    <value>更新横幅信息</value>
+  </data>
+  <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
+    <value>上传横幅</value>
+  </data>
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>新横幅</value>
+  </data>
+  <data name="BannersList_Button_Next" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="BannersList_Button_Prev" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>横幅</value>
+  </data>
+  <data name="BannersList_Label_CreatedDate" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="BannersList_Label_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>号</value>
+  </data>
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="BannersList_Label_View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="BannersList_Message_NoRecords" xml:space="preserve">
+    <value>没有记录</value>
+  </data>
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>横幅管理</value>
+  </data>
+  <data name="BlogList_Button_NewBlog" xml:space="preserve">
+    <value>新部落格</value>
+  </data>
+  <data name="BlogList_Button_Next" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="BlogList_Button_Prev" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="BlogList_Label_CreatedDate" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="BlogList_Label_EndDate" xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="BlogList_Label_Num" xml:space="preserve">
+    <value>号</value>
+  </data>
+  <data name="BlogList_Label_StartDate" xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="BlogList_Label_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="BlogList_Label_Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="BlogList_Label_URL" xml:space="preserve">
+    <value>网址</value>
+  </data>
+  <data name="BlogList_Label_View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="BlogList_Message_NoRecords" xml:space="preserve">
+    <value>没有记录</value>
+  </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>部落格管理</value>
+  </data>
+  <data name="BlogProfile_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="BlogProfile_Button_Create" xml:space="preserve">
+    <value>创造</value>
+  </data>
+  <data name="BlogProfile_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="BlogProfile_Label_Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="BlogProfile_Label_EndDate" xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="BlogProfile_Label_FileName" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="BlogProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>请选择状态</value>
+  </data>
+  <data name="BlogProfile_Label_StartDate" xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="BlogProfile_Label_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="BlogProfile_Label_Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="BlogProfile_Label_Upload" xml:space="preserve">
+    <value>上传</value>
+  </data>
+  <data name="BlogProfile_Label_URL" xml:space="preserve">
+    <value>网址</value>
+  </data>
+  <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
+    <value>创建部落格成功。</value>
+  </data>
+  <data name="BlogProfile_Message_Fail" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="BlogProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>必填字段。</value>
+  </data>
+  <data name="BlogProfile_Message_NoChangesUpdate" xml:space="preserve">
+    <value>没有变化更新。</value>
+  </data>
+  <data name="BlogProfile_Message_NoThumbnailSelected" xml:space="preserve">
+    <value>未选择缩略图。</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateBlogSuccessfully" xml:space="preserve">
+    <value>更新部落格成功</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>更新失败，请稍后重试。</value>
+  </data>
+  <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
+    <value>上传缩略图失败。</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>部落格详情</value>
+  </data>
+  <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
+    <value>创建部落格條目</value>
+  </data>
+  <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
+    <value>更新部落格信息</value>
   </data>
   <data name="Dashboard_Button_ViewAll" xml:space="preserve">
     <value>查看全部</value>
@@ -384,6 +624,9 @@
   <data name="DoctorProfile_Button_Update" xml:space="preserve">
     <value>更新</value>
   </data>
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
   <data name="DoctorProfile_Label_Designation" xml:space="preserve">
     <value>职位</value>
   </data>
@@ -396,8 +639,17 @@
   <data name="DoctorProfile_Label_Name" xml:space="preserve">
     <value>姓名</value>
   </data>
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>组织</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>请选择分行</value>
+  </data>
   <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
     <value>请选择性别</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>请选择组织</value>
   </data>
   <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
     <value>专业</value>
@@ -759,6 +1011,15 @@
   <data name="MenuBar_Label_Appointments" xml:space="preserve">
     <value>预约</value>
   </data>
+  <data name="MenuBar_Label_Banners" xml:space="preserve">
+    <value>横幅</value>
+  </data>
+  <data name="MenuBar_Label_Blogs" xml:space="preserve">
+    <value>部落格</value>
+  </data>
+  <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
+    <value>客户门户</value>
+  </data>
   <data name="MenuBar_Label_CustomerService" xml:space="preserve">
     <value>客户服务</value>
   </data>
@@ -930,6 +1191,9 @@
   <data name="Patient_Button_ShowFilter" xml:space="preserve">
     <value>显示过滤器</value>
   </data>
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
   <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
     <value>即将到来的治疗</value>
   </data>
@@ -1020,8 +1284,14 @@
   <data name="Patient_Label_Height" xml:space="preserve">
     <value>高度</value>
   </data>
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>主治医生</value>
+  </data>
   <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
     <value>发票和账单</value>
+  </data>
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>地点</value>
   </data>
   <data name="Patient_Label_Medication" xml:space="preserve">
     <value>药物</value>
@@ -1048,7 +1318,7 @@
     <value>没有即将进行的治疗</value>
   </data>
   <data name="Patient_Label_Number" xml:space="preserve">
-    <value>不</value>
+    <value>号</value>
   </data>
   <data name="Patient_Label_Obese" xml:space="preserve">
     <value>肥胖？</value>
@@ -1057,7 +1327,7 @@
     <value>肥胖</value>
   </data>
   <data name="Patient_Label_OwnerName" xml:space="preserve">
-    <value>所有者姓名</value>
+    <value>主人姓名</value>
   </data>
   <data name="Patient_Label_Payment" xml:space="preserve">
     <value>付款</value>
@@ -1069,7 +1339,7 @@
     <value>宠物年龄（年）</value>
   </data>
   <data name="Patient_Label_PetName" xml:space="preserve">
-    <value>爱称</value>
+    <value>宠物名字</value>
   </data>
   <data name="Patient_Label_Postcode" xml:space="preserve">
     <value>邮政编码</value>
@@ -1083,8 +1353,20 @@
   <data name="Patient_Label_RegistrationNo" xml:space="preserve">
     <value>注册号码</value>
   </data>
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>预约测试</value>
+  </data>
   <data name="Patient_Label_SearchTreatment" xml:space="preserve">
     <value>搜索处理</value>
+  </data>
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>选择主治医生</value>
+  </data>
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>选择位置</value>
+  </data>
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>选择测试</value>
   </data>
   <data name="Patient_Label_Service" xml:space="preserve">
     <value>服务</value>
@@ -1096,10 +1378,10 @@
     <value>物种</value>
   </data>
   <data name="Patient_Label_State" xml:space="preserve">
-    <value>状态</value>
+    <value>州</value>
   </data>
   <data name="Patient_Label_Status" xml:space="preserve">
-    <value>地位</value>
+    <value>状态</value>
   </data>
   <data name="Patient_Label_Surgeries" xml:space="preserve">
     <value>手术</value>
@@ -1109,6 +1391,9 @@
   </data>
   <data name="Patient_Label_TestManagement" xml:space="preserve">
     <value>测试管理</value>
+  </data>
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>试验</value>
   </data>
   <data name="Patient_Label_Time" xml:space="preserve">
     <value>时间</value>
@@ -1149,8 +1434,17 @@
   <data name="Patient_Message_IdleMessage" xml:space="preserve">
     <value>若继续闲置，您将自动退出。</value>
   </data>
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>必填字段。</value>
+  </data>
   <data name="Patient_Message_NoRecord" xml:space="preserve">
     <value>没有可用的记录。</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>计划测试发送失败，请稍后重试。</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>计划测试已成功发送。</value>
   </data>
   <data name="Patient_Selection_Active" xml:space="preserve">
     <value>积极的</value>
@@ -1227,6 +1521,9 @@
   <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
     <value>创建患者档案</value>
   </data>
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>创建测试计划</value>
+  </data>
   <data name="Patient_Title_MedicalRecord" xml:space="preserve">
     <value>医疗记录</value>
   </data>
@@ -1254,6 +1551,9 @@
   <data name="Patient_Title_Profile" xml:space="preserve">
     <value>轮廓</value>
   </data>
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>提交测试</value>
+  </data>
   <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
     <value>即将进行的预约</value>
   </data>
@@ -1271,6 +1571,9 @@
   </data>
   <data name="Roles_Button_NewRole" xml:space="preserve">
     <value>新角色</value>
+  </data>
+  <data name="Roles_Button_PermissionDetails" xml:space="preserve">
+    <value>权限详细</value>
   </data>
   <data name="Roles_Button_Update" xml:space="preserve">
     <value>更新</value>
@@ -1332,8 +1635,14 @@
   <data name="Roles_Label_Role" xml:space="preserve">
     <value>角色</value>
   </data>
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>角色类型</value>
+  </data>
   <data name="Roles_Label_Status" xml:space="preserve">
     <value>状态</value>
+  </data>
+  <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
+    <value>授予的权限总数</value>
   </data>
   <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
     <value>更新角色成功。</value>
@@ -1358,6 +1667,9 @@
   </data>
   <data name="Roles_Title_DeleteRole" xml:space="preserve">
     <value>删除角色</value>
+  </data>
+  <data name="Roles_Title_Permissions" xml:space="preserve">
+    <value>权限</value>
   </data>
   <data name="Roles_Title_RoleSettings" xml:space="preserve">
     <value>角色设置</value>
@@ -1774,7 +2086,7 @@
     <value>治疗名称</value>
   </data>
   <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
-    <value>治疗计划</value>
+    <value>治疗c计划</value>
   </data>
   <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
     <value>需要至少选择一项服务或一种产品。</value>

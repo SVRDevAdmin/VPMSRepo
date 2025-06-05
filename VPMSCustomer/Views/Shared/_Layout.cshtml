@@ -1,49 +1,326 @@
-﻿<!DOCTYPE html>
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var LoginUseName = httpContextaccessor.HttpContext.Session.GetString("UserName");
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+    var sessionGender = httpContextaccessor.HttpContext.Session.GetString("Gender");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - VPMSCustomer</title>
+    <title>@ViewData["Title"] - Vet Vitals Customer Portal</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/icons/bootstrap-icons.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VPMSCustomer.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/main.css" />
+
+    @{
+        var theme = httpContextaccessor.HttpContext.Request.Cookies["CustomerTheme"];
+        if (theme != null){
+            if (theme == "Dark"){
+                <link id="themeCss" rel="stylesheet" href="~/css/DarkTheme.css" />
+            }
+            else{
+                <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+            }
+        }
+        else{
+            <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
+        }
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/moment.min.js"></script>
+    <script src="~/js/general.js"></script>
+    <script src="~/js/main.js"></script>
+
+    <style>
+    html {
+        height: 100%;
+        width: 100%;
+    }
+
+    body {
+        min-height: 100%;
+    }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            checkPetProfiles();
+            checkAvatarProfile();
+
+            $('#divdropdowntoggle').on('click', function(ctl){
+                $('.profilemenu').toggle('show');
+            });
+        });
+
+        function logoutAccount()
+        {
+            $.post("/Login/Logout", {
+                sessionID: '@LoginSessionID',
+                actionType: 'logout'
+            }).done(function(result){
+                if (result.statusCode == 200){
+                    window.location.href = '/Login/';
+                }
+                else {
+
+                }
+            });
+        }
+
+        function checkPetProfiles()
+        {
+            $.getJSON("/Pets/GetPetsList/" + '@sessionPatientID')
+             .done(function(result){
+                 if (result != null)
+                 {
+                     if (result.data.length > 6){
+                         $('#lnkPet').attr('href', '/Pets/List');
+                     }
+                     else {
+                         $('#lnkPet').attr('href', '/Pets');
+                     }
+                 }
+                 else {
+                     $('#lnkPet').attr('href', '/Pets');
+                 }
+             });
+        }
+
+        function checkAvatarProfile()
+        {
+            if ('@sessionGender' == 'F'){
+                $('#avatarProfile').attr('class', 'avatarFemaleImg');
+            }
+            if ('@sessionGender' == 'M'){
+                $('#avatarProfile').attr('class', 'avatarImg');
+            }
+        }
+    </script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VPMSCustomer</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <div id="divContainer" class="container-fluid" >
+        <div class="row flex-nowrap">
+            <div id="leftPane" class="col-auto col-md-2 col-xs-2 px-sm-2 px-0" >
+                <div class="row justify-content-md-center pt-3 pb-5">
+                    <img id="imgLogo" width="180" height="50" />
+                    <img id="imgLogoResp" />
+                </div>
+
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+
+                    <ul id="menu" class="nav nav-pills flex-column ps-2 mb-sm-auto align-items-center align-items-sm-start">
+                        <!-- HOME -->
+                        <li class="nav-item mb-3 menuItems">
+                            <a asp-controller="Home" asp-action="Index">
+                                <img class="menuHome" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Home"]
+                                </span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <!-- PETS -->
+                        <li class="nav-item mb-3 menuItems">
+                            <a id="lnkPet">
+                                <img class="menuPets" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Pets"]
+                                </span>
+                            </a>
+                        </li>
+                        <!-- APPOINTMENT -->
+                        <li class="nav-item mb-3 menuItems">
+                            <a asp-controller="appointment" asp-action="Index">
+                                <img class="menuAppointments" />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Appointment"]
+                                </span>
+                            </a>
+                        </li>
+                        <!-- INVOICE & RECEIPTS -->
+                        <li class="nav-item mb-3 menuItems">
+                            <a asp-controller="InvoiceReceipts" asp-action="Index">
+                                <img class="menuInvoiceReceipts"  />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_InvoiceReceipts"]
+                                </span>
+                            </a>
+                        </li>
+                        <!-- ANALYTICS -->
+                        <li class="nav-item mb-3 menuItems" >
+                            <a asp-controller="Analytics" asp-action="Index">
+                                <img class="menuAnalytics"  />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_Analytics"]
+                                </span>
+                            </a>
+                        </li>
+                        <!-- CUSTOMER SERVICES -->
+                        <li class="nav-item mb-3 menuItems">
+                            <a asp-controller="CustomerServices" asp-action="Index">
+                                <img class="menuCustomerServices"  />
+                                <span class="d-none d-sm-inline sidebar-nav-font">
+                                    @LangResources["Main_Menu_CustomerService"]
+                                </span>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+            <!-- Content -->
+            <div class="col-md-10">
+                <div class="row" style="height: 70px;">
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <a class="ms-3 mt-3 iconBell" asp-controller="Notifications" asp-action="Index">
+                                    <i class="bi bi-bell"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="upperMenuLayout">
+                                <div class="avatarFrame">
+                                    <img id="avatarProfile" />
+                                </div>
+                                <div style="width: 220px; margin-left: 15px;">
+                                    <div class="dropdown" style="margin-top: 10px;">
+                                        <div id="divdropdowntoggle" class="dropdown-toggle" data-toggle="dropdown">
+                                            <label id="lbProfileName" class="ProfileFont">@LoginUseName</label>
+                                        </div>
+                                        <div class="dropdown-menu profilemenu">
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                                                @LangResources["Main_Menu_ViewProfile"]
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountSettings">
+                                                @LangResources["Main_Menu_AccountSettings"]
+                                            </a>
+                                            <a id="lnkLogout" class="dropdown-item" onclick="logoutAccount()">
+                                                @LangResources["Main_Menu_Logout"]
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="border: 0px; padding-left: 5px; padding-right: 5px;">
+                    @RenderBody()
+                </div>
+                
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - VPMSCustomer - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <div id="modalConfirmYesNo" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label id="lblTitleConfirmYesNo" class="modal-title">Confirmation</label>
+                </div>
+                <div class="modal-body">
+                    <p id="lblMsgConfirmYesNo" style="text-align: center;"></p>
+                    <div class="row">
+                        <div class="col-md-2">&nbsp;</div>
+                        <div class="col-md-8" style="text-align: center;">
+                            <button id="btnYesConfirmYesNo"
+                                    type="button" class="btn btn-primary">
+                                @LangResources["Main_Button_Yes"]
+                            </button>
+                            <button id="btnNoConfirmYesNo"
+                                    type="button" class="btn btn-secondary">
+                                @LangResources["Main_Button_No"]
+                            </button>
+                        </div>
+                        <div class="col-md-2">&nbsp;</div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </div>
+
+    <div id="modalSuccess" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label id="lbTitleSuccess" class="modal-title">Success</label>
+                </div>
+                <div class="modal-body">
+                    <p id="lbMsgSuccess" style="text-align: center;"></p>
+                    <div class="row">
+                        <div class="col-md-5">&nbsp;</div>
+                        <div class="col-md-2">
+                            <button id="btnOK" type="button" class="btn btn-primary">
+                                @LangResources["Main_Button_OK"]
+                            </button>
+                        </div>
+                        <div class="col-md-5">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function ShowConfirmCancelMsgBox(MsgTitle, MsgContent, YesButtonCallback, NoButtonCallback) {
+            AsyncConfirmYesNo(
+                MsgTitle,
+                MsgContent,
+                YesButtonCallback,
+                NoButtonCallback
+            );
+        }
+
+        function AsyncConfirmYesNo(title, msg, yesFn, noFn) {
+            var $confirm = $("#modalConfirmYesNo");
+            $confirm.modal('show');
+            $("#lblTitleConfirmYesNo").html(title);
+            $("#lblMsgConfirmYesNo").html(msg);
+            $("#btnYesConfirmYesNo").off('click').click(function () {
+                yesFn();
+                $confirm.modal("hide");
+            });
+            $("#btnNoConfirmYesNo").off('click').click(function () {
+                noFn();
+                $confirm.modal("hide");
+            });
+        }
+
+        function ShowSuccessMsgBox(MsgTitle, MsgContent, ButtonCallback)
+        {
+            AsyncSuccess(
+                MsgTitle,
+                MsgContent,
+                ButtonCallback
+            );
+        }
+
+        function AsyncSuccess(title, msg, btnFn) {
+            var $success = $("#modalSuccess");
+            $success.modal('show');
+            $("#lbTitleSuccess").html(title);
+            $("#lbMsgSuccess").html(msg);
+            $("#btnOK").off('click').click(function () {
+                btnFn();
+                $success.modal("hide");
+            });
+        }
+    </script>
 </body>
 </html>

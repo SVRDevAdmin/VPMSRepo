@@ -1,0 +1,232 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Account Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("UserName");
+    var sessionLanguage = httpContextaccessor.HttpContext.Session.GetString("CustomerSettings_Language");
+    var sessionCountry = httpContextaccessor.HttpContext.Session.GetString("CustomerSettings_Country");
+    var sessionThemes = httpContextaccessor.HttpContext.Session.GetString("CustomerSettings_Themes");
+}
+
+<link href="~/css/AccountSettings.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-switch-button/dist/css/bootstrap-switch-button.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-switch-button/dist/js/bootstrap-switch-button.min.js"></script>
+
+<script type="text/javascript">
+    let sLanguageKey = 'CustomerSettings_Language';
+    let sCountryKey = 'CustomerSettings_Country';
+    let sThemesKey = 'CustomerSettings_Themes';
+
+    $(document).ready(function(){ 
+        validateSession('@LoginSessionID');
+
+        loadLanguageList();
+        loadCountryList();
+
+        if ('@sessionThemes' == 'Dark'){
+            $('#chkThemes')[0].checked = true;
+        }
+        else{
+            $('#chkThemes')[0].checked = false;
+        }
+
+        $('#btnUpdateLanguage').on('click', function(ctl){ 
+            let $lang = $("input[type='radio'][name='languagegrpradio']:checked").val();
+
+            if ($lang != undefined)
+            {
+                updateConfigurationSettings('@sessionUserID', sLanguageKey, $lang, '@sessionUserName');
+            }
+            else {
+                $('#lbErrorLanguage').html('@Html.Raw(LangResources["Settings_Message_PleaseSelectOneLanguage"])');
+            }
+        });
+
+        $('#btnUpdateCountry').on('click', function(ctl){ 
+            let $country = $('#ddlCountry').val();
+
+            if ($country != ''){
+                updateConfigurationSettings('@sessionUserID', sCountryKey, $country, '@sessionUserName');
+            }
+            else {
+                $('#lbErrorCountry').html('@Html.Raw(LangResources["Settings_Message_PleaseSelectOneCountry"])');
+            }
+        });
+
+        $('#btnUpdateThemes').on('click', function(ctl){
+            let $themesname = '';
+            let $themes = $('#chkThemes')[0].checked;
+
+            if ($themes){
+                $themesname = 'Dark';
+            }
+            else{
+                $themesname = 'Light';
+            }
+
+            if ($themesname != ''){
+                updateConfigurationSettings('@sessionUserID', sThemesKey, $themesname, '@sessionUserName');
+            }
+            else{
+                $('#lbErrorThemes').html('@Html.Raw(LangResources["Settings_Message_PleaseSelectOneTheme"])');
+            }
+        });
+    });
+
+    function updateConfigurationSettings(sUserID, sConfigKey, sConfigValue, sUpdatedBy)
+    {
+        $.post("/Account/Settings/Update", {
+            userID: sUserID,
+            configKey: sConfigKey,
+            configValue: sConfigValue,
+            updatedBy: sUpdatedBy
+        }).done(function(result){
+            if (result.statusCode == 200){
+                ShowSuccessMsgBox("@Html.Raw(LangResources["Settings_Title_UpdateAccountSettings"])", 
+                                  "@Html.Raw(LangResources["Settings_Message_SettingsUpdateSuccessfully"])",
+                    function(){
+                        window.location.reload();
+                    }
+                );
+            }
+            else {
+                ShowSuccessMsgBox("@Html.Raw(LangResources["Settings_Title_UpdateAccountSettings"])", 
+                                  "@Html.Raw(LangResources["Settings_Message_UpdateSettingsFailed"])",
+                    function() {}
+                );
+            }
+        });
+    }
+
+    function loadLanguageList() 
+    {
+        $('#divLanguage').html('');
+
+        $.getJSON("/Masterdata/LanguageList")
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sFlagPath = "/images/Icons/Country/" + result.data[i].codeID + ".png";
+
+                     var sFlagChecked = '';
+                     if (result.data[i].codeID == '@sessionLanguage')
+                     {
+                         sFlagChecked = "checked='true'";
+                     }
+
+                     var strLanguageItem = '';
+                     strLanguageItem = '<div class="col">' +
+                                       '<input id="' + result.data[i].codeID + '" name="languagegrpradio" '+ 
+                                       'type="radio" class="form-check-input radioLanguageSelection me-1" '+
+                                       'value="' + result.data[i].codeID + '" ' + sFlagChecked + ' />' +
+
+                                       '<label class="form-check-label checkBoxLanguage" for="' + result.data[i].codeID + '">' +
+                                       '<img src="' + sFlagPath + '" class="flagLanguage" />' +
+                                       result.data[i].codeName + '</label>' +
+                                       '</div>';
+                     $('#divLanguage').append(strLanguageItem);
+                 }
+             }
+         });
+    }
+
+    function loadCountryList()
+    {
+        $('#ddlCountry').find("option:not(:first)").remove();
+
+        $.getJSON("/Masterdata/CountryList")
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option(result.data[i].countryName, result.data[i].countryCode);
+                     $('#ddlCountry').append(opt);
+                 }
+
+                 setTimeout(function(){
+                     $('#ddlCountry').val('@sessionCountry');
+                 }, 500);
+             }
+         });
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <label class="pageTitle">
+            @LangResources["Settings_Title_AccountSettings"]
+        </label>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row borderFrame">
+        <div class="row sectionLanguage mt-4">
+            <div class="col-md-2">
+                <label class="SectionTitle">
+                    @LangResources["Settings_Label_Language"]
+                </label>
+            </div>
+            <div class="col-md-10">
+                <div class="container">
+                    <div id="divLanguage" class="row row-cols-3">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <label id="lbErrorLanguage" class="errorLabel mt-2 mb-2"></label>
+            </div>
+            <div class="col-md-3 pull-right">
+                <input id="btnUpdateLanguage" type="button" class="btn btn-primary btn-sm mt-2 mb-2" value="@LangResources["Settings_Button_Update"]" />
+            </div>
+        </div>
+        <div class="row dividerLine mb-2">&nbsp;</div>
+        <div class="row sectionCountry">
+            <div class="col-md-2">
+                <label class="SectionTitle mt-2 mb-2">
+                    @LangResources["Settings_Label_Country"]
+                </label>
+            </div>
+            <div class="col-md-4">
+                <select id="ddlCountry" class="form-select form-select-sm mt-2 mb-2 ms-3" data-live-search="true">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label id="lbErrorCountry" class="errorLabel mt-2 mb-2"></label>
+            </div>
+            <div class="col-md-3 pull-right">
+                <input id="btnUpdateCountry" type="button" class="btn btn-primary btn-sm mt-2 mb-2" value="@LangResources["Settings_Button_Update"]" />
+            </div>
+        </div>
+        <div class="row dividerLine mb-2">&nbsp;</div>
+        <div class="row sectionThemes">
+            <div class="col-md-2">
+                <label class="SectionTitle mt-2 mb-2">
+                    @LangResources["Settings_Label_Themes"]
+                </label>
+            </div>
+            <div class="col-md-4">
+                <input id="chkThemes" type="checkbox" data-toggle="switchbutton" 
+                    checked data-onlabel="Dark" data-offlabel="Light"
+                    data-onstyle="dark" data-offstyle="light"
+                    data-size="xs" data-style="switchStyle">
+            </div>
+            <div class="col-md-3">
+                <label id="lbErrorThemes" class="errorLabel mt-2 mb-2"></label>
+            </div>
+            <div class="col-md-3">
+                <input id="btnUpdateThemes" type="button" class="btn btn-primary btn-sm mt-2 mb-2" value="@LangResources["Settings_Button_Update"]" />
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+    </div>
+</div>
+

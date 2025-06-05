@@ -17,15 +17,18 @@ namespace VPMS.Lib.Data
     {
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// Get Notification List By Group & Pagination
-		/// </summary>
-		/// <param name="config"></param>
-		/// <param name="sGroup"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="pageIndex"></param>
-		/// <param name="totalRecords"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// Get Notification List By Group & Pagination
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sUserID"></param>
+        /// <param name="sBranchID"></param>
+        /// <param name="sGroup"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="totalNew"></param>
+        /// <returns></returns>
 		public static List<NotificationExtendedModel> GetNotificationList(IConfiguration config, String sUserID, int sBranchID, String sGroup, int pageSize, int pageIndex, out int totalRecords, out int totalNew)
         {
             List<NotificationExtendedModel> sNotificationList = new List<NotificationExtendedModel>();

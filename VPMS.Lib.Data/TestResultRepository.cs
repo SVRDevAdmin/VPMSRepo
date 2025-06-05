@@ -15,12 +15,13 @@ namespace VPMS.Lib.Data
     {
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// Add Test Results record
-		/// </summary>
-		/// <param name="config"></param>
-		/// <param name="sResults"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// Add Test Results record
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sResult"></param>
+        /// <param name="sList"></param>
+        /// <returns></returns>
 		public static Boolean InsertTestResults(IConfiguration config, TestResultsTxnModel sResult, List<TestResultsDetailTxnModel> sList)
         {
             Boolean isValid = false;
@@ -56,6 +57,7 @@ namespace VPMS.Lib.Data
         /// List of Device Name
         /// </summary>
         /// <param name="config"></param>
+        /// <param name="BranchID"></param>
         /// <returns></returns>
         public static List<String> GetTestResultDeviceNameList(IConfiguration config, int BranchID)
         {

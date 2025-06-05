@@ -33,6 +33,11 @@ namespace VPMS.Lib.Data.Models
         public String? GenderName {  get; set; }
     }
 
+    public class DoctorDetailModel : DoctorModel
+    {
+        public int? OrganizationID { get; set; }
+    }
+
     public class NewDoctorControllerModel
     {
         public int? ID { get; set; }
@@ -43,5 +48,6 @@ namespace VPMS.Lib.Data.Models
         public String? designation { get; set; }
         public String? specialty { get; set; }
         public int? branchID { get; set; }
+        public String? updatedBy { get; set; }
     }
 }

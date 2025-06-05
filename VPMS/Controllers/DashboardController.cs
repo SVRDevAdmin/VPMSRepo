@@ -73,7 +73,7 @@ namespace VPMSWeb.Controllers
             {
                 var branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisationID).Select(y => y.ID).ToList();
                 SummaryList = SummaryList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
-                userList = userList.Where(x => branchList.Contains(x.BranchID)).ToList();
+                userList = userList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
                 appointmentList = appointmentList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
                 doctorList = doctorList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
             }
@@ -467,7 +467,7 @@ namespace VPMSWeb.Controllers
             if (role == "Superuser")
             {
                 var branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisationID).Select(y => y.ID).ToList();
-                userList = userList.Where(x => branchList.Contains(x.BranchID)).ToList();
+                userList = userList.Where(x => branchList.Contains(x.BranchID.Value)).ToList();
             }
             else if (role != "Superadmin")
             {

@@ -1,0 +1,15 @@
+CREATE TABLE `mst_avatar` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`Species` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`AvatarImage` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`ColorCode` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`Status` INT NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`UpdatedDate` DATETIME NULL DEFAULT NULL,
+	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;

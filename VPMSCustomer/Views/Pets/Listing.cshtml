@@ -1,0 +1,315 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Pets Listing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+}
+
+<link rel="stylesheet" href="~/css/PetListing.css" />
+
+<script type="text/javascript">
+    var paginationLimit = 10;
+    var pageSize = 10;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
+    $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
+        LoadSpeciesDropdown();
+        LoadPatientPetListing();
+
+        $('#btnFilter').click(function(){
+            $('#divFilter').toggleClass('collapseFilterBox');
+            $('#divContent').toggleClass('col-md-12 col-md-9');
+        });
+
+        $('#btnSearch').click(function(){
+            LoadPatientPetListing();
+        });
+    });
+
+    function viewDetails(id)
+    {
+        window.location.href = '/Pets/View/' + id;
+    }
+
+    function ddlSpeciesChanges(){
+        LoadBreedDropdown($('#ddlSpecies').val());
+    }
+
+    function LoadSpeciesDropdown(){
+        $.getJSON("/Pets/GetSpeciesList")
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlSpecies').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].codeName), result.data[i].codeName);
+                     $('#ddlSpecies').append(opt);
+                 }
+             }
+             else{
+                 $('#ddlSpecies').find("option:not(:first)").remove();
+             }
+         });
+    }
+
+    function LoadBreedDropdown(species){
+        $.getJSON("/Pets/GetBreedList/" + species)
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlBreed').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].breed), result.data[i].breed);
+                     $('#ddlBreed').append(opt);
+                 }
+             }
+             else{
+                 $('#ddlBreed').find("option:not(:first)").remove();
+             }
+         })
+    }
+
+    function LoadPatientPetListing()
+    {
+        $('#tblPetListing tbody').html('');
+
+        $.getJSON("/Pets/GetPatientPetList", {
+            patientID: '@sessionPatientID',
+            petName: $('#txtPetName').val(),
+            species: $('#ddlSpecies').val(),
+            breed: $('#ddlBreed').val(),
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 if (result.data.length > 6)
+                 {
+                     $('#lnkGrid').hide();
+                 }
+                 
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sPetList = '';
+                     sPetList = '<tr>' + 
+                                '<td class="align-middle text-center">' + result.data[i].seqNo + '</td>' + 
+                                '<td class="align-middle">' + result.data[i].name + '</td>' +
+                                '<td class="align-middle">' + result.data[i].species + '</td>' +
+                                '<td class="align-middle">' + result.data[i].breed + '</td>' +
+                                '<td class="align-middle">' + result.data[i].age + '</td>' +
+                                '<td class="align-middle">' + moment(result.data[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format("DD/MM/YYYY hh:mm:ss A") + '</td>' +
+                                '<td class="text-center">' + 
+                                '<button id="btnView_' + i + '" class="btn btn-primary btn-sm" type="button" onclick="viewDetails(\'' + result.data[i].id + '\');" />' +  '@Html.Raw(LangResources["PetList_Label_View"])' +
+                                '</td>' +  
+                                '</tr>';
+
+                    $('#tblPetListing').append(sPetList);
+                 }
+
+                 populatePagingControl(result.totalRecord);
+             }
+             else {
+                 var sNoRecord = '';
+                 sNoRecord = '<tr>' +
+                             '<tr class="text-left" colspan="7">' + '@Html.Raw(LangResources["PetList_Message_NoRecord"])' + '</td>' +  
+                             '</tr>';
+
+                 $('#tblPetListing').append(sNoRecord);
+             }
+         });
+    }
+
+    function populatePagingControl(totalRecord) {
+        let total = totalRecord;
+        if (total == 0) {
+            document.getElementById("pagination").hidden = true;
+        }
+        else {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end) {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        LoadPatientPetListing();
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+
+        LoadPatientPetListing();
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        LoadPatientPetListing();
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <div class="col-md-3">
+            <label class="pageTitle">
+                @LangResources["PetList_Title_Pets"]
+            </label>
+        </div>
+        <div class="col-md-7">&nbsp;</div>
+        <div class="col-md-2 d-flex">
+            <button id="btnFilter" type="button" class="btn">
+                <i class="bi bi-sliders"></i>
+                @LangResources["PetList_Button_Filter"]
+            </button>
+
+            <div id="lnkGrid" class="row ms-2">
+                <a class="mt-1 mb-1 me-2 ps-2" asp-controller="Pets" asp-action="Index">
+                    <i class="bi bi-grid"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="divContent" class="col-md-12">
+
+            <table id="tblPetListing" class="table mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center" style="width: 5%;">@LangResources["PetList_Label_Number"]</th>
+                        <th scope="col" style="width: 20%;">@LangResources["PetList_Label_PetName"]</th>
+                        <th scope="col" style="width: 15%;">@LangResources["PetList_Label_Species"]</th>
+                        <th scope="col" style="width: 15%;">@LangResources["PetList_Label_Breed"]</th>
+                        <th scope="col" style="width: 15%;">@LangResources["PetList_Label_Age"]</th>
+                        <th scope="col" style="width: 20%;">@LangResources["PetList_Label_CreatedOn"]</th>
+                        <th class="text-center" scope="col" style="width: 10%;">@LangResources["PetList_Label_View"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <div class="row">
+                <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <div>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["PetList_Button_Prev"]</button>
+                    </div>
+                    <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                    </div>
+                    <div>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["PetList_Button_Next"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divFilter" class="col-md-3 collapseFilterBox">
+            <div id="divFilterBox" class="row mt-4">
+                <div class="col-md-12">
+                    <div class="row mt-3 ms-0">
+                        <label class="FilterBoxTitle">@LangResources["PetList_Title_Filter"]</label>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row mt-2 ms-0">
+                        <label class="FilterBoxLabel">@LangResources["PetList_Label_PetName"]</label>
+                    </div>
+                    <div class="row ms-1 me-1 mb-3">
+                        <input id="txtPetName" type="text" class="form-control" />
+                    </div>
+
+                    <div class="row mt-2 ms-0">
+                        <label class="FilterBoxLabel">@LangResources["PetList_Label_Species"]</label>
+                    </div>
+                    <div class="row ms-1 me-1 mb-3">
+                        <select id="ddlSpecies" class="form-select" onchange="ddlSpeciesChanges();">
+                            <option value="">@LangResources["PetList_Label_SelectSpecies"]</option>
+                        </select>
+                    </div>
+
+                    <div class="row mt-2 ms-0">
+                        <label class="FilterBoxLabel">@LangResources["PetList_Label_Breed"]</label>
+                    </div>
+                    <div class="row ms-1 me-1 mb-3">
+                        <select id="ddlBreed" class="form-select">
+                            <option value="">@LangResources["PetList_Label_SelectBreed"]</option>
+                        </select>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row ms-1 me-1">
+                        <button id="btnSearch" type="button" class="btn btn-primary">
+                            @LangResources["PetList_Button_Search"]
+                        </button>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

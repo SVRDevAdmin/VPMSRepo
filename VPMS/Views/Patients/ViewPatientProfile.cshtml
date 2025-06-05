@@ -847,21 +847,21 @@
 			element[0].innerHTML = data.Pets[i].Weight;
 
 			element = clone.querySelectorAll('.Status');
-			element[0].innerHTML = data.Pets[i].Status;
+			element[0].innerHTML = (data.Pets[i].Status == 1) ? "Active" : "Inactive";
 
 			var link = "location.href = '/Patients/PetProfile/View/@ViewBag.PatientID/" + data.Pets[i].Name + "'";
 
 			if(@ViewData["CanView"]){
 				allPetsElement.innerHTML = allPetsElement.innerHTML +
 					'<div class="field-container" style="text-align: center;">' +
-					'<img onclick="' + link + '" src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw;" />' +
+					'<img onclick="' + link + '" src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw; border-radius: 50px;" />' +
 					'<a href="/Patients/PetProfile/View/@ViewBag.PatientID/' + data.Pets[i].Name + '" style="font-size: 1vw;" > ' + data.Pets[i].Name + ' </a>' +
 					'</div>'
 			}
 			else{
 				allPetsElement.innerHTML = allPetsElement.innerHTML +
 					'<div class="field-container" style="text-align: center;">' +
-					'<img src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw;" />' +
+					'<img src="/images/' + data.Pets[i].Species + ' profile image.png" style = "width: 4vw; border-radius: 50px;" />' +
 					'<span style="font-size: 1vw;" > ' + data.Pets[i].Name + ' </span>' +
 					'</div>'
 			}

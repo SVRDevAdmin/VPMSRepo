@@ -12,4 +12,4 @@ Values
 ('LanguageSelection', 'zh-Hant', 'Chinese, Traditional', '', 1, 10),
 ('LanguageSelection', 'id', 'Indonesia', '', 1, 11),
 ('LanguageSelection', 'ko', 'Korean', '', 1, 12),
-('LanguageSelection', 'fr', 'French', '', 1, 13)
+('LanguageSelection', 'fr', 'French', '', 1, 13);

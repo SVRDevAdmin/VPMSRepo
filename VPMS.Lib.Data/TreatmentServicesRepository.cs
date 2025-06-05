@@ -42,23 +42,7 @@ namespace VPMS.Lib.Data
         /// </summary>
         /// <param name="config"></param>
         /// <param name="serviceID"></param>
-        /// <returns></returns>
-    //    public static List<TreatmentServicesModel> GetServicesDoctorList(IConfiguration config, int serviceID)
-    //    {
-    //        try
-    //        {
-    //            using (var ctx = new TreatmentServicesDBContext(config))
-    //            {
-    //                return ctx.mst_services.Where(x => x.ID == serviceID && x.Status == 1).ToList();
-    //            }
-    //        }
-    //        catch (Exception ex)
-    //        {
-				//logger.Error("TreatmentServicesRepository >>> GetServicesDoctorList >>> ", ex);
-				//return null;
-    //        }
-    //    }
-
+        /// <returns></returns>3
         public static List<TreatmentServicesDoctorModel> GetServicesDoctorList(IConfiguration config, int serviceID)
         {
             List<TreatmentServicesDoctorModel> sResult = new List<TreatmentServicesDoctorModel>();

@@ -1,0 +1,224 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "BlogsList";
+    ViewData["SelectedMenu"] = "MgmtMenu";
+    ViewBag.SelectedMenu = "MgmtMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/BlogList.css" />
+<script src="~/lib/moment.min.js"></script>
+
+<script type="text/javascript">
+    var paginationLimit = 5;
+    var pageSize = 10;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
+    $("#SubMenuConfig").toggleClass('show');
+    document.querySelector("#SubMenuConfigParent").querySelector("#imgArrow").classList.toggle("Up");
+
+    $(document).ready(function(){
+        LoadBlogList();
+    });
+
+    function LoadBlogList()
+    {
+        $('#tblBlog tbody').html('');
+
+        $.getJSON("/Customer/GetBlogsViewList", {
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function(result) {
+            if (result != null && result.data.length > 0)
+            {
+                var sRowHtml = '';
+                for (i = 0; i < result.data.length; i++)
+                {
+                    sRowHtml += '<tr>' +
+                                '<td scope="col" class="text-center">' + result.data[i].RowNo + '</td>' +
+                                '<td scope="col">' + result.data[i].Title + '</td>' +
+                                '<td scope="col">' + (result.data[i].IsActive == "1" ? "Active" : "Inactive") + '</td>' +
+                                '<td scope="col">' + result.data[i].URLtoRedirect + '</td>' +
+                                '<td scope="col">' + moment(result.data[i].StartDate).format("DD/MM/YYYY") + '</td>' +
+                                '<td scope="col">' + moment(result.data[i].EndDate).format("DD/MM/YYYY") + '</td>' +
+                                '<td scope="col">' + moment(result.data[i].CreatedDate).format("DD/MM/YYYY hh:mm:ss") + '</td>' +
+                                '<td scope="col">' + generatePopupMenu(result.data[i].ID) + '</td>' +
+                                '</tr>';
+                }
+
+                $('#tblBlog tbody').append(sRowHtml);
+
+                /*----- Pagination ----*/
+                populatePagingControl(result.totalRecords);
+            }
+            else {
+                var sEmptyRow = '';
+                sEmptyRow += '<tr>' +
+                             '<td colspan="8">' + '@Html.Raw(LangResources["BlogList_Message_NoRecords"])' + '</td>';
+                             '</tr>';
+
+                $('#tblBlog tbody').append(sRowHtml);
+
+                $('#prevButton').hide();
+                $('#nextButton').hide();
+            }
+        });
+    }
+
+    function generatePopupMenu(id)
+    {
+        var sPopMenuHtml = '';
+
+        sPopMenuHtml += '<button type="button" class="btn" data-toggle="dropdown">' +
+                        '<img class="moreBlogMenu" />' +
+                        '</button>' +
+
+                        '<div class="dropdown-menu hiddenBannerMenuStyle containerBackground5">' +
+                        '<a class="dropdown-item" href="/Customer/ViewBlog/' + id + '/View">' + '@Html.Raw(LangResources["BlogList_Label_View"])' + '</a>' +
+                        '<a class="dropdown-item" href="/Customer/ViewBlog/' + id + '/Edit">' + '@Html.Raw(LangResources["BlogList_Label_Edit"])' + '</a>' +
+                        '</div>';
+
+        return sPopMenuHtml;
+    }
+
+    function populatePagingControl(totalRecord)
+    {
+        let total = totalRecord;
+        if (total == 0)
+        {
+            document.getElementById("pagination").hidden = true;
+        }
+        else
+        {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end)
+    {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        LoadBlogList();
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+
+        LoadBlogList();
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        LoadBlogList();
+    }
+</script>
+
+<div class="row">
+    <div class="row ms-3">
+        <div class="col-md-12">
+            <label class="blogPageTitle">
+                @LangResources["BlogList_Title_BlogManagement"]
+            </label>
+        </div>
+        <div class="col-md-10">&nbsp;</div>
+        <div class="col-md-2">
+            <button id="btnNew" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("BlogProfile", "Customer")'">
+                <i class="bi bi-plus-circle"></i>
+                @LangResources["BlogList_Button_NewBlog"]
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3 ms-3">
+        <div class="col-md-12">
+
+            <table id="tblBlog" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 5%">@LangResources["BlogList_Label_Num"]</th>
+                        <th scope="col" style="width: 25%">@LangResources["BlogList_Label_Title"]</th>
+                        <th scope="col" style="width: 10%">@LangResources["BlogList_Label_Status"]</th>
+                        <th scope="col" style="width: 20%">@LangResources["BlogList_Label_URL"]</th>
+                        <th scope="col" style="width: 10%">@LangResources["BlogList_Label_StartDate"]</th>
+                        <th scope="col" style="width: 10%">@LangResources["BlogList_Label_EndDate"]</th>
+                        <th scope="col" style="width: 15%">@LangResources["BlogList_Label_CreatedDate"]</th>
+                        <th scope="col" style="width: 5%;">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <div class="row">
+                <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <div>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["BlogList_Button_Prev"]</button>
+                    </div>
+                    <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                    </div>
+                    <div>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["BlogList_Button_Next"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

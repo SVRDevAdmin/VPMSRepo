@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Org.BouncyCastle.Asn1.X509;
 using static Org.BouncyCastle.Math.EC.ECCurve;
+using System.Xml;
 
 namespace VPMS.Lib.Data
 {
@@ -201,15 +202,16 @@ namespace VPMS.Lib.Data
         }
 
         /// <summary>
-        /// Update Appointment Info by Appointment ID
+        ///  Update Appointment Info by Appointment ID
         /// </summary>
         /// <param name="config"></param>
         /// <param name="sApptDate"></param>
         /// <param name="sApptStartTime"></param>
         /// <param name="sApptEndTime"></param>
         /// <param name="iApptID"></param>
+        /// <param name="RespReschedule"></param>
         /// <returns></returns>
-        public static Boolean UpdatedAppointment(IConfiguration config, DateTime sApptDate, DateTime sApptStartTime, DateTime sApptEndTime, long iApptID)
+        public static Boolean UpdatedAppointment(IConfiguration config, DateTime sApptDate, DateTime sApptStartTime, DateTime sApptEndTime, long iApptID, Boolean RespReschedule)
         {
             Boolean isSuccess = false;
 
@@ -220,12 +222,19 @@ namespace VPMS.Lib.Data
                     MySqlConnection sConn = new MySql.Data.MySqlClient.MySqlConnection(ctx.Database.GetConnectionString());
                     sConn.Open();
 
+                    String sStatusString = "";
+                    if (RespReschedule)
+                    {
+                        sStatusString = ", Status = '4' ";
+                    }
+
                     String sUpdateCommand = "UPDATE Mst_Appointment " + 
                                             "Set ApptDate = '" + sApptDate.ToString("yyyy-MM-dd") + "', " +
                                             " ApptStartTime = '" + sApptStartTime.ToString("HH:mm:ss") + "', " +
                                             " ApptEndTime = '" + sApptEndTime.ToString("HH:mm:ss") + "', " +
                                             " UpdatedDate = NOW(), " +
                                             " UpdatedBy = 'SYSTEM' " +
+                                            sStatusString + 
                                             "WHERE AppointmentID = '" + iApptID + "'";
 
                     using (MySqlCommand cmd = sConn.CreateCommand())
@@ -255,8 +264,9 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="iApptID"></param>
         /// <param name="iStatus"></param>
+        /// <param name="sUpdatedBy"></param>
         /// <returns></returns>
-        public static Boolean UpdateAppointmentStatus(IConfiguration config, long iApptID, int iStatus)
+        public static Boolean UpdateAppointmentStatus(IConfiguration config, long iApptID, int iStatus, String sUpdatedBy = "SYSTEM")
         {
             Boolean isSuccess = false;
 
@@ -270,7 +280,7 @@ namespace VPMS.Lib.Data
                     String sUpdateCommand = "UPDATE Mst_Appointment " +
                                             "Set Status = '" + iStatus + "', " +
                                             " UpdatedDate = NOW(), " +
-                                            " UpdatedBy = 'SYSTEM' " +
+                                            " UpdatedBy = '" + sUpdatedBy + "' " +
                                             "WHERE AppointmentID = '" + iApptID + "'";
 
                     using (MySqlCommand cmd = sConn.CreateCommand())
@@ -300,6 +310,10 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="sYear"></param>
         /// <param name="sMonth"></param>
+        /// <param name="searchOwner"></param>
+        /// <param name="searchPet"></param>
+        /// <param name="searchServices"></param>
+        /// <param name="searchDoctor"></param>
         /// <returns></returns>
         public static List<AppointmentMonthViewModel> GetCalendarAppointmentMonthView(IConfiguration config, String sYear, String sMonth, 
                                                                 String searchOwner, String searchPet, String searchServices, String searchDoctor)
@@ -314,7 +328,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.AppointmentID, A.ApptDate, A.ApptStartTime, A.ApptEndTime, C.`Name`, P.Name AS 'PetName', " + 
-                                            "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor' " +
+                                            "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.BranchID, A.Status " +
                                             "FROM mst_appointment AS A " +
                                             "INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
                                             "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " +
@@ -322,7 +336,7 @@ namespace VPMS.Lib.Data
                                             "LEFT JOIN mst_patients_owner AS PA ON PA.ID = A.OwnerID " +
                                             "WHERE (YEAR(A.ApptDate) = '" + Convert.ToInt32(sYear) + "' AND MONTH(A.ApptDate) = '" + Convert.ToInt32(sMonth) + "') AND " +
                                             "B.IsDeleted = 0 AND " +
-                                            "A.Status = 0 AND " +
+                                            "(A.Status = 0 OR A.Status = 3) AND " +
                                             "(" + (searchOwner == null) + " OR A.OwnerID = '" + searchOwner + "') AND " + 
                                             "(" + (searchPet == null) + " OR A.PetID = '" + searchPet + "') AND " +
                                             "(" + (searchServices == null) + " OR b.ServicesID = '" + searchServices + "') AND " +
@@ -344,7 +358,9 @@ namespace VPMS.Lib.Data
                                     ServiceName = sReader["Name"].ToString(),
                                     PetName = sReader["PetName"].ToString(),
                                     DoctorName = sReader["Doctor"].ToString(),
-                                    OwnerName = sReader["OwnerName"].ToString()
+                                    OwnerName = sReader["OwnerName"].ToString(),
+                                    BranchID = Convert.ToInt32(sReader["BranchID"]),
+                                    Status = Convert.ToInt32(sReader["Status"])
                                 });
                             }
                         }
@@ -381,7 +397,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String selectCommand = "SELECT A.AppointmentID, A.ApptDate, A.ApptStartTime, A.ApptEndTime, C.`Name`, P.Name AS 'PetName', " + 
-                                           "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor' " + 
+                                           "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.Status, PA.EmailAddress " + 
                                            "FROM mst_appointment AS A " +
                                            "INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
                                            "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " + 
@@ -405,6 +421,8 @@ namespace VPMS.Lib.Data
                                     sResult.PetName = sReader["PetName"].ToString();
                                     sResult.DoctorName = sReader["Doctor"].ToString();
                                     sResult.OwnerName = sReader["OwnerName"].ToString();
+                                    sResult.Status = Convert.ToInt32(sReader["Status"]);
+                                    sResult.EmailAddress = sReader["EmailAddress"].ToString();
                                 }
                             }
                         }
@@ -663,6 +681,14 @@ namespace VPMS.Lib.Data
             return upcomingAppointment;
         }
 
+        /// <summary>
+        /// Get Upcoming Appointments
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="doctor"></param>
+        /// <param name="organisationID"></param>
+        /// <param name="branchID"></param>
+        /// <returns></returns>
         public static List<UpcomingAppointment> GetTodayUpcomingAppointmentList(IConfiguration config, string doctor, int organisationID, int branchID)
         {
             List<UpcomingAppointment> upcomingAppointmentList = new List<UpcomingAppointment>();
@@ -734,6 +760,83 @@ namespace VPMS.Lib.Data
             }
 
             return upcomingAppointmentList;
+        }
+
+        /// <summary>
+        /// Get expired Appointment
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="dtTarget"></param>
+        /// <returns></returns>
+        public static List<AppointmentModel> GetExpiredAppointment(IConfiguration config, DateTime dtTarget)
+        {
+            List<AppointmentModel> sResultList = new List<AppointmentModel>();
+
+            try
+            {
+                using (var ctx = new AppointmentDBContext(config))
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.AppointmentID, A.UniqueIDKey, A.BranchID, A.ApptDate, ApptStartTime, " +
+                                            "A.ApptEndTime, A.OwnerID, A.PetID, A.Status, A.EmailNotify, A.InchargeDoctor, " +
+                                            "A.CreatedDate, A.CreatedBy, A.UpdatedDate, A.UpdatedBy " +
+                                            "FROM mst_appointment as A " +
+                                            "WHERE A.ApptDate < '" + dtTarget.ToString("yyyy-MM-dd") + "' AND " +
+                                            "A.STATUS IN (0) ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            if (sReader.HasRows)
+                            {
+                                while (sReader.Read())
+                                {
+                                    AppointmentModel AppointmentObj = new AppointmentModel();
+                                    AppointmentObj.UniqueIDKey = sReader["UniqueIDKey"].ToString();
+                                    AppointmentObj.AppointmentID = Convert.ToInt64(sReader["AppointmentID"]);
+                                    AppointmentObj.ApptDate = Convert.ToDateTime(sReader["ApptDate"]);
+
+                                    TimeSpan tmStart = (TimeSpan)sReader["ApptStartTime"];
+                                    AppointmentObj.ApptStartTime = DateTime.Now.Add(tmStart);
+
+                                    TimeSpan tmEnd = (TimeSpan)sReader["ApptEndTime"];
+                                    AppointmentObj.ApptEndTime = DateTime.Now.Add(tmEnd);
+                                    AppointmentObj.PetID = Convert.ToInt64(sReader["PetID"]);
+                                    AppointmentObj.OwnerID = Convert.ToInt64(sReader["OwnerID"]);
+                                    AppointmentObj.BranchID = Convert.ToInt32(sReader["BranchID"]);
+
+                                    if (sReader["CreatedDate"] != null && !String.IsNullOrEmpty(sReader["CreatedDate"].ToString()))
+                                    {
+                                        AppointmentObj.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                    }
+                                    AppointmentObj.CreatedBy = sReader["CreatedBy"].ToString();
+
+                                    if (sReader["UpdatedDate"] != null && !String.IsNullOrEmpty(sReader["UpdatedDate"].ToString()))
+                                    {
+                                        AppointmentObj.UpdatedDate = Convert.ToDateTime(sReader["UpdatedDate"]);
+                                    }
+                                    AppointmentObj.UpdatedBy = sReader["UpdatedBy"].ToString();
+
+
+                                    sResultList.Add(AppointmentObj);
+                                }
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResultList;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("AppointmentRepository >>> GetExpiredAppointment >>> " + ex.ToString());
+                return null;
+            }
         }
     }
 

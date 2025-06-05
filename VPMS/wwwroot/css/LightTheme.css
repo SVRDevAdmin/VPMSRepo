@@ -7,6 +7,7 @@ body {
 
 input[type='text'], input[type='password'], input[type='email'], button, select, .timePicker {
 	box-shadow: none !important;
+	/*border: 0 !important;*/
 }
 
 input[type='text']:focus, select:focus {
@@ -125,90 +126,7 @@ input[type='text']:focus, select:focus {
 	margin-left: 0.75rem;
 	margin-right: 1.25rem;
 }
-/*
-.sidebar-nav {
-	background-color: #f7f7f7;
-	list-style: none;
-	position: fixed;
-	top: 0vw;
-	width: 20vw;
-	height: 100vh;
-	margin-left: -15px;
-	padding: 0;
-	font-size: 1vw;
-	transition: background-color 1s;
-}
 
-.sidebar-nav li {
-	text-indent: 0px;
-	line-height: 40px;
-}
-
-.sidebar-nav li a {
-	display: block;
-	text-decoration: none;
-	color: #999999;
-	
-	transition: color 0.5s;
-}
-
-.sidebar-nav li a:hover {
-	text-decoration: none;
-	color: #fff;
-	background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-nav li a:active, .sidebar-nav li a:focus {
-	text-decoration: none;
-}
-
-.sidebar-nav li span.selected {
-	background-color: rgb(30, 118, 251); 
-	display: inline-block;
-}
-
-.sidebar-nav li span {
-	background-color: none;
-}
-
-.sidebar-nav li ul {
-	margin-left: 88px;
-	padding-left: 20px;
-	list-style-type: none;
-	border-left-style: solid;
-	border-left-color: #707B7C;
-	border-left-width: thin;
-	display: none;
-}
-
-.sidebar-nav li ul li {
-	width: 140px;
-	color: black;
-	line-height: 30px;
-}
-
-.sidebar-nav li ul li:first-child{
-	margin-top: 0px;
-}
-
-.sidebar-nav li ul li:last-child{
-	margin-bottom: 0px;
-}
-
-.sidebar-nav li ul.open {
-	display: inline-block;
-}
-
-.sidebar-nav li a #imgArrow {
-	content: url('../images/down-arrow.png');
-	width: 1vw;
-}
-
-.sidebar-nav li a #imgArrow.Up {
-	content: url('../images/arrow-up.png');
-	width: 1vw;
-}
-*/
 #imgProfileArrow {
 	content: url('../images/down-arrow.png');
 }
@@ -216,22 +134,7 @@ input[type='text']:focus, select:focus {
 #imgBackArrow {
 	content: url('../images/BackArrow.png');
 }
-/*
-.sidebar-nav > .sidebar-brand {
-	height: 65px;
-	font-size: 18px;
-	line-height: 60px;
-}
 
-.sidebar-nav > .sidebar-brand a {
-	color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-	color: #fff;
-	background: none;
-}
-*/
 .sidebar-nav-font {
 	vertical-align: middle;
 	color: black;
@@ -239,14 +142,8 @@ input[type='text']:focus, select:focus {
 }
 
 .divThemes {
-	/* display: flex; */
-	/* flex-direction: row; */
-	/*margin-top: 1vw;*/
 	margin-top: 11px;
-	/*margin-left: 0vw;*/
-	/*width: 6vw;*/
 	width: 74px;
-	/*height: 3.2vw;*/
 	height: 40px;
 	border-radius: 0.5vw;
 	background-color: #f7f7f7;
@@ -269,7 +166,7 @@ input[type='text']:focus, select:focus {
 
 .profilemenu {
 	background-color: white;
-	font-size: 1vw;
+	font-size: 12px;
 }
 
 .profilemenu > a {
@@ -290,6 +187,11 @@ input[type='text']:focus, select:focus {
 
 #imgVetVitals {
 	content: url('../images/Vet-Vitals-Logo.png');
+}
+
+#imgVetVitalsResponsive {
+	visibility: hidden;
+	/*display: none;*/
 }
 
 #imgLogo {
@@ -372,6 +274,12 @@ input[type='text']:focus, select:focus {
 	height: 24px;
 }
 
+#imgManagement {
+	content: url('../images/customer.png');
+	width: 24px;
+	height: 24px;
+}
+
 #txtfilter:focus {
 	border-color: inherit;
 	-webkit-box-shadow: none;
@@ -420,7 +328,6 @@ input[type='text']:focus, select:focus {
 .CountryFlag {
 	width: 32px;
 	height: 32px;
-	/*margin-left: 15px;*/
 	border-radius: 15px;
 }
 
@@ -448,14 +355,12 @@ input[type='text']:focus, select:focus {
 }
 
 ::-webkit-scrollbar-track {
-	/*-webkit-box-shadow: inset 0 0 6px rgba(200,200,200,1);*/
 	border-radius: 105px;
 }
 
 ::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	background-color: #1f2e45;
-	/*-webkit-box-shadow: inset 0 0 6px rgba(90,90,90,0.7);*/
 }
 
 @media(max-width:767px) {
@@ -464,13 +369,29 @@ input[type='text']:focus, select:focus {
 		padding-top: 70px !important;
 	}
 
-	#divLogo{
-		top: 16px !important;
+	#divLogo {
+		/*top: 16px !important;*/
 		left: 7px !important;
+		width: 70px !important;
+		height: 40px;
 	}
 
 	#imgLogo {
 		width: 4vw !important;
+	}
+
+	#imgVetVitals {
+		visibility: hidden !important;
+	}
+
+	#imgVetVitalsResponsive {
+		content: url('../images/Vet-Vitals-Logo-Only.png');
+		visibility: visible !important;
+		top: 0px;
+		left: 2px;
+		width: 32px;
+		height: 26px;
+		position: absolute;
 	}
 
 	.spanMenuBlue {
@@ -504,18 +425,55 @@ input[type='text']:focus, select:focus {
 	.ProfileFont {
 		display: none !important;
 	}
-	/*
-	#SubMenuServices {
-		display: none !important;
-	}
-
-	#SubMenuAccess {
-		display: none !important;
-	}
-	*/
 
 	#copyrightText {
 		display: none !important;
+	}
+
+	/*------ Role -------*/
+	.LeftColLabel {
+		margin-left: 0px !important;
+		margin-top: 5px;
+		font-size: 12px !important;
+		font-weight: bold;
+		color: black;
+	}
+
+	.leftColControl {
+		width: 90%;
+		font-size: 12px !important;
+		margin-left: 0px !important;
+		margin-top: 5px
+	}
+
+	.leftColSpanControl {
+		width: 95%;
+		font-size: 12px !important;
+		margin-left: 0px !important;
+		margin-top: 5px;
+	}
+
+	/*----- User ------*/
+	.LeftColUserLabel{
+		margin-left: 0px !important;
+	}
+
+	.leftColUserControl{
+		margin-left: 0px !important;
+	}
+
+	/*---- Doctor -----*/
+	.doctorLeftColLabel {
+		margin-left: 5px !important;
+	}
+
+	.doctorLeftColControl {
+		margin-left: 5px !important;
+	}
+
+	.doctorComboColControl {
+		width: 80% !important;
+		margin-left: 5px !important;
 	}
 }
 
@@ -524,9 +482,9 @@ input[type='text']:focus, select:focus {
 		padding-left: 0;
 	}
 
-	#wrapper.toggled {
-		padding-left: 250px;
-	}
+		#wrapper.toggled {
+			padding-left: 250px;
+		}
 
 	#sidebar-wrapper {
 		width: 0;
@@ -549,14 +507,6 @@ input[type='text']:focus, select:focus {
 	.sidebar-nav-font {
 		visibility: visible !important;
 	}
-	/*
-	#SubMenuServices {
-		visibility: visible !important;
-	}
-
-	#SubMenuAccess {
-		visibility: visible !important;
-	}*/
 
 	#copyrightText {
 		visibility: visible !important;
@@ -612,10 +562,6 @@ input[type='text']:focus, select:focus {
 	font-weight: bold !important;
 	color: black !important;
 }
-
-/*.fc-customButton-button {
-	color: black !important;
-}*/
 
 .containerBackground {
 	background-color: #f7f7f7;
@@ -687,6 +633,7 @@ input[type='text']:focus, select:focus {
 
 #tblDoctor {
 	border: 0px !important;
+	font-size: 12px;
 }
 
 #tblDoctor > thead > tr > th {
@@ -712,7 +659,6 @@ input[type='text']:focus, select:focus {
 }
 
 .frameHeader {
-	/*height: 40px;*/
 	height: 28px;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
@@ -730,6 +676,7 @@ input[type='text']:focus, select:focus {
 	margin: 5px;
 	border: 1px solid black;
 	color: black;
+	font-size: 12px;
 }
 
 .searchFields:focus {
@@ -744,19 +691,20 @@ input[type='text']:focus, select:focus {
 
 .doctorLeftColLabel {
 	margin-left: 10px;
+	font-size: 14px;
 	font-weight: bold;
 	color: black;
 }
 
 .doctorRightColLabel {
 	margin-left: 5px;
+	font-size: 14px;
 	font-weight: bold;
 	color: black;
 }
 
 .doctorLeftColControl {
 	width: 80%;
-	/*height: 45px;*/
 	margin-left: 10px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -765,7 +713,6 @@ input[type='text']:focus, select:focus {
 
 .doctorRightColControl {
 	width: 80%;
-	/*height: 45px;*/
 	margin-left: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -774,7 +721,6 @@ input[type='text']:focus, select:focus {
 
 .doctorComboColControl {
 	width: 90%;
-	/*height: 45px;*/
 	margin-left: 10px;
 	border: 1px solid black;
 }
@@ -843,7 +789,6 @@ input[type='text']:focus, select:focus {
 	border: 0;
 	width: 70%;
 	height: 40px;
-	/*word-break: break-word;*/
 }
 
 .rowNotificationMessage p {
@@ -924,7 +869,7 @@ a {
 }
 
 #tblRoles {
-	border: 0px !important;
+	border: 1px solid #ddd !important;
 }
 
 #tblRoles > thead > tr > th {
@@ -933,6 +878,8 @@ a {
 	border-left: 0px;
 	border-bottom: 1px solid #ddd;
 	color: black;
+	font-size: 12px;
+	font-weight: bold;
 }
 
 #tblRoles > tbody > tr > td {
@@ -942,6 +889,11 @@ a {
 	border-bottom: 1px solid #ddd;
 	background-color: transparent;
 	color: black;
+	font-size: 12px;
+}
+
+#tblRoles > tbody > tr > td:nth-child(4) {
+	word-break: break-word !important;
 }
 
 .roleListingMoreIcon {
@@ -974,18 +926,21 @@ a {
 .LeftColLabel {
 	margin-left: 10px;
 	margin-top: 5px;
+	font-size: 12px;
 	font-weight: bold;
 	color: black;
 }
 
 .CenterColLabel {
 	margin-top: 5px;
+	font-size: 12px;
 	font-weight: bold;
 	color: black;
 }
 
 .RightColLabel {
 	margin-top: 5px;
+	font-size: 12px;
 	font-weight: bold;
 	color: black;
 }
@@ -994,12 +949,13 @@ a {
 	margin-left: 10px;
 	margin-bottom: 15px;
 	font-weight: bold;
-	font-size: 1vw;
+	font-size: 12px;
 	color: black;
 }
 
 .permissionGrouping {
 	margin-left: 10px;
+	font-size: 12px;
 	color: black;
 	text-decoration: underline;
 }
@@ -1017,30 +973,31 @@ a {
 	margin-top: 13px;
 	margin-bottom: 5px;
 	color: black;
+	font-size: 12px;
 }
 
 .leftColControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-left: 10px;
 	margin-top: 5px
 }
 
 .centerColControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
 .rightColControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
 .leftColSpanControl {
 	width: 95%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-left: 10px;
 	margin-top: 5px;
 }
@@ -1092,6 +1049,7 @@ a {
 	border-left: 0px;
 	border-bottom: 1px solid #ddd;
 	color: black;
+	font-size: 12px;
 }
 
 #tblUsers > tbody > tr > td {
@@ -1101,6 +1059,7 @@ a {
 	border-bottom: 1px solid #ddd;
 	background-color: transparent;
 	color: black;
+	font-size: 12px;
 }
 
 .frameUserStyle {
@@ -1129,36 +1088,39 @@ a {
 	margin-top: 5px;
 	font-weight: bold;
 	color: black;
+	font-size: 14px;
 }
 
 .CenterColUserLabel {
 	margin-top: 5px;
 	font-weight: bold;
 	color: black;
+	font-size: 14px;
 }
 
 .RightColUserLabel {
 	margin-top: 5px;
 	font-weight: bold;
 	color: black;
+	font-size: 14px;
 }
 
 .leftColUserControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-left: 10px;
 	margin-top: 5px
 }
 
 .centerColUserControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
 .rightColUserControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
@@ -1176,6 +1138,7 @@ a {
 /*-------- Test Mgmt -----------*/
 #tblTestResult {
 	border: 0px !important;
+	font-size: 12px !important;
 }
 
 #tblTestResult > thead > tr > th {
@@ -1236,6 +1199,7 @@ a {
 .TestMgmtFilterLabel {
 	color: black;
 	font-weight: bold;
+	font-size: 14px;
 }
 
 #tblTestParamResult > thead > tr > th {
@@ -1264,46 +1228,19 @@ a {
 
 /* Container for the slider */
 .slider-container {
-	/*width: 300px;*/
 	width: 24vw;
 	position: relative;
-	/*height: 8px;*/
 	height: 0.62vw;
 	background: linear-gradient(to right, #fcc11d 33%, white 33%, white 33.5%, #42c0a5 33.5%, #42c0a5 66%, white 66%, white 66.6%, #ea4643 66.6%);
-	/*border-radius: 5px;*/
 	border-radius: 1vw;
 	overflow: visible; /* Allow the thumb to display outside the container */
 }
 
-/* Styling the thumb (indicator) as an arrow */
-/*.slider::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	appearance: none;
-	width: 0;
-	height: 0;
-	border-left: 8px solid transparent;
-	border-right: 8px solid transparent;
-	border-top: 15px solid black;
-	cursor: pointer;
-	position: relative;
-	top: -7px;
-}
-
-.slider::-moz-range-thumb {
-	width: 0;
-	height: 0;
-	border-left: 8px solid transparent;
-	border-right: 8px solid transparent;
-	border-top: 15px solid black;
-	cursor: pointer;
-}*/
 
 /* Styling the thumb (indicator) as an arrow */
 .slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	/*width: 16px;*/
-	/*height: 14px;*/
 	width: 1.3vw;
 	height: 1.2vw;
 	border: 0;
@@ -1313,4 +1250,365 @@ a {
 	-o-background-size: cover;
 	background-size: cover;
 	cursor: pointer;
+}
+
+#receiptDropdownMenu {
+	background-color: none;
+}
+
+/*------ Banner ------*/
+#tblBanner > thead > tr > th {
+	border: 0px !important;
+	background-color: #f7f7f7 !important;
+	border-bottom: 1px solid #ddd !important;
+	color: black !important;
+	font-size: 14px !important;
+	font-weight: bold !important;
+}
+
+#tblBanner > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd !important;
+	background-color: transparent !important;
+	color: black !important;
+	font-size: 12px !important;
+	vertical-align: middle !important;
+}
+
+.bannerPageTitle {
+	color: black;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.moreMenu {
+	content: url('../images/more_icon.png');
+	width: 14px;
+	height: 14px;
+}
+
+.hiddenBannerMenuStyle {
+	background-color: white !important;
+	min-width: fit-content;
+	font-size: 12px;
+	color: black;
+}
+
+.hiddenBannerMenuStyle > a:hover {
+	color: black !important;
+	background-color: white !important;
+}
+
+/*------- Banner Details ------*/
+.frameTitle {
+	background-color: black;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+.frameBody {
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.frameTitleLabel {
+	color: black;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.fieldsLabel {
+	color: black;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.remarksLabel {
+	color: black;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.btn-outline-secondary{
+	color: black !important;
+}
+
+/*------ Blog List ----------*/
+.blogPageTitle {
+	color: black;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#tblBlog > thead > tr > th {
+	border: 0px !important;
+	background-color: #f7f7f7 !important;
+	border-bottom: 1px solid #ddd !important;
+	color: black !important;
+	font-size: 14px !important;
+	font-weight: bold !important;
+}
+
+#tblBlog > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd !important;
+	background-color: transparent !important;
+	color: black !important;
+	font-size: 12px !important;
+	vertical-align: middle !important;
+}
+
+.moreBlogMenu {
+	content: url('../images/more_icon.png');
+	width: 14px;
+	height: 14px;
+}
+
+/*------ Blog Profile -------*/
+.blogFrameTitle {
+	background-color: black;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+.blogFrameBody {
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.blogFieldLabel {
+	color: black;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+/*------ Organization -------*/
+.pageOrganizationTitle {
+	color: black;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#organisationList {
+	border: 1px solid #ddd !important;
+}
+
+#organisationList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#organisationList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+}
+
+/*------- Patient -------------*/
+#petInfoList {
+	border: 1px solid #ddd !important;
+}
+
+#petInfoList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#petInfoList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+.form-label {
+	font-size: 12px;
+	font-weight: bold;
+	color: black;
+	margin-bottom: 0.7vw;
+}
+
+.divPatientBox {
+	border-radius: 6px;
+	background-color: #f7f7f7;
+}
+
+.filterTitle {
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+}
+
+/*------- Inventory ------*/
+#inventoryList {
+	border: 1px solid #ddd !important;
+}
+
+#inventoryList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#inventoryList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*------- Treatment Plan List ------*/
+#treatmentPlanList {
+	border: 1px solid #ddd !important;
+}
+
+#treatmentPlanList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#treatmentPlanList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*------- Services List ---------*/
+#serviceList {
+	border: 1px solid #ddd !important;
+}
+
+#serviceList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#serviceList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*---- Invoice Receipt Listing -----*/
+#invoiceList {
+	border: 1px solid #ddd !important;
+}
+
+#invoiceList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#invoiceList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+#receiptList {
+	border: 1px solid #ddd !important;
+}
+
+#receiptList > thead > tr > th {
+	border: 0px;
+	background-color: #f7f7f7;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+	font-size: 12px;
+}
+
+#receiptList > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: black;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+.divInvoiceLstBox {
+	border-radius: 6px;
+	background-color: #f7f7f7;
+}
+
+.invoiceFilterTitle{
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
 }

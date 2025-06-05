@@ -1,0 +1,826 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("UserName");
+}
+
+<link rel="stylesheet" href="~/css/Profile.css" />
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        validateSession('@LoginSessionID');
+
+        $('#divSecondaryOwner').hide();
+        loadGenderDropdown();
+        loadCountryDropdown();
+        
+        $('#btnEdit').on('click', function(ctl){
+            $('.displayField').hide();
+            $('.editField').show();
+
+            $('#btnEdit').hide();
+            $('#btnCancel').show();
+            $('#btnSave').show();
+
+            loadProfile(true);
+        });
+
+        $('#btnSave').on('click', function(ctl){
+            UpdateProfiles();
+        });
+
+        $('#btnCancel').on('click', function(ctl){
+            $('.displayField').show();
+            $('.editField').hide();
+
+            $('#btnEdit').show();
+            $('#btnCancel').hide();
+            $('#btnSave').hide();
+
+            $('#lbError').html('');
+        });
+
+        if ('@sessionUserID' != '')
+        {
+            loadProfile(false);
+        }
+    });
+
+    function loadProfile(IsEdit)
+    {
+        $.getJSON("/Account/Profile/" + '@sessionUserID')
+            .done(function(result){
+
+                if (result.data.length > 0){
+                    // --- Primary Owner ------//
+                    var sPrimaryProfile = result.data.filter(function(obj){
+                                                return (obj.isPrimary == 1);
+                                          });
+
+                    if (sPrimaryProfile != null && sPrimaryProfile.length > 0)
+                    {
+                        if (IsEdit == true)
+                        {
+                            $('#hidPriOwnerID').val(sPrimaryProfile[0].id);
+                            $('#txtPriOwnerName').val(sPrimaryProfile[0].name);
+                            $('#ddlPriGender').val(sPrimaryProfile[0].gender);
+                            $('#txtPriContactNo').val(sPrimaryProfile[0].contactNo);
+                            $('#txtPriEmail').val(sPrimaryProfile[0].emailAddress);
+                            $('#txtPriAddress').val(sPrimaryProfile[0].address);
+
+                            $('#txtPriPostcode').val(sPrimaryProfile[0].postCode);
+                            $('#ddlPriCountry option').filter(function() {
+                                return this.text == sPrimaryProfile[0].country;
+                            }).attr('selected', true);
+
+                            loadStateDropdown($('#ddlPriCountry').val());
+                            setTimeout(function(){
+                                $('#ddlPriState option').filter(function(){
+                                    return this.text == sPrimaryProfile[0].state;
+                                }).attr('selected', true);
+
+                                LoadPriCity($('#ddlPriState').val(), sPrimaryProfile[0].city);
+                            }, 500);
+                        }
+                        else
+                        {
+                            $('#lbPriOwnerName').html(sPrimaryProfile[0].name);
+                            $('#lbPriGender').html(sPrimaryProfile[0].genderName);
+                            $('#lbPriContactNo').html(sPrimaryProfile[0].contactNo);
+                            $('#lbPriEmail').html(sPrimaryProfile[0].emailAddress);
+                            $('#lbPriAddress').html(sPrimaryProfile[0].address);
+                            $('#lbPriCity').html(sPrimaryProfile[0].city);
+                            $('#lbPriPostcode').html(sPrimaryProfile[0].postCode);
+                            $('#lbPriState').html(sPrimaryProfile[0].state);
+                            $('#lbPriCountry').html(sPrimaryProfile[0].country);
+                        }
+
+                        if (sPrimaryProfile[0].genderName == 'Female')
+                        {
+                            $('#avatarPrimary').attr('class', 'avatarFemale');
+                        }
+
+                        if (sPrimaryProfile[0].genderName == 'Male')
+                        {
+                            $('#avatarPrimary').attr('class', 'avatarMale');
+                        }
+                    }
+
+                    // --- Secondary Owner ----- //
+                    var sSecondaryProfile = result.data.filter(function(obj) { 
+                                                return (obj.isPrimary == 0);
+                                            });
+
+                    if (sSecondaryProfile != null && sSecondaryProfile.length > 0)
+                    {
+                        $('#divSecondaryOwner').show();
+
+                        if (IsEdit == true)
+                        {
+                            $('#hidSecOwnerID').val(sSecondaryProfile[0].id);
+                            $('#txtSecOwnerName').val(sSecondaryProfile[0].name);
+                            $('#ddlSecGender').val(sSecondaryProfile[0].gender);
+                            $('#txtSecContactNo').val(sSecondaryProfile[0].contactNo);
+                            $('#txtSecEmail').val(sSecondaryProfile[0].emailAddress);
+                            $('#txtSecAddress').val(sSecondaryProfile[0].address);
+
+                            $('#txtSecPostcode').val(sSecondaryProfile[0].postCode);
+                            $('#ddlSecCountry option').filter(function() {
+                                return this.text == sSecondaryProfile[0].country;
+                            }).attr('selected', true);
+
+                            loadSecStateDropdown($('#ddlSecCountry').val());
+                            setTimeout(function(){
+                                $('#ddlSecState option').filter(function(){
+                                    return this.text == sSecondaryProfile[0].state;
+                                }).attr('selected', true);
+
+                                LoadSecCity($('#ddlSecState').val(), sSecondaryProfile[0].city);
+                            }, 500);    
+                        }
+                        else 
+                        {
+                            $('#lbSecOwnerName').html(sSecondaryProfile[0].name);
+                            $('#lbSecGender').html(sSecondaryProfile[0].genderName);
+                            $('#lbSecContactNo').html(sSecondaryProfile[0].contactNo);
+                            $('#lbSecEmail').html(sSecondaryProfile[0].emailAddress);
+                            $('#lbSecAddress').html(sSecondaryProfile[0].address);
+                            $('#lbSecCity').html(sSecondaryProfile[0].city);
+                            $('#lbSecPostcode').html(sSecondaryProfile[0].postCode);
+                            $('#lbSecState').html(sSecondaryProfile[0].state);
+                            $('#lbSecCountry').html(sSecondaryProfile[0].country);
+                        }
+
+
+                        if (sSecondaryProfile[0].genderName == 'Female')
+                        {
+                            $('#avatarSecondary').attr('class', 'avatarFemale');
+                        }
+
+                        if (sSecondaryProfile[0].genderName == 'Male')
+                        {
+                            $('#avatarSecondary').attr('class', 'avatarMale');
+                        }
+                    }
+                    else
+                    {
+                        $('#divSecondaryOwner').hide();
+                    }
+                }
+                else {
+
+                }
+            });
+    }
+
+    function UpdateProfiles()
+    {
+        if (validateOwnerFields())
+        {
+            let ownerlist = [];
+
+            let primaryOwner = {
+                ID : $('#hidPriOwnerID').val(),
+                Name: $('#txtPriOwnerName').val(),
+                Gender: $('#ddlPriGender').val(),
+                ContactNo: $('#txtPriContactNo').val(),
+                EmailAddress: $('#txtPriEmail').val(),
+                Address: $('#txtPriAddress').val(),
+                PostCode: $('#txtPriPostcode').val(),
+                City: $('#ddlPriCity option:selected').text(),
+                State: $('#ddlPriState option:selected').text(),
+                Country: $('#ddlPriCountry option:selected').text(),
+                UpdatedBy: '@sessionUserName',
+            }
+            ownerlist.push(primaryOwner);
+
+            if ($('#divSecondaryOwner').is(':visible') == true)
+            {
+                let secondaryOwner = {
+                    ID : $('#hidSecOwnerID').val(),
+                    Name: $('#txtSecOwnerName').val(),
+                    Gender: $('#ddlSecGender').val(),
+                    ContactNo: $('#txtSecContactNo').val(),
+                    EmailAddress: $('#txtSecEmail').val(),
+                    Address: $('#txtSecAddress').val(),
+                    PostCode: $('#txtSecPostcode').val(),
+                    City: $('#ddlSecCity option:selected').text(),
+                    State: $('#ddlSecState option:selected').text(),
+                    Country: $('#ddlSecCountry option:selected').text(),
+                    UpdatedBy: '@sessionUserName',
+                }
+                ownerlist.push(secondaryOwner);
+            }
+
+            $.post("/Account/Profile/UpdateProfile", {
+                ownerlist
+            }).done(function(result) {
+                if (result.statusCode == 200){
+                    ShowSuccessMsgBox("@Html.Raw(LangResources["Profile_Title_UpdateProfile"])", 
+                                      "@Html.Raw(LangResources["Profile_Message_ProfileUpdatesSuccess"])",
+                        function(){
+                            window.location.reload();
+                        }
+                    );
+                }
+                else{
+                    $('#lbError').html('@Html.Raw(LangResources["Settings_Message_UpdateSettingsFailed"])');
+                }
+            });
+        }
+        else
+        {
+            $('#lbError').html('@Html.Raw(LangResources["Profile_Message_MandatoryFields"])');
+        }
+    }
+
+    function validateOwnerFields()
+    {
+        let isValid = true;
+
+        // ----- Owner Name ---------//
+        if ($('#txtPriOwnerName').val() == '')
+        {
+            $('#txtPriOwnerName').addClass("errorValidation");
+            $('#txtPriOwnerName').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtPriOwnerName').removeClass("errorValidation");
+        }
+
+        // ------ Gender ---------//
+        if ($('#ddlPriGender').val() == ''){
+            $('#ddlPriGender').addClass("errorValidation");
+            $('#ddlPriGender').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlPriGender').removeClass("errorValidation");
+        }
+
+        // ----- Contact No -------//
+        if ($('#txtPriContactNo').val() == ''){
+            $('#txtPriContactNo').addClass("errorValidation");
+            $('#txtPriContactNo').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtPriContactNo').removeClass("errorValidation");
+        }
+
+        // ------ Email -----------//
+        if ($('#txtPriEmail').val() ==''){
+            $('#txtPriEmail').addClass("errorValidation");
+            $('#txtPriEmail').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtPriEmail').removeClass("errorValidation");
+        }
+
+        // ------- Address ---------//
+        if ($('#txtPriAddress').val() == ''){
+            $('#txtPriAddress').addClass("errorValidation");
+            $('#txtPriAddress').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtPriAddress').removeClass("errorValidation");
+        }
+
+        // ------ PostCode ---------//
+        if ($('#txtPriPostcode').val() == ''){
+            $('#txtPriPostcode').addClass("errorValidation");
+            $('#txtPriPostcode').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtPriPostcode').removeClass("errorValidation");
+        }
+
+        // ------- City ------------//
+        if ($('#ddlPriCity').val() == '')
+        {
+            $('#ddlPriCity').addClass("errorValidation");
+            $('#ddlPriCity').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#ddlPriCity').removeClass("errorValidation");
+        }
+
+        // ------ State ----------//
+        if ($('#ddlPriState').val() == ''){
+            $('#ddlPriState').addClass("errorValidation");
+            $('#ddlPriState').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlPriState').removeClass("errorValidation");
+        }
+
+        // ------ Country --------//
+        if ($('#ddlPriCountry').val() ==''){
+            $('#ddlPriCountry').addClass("errorValidation");
+            $('#ddlPriCountry').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#ddlPriCountry').removeClass("errorValidation");
+        }
+
+        // --- Secondary Owner ---------//
+        if ($('#divSecondaryOwner').is(':visible') == true)
+        {
+            // ----- Owner Name ------//
+            if ($('#txtSecOwnerName').val() == ''){
+                $('#txtSecOwnerName').addClass("errorValidation");
+                $('#txtSecOwnerName').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#txtSecOwnerName').removeClass("errorValidation");
+            }
+
+            // ------ Gender ---------//
+            if ($('#ddlSecGender').val() == ''){
+                $('#ddlSecGender').addClass("errorValidation");
+                $('#ddlSecGender').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#ddlSecGender').removeClass("errorValidation");
+            }
+
+            // ------- Contact No -----//
+            if ($('#txtSecContactNo').val() == ''){
+                $('#txtSecContactNo').addClass("errorValidation");
+                $('#txtSecContactNo').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#txtSecContactNo').removeClass("errorValidation");
+            }
+
+            // ------- Email ---------//
+            if ($('#txtSecEmail').val() == ''){
+                $('#txtSecEmail').addClass("errorValidation");
+                $('#txtSecEmail').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#txtSecEmail').removeClass("errorValidation");
+            }
+
+            // -------- Address -------- //
+            if ($('#txtSecAddress').val() == ''){
+                $('#txtSecAddress').addClass("errorValidation");
+                $('#txtSecAddress').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#txtSecAddress').removeClass("errorValidation");
+            }
+
+            // -------- PostCode ---------//
+            if ($('#txtSecPostcode').val() == ''){
+                $('#txtSecPostcode').addClass("errorValidation");
+                $('#txtSecPostcode').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#txtSecPostcode').removeClass("errorValidation");
+            }
+
+            // ------- City ------------//
+            if ($('#ddlSecCity').val() == ''){
+                $('#ddlSecCity').addClass("errorValidation");
+                $('#ddlSecCity').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#ddlSecCity').removeClass("errorValidation");
+            }
+
+            if ($('#ddlSecState').val() == ''){
+                $('#ddlSecState').addClass("errorValidation");
+                $('#ddlSecState').focus();
+
+                isValid = false;
+            }
+            else {
+                $('#ddlSecState').removeClass("errorValidation");
+            }
+
+            if ($('#ddlSecCountry').val() == '')
+            {
+                $('#ddlSecCountry').addClass("errorValidation");
+                $('#ddlSecCountry').focus();
+
+                isValid = false;
+            }
+            else{
+                $('#ddlSecCountry').removeClass("errorValidation");
+            }
+        }
+
+        return isValid;
+    }
+
+    function loadGenderDropdown()
+    {
+        $('#ddlPriGender').empty();
+        $('#ddlSecGender').empty();
+
+        $.getJSON("/Masterdata/Gender")
+            .done(function(result){
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].codeName, result.data[i].codeID);
+                        $('#ddlPriGender').append(opt);
+                    }
+
+                    for (var x = 0; x < result.data.length; x++)
+                    {
+                        var opt1 = new Option(result.data[x].codeName, result.data[x].codeID);
+                        $('#ddlSecGender').append(opt1);
+                    }
+                }
+            });
+    }
+
+    function loadCountryDropdown()
+    {
+        $('#ddlPriCountry').empty();
+
+        $.getJSON("/Masterdata/CountryList")
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].countryName, result.data[i].id);
+                        $('#ddlPriCountry').append(opt);
+                    }
+
+                    for (var x = 0; x < result.data.length; x++)
+                    {
+                        var opt1 = new Option(result.data[x].countryName, result.data[x].id);
+                        $('#ddlSecCountry').append(opt1);
+                    }
+                }
+            });
+    }
+
+    function loadStateDropdown(country)
+    {
+        $('#ddlPriState').empty();
+
+        $.getJSON("/Masterdata/StatesList/" + country)
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].state, result.data[i].id);
+                        $('#ddlPriState').append(opt);
+                    }
+                }
+            });
+    }
+
+    function loadPriCityDropdown(state)
+    {
+        $('#ddlPriCity').empty();
+
+        $.getJSON("/Masterdata/CityList/" + state)
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].city, result.data[i].id);
+                        $('#ddlPriCity').append(opt);
+                    }
+                }
+            });
+    }
+
+    function loadSecStateDropdown(country)
+    {
+        $('#ddlSecState').empty();
+
+        $.getJSON("/Masterdata/StatesList/" + country)
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].state, result.data[i].id);
+                        $('#ddlSecState').append(opt);
+                    }
+                }
+            });
+    }
+
+    function loadSecCityDropdown(state)
+    {
+        $('#ddlSecCity').empty();
+
+        $.getJSON("/Masterdata/CityList/" + state)
+            .done(function(result) {
+                if (result.data != null && result.data.length > 0)
+                {
+                    for (var i = 0; i < result.data.length; i++)
+                    {
+                        var opt = new Option(result.data[i].city, result.data[i].id);
+                        $('#ddlSecCity').append(opt);
+                    }
+                }
+            });
+    }
+
+    function LoadPriCity(State, SelectedCity){
+
+        loadPriCityDropdown(State);
+
+        setTimeout(function(){
+            $('#ddlPriCity option').filter(function(){
+                return this.text == SelectedCity;
+            }).attr('selected', true);
+        }, 550);
+    }
+
+    function LoadSecCity(State, SelectedCity)
+    {
+        loadSecCityDropdown(State);
+
+        setTimeout(function(){
+            $('#ddlSecCity option').filter(function(){
+                return this.text == SelectedCity;
+            }).attr('selected', true);
+        }, 550);
+    }
+
+    function ddlPriCountryChanges(c)
+    {
+        loadStateDropdown(c.value);
+    }
+
+    function ddlPriStateChanges(s)
+    {
+        loadPriCityDropdown(s.value);
+    }
+
+    function ddlSecCountryChanges(c)
+    {
+        loadSecStateDropdown(c.value);
+    }
+
+    function ddlSecStateChanges(s)
+    {
+        loadSecCityDropdown(s.value);
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <label class="pageTitle">
+            @LangResources["Profile_Title_Profile"]
+        </label>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row borderFrame">
+        <div id="divPrimaryOwner" class="row mt-4">
+            <div class="col-md-2 mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-12 ms-5 me-5 avatarFrame">
+                        <img id="avatarPrimary" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_OwnerName"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Gender"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_ContactNo"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Email"]</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbPriOwnerName" class="displayField" style="font-size: 12px;"></label>
+                        <input id="txtPriOwnerName" type="text" class="form-control form-control-sm editField" />
+                        <input id="hidPriOwnerID" type="hidden" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriGender" class="displayField"></label>
+                        <select id="ddlPriGender" class="form-select form-select-sm editField">
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriContactNo" class="displayField"></label>
+                        <input id="txtPriContactNo" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriEmail" class="displayField"></label>
+                        <input id="txtPriEmail" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Address"]</label>
+                    </div>
+                </div>
+                <div class="row displayRow">
+                    <div class="col-md-12">
+                        <label id="lbPriAddress" class="displayField"></label>
+                        <input id="txtPriAddress" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_City"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Postcode"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_State"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Country"]</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbPriCity" class="displayField"></label>
+                        <select id="ddlPriCity" class="form-select form-select-sm editField">
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriPostcode" class="displayField"></label>
+                        <input id="txtPriPostcode" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriState" class="displayField"></label>
+                        <select id="ddlPriState" class="form-select form-select-sm editField" onchange="ddlPriStateChanges(this);">
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbPriCountry" class="displayField"></label>
+                        <select id="ddlPriCountry" class="form-select form-select-sm editField" onchange="ddlPriCountryChanges(this);">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1 dividerLine">
+            <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div id="divSecondaryOwner" class="row mt-2">
+            <div class="col-md-2">
+                <div class="row mt-5 mb-5">
+                    <div class="col-md-12 ms-5 me-5 avatarFrame">
+                        <img id="avatarSecondary"  />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_OwnerName"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Gender"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_ContactNo"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Email"]</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbSecOwnerName" class="displayField"></label>
+                        <input id="txtSecOwnerName" type="text" class="form-control form-control-sm editField" />
+                        <input id="hidSecOwnerID" type="hidden" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecGender" class="displayField"></label>
+                        <select id="ddlSecGender" class="form-select form-select-sm editField">
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecContactNo" class="displayField"></label>
+                        <input id="txtSecContactNo" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecEmail" class="displayField"></label>
+                        <input id="txtSecEmail" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Address"]</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label id="lbSecAddress" class="displayField"></label>
+                        <input id="txtSecAddress" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_City"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Postcode"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_State"]</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fieldTitle">@LangResources["Profile_Label_Country"]</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label id="lbSecCity" class="displayField"></label>
+                        <select id="ddlSecCity" class="form-select form-select-sm editField">
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecPostcode" class="displayField"></label>
+                        <input id="txtSecPostcode" type="text" class="form-control form-control-sm editField" />
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecState" class="displayField"></label>
+                        <select id="ddlSecState" class="form-select form-select-sm editField" onchange="ddlSecStateChanges(this);">
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label id="lbSecCountry" class="displayField"></label>
+                        <select id="ddlSecCountry" class="form-select form-select-sm editField" onchange="ddlSecCountryChanges(this);">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="row mt-0">
+            <div class="col-md-12">
+                <label id="lbError" class="errorLabel" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">&nbsp;</div>
+            <div class="col-md-4" style="display: flex; flex-direction: row;">
+                <input id="btnCancel" type="button" class="btn btn-secondary btn-sm me-2" value="@LangResources["Profile_Button_Cancel"]" style="width: 100%" />
+                <input id="btnEdit" type="button" class="btn btn-primary btn-sm me-2" value="@LangResources["Profile_Button_EditProfile"]" style="width: 100%;" />
+                <input id="btnSave" type="button" class="btn btn-primary btn-sm me-2" value="@LangResources["Profile_Button_Save"]" style="width: 100%;" />
+            </div>
+        </div>
+    </div>
+</div>
+

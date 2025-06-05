@@ -22,9 +22,9 @@ namespace VPMS.Lib.Data.DBContext
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 		options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
-		public ObservableCollection<OrganisationList> GetOrganisationList(int start, int total, int organisation, out int totalOrganisations, string search = "")
+		public ObservableCollection<OrgansationListExtended> GetOrganisationList(int start, int total, int organisation, out int totalOrganisations, string search = "")
 		{
-			ObservableCollection<OrganisationList> sList = new ObservableCollection<OrganisationList>();
+			ObservableCollection<OrgansationListExtended> sList = new ObservableCollection<OrgansationListExtended>();
 			int No = start + 1;
 			totalOrganisations = 0;
 			var roleFilter = "";
@@ -41,20 +41,35 @@ namespace VPMS.Lib.Data.DBContext
 			var completeQuery = "select a.ID, a.Name, (Select Count(Surname) from mst_user where BranchID in (Select ID FROM mst_branch where OrganizationID = a.ID)) as 'TotalStaff', group_concat(concat(b.Name) SEPARATOR ', ') as 'Branches', " + totalServiceQuery + " as 'TotalOrganisations' from mst_organisation a " +
 				joinQuery + filter + "GROUP BY a.ID, a.Name, a.TotalStaff Order by a.ID LIMIT " + start + ", " + total + ";";
 
-			try
+			String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
+									"A.ID, A.Name, A.TotalStaff, " +
+                                    "Count(B.ID) AS 'Branches', " +
+                                    "COUNT(*) OVER() AS 'TotalOrganisations' " +
+									"FROM mst_organisation AS A " +
+									"LEFT JOIN mst_branch AS B on B.OrganizationID = A.ID AND B.Status = 1 " +
+									"WHERE A.Status = 1 AND " +
+									"A.Level = 2 AND " +
+									"(" + (organisation == 0) + " OR A.ID = " + organisation + " ) AND " +
+									"(" + (search == null) + " OR A.Name LIKE '%" + search + "%' ) " +
+									"GROUP BY a.ID, a.Name, a.TotalStaff " +
+									"ORDER BY a.ID LIMIT " + start + ", " + total + " ";
+
+
+            try
 			{
 				using (MySqlConnection conn = new MySqlConnection(connectionString))
 				{
 					conn.Open();
-					MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
+					//MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
+                    MySqlCommand cmd = new MySqlCommand(sSelectCommand, conn);
 
-					using (var reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
 					{
 						while (reader.Read())
 						{
-							sList.Add(new OrganisationList()
+							sList.Add(new OrgansationListExtended()
 							{
-
+								SeqNo = Convert.ToInt32(reader["row_num"]),
 								ID = int.Parse(reader["ID"].ToString()),
 								No = No++,
 								Name = reader["Name"].ToString(),

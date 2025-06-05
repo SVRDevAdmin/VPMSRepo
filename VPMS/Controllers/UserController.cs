@@ -37,10 +37,24 @@ namespace VPMSWeb.Controllers
 		/// <returns></returns>
 		public IActionResult UserDetails()
 		{
+            int iOrganizationID = -1;
+            if (HttpContext.Session.GetString("Level") == "0")
+            {
+                iOrganizationID = -1;
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+                {
+                    iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                }
+            }
+
+
             ViewData["UserStatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Status");
             ViewData["UserGenderDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Gender");
             ViewData["UserOrganizationDropdown"] = OrganizationRepository.GetOrganizationList(2);
-			ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList();
+			ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList(iOrganizationID);
 
             return View("UserDetails");
 		}
@@ -54,10 +68,20 @@ namespace VPMSWeb.Controllers
 		[Route("/User/UserProfile/{UserID}/{ViewType}")]
 		public IActionResult UserProfile(String UserID, String ViewType)
 		{
+            int iOrganizationID = -1;
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+            {
+                if (HttpContext.Session.GetString("Level") != "0" && HttpContext.Session.GetString("Level") != "1")
+                {
+                    iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                }
+                
+            }
+
             ViewData["UserStatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Status");
             ViewData["UserGenderDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Gender");
             ViewData["UserOrganizationDropdown"] = OrganizationRepository.GetOrganizationList(2);
-            ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList();
+            ViewData["UserRoleDropdown"] = RoleRepository.GetRolesList(iOrganizationID);
 
             UserProfileExtObj sUserObj = UserRepository.GetUserProfileByUserID(UserID);
 			ViewData["UserProfile"] = sUserObj;
@@ -66,24 +90,34 @@ namespace VPMSWeb.Controllers
             return View("UserDetails", sUserObj);
 		}
 
-		/// <summary>
-		/// Get User Listing View by Filter
-		/// </summary>
-		/// <param name="UserID"></param>
-		/// <param name="RoleID"></param>
-		/// <param name="GenderID"></param>
-		/// <param name="OrganizationID"></param>
-		/// <param name="BranchID"></param>
-		/// <param name="Status"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="pageIndex"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// Get User Listing View by Filter
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <param name="RoleID"></param>
+        /// <param name="GenderID"></param>
+        /// <param name="OrganizationID"></param>
+        /// <param name="BranchID"></param>
+        /// <param name="Status"></param>
+        /// <param name="loginOrganizationID"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
 		public IActionResult GetUserListingView(String UserID, String RoleID, String GenderID, String OrganizationID, String BranchID, 
-												String Status, int pageSize, int pageIndex)
+												String Status, int loginOrganizationID, int pageSize, int pageIndex)
 		{
 			int iTotalRecords;
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(loginOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1)
+                {
+                    isSuperadmin = 1;
+                }
+            }
 
-			var sResult = UserRepository.GetUserListingByFilter(UserID, RoleID, GenderID, OrganizationID, BranchID, Status, pageSize, pageIndex, out iTotalRecords);
+            var sResult = UserRepository.GetUserListingByFilter(isSuperadmin, UserID, RoleID, GenderID, OrganizationID, BranchID, Status, loginOrganizationID, pageSize, pageIndex, out iTotalRecords);
 			if (sResult != null)
 			{
 				return Json(new { data = sResult, totalRecord = iTotalRecords });
@@ -126,6 +160,11 @@ namespace VPMSWeb.Controllers
 			sNewUser.CreatedDate = DateTime.Now;
 			sNewUser.CreatedBy = sUserModel.createdBy;
 
+            if (!String.IsNullOrEmpty(sUserModel.organizationID))
+            {
+                sNewUser.OrganizationID = Convert.ToInt32(sUserModel.organizationID);
+            }
+            
 			String sIdentityUserID = "";
 			if (!UserRepository.ValidateIdentityUser(sUserModel.loginID))
 			{
@@ -168,7 +207,7 @@ namespace VPMSWeb.Controllers
 
             try
 			{
-				var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN003");
+				var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "VPMS_EN010");
 				emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<user_fullname>###", (sUserProfileInput.surName + " " + sUserProfileInput.lastName))
 																			 .Replace("###<userlogin_id>###", sUserProfileInput.loginID)
 																			 .Replace("###<user_password>###", sTempPass);

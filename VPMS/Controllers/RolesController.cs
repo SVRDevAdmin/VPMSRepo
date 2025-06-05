@@ -10,6 +10,7 @@ using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
 using VPMSWeb.Models;
 using Org.BouncyCastle.Asn1.Mozilla;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace VPMSWeb.Controllers
 {
@@ -17,6 +18,7 @@ namespace VPMSWeb.Controllers
     public class RolesController : Controller
     {
         String sStatusMastercodeName  = "Status";
+        String sRoleTypeMastercodeName = "RoleType";
 
         /// <summary>
         /// Index
@@ -41,7 +43,7 @@ namespace VPMSWeb.Controllers
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
-        public IActionResult GetRoleListing(int pageSize, int pageIndex)
+        public IActionResult GetRoleListing(int organizationid, int pageSize, int pageIndex)
         {
             var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
             bool hasPermission = SetPermission(roles, "RoleListing.View");
@@ -52,8 +54,17 @@ namespace VPMSWeb.Controllers
             }
 
             int iTotalRecords;
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(organizationid);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1)
+                {
+                    isSuperadmin = 1;
+                }
+            }
 
-            var sResult = RoleRepository.GetRolesListing(pageSize, pageIndex, out iTotalRecords);
+            var sResult = RoleRepository.GetRolesListing(organizationid, isSuperadmin, pageSize, pageIndex, out iTotalRecords);
             if (sResult != null)
             {
                 return Json(new { data = sResult, totalRecord = iTotalRecords });
@@ -68,6 +79,7 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult RoleProfile()
         {
+            ViewData["RoleTypeDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), sRoleTypeMastercodeName);
             ViewData["StatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), sStatusMastercodeName);
             ViewData["OrganizationDropdown"] = OrganizationRepository.GetOrganizationList(2);
 
@@ -93,11 +105,12 @@ namespace VPMSWeb.Controllers
 
             RoleModel sNewRole = new RoleModel();
             sNewRole.RoleName = sRoleModel.roleName;
-            sNewRole.RoleType = 1;
+            sNewRole.RoleType = sRoleModel.roleType.Value;
             sNewRole.Status = (sRoleModel.status != null) ? sRoleModel.status.Value : 0;
             sNewRole.IsDoctor = (sRoleModel.isDoctor != null) ? sRoleModel.isDoctor.Value : 0;
             sNewRole.Description = sRoleModel.roleDescription;
             sNewRole.BranchID = (sRoleModel.branchID != null) ? sRoleModel.branchID.Value : 0;
+            sNewRole.OrganizationID = (sRoleModel.organizationID != null) ? sRoleModel.organizationID.Value : 0;
             sNewRole.CreatedDate = sNow;
             sNewRole.CreatedBy = sRoleModel.userID;
 
@@ -199,6 +212,7 @@ namespace VPMSWeb.Controllers
                 ViewData["PermissionGroup"] = sPermissionObject.GroupBy(x => x.PermissionGrouping).Select(x => x.Key).ToList();
             }
 
+            ViewData["RoleTypeDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), sRoleTypeMastercodeName);
             ViewData["StatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), sStatusMastercodeName);
             ViewData["OrganizationDropdown"] = OrganizationRepository.GetOrganizationList(2);
 
@@ -248,9 +262,13 @@ namespace VPMSWeb.Controllers
             return Json(sBranchList);
         }
 
+        /// <summary>
+        /// Get Roles List
+        /// </summary>
+        /// <returns></returns>
         public IActionResult GetRolesList()
         {
-            var sRoleList = RoleRepository.GetRolesList();
+            var sRoleList = RoleRepository.GetRolesList(-1);
             return Json(sRoleList);
         }
 

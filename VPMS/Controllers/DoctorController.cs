@@ -27,11 +27,20 @@ namespace VPMSWeb.Controllers
         /// <param name="pageSize"></param>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
-        public IActionResult GetDoctorViewList(String sKeyword, int branchID, int pageSize, int pageIndex)
+        public IActionResult GetDoctorViewList(String sKeyword, int organizationID, int branchID, int pageSize, int pageIndex)
         {
             int iTotalRecords;
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(organizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1)
+                {
+                    isSuperadmin = 1;
+                }
+            }
 
-            var sResult = DoctorRepository.GetDoctorViewList(ConfigSettings.GetConfigurationSettings(), sKeyword, branchID, pageSize, pageIndex, out iTotalRecords);
+            var sResult = DoctorRepository.GetDoctorViewList(ConfigSettings.GetConfigurationSettings(), isSuperadmin, sKeyword, organizationID, branchID, pageSize, pageIndex, out iTotalRecords);
             if (sResult != null)
             {
                 return Json(new { data = sResult, totalRecord = iTotalRecords });
@@ -60,7 +69,7 @@ namespace VPMSWeb.Controllers
             sNewDoctor.IsDeleted = 0;
             sNewDoctor.CreatedDateTimestamp = sNow.ToUniversalTime();
             sNewDoctor.CreatedDate = sNow;
-            sNewDoctor.CreatedBy = "SYSTEM";
+            sNewDoctor.CreatedBy = sDoctorModel.updatedBy;
             sNewDoctor.BranchID = sDoctorModel.branchID;
 
             if (DoctorRepository.AddDoctor(ConfigSettings.GetConfigurationSettings(), sNewDoctor))
@@ -93,6 +102,8 @@ namespace VPMSWeb.Controllers
             sUpdateDoctor.Designation = sDoctorModel.designation;
             sUpdateDoctor.Specialty = sDoctorModel.specialty;
             sUpdateDoctor.IsDeleted = 0;
+            sUpdateDoctor.BranchID = sDoctorModel.branchID;
+            sUpdateDoctor.UpdatedBy = sDoctorModel.updatedBy;
 
             if (DoctorRepository.UpdateDoctor(ConfigSettings.GetConfigurationSettings(), sUpdateDoctor))
             {
@@ -147,7 +158,7 @@ namespace VPMSWeb.Controllers
         [Route("/Doctor/ViewDoctorProfile/{doctorid}/{ViewType}")]
         public IActionResult ViewDoctorProfile(int? doctorid, String ViewType)
         {
-            DoctorModel sDoctorObject = new DoctorModel();
+            DoctorDetailModel sDoctorObject = new DoctorDetailModel();
             sDoctorObject = DoctorRepository.GetDoctorByID(ConfigSettings.GetConfigurationSettings(), doctorid.Value);
             ViewData["DoctorProfile"] = sDoctorObject;
             ViewData["ViewType"] = ViewType;

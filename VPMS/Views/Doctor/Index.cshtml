@@ -6,6 +6,7 @@
     ViewData["SelectedMenu"] = "doctorMenu";
 
     var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
@@ -38,6 +39,7 @@
         $.getJSON("/Doctor/GetDoctorViewList", {
             sKeyword: searchKeyword,
             branchID: @sessionBranchID,
+            organizationID: '@sessionOrganizationID',
             pageSize: pageSize,
             pageIndex: currentPage
         }).done(function (result) {
@@ -185,27 +187,24 @@
             </div>
         </div>
     </div>
-    <div class="row" style="height: 25px;">&nbsp;</div>
-    <div class="row" style="margin-left: 5px;">
-        <div class="col-md-5 searchRowHeight" >
-            <div class="row searchRowHeight" >
-                <input id="txtSearch" type="text" class="form-control searchFields" placeholder="@LangResources["Doctor_Label_SearchByDoctorName"]" style=" font-size: 1vw;" />
+    <div class="row mt-3" style="margin-left: 5px;">
+        <div class="col-md-5 searchRowHeight">
+            <div class="row searchRowHeight">
+                <input id="txtSearch" type="text" class="form-control searchFields" placeholder="@LangResources["Doctor_Label_SearchByDoctorName"]" />
             </div>
         </div>
         <div class="col-md-1">
-            <div class="row rowSearchMargin" >
-                <button id="btnSearch" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw;">
+            <div class="row rowSearchMargin">
+                <button id="btnSearch" type="button" class="btn btn-primary" style="margin: 5px; font-size: 12px;">
                     @LangResources["Doctor_Button_Search"]
                 </button>
             </div>
         </div>
-        <div class="col-md-4 searchRowHeight" >
-            <div class="row">&nbsp;</div>
-        </div>
+        <div class="col-md-4 searchRowHeight" >&nbsp;</div>
         <div class="col-md-2 text-end searchRowHeight" >
             <div class="row searchRowHeight" >
                 <div class="col-md-12">
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="margin: 5px; font-size: 1vw;"
+                    <button id="btnCreate" type="button" class="btn btn-primary" style="margin: 5px; font-size: 12px;"
                             onclick="location.href='@Url.Action("ViewDoctorProfile", "Doctor")'">
                         <i class="bi bi-plus-circle"></i>
                         @LangResources["Doctor_Button_NewDoctor"]
@@ -219,7 +218,7 @@
             <label id="lbDocListingError"></label>
         </div>
         <div class="col-md-12">
-            <table id="tblDoctor" class="table" style="font-size: 1vw;">
+            <table id="tblDoctor" class="table">
                 <thead>
                     <tr>
                         <th scope="col" data-field="ID" class="text-center" style="width: 5%;">@LangResources["Doctor_Label_ColumnID"]</th>

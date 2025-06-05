@@ -40,9 +40,12 @@ namespace VPMS.Lib.Data.Models
 
         public List<RoleModel> Roles { get; set; } = null!;
 
+        public int OrganizationID { get; set; }
         public int Branch {  get; set; }
 
         public List<BranchModel> Branches { get; set; } = null!;
+
+        public List<OrganisationModel> Organization { get; set; } = null;
 
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;

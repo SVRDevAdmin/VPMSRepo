@@ -144,16 +144,18 @@ namespace VPMSWeb.Controllers
                         HttpContext.Session.SetString("IsDoctor", iIsDoctor.ToString());
 
                         int iOrgID = -1;
-						var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
-						if (sBranchContext != null)
-						{
-							iOrgID = sBranchContext.OrganizationID;
+						iOrgID = userInfo.OrganizationID.Value;
+                        //var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
+                        //if (sBranchContext != null)
+                        //{
+                        //	iOrgID = sBranchContext.OrganizationID;
 
-                        }
+                        //}
+                        // HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
+                        //HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
                         HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
-						//HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
 
-						int iLevel = -1;
+                        int iLevel = -1;
 						var sOrgContext = _organizationDBContext.Mst_Organisation.Where(x => x.Id == iOrgID).FirstOrDefault();
 						if (sOrgContext != null)
 						{
@@ -228,15 +230,16 @@ namespace VPMSWeb.Controllers
 			}
         }
 
-        [Authorize(Roles = "Superadmin")]
+        //[Authorize(Roles = "Superadmin")]
         public IActionResult FirstRegister()
         {
 			try
 			{
 				var Roles = _roleDBContext.Mst_Roles.ToList();
 				var Branches = _branchDBContext.Mst_Branch.ToList();
+				var Organization = _organisationDBContext.Mst_Organisation.Where(x => x.Level == 0).ToList();
 
-				return View(new RegisterModel() { Roles = Roles, Branches = Branches });
+				return View(new RegisterModel() { Roles = Roles, Branches = Branches, Organization = Organization });
 			}
 			catch (Exception ex)
 			{
@@ -245,7 +248,7 @@ namespace VPMSWeb.Controllers
 			}
         }
 
-        [Authorize(Roles = "Superadmin")]
+        //[Authorize(Roles = "Superadmin")]
         public async Task<IActionResult> SignUp(RegisterModel registerInfo)
         {
 			try
@@ -266,7 +269,20 @@ namespace VPMSWeb.Controllers
 
                     if (result.Succeeded)
 					{
-						_userDBContext.Add(new UserModel() { UserID = user.Id, Surname = registerInfo.Surname, LastName = registerInfo.LastName, StaffID = "ABC1234567", Gender = "M", EmailAddress = registerInfo.Email, Status = 1, RoleID = registerInfo.Role, BranchID = registerInfo.Branch, CreatedDate = DateTime.Now, CreatedBy = "System" });
+						_userDBContext.Add(new UserModel() { 
+							UserID = user.Id, 
+							Surname = registerInfo.Surname, 
+							LastName = registerInfo.LastName, 
+							StaffID = "ABC1234567", 
+							Gender = "M", 
+							EmailAddress = registerInfo.Email, 
+							Status = 1, 
+							RoleID = registerInfo.Role, 
+							BranchID = registerInfo.Branch, 
+							OrganizationID = registerInfo.OrganizationID,
+							CreatedDate = DateTime.Now, 
+							CreatedBy = "System" 
+						});
 
 						_userDBContext.SaveChanges();
 

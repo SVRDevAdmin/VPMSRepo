@@ -56,22 +56,26 @@
 }
 
 #btnCancel {
+    font-size: 12px;
     width: 150px;
     /*height: 45px;*/
 }
 
 #btnCreate {
+    font-size: 12px;
     width: 150px;
     /*height: 45px;*/
 }
 
 #btnBack {
+    font-size: 12px;
     width: 150px;
     height: 45px;
     display: none;
 }
 
 #btnUpdate {
+    font-size: 12px;
     width: 150px;
     height: 45px;
     display: none;
@@ -87,4 +91,8 @@
     margin-right: 15px;
     margin-top: 15px;
     margin-bottom: 10px;
+}
+
+#ddlGender, #ddlOrganization, #ddlBranch {
+    font-size: 12px !important;
 }

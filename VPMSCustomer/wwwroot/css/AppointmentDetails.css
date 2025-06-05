@@ -1,0 +1,78 @@
+﻿.bootstrap-datetimepicker-widget {
+    width: 200px !important;
+}
+
+select {
+    width: 90% !important;
+}
+
+#ddlPets:disabled {
+    background: grey !important;
+    border-color: grey !important;
+}
+
+.DetailBoxFrame {
+    background-color: #1e76fc;
+    border-radius: 6px;
+}
+
+.HeaderTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.ColumnTitle {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.ColumnDateTimeLayout {
+    display: flex;
+    flex-direction: row;
+}
+
+.ColumnDateBorder {
+    width: 40%;
+}
+
+.ColumnDateTimeBorder {
+    width: 50%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: white;
+}
+
+.ColumnStartTimeBorder {
+    width: 40%;
+    background-color: transparent;
+    text-align: center;
+    border: 0;
+}
+
+.ColumnEndTimeBorder {
+    width: 40%;
+    background-color: transparent;
+    text-align: center;
+    border: 0;
+}
+
+.ColumnDateTimeDivider {
+    width: 5%;
+    text-align: center;
+    color: grey
+}
+
+.FunctionButton {
+    font-size: 12px;
+    width: 20%;
+}
+
+.InformationItemLayout {
+    display: flex;
+    flex-direction: row;
+}

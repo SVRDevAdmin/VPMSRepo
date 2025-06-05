@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.X509;
 using System.Collections.Generic;
@@ -11,6 +12,13 @@ using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
+using VPMS.Lib.Data;
+using ZstdSharp.Unsafe;
+using VPMS.Lib;
+using Microsoft.Extensions.Localization;
+using VPMS.Interface.API.VCheck.RequestMessage;
+using SkiaSharp;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace VPMSWeb.Controllers
 {
@@ -26,6 +34,9 @@ namespace VPMSWeb.Controllers
         private readonly BranchDBContext _branchDBContext = new BranchDBContext();
 		private readonly InvoiceReceiptDBContext _invoiceReceiptDBContext = new InvoiceReceiptDBContext();
 		private readonly TestManagementDBContext _testManagementDBContext = new TestManagementDBContext();
+		private readonly TestsListDBContext _testsListDBContext = new TestsListDBContext(ConfigSettings.GetConfigurationSettings());
+		private readonly LocationDBContext _locationDBContext = new LocationDBContext(ConfigSettings.GetConfigurationSettings());
+		private readonly DoctorDBContext _doctorDBContext = new DoctorDBContext(ConfigSettings.GetConfigurationSettings());
 
 		int totalPets;
 
@@ -169,8 +180,12 @@ namespace VPMSWeb.Controllers
 				ViewData["VaccinationList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Vaccination").ToList();
 				ViewData["SurgeryList"] = _servicesDBContext.Mst_ServicesCategory.Where(x => x.Name == "Surgery").ToList();
 				ViewData["MedicationList"] = _inventoryDBContext.Mst_ProductType.ToList();
+				ViewData["TestsList"] = _testsListDBContext.mst_testslist.Where(x => x.IsActive == 1).OrderBy(x => x.System_TestID).ToList();
+				ViewData["LocationList"] = _locationDBContext.mst_locationlist.Where(x => x.System_Status == 1).ToList();
+				ViewData["DoctorList"] = _doctorDBContext.mst_doctor.Where(x => x.IsDeleted == 0).ToList();
 
-				petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
+
+                petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 			}
 			catch (Exception ex)
 			{
@@ -321,97 +336,273 @@ namespace VPMSWeb.Controllers
 			return View();
 		}
 
-		//[Route("/Patients/BloodTest/{patientid}/{petname}")]
-		//public IActionResult BloodTest(int patientid, string petname)
-		//{
-		//	List<int> patientList = new List<int>();
+		[Route("Patients/PatientIdentityProfile/Add")]
+		public IActionResult AddIdentityPatientProfile(String Username, String EmailAddress)
+		{
+			Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
 
-		//	try
-		//	{
-		//		var role = HttpContext.Session.GetString("RoleName");
-		//		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-		//		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+			try
+			{
+				IdentityUserObject sNewIdentityPatient = new IdentityUserObject();
+				sNewIdentityPatient.Id = Guid.NewGuid().ToString();
+				sNewIdentityPatient.UserName = Username;
+				sNewIdentityPatient.NormalizedUserName = Username.ToUpper();
+				sNewIdentityPatient.Email = EmailAddress;
+				sNewIdentityPatient.NormalizedEmail = EmailAddress.ToUpper();
+				sNewIdentityPatient.EmailConfirmed = 0;
+				sNewIdentityPatient.SecurityStamp = Guid.NewGuid().ToString();
+				sNewIdentityPatient.PhoneNumberConfirmed = 0;
+				sNewIdentityPatient.TwoFactorEnabled = 0;
+				sNewIdentityPatient.AccessFailedCount = 0;
+				sNewIdentityPatient.LockoutEnabled = 1;
 
-		//		if (role == "Superadmin")
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-		//		}
-		//		else if (organisation != 0)
-		//		{
-		//			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+				String sPatientIdentityUserID = "";
+				if (!UserRepository.ValidateIdentityUser(sNewIdentityPatient.UserName))
+				{
+					String sRoleID = RoleRepository.GetRoleIDByRoleName("Customer");
+					String sTempPass = "Abcd@1234";
 
-		//		}
-		//		else if (branch != 0)
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-		//		}
+					if (UserRepository.AddIdentityUser(sNewIdentityPatient, sRoleID, sTempPass, out sPatientIdentityUserID))
+					{
+						sResp.StatusCode = (int)StatusCodes.Status200OK;
 
-		//		if (!patientList.Contains(patientid))
-		//		{
-		//			return RedirectToAction("PatientsList", "Patients");
-		//		}
+                    }
+					else
+					{
+						sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+					}
+				}
+				else
+				{
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+					sResp.isRecordExists = true;
+                }
+			}
+			catch (Exception ex)
+			{
+				sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
 
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Program.logger.Error("Controller Error >> ", ex);
-		//	}
+			return Json(sResp);
+		}
 
-		//	ViewData["PetName"] = petname;
-		//	ViewBag.PatientID = patientid;
+		[Route("Patients/SubmitScheduledTests")]
+		[HttpPost()]
+		public IActionResult InsertScheduledTestSubmission(String scheduledDate, String scheduledTime, String locationID, String locationName,
+														   String testID, String testName, long patientID, String patientName, String gender,
+														   String species, String doctorIncharges, String submittedBy)
+		{
+            Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
 
-		//	Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
+			try
+			{
+				DateTime dtScheduled = DateTime.ParseExact((scheduledDate + " " + scheduledTime), "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+				DateTime dtCreated = DateTime.Now;
 
-		//	return View();
-		//}
 
-		//[Route("/Patients/VCheck/{patientid}/{petname}")]
-		//public IActionResult VCheck(int patientid, string petname)
-		//{
-		//	List<int> patientList = new List<int>();
+				scheduledTestsSubmission sSubmissionObject = new scheduledTestsSubmission();
+				sSubmissionObject.PatientID = patientID;
+				sSubmissionObject.ScheduledDate = dtScheduled;
+				sSubmissionObject.TestID = testID;
+				sSubmissionObject.TestName = testName;
+				sSubmissionObject.LocationID = locationID;
+				sSubmissionObject.LocationName = locationName;
+				sSubmissionObject.Status = 0;
+				sSubmissionObject.CreatedDate = dtCreated;
+				sSubmissionObject.CreatedBy = submittedBy;
 
-		//	try
-		//	{
-		//		var role = HttpContext.Session.GetString("RoleName");
-		//		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-		//		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+				long iSubmissionID = 0;
+				if (TestsListRepository.InsertScheduledTestSubmission(ConfigSettings.GetConfigurationSettings(), sSubmissionObject, out iSubmissionID))
+				{
+					String sUniqueID = testID + "-" + iSubmissionID.ToString("00000");
+					String sResponseStatus = "";
 
-		//		if (role == "Superadmin")
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-		//		}
-		//		else if (organisation != 0)
-		//		{
-		//			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+					DateTime sUpdatedDate;
+                    int newStatus = 0;
 
-		//		}
-		//		else if (branch != 0)
-		//		{
-		//			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-		//		}
+                    Boolean isSent = SendScheduledTest(dtScheduled, locationID, locationName, sUniqueID, testID, testName, patientID,
+													   patientName, gender, species, doctorIncharges, submittedBy, dtCreated, 
+													   out sResponseStatus);
+					if (isSent)
+					{
+						sUpdatedDate = DateTime.Now;
+						newStatus = 1;
 
-		//		if (!patientList.Contains(patientid))
-		//		{
-		//			return RedirectToAction("PatientsList", "Patients");
-		//		}
+                        sResp.StatusCode = (int)StatusCodes.Status200OK;
+                    }
+					else
+					{
+                        sUpdatedDate = DateTime.Now;
+                        newStatus = 2;
 
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Program.logger.Error("Controller Error >> ", ex);
-		//	}
+                        sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                    }
 
-		//	ViewData["PetName"] = petname;
-		//	ViewBag.PatientID = patientid;
+                    TestsListRepository.UpdateScheduledTestSubmissionStatus(ConfigSettings.GetConfigurationSettings(), iSubmissionID,
+																			newStatus, sUpdatedDate, sResponseStatus, submittedBy);
+                }
+                else
+				{
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                }
+			}
+            catch (Exception ex)
+			{
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
 
-		//	Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
+            return Json(sResp);
+        }
 
-		//	return View();
-		//}
+		public static Boolean SendScheduledTest(DateTime dtScheduled, String locationID, String locationName,
+												String sUniquerID, String testID, String testName, long patientID, 
+												String patientName, String gender, String species, String doctorIncharges, 
+												String submiitedBy, DateTime dtCreated, out String responseStatus)
+		{
+			Boolean isSuccess = false;
+			responseStatus = "";
 
-		[Route("/Patients/TestManagement/{category}/{patientid}/{petname}")]
+			var config = ConfigSettings.GetConfigurationSettings();
+			String sClientKey = config.GetSection("VCheckAPI:ClientKey").Value;
+
+            try
+			{
+				VPMS.Interface.API.VCheckAPI vcheckAPI = new VPMS.Interface.API.VCheckAPI();
+
+				CreateScheduledTestRequest sReq = new CreateScheduledTestRequest();
+				CreateScheduledTestBody sReqBody = new CreateScheduledTestBody();
+				CreateScheduledTestHeader sReqHeader = new CreateScheduledTestHeader();
+				sReqHeader.timestamp = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ"); ;
+				sReqHeader.clientkey = sClientKey;
+
+				sReqBody.locationid = locationID;
+				sReqBody.scheduledtestname = testName;
+				sReqBody.scheduleddatetime = dtScheduled.ToString("yyyyMMddHHmmss");
+				sReqBody.testuniqueid = sUniquerID;
+
+                sReqBody.scheduledby = submiitedBy;
+				sReqBody.personincharges = doctorIncharges;
+				sReqBody.patientid = patientID.ToString();
+				sReqBody.patientname = patientName;
+				sReqBody.gender = gender;
+				sReqBody.species = species;
+				sReqBody.ownername = "";
+				sReqBody.scheduledcreateddate = dtCreated.ToString("yyyyMMddHHmmss");
+
+				sReq.header = sReqHeader;
+				sReq.body = sReqBody;
+
+				var sResp = vcheckAPI.CreateScheduledTest(sReq);
+				if (sResp.body.responseCode == "VV.0001")
+				{
+					isSuccess = true;
+                }
+				else
+				{
+					isSuccess = false;
+                }
+
+				responseStatus = (sResp != null) ? sResp.body.responseCode : "";
+            }
+			catch (Exception ex)
+			{
+				isSuccess = false;
+            }
+
+			return isSuccess;
+		}
+
+        //[Route("/Patients/BloodTest/{patientid}/{petname}")]
+        //public IActionResult BloodTest(int patientid, string petname)
+        //{
+        //	List<int> patientList = new List<int>();
+
+        //	try
+        //	{
+        //		var role = HttpContext.Session.GetString("RoleName");
+        //		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+        //		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+        //		if (role == "Superadmin")
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+        //		}
+        //		else if (organisation != 0)
+        //		{
+        //			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+        //		}
+        //		else if (branch != 0)
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+        //		}
+
+        //		if (!patientList.Contains(patientid))
+        //		{
+        //			return RedirectToAction("PatientsList", "Patients");
+        //		}
+
+        //	}
+        //	catch (Exception ex)
+        //	{
+        //		Program.logger.Error("Controller Error >> ", ex);
+        //	}
+
+        //	ViewData["PetName"] = petname;
+        //	ViewBag.PatientID = patientid;
+
+        //	Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
+
+        //	return View();
+        //}
+
+        //[Route("/Patients/VCheck/{patientid}/{petname}")]
+        //public IActionResult VCheck(int patientid, string petname)
+        //{
+        //	List<int> patientList = new List<int>();
+
+        //	try
+        //	{
+        //		var role = HttpContext.Session.GetString("RoleName");
+        //		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
+        //		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+
+        //		if (role == "Superadmin")
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
+        //		}
+        //		else if (organisation != 0)
+        //		{
+        //			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
+
+        //		}
+        //		else if (branch != 0)
+        //		{
+        //			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
+        //		}
+
+        //		if (!patientList.Contains(patientid))
+        //		{
+        //			return RedirectToAction("PatientsList", "Patients");
+        //		}
+
+        //	}
+        //	catch (Exception ex)
+        //	{
+        //		Program.logger.Error("Controller Error >> ", ex);
+        //	}
+
+        //	ViewData["PetName"] = petname;
+        //	ViewBag.PatientID = patientid;
+
+        //	Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
+
+        //	return View();
+        //}
+
+        [Route("/Patients/TestManagement/{category}/{patientid}/{petname}")]
 		public IActionResult TestResults(int category, int patientid, string petname)
 		{
 			List<int> patientList = new List<int>();
@@ -482,6 +673,28 @@ namespace VPMSWeb.Controllers
 
 			return View();
 		}
+
+		//[Route("/Patients/CreatePatientLoginProfile")]
+		//[HttpPost()]
+		//public IActionResult CreatePatientLoginProfile(Patient_Owner_Login sPatientLogin)
+		//{
+		//	Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
+
+		//	try
+		//	{
+		//		_patientDBContext.Mst_Patients_Login.Add(sPatientLogin);
+		//		_patientDBContext.SaveChanges();
+
+		//		sResp.StatusCode = (int)StatusCodes.Status200OK;
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Program.logger.Error("Controller Error >>> ", ex);
+  //              sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+  //          }
+
+		//	return Json(sResp);
+		//}
 
 		public PatientTreatmentPlan GetUpcomingTreatmentPlan(int petID) 
 		{
@@ -878,9 +1091,33 @@ namespace VPMSWeb.Controllers
 			try
 			{
 				_patientDBContext.Mst_Patients_Owner.Add(patientOwner);
-
 				_patientDBContext.SaveChanges();
-			}
+
+				// --- Patients Login ------//
+				Patient_Owner_Login sPatientLogin = new Patient_Owner_Login();
+				sPatientLogin.PatientOwnerID = patientOwner.ID;
+				sPatientLogin.ProfileActivated = 0;
+				sPatientLogin.CreatedDate = DateTime.Now;
+				sPatientLogin.CreatedBy = patientOwner.CreatedBy;
+
+				_patientDBContext.Mst_Patients_Login.Add(sPatientLogin);
+				_patientDBContext.SaveChanges();
+
+				Account_Creation_Logs sCreationLog = new Account_Creation_Logs();
+				sCreationLog.EmailAddress = patientOwner.EmailAddress;
+				sCreationLog.InvitationCode = VPMS.Lib.Helpers.GenerateRandomKeyString(16);
+				sCreationLog.LinkCreatedDate = DateTime.Now;
+				sCreationLog.LinkExpiryDate = DateTime.Now.AddHours(24);
+				sCreationLog.PatientOwnerID = patientOwner.ID;
+
+				_patientDBContext.Mst_Account_Creation_Logs.Add(sCreationLog);
+				_patientDBContext.SaveChanges();
+
+				List<String> sRecipientList = new List<string>();
+				sRecipientList.Add(patientOwner.EmailAddress);
+
+				SendAccountCreationShortLink(sRecipientList, patientOwner.Name, sCreationLog.InvitationCode);
+            }
 			catch (Exception ex)
 			{
 				Program.logger.Error("Controller Error >> ", ex);
@@ -904,8 +1141,26 @@ namespace VPMSWeb.Controllers
 
 		public int InsertPetsInfo([FromBody] Pets pets)
 		{
-			try
+            Random rRnd = new Random(Environment.TickCount);
+
+            try
 			{
+				int idx = -1;
+
+				var sPetAvatarObj = _patientDBContext.Mst_Avatar.Where(x => x.Species == pets.Species).ToList();
+				if (sPetAvatarObj != null && sPetAvatarObj.Count > 0)
+				{
+                    idx = rRnd.Next(sPetAvatarObj.Count);
+                    PetAvatarObject sSelectedRandom = sPetAvatarObj[idx];
+
+					pets.AvatarID = sSelectedRandom.ID;
+                }
+				else
+				{
+					pets.AvatarID = idx;
+				}
+				
+				
 				_patientDBContext.Mst_Pets.Add(pets);
 
 				var bmi = (pets.Weight / (pets.Height * pets.Height)) * 10000;
@@ -1286,6 +1541,46 @@ namespace VPMSWeb.Controllers
                     ViewData["CanView"] = "true";
                 }
             }
+        }
+
+		public void SendAccountCreationShortLink(List<String> sTargetReceiver, String sTargetReceiverName, String sCreationLink)
+		{
+            var sEmailConfig = ConfigSettings.GetConfigurationSettings();
+
+            String? sHost = sEmailConfig.GetSection("SMTP:Host").Value;
+            int? sPortNo = Convert.ToInt32(sEmailConfig.GetSection("SMTP:Port").Value);
+            String? sUsername = sEmailConfig.GetSection("SMTP:Username").Value;
+            String? sPassword = sEmailConfig.GetSection("SMTP:Password").Value;
+            String? sSender = sEmailConfig.GetSection("SMTP:Sender").Value;
+			String? sPortalURL = sEmailConfig.GetSection("CustomerPortalAccountCreation").Value;
+
+
+			var emailTemplate = TemplateRepository.GetTemplateByCodeLang(ConfigSettings.GetConfigurationSettings(), "CPMS_EN001", "en");
+			emailTemplate.TemplateContent = emailTemplate.TemplateContent.Replace("###<customer>###", sTargetReceiverName)
+																		 .Replace("###<creationlink>###", (sPortalURL + sCreationLink));
+
+			try
+			{
+				VPMS.Lib.EmailObject sEmailObj = new VPMS.Lib.EmailObject();
+                sEmailObj.SenderEmail = sSender;
+                sEmailObj.RecipientEmail = sTargetReceiver;
+                sEmailObj.Subject = (emailTemplate != null) ? emailTemplate.TemplateTitle : "";
+				sEmailObj.Body = (emailTemplate != null) ? emailTemplate.TemplateContent : "";
+                sEmailObj.SMTPHost = sHost;
+                sEmailObj.PortNo = sPortNo.Value;
+                sEmailObj.HostUsername = sUsername;
+                sEmailObj.HostPassword = sPassword;
+                sEmailObj.EnableSsl = true;
+                sEmailObj.UseDefaultCredentials = false;
+                sEmailObj.IsHtml = true;
+
+				String sErrorMsg = "";
+				EmailHelpers.SendEmail(sEmailObj, out sErrorMsg);
+            }
+			catch (Exception ex)
+			{
+
+			}
         }
     }
 }

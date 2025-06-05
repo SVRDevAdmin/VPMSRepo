@@ -27,9 +27,29 @@ namespace VPMS.Lib.Data.Models
 		public int TotalStaff { get; set; }
 	}
 
+	public class OrgansationListExtended : OrganisationList
+	{
+		public int SeqNo { get; set; }
+	}
+
 	public class OrganisationInfo
 	{
-		public List<OrganisationList> OrganisationList { get; set; }
-		public int TotalOrganisation { get; set; }
+        public List<OrgansationListExtended> OrganisationList { get; set; }
+        public int TotalOrganisation { get; set; }
+	}
+
+	public class OrganisationDataModel
+	{
+		[Key]
+		public int ID { get; set; }
+		public int? Level { get; set; }
+		public int? ParentID { get; set; }
+		public String? Name { get; set; }
+		public int? TotalStaff { get; set; }
+		public int? Status { get; set; }
+		public DateTime? CreatedDate { get; set; }
+		public String? CreatedBy { get; set; }
+		public DateTime? UpdatedDate { get; set; }
+		public String? UpdatedBy { get; set; }
 	}
 }

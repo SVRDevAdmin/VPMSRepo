@@ -1785,4 +1785,316 @@
   <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
     <value>治療計画名を空にすることはできません。</value>
   </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>予約受付完了</value>
+  </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>予約を承諾する</value>
+  </data>
+  <data name="AccessControl_Label_BranchPostcode" xml:space="preserve">
+    <value>郵便番号</value>
+  </data>
+  <data name="AccessControl_Label_BranchCity" xml:space="preserve">
+    <value>市</value>
+  </data>
+  <data name="AccessControl_Label_BranchState" xml:space="preserve">
+    <value>州</value>
+  </data>
+  <data name="AccessControl_Label_SelectCity" xml:space="preserve">
+    <value>都市を選択</value>
+  </data>
+  <data name="AccessControl_Label_SelectState" xml:space="preserve">
+    <value>州を選択</value>
+  </data>
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>定期テスト</value>
+  </data>
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>スケジュールテストの作成</value>
+  </data>
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>ロケーション</value>
+  </data>
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>場所を選択</value>
+  </data>
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>テスト</value>
+  </data>
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>テストを選択</value>
+  </data>
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>担当医師</value>
+  </data>
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>担当医師を選択</value>
+  </data>
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>提出する</value>
+  </data>
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>必須フィールドです。</value>
+  </data>
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>スケジュールテストの提出</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>スケジュール テストが正常に送信されました。</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>スケジュール テストの送信に失敗しました。後でもう一度お試しください。</value>
+  </data>
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>役割の種類</value>
+  </data>
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>組織</value>
+  </data>
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>支店</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>組織を選択してください</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>支店を選択してください</value>
+  </data>
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>バナー管理</value>
+  </data>
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>新しいバナー</value>
+  </data>
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>バナー</value>
+  </data>
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>開始日</value>
+  </data>
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>終了日</value>
+  </data>
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="BannersList_Label_CreatedDate" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="BannersList_Button_Prev" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="BannersList_Button_Next" xml:space="preserve">
+    <value>次のページ</value>
+  </data>
+  <data name="BannersList_Label_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="BannersList_Label_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="BannersList_Message_NoRecords" xml:space="preserve">
+    <value>記録なし</value>
+  </data>
+  <data name="BannerProfile_Title_BannerDetails" xml:space="preserve">
+    <value>バナーの詳細</value>
+  </data>
+  <data name="BannerProfile_Label_Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="BannerProfile_Label_StartDate" xml:space="preserve">
+    <value>開始日</value>
+  </data>
+  <data name="BannerProfile_Label_EndDate" xml:space="preserve">
+    <value>終了日</value>
+  </data>
+  <data name="BannerProfile_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="BannerProfile_Label_Banner" xml:space="preserve">
+    <value>バナー</value>
+  </data>
+  <data name="BannerProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>ステータスを選択してください</value>
+  </data>
+  <data name="BannerProfile_Label_Upload" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="BannerProfile_Message_RecommendRemark" xml:space="preserve">
+    <value>* 推奨サイズ: 1450px (幅) x 340px (高さ)</value>
+  </data>
+  <data name="BannerProfile_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="BannerProfile_Button_Create" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="BannerProfile_Button_Update" xml:space="preserve">
+    <value>アップデート</value>
+  </data>
+  <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
+    <value>バナーをアップロード</value>
+  </data>
+  <data name="BannerProfile_Message_UploadSuccessfully" xml:space="preserve">
+    <value>アップロードに成功しました。</value>
+  </data>
+  <data name="BannerProfile_Message_NoBannerSelected" xml:space="preserve">
+    <value>バナー ファイルが選択されていません。</value>
+  </data>
+  <data name="BannerProfile_Message_UploadFailed" xml:space="preserve">
+    <value>ファイルのアップロードに失敗しました。</value>
+  </data>
+  <data name="BannerProfile_Message_Fail" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="BannerProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>必須フィールドが必要です。</value>
+  </data>
+  <data name="BannerProfile_Title_UpdateBannerInfo" xml:space="preserve">
+    <value>バナー情報の更新</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>更新に成功しました。</value>
+  </data>
+  <data name="BannerProfile_Message_NoChangesUpdates" xml:space="preserve">
+    <value>変更更新はありません。</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>更新に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>ブログ管理</value>
+  </data>
+  <data name="BlogList_Button_NewBlog" xml:space="preserve">
+    <value>新しいブログ</value>
+  </data>
+  <data name="BlogList_Button_Prev" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="BlogList_Button_Next" xml:space="preserve">
+    <value>次のページ</value>
+  </data>
+  <data name="BlogList_Label_CreatedDate" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="BlogList_Label_EndDate" xml:space="preserve">
+    <value>終了日</value>
+  </data>
+  <data name="BlogList_Label_StartDate" xml:space="preserve">
+    <value>開始日</value>
+  </data>
+  <data name="BlogList_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="BlogList_Label_Num" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="BlogList_Label_Title" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="BlogList_Label_URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogList_Label_View" xml:space="preserve">
+    <value>ビュー</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="BlogList_Message_NoRecords" xml:space="preserve">
+    <value>記録なし</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>ブログの詳細</value>
+  </data>
+  <data name="BlogProfile_Label_Title" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="BlogProfile_Label_Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="BlogProfile_Label_URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogProfile_Label_StartDate" xml:space="preserve">
+    <value>開始日</value>
+  </data>
+  <data name="BlogProfile_Label_EndDate" xml:space="preserve">
+    <value>終了日</value>
+  </data>
+  <data name="BlogProfile_Label_Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="BlogProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>ステータスを選択してください</value>
+  </data>
+  <data name="BlogProfile_Label_Upload" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="BlogProfile_Label_FileName" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="BlogProfile_Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="BlogProfile_Button_Create" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="BlogProfile_Button_Update" xml:space="preserve">
+    <value>アップデート</value>
+  </data>
+  <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
+    <value>ブログエントリを作成する</value>
+  </data>
+  <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
+    <value>ブログを正常に作成しました。</value>
+  </data>
+  <data name="BlogProfile_Message_NoThumbnailSelected" xml:space="preserve">
+    <value>サムネイル写真が選択されていません。</value>
+  </data>
+  <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
+    <value>サムネイルのアップロードに失敗しました。</value>
+  </data>
+  <data name="BlogProfile_Message_Fail" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="BlogProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>必須フィールドが必要です。</value>
+  </data>
+  <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
+    <value>ブログ情報を更新</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateBlogSuccessfully" xml:space="preserve">
+    <value>ブログを更新しました</value>
+  </data>
+  <data name="BlogProfile_Message_NoChangesUpdate" xml:space="preserve">
+    <value>変更更新はありません。</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>更新に失敗しました。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
+    <value>顧客ポータル</value>
+  </data>
+  <data name="MenuBar_Label_Banners" xml:space="preserve">
+    <value>バナー</value>
+  </data>
+  <data name="MenuBar_Label_Blogs" xml:space="preserve">
+    <value>ブログ</value>
+  </data>
+  <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
+    <value>付与された権限の合計数</value>
+  </data>
+  <data name="Roles_Button_PermissionDetails" xml:space="preserve">
+    <value>許可の詳細</value>
+  </data>
+  <data name="Roles_Title_Permissions" xml:space="preserve">
+    <value>権限</value>
+  </data>
 </root>

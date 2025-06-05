@@ -1,0 +1,837 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Analytics_Label_ExpensesSummary" xml:space="preserve">
+    <value>Résumé des dépenses</value>
+  </data>
+  <data name="Analytics_Label_Showing" xml:space="preserve">
+    <value>Affichage</value>
+  </data>
+  <data name="Analytics_Label_TotalSpent" xml:space="preserve">
+    <value>Total dépensé €</value>
+  </data>
+  <data name="Analytics_Title_Analytics" xml:space="preserve">
+    <value>Analytique</value>
+  </data>
+  <data name="AppointmentDetails_Button_Back" xml:space="preserve">
+    <value>dos</value>
+  </data>
+  <data name="AppointmentDetails_Button_CancelAppointment" xml:space="preserve">
+    <value>Annuler le rendez-vous</value>
+  </data>
+  <data name="AppointmentDetails_Button_Update" xml:space="preserve">
+    <value>Mise à jour</value>
+  </data>
+  <data name="AppointmentDetails_Label_Clinic" xml:space="preserve">
+    <value>Clinique</value>
+  </data>
+  <data name="AppointmentDetails_Label_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="AppointmentDetails_Label_Doctor" xml:space="preserve">
+    <value>Médecin</value>
+  </data>
+  <data name="AppointmentDetails_Label_EditAppointmentDetails" xml:space="preserve">
+    <value>Modifier les détails du rendez-vous</value>
+  </data>
+  <data name="AppointmentDetails_Label_Pets" xml:space="preserve">
+    <value>Animaux de compagnie</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectClinic" xml:space="preserve">
+    <value>Clinique Select</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectDoctor" xml:space="preserve">
+    <value>Sélectionnez un médecin</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectPet" xml:space="preserve">
+    <value>Sélectionnez un animal de compagnie</value>
+  </data>
+  <data name="AppointmentDetails_Label_SelectServices" xml:space="preserve">
+    <value>Sélectionner un service</value>
+  </data>
+  <data name="AppointmentDetails_Label_Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="AppointmentDetails_Message_AppointmentCancelled" xml:space="preserve">
+    <value>Rendez-vous annulé.</value>
+  </data>
+  <data name="AppointmentDetails_Message_AppointmentOverlap" xml:space="preserve">
+    <value>Le créneau horaire de la date du rendez-vous est occupé, veuillez réessayer avec un autre créneau horaire</value>
+  </data>
+  <data name="AppointmentDetails_Message_CallPhoneNo" xml:space="preserve">
+    <value>Ou appelez le ####&lt;clinicPhoneNo&gt;###</value>
+  </data>
+  <data name="AppointmentDetails_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>Confirmer annuler ce rendez-vous ?</value>
+  </data>
+  <data name="AppointmentDetails_Message_ContactClinicInstead" xml:space="preserve">
+    <value>Préférez-vous plutôt contacter la clinique ?</value>
+  </data>
+  <data name="AppointmentDetails_Message_FailedToCancelAppt" xml:space="preserve">
+    <value>Impossible d'annuler le rendez-vous, veuillez réessayer plus tard.</value>
+  </data>
+  <data name="AppointmentDetails_Message_FailedToUpdate" xml:space="preserve">
+    <value>Échec de la mise à jour du rendez-vous, veuillez réessayer plus tard.</value>
+  </data>
+  <data name="AppointmentDetails_Message_SendAMessage" xml:space="preserve">
+    <value>Envoyer un message</value>
+  </data>
+  <data name="AppointmentDetails_Message_UpdateSuccess" xml:space="preserve">
+    <value>Mise à jour du rendez-vous réussie.</value>
+  </data>
+  <data name="AppointmentDetails_Title_CancelAppointment" xml:space="preserve">
+    <value>Annuler le rendez-vous</value>
+  </data>
+  <data name="AppointmentDetails_Title_EditAppointments" xml:space="preserve">
+    <value>Modifier les rendez-vous</value>
+  </data>
+  <data name="AppointmentDetails_Title_UpdateAppointment" xml:space="preserve">
+    <value>Mise à jour du rendez-vous</value>
+  </data>
+  <data name="Appointment_Button_Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Appointment_Button_BookAppointment" xml:space="preserve">
+    <value>Prendre rendez-vous</value>
+  </data>
+  <data name="Appointment_Button_SuggestNew" xml:space="preserve">
+    <value>Suggérer nouveau</value>
+  </data>
+  <data name="Appointment_Label_Clinic" xml:space="preserve">
+    <value>Clinique</value>
+  </data>
+  <data name="Appointment_Label_Confirmed" xml:space="preserve">
+    <value>Confirmé</value>
+  </data>
+  <data name="Appointment_Label_ConfirmedAppointments" xml:space="preserve">
+    <value>Rendez-vous confirmés</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>Date et heure</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>Médecin</value>
+  </data>
+  <data name="Appointment_Label_PastAppointments" xml:space="preserve">
+    <value>Nominations passées</value>
+  </data>
+  <data name="Appointment_Label_Pending" xml:space="preserve">
+    <value>En instance</value>
+  </data>
+  <data name="Appointment_Label_Pets" xml:space="preserve">
+    <value>Animaux de compagnie</value>
+  </data>
+  <data name="Appointment_Label_RescheduledAppointments" xml:space="preserve">
+    <value>Rendez-vous reprogrammés</value>
+  </data>
+  <data name="Appointment_Label_SelectClinic" xml:space="preserve">
+    <value>Clinique Select</value>
+  </data>
+  <data name="Appointment_Label_SelectDoctor" xml:space="preserve">
+    <value>Sélectionnez un médecin</value>
+  </data>
+  <data name="Appointment_Label_SelectPet" xml:space="preserve">
+    <value>Sélectionnez un animal de compagnie</value>
+  </data>
+  <data name="Appointment_Label_SelectService" xml:space="preserve">
+    <value>Sélectionner un service</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Appointment_Label_View" xml:space="preserve">
+    <value>Voir</value>
+  </data>
+  <data name="Appointment_Message_AcceptTimeRequest" xml:space="preserve">
+    <value>La clinique a demandé pour ###&lt;newTIME&gt;### le ###&lt;newDATE&gt;###. Souhaitez-vous l'accepter ?</value>
+  </data>
+  <data name="Appointment_Message_AppointmentOverlap" xml:space="preserve">
+    <value>Le créneau horaire du rendez-vous est occupé, veuillez réessayer avec un autre créneau horaire.</value>
+  </data>
+  <data name="Appointment_Message_ClinicRequestedNewTime" xml:space="preserve">
+    <value>*La clinique a demandé une nouvelle heure.</value>
+  </data>
+  <data name="Appointment_Message_CreateSuccessfully" xml:space="preserve">
+    <value>Cita creada exitosamente.</value>
+  </data>
+  <data name="Appointment_Message_FailedToAcceptAppointment" xml:space="preserve">
+    <value>Impossible d'accepter le rendez-vous, veuillez réessayer.</value>
+  </data>
+  <data name="Appointment_Message_FailedToCreateAppointment" xml:space="preserve">
+    <value>Échec de la création du rendez-vous, veuillez réessayer plus tard.</value>
+  </data>
+  <data name="Appointment_Message_MandatoryFields" xml:space="preserve">
+    <value>Champs obligatoires requis.</value>
+  </data>
+  <data name="Appointment_Message_NoRecord" xml:space="preserve">
+    <value>Aucun enregistrement.</value>
+  </data>
+  <data name="Appointment_Message_YouHaveRequestedNewTime" xml:space="preserve">
+    <value>*Vous avez demandé une nouvelle heure</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>Rendez-vous</value>
+  </data>
+  <data name="Appointment_Title_AppointmentAccepted" xml:space="preserve">
+    <value>Rendez-vous accepté</value>
+  </data>
+  <data name="Appointment_Title_BookAppointment" xml:space="preserve">
+    <value>Prendre rendez-vous</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>Créer un rendez-vous</value>
+  </data>
+  <data name="CustomerServices_Label_NearbyClinic" xml:space="preserve">
+    <value>Clinique à proximité</value>
+  </data>
+  <data name="CustomerServices_Label_NoRecord" xml:space="preserve">
+    <value>Aucun enregistrement</value>
+  </data>
+  <data name="CustomerServices_Label_OtherClinic" xml:space="preserve">
+    <value>Autre clinique</value>
+  </data>
+  <data name="CustomerServices_Label_Showing" xml:space="preserve">
+    <value>Affichage</value>
+  </data>
+  <data name="CustomerServices_Menu_All" xml:space="preserve">
+    <value>Tout</value>
+  </data>
+  <data name="CustomerServices_Title_CustomerServices" xml:space="preserve">
+    <value>Service client</value>
+  </data>
+  <data name="Dashboard_Label_NoBanner" xml:space="preserve">
+    <value>Pas de bannière</value>
+  </data>
+  <data name="Dashboard_Label_NoBlog" xml:space="preserve">
+    <value>Pas de blog</value>
+  </data>
+  <data name="Dashboard_Title_Blogs" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="Dashboard_Title_PromotionsEvents" xml:space="preserve">
+    <value>Promotions et événements</value>
+  </data>
+  <data name="InvReceipts_Button_Filters" xml:space="preserve">
+    <value>Filtres</value>
+  </data>
+  <data name="InvReceipts_Button_Search" xml:space="preserve">
+    <value>Recherche</value>
+  </data>
+  <data name="InvReceipts_Label_Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="InvReceipts_Label_ContactNo" xml:space="preserve">
+    <value>Numéro de contact</value>
+  </data>
+  <data name="InvReceipts_Label_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="InvReceipts_Label_Doctor" xml:space="preserve">
+    <value>Médecin</value>
+  </data>
+  <data name="InvReceipts_Label_Fees" xml:space="preserve">
+    <value>Frais</value>
+  </data>
+  <data name="InvReceipts_Label_GrandDiscount" xml:space="preserve">
+    <value>Grande remise</value>
+  </data>
+  <data name="InvReceipts_Label_GrandTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="InvReceipts_Label_InvoiceNo" xml:space="preserve">
+    <value>Numéro de facture</value>
+  </data>
+  <data name="InvReceipts_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>Numéro de facture/reçu</value>
+  </data>
+  <data name="InvReceipts_Label_Invoices" xml:space="preserve">
+    <value>Factures</value>
+  </data>
+  <data name="InvReceipts_Label_Num" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="InvReceipts_Label_PetName" xml:space="preserve">
+    <value>Nom de l'animal de compagnie</value>
+  </data>
+  <data name="InvReceipts_Label_Receipts" xml:space="preserve">
+    <value>Recettes</value>
+  </data>
+  <data name="InvReceipts_Label_ReceiptsNo" xml:space="preserve">
+    <value>Numéro de reçus</value>
+  </data>
+  <data name="InvReceipts_Label_RegistrationNo" xml:space="preserve">
+    <value>Numéro d'enregistrement</value>
+  </data>
+  <data name="InvReceipts_Label_SelectDoctor" xml:space="preserve">
+    <value>Sélectionnez un médecin</value>
+  </data>
+  <data name="InvReceipts_Label_ServiceName" xml:space="preserve">
+    <value>Nom du service</value>
+  </data>
+  <data name="InvReceipts_Label_Species" xml:space="preserve">
+    <value>Espèces</value>
+  </data>
+  <data name="InvReceipts_Label_Tax" xml:space="preserve">
+    <value>Impôt</value>
+  </data>
+  <data name="InvReceipts_Label_Total" xml:space="preserve">
+    <value>Totaux</value>
+  </data>
+  <data name="InvReceipts_Label_View" xml:space="preserve">
+    <value>Vue</value>
+  </data>
+  <data name="InvReceipts_Message_NoRecords" xml:space="preserve">
+    <value>Aucun enregistrement.</value>
+  </data>
+  <data name="InvReceipts_Title_Discount" xml:space="preserve">
+    <value>Remise (€)</value>
+  </data>
+  <data name="InvReceipts_Title_Filters" xml:space="preserve">
+    <value>Filtres</value>
+  </data>
+  <data name="InvReceipts_Title_InvoiceReceipts" xml:space="preserve">
+    <value>Facture et reçus</value>
+  </data>
+  <data name="InvReceipts_Title_Price" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="InvReceipts_Title_Product" xml:space="preserve">
+    <value>Produit</value>
+  </data>
+  <data name="InvReceipts_Title_Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="Login_Button_Login" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="Login_Message_LoginIDPasswordMissing" xml:space="preserve">
+    <value>Identifiant de connexion ou mot de passe manquant.</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="Main_Button_No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Main_Button_OK" xml:space="preserve">
+    <value>D'ACCORD</value>
+  </data>
+  <data name="Main_Button_Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="Main_Menu_AccountSettings" xml:space="preserve">
+    <value>Paramètres du compte</value>
+  </data>
+  <data name="Main_Menu_Analytics" xml:space="preserve">
+    <value>Analytique</value>
+  </data>
+  <data name="Main_Menu_Appointment" xml:space="preserve">
+    <value>Rendez-vous</value>
+  </data>
+  <data name="Main_Menu_CustomerService" xml:space="preserve">
+    <value>Service client</value>
+  </data>
+  <data name="Main_Menu_Home" xml:space="preserve">
+    <value>Page d'accueil</value>
+  </data>
+  <data name="Main_Menu_InvoiceReceipts" xml:space="preserve">
+    <value>Facture et reçus</value>
+  </data>
+  <data name="Main_Menu_Logout" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="Main_Menu_Pets" xml:space="preserve">
+    <value>Animaux de compagnie</value>
+  </data>
+  <data name="Main_Menu_ViewProfile" xml:space="preserve">
+    <value>Voir le profil</value>
+  </data>
+  <data name="Notifications_Button_Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Notifications_Button_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Notifications_Button_Prev" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+  <data name="Notifications_Label_ReadMore" xml:space="preserve">
+    <value>En savoir plus</value>
+  </data>
+  <data name="Notifications_Title_Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="PetGrid_Button_ClosePanel" xml:space="preserve">
+    <value>Fermer le panneau</value>
+  </data>
+  <data name="PetGrid_Button_MedicalRecord" xml:space="preserve">
+    <value>dossier médical</value>
+  </data>
+  <data name="PetGrid_Label_ActiveTreatments" xml:space="preserve">
+    <value>Traitements actuels</value>
+  </data>
+  <data name="PetGrid_Label_Age" xml:space="preserve">
+    <value>Âge</value>
+  </data>
+  <data name="PetGrid_Label_Allergies" xml:space="preserve">
+    <value>Allergies</value>
+  </data>
+  <data name="PetGrid_Label_Breed" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="PetGrid_Label_Color" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="PetGrid_Label_DateOfBirth" xml:space="preserve">
+    <value>Date de naissance</value>
+  </data>
+  <data name="PetGrid_Label_DeviceName" xml:space="preserve">
+    <value>Nom de l'appareil</value>
+  </data>
+  <data name="PetGrid_Label_Gender" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="PetGrid_Label_HeightCM" xml:space="preserve">
+    <value>Hauteur (cm)</value>
+  </data>
+  <data name="PetGrid_Label_MedicalRecord" xml:space="preserve">
+    <value>dossier médical</value>
+  </data>
+  <data name="PetGrid_Label_Medication" xml:space="preserve">
+    <value>Médicament</value>
+  </data>
+  <data name="PetGrid_Label_Num" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="PetGrid_Label_OperatorID" xml:space="preserve">
+    <value>ID de l'opérateur</value>
+  </data>
+  <data name="PetGrid_Label_Overview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="PetGrid_Label_PastTreatments" xml:space="preserve">
+    <value>Traitements antérieurs</value>
+  </data>
+  <data name="PetGrid_Label_PatientID" xml:space="preserve">
+    <value>ID du patient</value>
+  </data>
+  <data name="PetGrid_Label_PetName" xml:space="preserve">
+    <value>Nom de l'animal de compagnie</value>
+  </data>
+  <data name="PetGrid_Label_RegistrationNo" xml:space="preserve">
+    <value>Numéro d'enregistrement</value>
+  </data>
+  <data name="PetGrid_Label_ResultStatus" xml:space="preserve">
+    <value>Statut du résultat (+/-)</value>
+  </data>
+  <data name="PetGrid_Label_Species" xml:space="preserve">
+    <value>Espèces</value>
+  </data>
+  <data name="PetGrid_Label_Surgery" xml:space="preserve">
+    <value>Chirurgie</value>
+  </data>
+  <data name="PetGrid_Label_TestManagement" xml:space="preserve">
+    <value>Gestion des tests</value>
+  </data>
+  <data name="PetGrid_Label_TestType" xml:space="preserve">
+    <value>Type de test</value>
+  </data>
+  <data name="PetGrid_Label_Time" xml:space="preserve">
+    <value>Temps</value>
+  </data>
+  <data name="PetGrid_Label_TreatmentPlan" xml:space="preserve">
+    <value>Plan de traitement</value>
+  </data>
+  <data name="PetGrid_Label_Vaccination" xml:space="preserve">
+    <value>Vaccination</value>
+  </data>
+  <data name="PetGrid_Label_WeightKG" xml:space="preserve">
+    <value>Poids (kg)</value>
+  </data>
+  <data name="PetGrid_Message_NoRecord" xml:space="preserve">
+    <value>Aucun enregistrement.</value>
+  </data>
+  <data name="PetGrid_Message_TreatmentPeriod" xml:space="preserve">
+    <value>Période de traitement</value>
+  </data>
+  <data name="PetGrid_Title_Pets" xml:space="preserve">
+    <value>Animaux de compagnie</value>
+  </data>
+  <data name="PetList_Button_Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="PetList_Button_Next" xml:space="preserve">
+    <value>Page suivante</value>
+  </data>
+  <data name="PetList_Button_Prev" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+  <data name="PetList_Button_Search" xml:space="preserve">
+    <value>Recherche</value>
+  </data>
+  <data name="PetList_Label_Age" xml:space="preserve">
+    <value>Âge (Y)</value>
+  </data>
+  <data name="PetList_Label_Breed" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="PetList_Label_CreatedOn" xml:space="preserve">
+    <value>Créé le</value>
+  </data>
+  <data name="PetList_Label_Number" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="PetList_Label_PetName" xml:space="preserve">
+    <value>Nom de l'animal de compagnie</value>
+  </data>
+  <data name="PetList_Label_SelectBreed" xml:space="preserve">
+    <value>Sélectionnez la race</value>
+  </data>
+  <data name="PetList_Label_SelectSpecies" xml:space="preserve">
+    <value>Sélectionner les espèces</value>
+  </data>
+  <data name="PetList_Label_Species" xml:space="preserve">
+    <value>Espèces</value>
+  </data>
+  <data name="PetList_Label_View" xml:space="preserve">
+    <value>Vue</value>
+  </data>
+  <data name="PetList_Message_NoRecord" xml:space="preserve">
+    <value>Aucun enregistrement.</value>
+  </data>
+  <data name="PetList_Title_Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="PetList_Title_Pets" xml:space="preserve">
+    <value>Animaux de compagnie</value>
+  </data>
+  <data name="PetProfile_Button_Back" xml:space="preserve">
+    <value>Page arrière</value>
+  </data>
+  <data name="PetProfile_Button_MedicalRecord" xml:space="preserve">
+    <value>dossier médical</value>
+  </data>
+  <data name="PetProfile_Label_ActiveTreatments" xml:space="preserve">
+    <value>Traitements actuels</value>
+  </data>
+  <data name="PetProfile_Label_Age" xml:space="preserve">
+    <value>Âge</value>
+  </data>
+  <data name="PetProfile_Label_Allergies" xml:space="preserve">
+    <value>Allergies</value>
+  </data>
+  <data name="PetProfile_Label_Breed" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="PetProfile_Label_Color" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="PetProfile_Label_DateOfBirth" xml:space="preserve">
+    <value>Date de naissance</value>
+  </data>
+  <data name="PetProfile_Label_DeviceName" xml:space="preserve">
+    <value>Nom de l'appareil</value>
+  </data>
+  <data name="PetProfile_Label_Gender" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="PetProfile_Label_Height" xml:space="preserve">
+    <value>Hauteur (cm)</value>
+  </data>
+  <data name="PetProfile_Label_MedicalRecord" xml:space="preserve">
+    <value>dossier médical</value>
+  </data>
+  <data name="PetProfile_Label_Medication" xml:space="preserve">
+    <value>Médicament</value>
+  </data>
+  <data name="PetProfile_Label_Number" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="PetProfile_Label_OperatorID" xml:space="preserve">
+    <value>ID de l'opérateur</value>
+  </data>
+  <data name="PetProfile_Label_Overview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="PetProfile_Label_PastTreatments" xml:space="preserve">
+    <value>Traitements antérieurs</value>
+  </data>
+  <data name="PetProfile_Label_PatientID" xml:space="preserve">
+    <value>ID du patient</value>
+  </data>
+  <data name="PetProfile_Label_PetName" xml:space="preserve">
+    <value>Nom de l'animal de compagnie</value>
+  </data>
+  <data name="PetProfile_Label_RegNo" xml:space="preserve">
+    <value>Numéro d'enregistrement</value>
+  </data>
+  <data name="PetProfile_Label_ResultStatus" xml:space="preserve">
+    <value>Statut du résultat (+/-)</value>
+  </data>
+  <data name="PetProfile_Label_Species" xml:space="preserve">
+    <value>Espèces</value>
+  </data>
+  <data name="PetProfile_Label_Surgery" xml:space="preserve">
+    <value>Chirurgie</value>
+  </data>
+  <data name="PetProfile_Label_TestManagement" xml:space="preserve">
+    <value>Gestion des tests</value>
+  </data>
+  <data name="PetProfile_Label_TestType" xml:space="preserve">
+    <value>Type de test</value>
+  </data>
+  <data name="PetProfile_Label_Test_Type" xml:space="preserve">
+    <value>Type de test</value>
+  </data>
+  <data name="PetProfile_Label_Time" xml:space="preserve">
+    <value>Temps</value>
+  </data>
+  <data name="PetProfile_Label_TreatmentPlan" xml:space="preserve">
+    <value>Plan de traitement</value>
+  </data>
+  <data name="PetProfile_Label_Vaccination" xml:space="preserve">
+    <value>Vaccination</value>
+  </data>
+  <data name="PetProfile_Label_Weight" xml:space="preserve">
+    <value>Poids (kg)</value>
+  </data>
+  <data name="PetProfile_Message_NoRecord" xml:space="preserve">
+    <value>Aucun enregistrement.</value>
+  </data>
+  <data name="PetProfile_Message_TreatmentPeriod" xml:space="preserve">
+    <value>Période de traitement</value>
+  </data>
+  <data name="Profile_Button_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Profile_Button_EditProfile" xml:space="preserve">
+    <value>Modifier le profil</value>
+  </data>
+  <data name="Profile_Button_Save" xml:space="preserve">
+    <value>Enregistrer les modifications</value>
+  </data>
+  <data name="Profile_Label_Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="Profile_Label_City" xml:space="preserve">
+    <value>Ville</value>
+  </data>
+  <data name="Profile_Label_ContactNo" xml:space="preserve">
+    <value>Numéro de contact</value>
+  </data>
+  <data name="Profile_Label_Country" xml:space="preserve">
+    <value>Pays</value>
+  </data>
+  <data name="Profile_Label_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Profile_Label_Gender" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="Profile_Label_OwnerName" xml:space="preserve">
+    <value>Nom du propriétaire</value>
+  </data>
+  <data name="Profile_Label_Postcode" xml:space="preserve">
+    <value>Code postal</value>
+  </data>
+  <data name="Profile_Label_State" xml:space="preserve">
+    <value>État</value>
+  </data>
+  <data name="Profile_Message_MandatoryFields" xml:space="preserve">
+    <value>Champs obligatoires requis.</value>
+  </data>
+  <data name="Profile_Message_ProfileUpdatesSuccess" xml:space="preserve">
+    <value>Mises à jour du profil réussies.</value>
+  </data>
+  <data name="Profile_Message_UpdateProfileFailed" xml:space="preserve">
+    <value>La mise à jour du profil a échoué. Veuillez réessayer plus tard.</value>
+  </data>
+  <data name="Profile_Title_Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Profile_Title_UpdateProfile" xml:space="preserve">
+    <value>Mettre à jour le profil</value>
+  </data>
+  <data name="ResetPassword_Button_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ResetPassword_Button_Update" xml:space="preserve">
+    <value>Mise à jour</value>
+  </data>
+  <data name="ResetPassword_Label_ConfirmNewPassword" xml:space="preserve">
+    <value>Confirmer le nouveau mot de passe</value>
+  </data>
+  <data name="ResetPassword_Label_NewPassword" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="ResetPassword_Label_OldPassword" xml:space="preserve">
+    <value>Ancien mot de passe</value>
+  </data>
+  <data name="ResetPassword_Message_FailedLoadOldPassword" xml:space="preserve">
+    <value>Échec du chargement de l'ancien mot de passe.</value>
+  </data>
+  <data name="ResetPassword_Message_InvalidPasswordFormat" xml:space="preserve">
+    <value>Format de mot de passe non valide. Le mot de passe doit contenir au moins un caractère alphanumérique majuscule et un caractère alphanumérique minuscule d'une longueur maximale de 8 caractères.</value>
+  </data>
+  <data name="ResetPassword_Message_MissingMandatoryFields" xml:space="preserve">
+    <value>Champs obligatoires manquants</value>
+  </data>
+  <data name="ResetPassword_Message_ResetPasswordFailed" xml:space="preserve">
+    <value>La réinitialisation du mot de passe a échoué. Veuillez contacter l'administrateur.</value>
+  </data>
+  <data name="ResetPassword_Message_ResetPasswordSuccessfully" xml:space="preserve">
+    <value>Réinitialisation du mot de passe réussie. Reconnectez-vous pour actualiser les modifications.</value>
+  </data>
+  <data name="ResetPassword_Title_ResetPassword" xml:space="preserve">
+    <value>Réinitialiser le mot de passe</value>
+  </data>
+  <data name="Settings_Button_Update" xml:space="preserve">
+    <value>Mise à jour</value>
+  </data>
+  <data name="Settings_Label_Country" xml:space="preserve">
+    <value>Pays</value>
+  </data>
+  <data name="Settings_Label_Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="Settings_Label_Themes" xml:space="preserve">
+    <value>Thèmes</value>
+  </data>
+  <data name="Settings_Message_PleaseSelectOneCountry" xml:space="preserve">
+    <value>Veuillez sélectionner un pays.</value>
+  </data>
+  <data name="Settings_Message_PleaseSelectOneLanguage" xml:space="preserve">
+    <value>Veuillez sélectionner une langue.</value>
+  </data>
+  <data name="Settings_Message_PleaseSelectOneTheme" xml:space="preserve">
+    <value>Veuillez choisir un thème.</value>
+  </data>
+  <data name="Settings_Message_SettingsUpdateSuccessfully" xml:space="preserve">
+    <value>Mise à jour des paramètres réussie.</value>
+  </data>
+  <data name="Settings_Message_UpdateSettingsFailed" xml:space="preserve">
+    <value>Échec de la mise à jour des paramètres. Veuillez réessayer ultérieurement.</value>
+  </data>
+  <data name="Settings_Title_AccountSettings" xml:space="preserve">
+    <value>Paramètres du compte</value>
+  </data>
+  <data name="Settings_Title_UpdateAccountSettings" xml:space="preserve">
+    <value>Mettre à jour les paramètres du compte</value>
+  </data>
+</root>

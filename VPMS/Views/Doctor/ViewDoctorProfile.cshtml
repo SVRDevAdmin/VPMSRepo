@@ -6,12 +6,16 @@
     ViewData["Title"] = "ViewDoctorProfile";
     ViewData["SelectedMenu"] = "doctorMenu";
 
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("LoginID");
     var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+    var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 
-    var sDoctorObj = new VPMS.Lib.Data.Models.DoctorModel();
+    var sDoctorObj = new VPMS.Lib.Data.Models.DoctorDetailModel();
     if (ViewData["DoctorProfile"] != null)
     {
-        sDoctorObj = ViewData["DoctorProfile"] as VPMS.Lib.Data.Models.DoctorModel;
+        sDoctorObj = ViewData["DoctorProfile"] as VPMS.Lib.Data.Models.DoctorDetailModel;
     }
 
     var sViewType = ViewData["ViewType"] as String;
@@ -20,9 +24,10 @@
 <link rel="stylesheet" href="~/css/Doctor.css" />
 
 <script>
-    loadGenderDropdownlist();
-
     $(document).ready(function () {
+        loadGenderDropdownlist();
+        loadOrganizationDropdownlist();
+
         /*---- Add Button -------*/
         $('#btnCreate').on('click', function (ctl) {
             
@@ -35,7 +40,9 @@
                     systemID: $('#txtSystemID').val(),
                     designation: $('#txtDesignation').val(),
                     specialty: $('#txtSpecialty').val(),
-                    branchID: @sessionBranchID
+                    branchID: $('#ddlBranch').val(),
+                    createdBy: '@sessionUserName'
+                    //branchID: @sessionBranchID
                 }
 
                 $.post("/Doctor/AddDoctor",
@@ -80,7 +87,9 @@
                     systemID: $('#txtSystemID').val(),
                     designation: $('#txtDesignation').val(),
                     specialty: $('#txtSpecialty').val(),
-                    ID: $('#hidID').val()
+                    ID: $('#hidID').val(),
+                    branchID: $('#ddlBranch').val(),
+                    updatedBy:  '@sessionUserName'
                 }
 
                 $.post("/Doctor/UpdateDoctor",
@@ -127,6 +136,22 @@
             $('#txtSpecialty').val('@sDoctorObj.Specialty');
             $('#hidID').val('@sDoctorObj.ID');
 
+            setTimeout(function(){
+                $('#ddlOrganization').val('@sDoctorObj.OrganizationID');
+                $('#ddlOrganization').trigger('changes');
+                loadBranchDropdownlist($('#ddlOrganization').val());
+            }, 250);
+
+            setTimeout(function(){
+                $('#ddlBranch').val('@sDoctorObj.BranchID');
+                $('#ddlBranch').trigger('changes');
+            }, 310);
+
+            if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+            {
+                $('#ddlOrganization').prop('disabled', true);
+            }
+
             $('#btnUpdate').show();
             $('#btnBack').show();
 
@@ -140,8 +165,22 @@
                 $('#txtSystemID').prop('disabled', true);
                 $('#txtDesignation').prop('disabled', true);
                 $('#txtSpecialty').prop('disabled', true);
+                $('#ddlBranch').prop('disabled', true);
+                $('#ddlOrganization').prop('disabled', true);
 
                 $('#btnUpdate').hide();
+            }
+        }
+        else {
+            if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+            {
+                setTimeout(function(){
+                    $('#ddlOrganization').val('@sessionOrganizationID');
+                    $('#ddlOrganization').trigger('changee');
+                    $('#ddlOrganization').prop('disabled', true);
+
+                    loadBranchDropdownlist('@sessionOrganizationID');
+                }, 250);
             }
         }
     });
@@ -162,6 +201,53 @@
                     $('#ddlGender').find("option:not(:first)").remove();
                 }
             })
+    }
+
+    function loadOrganizationDropdownlist()
+    {
+        $.getJSON("/AccessControl/GetOrganisationByLevelID/2")
+         .done(function(result){ 
+             if (result != null && result.data.length > 0)
+             {
+                 $('#ddlOrganization').find("option:not(:first)").remove();
+
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var opt = new Option((result.data[i].Name), result.data[i].Id);
+                     $('#ddlOrganization').append(opt);
+                 }
+             }
+             else 
+             {
+                $('#ddlOrganization').find("option:not(:first)").remove();
+             }
+         });
+    }
+
+    function ddlOrganizationChanges(org)
+    {
+        loadBranchDropdownlist(org.value);
+    }
+
+    function loadBranchDropdownlist(orgID)
+    {
+        $.getJSON("/AccessControl/GetBranchInfoByOrganisation", {
+            organisationID: orgID
+        }).done(function(result){ 
+             if (result != null && result.length > 0)
+             {
+                 $('#ddlBranch').find("option:not(:first)").remove();
+                 for (var i = 0; i < result.length; i++)
+                 {
+                     var opt = new Option((result[i].Name), result[i].ID);
+                     $('#ddlBranch').append(opt);
+                 }
+             }
+             else
+             {
+                $('#ddlBranch').find("option:not(:first)").remove();
+             }
+        });
     }
 
     function DoctorFieldsValidation(){
@@ -226,6 +312,28 @@
             $('#txtSpecialty').removeClass("errorValidation");
         }
 
+        /*------- Organization --------*/
+        if ($('#ddlOrganization').val() == ''){
+            $('#ddlOrganization').addClass("errorValidation");
+            $('#ddlOrganization').focus();
+
+            isValid = false;
+        }
+        else {
+             $('#ddlOrganization').removeClass("errorValidation");
+        }
+
+        /*-------- Branch -------------*/
+        if ($('#ddlBranch').val() == ''){
+            $('#ddlBranch').addClass("errorValidation");
+            $('#ddlBranch').focus();
+
+            isValid = false;
+        }
+        else {
+             $('#ddlBranch').removeClass("errorValidation");
+        }
+
         return isValid;
     }
 
@@ -253,9 +361,9 @@
     }
 </script>
 
-<div class="row" @* style="margin-left: 5px; margin-right: 5px;" *@>
+<div class="row">
     <div class="row" style="height: 45px;">&nbsp;</div>
-    <div class="row" style="font-size: 1vw;">
+    <div class="row">
         <div class="col-md-12">
             <div class="row frameStyle">
                 <div class="col-md-12 frameHeader">
@@ -269,18 +377,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Name"]</label>
+                            <label for="txtName" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Name"]</label>
+                            <input id="txtName" type="text" class="form-control doctorLeftColControl" />
                         </div>
                         <div class="col-md-6">
-                            <label class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Gender"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input id="txtName" type="text" class="form-control doctorLeftColControl" style="font-size: 1vw;" />
-                        </div>
-                        <div class="col-md-6">
-                            <select id="ddlGender" class="form-select doctorRightColControl" style="font-size: 1vw;">
+                            <label for="ddlGender" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Gender"]</label>
+                            <select id="ddlGender" class="form-select doctorRightColControl">
                                 <option value="">@LangResources["DoctorProfile_Label_PleaseSelectGender"]</option>
                             </select>
                         </div>
@@ -288,45 +390,46 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_LicenseNo"]</label>
+                            <label for="txtLicenseNo" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_LicenseNo"]</label>
+                            <input id="txtLicenseNo" type="text" class="form-control doctorLeftColControl" />
                         </div>
                         <div class="col-md-6">
-                            <label class="doctorRightColLabel">@LangResources["DoctorProfile_Label_SystemID"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input id="txtLicenseNo" type="text" class="form-control doctorLeftColControl" style="font-size: 1vw;" />
-                        </div>
-                        <div class="col-md-6">
-                            <input id="txtSystemID" type="text" class="form-control doctorRightColControl" style="font-size: 1vw;" />
+                            <label for="txtSystemID" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_SystemID"]</label>
+                            <input id="txtSystemID" type="text" class="form-control doctorRightColControl" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Designation"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input id="txtDesignation" type="text" class="form-control doctorComboColControl" maxlength="200" style="font-size: 1vw;" />
+                            <label for="txtDesignation" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Designation"]</label>
+                            <input id="txtDesignation" type="text" class="form-control doctorComboColControl" maxlength="200" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Specialty"]</label>
+                            <label for="txtSpecialty" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Specialty"]</label>
+                            <input id="txtSpecialty" type="text" class="form-control doctorComboColControl" maxlength="200" />
                         </div>
                     </div>
+                    <div class="row">&nbsp;</div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <input id="txtSpecialty" type="text" class="form-control doctorComboColControl" maxlength="200" style="font-size: 1vw;" />
+                        <div class="col-md-6">
+                            <label for="ddlOrganization" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Organization"]</label>
+                            <select id="ddlOrganization" class="form-select doctorLeftColControl" onchange="ddlOrganizationChanges(this);">
+                                <option value="">@LangResources["DoctorProfile_Label_PleaseSelectOrganization"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="ddlBranch" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Branch"]</label>
+                            <select id="ddlBranch" class="form-select doctorRightColControl">
+                                <option value="">@LangResources["DoctorProfile_Label_PleaseSelectBranch"]</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row" style="height: 45px;">&nbsp;
                         <label id="lbError"></label>
-                        <input id="hidID" type="text" style="visibility: hidden; font-size: 1vw;" />
+                        <input id="hidID" type="text" style="visibility: hidden; font-size: 12px;" />
                     </div>
                     <div class="row" style="height: 30px;">
                         &nbsp;
@@ -335,10 +438,10 @@
             </div>
             <div class="row doctorButtonRow" >
                 <div class="col-md-12 doctorButtonBox" >
-                    <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Cancel"]</button>
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Create"]</button>
-                    <button id="btnBack" type="button" class="btn btn-secondary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Back"]</button>
-                    <button id="btnUpdate" type="button" class="btn btn-primary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Update"]</button>
+                    <button id="btnCancel" type="button" class="btn btn-secondary">@LangResources["DoctorProfile_Button_Cancel"]</button>
+                    <button id="btnCreate" type="button" class="btn btn-primary">@LangResources["DoctorProfile_Button_Create"]</button>
+                    <button id="btnBack" type="button" class="btn btn-secondary">@LangResources["DoctorProfile_Button_Back"]</button>
+                    <button id="btnUpdate" type="button" class="btn btn-primary">@LangResources["DoctorProfile_Button_Update"]</button>
                 </div>
             </div>
         </div>

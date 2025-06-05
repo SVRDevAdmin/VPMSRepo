@@ -1,0 +1,548 @@
+﻿@inject VPMSCustomer.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Pets";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+    var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+}
+
+<link rel="stylesheet" href="~/css/PetGrid.css" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        validateSession('@LoginSessionID');
+
+        loadPets();
+    });
+
+    function testtypemenutoggle(iRow){
+        $('#dropdownmenu-testtype_' + iRow).toggle('show');
+    }
+
+    function loadPets()
+    {
+        $.getJSON("/Pets/GetPetsList/" + '@sessionPatientID')
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 let iRow = 1;
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var petID = result.data[i].id;
+                     
+                     var sCol = '';
+                     sCol = '<div class="col-md-4 mt-5 GridBox" onclick="showPanel(\'collapse_' + iRow + '\', ' + petID + ', ' + iRow + ');">' +
+                            '<div class="row ms-1 GridBoxInner" style="background-color: ' + result.data[i].colorCode + ';">' +
+                                
+                            '<div class="col-md-6">' +
+
+                            '<span class="mt-4 ms-3" style="display: inline-block;">' +
+                            '<label class="GridBoxTitle">' + result.data[i].name + '</label><br/>' +
+                            '<label class="GridBoxText">' + result.data[i].species + '</label><br />' +
+                            '<label class="GridBoxText">1 Month</label><br />' +
+                            '<label class="GridBoxText">' + result.data[i].gender + '</label>' +
+                            '</span>' +
+
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<img src="/Images/Pets/' + result.data[i].avatarImage + '" class="petAvatarImg" />' +
+                            '</div>' +
+
+                            '</div>' +
+                            '</div>';
+
+                    var sPanel = '';
+                    if (((i + 1) % 3 === 0) || 
+                        ((i + 1) == result.data.length) && ((i + 1) % 3 != 0))
+                    {
+                        sCol += populateContent(iRow);
+                        iRow++;
+                    }
+
+                    $('#divPetGrid').append(sCol);
+                 }
+             }
+         });
+    }
+
+    function populateContent(iRow)
+    {
+        let sPanel = '';
+
+        sPanel += '<div id="collapse_' + iRow + '" class="row collapse mt-3 ms-3 contentDiv">' +
+                  '<div class="row mt-3">' + 
+
+                  '<nav style="display: flex;">' +
+                  '<div id="nav-tab" class="nav nav-tabs" role="tablist" style="width: 70%;">' +
+                  '<button id="nav-overview-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-overview_' + iRow + '" role="tab" aria-controls="nav-overview_' + iRow + '" aria-selected="true">' + '@Html.Raw(LangResources["PetGrid_Label_Overview"])' +  '</button>' + 
+                  '<button id="nav-medical-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-medical_' + iRow + '" role="tab" aria-controls="nav-medical_' + iRow + '" aria-selected="false">' + '@Html.Raw(LangResources["PetGrid_Label_MedicalRecord"])' + '</button>' +
+                  '<button id="nav-treatment-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-treatment_' + iRow + '" role="tab" aria-controls="nav-treatment_' + iRow + '" aria-selected="false">' + '@Html.Raw(LangResources["PetGrid_Label_TreatmentPlan"])' + '</button>' +
+                  '<button id="nav-testmanagement-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-testmanagement_' + iRow + '" role="tab" aria-controls="nav-testmanagement_' + iRow + '" aria-selected="false">' + '@Html.Raw(LangResources["PetGrid_Label_TestManagement"])' + '</button>' + 
+                  '</div>' +
+                  '<div class="d-flex justify-content-end" style="width: 30%;">' +
+                  '<button id="btnMedical" type="button" class="btn btn-primary btn-sm">' +
+                  '<i class="bi bi-download me-2"></i>' + 
+                  '@Html.Raw(LangResources["PetGrid_Button_MedicalRecord"])' +  
+                  '</button>' +
+                  '&nbsp;' +
+                  '<button id="btnClosePanel" type="button" class="btn btn-sm" onclick="closePanel(\'collapse_' + iRow + '\');">' +
+                  '@Html.Raw(LangResources["PetGrid_Button_ClosePanel"])' + 
+                  '<i class="bi bi-x ms-2"></i>' +
+                  '</button>' +
+                  '</div>' +
+                  '</nav>' + 
+
+                  '<div id="nav-tabContent" class="tab-content mt-3 mb-3 ms-3">' + 
+                  populatePanelOverview(iRow) + 
+                  populatePanelMedical(iRow) + 
+                  populatePanelTreatment(iRow) + 
+                  populatePanelTestMgmt(iRow);
+                  
+
+        sPanel += '</div>' +   //nav-tabContent
+                  '</div>' +
+                  '</div>';
+
+        return sPanel;
+    }
+
+    function populatePanelOverview(iRow){
+        let sOverview = '';
+        sOverview += '<div id="nav-overview_' + iRow + '" class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-home-tab">' + 
+
+                     '<div class="row" style="background-color: white; border-radius: 6px;">' +
+                     '<div class="row mt-4 ms-2">' +
+                     '<div class="col-md-2">' +
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_PetName"])' + '</label><br />' +  
+                     '<label id="lbPetName_' + iRow + '" class="overviewDisplayText"></label>' +
+                     '</div>' +
+                     '<div class="col-md-2">' +
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_DateOfBirth"])' + '</label><br />' +  
+                     '<label id="lbDOB_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' + 
+                     '<label class="overviewTitle">' +  '@Html.Raw(LangResources["PetGrid_Label_Age"])' + '</label><br />' + 
+                     '<label id="lbAge_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' + 
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Gender"])' + '</label><br />' + 
+                     '<label id="lbGender_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' +
+                     '<div class="col-md-2">' + 
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_HeightCM"])' + '</label><br />' + 
+                     '<label id="lbHeight_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' + 
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_WeightKG"])' + '</label><br />' + 
+                     '<label id="lbWeight_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '</div>' + 
+                     '<div class="row">&nbsp;</div>' + 
+                     '<div class="row ms-2">' +
+                     '<div class="col-md-2">' +
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Breed"])' + '</label><br />' +  
+                     '<label id="lbBreed_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' +
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_RegistrationNo"])' + '</label><br />' + 
+                     '<label id="lbRegNo_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' + 
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Allergies"])' + '</label><br />' +  
+                     '<label id="lbAllergies_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' + 
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Species"])' + '</label><br />' +  
+                     '<label id="lbSpecies_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' + 
+                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Color"])' + '</label><br />' +  
+                     '<label id="lbColor_' + iRow + '" class="overviewDisplayText"></label>' + 
+                     '</div>' + 
+                     '<div class="col-md-2">' + 
+
+                     '</div>' + 
+                     '</div>' + 
+                     '<div class="row">&nbsp;</div>' + 
+                     '</div>' + 
+                     '</div>';
+
+        return sOverview;
+    }
+
+    function populatePanelMedical(iRow){
+        let sMedia = '';
+        sMedia += '<div id="nav-medical_' + iRow + '" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-medical-tab">' + 
+                  '<div class="row">' +
+
+                  '<div class="col-md-4">' +
+                  '<div class="row me-2 medicalTabBox">' +
+                  '<div id="divMedHistory_' + iRow + '" class="col ms-3 medicalTabInnerBox">' +
+
+                  '<label class="medicalTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Vaccination"])' + '</label>' +  
+                  // [Vaccine history] //
+                  '</div>' + 
+                  '</div>' + 
+                  '</div>' + 
+
+                  '<div class="col-md-4">' + 
+                  '<div class="row me-2 medicalTabBox">' +
+                  '<div id="divMedicationHistory_' + iRow + '" class="col ms-3 medicalTabInnerBox">' +
+                  '<label class="medicalTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Medication"])' + '</label>' +  
+                  // [Medication History] //
+                  '</div>' +
+                  '</div>' + 
+                  '</div>' +
+
+                  '<div class="col-md-4">' + 
+                  '<div class="row me-2 medicalTabBox">' +
+                  '<div id="divSurgeryHistory_' + iRow + '" class="col ms-3 medicalTabInnerBox">' +
+                  '<label class="medicalTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Surgery"])' + '</label>' +  
+                  // [Surgery History] //
+                  '</div>' + 
+                  '</div>' + 
+                  '</div>' + 
+                  '</div>' + 
+                  '</div>';
+
+        return sMedia;
+    }
+
+    function populatePanelTreatment(iRow){
+        let sTreatment = '';
+        sTreatment = '<div id="nav-treatment_' + iRow + '" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-treatment-tab">' + 
+                     '<div class="row">' + 
+
+                     '<div class="col-md-6">' + 
+                     '<div class="row me-2 treatmentTabBox">' +
+                     '<div id="divActiveTreatmentPlan_' + iRow + '" class="col ms-3 treatmentTabInnerBox">' +
+                     '<label class="treatmentTitle">' + '@Html.Raw(LangResources["PetGrid_Label_ActiveTreatments"])' + '</label>' +   //Active Treatments
+                     // [Active Treatment Plan]  //
+                     '</div>' + 
+                     '</div>' + 
+                     '</div>' + 
+
+                     '<div class="col-md-6">' + 
+                     '<div class="row me-2 treatmentTabBox">' +
+                     '<div id="divTreatmentPlanHistory_' + iRow + '" class="col ms-3 treatmentTabInnerBox">' +
+                     '<label class="treatmentTitle">' + '@Html.Raw(LangResources["PetGrid_Label_PastTreatments"])' + '</label>' +  //Past Treatments
+                     // [Past Treatment Plan] //
+                     '</div>' + 
+                     '</div>' + 
+                     '</div>' + 
+
+                     '</div>' + 
+                     '</div>';
+
+        return sTreatment;
+    }
+
+    function populatePanelTestMgmt(iRow){
+        let sTestMgmt = '';
+        sTestMgmt = '<div id="nav-testmanagement_' + iRow + '" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-testmanagement-tab">' + 
+                    '<div class="row">' + 
+
+                    '<div class="row tblTestMgmtFunctionRow">' +
+                    '<div class="col-md-9">&nbsp;</div>' +
+                    '<div class="col-md-3">' + 
+                    '<div class="dropdown d-flex tblTestMgmtDropdownRow" >' +
+                    '<label class="tblTestMgmtDropdownLabel">' + '@Html.Raw(LangResources["PetGrid_Label_TestType"])' + ' : </label>' + //Test Type
+                    '<div id="testtypetoggle" class="dropdown-toggle" data-toggle="dropdown" onclick="testtypemenutoggle(' + iRow + ');" style="border: 0px solid red; width: 100px;">' +
+                    '<label id="lbTestSelection" class="tblTestMgmtDropdownSelection">All</label>' +
+                    '</div>' + 
+                    '<div id="dropdownmenu-testtype_' + iRow + '" class="dropdown-menu tblTestMgmtDropdownMenu">' +
+                    // [Menu] //
+                    '</div>' +
+                    '</div>' + 
+                    '</div>' +
+                    '</div>' +
+
+                    '<div class="row tblTestMgmtRow">' +
+                    '<table id="tblTestMgmt_' + iRow + '" class="table tblTestMgmt mt-4">' +
+                    '<thead>' + 
+                    '<tr>' + 
+                    '<th scope="col" class="text-center" style="width: 5%;">' + '@Html.Raw(LangResources["PetGrid_Label_Num"])' + '</th>' +   
+                    '<th scope="col" class="text-left" style="width: 20%;">' + '@Html.Raw(LangResources["PetGrid_Label_Time"])' + '</th>' + 
+                    '<th scope="col" class="text-left" style="width: 15%;">' +  '@Html.Raw(LangResources["PetGrid_Label_TestType"])' + '</th>' +   
+                    '<th scope="col" class="text-left" style="width: 15%;">' + '@Html.Raw(LangResources["PetGrid_Label_ResultStatus"])' + '</th>' +  
+                    '<th scope="col" class="text-left" style="width: 15%;">' + '@Html.Raw(LangResources["PetGrid_Label_PatientID"])' + '</th>' +  
+                    '<th scope="col" class="text-left" style="width: 10%;">' + '@Html.Raw(LangResources["PetGrid_Label_OperatorID"])' + '</th>' +   
+                    '<th scope="col" class="text-left" style="width: 15%;">' + '@Html.Raw(LangResources["PetGrid_Label_DeviceName"])' + '</th>' +  
+                    '</tr>' + 
+                    '</thead>' + 
+
+                    '<tbody>' + 
+                    // [Body] //
+                    '</tbody>' + 
+                    '</table>' + 
+                    '</div>' + 
+
+                    '</div>' + 
+                    '</div>';
+
+        return sTestMgmt;
+    }
+
+    function showPanel(panel, petID, rowID){
+        $('#' + panel).collapse('show');
+        $('#dropdownmenu-testtype_*').toggle('hide');
+
+        if (petID != null)
+        {
+            loadPetProfile(rowID, petID);
+            loadPetTreatmentServiceHistory(rowID, petID);
+            loadMedicationHistory(rowID, petID);
+            loadActiveTreatmentPlan(rowID, petID);
+            loadPastTreatmentPlan(rowID, petID);
+            loadTestResultHistory(rowID, petID, 'All', false);
+            loadTestResultTypeToggleMenu(rowID, petID);
+        }
+    }
+
+    function closePanel(panel){
+        $('#' + panel).collapse('hide');
+    }
+
+    function loadPetProfile(rowID, petID)
+    {
+        $.getJSON("/Pets/GetPetByID/" + petID)
+         .done(function(result){
+             if (result != null){
+                 $('#lbPetName_' + rowID).html(result.data.name);
+                 $('#lbDOB_' + rowID).html(moment(result.data.dob, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY'));
+                 $('#lbAge_' + rowID).html(result.data.age);
+                 $('#lbGender_' + rowID).html(result.data.gender);
+                 $('#lbHeight_' + rowID).html(result.data.height + result.data.heightUnit);
+                 $('#lbWeight_' + rowID).html(result.data.weight + result.data.weightUnit);
+                 $('#lbBreed_' + rowID).html(result.data.breed);
+                 $('#lbRegNo_' + rowID).html(result.data.registrationNo);
+                 $('#lbAllergies_' + rowID).html(result.data.allergies);
+                 $('#lbSpecies_' + rowID).html(result.data.species);
+                 $('#lbColor_' + rowID).html(result.data.color);
+
+                 $('#collapse_' + rowID).css('background', result.data.colorCode);
+             }
+         });
+    }
+
+    function loadPetTreatmentServiceHistory(rowID, petID)
+    {
+        $('#divSurgeryHistory_' + rowID).children('.medicalDisplayText').remove();
+        $('#divMedHistory_' + rowID).children('.medicalDisplayText').remove();
+
+        $.getJSON("Pets/GetTreatmentServices/" + petID)
+         .done(function(result){
+             if (result != null && result.data.length > 0)
+             {
+                 // -- Medical ----- //
+                 var sVaccinationGroup = result.data.filter(function(obj){
+                                            return (obj.categoryName == 'Vaccination');
+                                        });
+
+                 for (var i = 0; i < sVaccinationGroup.length; i++)
+                 {
+                     var sMedical = '';
+                     sMedical = '<div class="medicalDisplayText mt-3">' +
+                                sVaccinationGroup[i].subCategoryName + '<br />' +
+                                '<strong>' + sVaccinationGroup[i].serviceName + '</strong><br />' +
+                                moment(sVaccinationGroup[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                '</div>';
+
+                     $('#divMedHistory_' + rowID).append(sMedical);
+                 }
+
+                // --- Surgery ----- //
+                var sSurgeryGroup = result.data.filter(function(obj){
+                                        return (obj.categoryName == "Surgery");
+                                    });
+
+                for (var x = 0; x < sSurgeryGroup.length; x++)
+                {
+                    var sSurgery = '';
+                    sSurgery = '<div class="medicalDisplayText mt-3">' +
+                               sSurgeryGroup[x].subCategoryName + '<br />' +
+                               '<strong>' + sSurgeryGroup[x].serviceName + '</strong><br />' +
+                               moment(sSurgeryGroup[x].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                               '</div>';
+
+                    $('#divSurgeryHistory_' + rowID).append(sSurgery);
+                }
+             }
+         });
+    }
+
+    function loadMedicationHistory(rowID, petID)
+    {
+        $('#divMedicationHistory_' + rowID).children('.medicalDisplayText').remove();
+
+        $.getJSON("/Pets/GetMedicalHistory/" + petID)
+         .done(function(result){
+             if (result.data != null && result.data.length > 0)
+             {
+                 for(var i = 0; i < result.data.length; i++)
+                 {
+                     var sMedicine = '';
+                     sMedicine = '<div class="medicalDisplayText mt-3">' +
+                                 result.data[i].productName + '<br />' +
+                                 '<strong>' + result.data[i].usage + '</strong><br />' +
+                                 moment(result.data[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                 '</div>';
+
+                     $('#divMedicationHistory_' + rowID).append(sMedicine);
+                 }
+             }
+         });
+    }
+
+    function loadActiveTreatmentPlan(rowID, petID)
+    {
+        $('#divActiveTreatmentPlan_' + rowID).children('.treatmentDisplayText').remove();
+
+        $.getJSON("/Pets/GetActiveTreatmentPlan/" + petID)
+         .done(function(result){
+             if (result.data != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sActiveTreatment = '';
+                     sActiveTreatment = '<div class="treatmentDisplayText mt-3">' + 
+                                        '<strong>' + result.data[i].planName + '</strong><br />' +
+                                        '@Html.Raw(LangResources["PetGrid_Message_TreatmentPeriod"])' + ' : ' +  
+                                        moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' + 
+                                        moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                        '</div>';
+
+                     $('#divActiveTreatmentPlan_' + rowID).append(sActiveTreatment);
+                 }
+             }
+         })
+    }
+
+    function loadPastTreatmentPlan(rowID, petID)
+    {
+        $('#divTreatmentPlanHistory_' + rowID).children('.treatmentDisplayText').remove();
+
+        $.getJSON("/Pets/GetPastTreatmentPlan/" + petID)
+         .done(function(result){
+             if (result.data != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sActiveTreatment = '';
+                     sActiveTreatment = '<div class="treatmentDisplayText mt-3">' +
+                                        '<strong>' + result.data[i].planName + '</strong><br />' +
+                                        '@Html.Raw(LangResources["PetGrid_Message_TreatmentPeriod"])' + ' : ' +
+                                        moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' + 
+                                        moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
+                                        '</div>';
+
+                     $('#divTreatmentPlanHistory_' + rowID).append(sActiveTreatment);
+                 }
+             }
+         })
+    }
+
+    function loadTestResultTypeToggleMenu(rowID, petID)
+    {
+        $('#dropdownmenu-testtype_' + rowID).html('');
+        $('#lbTestSelection').html('');
+
+        $.getJSON("/Pets/GetPetTestResultHistory/" + petID + "/All")
+         .done(function(result){
+             if (result.data != null && result.data.length > 0)
+             {
+                 // --- Menu Toggle ---- //
+                 var sTestGroup = result.data.map(x => x.resultType);
+                 if (sTestGroup != null && sTestGroup.length > 0)
+                 {
+                     $('#dropdownmenu-testtype_' + rowID).append('<a class="dropdown-item" style="font-size: 12px;" onclick="loadTestResultHistory(\'' + rowID + '\', \'' + petID + '\', \'All\', \'true\')">All</a>');
+                     $('#lbTestSelection').html('All');
+
+                     for (var x = 0; x < sTestGroup.length; x++)
+                     {
+                         let sToggleMenu = '';
+                         sToggleMenu = '<a class="dropdown-item" style="font-size: 12px;" onclick="loadTestResultHistory(\'' + rowID + '\', \'' + petID + '\', \'' + sTestGroup[x] + '\', \'true\')">' + sTestGroup[x] + '</a>';
+
+                         $('#dropdownmenu-testtype_' + rowID).append(sToggleMenu);
+                     }
+                 }
+                 else
+                 {
+                    $('#lbTestSelection').html('All');
+                 }
+             }
+             else{
+                $('#lbTestSelection').html('All');
+             }
+         });
+    }
+
+    function loadTestResultHistory(rowID, petID, resultType, isMenuClick)
+    {
+        $('#tblTestMgmt_' + rowID + ' tbody').html('');
+
+        $.getJSON("/Pets/GetPetTestResultHistory/" + petID + "/" + resultType)
+         .done(function(result){
+             if (result.data != null && result.data.length > 0)
+             {
+                 for (var i = 0; i < result.data.length; i++)
+                 {
+                     var sTestResult = '';
+                     sTestResult = '<tr>' +
+                                    '<td class="text-center">' + result.data[i].seqNo + '</td>' +
+                                    '<td>' + moment(result.data[i].resultDateTime, 'YYYY-MM-DDThh:mm:ss').format('DD-MM-YYYY hh:mm:ss A') + '</td>' +
+                                    '<td>' + result.data[i].resultType + '</td>' +
+                                    '<td>' + result.data[i].overallStatus + '</td>' +
+                                    '<td>' + result.data[i].patientID + '</td>' +
+                                    '<td>' + result.data[i].operatorID + '</td>' +
+                                    '<td>' + result.data[i].deviceName +'</td>' +
+                                    '</tr>';
+
+                     $('#tblTestMgmt_' + rowID + ' tbody').append(sTestResult);
+                 }
+             }
+             else
+             {
+                 var sNoRecord = '';
+                 sNoRecord = '<tr>' + 
+                             '<td class="text-left" colspan="7">' + '@Html.Raw(LangResources["PetGrid_Message_NoRecord"])' + '</td>' +  //No record.
+                             '</tr>';
+
+                $('#tblTestMgmt_' + rowID + ' tbody').append(sNoRecord);
+             }
+
+            if (isMenuClick)
+            {
+                $('#lbTestSelection').html(resultType);
+                $('#dropdownmenu-testtype_' + rowID).toggle('hide');
+            }
+         })
+    }
+</script>
+
+<div class="row ms-3">
+    <div class="row pt-4">
+        <div class="col-md-3">
+            <label class="pageTitle">
+                @LangResources["PetGrid_Title_Pets"]
+            </label>
+        </div>
+        <div class="col-md-8">&nbsp;</div>
+        <div class="col-md-1">
+            <div class="row ms-2 gridButtonBox">
+                <a class="mt-1 mb-1 me-2 ps-2" asp-controller="Pets" asp-action="List">
+                    <i class="bi bi-list-ul"></i>
+                </a>        
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="divPetGrid" class="row">
+            
+        </div>
+    </div>
+</div>

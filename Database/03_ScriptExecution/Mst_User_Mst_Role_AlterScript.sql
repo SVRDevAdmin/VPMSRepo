@@ -1,0 +1,5 @@
+ALTER TABLE `mst_roles`
+ADD COLUMN `OrganizationID` INT NULL DEFAULT NULL AFTER `UpdatedBy`;
+
+ALTER TABLE `mst_user`
+ADD COLUMN `OrganizationID` INT NULL DEFAULT NULL AFTER `UpdatedBy`;

@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessControl_Label_BranchCity" xml:space="preserve">
+    <value>Thành phố</value>
+  </data>
+  <data name="AccessControl_Label_BranchPostcode" xml:space="preserve">
+    <value>Mã bưu chính</value>
+  </data>
+  <data name="AccessControl_Label_BranchState" xml:space="preserve">
+    <value>Tình trạng</value>
+  </data>
+  <data name="AccessControl_Label_SelectCity" xml:space="preserve">
+    <value>Chọn thành phố</value>
+  </data>
+  <data name="AccessControl_Label_SelectState" xml:space="preserve">
+    <value>Chọn tiểu bang</value>
+  </data>
   <data name="Appointment_Button_Cancel" xml:space="preserve">
     <value />
   </data>
@@ -204,6 +219,9 @@
   <data name="Appointment_Label_Week" xml:space="preserve">
     <value />
   </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>Đã chấp nhận cuộc hẹn</value>
+  </data>
   <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
     <value />
   </data>
@@ -237,6 +255,9 @@
   <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
     <value />
   </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>Chấp nhận cuộc hẹn</value>
+  </data>
   <data name="Appointment_Title_Appointment" xml:space="preserve">
     <value />
   </data>
@@ -252,6 +273,225 @@
   <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
     <value />
   </data>
+  <data name="BannerProfile_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="BannerProfile_Button_Create" xml:space="preserve">
+    <value>Tạo nên</value>
+  </data>
+  <data name="BannerProfile_Button_Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="BannerProfile_Label_Banner" xml:space="preserve">
+    <value>Ngọn cờ</value>
+  </data>
+  <data name="BannerProfile_Label_Description" xml:space="preserve">
+    <value>Sự miêu tả</value>
+  </data>
+  <data name="BannerProfile_Label_EndDate" xml:space="preserve">
+    <value>Ngày kết thúc</value>
+  </data>
+  <data name="BannerProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Vui lòng chọn trạng thái</value>
+  </data>
+  <data name="BannerProfile_Label_StartDate" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
+  <data name="BannerProfile_Label_Status" xml:space="preserve">
+    <value>trạng thái</value>
+  </data>
+  <data name="BannerProfile_Label_Upload" xml:space="preserve">
+    <value>Tải lên</value>
+  </data>
+  <data name="BannerProfile_Message_Fail" xml:space="preserve">
+    <value>Thất bại</value>
+  </data>
+  <data name="BannerProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Các trường bắt buộc phải nhập.</value>
+  </data>
+  <data name="BannerProfile_Message_NoBannerSelected" xml:space="preserve">
+    <value>Không có tệp Banner nào được chọn.</value>
+  </data>
+  <data name="BannerProfile_Message_NoChangesUpdates" xml:space="preserve">
+    <value>Không có thay đổi cập nhật.</value>
+  </data>
+  <data name="BannerProfile_Message_RecommendRemark" xml:space="preserve">
+    <value>* Kích thước đề xuất: 1450px (Chiều rộng) x 340px (Chiều cao)</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>Cập nhật không thành công. Vui lòng thử lại.</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>Cập nhật thành công.</value>
+  </data>
+  <data name="BannerProfile_Message_UploadFailed" xml:space="preserve">
+    <value>Tải tệp lên không thành công.</value>
+  </data>
+  <data name="BannerProfile_Message_UploadSuccessfully" xml:space="preserve">
+    <value>Tải lên thành công.</value>
+  </data>
+  <data name="BannerProfile_Title_BannerDetails" xml:space="preserve">
+    <value>Chi tiết biểu ngữ</value>
+  </data>
+  <data name="BannerProfile_Title_UpdateBannerInfo" xml:space="preserve">
+    <value>Cập nhật thông tin Banner</value>
+  </data>
+  <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
+    <value>Tải lên biểu ngữ</value>
+  </data>
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>Biểu ngữ mới</value>
+  </data>
+  <data name="BannersList_Button_Next" xml:space="preserve">
+    <value>Trang tiếp theo</value>
+  </data>
+  <data name="BannersList_Button_Prev" xml:space="preserve">
+    <value>trước đó</value>
+  </data>
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>Ngọn cờ</value>
+  </data>
+  <data name="BannersList_Label_CreatedDate" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="BannersList_Label_Edit" xml:space="preserve">
+    <value>Biên tập</value>
+  </data>
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>Ngày kết thúc</value>
+  </data>
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>Tên tập tin</value>
+  </data>
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>con số</value>
+  </data>
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>trạng thái</value>
+  </data>
+  <data name="BannersList_Label_View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="BannersList_Message_NoRecords" xml:space="preserve">
+    <value>Không có hồ sơ</value>
+  </data>
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>Quản lý biểu ngữ</value>
+  </data>
+  <data name="BlogList_Button_NewBlog" xml:space="preserve">
+    <value>Blog mới</value>
+  </data>
+  <data name="BlogList_Button_Next" xml:space="preserve">
+    <value>Trang tiếp theo</value>
+  </data>
+  <data name="BlogList_Button_Prev" xml:space="preserve">
+    <value>trước đó</value>
+  </data>
+  <data name="BlogList_Label_CreatedDate" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>Biên tập</value>
+  </data>
+  <data name="BlogList_Label_EndDate" xml:space="preserve">
+    <value>Ngày kết thúc</value>
+  </data>
+  <data name="BlogList_Label_Num" xml:space="preserve">
+    <value>con số</value>
+  </data>
+  <data name="BlogList_Label_StartDate" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
+  <data name="BlogList_Label_Status" xml:space="preserve">
+    <value>trạng thái</value>
+  </data>
+  <data name="BlogList_Label_Title" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="BlogList_Label_URL" xml:space="preserve">
+    <value>Địa chỉ URL</value>
+  </data>
+  <data name="BlogList_Label_View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="BlogList_Message_NoRecords" xml:space="preserve">
+    <value>Không có hồ sơ</value>
+  </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>Quản lý Blog</value>
+  </data>
+  <data name="BlogProfile_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="BlogProfile_Button_Create" xml:space="preserve">
+    <value>Tạo nên</value>
+  </data>
+  <data name="BlogProfile_Button_Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="BlogProfile_Label_Description" xml:space="preserve">
+    <value>Sự miêu tả</value>
+  </data>
+  <data name="BlogProfile_Label_EndDate" xml:space="preserve">
+    <value>Ngày kết thúc</value>
+  </data>
+  <data name="BlogProfile_Label_FileName" xml:space="preserve">
+    <value>Tên tập tin</value>
+  </data>
+  <data name="BlogProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Vui lòng chọn trạng thái</value>
+  </data>
+  <data name="BlogProfile_Label_StartDate" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
+  <data name="BlogProfile_Label_Status" xml:space="preserve">
+    <value>trạng thái</value>
+  </data>
+  <data name="BlogProfile_Label_Title" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="BlogProfile_Label_Upload" xml:space="preserve">
+    <value>Tải lên</value>
+  </data>
+  <data name="BlogProfile_Label_URL" xml:space="preserve">
+    <value>Địa chỉ URL</value>
+  </data>
+  <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
+    <value>Tạo blog thành công.</value>
+  </data>
+  <data name="BlogProfile_Message_Fail" xml:space="preserve">
+    <value>Thất bại</value>
+  </data>
+  <data name="BlogProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Các trường bắt buộc phải nhập.</value>
+  </data>
+  <data name="BlogProfile_Message_NoChangesUpdate" xml:space="preserve">
+    <value>Không có thay đổi cập nhật.</value>
+  </data>
+  <data name="BlogProfile_Message_NoThumbnailSelected" xml:space="preserve">
+    <value>Không có ảnh thu nhỏ nào được chọn.</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateBlogSuccessfully" xml:space="preserve">
+    <value>Cập nhật Blog thành công</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>Cập nhật không thành công. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
+    <value>Tải lên hình thu nhỏ không thành công.</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>Chi tiết Blog</value>
+  </data>
+  <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
+    <value>Tạo mục nhập blog</value>
+  </data>
+  <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
+    <value>Cập nhật thông tin Blog</value>
+  </data>
   <data name="DoctorProfile_Button_Back" xml:space="preserve">
     <value />
   </data>
@@ -263,6 +503,9 @@
   </data>
   <data name="DoctorProfile_Button_Update" xml:space="preserve">
     <value />
+  </data>
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>Chi nhánh</value>
   </data>
   <data name="DoctorProfile_Label_Designation" xml:space="preserve">
     <value />
@@ -276,8 +519,17 @@
   <data name="DoctorProfile_Label_Name" xml:space="preserve">
     <value />
   </data>
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>Tổ chức</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Vui lòng chọn chi nhánh</value>
+  </data>
   <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
     <value />
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Vui lòng chọn tổ chức</value>
   </data>
   <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
     <value />
@@ -384,6 +636,15 @@
   <data name="MenuBar_Label_Appointments" xml:space="preserve">
     <value />
   </data>
+  <data name="MenuBar_Label_Banners" xml:space="preserve">
+    <value>Biểu ngữ</value>
+  </data>
+  <data name="MenuBar_Label_Blogs" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
+    <value>Cổng thông tin khách hàng</value>
+  </data>
   <data name="MenuBar_Label_CustomerService" xml:space="preserve">
     <value />
   </data>
@@ -471,6 +732,45 @@
   <data name="Notification_Title_Notification" xml:space="preserve">
     <value />
   </data>
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>Nộp</value>
+  </data>
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>Bác sĩ Incharges</value>
+  </data>
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>Vị trí</value>
+  </data>
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>Kiểm tra theo lịch trình</value>
+  </data>
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>Chọn Bác sĩ Incharges</value>
+  </data>
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>Chọn vị trí</value>
+  </data>
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>Chọn bài kiểm tra</value>
+  </data>
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>Kiểm tra</value>
+  </data>
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Những trường bắt buộc phải nhập.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>Không gửi được lịch kiểm tra, vui lòng thử lại sau.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>Đã gửi lịch kiểm tra thành công.</value>
+  </data>
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>Tạo lịch kiểm tra</value>
+  </data>
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>Nộp lịch kiểm tra</value>
+  </data>
   <data name="Roles_Button_Cancel" xml:space="preserve">
     <value />
   </data>
@@ -479,6 +779,9 @@
   </data>
   <data name="Roles_Button_NewRole" xml:space="preserve">
     <value />
+  </data>
+  <data name="Roles_Button_PermissionDetails" xml:space="preserve">
+    <value>Chi tiết quyền</value>
   </data>
   <data name="Roles_Button_Update" xml:space="preserve">
     <value />
@@ -540,8 +843,14 @@
   <data name="Roles_Label_Role" xml:space="preserve">
     <value />
   </data>
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>Loại vai trò</value>
+  </data>
   <data name="Roles_Label_Status" xml:space="preserve">
     <value />
+  </data>
+  <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
+    <value>Tổng số quyền được cấp</value>
   </data>
   <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
     <value />
@@ -566,6 +875,9 @@
   </data>
   <data name="Roles_Title_DeleteRole" xml:space="preserve">
     <value />
+  </data>
+  <data name="Roles_Title_Permissions" xml:space="preserve">
+    <value>Quyền</value>
   </data>
   <data name="Roles_Title_RoleSettings" xml:space="preserve">
     <value />

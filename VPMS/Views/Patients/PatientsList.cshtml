@@ -6,157 +6,96 @@
 @{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
+
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-	.table-content {
-		text-align: center;
-		height: 2vw;
-	}
+<link rel="stylesheet" href="~/css/PatientsList.css" />
 
-	table th:first-child {
-		border-radius: 0.2vw 0 0 0.2vw;
-	}
-
-	table th:last-child {
-		border-radius: 0 0.2vw 0.2vw 0;
-	}
-
-	.form-field {
-		border-style: solid;
-		border-color: black;
-		font-size: 1vw;
-	}
-
-	.field-container {
-		display: flex;
-		flex-direction: column;
-		margin-bottom: 2vw;
-		font-size: 1vw;
-	}
-
-	.form-label {
-		font-weight: bold;
-		margin-bottom: 0.7vw;
-	}
-
-	/* circle-icon */
-	#container {
-		width: 1.6vw;
-		height: 1.6vw;
-		display: flex;
-		background: transparent;
-		border-radius: 2vw;
-		color: white;
-		border: 0.15vw solid;
-		font-size: 1.5vw;
-		justify-content: center;
-		align-items: center;
-	}
-
-	/* for filter hide and show */
-	.tableFullWidth{
-		width: 78vw;
-	}
-
-	.tablePartialWidth{
-		width: 57vw;
-	}
-
-	.filterHide {
-		display: none;
-	}
-
-	.filterShow {
-		visibility: visible !important;
-	}
-
-	.filterButton{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		font-size: 1vw;
-		padding: 0 1vw;
-		width: 9vw;
-		--bs-btn-hover-color: unset;
-		--bs-btn-hover-bg: unset;
-		--bs-btn-active-color: unset;
-		--bs-btn-active-bg: unset;
-	}
-</style>
-
-<div style="display: flex; justify-content: space-between;">
-
-	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["Patient_Title_Patients"]</span>
-	</div>
-
-	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<button class="btn btn-lg btn-primary filterButton containerBackground5" onclick="filterToggle();">
-			<i class="fa-solid fa-sliders"></i>
-			<span id="buttonFilter">@LangResources["Patient_Button_ShowFilter"]</span>
-		</button>
-		@{
-			if (Boolean.Parse(ViewData["CanAdd"] as string))
-			{
-				<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewPatient", "Patients")'">
-					<span id="container">+</span>
-					<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Patient_Button_NewPatient"]</span>
-				</button>
-			}
-		}
-	</div>
-
-</div>
-
-<div style="display: flex;">
-	<div>
-		<table class="textColor tableFullWidth" id="petInfoList" style="margin-bottom: 2vw; font-size: 1vw;">
-		</table>
-
-		<div id="pagination" style="display: flex; justify-content: flex-end;">
-			<div>
-				<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
-			</div>
-			<div id="paginationNumbering" style="display: flex; justify-content: flex-end; font-size: 1vw;">
-			</div>
-			<div>
-				<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
-			</div>
+<div class="row">
+	<div class="row ms-2">
+		<div class="col-md-12">
+			<img id="imgBackArrow" style="margin-right: 1vw; width: 1.5vw;" />
+			<span class="textColor" style="font-size: 24px; font-weight: bold;">
+				@LangResources["Patient_Title_Patients"]
+			</span>
 		</div>
-	</div>
-	<div class="containerBackground filterHide" id="filterContainer" style="border-radius: 0.2vw; margin-left: 1vw; padding: 2vw;">
-		<h3 style="text-align: left; margin-bottom: 2vw; font-size: 1.5vw;">@LangResources["Patient_Label_Filter"]</h3>
-
-		<div class="field-container">
-			<span class="form-label">@LangResources["Patient_Label_OwnerName"]</span>
-			<input id="OwnerName" type="text" class="form-control form-field" />
-		</div>
-
-		<div class="field-container">
-			<span class="form-label">@LangResources["Patient_Label_PetName"]</span>
-			<input id="PetName" type="text" class="form-control form-field" />
-		</div>
-
-		<div class="field-container">
-			<span class="form-label">@LangResources["Patient_Label_Species"]</span>
-			<select id="Species" class="form-control form-field" onchange="changeSpecies();">
-				<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
-				@foreach (var species in ViewData["Species"] as List<string>)
+		<div class="col-md-8">&nbsp;</div>
+		<div class="col-md-4 text-end">
+			<button id="btnToggle" type="button" class="btn btn-outline-primary" onclick="filterToggle();">
+				<i class="fa-solid fa-sliders"></i>
+				@LangResources["Patient_Button_ShowFilter"]
+			</button>&nbsp;&nbsp;
+			@{
+				if (Boolean.Parse(ViewData["CanAdd"] as string))
 				{
-					<option value="@species"> @species</option>
+					<button id="btnNew" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateNewPatient", "Patients")'">
+						<i class="bi bi-plus-circle"></i>
+						@LangResources["Patient_Button_NewPatient"]
+					</button>
 				}
-			</select>
+			}
+		</div>
+	</div>
+
+	<div class="row mt-4 ms-2">
+		<div id="divpetInfoList" class="col-md-12">
+			<table id="petInfoList" class="table" style="margin-bottom: 2vw; font-size: 1vw;">
+			</table>
+
+			<div class="row mb-3">
+				<div id="pagination" style="display: flex; justify-content: flex-end;">
+					<div>
+						<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
+					</div>
+					<div id="paginationNumbering" style="display: flex; justify-content: flex-end; font-size: 1vw;">
+					</div>
+					<div>
+						<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<div class="field-container">
-			<span class="form-label">@LangResources["Patient_Label_Breed"]</span>
-			<select id="Breed" class="form-control form-field">
-				<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] -- </option>
-			</select>
-		</div>
+		<div id="divPatientFilter" class="col-md-3 collapseHide">
+			<div class="row divPatientBox">
+				<div class="col-md-12 mb-4 ms-1 me-1">
+					<h3 class="filterTitle mt-4 mb-3">@LangResources["Patient_Label_Filter"]</h3>
 
-		<button onclick="filter();" class="w-100 btn btn-lg btn-primary" style="font-size: 1vw;">@LangResources["Patient_Button_Search"]</button>
+					<div class="field-container">
+						<span class="form-label">@LangResources["Patient_Label_OwnerName"]</span>
+						<input id="OwnerName" type="text" class="form-control form-field" />
+					</div>
+
+					<div class="field-container">
+						<span class="form-label">@LangResources["Patient_Label_PetName"]</span>
+						<input id="PetName" type="text" class="form-control form-field" />
+					</div>
+
+					<div class="field-container">
+						<span class="form-label">@LangResources["Patient_Label_Species"]</span>
+						<select id="Species" class="form-control form-field" onchange="changeSpecies();">
+							<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
+							@foreach (var species in ViewData["Species"] as List<string>)
+							{
+								<option value="@species"> @species</option>
+							}
+						</select>
+					</div>
+
+					<div class="field-container">
+						<span class="form-label">@LangResources["Patient_Label_Breed"]</span>
+						<select id="Breed" class="form-control form-field">
+							<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] -- </option>
+						</select>
+					</div>
+
+					<button id="btnSearch" onclick="filter();" class="w-100 btn btn-lg btn-primary">
+						@LangResources["Patient_Button_Search"]
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -215,6 +154,7 @@
 
 
 				content.innerHTML =
+					'<thead>' +
 					'<tr class="containerBackground">' +
 					'<th class="table-content" > @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_OwnerName"] </th>' +
@@ -225,9 +165,10 @@
 					'<th class="table-content" > @LangResources["Patient_Label_Sex"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_CreatedOn"] </th>' +
 					'<th class="table-content" > </th>' +
-					'</tr>';
+					'</tr>' +
+					'</thead>';
 
-				if (data.totalPatients == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				if (data.totalPatients == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> @LangResources["Patient_Message_NoRecord"] </td> </tr>' }
 				else {
 					for (let i = 0; i < data.petsInfo.length; i++) {
 
@@ -393,20 +334,32 @@
 	}
 
 	function filterToggle(){
-		var tableElement = document.getElementById("petInfoList");
-		var filterElement = document.getElementById("filterContainer");
-		var buttonElement = document.getElementById("buttonFilter");
+		$('#divPatientFilter').toggleClass('collapseHide');
+		$('#divpetInfoList').toggleClass('col-md-12 col-md-9');
 
-		if(tableElement.classList.contains("tableFullWidth")){
-			buttonElement.innerHTML = "@LangResources["Patient_Button_HideFilter"]";
-		}
-		else{
-			buttonElement.innerHTML = "@LangResources["Patient_Button_ShowFilter"]";
-		}
+		// if ($('#divPatientFilter').hasClass('collapseHide'))
+		// {
+		// 	$('#btnToggle')[0].innerText = "@LangResources["Patient_Button_ShowFilter"]";
+			
+		// }
+		// else {
+		// 	$('#btnToggle')[0].outerText = "@LangResources["Patient_Button_HideFilter"]";
+		// }
 
-		tableElement.classList.toggle("tableFullWidth");
-		tableElement.classList.toggle("tablePartialWidth");
-		filterElement.classList.toggle("filterHide");
-		filterElement.classList.toggle("filterShow");
+		// var tableElement = document.getElementById("petInfoList");
+		// var filterElement = document.getElementById("filterContainer");
+		// var buttonElement = document.getElementById("buttonFilter");
+
+		// if(tableElement.classList.contains("tableFullWidth")){
+		// 	buttonElement.innerHTML = "@LangResources["Patient_Button_HideFilter"]";
+		// }
+		// else{
+		// 	buttonElement.innerHTML = "@LangResources["Patient_Button_ShowFilter"]";
+		// }
+
+		// tableElement.classList.toggle("tableFullWidth");
+		// tableElement.classList.toggle("tablePartialWidth");
+		// filterElement.classList.toggle("filterHide");
+		// filterElement.classList.toggle("filterShow");
 	}
 </script>

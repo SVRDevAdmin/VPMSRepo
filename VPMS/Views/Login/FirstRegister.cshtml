@@ -45,7 +45,21 @@
     <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
         <div class="fieldContainerChild">
             <img src="~/images/skins/icon_ion_person_sharp.png" />
-            <select asp-for="Branch" class="form-control" aria-required="true">
+            <select id="ddlOrgz" asp-for="OrganizationID" class="form-select" aria-required="true">
+                <option value="">-- Select organization --</option>
+                @foreach (var Organization in Model.Organization)
+                {
+                    <option value="@Organization.Id">@Organization.Name</option>
+                }
+            </select>
+        </div>
+        <span asp-validation-for="OrganizationID" class="text-danger"></span>
+    </div>
+
+@*  <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
+        <div class="fieldContainerChild">
+            <img src="~/images/skins/icon_ion_person_sharp.png" />
+            <select asp-for="Branch" class="form-select" aria-required="true">
                 <option value="">-- Select branch --</option>
                 @foreach (var Branch in Model.Branches)
                 {
@@ -54,11 +68,12 @@
             </select>
         </div>
         <span asp-validation-for="Branch" class="text-danger"></span>
-    </div>
+    </div> *@
+
     <div class="form-floating mb-3 fieldContainer" style="margin-bottom: 1.8vw !important;">
         <div class="fieldContainerChild">
             <img src="~/images/skins/icon_ion_person_sharp.png" />
-            <select asp-for="Role" class="form-control" aria-required="true">
+            <select id="ddlRole" asp-for="Role" class="form-select" aria-required="true">
                 <option value="">-- Select role --</option>
                 @foreach (var Role in Model.Roles)
                 {
@@ -68,6 +83,7 @@
         </div>
         <span asp-validation-for="Role" class="text-danger"></span>
     </div>
-    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+    <button id="registerSubmit" type="submit" class="w-100 btn btn-primary">Register</button>
     <a class="link" asp-controller="Login" asp-action="Login">Back</a>
+    <br/>
 </form>
