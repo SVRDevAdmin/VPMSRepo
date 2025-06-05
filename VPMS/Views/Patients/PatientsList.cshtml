@@ -168,7 +168,7 @@
 					'</tr>' +
 					'</thead>';
 
-				if (data.totalPatients == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				if (data.totalPatients == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content"> @LangResources["Patient_Message_NoRecord"] </td> </tr>' }
 				else {
 					for (let i = 0; i < data.petsInfo.length; i++) {
 

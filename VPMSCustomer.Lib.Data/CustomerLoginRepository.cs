@@ -125,6 +125,11 @@ namespace VPMSCustomer.Lib.Data
             return isSuccess;
         }
 
+        /// <summary>
+        /// Validate Session ID validity
+        /// </summary>
+        /// <param name="sSessionID"></param>
+        /// <returns></returns>
         public static Boolean ValidateSession(String sSessionID)
         {
             Boolean isValid = false;

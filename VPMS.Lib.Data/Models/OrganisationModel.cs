@@ -27,10 +27,15 @@ namespace VPMS.Lib.Data.Models
 		public int TotalStaff { get; set; }
 	}
 
+	public class OrgansationListExtended : OrganisationList
+	{
+		public int SeqNo { get; set; }
+	}
+
 	public class OrganisationInfo
 	{
-		public List<OrganisationList> OrganisationList { get; set; }
-		public int TotalOrganisation { get; set; }
+        public List<OrgansationListExtended> OrganisationList { get; set; }
+        public int TotalOrganisation { get; set; }
 	}
 
 	public class OrganisationDataModel

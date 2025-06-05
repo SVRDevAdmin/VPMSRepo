@@ -248,7 +248,7 @@ namespace VPMSWeb.Controllers
 			}
         }
 
-        [Authorize(Roles = "Superadmin")]
+        //[Authorize(Roles = "Superadmin")]
         public async Task<IActionResult> SignUp(RegisterModel registerInfo)
         {
 			try
@@ -269,7 +269,20 @@ namespace VPMSWeb.Controllers
 
                     if (result.Succeeded)
 					{
-						_userDBContext.Add(new UserModel() { UserID = user.Id, Surname = registerInfo.Surname, LastName = registerInfo.LastName, StaffID = "ABC1234567", Gender = "M", EmailAddress = registerInfo.Email, Status = 1, RoleID = registerInfo.Role, BranchID = registerInfo.Branch, CreatedDate = DateTime.Now, CreatedBy = "System" });
+						_userDBContext.Add(new UserModel() { 
+							UserID = user.Id, 
+							Surname = registerInfo.Surname, 
+							LastName = registerInfo.LastName, 
+							StaffID = "ABC1234567", 
+							Gender = "M", 
+							EmailAddress = registerInfo.Email, 
+							Status = 1, 
+							RoleID = registerInfo.Role, 
+							BranchID = registerInfo.Branch, 
+							OrganizationID = registerInfo.OrganizationID,
+							CreatedDate = DateTime.Now, 
+							CreatedBy = "System" 
+						});
 
 						_userDBContext.SaveChanges();
 

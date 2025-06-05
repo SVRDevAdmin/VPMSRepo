@@ -347,7 +347,7 @@
         <div class="col-md-4">
             <div class="row" style="margin-top: 20px;">
                 <div class="col-md-3">&nbsp;</div>
-                <div class="col-md-9" style="display: flex;">
+                <div class="col-md-9 d-flex justify-content-end">
                     <button id="btnFilter" type="button" class="btn" style="border: 1px solid black; background: white; font-size: 12px;">
                         <img id="imgSlider" />
                         @LangResources["Staff_Button_Filters"]
@@ -368,12 +368,12 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row ms-2">
         <div class="col-md-12" style="height: 20px">
             <label id="lbUserListingError"></label>
         </div>
         <div id="divUserContent" class="col-md-12" style="margin-top: 15px;">
-            <table id="tblUsers" class="table" style="font-size: 1vw;">
+            <table id="tblUsers" class="table">
                 <thead>
                     <tr>
                         <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%;">@LangResources["Staff_Label_Number"]</th>

@@ -17,10 +17,11 @@ namespace VPMS.Lib.Data
     {
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// Get User List Order by Surname
-		/// </summary>
-		/// <returns></returns>
+        /// <summary>
+        /// Get User List Order by Surname
+        /// </summary>
+        /// <param name="organizationID"></param>
+        /// <returns></returns>
 		public static List<UserModel> GetStaffList(String organizationID)
         {
             List<UserModel> sStaffList = new List<UserModel>();
@@ -69,7 +70,6 @@ namespace VPMS.Lib.Data
                     sConn.Close();
 
                     return sStaffList;
-                    //return ctx.Mst_User.OrderBy(x => x.Surname).ToList();
                 };
             }
             catch (Exception ex)
@@ -188,6 +188,7 @@ namespace VPMS.Lib.Data
         /// </summary>
         /// <param name="sUserObj"></param>
         /// <param name="sRoleID"></param>
+        /// <param name="sTempPass"></param>
         /// <param name="sUserID"></param>
         /// <returns></returns>
         public static Boolean AddIdentityUser(IdentityUserObject sUserObj, String sRoleID, String sTempPass, out String sUserID)
@@ -418,11 +419,11 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.UserID, A.Surname, A.LastName, A.StaffID, A.Gender, A.EmailAddress, " +
-                                            "A.Status, A.RoleID, C.OrganizationID, A.BranchID, A.LastLoginDate, " +
+                                            "A.Status, A.RoleID, A.OrganizationID, A.BranchID, A.LastLoginDate, " +
                                             "B.UserName AS 'LoginID' " +
                                             "FROM mst_user AS A " +
                                             "INNER JOIN aspnetusers AS B ON  B.Id = A.UserID COLLATE 'utf8mb4_general_ci' " +
-                                            "INNER JOIN mst_branch AS C ON C.ID = A.BranchID AND C.`Status` = '1' " +
+                                            "LEFT JOIN mst_branch AS C ON C.ID = A.BranchID AND C.`Status` = '1' " +
                                             "WHERE A.UserID = '" + sUserID + "' ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
@@ -458,6 +459,10 @@ namespace VPMS.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Patient Summary
+        /// </summary>
+        /// <returns></returns>
         public static List<PatientSummaryModel> GetPatientsSummary()
         {
             List<PatientSummaryModel> sResult = new List<PatientSummaryModel>();

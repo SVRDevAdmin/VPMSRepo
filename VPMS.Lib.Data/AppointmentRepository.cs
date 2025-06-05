@@ -202,13 +202,14 @@ namespace VPMS.Lib.Data
         }
 
         /// <summary>
-        /// Update Appointment Info by Appointment ID
+        ///  Update Appointment Info by Appointment ID
         /// </summary>
         /// <param name="config"></param>
         /// <param name="sApptDate"></param>
         /// <param name="sApptStartTime"></param>
         /// <param name="sApptEndTime"></param>
         /// <param name="iApptID"></param>
+        /// <param name="RespReschedule"></param>
         /// <returns></returns>
         public static Boolean UpdatedAppointment(IConfiguration config, DateTime sApptDate, DateTime sApptStartTime, DateTime sApptEndTime, long iApptID, Boolean RespReschedule)
         {
@@ -263,6 +264,7 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="iApptID"></param>
         /// <param name="iStatus"></param>
+        /// <param name="sUpdatedBy"></param>
         /// <returns></returns>
         public static Boolean UpdateAppointmentStatus(IConfiguration config, long iApptID, int iStatus, String sUpdatedBy = "SYSTEM")
         {
@@ -308,6 +310,10 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="sYear"></param>
         /// <param name="sMonth"></param>
+        /// <param name="searchOwner"></param>
+        /// <param name="searchPet"></param>
+        /// <param name="searchServices"></param>
+        /// <param name="searchDoctor"></param>
         /// <returns></returns>
         public static List<AppointmentMonthViewModel> GetCalendarAppointmentMonthView(IConfiguration config, String sYear, String sMonth, 
                                                                 String searchOwner, String searchPet, String searchServices, String searchDoctor)

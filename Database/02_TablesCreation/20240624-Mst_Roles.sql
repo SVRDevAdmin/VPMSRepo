@@ -21,18 +21,19 @@ ENGINE=InnoDB
 INSERT INTO aspnetroles(Id, NAME, NormalizedName)
 VALUES(UUID(), 'Superadmin', 'SUPERADMIN');
 
-INSERT INTO aspnetroles(Id, NAME, NormalizedName)
-VALUES(UUID(), 'Superuser', 'SUPERUSER');
+--INSERT INTO aspnetroles(Id, NAME, NormalizedName)
+--VALUES(UUID(), 'Superuser', 'SUPERUSER');
 
 INSERT INTO aspnetroles(Id, NAME, NormalizedName)
 VALUES(UUID(), 'Customer', 'CUSTOMER');
 
 /*------- mst_roles ---------*/
-INSERT INTO mst_roles(`RoleId`, `RoleName`, `RoleType`, `BranchID`, `Status`, `IsAdmin`, `IsDoctor`, `Description`, `CreatedDate`, `CreatedBy`) 
-VALUES ((SELECT Id FROM aspnetroles WHERE NAME='Superadmin'), 'Superadmin', 999, NULL, 1, 1, 0, NULL, NOW(), 'SYSTEM');
+INSERT INTO mst_roles(`RoleId`, `RoleName`, `RoleType`, `BranchID`, `Status`, `IsAdmin`, `IsDoctor`, `Description`, `CreatedDate`, `CreatedBy`, `OrganizationID`) 
+VALUES ((SELECT Id FROM aspnetroles WHERE NAME='Superadmin'), 'Superadmin', 999, NULL, 1, 1, 0, NULL, NOW(), 'SYSTEM', 
+(SELECT ID FROM mst_organisation WHERE LEVEL = 0 LIMIT 1));
 
-INSERT INTO mst_roles(`RoleId`, `RoleName`, `RoleType`, `BranchID`, `Status`, `IsAdmin`, `IsDoctor`, `Description`, `CreatedDate`, `CreatedBy`) 
-VALUES ((SELECT Id FROM aspnetroles WHERE NAME='Superuser'), 'Superuser', 998, NULL, 1, 1, 0, NULL, NOW(), 'SYSTEM');
+--INSERT INTO mst_roles(`RoleId`, `RoleName`, `RoleType`, `BranchID`, `Status`, `IsAdmin`, `IsDoctor`, `Description`, `CreatedDate`, `CreatedBy`) 
+--VALUES ((SELECT Id FROM aspnetroles WHERE NAME='Superuser'), 'Superuser', 998, NULL, 1, 1, 0, NULL, NOW(), 'SYSTEM');
 
 INSERT INTO mst_roles(`RoleId`, `RoleName`, `RoleType`, `BranchID`, `Status`, `IsAdmin`, `IsDoctor`, `Description`, `CreatedDate`, `CreatedBy`) 
 VALUES ((SELECT Id FROM aspnetroles WHERE NAME='Customer'), 'Customer', 997, NULL, 1, 0, 0, NULL, NOW(), 'SYSTEM');

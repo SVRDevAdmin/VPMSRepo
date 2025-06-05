@@ -314,10 +314,16 @@
         }
 
         if ($('#ddlBranch').val() == '') {
-            $('#ddlBranch').addClass('errorValidation');
-            $('#ddlBranch').focus();
+            if ('@sessionLevel' == '0' && '@sessionIsAdmin' == '1'){
 
-            isValid = false;
+            }
+            else 
+            {
+                $('#ddlBranch').addClass('errorValidation');
+                $('#ddlBranch').focus();
+
+                isValid = false;
+            }
         }
         else {
             $('#ddlBranch').removeClass('errorValidation');
@@ -376,7 +382,7 @@
             </label>
         </div>
     </div>
-    <div class="row" style="margin-top: 15px; font-size: 1vw;">
+    <div class="row" style="margin-top: 15px;">
         <div class="col-md-12">
             <div class="row frameUserStyle">
                 <div class="col-md-12 frameUserHeader">
@@ -393,40 +399,22 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Surname"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Name"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_StaffID"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                            <label for="txtSurname" class="LeftColUserLabel">@LangResources["StaffDetail_Label_Surname"]</label>
                             <input id="txtSurname" type="text" class="form-control leftColUserControl" />
                         </div>
                         <div class="col-md-4">
+                            <label for="txtLastName" class="CenterColUserLabel">@LangResources["StaffDetail_Label_Name"]</label>
                             <input id="txtLastName" type="text" class="form-control centerColUserControl" />
                         </div>
                         <div class="col-md-4">
+                            <label for="txtStaffID" class="RightColUserLabel">@LangResources["StaffDetail_Label_StaffID"]</label>
                             <input id="txtStaffID" type="text" class="form-control rightColUserControl" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Gender"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Email"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_Role"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                            <label for="ddlGender" class="LeftColUserLabel">@LangResources["StaffDetail_Label_Gender"]</label>
                             <select id="ddlGender" class="form-select leftColUserControl">
                                 <option value="">@LangResources["StaffDetail_Label_PleaseSelectGender"]</option>
 
@@ -442,9 +430,11 @@
                             </select>
                         </div>
                         <div class="col-md-4">
+                            <label for="txtEmail" class="CenterColUserLabel">@LangResources["StaffDetail_Label_Email"]</label>
                             <input id="txtEmail" type="text" class="form-control centerColUserControl" />
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlRole" class="RightColUserLabel">@LangResources["StaffDetail_Label_Role"]</label>
                             <select id="ddlRole" class="form-select rightColUserControl">
                                 <option value="">@LangResources["StaffDetail_Label_PleaseSelectRole"]</option>
 
@@ -463,17 +453,7 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_Organization"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="CenterColUserLabel">@LangResources["StaffDetail_Label_Branch"]</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="RightColUserLabel">@LangResources["StaffDetail_Label_Status"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                            <label for="ddlOrganization" class="LeftColUserLabel">@LangResources["StaffDetail_Label_Organization"]</label>
                             <select id="ddlOrganization" class="form-select leftColUserControl" onchange="ddlOrganizationChange(this)">
                                 <option value="">@LangResources["StaffDetail_Label_PleaseSelectOrganization"]</option>
 
@@ -489,11 +469,13 @@
                             </select>
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlBranch" class="CenterColUserLabel">@LangResources["StaffDetail_Label_Branch"]</label>
                             <select id="ddlBranch" class="form-select centerColUserControl">
                                 <option value="">@LangResources["StaffDetail_Label_PleaseSelectBranch"]</option>
                             </select>
                         </div>
                         <div class="col-md-4">
+                            <label for="ddlStatus" class="RightColUserLabel">@LangResources["StaffDetail_Label_Status"]</label>
                             <select id="ddlStatus" class="form-select rightColUserControl">
                                 <option value="">@LangResources["StaffDetail_Label_PleaseSelectStatus"]</option>
 
@@ -512,12 +494,7 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="LeftColUserLabel">@LangResources["StaffDetail_Label_LoginID"]</label>
-                        </div>
-                        <div class="col-md-8">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                            <label for="txtLoginID" class="LeftColUserLabel">@LangResources["StaffDetail_Label_LoginID"]</label>
                             <input id="txtLoginID" type="text" class="form-control leftColUserControl" />
                         </div>
                         <div class="col-md-8">&nbsp;</div>
@@ -528,13 +505,13 @@
             </div>
             <div class="row userButtonRow">
                 <div class="col-md-12 userButtonBox">
-                    <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">
+                    <button id="btnCancel" type="button" class="btn btn-secondary">
                         @LangResources["StaffDetail_Button_Cancel"]
                     </button>
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                    <button id="btnCreate" type="button" class="btn btn-primary">
                         @LangResources["StaffDetail_Button_Create"]
                     </button>
-                    <button id="btnUpdate" type="button" class="btn btn-primary" style="font-size: 1vw;">
+                    <button id="btnUpdate" type="button" class="btn btn-primary">
                         @LangResources["StaffDetail_Button_Update"]
                     </button>
                 </div>

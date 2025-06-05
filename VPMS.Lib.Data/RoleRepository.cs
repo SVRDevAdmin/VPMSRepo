@@ -15,13 +15,15 @@ namespace VPMS.Lib.Data
     {
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// Get Roles Listing (Wiht Pagination)
-		/// </summary>
-		/// <param name="pageSize"></param>
-		/// <param name="pageIndex"></param>
-		/// <param name="totalRecords"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// Get Roles Listing (Wiht Pagination)
+        /// </summary>
+        /// <param name="organizationid"></param>
+        /// <param name="isSuperadmin"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
 		public static List<RoleListingObject> GetRolesListing(int organizationid, int isSuperadmin, int pageSize, int pageIndex, out int totalRecords)
         {
             List<RoleListingObject> sRoleList = new List<RoleListingObject>();
@@ -495,30 +497,8 @@ namespace VPMS.Lib.Data
         /// <summary>
         /// Get Roles List
         /// </summary>
+        /// <param name="iOrganizationID"></param>
         /// <returns></returns>
-    //    public static List<RoleDropdownObject> GetRolesList()
-    //    {
-    //        try
-    //        {
-    //            using (var ctx = new RoleDBContext())
-    //            {
-    //                return ctx.Mst_Roles
-    //                          .Where(x => x.Status == 1)
-    //                          .OrderBy(x => x.RoleName)
-    //                          .Select(x => new RoleDropdownObject
-    //                          {
-    //                              RoleID = x.RoleID,
-    //                              RoleName = x.RoleName
-    //                          })
-    //                          .ToList();
-    //            };
-    //        }
-    //        catch (Exception ex)
-    //        {
-				//logger.Error("RoleRepository >>> GetRolesList >>> ", ex);
-				//return null;
-    //        }
-    //    }
         public static List<RoleDropdownObject> GetRolesList(int iOrganizationID)
         {
             List<RoleDropdownObject> sResultList = new List<RoleDropdownObject>();
@@ -537,7 +517,7 @@ namespace VPMS.Lib.Data
                                             "WHERE A.`Status`= '1' AND " + 
                                             "(" + 
                                             "(" + (iOrganizationID == -1) + " AND A.RoleType <> '999') OR " +
-                                            "(C.ID = '" + iOrganizationID +"' AND " +
+                                            "(C.ID = '" + iOrganizationID + "' AND " +
                                             "(A.RoleType <> '999' AND A.RoleType <> '998' AND A.RoleType <> '997')) " +
                                             ") " +
                                             "ORDER BY A.RoleName ";

@@ -16,15 +16,18 @@ namespace VPMS.Lib.Data
     {
 		private readonly static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// Get Doctor Listing with Search Criteria & Pagination
-		/// </summary>
-		/// <param name="config"></param>
-		/// <param name="sSearchKeyword"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="pageIndex"></param>
-		/// <param name="totalRecords"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// Get Doctor Listing with Search Criteria & Pagination
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="isSuperadmin"></param>
+        /// <param name="sSearchKeyword"></param>
+        /// <param name="organizationID"></param>
+        /// <param name="branchID"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
 		public static List<DoctorExtendedModel> GetDoctorViewList(IConfiguration config, int isSuperadmin, String sSearchKeyword, int organizationID, int branchID, int pageSize, int pageIndex, out int totalRecords)
         {
             List<DoctorExtendedModel> sDoctorList = new List<DoctorExtendedModel>();

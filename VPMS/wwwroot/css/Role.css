@@ -53,3 +53,16 @@
 #roleSetting {
     color: dodgerblue !important;
 }
+
+.form-check-input:checked{
+    box-shadow: none !important;
+}
+
+.form-check-input:focus {
+    box-shadow: none !important;
+}
+
+#btnCancel, #btnCreate, #btnUpdate {
+    font-size: 12px;
+}
+

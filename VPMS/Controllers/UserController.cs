@@ -71,7 +71,11 @@ namespace VPMSWeb.Controllers
             int iOrganizationID = -1;
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
             {
-                iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                if (HttpContext.Session.GetString("Level") != "0" && HttpContext.Session.GetString("Level") != "1")
+                {
+                    iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                }
+                
             }
 
             ViewData["UserStatusDropdown"] = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Status");
@@ -156,6 +160,11 @@ namespace VPMSWeb.Controllers
 			sNewUser.CreatedDate = DateTime.Now;
 			sNewUser.CreatedBy = sUserModel.createdBy;
 
+            if (!String.IsNullOrEmpty(sUserModel.organizationID))
+            {
+                sNewUser.OrganizationID = Convert.ToInt32(sUserModel.organizationID);
+            }
+            
 			String sIdentityUserID = "";
 			if (!UserRepository.ValidateIdentityUser(sUserModel.loginID))
 			{

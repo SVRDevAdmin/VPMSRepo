@@ -118,7 +118,6 @@ namespace VPMSCustomer.Lib.Data
                                             "SELECT * FROM mst_mastercodedata WHERE CodeGroup ='Gender' " +
                                             ") AS B ON B.CodeID COLLATE UTF8MB4_GENERAL_CI = A.Gender " +
                                             "WHERE A.PatientID = '" + patientID + "' AND " + 
-                                            //"WHERE (" + (petName == null) + " OR A.Name LIKE '%" + petName + "%') AND " +
                                             "(" + (petName == null) + " OR A.Name LIKE '%" + petName + "%') AND " +
                                             "(" + (species == null) + " OR A.Species = '" + species + "') AND " +
                                             "(" + (breed == null) + " OR A.Breed = '" + breed + "') " +
@@ -482,7 +481,6 @@ namespace VPMSCustomer.Lib.Data
                                             "WHERE A.PetID = '" + petID + "' AND " +
                                             "('" + resultType + "' = 'All' OR A.ResultType = '" + resultType + "') " +
                                             "ORDER BY A.ResultDateTime ";
-                                            //" ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
                     {

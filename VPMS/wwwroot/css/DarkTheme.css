@@ -7,11 +7,15 @@ body {
 
 input[type='text'], input[type='password'], input[type='email'], button, select, .timePicker {
 	box-shadow: none !important;
-	border: 0 !important;
+	/*border: 0 !important;*/
 }
 
 input[type='text']:focus, select:focus {
 	box-shadow: none !important;
+}
+
+.form-select:disabled {
+	background-color: grey !important;
 }
 
 #content-container {
@@ -162,7 +166,7 @@ input[type='text']:focus, select:focus {
 
 .profilemenu {
 	background-color: #1f2e45;
-	font-size: 1vw;
+	font-size: 12px;
 }
 
 .profilemenu > a {
@@ -183,6 +187,11 @@ input[type='text']:focus, select:focus {
 
 #imgVetVitals {
 	content: url('../images/Vet-Vitals-Logo-White.png');
+}
+
+#imgVetVitalsResponsive {
+	visibility: hidden;
+	/*display: none;*/
 }
 
 #imgLogo {
@@ -266,7 +275,7 @@ input[type='text']:focus, select:focus {
 }
 
 #imgManagement {
-	content: url('../images/management_white.png');
+	content: url('../images/customer_white.png');
 	width: 24px;
 	height: 24px;
 }
@@ -362,12 +371,28 @@ input[type='text']:focus, select:focus {
 	}
 
 	#divLogo {
-		top: 16px !important;
+		/*top: 16px !important;*/
 		left: 7px !important;
+		width: 70px !important;
+		height: 40px;
 	}
 
 	#imgLogo {
 		width: 4vw !important;
+	}
+
+	#imgVetVitals{
+		visibility: hidden !important;
+	}
+
+	#imgVetVitalsResponsive {
+		content: url('../images/Vet-Vitals-Logo-Only.png');
+		visibility: visible !important;
+		top: 0px;
+		left: 2px;
+		width: 32px;
+		height: 26px;
+		position: absolute;
 	}
 
 	.spanMenuBlue {
@@ -427,6 +452,29 @@ input[type='text']:focus, select:focus {
 		font-size: 12px !important;
 		margin-left: 0px !important;
 		margin-top: 5px;
+	}
+
+	/*----- User ------*/
+	.LeftColUserLabel {
+		margin-left: 0px !important;
+	}
+
+	.leftColUserControl {
+		margin-left: 0px !important;
+	}
+
+	/*---- Doctor -----*/
+	.doctorLeftColLabel{
+		margin-left: 5px !important;
+	}
+
+	.doctorLeftColControl{
+		margin-left: 5px !important;
+	}
+
+	.doctorComboColControl{
+		width: 80% !important;
+		margin-left: 5px !important;
 	}
 }
 
@@ -639,6 +687,7 @@ input[type='text']:focus, select:focus {
 	border: 1px solid #ddd;
 	background-color: transparent;
 	color: #ddd;
+	font-size: 12px;
 }
 
 .searchFields:focus {
@@ -653,12 +702,14 @@ input[type='text']:focus, select:focus {
 
 .doctorLeftColLabel {
 	margin-left: 10px;
+	font-size: 14px;
 	font-weight: bold;
 	color: white;
 }
 
 .doctorRightColLabel {
 	margin-left: 5px;
+	font-size: 14px;
 	font-weight: bold;
 	color: white;
 }
@@ -885,18 +936,21 @@ a {
 .LeftColLabel {
 	margin-left: 10px;
 	margin-top: 5px;
+	font-size: 12px;
 	font-weight: bold;
 	color: white;
 }
 
 .CenterColLabel {
 	margin-top: 5px;
+	font-size: 12px;
 	font-weight: bold;
 	color: white;
 }
 
 .RightColLabel {
 	margin-top: 5px;
+	font-size: 12px;
 	font-weight: bold;
 	color: white;
 }
@@ -905,12 +959,13 @@ a {
 	margin-left: 10px;
 	margin-bottom: 15px;
 	font-weight: bold;
-	font-size: 1vw;
+	font-size: 12px;
 	color: white;
 }
 
 .permissionGrouping {
 	margin-left: 10px;
+	font-size: 12px;
 	color: white;
 	text-decoration: underline;
 }
@@ -928,6 +983,7 @@ a {
 	margin-top: 13px;
 	margin-bottom: 5px;
 	color: white;
+	font-size: 12px;
 }
 
 .leftColControl {
@@ -1003,6 +1059,7 @@ a {
 	border-left: 0px;
 	border-bottom: 1px solid #ddd;
 	color: white;
+	font-size: 12px;
 }
 
 #tblUsers > tbody > tr > td {
@@ -1012,6 +1069,7 @@ a {
 	border-bottom: 1px solid #ddd;
 	background-color: transparent;
 	color: white;
+	font-size: 12px;
 }
 
 .frameUserStyle {
@@ -1040,36 +1098,39 @@ a {
 	margin-top: 5px;
 	font-weight: bold;
 	color: white;
+	font-size: 14px;
 }
 
 .CenterColUserLabel {
 	margin-top: 5px;
 	font-weight: bold;
 	color: white;
+	font-size: 14px;
 }
 
 .RightColUserLabel {
 	margin-top: 5px;
 	font-weight: bold;
 	color: white;
+	font-size: 14px;
 }
 
 .leftColUserControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-left: 10px;
 	margin-top: 5px
 }
 
 .centerColUserControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
 .rightColUserControl {
 	width: 90%;
-	font-size: 1vw;
+	font-size: 12px;
 	margin-top: 5px
 }
 
@@ -1358,6 +1419,12 @@ a {
 }
 
 /*------ Organization -------*/
+.pageOrganizationTitle {
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+}
+
 #organisationList {
 	border: 1px solid white !important;
 }

@@ -365,7 +365,7 @@
 
 <div class="row">
     <div class="row" style="height: 45px;">&nbsp;</div>
-    <div class="row" style="font-size: 1vw;">
+    <div class="row">
         <div class="col-md-12">
             <div class="row frameStyle">
                 <div class="col-md-12 frameHeader">
@@ -379,18 +379,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Name"]</label>
+                            <label for="txtName" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Name"]</label>
+                            <input id="txtName" type="text" class="form-control doctorLeftColControl" />
                         </div>
                         <div class="col-md-6">
-                            <label class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Gender"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input id="txtName" type="text" class="form-control doctorLeftColControl" style="font-size: 1vw;" />
-                        </div>
-                        <div class="col-md-6">
-                            <select id="ddlGender" class="form-select doctorRightColControl" style="font-size: 1vw;">
+                            <label for="ddlGender" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Gender"]</label>
+                            <select id="ddlGender" class="form-select doctorRightColControl">
                                 <option value="">@LangResources["DoctorProfile_Label_PleaseSelectGender"]</option>
                             </select>
                         </div>
@@ -398,66 +392,46 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_LicenseNo"]</label>
+                            <label for="txtLicenseNo" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_LicenseNo"]</label>
+                            <input id="txtLicenseNo" type="text" class="form-control doctorLeftColControl" />
                         </div>
                         <div class="col-md-6">
-                            <label class="doctorRightColLabel">@LangResources["DoctorProfile_Label_SystemID"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input id="txtLicenseNo" type="text" class="form-control doctorLeftColControl" style="font-size: 1vw;" />
-                        </div>
-                        <div class="col-md-6">
-                            <input id="txtSystemID" type="text" class="form-control doctorRightColControl" style="font-size: 1vw;" />
+                            <label for="txtSystemID" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_SystemID"]</label>
+                            <input id="txtSystemID" type="text" class="form-control doctorRightColControl" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Designation"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input id="txtDesignation" type="text" class="form-control doctorComboColControl" maxlength="200" style="font-size: 1vw;" />
+                            <label for="txtDesignation" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Designation"]</label>
+                            <input id="txtDesignation" type="text" class="form-control doctorComboColControl" maxlength="200" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Specialty"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input id="txtSpecialty" type="text" class="form-control doctorComboColControl" maxlength="200" style="font-size: 1vw;" />
+                            <label for="txtSpecialty" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Specialty"]</label>
+                            <input id="txtSpecialty" type="text" class="form-control doctorComboColControl" maxlength="200" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Organization"]</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Branch"]</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <select id="ddlOrganization" class="form-select doctorLeftColControl" style="font-size: 1vw;" onchange="ddlOrganizationChanges(this);">
+                            <label for="ddlOrganization" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Organization"]</label>
+                            <select id="ddlOrganization" class="form-select doctorLeftColControl" onchange="ddlOrganizationChanges(this);">
                                 <option value="">@LangResources["DoctorProfile_Label_PleaseSelectOrganization"]</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <select id="ddlBranch" class="form-select doctorRightColControl" style="font-size: 1vw;">
+                            <label for="ddlBranch" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Branch"]</label>
+                            <select id="ddlBranch" class="form-select doctorRightColControl">
                                 <option value="">@LangResources["DoctorProfile_Label_PleaseSelectBranch"]</option>
                             </select>
                         </div>
                     </div>
                     <div class="row" style="height: 45px;">&nbsp;
                         <label id="lbError"></label>
-                        <input id="hidID" type="text" style="visibility: hidden; font-size: 1vw;" />
+                        <input id="hidID" type="text" style="visibility: hidden; font-size: 12px;" />
                     </div>
                     <div class="row" style="height: 30px;">
                         &nbsp;
@@ -466,10 +440,10 @@
             </div>
             <div class="row doctorButtonRow" >
                 <div class="col-md-12 doctorButtonBox" >
-                    <button id="btnCancel" type="button" class="btn btn-secondary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Cancel"]</button>
-                    <button id="btnCreate" type="button" class="btn btn-primary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Create"]</button>
-                    <button id="btnBack" type="button" class="btn btn-secondary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Back"]</button>
-                    <button id="btnUpdate" type="button" class="btn btn-primary" style="font-size: 1vw;">@LangResources["DoctorProfile_Button_Update"]</button>
+                    <button id="btnCancel" type="button" class="btn btn-secondary">@LangResources["DoctorProfile_Button_Cancel"]</button>
+                    <button id="btnCreate" type="button" class="btn btn-primary">@LangResources["DoctorProfile_Button_Create"]</button>
+                    <button id="btnBack" type="button" class="btn btn-secondary">@LangResources["DoctorProfile_Button_Back"]</button>
+                    <button id="btnUpdate" type="button" class="btn btn-primary">@LangResources["DoctorProfile_Button_Update"]</button>
                 </div>
             </div>
         </div>

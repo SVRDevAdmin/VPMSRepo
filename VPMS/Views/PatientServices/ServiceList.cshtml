@@ -74,30 +74,25 @@
 <div class="row">
 	<div class="row ms-2">
 		<div class="col-md-6">
-			<!-- style="display: flex; align-items: center; margin-bottom: 3vw;"-->
 			<div class="d-flex">
 				<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> 
 				<span class="textColor" style="font-size: 24px; font-weight: bold;">@LangResources["MenuBar_Label_Service"]</span>
 			</div>
 		</div>
 		<div class="col-md-6 d-flex justify-content-end">
-			<!--<div style="display: flex; margin-bottom: 3vw; height: 3vw;">-->
-				<div style="display: flex;">
-					<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
-					<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 12px; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
-				</div>
-				@{
-					if (Boolean.Parse(ViewData["CanAdd"] as string))
-					{
-						<!-- style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" -->
-						<button id="btnNewServices" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
-							<!--<span id="container">+</span>-->
-							<i class="bi bi-plus-circle"></i>
-							<!--<span style="font-size: 1vw; margin-left: 0.5vw;">-->@LangResources["Service_Button_NewService"]<!--</span>-->
-						</button>
-					}
+			<div style="display: flex;">
+				<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
+				<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 12px; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
+			</div>
+			@{
+				if (Boolean.Parse(ViewData["CanAdd"] as string))
+				{
+					<button id="btnNewServices" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
+						<i class="bi bi-plus-circle"></i>
+						@LangResources["Service_Button_NewService"]
+					</button>
 				}
-			<!--</div>-->
+			}
 		</div>
 	</div>
 	<div class="row mt-4 ms-2">
@@ -118,48 +113,6 @@
 		</div>
 	</div>
 </div>
-
-@* <div style="display: flex; justify-content: space-between;">
-
-	<div style="display: flex; align-items: center; margin-bottom: 3vw;">
-		<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["MenuBar_Label_Service"]</span>
-	</div>
-
-	<div style="display: flex; margin-bottom: 3vw; height: 3vw;">
-		<div style="display: flex;">
-			<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
-			<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
-		</div>
-		@{
-			if (Boolean.Parse(ViewData["CanAdd"] as string))
-			{
-				<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 12vw; margin-left: 1vw;" onclick="location.href='@Url.Action("CreateNewService", "PatientServices")'">
-					<span id="container">+</span>
-					<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["Service_Button_NewService"]</span>
-				</button>
-			}
-		}
-	</div>
-
-</div> *@
-
-<!--
-<div>
-	<table class="textColor" id="serviceList" style="width: 100%; margin-bottom: 2vw; font-size: 1vw;">
-	</table>
-
-	<div id="pagination" style="display: flex; justify-content: flex-end;">
-		<div>
-			<button id="prevButton" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: gray; font-size: 1vw;" hidden>@LangResources["Patient_Button_Previous"]</button>
-		</div>
-		<div id="paginationNumbering" style="display: flex; justify-content: flex-end; font-size: 1vw;">
-		</div>
-		<div>
-			<button id="nextButton" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; color: #1e76fb; font-size: 1vw;" hidden>@LangResources["Patient_Button_Next"]</button>
-		</div>
-	</div>
-</div>
--->
 
 <script>
 	var paginationLimit = 5;

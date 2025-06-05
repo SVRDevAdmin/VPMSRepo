@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VPMS;
+using VPMS.Lib;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
@@ -38,7 +39,7 @@ namespace VPMSWeb.Controllers
 		public OrganisationInfo GetOrganisationList(int rowLimit, int page, string search)
 		{
 			int start = (page - 1) * rowLimit;
-			var organisationInfos = new OrganisationInfo() { OrganisationList = new List<OrganisationList>(), TotalOrganisation = 0 };
+			var organisationInfos = new OrganisationInfo() { OrganisationList = new List<OrgansationListExtended>(), TotalOrganisation = 0 };
 
             //var role = HttpContext.Session.GetString("RoleName");
             //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
@@ -86,7 +87,10 @@ namespace VPMSWeb.Controllers
 
         public int InsertUpdateOrganisation([FromBody] OrganisationModel organisationModel)
 		{
-			var Level1ID = int.Parse(HttpContext.Session.GetString("Level1ID"));
+			Boolean isNew = false;
+
+			var Level1ID = _organisationDBContext.Mst_Organisation.Where(x => x.Level == 1).FirstOrDefault().Id;
+			//var Level1ID = int.Parse(HttpContext.Session.GetString("Level1ID"));
 			organisationModel.TotalStaff = 1;
 			organisationModel.Level = 2;
 			organisationModel.ParentID = Level1ID;
@@ -96,10 +100,18 @@ namespace VPMSWeb.Controllers
 				organisationModel.UpdatedDate = DateTime.Now;
 				organisationModel.UpdatedBy = HttpContext.Session.GetString("Username");
 			}
+			else
+			{
+				isNew = true;
+			}
 
 			_organisationDBContext.Mst_Organisation.Update(organisationModel);
-
 			_organisationDBContext.SaveChanges();
+
+			if (isNew)
+			{
+				CreateSuperRole(organisationModel.Id, organisationModel.Name);
+            }
 
 			return organisationModel.Id;
 		}
@@ -141,6 +153,35 @@ namespace VPMSWeb.Controllers
 				Program.logger.Error("Controller Error >> ", ex);
 
 				return false;
+			}
+		}
+
+		public void CreateSuperRole(int organizationID, String organizationName)
+		{
+			try
+			{
+				RoleModel sRoleObj = new RoleModel();
+				sRoleObj.RoleType = 998;
+				sRoleObj.RoleName = "Superuser" + "_" + organizationName.Replace(" ", "_");
+				sRoleObj.Status = 1;
+				sRoleObj.IsAdmin = 1;
+				sRoleObj.IsDoctor = 0;
+				sRoleObj.CreatedDate = DateTime.Now;
+				sRoleObj.CreatedBy = "SYSTEM";
+				sRoleObj.OrganizationID = organizationID;
+
+				String sRoleID = "";
+				if (RoleRepository.CreateIdentityRole(sRoleObj, out sRoleID))
+				{
+					sRoleObj.RoleID = sRoleID;
+
+					RoleRepository.CreateRole(sRoleObj);
+				}
+            }
+			catch (Exception ex)
+			{
+				//todo:
+				string abc = "";
 			}
 		}
 
