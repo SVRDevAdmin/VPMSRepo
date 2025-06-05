@@ -85,16 +85,24 @@
 			<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 1vw; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
 		@{
-			var cannotCreate = "";
-			if (role == "Superuser")
+			// var cannotCreate = "";
+			// if (role == "Superuser")
+			// {
+			// 	cannotCreate = "disabled";
+			// }
+
+			if (Boolean.Parse(ViewData["CanAddOrganisation"] as string))
 			{
-				cannotCreate = "disabled";
+				<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 13vw; margin-left: 1vw;" data-bs-toggle="modal" data-bs-target="#organisationModal">
+					<span id="container">+</span>
+					<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Label_NewOrganisation"]</span>
+				</button>
 			}
 		}
-		<button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 13vw; margin-left: 1vw;" data-bs-toggle="modal" data-bs-target="#organisationModal" @cannotCreate>
+		@* <button class="btn btn-lg btn-primary" style="margin-right: 3vw; display: flex; align-items: center; width: 13vw; margin-left: 1vw;" data-bs-toggle="modal" data-bs-target="#organisationModal" @cannotCreate>
 			<span id="container">+</span>
 			<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Label_NewOrganisation"]</span>
-		</button>
+		</button> *@
 	</div>
 
 </div>
@@ -122,12 +130,17 @@
 		<td class="name"></td>
 		<td class="contactNo" hidden></td>
 		<td class="address" hidden></td>
-		<td style="width: 7vw;">
-			<div class="editable" style="display: flex; justify-content: space-between;">
-				<button class="btn btn-lg btn-secondary" onclick="editBranch(this.parentElement.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-pen-to-square"></i></button>
-				<button onclick="removeBranch(this);" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-trash-can"></i></button>
-			</div>
-		</td>
+		@{
+			if (Boolean.Parse(ViewData["CanEditBranch"] as string))
+			{
+				<td style="width: 7vw;">
+					<div class="editable" style="display: flex; justify-content: space-between;">
+						<button class="btn btn-lg btn-secondary" onclick="editBranch(this.parentElement.parentElement.parentElement);" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-pen-to-square"></i></button>
+						<button onclick="removeBranch(this);" class="btn btn-lg btn-secondary" style="height: 2vw; width: 3vw; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1vw;"><i class="fa-regular fa-trash-can"></i></button>
+					</div>
+				</td>
+			}
+		}
 	</tr>
 </template>
 
@@ -220,13 +233,17 @@
 						<span class="formlabel" style="font-weight: bold;">@LangResources["Inventory_Label_Branch"]</span>
 						<table id="branchList" style="margin-top: 0.5vw; width: 100%;"></table>
 					</div>
-
-					<div class="editable">
-						<button id="AddBranchButton" onclick="changeTab('', '', '');" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; padding: 0;">
-							<span id="container" style="color: blue; width: 1.2vw; height: 1.2vw; font-size: 1vw;">+</span>
-							<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Button_AddBranch"]</span>
-						</button>
-					</div>
+					@{
+						if (Boolean.Parse(ViewData["CanAddBranch"] as string))
+						{
+							<div class="editable">
+								<button id="AddBranchButton" onclick="changeTab('', '', '');" class="btn btn-lg btn-primary" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; padding: 0;">
+									<span id="container" style="color: blue; width: 1.2vw; height: 1.2vw; font-size: 1vw;">+</span>
+									<span style="font-size: 1vw; margin-left: 0.5vw;">@LangResources["AccessControl_Button_AddBranch"]</span>
+								</button>
+							</div>
+						}
+					}
 				</div>
 
 				<div id="branchContainer" class="organisationBranch hideContainer">
@@ -256,9 +273,20 @@
 
 				<div style="text-align: end; margin-top: 2vw;">
 					<button class="btn btn-lg btn-secondary" data-bs-dismiss="modal" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Cancel"] </button>
-					<button class="btn btn-lg btn-primary organisationBranch editable" id="saveButton" onclick="SaveOrganisation();" style="width: 11vw; font-size: 1vw;"> @LangResources["Inventory_Label_Create"] </button>
-					<button class="btn btn-lg btn-primary editable hideContainer" onclick="toggleViewEdit(false);" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Edit"] </button>
-					<button class="btn btn-lg btn-primary organisationBranch hideContainer" onclick="UpdateBranch(this.parentElement.parentElement);" style="width: 11vw; font-size: 1vw;"> @LangResources["AccessControl_Label_SaveBranch"] </button>
+					@{
+						if (Boolean.Parse(ViewData["CanAddOrganisation"] as string) || Boolean.Parse(ViewData["CanEditOrganisation"] as string))
+						{
+							<button class="btn btn-lg btn-primary organisationBranch editable" id="saveButton" onclick="SaveOrganisation();" style="width: 11vw; font-size: 1vw;"> @LangResources["Inventory_Label_Create"] </button>
+
+							if (Boolean.Parse(ViewData["CanEditOrganisation"] as string))
+							{
+								<button class="btn btn-lg btn-primary editable hideContainer" onclick="toggleViewEdit(false);" style="width: 11vw; font-size: 1vw;"> @LangResources["Patient_Button_Edit"] </button>
+							}
+
+							<button class="btn btn-lg btn-primary organisationBranch hideContainer" onclick="UpdateBranch(this.parentElement.parentElement);" style="width: 11vw; font-size: 1vw;"> @LangResources["AccessControl_Label_SaveBranch"] </button>
+						}
+					}
+					
 				</div>
 
 			</div>
@@ -335,25 +363,44 @@
 				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
 					for (let i = 0; i < data.OrganisationList.length; i++) {
-
-						content.innerHTML = content.innerHTML +
+						var html = '';
+						html = html + 
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
 							'<td class="table-content" >' + data.OrganisationList[i].No + '</td>' +
 							'<td class="table-content" > ' + data.OrganisationList[i].Name + '</td>' +
 							'<td class="table-content" > ' + data.OrganisationList[i].Branches + ' </td>' +
-							'<td class="table-content" > ' + data.OrganisationList[i].TotalStaff + '</td>' +
-							'<td class="table-content" style = "width: 0;" > ' +
-							'<div class="dropleft" > ' +
-							'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
-							'<img class="moreIcon" /> ' +
-							'</button>' +
-							'<div class="dropdown-menu containerBackground5" style = "min-width: fit-content; font-size: 1vw;" > ' +
-							'<a class="dropdown-item" href="#" onclick="editViewOrganisation(true, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_View"] </a>' +
-							'<a class="dropdown-item" href="#" onclick="editViewOrganisation(false, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_Edit"] </a>' +
-							'</div>' +
-							'</div>' +
-							'</td>' +
+							'<td class="table-content" > ' + data.OrganisationList[i].TotalStaff + '</td>';
+
+						if(@ViewData["CanEditOrganisation"] || @ViewData["CanViewOrganisation"]){
+							html = html +
+								'<td class="table-content" style = "width: 0;" > ' +
+								'<div class="dropleft" > ' +
+								'<button class="btn" type="button" data-toggle="dropdown" aria-expanded="false"> ' +
+								'<img class="moreIcon" /> ' +
+								'</button>' +
+								'<div class="dropdown-menu containerBackground5" style = "min-width: fit-content; font-size: 1vw;" > ';
+
+							if(@ViewData["CanEditOrganisation"]){
+								html = html +
+									'<a class="dropdown-item" href="#" onclick="editViewOrganisation(false, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_Edit"] </a>';
+							}
+
+							if(@ViewData["CanViewOrganisation"]){
+								html = html +
+									'<a class="dropdown-item" href="#" onclick="editViewOrganisation(true, ' + data.OrganisationList[i].ID + ', \'' + data.OrganisationList[i].Name + '\');" > @LangResources["Patient_Button_View"] </a>';
+							}
+
+							html = html +
+								'</div>' +
+								'</div>' +
+								'</td>';
+						}
+
+
+						html = html +
 							'</tr>';
+
+						content.innerHTML = content.innerHTML + html;
 					}
 				}
 

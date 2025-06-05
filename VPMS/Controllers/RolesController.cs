@@ -13,6 +13,7 @@ using Org.BouncyCastle.Asn1.Mozilla;
 
 namespace VPMSWeb.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         String sStatusMastercodeName  = "Status";
@@ -23,6 +24,14 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+            bool hasPermission = SetPermission(roles, "RoleListing.View");
+
+            if (!hasPermission)
+            {
+                return RedirectToAction("AccessDenied", "Login");
+            }
+
             return View();
         }
 
@@ -34,6 +43,14 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult GetRoleListing(int pageSize, int pageIndex)
         {
+            var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+            bool hasPermission = SetPermission(roles, "RoleListing.View");
+
+            if (!hasPermission)
+            {
+                return RedirectToAction("AccessDenied", "Login");
+            }
+
             int iTotalRecords;
 
             var sResult = RoleRepository.GetRolesListing(pageSize, pageIndex, out iTotalRecords);
@@ -235,6 +252,53 @@ namespace VPMSWeb.Controllers
         {
             var sRoleList = RoleRepository.GetRolesList();
             return Json(sRoleList);
+        }
+
+        public bool SetPermission(List<string> roles, string permissionNeed)
+        {
+            bool havePermission = false;
+            ViewData["CanAdd"] = false;
+            ViewData["CanEdit"] = false;
+            ViewData["CanView"] = false;
+            ViewData["CanDelete"] = false;
+
+            if (roles.Where(x => x.Contains("General.")).Count() > 0)
+            {
+                ViewData["CanAdd"] = true;
+                ViewData["CanEdit"] = true;
+                ViewData["CanView"] = true;
+                ViewData["CanDelete"] = true;
+                havePermission = true;
+            }
+            else
+            {
+                if (roles.Contains("Role.Add"))
+                {
+                    ViewData["CanAdd"] = true;
+                }
+
+                if (roles.Contains("RoleDetails.View"))
+                {
+                    ViewData["CanView"] = true;
+                }
+
+                if (roles.Contains("RoleDetails.Edit"))
+                {
+                    ViewData["CanEdit"] = true;
+                }
+
+                if (roles.Contains("Role.Delete"))
+                {
+                    ViewData["CanDelete"] = true;
+                }
+
+                if (roles.Contains(permissionNeed))
+                {
+                    havePermission = true;
+                }
+            }
+
+            return havePermission;
         }
     }
 }

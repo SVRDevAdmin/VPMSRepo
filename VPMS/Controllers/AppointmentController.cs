@@ -27,7 +27,10 @@ namespace VPMSWeb.Controllers
 					sessionBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
 				}
 
-				AppointmentViewModel sModel = new AppointmentViewModel();
+                var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+                _ = SetPermission(roles, "Appointments.View");
+
+                AppointmentViewModel sModel = new AppointmentViewModel();
 
 				sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), sessionBranchID);
 				sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings());
@@ -428,6 +431,46 @@ namespace VPMSWeb.Controllers
             var upcomingAppointment = AppointmentRepository.GetUpcomingAppointment(ConfigSettings.GetConfigurationSettings(), ownerID, petID);
 
             return upcomingAppointment;
+        }
+
+        public bool SetPermission(List<string> roles, string permissionNeed)
+        {
+            bool havePermission = false;
+            ViewData["CanAdd"] = false;
+            ViewData["CanEdit"] = false;
+            ViewData["CanView"] = false;
+
+            if (roles.Where(x => x.Contains("General.")).Count() > 0)
+            {
+                ViewData["CanAdd"] = true;
+                ViewData["CanEdit"] = true;
+                ViewData["CanView"] = true;
+                havePermission = true;
+            }
+            else
+            {
+                if (roles.Contains("Appointments.Add"))
+                {
+                    ViewData["CanAdd"] = true;
+                }
+
+                if (roles.Contains("AppointmentDetails.View"))
+                {
+                    ViewData["CanView"] = true;
+                }
+
+                if (roles.Contains("AppointmentDetails.Edit"))
+                {
+                    ViewData["CanEdit"] = true;
+                }
+
+                if (roles.Contains(permissionNeed))
+                {
+                    havePermission = true;
+                }
+            }
+
+            return havePermission;
         }
     }
 

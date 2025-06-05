@@ -37,7 +37,7 @@ namespace VPMS.Lib.Data
                     String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
                                             "A.RoleID, A.RoleName, COUNT(B.UserID) AS 'TotalAssigned', " +
                                             "COUNT(*) OVER() AS 'TotalRows', " +
-                                            "GROUP_CONCAT(C.PermissionKey) AS 'Permissions' " +
+                                            "GROUP_CONCAT(DISTINCT(C.PermissionKey)) AS 'Permissions' " +
                                             "FROM mst_roles AS A " +
                                             "LEFT JOIN mst_user AS B ON B.RoleID = A.RoleID AND B.Status = '1' " +
                                             "LEFT JOIN mst_rolepermissions AS C ON C.RoleID = A.RoleID AND c.IsDeleted = '0' " +
@@ -337,7 +337,7 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new RoleDBContext())
                 {
-                    return ctx.mst_accesspermission.Where(x => x.IsActive == 1).ToList();
+                    return ctx.mst_accesspermission.Where(x => x.IsActive == 1 && !x.PermissionKey.Contains("General.")).ToList();
                 }
             }
             catch (Exception ex)
