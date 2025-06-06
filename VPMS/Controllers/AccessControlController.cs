@@ -175,8 +175,15 @@ namespace VPMSWeb.Controllers
 				{
 					sRoleObj.RoleID = sRoleID;
 
-					RoleRepository.CreateRole(sRoleObj);
-				}
+					List<String> sPermList = new List<string>();
+					sPermList.Add("General.Superuser");
+
+					if (RoleRepository.CreateRole(sRoleObj))
+					{
+                        RoleRepository.InsertRolePermission(sPermList, sRoleID, "SYSTEM");
+                    }
+                    
+                }
             }
 			catch (Exception ex)
 			{

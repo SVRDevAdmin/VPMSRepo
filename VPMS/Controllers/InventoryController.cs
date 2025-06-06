@@ -91,8 +91,19 @@ namespace VPMSWeb.Controllers
 			return _inventoryDBContext.Mst_Product.FirstOrDefault(x => x.ID == id);
 		}
 
-		public bool InsertInventory([FromBody] InventoryInfo inventoryInfo)
-		{
+		[HttpPost()]
+		//public bool InsertInventory([FromBody] InventoryInfo inventoryInfo)
+		public bool InsertInventory()
+        {
+			InventoryInfo inventoryInfo = new InventoryInfo();
+
+			String strFormData = Request.Form["Data"];
+			if (strFormData != "")
+			{
+				inventoryInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<InventoryInfo>(strFormData);
+
+            }
+
 			//var ImageFilePath = "InventoryImage/";
 			var ImageFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"InventoryImages");
 			var ImageFileName = inventoryInfo.ImageFileName + ".png";
@@ -102,68 +113,134 @@ namespace VPMSWeb.Controllers
 
 			try
 			{
-				var t = inventoryInfo.ImageFile.Substring(22);  // remove data:image/png;base64,
-
-				byte[] bytes = Convert.FromBase64String(t);
-
-				Image image;
-				using (MemoryStream ms = new MemoryStream(bytes))
+				if (Request.Form.Files.Count > 0)
 				{
-					image = Image.FromStream(ms);
+					IFormFile postedFile = Request.Form.Files[0];
+
+					if (!Directory.Exists(ImageFilePath))
+					{
+						Directory.CreateDirectory(ImageFilePath);
+					}
+
+					using (Stream fs = new FileStream(filePath, FileMode.Create))
+					{
+						postedFile.CopyTo(fs);
+					}
+
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        InventoryModel inventoryModel = new InventoryModel()
+                        {
+                            ProductTypeID = inventoryInfo.ProductTypeID,
+                            BranchID = inventoryInfo.BranchID,
+                            SKU = inventoryInfo.SKU,
+                            InventoryName = inventoryInfo.InventoryName,
+                            Name = inventoryInfo.Name,
+                            RecommendedWeight = inventoryInfo.RecommendedWeight,
+                            PricePerQty = inventoryInfo.PricePerQty,
+                            Species = inventoryInfo.Species,
+                            RecommendedBreed = inventoryInfo.RecommendedBreed,
+                            Usage = inventoryInfo.Usage,
+                            Description = inventoryInfo.Description,
+                            ImageFilePath = ImageFilePath,
+                            ImageFileName = ImageFileName,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = "System"
+                        };
+
+                        _inventoryDBContext.Add(inventoryModel);
+
+                        _inventoryDBContext.SaveChanges();
+
+                        InventoryStatus inventoryStatus = new InventoryStatus()
+                        {
+                            ProductID = inventoryModel.ID,
+                            QtyInStores = inventoryInfo.Quantity,
+                            LowStockThreshold = 3,
+                            StockStatus = inventoryInfo.StockStatus,
+                            ExpiryDate = inventoryInfo.ExpiryDate,
+                            UpdatedDate = DateTime.Now,
+                            UpdatedBy = "System"
+                        };
+
+                        _inventoryDBContext.Add(inventoryStatus);
+
+                        _inventoryDBContext.SaveChanges();
+
+						return true;
+                    }
+					else
+					{
+						return false;
+					}
+                }
+				else
+				{
+					return false;
 				}
+				//var t = inventoryInfo.ImageFile.Substring(22);  // remove data:image/png;base64,
 
-				bool exists = System.IO.Directory.Exists(ImageFilePath);
+				//byte[] bytes = Convert.FromBase64String(t);
 
-				if (!exists)
-					System.IO.Directory.CreateDirectory(ImageFilePath);
+				//Image image;
+				//using (MemoryStream ms = new MemoryStream(bytes))
+				//{
+				//	image = Image.FromStream(ms);
+				//}
 
-				var fullPath = ImageFilePath + ImageFileName;
-				image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+				//bool exists = System.IO.Directory.Exists(ImageFilePath);
+
+				//if (!exists)
+				//	System.IO.Directory.CreateDirectory(ImageFilePath);
+
+				//var fullPath = ImageFilePath + ImageFileName;
+				//image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
 			}
 			catch (Exception ex) 
 			{
 				return false;
 			}
 
-			InventoryModel inventoryModel = new InventoryModel()
-			{
-				ProductTypeID = inventoryInfo.ProductTypeID,
-				BranchID = inventoryInfo.BranchID,
-				SKU = inventoryInfo.SKU,
-				InventoryName = inventoryInfo.InventoryName,
-				Name = inventoryInfo.Name,
-				RecommendedWeight = inventoryInfo.RecommendedWeight,
-				PricePerQty = inventoryInfo.PricePerQty,
-				Species = inventoryInfo.Species,
-				RecommendedBreed = inventoryInfo.RecommendedBreed,
-				Usage = inventoryInfo.Usage,
-				Description = inventoryInfo.Description,
-				ImageFilePath = ImageFilePath,
-				ImageFileName = ImageFileName,
-				CreatedDate = DateTime.Now,
-				CreatedBy = "System"
-			};
 
-			_inventoryDBContext.Add(inventoryModel);
+			//InventoryModel inventoryModel = new InventoryModel()
+			//{
+			//	ProductTypeID = inventoryInfo.ProductTypeID,
+			//	BranchID = inventoryInfo.BranchID,
+			//	SKU = inventoryInfo.SKU,
+			//	InventoryName = inventoryInfo.InventoryName,
+			//	Name = inventoryInfo.Name,
+			//	RecommendedWeight = inventoryInfo.RecommendedWeight,
+			//	PricePerQty = inventoryInfo.PricePerQty,
+			//	Species = inventoryInfo.Species,
+			//	RecommendedBreed = inventoryInfo.RecommendedBreed,
+			//	Usage = inventoryInfo.Usage,
+			//	Description = inventoryInfo.Description,
+			//	ImageFilePath = ImageFilePath,
+			//	ImageFileName = ImageFileName,
+			//	CreatedDate = DateTime.Now,
+			//	CreatedBy = "System"
+			//};
 
-			_inventoryDBContext.SaveChanges();
+			//_inventoryDBContext.Add(inventoryModel);
 
-			InventoryStatus inventoryStatus = new InventoryStatus()
-			{
-				ProductID = inventoryModel.ID,
-				QtyInStores = inventoryInfo.Quantity,
-				LowStockThreshold = 3,
-				StockStatus = inventoryInfo.StockStatus,
-				ExpiryDate = inventoryInfo.ExpiryDate,
-				UpdatedDate = DateTime.Now,
-				UpdatedBy = "System"
-			};
+			//_inventoryDBContext.SaveChanges();
 
-			_inventoryDBContext.Add(inventoryStatus);
+			//InventoryStatus inventoryStatus = new InventoryStatus()
+			//{
+			//	ProductID = inventoryModel.ID,
+			//	QtyInStores = inventoryInfo.Quantity,
+			//	LowStockThreshold = 3,
+			//	StockStatus = inventoryInfo.StockStatus,
+			//	ExpiryDate = inventoryInfo.ExpiryDate,
+			//	UpdatedDate = DateTime.Now,
+			//	UpdatedBy = "System"
+			//};
 
-			_inventoryDBContext.SaveChanges();
+			//_inventoryDBContext.Add(inventoryStatus);
 
-			return true;
+			//_inventoryDBContext.SaveChanges();
+
+			//return true;
 		}
 
 		public bool UpdateInventory([FromBody] InventoryInfo inventoryInfo)

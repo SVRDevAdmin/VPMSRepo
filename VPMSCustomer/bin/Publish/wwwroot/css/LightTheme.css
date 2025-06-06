@@ -1,0 +1,474 @@
+﻿/*------- Layout --------*/
+#divContainer {
+    background-color: none;
+}
+
+#leftPane {
+    background-color: #F7F7F7;
+}
+
+#menu > li > span {
+    color: black !important;
+}
+
+.ProfileFont {
+    /*font-size: 1vw;*/
+    font-size: 13px;
+    font-weight: bold;
+    color: black;
+    /*width: 11vw;*/
+    width: 130px;
+    text-wrap: wrap;
+}
+
+.profilemenu > a {
+    color: black;
+}
+
+.profilemenu > a:hover {
+    color: black !important;
+    background-color: transparent !important;
+}
+
+.profilemenu {
+    background-color: white;
+    /*font-size: 1vw;*/
+    font-size: 12px;
+}
+
+.menuItems > a {
+    text-decoration: none !important;
+    text-underline-offset: unset;
+    color: black !important;
+}
+
+.menuItems > a::after {
+    text-decoration: none !important;
+    text-underline-offset: unset !important;
+    color: black !important;
+}
+
+.menuHome {
+    content: url('../Images/Icons/Icon-home.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuPets {
+    content: url('../Images/Icons/Icon-pets.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuAppointments {
+    content: url('../Images/Icons/Icon-appointment.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuInvoiceReceipts {
+    content: url('../Images/Icons/Icon-invoice-receipts.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuAnalytics {
+    content: url('../Images/Icons/Icon-analytics.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuCustomerServices {
+    content: url('../Images/Icons/Icon-customer-service.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+#imgLogo {
+    content: url('../Images/Logo/Vet-Vitals-Logo.png');
+}
+
+.iconBell {
+    color: black;
+}
+
+#prevButton{
+    color: black !important;
+}
+
+#nextButton {
+    color: black !important;
+}
+
+/*------ General --------*/
+.pageTitle {
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.borderFrame {
+    background-color: #F7F7F7;
+    border-radius: 6px;
+}
+
+.dividerLine {
+    border-bottom: 1px solid black;
+    margin-left: 5px;
+}
+
+/*----- Login --------*/
+#loginBody {
+    background-color: #fdf6e6;
+}
+
+.loginSmallTitle {
+    color: black;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.loginLogo {
+    content: url('../Images/Logo/Vet-Vitals-Logo.png');
+    margin-left: -30px;
+    width: 350px;
+    height: 90px;
+}
+
+/*----- Account Settings ------*/
+.SectionTitle {
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkBoxLanguage {
+    vertical-align: top;
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/*----- Profile -------*/
+.fieldTitle {
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.displayField {
+    color: black;
+    font-size: 12px;
+}
+
+/*----- Reset Password ----*/
+.borderResetPassFrame {
+    background-color: #F7F7F7;
+    border-radius: 8px;
+}
+
+.ResetFieldTitle {
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*----- Pet Grid -------*/
+.gridButtonBox {
+    width: 34px;
+    height: 34px;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.gridButtonBox > a {
+    color: black;
+}
+
+/*----- Pet Listing ------*/
+#lnkGrid {
+    width: 34px;
+    height: 36px;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+#lnkGrid > a {
+    color: black;
+}
+
+#btnFilter {
+    border: 1px solid black;
+    border-radius: 6px;
+    colro: black;
+}
+
+#btnFilter > i {
+    margin-right: 5px;
+    color: black;
+}
+
+#divFilterBox {
+    background-color: #f7f7f7;
+    border-radius: 6px;
+}
+
+.FilterBoxTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.FilterBoxLabel {
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+}
+
+#tblPetListing {
+    border-radius: 6px !important;
+}
+
+#tblPetListing > thead > tr > th {
+    color: black !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #f7f7f7 !important;
+}
+
+#tblPetListing > tbody > tr > td {
+    color: black !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    /*background-color: #f7f7f7 !important;*/
+}
+
+/*------ Invoice & Receipt ---------*/
+.nav-link {
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 12px !important;
+    color: black !important;
+}
+
+#tblInvoices > thead > tr > th {
+    color: black !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #f7f7f7 !important;
+}
+
+#tblInvoices > tbody > tr > td {
+    color: black !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+}
+
+#tblReceipts > thead > tr > th {
+    color: black !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #f7f7f7 !important;
+}
+
+#tblReceipts > tbody > tr > td {
+    color: black !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+}
+
+.imgMore {
+    content: url('/Images/more_icon.png');
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+}
+
+.divFilterBox {
+    background-color: #f7f7f7 !important;
+    border-radius: 6px;
+}
+
+/*------ appointment --------*/
+.TitleDisplay {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+.TextInfoDisplay {
+    font-size: 14px;
+    color: black;
+}
+
+.TextInfoDisplay:hover, .TextInfoDisplay:focus {
+    color: black;
+}
+
+.BookingApptFrame {
+    background-color: #f7f7f7;
+    border-radius: 6px;
+}
+
+.HeaderLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+/*------ Appointment Details ------*/
+.InformationFrame {
+    background-color: #f7f7f7;
+    border-radius: 6px;
+    height: stretch;
+}
+
+.InformationTextFont {
+    color: black;
+    font-size: 17px;
+}
+
+.InformationItemTextFont {
+    color: black;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+
+.InformationItemLayout > span > i {
+    color: black;
+}
+
+/*------ Customer Services -----*/
+.sectionTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+.selectionLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+#ddlViewSelection {
+    color: black;
+    font-size: 14px;
+}
+
+.emptyBoxFrame {
+    border: 1px dashed black;
+    border-radius: 8px;
+}
+
+/*------ Notification -------------*/
+.notificationFrame {
+    border-radius: 8px;
+    background-color: #f7f7f7;
+}
+
+.tblNotificationTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: black !important;
+}
+
+.tblNotificationDate {
+    width: 20%;
+    font-size: 12px;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: black !important;
+}
+
+.tdContent {
+    width: 80%;
+    font-size: 12px;
+    color: black !important;
+}
+
+.dividerRow {
+    border-bottom: 1px solid black !important;
+}
+
+/*------ Analytics --------*/
+.analyticsTitle {
+    color: black;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.analyticsFrame {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#ddlYearSelection {
+    color: black;
+    font-size: 12px;
+    width: 100px;
+    height: 25px;
+    padding-top: 0;
+}
+
+.yearSelectionLabel {
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.breakdownPetName {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.breakdownAmount {
+    color: black;
+    font-size: 14px;
+}
+
+/*------- Dashboard --------*/
+.blogEmptyBox {
+    width: 303px;
+    height: 150px;
+    border: 1px dashed black;
+    border-radius: 6px;
+    color: grey;
+}
+
+.bannerEmptyFrame {
+    border: 1px dashed black;
+    color: black;
+}
+
+.blogTitle {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -10px;
+}
+
+.blogDateTime {
+    color: black;
+    font-size: 14px;
+    margin-left: -10px;
+}
+
+.dashboardTitle {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.blogSectionTitle {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}

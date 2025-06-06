@@ -1,0 +1,42 @@
+﻿body {
+    background-color: #fdf6e6;
+}
+
+.sectionStep2, .sectionStep3, #btnConfirm, #btnLogin {
+    display: none;
+}
+
+input[type=button] {
+    width: 100%;
+}
+
+input {
+    outline: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+.AccCreationPageTitle {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.errorLabel {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.errorValidation {
+    border-color: red !important;
+}
+
+.resultMsgfont {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.ResetFieldLabel{
+    font-size: 14px;
+    font-weight: bold;
+}

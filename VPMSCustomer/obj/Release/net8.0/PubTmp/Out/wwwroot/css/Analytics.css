@@ -1,0 +1,58 @@
+﻿.leftPercentageBar {
+    height: 15px;
+    display: inline-block;
+    vertical-align: top;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.MiddlePercentageBar {
+    height: 15px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.RightPercentageBar {
+    height: 15px;
+    display: inline-block;
+    vertical-align: top;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.FullPercentageBar {
+    height: 15px;
+    display: inline-block;
+    vertical-align: top;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+#ulYearSelection > li > a {
+    color: black;
+    font-size: 12px;
+}
+
+#ddlYearSelection:hover :focus :active {
+    border: 0 !important;
+}
+
+.btn.show {
+    border: 0 !important;
+}
+
+.btn.focus {
+    border: 0 !important;
+}
+
+#divChartContent {
+    max-width: 600px;
+}
+
+#barContainer {
+    width: 95%;
+    height: 15px;
+    display: flex;
+}

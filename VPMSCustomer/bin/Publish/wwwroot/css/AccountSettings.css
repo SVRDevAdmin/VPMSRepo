@@ -1,0 +1,52 @@
+﻿.switch {
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.switch > .switch-group .btn-dark {
+    background-color: #1f2e45 !important;
+}
+
+.switch > .switch-group .btn-light {
+    background-color: #F7F7F7 !important;
+}
+
+/*
+.borderFrame {
+    background-color: #F7F7F7;
+    border-radius: 6px;
+}
+
+.SectionTitle {
+    font-size: 14px;
+    font-weight: bold;
+}
+*/
+/*.dividerLine {
+    border-bottom: 1px solid black;
+    margin-left: 5px;
+}*/
+
+/*.checkBoxLanguage {
+    vertical-align: top;
+    font-size: 12px;
+    font-weight: bold;
+}*/
+
+.flagLanguage {
+    width: 32px;
+    height: 32px;
+    border-radius: 15px;
+    margin-right: 5px;
+}
+
+.radioLanguageSelection {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+#btnUpdateThemes, 
+#btnUpdateCountry, 
+#btnUpdateLanguage {
+    width: 100%;
+}

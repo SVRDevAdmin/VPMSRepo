@@ -121,13 +121,13 @@
             $('#ddlOrgz').prop('multiple', false);
             $('#ddlOrgz').val(1);
             $('#ddlOrgz').trigger('changes');
-            $('#ddlOrgz').prop('disabled', true);
+            //$('#ddlOrgz').prop('disabled', true);
 
             $('#ddlRole option').filter(function(){
                 return $(this).text() == "Superadmin";
             }).prop('selected', true);
             $('#ddlRole').trigger('changes');
-            $('#ddlRole').prop('disabled', true);
+            //$('#ddlRole').prop('disabled', true);
         });
 
         function updateThemes(themes) {

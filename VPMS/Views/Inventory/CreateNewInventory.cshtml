@@ -537,8 +537,10 @@
 	}
 
 	function submitInventory() {
-
 		if(validationCheck()){
+			var formData = new FormData();
+			formData.append("ProductImage", $('input[id="inventoryImgFile"]').get(0).files[0]);
+
 			var data = {
 				ImageFile: document.querySelector('#inventoryImg').src,
 				ImageFileName: document.getElementById("ProductName").value,
@@ -557,21 +559,39 @@
 				Quantity: document.getElementById("Quantity").value,
 				Description: document.getElementById("Description").value
 			};
+			formData.append("Data", JSON.stringify(data));
 
-			fetch('/Inventory/InsertInventory', {
-				method: 'post',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(data)
-			})
-				.then(response => {
-					if (!response.ok) {
+			$.ajax({
+				url: '/Inventory/InsertInventory',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				success: function(result){
+					if (!result){
 						throw new Error('Network response was not ok');
 					}
 					window.location = "/Inventory/InventoryList";
-				})
-				.catch(error => {
-					console.error('There was a problem with the fetch operation:', error);
-				});
+				},
+				error: function(ex){
+					console.error('There was a problem with the fetch operation:', ex);
+				}
+			});
+			// fetch('/Inventory/InsertInventory', {
+			// 	method: 'post',
+			// 	headers: { 'Content-Type': 'application/json' },
+			// 	body: JSON.stringify(data)
+			// })
+			// 	.then(response => {
+			// 		if (!response.ok) {
+			// 			throw new Error('Network response was not ok');
+			// 		}
+			// 		window.location = "/Inventory/InventoryList";
+			// 	})
+			// 	.catch(error => {
+			// 		console.error('There was a problem with the fetch operation:', error);
+			// 	});
 		}
 		else{
 			CustomAlertMessageShow("@LangResources["Patient_Message_FillRequiredField"]");

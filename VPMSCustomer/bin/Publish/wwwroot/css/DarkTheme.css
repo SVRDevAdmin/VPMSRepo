@@ -1,0 +1,481 @@
+﻿/*------- Layout --------*/
+#divContainer {
+    background-color: #172232;
+}
+
+#leftPane {
+    background-color: #1f2e45;
+}
+
+#menu > li > span {
+    color: white;
+}
+
+.ProfileFont {
+    /*font-size: 1vw;*/
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    /*width: 11vw;*/
+    width: 130px;
+    text-wrap: wrap;
+}
+
+.profilemenu > a {
+    color: white;
+}
+
+.profilemenu > a:hover {
+    color: white !important;
+    background-color: transparent !important;
+}
+
+.profilemenu {
+    background-color: #1f2e45;
+    /*font-size: 1vw;*/
+    font-size: 12px;
+}
+
+.menuItems > a {
+    text-decoration: none !important;
+    text-underline-offset: unset;
+    color: white !important;
+}
+
+.menuItems > a::after {
+    text-decoration: none !important;
+    text-underline-offset: unset !important;
+    color: white !important;
+}
+
+.menuHome {
+    content: url('../Images/Icons/Icon-home.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuPets {
+    content: url('../Images/Icons/Icon-pets.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuAppointments {
+    content: url('../Images/Icons/Icon-appointment.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuInvoiceReceipts {
+    content: url('../Images/Icons/Icon-invoice-receipts.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuAnalytics {
+    content: url('../Images/Icons/Icon-analytics.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+.menuCustomerServices {
+    content: url('../Images/Icons/Icon-customer-service.png');
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+#imgLogo {
+    content: url('../Images/Logo/Vet-Vitals-Logo-Dark.png');
+    width: 160px !important;
+    height: 35px !important;
+    margin-top: 10px;
+}
+
+.iconBell {
+    color: white;
+}
+
+#prevButton {
+    color: white !important;
+}
+
+#nextButton {
+    color: white !important;
+}
+
+/*------ General --------*/
+.pageTitle {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.borderFrame {
+    background-color: #172232;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.dividerLine {
+    border-bottom: 1px solid #ddd;
+    margin-left: 5px;
+}
+
+/*----- Login --------*/
+#loginBody {
+    background-color: #172232;
+}
+
+.loginSmallTitle {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.loginLogo {
+    content: url('../Images/Logo/Vet-Vitals-Logo-Dark.png');
+    margin-left: -25px;
+    width: 320px;
+    height: 80px;
+}
+
+/*----- Account Settings ------*/
+.SectionTitle {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkBoxLanguage {
+    vertical-align: top;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/*----- Profile -------*/
+.fieldTitle {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.displayField {
+    color: white;
+    font-size: 12px;
+}
+
+/*----- Reset Password ----*/
+.borderResetPassFrame {
+    background-color: #172232;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.ResetFieldTitle {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*----- Pet Grid -------*/
+.gridButtonBox {
+    width: 34px;
+    height: 34px;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+.gridButtonBox > a {
+    color: white;
+}
+
+/*----- Pet Listing ------*/
+#lnkGrid {
+    width: 34px;
+    height: 36px;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+#lnkGrid > a {
+    color: white;
+}
+
+#btnFilter {
+    border: 1px solid white;
+    border-radius: 6px;
+    color: white;
+}
+
+#btnFilter > i {
+    margin-right: 5px;
+    color: white;
+}
+
+#divFilterBox {
+    background-color: #1f2e45;
+    border-radius: 6px;
+}
+
+.FilterBoxTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.FilterBoxLabel {
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+#tblPetListing{
+    border-radius: 6px !important;
+}
+
+#tblPetListing > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblPetListing > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+/*------ Invoice & Receipt ---------*/
+.nav-link {
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 12px !important;
+    color: white !important;
+}
+
+#tblInvoices > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblInvoices > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+#tblReceipts > thead > tr > th {
+    color: white !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    background-color: #1f2e45 !important;
+}
+
+#tblReceipts > tbody > tr > td {
+    color: white !important;
+    font-size: 12px !important;
+    border-bottom: 1px solid #ddd;
+    background-color: #1f2e45 !important;
+}
+
+.imgMore {
+    content: url('/Images/more_white.png');
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+}
+
+.divFilterBox {
+    background-color: #1f2e45 !important;
+    border-radius: 6px;
+}
+
+/*------ appointment --------*/
+.TitleDisplay {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.TextInfoDisplay {
+    font-size: 14px;
+    color: white;
+}
+
+.TextInfoDisplay:hover, .TextInfoDisplay:focus{
+    color: white;
+}
+
+.BookingApptFrame {
+    background-color: #1f2e45;
+    border-radius: 6px;
+}
+
+.HeaderLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+/*------ Appointment Details ------*/
+.InformationFrame {
+    background-color: #1f2e45;
+    border-radius: 6px;
+    height: stretch;
+}
+
+.InformationTextFont {
+    color: white;
+    font-size: 17px;
+}
+
+.InformationItemTextFont {
+    color: white;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+
+.InformationItemLayout > span > i {
+    color: white;
+}
+
+/*------ Customer Services -----*/
+.sectionTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.selectionLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+#ddlViewSelection {
+    color: white;
+    font-size: 14px;
+}
+
+.emptyBoxFrame {
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+}
+
+/*------ Notification -------------*/
+.notificationFrame {
+    border-radius: 8px;
+    background-color: #1f2e45;
+}
+
+.tblNotificationTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.tblNotificationDate {
+    width: 20%;
+    font-size: 12px;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: white !important;
+}
+
+.tdContent {
+    width: 80%;
+    font-size: 12px;
+    color: white !important;
+}
+
+.dividerRow {
+    border-bottom: 1px solid #ddd !important;
+}
+
+/*------ Analytics --------*/
+.analyticsTitle {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.analyticsFrame {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+#ddlYearSelection {
+    color: white;
+    font-size: 12px;
+    width: 100px;
+    height: 25px;
+    padding-top: 0;
+}
+
+.yearSelectionLabel {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.breakdownPetName {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.breakdownAmount {
+    color: white;
+    font-size: 14px;
+}
+
+/*------- Dashboard --------*/
+.blogEmptyBox {
+    width: 303px;
+    height: 150px;
+    border: 1px dashed white;
+    border-radius: 6px;
+    color: white;
+}
+
+.bannerEmptyFrame {
+    border: 1px dashed white;
+    color: white;
+}
+
+.blogTitle {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: -10px;
+}
+
+.blogDateTime {
+    color: white;
+    font-size: 14px;
+    margin-left: -10px;
+}
+
+.dashboardTitle {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.blogSectionTitle {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
