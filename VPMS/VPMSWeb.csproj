@@ -103,6 +103,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Resource.ms-MY.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace></CustomToolNamespace>

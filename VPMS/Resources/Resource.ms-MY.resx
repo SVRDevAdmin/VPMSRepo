@@ -1,0 +1,2112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Appointment_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
+    <value>Batalkan Appt</value>
+  </data>
+  <data name="Appointment_Button_Confirm" xml:space="preserve">
+    <value>Sahkan</value>
+  </data>
+  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
+    <value>Temujanji Baru</value>
+  </data>
+  <data name="Appointment_Button_Reset" xml:space="preserve">
+    <value>Set semula</value>
+  </data>
+  <data name="Appointment_Button_Search" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="Appointment_Button_Update" xml:space="preserve">
+    <value>Kemas kini</value>
+  </data>
+  <data name="Appointment_Label_ContactNo" xml:space="preserve">
+    <value>Nombor Perhubungan</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>Tarikh &amp; Masa</value>
+  </data>
+  <data name="Appointment_Label_Day" xml:space="preserve">
+    <value>Hari</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>Doktor</value>
+  </data>
+  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
+    <value>Edit Janji Temu</value>
+  </data>
+  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
+    <value>Alamat E-mel</value>
+  </data>
+  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
+    <value>Klien sedia ada?</value>
+  </data>
+  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
+    <value>*Medan wajib diperlukan.</value>
+  </data>
+  <data name="Appointment_Label_Month" xml:space="preserve">
+    <value>Bulan</value>
+  </data>
+  <data name="Appointment_Label_NewClient" xml:space="preserve">
+    <value>Klien Baru?</value>
+  </data>
+  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
+    <value>Beritahu saya melalui E-mel</value>
+  </data>
+  <data name="Appointment_Label_Owner" xml:space="preserve">
+    <value>Pemilik</value>
+  </data>
+  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
+    <value>Nama Penuh Pemilik</value>
+  </data>
+  <data name="Appointment_Label_OwnerName" xml:space="preserve">
+    <value>Nama Pemilik</value>
+  </data>
+  <data name="Appointment_Label_Pet" xml:space="preserve">
+    <value>Haiwan peliharaan</value>
+  </data>
+  <data name="Appointment_Label_PetDOB" xml:space="preserve">
+    <value>Tarikh Lahir Haiwan Kesayangan</value>
+  </data>
+  <data name="Appointment_Label_PetName" xml:space="preserve">
+    <value>Nama Haiwan Kesayangan</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>Perkhidmatan</value>
+  </data>
+  <data name="Appointment_Label_Species" xml:space="preserve">
+    <value>Spesies</value>
+  </data>
+  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
+    <value>Beralih kembali kepada janji temu</value>
+  </data>
+  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
+    <value>Beralih kepada janji temu cepat</value>
+  </data>
+  <data name="Appointment_Label_Week" xml:space="preserve">
+    <value>Minggu</value>
+  </data>
+  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
+    <value>Temujanji Dibatalkan Dikemaskini.</value>
+  </data>
+  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>Sahkan untuk membatalkan janji temu ini?</value>
+  </data>
+  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
+    <value>*Doktor tidak bersedia untuk tarikh &amp; masa temujanji di atas.</value>
+  </data>
+  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
+    <value>*Temu janji pesakit yang sama wujud dalam sistem.</value>
+  </data>
+  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
+    <value>Gagal mengemas kini janji temu, sila cuba sebentar lagi.</value>
+  </data>
+  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>Kemas kini Berjaya.</value>
+  </data>
+  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
+    <value>Sila pilih doktor</value>
+  </data>
+  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
+    <value>Sila pilih pemilik</value>
+  </data>
+  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
+    <value>Sila pilih haiwan peliharaan</value>
+  </data>
+  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
+    <value>Sila pilih perkhidmatan</value>
+  </data>
+  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
+    <value>Sila pilih spesies haiwan peliharaan</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>Temujanji</value>
+  </data>
+  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
+    <value>Batalkan Janji Temu</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>Tambah Janji Temu</value>
+  </data>
+  <data name="Appointment_Title_Filter" xml:space="preserve">
+    <value>Penapis</value>
+  </data>
+  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
+    <value>Tambah Janji Temu (Pelanggan Baharu)</value>
+  </data>
+  <data name="DoctorProfile_Button_Back" xml:space="preserve">
+    <value>Balik</value>
+  </data>
+  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="DoctorProfile_Button_Create" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="DoctorProfile_Button_Update" xml:space="preserve">
+    <value>Kemas kini</value>
+  </data>
+  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
+    <value>Jawatan</value>
+  </data>
+  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
+    <value>Jantina</value>
+  </data>
+  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
+    <value>Lesen No.</value>
+  </data>
+  <data name="DoctorProfile_Label_Name" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Sila pilih jantina</value>
+  </data>
+  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
+    <value>Kepakaran</value>
+  </data>
+  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
+    <value>ID Sistem</value>
+  </data>
+  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
+    <value>Tambah doktor dengan jayanya</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
+    <value>*Gagal menambah doktor, sila cuba lagi kemudian.</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
+    <value>*Gagal mengemas kini maklumat doktor, sila cuba sebentar lagi.</value>
+  </data>
+  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
+    <value>* Medan wajib diperlukan.</value>
+  </data>
+  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
+    <value>Kemas kini berjaya</value>
+  </data>
+  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
+    <value>Tambah Doktor</value>
+  </data>
+  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
+    <value>Butiran Doktor</value>
+  </data>
+  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
+    <value>Kemas kini Doktor</value>
+  </data>
+  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
+    <value>Doktor baru</value>
+  </data>
+  <data name="Doctor_Button_Next" xml:space="preserve">
+    <value>Seterusnya</value>
+  </data>
+  <data name="Doctor_Button_Prev" xml:space="preserve">
+    <value>Sebelum</value>
+  </data>
+  <data name="Doctor_Button_Search" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
+    <value>Jawatan</value>
+  </data>
+  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
+    <value>Jantina</value>
+  </data>
+  <data name="Doctor_Label_ColumnID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
+    <value>Lesen No</value>
+  </data>
+  <data name="Doctor_Label_ColumnName" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
+    <value>Cari Doktor mengikut Nama</value>
+  </data>
+  <data name="Doctor_Label_Specialty" xml:space="preserve">
+    <value>Kepakaran</value>
+  </data>
+  <data name="Doctor_Menu_Delete" xml:space="preserve">
+    <value>Padam</value>
+  </data>
+  <data name="Doctor_Menu_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Doctor_Menu_View" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
+    <value>Sahkan untuk memadam rekod doktor?</value>
+  </data>
+  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
+    <value>Gagal memadamkan rekod, sila cuba sebentar lagi.</value>
+  </data>
+  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
+    <value>Padam rekod Doktor</value>
+  </data>
+  <data name="Doctor_Title_Doctor" xml:space="preserve">
+    <value>Doktor</value>
+  </data>
+  <data name="Inventory_Label_SelectOrganisation" xml:space="preserve">
+    <value>Pilih Organisasi</value>
+  </data>
+  <data name="LanguageCountry_Button_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
+    <value>Tiada pilihan negara tersedia.</value>
+  </data>
+  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
+    <value>Tiada pilihan bahasa tersedia.</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
+    <value>Pilih Negara</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
+    <value>Pilih bahasa</value>
+  </data>
+  <data name="Login_Button_Back" xml:space="preserve">
+    <value>Balik</value>
+  </data>
+  <data name="Login_Button_RecoverPassword" xml:space="preserve">
+    <value>Pulihkan Kata Laluan</value>
+  </data>
+  <data name="Login_Link_ForgotPassword" xml:space="preserve">
+    <value>Terlupa kata laluan?</value>
+  </data>
+  <data name="Login_Placeholder_Email" xml:space="preserve">
+    <value>E-mel</value>
+  </data>
+  <data name="Login_Placeholder_LoginID" xml:space="preserve">
+    <value>ID log masuk</value>
+  </data>
+  <data name="Login_Placeholder_Password" xml:space="preserve">
+    <value>Kata laluan</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>Log masuk</value>
+  </data>
+  <data name="Login_Title_PasswordRecovery" xml:space="preserve">
+    <value>Pemulihan Kata Laluan</value>
+  </data>
+  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
+    <value>Kawalan Akses</value>
+  </data>
+  <data name="MenuBar_Label_Appointments" xml:space="preserve">
+    <value>Temujanji</value>
+  </data>
+  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
+    <value>Perkhidmatan Pelanggan</value>
+  </data>
+  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
+    <value>Papan pemuka</value>
+  </data>
+  <data name="MenuBar_Label_Doctor" xml:space="preserve">
+    <value>Doktor</value>
+  </data>
+  <data name="MenuBar_Label_Integration" xml:space="preserve">
+    <value>Integrasi</value>
+  </data>
+  <data name="MenuBar_Label_Inventory" xml:space="preserve">
+    <value>Inventori</value>
+  </data>
+  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
+    <value>Invois &amp; Resit</value>
+  </data>
+  <data name="MenuBar_Label_Logout" xml:space="preserve">
+    <value>Log keluar</value>
+  </data>
+  <data name="MenuBar_Label_MyProfile" xml:space="preserve">
+    <value>Profil Saya</value>
+  </data>
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
+    <value>Organisasi</value>
+  </data>
+  <data name="MenuBar_Label_Patients" xml:space="preserve">
+    <value>Pesakit</value>
+  </data>
+  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
+    <value>Perkhidmatan Pesakit</value>
+  </data>
+  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
+    <value>Pelan Rawatan Pesakit</value>
+  </data>
+  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
+    <value>Tetapan Peranan</value>
+  </data>
+  <data name="MenuBar_Label_Service" xml:space="preserve">
+    <value>Perkhidmatan</value>
+  </data>
+  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
+    <value>Penyenaraian Staf</value>
+  </data>
+  <data name="Notification_Label_All" xml:space="preserve">
+    <value>Semua</value>
+  </data>
+  <data name="Notification_Label_Inventory" xml:space="preserve">
+    <value>Inventori</value>
+  </data>
+  <data name="Notification_Label_Messages" xml:space="preserve">
+    <value>Mesej</value>
+  </data>
+  <data name="Notification_Label_Next" xml:space="preserve">
+    <value>Seterusnya</value>
+  </data>
+  <data name="Notification_Label_Prev" xml:space="preserve">
+    <value>Sebelum</value>
+  </data>
+  <data name="Notification_Title_Notification" xml:space="preserve">
+    <value>Makluman</value>
+  </data>
+  <data name="Patient_Button_AddCoOwner" xml:space="preserve">
+    <value>Tambah Pemilik Bersama</value>
+  </data>
+  <data name="Patient_Button_AddNew" xml:space="preserve">
+    <value>Tambah Baru</value>
+  </data>
+  <data name="Patient_Button_AddPet" xml:space="preserve">
+    <value>Tambah Pet</value>
+  </data>
+  <data name="Patient_Button_AddSelections" xml:space="preserve">
+    <value>Tambah Pilihan</value>
+  </data>
+  <data name="Patient_Button_AddTreatment" xml:space="preserve">
+    <value>Tambah Rawatan</value>
+  </data>
+  <data name="Patient_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Patient_Button_ClearAll" xml:space="preserve">
+    <value>Kosongkan Semua</value>
+  </data>
+  <data name="Patient_Button_CreateTreatmentPlan" xml:space="preserve">
+    <value>Tambah Pelan Rawatan</value>
+  </data>
+  <data name="Patient_Button_Delete" xml:space="preserve">
+    <value>Padam</value>
+  </data>
+  <data name="Patient_Button_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Patient_Button_Finish" xml:space="preserve">
+    <value>Selesai</value>
+  </data>
+  <data name="Patient_Button_GoBack" xml:space="preserve">
+    <value>Balik</value>
+  </data>
+  <data name="Inventory_Button_NewInventory" xml:space="preserve">
+    <value>Inventori Baharu</value>
+  </data>
+  <data name="Patient_Button_NewPatient" xml:space="preserve">
+    <value>Pesakit Baru</value>
+  </data>
+  <data name="Patient_Button_Next" xml:space="preserve">
+    <value>Seterusnya</value>
+  </data>
+  <data name="Patient_Button_NextStep" xml:space="preserve">
+    <value>Langkah Seterusnya</value>
+  </data>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>Rawatan Berterusan</value>
+  </data>
+  <data name="Patient_Button_PastTreatment" xml:space="preserve">
+    <value>Rawatan Lepas</value>
+  </data>
+  <data name="Patient_Button_Previous" xml:space="preserve">
+    <value>Sebelum</value>
+  </data>
+  <data name="Patient_Button_RemoveCoOwner" xml:space="preserve">
+    <value>Buang Pemilik Bersama</value>
+  </data>
+  <data name="Patient_Button_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Patient_Button_SaveMedication" xml:space="preserve">
+    <value>Simpan Ubat</value>
+  </data>
+  <data name="Patient_Button_SaveSurgery" xml:space="preserve">
+    <value>Simpan Pembedahan</value>
+  </data>
+  <data name="Patient_Button_SaveVaccination" xml:space="preserve">
+    <value>Simpan Vaksinasi</value>
+  </data>
+  <data name="Patient_Button_Search" xml:space="preserve">
+    <value>Carian</value>
+  </data>
+  <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
+    <value>Rawatan Akan Datang</value>
+  </data>
+  <data name="Patient_Button_View" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="Patient_Button_ViewPetProfile" xml:space="preserve">
+    <value>Lihat Profil Haiwan Kesayangan</value>
+  </data>
+  <data name="Patient_Label_Address" xml:space="preserve">
+    <value>Alamat</value>
+  </data>
+  <data name="Patient_Label_AddressLine1" xml:space="preserve">
+    <value>Talian Alamat 1</value>
+  </data>
+  <data name="Patient_Label_AddressLine2" xml:space="preserve">
+    <value>Talian Alamat 2</value>
+  </data>
+  <data name="Patient_Label_Age" xml:space="preserve">
+    <value>Umur</value>
+  </data>
+  <data name="Patient_Label_AgeYear" xml:space="preserve">
+    <value>Umur (Tahun)</value>
+  </data>
+  <data name="Patient_Label_Allergies" xml:space="preserve">
+    <value>Alahan</value>
+  </data>
+  <data name="Patient_Label_BMI" xml:space="preserve">
+    <value>BMI</value>
+  </data>
+  <data name="Inventory_Label_Branch" xml:space="preserve">
+    <value>Cawangan</value>
+  </data>
+  <data name="Patient_Label_Breed" xml:space="preserve">
+    <value>Alahan</value>
+  </data>
+  <data name="Inventory_Label_Category" xml:space="preserve">
+    <value>kategori</value>
+  </data>
+  <data name="Patient_Label_City" xml:space="preserve">
+    <value>Bandar</value>
+  </data>
+  <data name="Patient_Label_Color" xml:space="preserve">
+    <value>Warna</value>
+  </data>
+  <data name="Patient_Label_ContactNo" xml:space="preserve">
+    <value>Nombor Perhubungan</value>
+  </data>
+  <data name="Patient_Label_CoOwnerInformationOptional" xml:space="preserve">
+    <value>Maklumat Pemilik Bersama (Pilihan)</value>
+  </data>
+  <data name="Patient_Label_CoOwnerName" xml:space="preserve">
+    <value>Nama Pemilik Bersama</value>
+  </data>
+  <data name="Patient_Label_Country" xml:space="preserve">
+    <value>Negara</value>
+  </data>
+  <data name="Inventory_Label_Create" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="Patient_Label_CreatedOn" xml:space="preserve">
+    <value>Dicipta Pada</value>
+  </data>
+  <data name="Patient_Label_Date" xml:space="preserve">
+    <value>Tarikh</value>
+  </data>
+  <data name="Patient_Label_DOB" xml:space="preserve">
+    <value>Tarikh Lahir</value>
+  </data>
+  <data name="Patient_Label_Doctor" xml:space="preserve">
+    <value>Doktor</value>
+  </data>
+  <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>Tarikh Akhir</value>
+  </data>
+  <data name="Patient_Label_ExpiryDate" xml:space="preserve">
+    <value>Tarikh Luput</value>
+  </data>
+  <data name="Patient_Label_Gender" xml:space="preserve">
+    <value>Jantina</value>
+  </data>
+  <data name="Patient_Label_GrandTotal" xml:space="preserve">
+    <value>Jumlah Agung</value>
+  </data>
+  <data name="Patient_Label_HealthCard" xml:space="preserve">
+    <value>Kad Kesihatan</value>
+  </data>
+  <data name="Patient_Label_Height" xml:space="preserve">
+    <value>Ketinggian</value>
+  </data>
+  <data name="Inventory_Label_Image" xml:space="preserve">
+    <value>Imej</value>
+  </data>
+  <data name="Inventory_Label_InStock" xml:space="preserve">
+    <value>Dalam Stok</value>
+  </data>
+  <data name="Inventory_Label_InventoryDetails" xml:space="preserve">
+    <value>Butiran Inventori</value>
+  </data>
+  <data name="Inventory_Label_InventoryName" xml:space="preserve">
+    <value>Nama Inventori</value>
+  </data>
+  <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
+    <value>Invois &amp; Bil</value>
+  </data>
+  <data name="Patient_Label_Medication" xml:space="preserve">
+    <value>Ubat-ubatan</value>
+  </data>
+  <data name="Patient_Label_MedicationName" xml:space="preserve">
+    <value>Nama Ubat</value>
+  </data>
+  <data name="Patient_Label_Name" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="Patient_Label_Number" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Patient_Label_Obese" xml:space="preserve">
+    <value>Gemuk?</value>
+  </data>
+  <data name="Patient_Label_Obesity" xml:space="preserve">
+    <value>Obesiti</value>
+  </data>
+  <data name="Inventory_Label_Organisation" xml:space="preserve">
+    <value>Organisasi</value>
+  </data>
+  <data name="Inventory_Label_OutOfStock" xml:space="preserve">
+    <value>Kehabisan Stok</value>
+  </data>
+  <data name="Patient_Label_OwnerName" xml:space="preserve">
+    <value>Nama Pemilik</value>
+  </data>
+  <data name="Patient_Label_Payment" xml:space="preserve">
+    <value>Bayaran</value>
+  </data>
+  <data name="Patient_Label_Pet" xml:space="preserve">
+    <value>Haiwan peliharaan</value>
+  </data>
+  <data name="Patient_Label_PetAge" xml:space="preserve">
+    <value>Umur Haiwan Kesayangan (Y)</value>
+  </data>
+  <data name="Patient_Label_PetName" xml:space="preserve">
+    <value>Nama Haiwan Kesayangan</value>
+  </data>
+  <data name="Patient_Label_Postcode" xml:space="preserve">
+    <value>Poskod</value>
+  </data>
+  <data name="Patient_Label_Price" xml:space="preserve">
+    <value>Harga</value>
+  </data>
+  <data name="Inventory_Label_PricePerQty" xml:space="preserve">
+    <value>Harga (RM) setiap Kuantiti</value>
+  </data>
+  <data name="Patient_Label_Product" xml:space="preserve">
+    <value>Produk</value>
+  </data>
+  <data name="Inventory_Label_ProductName" xml:space="preserve">
+    <value>Nama Produk</value>
+  </data>
+  <data name="Inventory_Label_ProductType" xml:space="preserve">
+    <value>Jenis Produk</value>
+  </data>
+  <data name="Inventory_Label_Quantity" xml:space="preserve">
+    <value>Kuantiti</value>
+  </data>
+  <data name="Patient_Label_RegistrationNo" xml:space="preserve">
+    <value>Pendaftaran No.</value>
+  </data>
+  <data name="Inventory_Label_SearchInventory" xml:space="preserve">
+    <value>Cari Inventori</value>
+  </data>
+  <data name="Inventory_Label_SearchSpecies" xml:space="preserve">
+    <value>Cari Spesies</value>
+  </data>
+  <data name="Patient_Label_SearchTreatment" xml:space="preserve">
+    <value>Rawatan Carian</value>
+  </data>
+  <data name="Inventory_Label_SelectProductType" xml:space="preserve">
+    <value>Pilih Jenis Produk</value>
+  </data>
+  <data name="Patient_Label_Service" xml:space="preserve">
+    <value>Perkhidmatan</value>
+  </data>
+  <data name="Patient_Label_Sex" xml:space="preserve">
+    <value>Jantina</value>
+  </data>
+  <data name="Patient_Label_Species" xml:space="preserve">
+    <value>Spesies</value>
+  </data>
+  <data name="Patient_Label_State" xml:space="preserve">
+    <value>Negeri</value>
+  </data>
+  <data name="Patient_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Patient_Label_Surgeries" xml:space="preserve">
+    <value>Pembedahan</value>
+  </data>
+  <data name="Patient_Label_Tax" xml:space="preserve">
+    <value>Cukai</value>
+  </data>
+  <data name="Patient_Label_TestManagement" xml:space="preserve">
+    <value>Pengurusan Ujian</value>
+  </data>
+  <data name="Patient_Label_Time" xml:space="preserve">
+    <value>Masa</value>
+  </data>
+  <data name="Patient_Label_TotalCost" xml:space="preserve">
+    <value>Jumlah Kos</value>
+  </data>
+  <data name="Patient_Label_TreatmentPeriod" xml:space="preserve">
+    <value>Tempoh rawatan</value>
+  </data>
+  <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
+    <value>Pelan Rawatan</value>
+  </data>
+  <data name="Patient_Label_Type" xml:space="preserve">
+    <value>Jenis</value>
+  </data>
+  <data name="Patient_Label_Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="Inventory_Label_UploadImage" xml:space="preserve">
+    <value>Muat Naik Imej</value>
+  </data>
+  <data name="Inventory_Label_Usage" xml:space="preserve">
+    <value>Penggunaan</value>
+  </data>
+  <data name="Patient_Label_Vaccination" xml:space="preserve">
+    <value>Pemvaksinan</value>
+  </data>
+  <data name="Patient_Label_VaccinationTreatment" xml:space="preserve">
+    <value>Vaksinasi/Rawatan</value>
+  </data>
+  <data name="Patient_Label_Weight" xml:space="preserve">
+    <value>Berat badan</value>
+  </data>
+  <data name="Patient_Label_Year" xml:space="preserve">
+    <value>Tahun</value>
+  </data>
+  <data name="Patient_Message_IdleMessage" xml:space="preserve">
+    <value>Anda akan log keluar secara automatik jika terus melahu.</value>
+  </data>
+  <data name="Patient_Message_NoRecord" xml:space="preserve">
+    <value>Tiada rekod tersedia.</value>
+  </data>
+  <data name="Patient_Selection_Active" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="Patient_Selection_Female" xml:space="preserve">
+    <value>Perempuan</value>
+  </data>
+  <data name="Patient_Selection_Inactive" xml:space="preserve">
+    <value>Tidak aktif</value>
+  </data>
+  <data name="Patient_Selection_Male" xml:space="preserve">
+    <value>Jantan</value>
+  </data>
+  <data name="Patient_Selection_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Patient_Selection_SelectBreed" xml:space="preserve">
+    <value>Pilih Baka</value>
+  </data>
+  <data name="Patient_Selection_SelectCity" xml:space="preserve">
+    <value>Pilih Bandar</value>
+  </data>
+  <data name="Patient_Selection_SelectColor" xml:space="preserve">
+    <value>Pilih Warna</value>
+  </data>
+  <data name="Patient_Selection_SelectCountry" xml:space="preserve">
+    <value>Pilih Negara</value>
+  </data>
+  <data name="Patient_Selection_SelectGender" xml:space="preserve">
+    <value>Pilih Jantina</value>
+  </data>
+  <data name="Patient_Selection_SelectSex" xml:space="preserve">
+    <value>Pilih jantina</value>
+  </data>
+  <data name="Patient_Selection_SelectSpecies" xml:space="preserve">
+    <value>Pilih Spesies</value>
+  </data>
+  <data name="Patient_Selection_SelectState" xml:space="preserve">
+    <value>Pilih Negeri</value>
+  </data>
+  <data name="Patient_Selection_SelectStatus" xml:space="preserve">
+    <value>Pilih Status</value>
+  </data>
+  <data name="Patient_Selection_Yes" xml:space="preserve">
+    <value>Ya</value>
+  </data>
+  <data name="Patient_Title_AdditionalInformation" xml:space="preserve">
+    <value>Maklumat Tambahan</value>
+  </data>
+  <data name="Patient_Title_AllPets" xml:space="preserve">
+    <value>Semua Haiwan Kesayangan</value>
+  </data>
+  <data name="Patient_Title_CoOwnerInfo" xml:space="preserve">
+    <value>Maklumat Pemilik Bersama</value>
+  </data>
+  <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
+    <value>Tambah Profil Pesakit</value>
+  </data>
+  <data name="Patient_Title_MedicalRecord" xml:space="preserve">
+    <value>Rekod Perubatan</value>
+  </data>
+  <data name="Patient_Title_MedicationHistory" xml:space="preserve">
+    <value>Sejarah Pengubatan</value>
+  </data>
+  <data name="Patient_Title_OwnerInfo" xml:space="preserve">
+    <value>Maklumat Pemilik</value>
+  </data>
+  <data name="Patient_Title_PatientProfile" xml:space="preserve">
+    <value>Profil Pesakit</value>
+  </data>
+  <data name="Patient_Title_Patients" xml:space="preserve">
+    <value>Pesakit</value>
+  </data>
+  <data name="Patient_Title_PetGrowthHistory" xml:space="preserve">
+    <value>Sejarah Pertumbuhan Binatang</value>
+  </data>
+  <data name="Patient_Title_PetGrowthTrend" xml:space="preserve">
+    <value>Trend Pertumbuhan Binatang</value>
+  </data>
+  <data name="Patient_Title_PetInfo" xml:space="preserve">
+    <value>Maklumat Haiwan Kesayangan</value>
+  </data>
+  <data name="Patient_Title_Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
+    <value>Janji Temu Akan Datang</value>
+  </data>
+  <data name="Patient_Title_UpcomingVaccinationTreatment" xml:space="preserve">
+    <value>Vaksinasi/Rawatan Akan Datang</value>
+  </data>
+  <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
+    <value>Sejarah Vaksinasi/Rawatan</value>
+  </data>
+  <data name="Inventory_Label_Description" xml:space="preserve">
+    <value>Penerangan</value>
+  </data>
+  <data name="Inventory_Label_RecommendedBreed" xml:space="preserve">
+    <value>Baka Disyorkan</value>
+  </data>
+  <data name="Inventory_Label_RecommendedWeight" xml:space="preserve">
+    <value>Berat yang disyorkan</value>
+  </data>
+  <data name="Inventory_Label_SearchBreed" xml:space="preserve">
+    <value>Cari Baka</value>
+  </data>
+  <data name="Inventory_Label_SelectBranch" xml:space="preserve">
+    <value>Pilih Cawangan</value>
+  </data>
+  <data name="Service_Button_NewService" xml:space="preserve">
+    <value>Perkhidmatan Baharu</value>
+  </data>
+  <data name="Service_Label_DoctorInCharge" xml:space="preserve">
+    <value>Doktor Bertanggungjawab</value>
+  </data>
+  <data name="Service_Label_DurationHr" xml:space="preserve">
+    <value>Tempoh (Jam)</value>
+  </data>
+  <data name="Service_Label_Precaution" xml:space="preserve">
+    <value>Langkah berjaga-jaga</value>
+  </data>
+  <data name="Service_Label_SearchDoctor" xml:space="preserve">
+    <value>Cari Doktor</value>
+  </data>
+  <data name="Service_Label_SearchService" xml:space="preserve">
+    <value>Perkhidmatan Carian</value>
+  </data>
+  <data name="Service_Label_SelectCategory" xml:space="preserve">
+    <value>Pilih Kategori</value>
+  </data>
+  <data name="Service_Label_ServiceDetails" xml:space="preserve">
+    <value>Butiran Perkhidmatan</value>
+  </data>
+  <data name="Service_Label_ServiceName" xml:space="preserve">
+    <value>Nama Perkhidmatan</value>
+  </data>
+  <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
+    <value>Masa Perkhidmatan (Jam)</value>
+  </data>
+  <data name="TreatmentPlan_Label_Add" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
+    <value>Tambah Perkhidmatan</value>
+  </data>
+  <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
+    <value>Kos</value>
+  </data>
+  <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
+    <value>Dicipta Oleh</value>
+  </data>
+  <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
+    <value>Tarikh Dibuat</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
+    <value>Jadikan Aktif</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeInactive" xml:space="preserve">
+    <value>Jadikan Tidak Aktif</value>
+  </data>
+  <data name="TreatmentPlan_Label_NewTreatment" xml:space="preserve">
+    <value>Rawatan Baru</value>
+  </data>
+  <data name="TreatmentPlan_Label_Remarks" xml:space="preserve">
+    <value>Catatan</value>
+  </data>
+  <data name="TreatmentPlan_Label_SearchService" xml:space="preserve">
+    <value>Cari Perkhidmatan</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
+    <value>Pilih Pengguna</value>
+  </data>
+  <data name="TreatmentPlan_Label_Total" xml:space="preserve">
+    <value>Jumlah</value>
+  </data>
+  <data name="TreatmentPlan_Label_Treatment" xml:space="preserve">
+    <value>Rawatan</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentDetails" xml:space="preserve">
+    <value>Butiran Rawatan</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentName" xml:space="preserve">
+    <value>Nama Rawatan</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
+    <value>Pelan Rawatan</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>Tambah Produk</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>Menunggu Pengesahan</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>Sahkan Kata Laluan</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>Kata Laluan Baharu</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>Kata Laluan Lama</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>Set semula Kata Laluan</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>Pilih Ubat</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>Pilih Jenis Ubat</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>Pilih Pembedahan</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>Pilih Jenis Pembedahan</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>Pilih Vaksinasi</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>Pilih Jenis Vaksinasi</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>Kena bayar</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>Tamat tempoh</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>Tiada Rawatan Berterusan</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>Tiada Rawatan Lepas</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>Tiada Janji Temu Akan Datang</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>Tiada Rawatan Akan Datang</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>Dikemaskini Pada</value>
+  </data>
+  <data name="Patient_Label_NoOtherPet" xml:space="preserve">
+    <value>Tiada haiwan peliharaan lain.</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>Peranan Baru</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>Kemas kini</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>Adakah anda seorang doktor?</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>Bilangan Kakitangan Diberikan</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>Cawangan</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>Sahkan memadamkan peranan ini?</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>Penerangan</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>Gagal mencipta peranan.</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>Gagal memadam rekod.</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>* Medan wajib diperlukan.</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>Peranan baharu berjaya dibuat.</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>Organisasi</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>Kebenaran</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>Tetapan Kebenaran:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Sila pilih cawangan</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>Sila pilih pilihan</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Sila pilih organisasi</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Sila pilih status</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>Peranan</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>Peranan Pengguna</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>Padam</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>Tambah Peranan Baharu</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>Tambah Peranan</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>Padam Peranan</value>
+  </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>Tetapan Peranan</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>Kawalan Akses Pengguna</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>Gagal mengemas kini peranan.</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>Kemas kini peranan berjaya.</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>Kemas kini Peranan</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>Kakitangan Baru</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>ID kakitangan</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>Nama Kakitangan</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>Penapis</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>Penyenaraian Kakitangan</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>Peranan</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>Cawangan</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>E-mel</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>Jantina</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>Organisasi</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>Nama Akhir</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>ID kakitangan</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>Nama keluarga</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>Penapis</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>Set semula</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>Sahkan untuk memadam kakitangan?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>Gagal memadamkan kakitangan, sila cuba lagi.</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>Padam</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Sila pilih cawangan</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Sila pilih jantina</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Sila pilih organisasi</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Sila pilih peranan</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>Sila pilih kakitangan</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Sila pilih status</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>Butiran Kakitangan</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>Padam kakitangan</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>E-mel</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>Jantina</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>Peranan Pengguna</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>Kemas kini</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>Cawangan</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>Tambah pengguna berjaya.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>Gagal tambah pengguna, sila cuba lagi.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>Gagal mengemas kini profil pengguna, sila cuba lagi.</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>ID log masuk</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*ID Log masuk wujud dalam sistem, sila cuba lagi.</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*Bidang Wajib diperlukan.</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>Organisasi</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Sila pilih cawangan</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Sila pilih jantina</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Sila pilih organisasi</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Sila pilih peranan</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Sila pilih status</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>Kemas kini profil pengguna berjaya.</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>Tambah Pengguna</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>Kemas kini Profil Pengguna</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>Alamat e-mel tidak sah.</value>
+  </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>Semua hak terpelihara</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>Tambah Item</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>Muat turun</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>Tandakan sebagai berbayar</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>Cetak</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>Invois Pantas</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>Sub Jumlah</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>Aksi</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>Baki</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>Dibatalkan</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>Diskaun</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>Bayaran</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>Daripada</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>Diskaun Agung</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>Butiran Invois</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>Invois No</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>Nota Invois</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>Invois/Resit No</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>Invois</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>Temujanji Seterusnya</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>Dibayar</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>Belum selesai</value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>Butiran Item Belian</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>Kuantiti</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>Sedia</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>Resit</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>No. Resit</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>Pilih Pelanggan</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>Pilih Produk</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>Nama Pembedahan/Vaksinasi/Perundingan</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>Kepada</value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>Jumlah Harga</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>Adakah anda pasti mahu menandakan sebagai berbayar dan beralih ke resit?</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>Penapis</value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>Tambah Rawatan Tersuai</value>
+  </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>Pelan Rawatan Sedia Ada</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>Menunjukkan</value>
+  </data>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>Tambah Cawangan</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>Alamat Cawangan</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>Cawangan</value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>Nama Cawangan</value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>Tambah Organisasi</value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>Organisasi Baru</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>Nama Organisasi</value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>Simpan Cawangan</value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>Organisasi Carian</value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>Jumlah Kakitangan</value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>Edit Organisasi</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>Butiran Organisasi</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>Lihat Laporan</value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>Tekanan Darah</value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>Ujian Darah</value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>Jisim Tulang</value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>Kadar Jantung</value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>Tinggi</value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>Peperiksaan Kecederaan</value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>Rendah</value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>X-Ray paru-paru</value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>Negatif</value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>Biasa</value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>Julat Biasa</value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>Pulih</value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>Keputusan</value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>Tolok Keputusan</value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>Akses Ditolak.</value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>Nombor Perhubungan Cawangan</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>Pelanggan</value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>Positif</value>
+  </data>
+  <data name="Appointment_Label_NoFutureAppointment" xml:space="preserve">
+    <value>Tiada janji temu pada masa hadapan.</value>
+  </data>
+  <data name="Patient_Button_HideFilter" xml:space="preserve">
+    <value>Sorok Penapis</value>
+  </data>
+  <data name="Patient_Button_ShowFilter" xml:space="preserve">
+    <value>Tunjukkan Penapis</value>
+  </data>
+  <data name="TestManagement_Label_Analyzer" xml:space="preserve">
+    <value>Penganalisis</value>
+  </data>
+  <data name="Dashboard_Button_ViewAll" xml:space="preserve">
+    <value>Lihat Semua</value>
+  </data>
+  <data name="Dashboard_Label_AllDoctors" xml:space="preserve">
+    <value>Semua Doktor</value>
+  </data>
+  <data name="Dashboard_Label_AsOf" xml:space="preserve">
+    <value>setakat</value>
+  </data>
+  <data name="Dashboard_Label_ShowMore" xml:space="preserve">
+    <value>Tunjukkan lagi</value>
+  </data>
+  <data name="Dashboard_Label_Summary" xml:space="preserve">
+    <value>Ringkasan</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatients" xml:space="preserve">
+    <value>Jumlah Pesakit</value>
+  </data>
+  <data name="Dashboard_Label_TotalSales" xml:space="preserve">
+    <value>Jumlah Jualan</value>
+  </data>
+  <data name="Dashboard_Label_TotalStaffs" xml:space="preserve">
+    <value>Jumlah Kakitangan</value>
+  </data>
+  <data name="Dashboard_Message_Here" xml:space="preserve">
+    <value>Berikut ialah Papan Pemuka Sistem Pengurusan Pesakit anda.</value>
+  </data>
+  <data name="Dashboard_Message_Welcome" xml:space="preserve">
+    <value>Selamat kembali,</value>
+  </data>
+  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
+    <value>Kemaskini Perisian</value>
+  </data>
+  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="NotificationSetting_Button_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
+    <value>Dayakan pemberitahuan yang anda ingin terima</value>
+  </data>
+  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
+    <value>Kemas kini tetapan berjaya</value>
+  </data>
+  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
+    <value>Tetapan Pemberitahuan</value>
+  </data>
+  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
+    <value>Kemas kini Tetapan Pemberitahuan</value>
+  </data>
+  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
+    <value>Gagal mengemas kini tetapan Pemberitahuan.</value>
+  </data>
+  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
+    <value>Seting Pemberitahuan</value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>Nama Peranti</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>Tinggi</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>Rendah</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>Biasa</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>Julat Biasa</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>ID Operator</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>ID Pesakit</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>Nama Pesakit</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>Keputusan</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>Tolok Keputusan</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>Ujian</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>Masa</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>Keputusan Ujian Keseluruhan</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>Penapis</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>Set semula</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>Menaik</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>Menurun</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>Nama Peranti</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>ID Operator</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>ID Pesakit</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>Status Keputusan (+/-)</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>Cari Mengikut Nama</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>Susun Mengikut</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>Susun Mengikut Tarikh</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>Jenis Ujian</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>Masa</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>Penapis</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>Pengurusan Ujian</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>Pengurusan Ujian</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>Nilai</value>
+  </data>
+  <data name="Dashboard_Label_Daily" xml:space="preserve">
+    <value>Harian</value>
+  </data>
+  <data name="Dashboard_Label_GenderBreakdown" xml:space="preserve">
+    <value>Pecahan Jantina</value>
+  </data>
+  <data name="Dashboard_Label_Monthly" xml:space="preserve">
+    <value>Bulanan</value>
+  </data>
+  <data name="Dashboard_Label_OverallRevenue" xml:space="preserve">
+    <value>Pendapatan Keseluruhan</value>
+  </data>
+  <data name="Dashboard_Label_PatientNumberStatistics" xml:space="preserve">
+    <value>Statistik Nombor Pesakit</value>
+  </data>
+  <data name="Dashboard_Label_RevenueBy" xml:space="preserve">
+    <value>Pendapatan Oleh</value>
+  </data>
+  <data name="Dashboard_Label_StaffBreakdown" xml:space="preserve">
+    <value>Pecahan Kakitangan</value>
+  </data>
+  <data name="Dashboard_Label_TopBreed" xml:space="preserve">
+    <value>Baka Teratas</value>
+  </data>
+  <data name="Dashboard_Label_TopServices" xml:space="preserve">
+    <value>Perkhidmatan Teratas</value>
+  </data>
+  <data name="Dashboard_Label_TopTreatment" xml:space="preserve">
+    <value>Rawatan Teratas</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatientByBreed" xml:space="preserve">
+    <value>Jumlah Pesakit Mengikut Baka</value>
+  </data>
+  <data name="Dashboard_Label_Weekly" xml:space="preserve">
+    <value>Mingguan</value>
+  </data>
+  <data name="Dashboard_Label_Yearly" xml:space="preserve">
+    <value>Tahunan</value>
+  </data>
+  <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
+    <value>Jumlah Pelantikan</value>
+  </data>
+  <data name="Dashboard_Label_LatestUpdateOn" xml:space="preserve">
+    <value>Kemas kini terkini pada</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>Penciptaan Invois</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>Penciptaan Resit</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>Dilampirkan invois.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>Dilampirkan resit.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>Sila tambah sekurang-kurangnya satu produk.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>Sila isi ruangan yang diperlukan.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>Sesuatu yang tidak kena berlaku!</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>Akaun dikunci. Sila hubungi pentadbir.</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>Akaun belum disahkan lagi. Sila sahkan akaun melalui e-mel dan cuba lagi.</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>Akaun tidak ditemui berdasarkan nama pengguna. Sila semak dan cuba lagi.</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>Ralat berlaku. Sila cuba lagi kemudian.</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>Gagal set semula kata laluan.</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>E-mel salah. Sila semak dan cuba lagi.</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>Kata laluan atau nama pengguna yang salah.</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>Perlu mengisi ruangan yang diperlukan.</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>Tiada rekod lagi wujud untuk kategori ini.</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>Perlu memilih sekurang-kurangnya satu perkhidmatan atau satu produk.</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>Nama pelan rawatan tidak boleh kosong.</value>
+  </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>Janji Temu Diterima</value>
+  </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>Terima Temujanji</value>
+  </data>
+  <data name="AccessControl_Label_BranchCity" xml:space="preserve">
+    <value>Bandar</value>
+  </data>
+  <data name="AccessControl_Label_BranchPostcode" xml:space="preserve">
+    <value>Poskod</value>
+  </data>
+  <data name="AccessControl_Label_BranchState" xml:space="preserve">
+    <value>Negeri</value>
+  </data>
+  <data name="AccessControl_Label_SelectCity" xml:space="preserve">
+    <value>Pilih Bandar</value>
+  </data>
+  <data name="AccessControl_Label_SelectState" xml:space="preserve">
+    <value>Pilih Negeri</value>
+  </data>
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>Lokasi</value>
+  </data>
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>Ujian Berjadual</value>
+  </data>
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>Pilih lokasi</value>
+  </data>
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>Pilih Ujian</value>
+  </data>
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>Ujian</value>
+  </data>
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>Tambah Ujian Jadual</value>
+  </data>
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>Hantar</value>
+  </data>
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>Incharges Doktor</value>
+  </data>
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>Pilih Incharges Doctor</value>
+  </data>
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Medan wajib diperlukan.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>Jadual Ujian gagal dihantar, sila cuba sebentar lagi.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>Jadual Ujian berjaya dihantar.</value>
+  </data>
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>Hantar Ujian Jadual</value>
+  </data>
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>Cawangan</value>
+  </data>
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>Organisasi</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Sila pilih cawangan</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Sila pilih organisasi</value>
+  </data>
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>Jenis Peranan</value>
+  </data>
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>Sepanduk baharu</value>
+  </data>
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>Sepanduk</value>
+  </data>
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>Tarikh Tamat</value>
+  </data>
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>Nama Fail</value>
+  </data>
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>Tarikh Mula</value>
+  </data>
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>Pengurusan Sepanduk</value>
+  </data>
+  <data name="BannerProfile_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="BannerProfile_Button_Create" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="BannerProfile_Button_Update" xml:space="preserve">
+    <value>Kemas kini</value>
+  </data>
+  <data name="BannerProfile_Label_Banner" xml:space="preserve">
+    <value>sepanduk</value>
+  </data>
+  <data name="BannerProfile_Label_Description" xml:space="preserve">
+    <value>Penerangan</value>
+  </data>
+  <data name="BannerProfile_Label_EndDate" xml:space="preserve">
+    <value>Tarikh Tamat</value>
+  </data>
+  <data name="BannerProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Sila pilih status</value>
+  </data>
+  <data name="BannerProfile_Label_StartDate" xml:space="preserve">
+    <value>Tarikh Mula</value>
+  </data>
+  <data name="BannerProfile_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BannerProfile_Label_Upload" xml:space="preserve">
+    <value>Muat naik</value>
+  </data>
+  <data name="BannerProfile_Message_Fail" xml:space="preserve">
+    <value>Gagal</value>
+  </data>
+  <data name="BannerProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Medan Wajib Diperlukan.</value>
+  </data>
+  <data name="BannerProfile_Message_NoBannerSelected" xml:space="preserve">
+    <value>Tiada fail Sepanduk dipilih.</value>
+  </data>
+  <data name="BannerProfile_Message_NoChangesUpdates" xml:space="preserve">
+    <value>Tiada perubahan kemas kini.</value>
+  </data>
+  <data name="BannerProfile_Message_RecommendRemark" xml:space="preserve">
+    <value>* Saiz disyorkan: 1450px (Lebar) x 340px (Ketinggian)</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>Kemas Kini Gagal, Sila cuba lagi.</value>
+  </data>
+  <data name="BannerProfile_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>Kemas kini berjaya.</value>
+  </data>
+  <data name="BannerProfile_Message_UploadFailed" xml:space="preserve">
+    <value>Muat naik fail gagal.</value>
+  </data>
+  <data name="BannerProfile_Message_UploadSuccessfully" xml:space="preserve">
+    <value>Muat naik berjaya.</value>
+  </data>
+  <data name="BannerProfile_Title_BannerDetails" xml:space="preserve">
+    <value>Butiran Banner</value>
+  </data>
+  <data name="BannerProfile_Title_UpdateBannerInfo" xml:space="preserve">
+    <value>Kemas kini Maklumat Sepanduk</value>
+  </data>
+  <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
+    <value>Muat Naik Sepanduk</value>
+  </data>
+  <data name="BannersList_Button_Next" xml:space="preserve">
+    <value>Seterusnya</value>
+  </data>
+  <data name="BannersList_Button_Prev" xml:space="preserve">
+    <value>Sebelum</value>
+  </data>
+  <data name="BannersList_Label_CreatedDate" xml:space="preserve">
+    <value>Tarikh Dicipta</value>
+  </data>
+  <data name="BannersList_Label_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="BannersList_Label_View" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="BannersList_Message_NoRecords" xml:space="preserve">
+    <value>Tiada Rekod</value>
+  </data>
+  <data name="BlogList_Button_NewBlog" xml:space="preserve">
+    <value>Blog Baru</value>
+  </data>
+  <data name="BlogList_Button_Next" xml:space="preserve">
+    <value>Seterusnya</value>
+  </data>
+  <data name="BlogList_Button_Prev" xml:space="preserve">
+    <value>Sebelum</value>
+  </data>
+  <data name="BlogList_Label_CreatedDate" xml:space="preserve">
+    <value>Tarikh Dicipta</value>
+  </data>
+  <data name="BlogList_Label_EndDate" xml:space="preserve">
+    <value>Tarikh Tamat</value>
+  </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>Pengurusan Blog</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="BlogList_Label_Num" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="BlogList_Label_StartDate" xml:space="preserve">
+    <value>Tarikh Mula</value>
+  </data>
+  <data name="BlogList_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BlogList_Label_Title" xml:space="preserve">
+    <value>Tajuk</value>
+  </data>
+  <data name="BlogList_Label_URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogList_Label_View" xml:space="preserve">
+    <value>Lihat</value>
+  </data>
+  <data name="BlogList_Message_NoRecords" xml:space="preserve">
+    <value>Tiada rekod</value>
+  </data>
+  <data name="BlogProfile_Button_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="BlogProfile_Button_Create" xml:space="preserve">
+    <value>Tambah</value>
+  </data>
+  <data name="BlogProfile_Button_Update" xml:space="preserve">
+    <value>Kemas kini</value>
+  </data>
+  <data name="BlogProfile_Label_Description" xml:space="preserve">
+    <value>Penerangan</value>
+  </data>
+  <data name="BlogProfile_Label_EndDate" xml:space="preserve">
+    <value>Tarikh Tamat</value>
+  </data>
+  <data name="BlogProfile_Label_FileName" xml:space="preserve">
+    <value>Nama Fail</value>
+  </data>
+  <data name="BlogProfile_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Sila pilih status</value>
+  </data>
+  <data name="BlogProfile_Label_StartDate" xml:space="preserve">
+    <value>Tarikh Mula</value>
+  </data>
+  <data name="BlogProfile_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BlogProfile_Label_Title" xml:space="preserve">
+    <value>Tajuk</value>
+  </data>
+  <data name="BlogProfile_Label_Upload" xml:space="preserve">
+    <value>Muat naik</value>
+  </data>
+  <data name="BlogProfile_Label_URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>Butiran Blog</value>
+  </data>
+  <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
+    <value>Tambah blog berjaya.</value>
+  </data>
+  <data name="BlogProfile_Message_Fail" xml:space="preserve">
+    <value>Gagal</value>
+  </data>
+  <data name="BlogProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Medan Wajib Diperlukan.</value>
+  </data>
+  <data name="BlogProfile_Message_NoChangesUpdate" xml:space="preserve">
+    <value>Tiada perubahan kemas kini.</value>
+  </data>
+  <data name="BlogProfile_Message_NoThumbnailSelected" xml:space="preserve">
+    <value>Tiada foto lakaran kecil dipilih.</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateBlogSuccessfully" xml:space="preserve">
+    <value>Kemas Kini Blog Berjaya</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>Kemas kini gagal, Sila cuba lagi kemudian.</value>
+  </data>
+  <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
+    <value>Muat naik Thumbnail gagal.</value>
+  </data>
+  <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
+    <value>Tambah entri blog</value>
+  </data>
+  <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
+    <value>Kemas kini Maklumat Blog</value>
+  </data>
+  <data name="MenuBar_Label_Banners" xml:space="preserve">
+    <value>Sepanduk</value>
+  </data>
+  <data name="MenuBar_Label_Blogs" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
+    <value>Portal Pelanggan</value>
+  </data>
+  <data name="Roles_Button_PermissionDetails" xml:space="preserve">
+    <value>Butiran Kebenaran</value>
+  </data>
+  <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
+    <value>Jumlah Kebenaran Diberikan</value>
+  </data>
+  <data name="Roles_Title_Permissions" xml:space="preserve">
+    <value>Kebenaran</value>
+  </data>
+  <data name="TreatmentPlan_Label_Branch" xml:space="preserve">
+    <value>Cawangan</value>
+  </data>
+  <data name="TreatmentPlan_Label_Organization" xml:space="preserve">
+    <value>Organisasi</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectBranch" xml:space="preserve">
+    <value>Pilih Cawangan</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectOrganization" xml:space="preserve">
+    <value>Pilih Organisasi</value>
+  </data>
+</root>
