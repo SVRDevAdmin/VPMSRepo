@@ -130,7 +130,7 @@
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
-						<select id="Gender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+						<select id="Gender" class="form-select form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 							<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -166,7 +166,7 @@
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-						<select id="Country" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'country', '', '');">
+						<select id="Country" class="form-select form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'country', '', '');">
 							<option value="" selected>@LangResources["Patient_Selection_SelectCountry"]</option>
 							@foreach (var country in CountryList)
 							{
@@ -179,7 +179,7 @@
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-						<select id="State" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'state', '', '');">
+						<select id="State" class="form-select form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'state', '', '');">
 							<option value="" selected>@LangResources["Patient_Selection_SelectState"]</option>
 							@* <option value="Selangor"> Selangor</option> *@
 						</select>
@@ -188,7 +188,7 @@
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">@LangResources["Patient_Label_City"]</span>
-						<select id="City" class="form-control form-field inputField hideContainer ownerInfoProfile">
+						<select id="City" class="form-select form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected>@LangResources["Patient_Selection_SelectCity"]</option>
 							@* <option value="Shah Alam"> Shah Alam</option> *@
 						</select>
@@ -245,7 +245,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Gender"]</span>
-							<select id="CoGender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<select id="CoGender" class="form-select form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 								<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -281,7 +281,7 @@
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Country"]</span>
-							<select id="CoCountry" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'country', '', '');">
+							<select id="CoCountry" class="form-select form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'country', '', '');">
 								<option value="" selected>@LangResources["Patient_Selection_SelectCountry"]</option>
 								@foreach (var country in CountryList)
 								{
@@ -294,7 +294,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_State"]</span>
-							<select id="CoState" class="form-control form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'state', '', '');">
+							<select id="CoState" class="form-select form-field inputField hideContainer ownerInfoProfile" onchange="changeCountryState(this, 'state', '', '');">
 								<option value="" selected>@LangResources["Patient_Selection_SelectState"]</option>
 								@* <option value="Selangor"> Selangor</option> *@
 							</select>
@@ -303,7 +303,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_City"]</span>
-							<select id="CoCity" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<select id="CoCity" class="form-select form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected>@LangResources["Patient_Selection_SelectCity"]</option>
 								@* <option value="Shah Alam"> Shah Alam</option> *@
 							</select>

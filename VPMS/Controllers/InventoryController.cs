@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.Operations;
 using MySqlX.XDevAPI;
 using System.Drawing;
+using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 
@@ -59,7 +61,37 @@ namespace VPMSWeb.Controllers
 		{
 			int start = (page - 1) * rowLimit;
 
-			var inventoryList = _inventoryDBContext.GetInventoryList(start, rowLimit, out totalInventory, search).ToList();
+			int organizationID = 0;
+			int branchID = 0;
+			int roleIsAdmin = 0;
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+            {
+                organizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            }
+
+			if (!String.IsNullOrEmpty(HttpContext.Session.GetString("BranchID")))
+			{
+                branchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+            }
+
+			roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+
+
+            int isSuperadmin = 0;
+			var organizationObj = OrganizationRepository.GetOrganizationByID(organizationID);
+			if (organizationObj != null)
+			{
+				if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+				{
+					isSuperadmin = 1;
+				}
+				else
+				{
+					isSuperadmin = 0;
+				}
+			}
+
+			var inventoryList = _inventoryDBContext.GetInventoryList(organizationID, branchID, isSuperadmin, start, rowLimit, out totalInventory, search).ToList();
 
 			var inventoryInfo = new InventoryInfoLists() { InventoryInfoList = inventoryList, totalInventory = totalInventory };
 
@@ -68,8 +100,30 @@ namespace VPMSWeb.Controllers
 
         public List<List<InventoryInfoList>> PrintInventoryList(string search = "")
         {
-			List<List<InventoryInfoList>> inventoryInfoLists = new List<List<InventoryInfoList>>();
-            var inventoryList = _inventoryDBContext.GetInventoryList(0, 0, out totalInventory, search).ToList();
+            int organizationID = 0;
+			int branchID = 0;
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+            {
+                organizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            }
+
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("BranchID")))
+            {
+                branchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+            }
+
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(organizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || organizationObj.Level == 2)
+                {
+                    isSuperadmin = 1;
+                }
+            }
+
+            List<List<InventoryInfoList>> inventoryInfoLists = new List<List<InventoryInfoList>>();
+            var inventoryList = _inventoryDBContext.GetInventoryList(organizationID, branchID, isSuperadmin, 0, 0, out totalInventory, search).ToList();
 
 			var distinctBranch = inventoryList.DistinctBy(x => x.Branch).Select(y => y.Branch).ToList();
 

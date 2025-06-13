@@ -5,6 +5,10 @@
 @{
 	ViewData["Title"] = "Create New Treatment Plan Page";
 	ViewBag.SelectedMenu = "patientServicesMenu";
+
+	var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+	var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+	var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
 }
 
 <style>
@@ -105,7 +109,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Inventory_Label_Category"]</span>
-					<select id="Category" class="form-control form-field inputField">
+					<select id="Category" class="form-select form-field inputField">
 						<option value="" selected> -- @LangResources["Service_Label_SelectCategory"] --</option>
 						@foreach (var category in ViewData["Category"] as IEnumerable<VPMS.Lib.Data.Models.ServiceCategory>)
 						{
@@ -192,7 +196,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Inventory_Label_Organisation"]</span>
-					<select id="Organisation" class="form-control form-field inputField" onchange="getBranch(this.value);">
+					<select id="Organisation" class="form-select form-field inputField" onchange="getBranch(this.value);">
 						<option value="" selected> -- @LangResources["Inventory_Label_SelectOrganisation"] --</option>
 						@foreach (var organisation in ViewData["Organisation"] as IEnumerable<VPMS.Lib.Data.Models.OrganisationModel>)
 						{
@@ -203,7 +207,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Inventory_Label_Branch"]</span>
-					<select id="Branch" class="form-control form-field inputField">
+					<select id="Branch" class="form-select form-field inputField">
 						<option value="" selected> -- @LangResources["Inventory_Label_SelectBranch"] --</option>
 					</select>
 				</div>
@@ -215,7 +219,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
-					<select id="Status" class="form-control form-field inputField">
+					<select id="Status" class="form-select form-field inputField">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 						<option value="1"> @LangResources["Patient_Selection_Active"]</option>
 						<option value="2"> @LangResources["Patient_Selection_Inactive"]</option>
@@ -250,6 +254,17 @@
 <script>
 	$("#SubMenuServices").toggleClass('show');
 	document.querySelector("#SubMenuServicesParent").querySelector("#imgArrow").classList.toggle("Up");
+
+	$(document).ready(function(){
+		if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+		{
+			$('#Organisation').val('@sessionOrganizationID');
+			$('#Organisation').trigger('change');
+			$('#Organisation').prop('disabled', true);
+
+			getBranch('@sessionOrganizationID');
+		}
+	});
 
 	var doctorListIDGlobal = [];
 

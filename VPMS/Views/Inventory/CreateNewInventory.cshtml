@@ -120,7 +120,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Inventory_Label_ProductType"] <span style="color: red;">*</span></span>
-							<select id="ProductType" class="form-control form-field inputField isValidate">
+							<select id="ProductType" class="form-select form-field inputField isValidate">
 								<option value="" selected> -- @LangResources["Inventory_Label_SelectProductType"] --</option>
 								@foreach (var category in ViewData["Category"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
 								{
@@ -189,7 +189,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Status"] <span style="color: red;">*</span></span>
-							<select id="Status" class="form-control form-field inputField isValidate">
+							<select id="Status" class="form-select form-field inputField isValidate">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 								<option value="1"> @LangResources["Inventory_Label_InStock"]</option>
 								<option value="2"> @LangResources["Inventory_Label_OutOfStock"]</option>
@@ -205,7 +205,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Inventory_Label_Organisation"] <span style="color: red;">*</span></span>
-							<select id="Organisation" class="form-control form-field inputField isValidate" onchange="getBranch(this.value);">
+							<select id="Organisation" class="form-select form-field inputField isValidate" onchange="getBranch(this.value);">
 								<option value="" selected> -- @LangResources["Inventory_Label_SelectOrganisation"] --</option>
 								@foreach (var organisation in ViewData["Organisation"] as IEnumerable<VPMS.Lib.Data.Models.OrganisationModel>)
 								{
@@ -216,7 +216,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Inventory_Label_Branch"] <span style="color: red;">*</span></span>
-							<select id="Branch" class="form-control form-field inputField isValidate">
+							<select id="Branch" class="form-select form-field inputField isValidate">
 								<option value="" selected> -- @LangResources["Inventory_Label_SelectBranch"] --</option>
 							</select>
 						</div>

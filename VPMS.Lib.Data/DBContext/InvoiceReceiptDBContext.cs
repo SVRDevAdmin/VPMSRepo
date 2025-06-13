@@ -23,7 +23,7 @@ namespace VPMS.Lib.Data.DBContext
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 		options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
-		public ObservableCollection<InvoiceReceiptInfo> GetInvoiceReceiptList(int start, int total, int status, int branch, int organisation, string invoiceReceiptNo, string petName, string ownerName, string doctor, out int totalInvoiceReceipt)
+		public ObservableCollection<InvoiceReceiptInfo> GetInvoiceReceiptList(int start, int total, int status, int branch, int organisation,  int isSuperadmin, string invoiceReceiptNo, string petName, string ownerName, string doctor, out int totalInvoiceReceipt)
 		{
 			ObservableCollection<InvoiceReceiptInfo> sList = new ObservableCollection<InvoiceReceiptInfo>();
 			int No = start + 1;
@@ -32,44 +32,69 @@ namespace VPMS.Lib.Data.DBContext
 			var statusFilter = "";
 			var columnName = "";
 
-			if (branch != 0)
-			{
-				roleFilter += "AND b.ID = " + branch + " ";
-			}
-			else if (organisation != 0)
-			{
-				roleFilter += "AND c.ID = " + organisation + " ";
-			}
+			//if (branch != 0)
+			//{
+			//	roleFilter += "AND b.ID = " + branch + " ";
+			//}
+			//else if (organisation != 0)
+			//{
+			//	roleFilter += "AND c.ID = " + organisation + " ";
+			//}
 
-			if(status == 2)
-			{
-				statusFilter = "a.Status in (2, 4) ";
-                columnName = "InvoiceNo";
-			}
+			//if(status == 2)
+			//{
+			//	statusFilter = "a.Status in (2, 4) ";
+   //             columnName = "InvoiceNo";
+			//}
 
-			if(status == 3)
-            {
-                statusFilter = "a.Status = 3 ";
-                columnName = "ReceiptNo";
-			}
+			//if(status == 3)
+   //         {
+   //             statusFilter = "a.Status = 3 ";
+   //             columnName = "ReceiptNo";
+			//}
 
-			var filter = "WHERE a."+ columnName + " like '%" + invoiceReceiptNo + "%' AND a.PetName like '%" + petName + "%' AND a.OwnerName like '%" + ownerName + "%' AND " + statusFilter + roleFilter + " ";
-			var joinQuery =
-				"join mst_branch b on b.ID = a.Branch " +
-				"join mst_organisation c on c.ID = b.OrganizationID ";
+			//var filter = "WHERE a."+ columnName + " like '%" + invoiceReceiptNo + "%' AND a.PetName like '%" + petName + "%' AND a.OwnerName like '%" + ownerName + "%' AND " + statusFilter + roleFilter + " ";
+			//var joinQuery =
+			//	"join mst_branch b on b.ID = a.Branch " +
+			//	"join mst_organisation c on c.ID = b.OrganizationID ";
 
-			var totalInvoiceReceiptQuery = "(select Count(a.ID) from mst_invoicereceipt a " + joinQuery + filter + ")";
-			var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.UpdatedDate, a.PetName, a.OwnerName, a.Fee, a.Status, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
-				joinQuery + filter + " LIMIT " + start + ", " + total + ";";
+			//var totalInvoiceReceiptQuery = "(select Count(a.ID) from mst_invoicereceipt a " + joinQuery + filter + ")";
+			//var completeQuery = "select a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.UpdatedDate, a.PetName, a.OwnerName, a.Fee, a.Status, " + totalInvoiceReceiptQuery + " as 'TotalInvoiceReceipt' from mst_invoicereceipt a " +
+			//	joinQuery + filter + " LIMIT " + start + ", " + total + ";";
 
-			try
+			String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
+									"a.ID, a.InvoiceNo, a.ReceiptNo, a.CreatedDate, a.UpdatedDate, a.PetName, " +
+									"a.OwnerName, a.Fee, a.Status, COUNT(*) OVER() as 'TotalInvoiceReceipt' " +
+									"FROM mst_invoicereceipt a " +
+									"INNER JOIN mst_branch b on b.ID = a.Branch " +
+									"INNER JOIN mst_organisation c on c.ID = b.OrganizationID " +
+									"WHERE ( " +
+									"(" + (status == 2) + " AND a.Status in (2, 4)) OR " +
+									"(" + (status == 3) + " AND a.Status = '3')" +
+									") " +
+									"AND " +
+									"(" +
+									"(" + (isSuperadmin == 1) + " AND c.Level >= 2 AND b.OrganizationID = '" + organisation + "') OR " +
+									"(" + (isSuperadmin == 0) + " AND b.OrganizationID = '" + organisation + "' AND a.Branch = '" + branch + "') " +
+									") AND " +
+									"(" + (invoiceReceiptNo == null) + " OR (" +
+									"(" + (status == 2) + " AND a.InvoiceNo LIKE '%" + invoiceReceiptNo  + "%') OR " +
+									"(" + (status == 3) + " AND a.ReceiptNo LIKE '%" + invoiceReceiptNo + "%') " +
+									")" +
+									") AND " +
+									"(" + (petName == null) + " OR a.PetName LIKE '%" + petName + "%') AND " +
+									"(" + (ownerName == null) + " OR a.OwnerName LIKE '%" + ownerName + "%') " +
+									"LIMIT " + start + ", " + total;
+
+
+            try
 			{
 				using (MySqlConnection conn = new MySqlConnection(connectionString))
 				{
 					conn.Open();
-					MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
+                    MySqlCommand cmd = new MySqlCommand(sSelectCommand, conn);
 
-					using (var reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
 					{
 						while (reader.Read())
 						{

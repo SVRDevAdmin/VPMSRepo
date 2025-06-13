@@ -316,7 +316,8 @@ namespace VPMS.Lib.Data
         /// <param name="searchDoctor"></param>
         /// <returns></returns>
         public static List<AppointmentMonthViewModel> GetCalendarAppointmentMonthView(IConfiguration config, String sYear, String sMonth, 
-                                                                String searchOwner, String searchPet, String searchServices, String searchDoctor)
+                                                                int isSuperadmin, int branchID, int organizationID, String searchOwner, String searchPet, String searchServices, 
+                                                                String searchDoctor)
         {
             List<AppointmentMonthViewModel> sResult = new List<AppointmentMonthViewModel>();
 
@@ -328,13 +329,22 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.AppointmentID, A.ApptDate, A.ApptStartTime, A.ApptEndTime, C.`Name`, P.Name AS 'PetName', " + 
-                                            "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.BranchID, A.Status " +
+                                            "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.BranchID, A.Status, " +
+                                            "BB.`Name` AS 'BranchName', BB.OrganizationID " +
                                             "FROM mst_appointment AS A " +
                                             "INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
                                             "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " +
                                             "LEFT JOIN mst_pets AS P ON P.ID = A.PetID " + 
                                             "LEFT JOIN mst_patients_owner AS PA ON PA.ID = A.OwnerID " +
-                                            "WHERE (YEAR(A.ApptDate) = '" + Convert.ToInt32(sYear) + "' AND MONTH(A.ApptDate) = '" + Convert.ToInt32(sMonth) + "') AND " +
+                                            "INNER JOIN mst_branch AS BB ON BB.ID = A.BranchID " +
+                                            "LEFT JOIN mst_organisation AS O ON O.ID = BB.OrganizationID " +
+                                            "WHERE " +
+                                            "(" +
+                                            "(" + (isSuperadmin == 1) + " AND O.Level >= 2 AND BB.OrganizationID = '" + organizationID + "' ) OR " +
+                                            "(" + (isSuperadmin == 0) + " AND BB.OrganizationID = '" + organizationID + "' AND A.BranchID = '" + branchID + "') " +
+                                            ") " +
+                                            "AND " +
+                                            "(YEAR(A.ApptDate) = '" + Convert.ToInt32(sYear) + "' AND MONTH(A.ApptDate) = '" + Convert.ToInt32(sMonth) + "') AND " +
                                             "B.IsDeleted = 0 AND " +
                                             "(A.Status = 0 OR A.Status = 3) AND " +
                                             "(" + (searchOwner == null) + " OR A.OwnerID = '" + searchOwner + "') AND " + 

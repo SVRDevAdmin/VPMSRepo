@@ -257,8 +257,6 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new DoctorDBContext(config))
                 {
-                    //return ctx.mst_doctor.Where(x => x.ID == doctorid && x.IsDeleted == 0).FirstOrDefault();
-
                     MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
                     sConn.Open();
 
@@ -299,6 +297,83 @@ namespace VPMS.Lib.Data
             {
 				logger.Error("DoctorRepository >>> GetDoctorByID >>> ", ex);
 				return null;
+            }
+        }
+
+        /// <summary>
+        /// Get list of Doctor by Organization + BranchID
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="iOrganizationID"></param>
+        /// <param name="iBranchId"></param>
+        /// <param name="isSuperadmin"></param>
+        /// <returns></returns>
+        public static List<DoctorModel> GetDoctorListByOrganizationBranch(IConfiguration config, int iOrganizationID, int iBranchId, int isSuperadmin)
+        {
+            List<DoctorModel> sResultList = new List<DoctorModel>();
+
+            try
+            {
+                using (var ctx = new DoctorDBContext(config))
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.ID, A.Name, A.Gender, A.LicenseNo, A.Designation, A.Specialty, A.IsDeleted, " +
+                                            "A.CreatedDate, A.CreatedBy, A.UpdatedDate, A.UpdatedBy, A.BranchID " +
+                                            "FROM mst_doctor AS A " +
+                                            "INNER JOIN mst_branch AS B ON B.ID = A.BranchID " +
+                                            "INNER JOIN mst_organisation AS C ON C.ID = B.OrganizationID " +
+                                            "WHERE A.IsDeleted = 0 AND " + 
+                                            "(" +
+                                            "(" + (isSuperadmin == 1) + " AND C.Level >= 2 AND B.OrganizationID = '" + iOrganizationID + "') OR " +
+                                            "(" + (isSuperadmin == 0) + " AND B.OrganizationID = '" + iOrganizationID + "' AND A.BranchID ='" + iBranchId + "') " +
+                                            ") ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                DoctorModel doctorObj = new DoctorModel();
+                                doctorObj.ID = Convert.ToInt32(sReader["ID"]);
+                                doctorObj.Name = sReader["Name"].ToString();
+                                doctorObj.Gender = sReader["Gender"].ToString();
+                                doctorObj.LicenseNo = sReader["LicenseNo"].ToString();
+                                doctorObj.Designation = sReader["Designation"].ToString();
+                                doctorObj.Specialty = sReader["Specialty"].ToString();
+                                doctorObj.IsDeleted = Convert.ToInt32(sReader["IsDeleted"]);
+                                doctorObj.BranchID = Convert.ToInt32(sReader["BranchID"]);
+
+                                if (sReader["CreatedDate"] != null && sReader["CreatedDate"].ToString() != "")
+                                {
+                                    doctorObj.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                }
+
+                                doctorObj.CreatedBy = sReader["CreatedBy"].ToString();
+
+                                if (sReader["UpdatedDate"] != null && sReader["UpdatedDate"].ToString() != "")
+                                {
+                                    doctorObj.UpdatedDate = Convert.ToDateTime(sReader["UpdatedDate"]);
+                                }
+
+                                doctorObj.UpdatedBy = sReader["UpdatedBy"].ToString();
+
+                                sResultList.Add(doctorObj);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResultList;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("DoctorRepository >>> GetDoctorListByOrganizationBranch >>> ", ex);
+                return null;
             }
         }
     }

@@ -105,7 +105,7 @@
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">Gender</span>
-						<select id="Gender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+						<select id="Gender" class="form-select form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="M"> Male</option>
 							<option value="F"> Female</option>
@@ -117,7 +117,7 @@
 				<div style="display: flex; margin-bottom: 1.5vw;">
 					<div class="field-container quaterSize">
 						<span class="formlabel">Country</span>
-						<select id="Country" class="form-control form-field inputField hideContainer ownerInfoProfile">
+						<select id="Country" class="form-select form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="Malaysia"> Malaysia</option>
 						</select>
@@ -126,7 +126,7 @@
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">State</span>
-						<select id="State" class="form-control form-field inputField hideContainer ownerInfoProfile">
+						<select id="State" class="form-select form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="Selangor"> Selangor</option>
 						</select>
@@ -135,7 +135,7 @@
 
 					<div class="field-container quaterSize">
 						<span class="formlabel">City</span>
-						<select id="City" class="form-control form-field inputField hideContainer ownerInfoProfile">
+						<select id="City" class="form-select form-field inputField hideContainer ownerInfoProfile">
 							<option value="" selected></option>
 							<option value="Shah Alam"> Shah Alam</option>
 						</select>
@@ -179,7 +179,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">Gender</span>
-							<select id="CoGender" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<select id="CoGender" class="form-select form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="M"> Male</option>
 								<option value="F"> Female</option>
@@ -191,7 +191,7 @@
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
 							<span class="formlabel">Country</span>
-							<select id="CoCountry" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<select id="CoCountry" class="form-select form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="Malaysia"> Malaysia</option>
 							</select>
@@ -200,7 +200,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">State</span>
-							<select id="CoState" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<select id="CoState" class="form-select form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="Selangor"> Selangor</option>
 							</select>
@@ -209,7 +209,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">City</span>
-							<select id="CoCity" class="form-control form-field inputField hideContainer ownerInfoProfile">
+							<select id="CoCity" class="form-select form-field inputField hideContainer ownerInfoProfile">
 								<option value="" selected></option>
 								<option value="Shah Alam"> Shah Alam</option>
 							</select>
@@ -266,7 +266,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">Sex</span>
-							<select class="form-control form-field inputField petInfoProfile Sex hideContainer">
+							<select class="form-select form-field inputField petInfoProfile Sex hideContainer">
 								<option value="" selected> -- Select Sex --</option>
 								<option value="M"> Male</option>
 								<option value="F"> Female</option>
@@ -290,7 +290,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">Species</span>
-							<select onchange="changeSpecies(this);" class="form-control form-field inputField petInfoProfile Species hideContainer">
+							<select onchange="changeSpecies(this);" class="form-select form-field inputField petInfoProfile Species hideContainer">
 								<option value="" selected> -- Select Species --</option>
 								@foreach (var species in ViewData["Species"] as List<string>)
 								{
@@ -304,7 +304,7 @@
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
 							<span class="formlabel">Breed</span>
-							<select class="form-control form-field inputField petInfoProfile Breed hideContainer">
+							<select class="form-select form-field inputField petInfoProfile Breed hideContainer">
 								<option value="" selected> -- Select Breed --</option>
 							</select>
 							<span class="formlabel petInfoProfile textColor Breed"></span>
@@ -318,7 +318,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">Color</span>
-							<select class="form-control form-field inputField petInfoProfile Color hideContainer">
+							<select class="form-select form-field inputField petInfoProfile Color hideContainer">
 								<option value="" selected> -- Select Color --</option>
 								@foreach (var color in ViewData["Color"] as List<string>)
 								{
@@ -344,7 +344,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">Status</span>
-							<select class="form-control form-field inputField petInfoProfile Status hideContainer">
+							<select class="form-select form-field inputField petInfoProfile Status hideContainer">
 								<option value="" selected> -- Select Status --</option>
 								<option value="1"> Active</option>
 								<option value="2"> Inactive</option>

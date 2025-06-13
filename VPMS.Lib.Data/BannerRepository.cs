@@ -103,9 +103,15 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new BannerDBContext(config))
                 {
-                    int sBannerObj = ctx.mst_banners.Where(x => x.IsActive == 1).Max(x => x.SeqOrder).Value;
+                    int iSeqNo = 1;
 
-                    sInputObject.SeqOrder = (sBannerObj != null) ? (sBannerObj + 1) : 1;
+                    var existingBanner = ctx.mst_banners.Where(x => x.IsActive == 1).OrderByDescending(x => x.SeqOrder).ToList();
+                    if (existingBanner != null && existingBanner.Count > 0)
+                    {
+                        iSeqNo = existingBanner[0].SeqOrder.Value + 1;
+                    }
+
+                    sInputObject.SeqOrder = iSeqNo;
 
                     ctx.mst_banners.Add(sInputObject);
                     ctx.SaveChanges();
@@ -353,9 +359,15 @@ namespace VPMS.Lib.Data
             {
                 using (var ctx = new BannerDBContext(config))
                 {
-                    int sBlogObj = ctx.mst_blogs.Where(x => x.IsActive == 1).Max(x => x.SeqOrder).Value;
+                    int iBlogSeqNo = 1;
+                    var sBlogObj = ctx.mst_blogs.Where(x => x.IsActive == 1).OrderByDescending(x => x.SeqOrder).ToList();
+                    if (sBlogObj != null && sBlogObj.Count > 0)
+                    {
+                        iBlogSeqNo = sBlogObj[0].SeqOrder.Value + 1;
+                    }
 
-                    sInputObject.SeqOrder = (sBlogObj != null) ? (sBlogObj + 1) : 1;
+
+                    sInputObject.SeqOrder = iBlogSeqNo;
 
                     ctx.mst_blogs.Add(sInputObject);
                     ctx.SaveChanges();

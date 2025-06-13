@@ -1,12 +1,23 @@
 ﻿﻿@using Microsoft.AspNetCore.Localization
 @using VPMS.Lib.Data.Models
 @inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
 
 @{
 	ViewData["Title"] = "View/Edit Treatment Plan Page";
 	ViewBag.SelectedMenu = "patientServicesMenu";
 
-	var treatmentPlanInfo = ViewData["TreatmentPlan"] as VPMS.Lib.Data.Models.TreatmentPlanModel;
+	var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
+	var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
+	var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+
+	var treatmentPlanInfo = ViewData["TreatmentPlan"] as VPMS.Lib.Data.Models.TreatmentPlanExtendedModel;
+
+	List<OrganisationModel> sOrganizationList = new List<OrganisationModel>();
+	if (ViewData["OrganizationList"] != null)
+	{
+		sOrganizationList = ViewData["OrganizationList"] as List<OrganisationModel>;
+	}
 }
 
 <style>
@@ -66,6 +77,14 @@
 	.hideContainer {
 		display: none !important;
 	}
+
+	.productSelectionLabel {
+		font-size: 12px;
+	}
+
+	.medicationSelectionLabel {
+		font-size: 12px;
+	}
 </style>
 
 <div style="display: flex;">
@@ -121,18 +140,49 @@
 				<input id="TreatmentPlanID" type="text" value="@treatmentPlanInfo.ID" hidden />
 				<input id="TreatmentPlanCreatedDate" type="text" value="@treatmentPlanInfo.CreatedDate.ToString("yyyy-MM-ddThh:mm:ss")" hidden />
 
-				<div style="display: flex; margin-bottom: 1.5vw;">
+				<div style="display: flex; ">
 					<div class="field-container" style="width: 100%;">
-						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_TreatmentName"]</span>
+						<span class="form-label textColor">@LangResources["TreatmentPlan_Label_TreatmentName"]</span>
 						<input id="TreatmentName" type="text" class="form-control form-field inputField treatmentPlanInfo hideContainer" value="@treatmentPlanInfo.Name" />
 						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.Name</span>
 					</div>
 				</div>
 
-				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw;">
+				<div style="display: flex; justify-content: space-between">
 					<div class="field-container" style="width: 45%;">
-						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_CreatedBy"]</span>
-						<select id="CreatedBy" class="form-control form-field inputField treatmentPlanInfo hideContainer">
+						<span class="form-label textColor">
+							@LangResources["TreatmentPlan_Label_Organization"]
+						</span>
+						<select id="ddlOrganization" class="form-select form-field inputField treatmentPlanInfo hideContainer" onchange="ddlOrganizationChange(this);">
+							<option value=""> -- @LangResources["TreatmentPlan_Label_SelectOrganization"] -- </option>
+							@foreach (var O in sOrganizationList)
+							{
+								if (treatmentPlanInfo.OrganizationID == O.Id){
+									<option value="@O.Id" selected>@O.Name</option>
+								}
+								else {
+									<option value="@O.Id">@O.Name</option>
+								}
+							}
+						</select>
+						<span class="form-label treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.OrganizationName</span>
+					</div>
+
+					<div class="field-container" style="width: 45%;">
+						<span class="form-label textColor">
+							@LangResources["TreatmentPlan_Label_Branch"]
+						</span>
+						<select id="ddlBranch" class="form-select form-field inputField treatmentPlanInfo hideContainer">
+							<option value=""> -- @LangResources["TreatmentPlan_Label_SelectBranch"] -- </option>
+						</select>
+						<span class="form-label treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.BranchName</span>
+					</div>
+				</div>
+
+				<div style="display: flex; justify-content: space-between;">
+					<div class="field-container" style="width: 45%;">
+						<span class="form-label textColor">@LangResources["TreatmentPlan_Label_CreatedBy"]</span>
+						<select id="CreatedBy" class="form-select form-field inputField treatmentPlanInfo hideContainer">
 							<option value=""> -- @LangResources["TreatmentPlan_Label_SelectUser"] -- </option>
 
 							@foreach (var user in ViewData["UserList"] as List<UserModel>)
@@ -144,24 +194,13 @@
 									<option value="@name" selected> @name </option>
 								}
 							}
-
-							@* @if (@treatmentPlanInfo.CreatedBy == "Admin1")
-							{
-								<option value="Admin1" selected> Admin1 </option>
-								<option value="Admin2"> Admin2 </option>
-							}
-							else
-							{
-								<option value="Admin1"> Admin1 </option>
-								<option value="Admin2" selected> Admin2 </option>
-							} *@
 						</select>
 						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.CreatedBy</span>
 					</div>
 
 					<div class="field-container" style="width: 45%;">
-						<span class="formlabel textColor">@LangResources["Patient_Label_Status"]</span>
-						<select id="Status" class="form-control form-field inputField treatmentPlanInfo hideContainer">
+						<span class="form-label textColor">@LangResources["Patient_Label_Status"]</span>
+						<select id="Status" class="form-select form-field inputField treatmentPlanInfo hideContainer">
 							<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] -- </option>
 							@{
 								var status = "";
@@ -183,7 +222,7 @@
 					</div>
 				</div>
 
-				<div style="display: flex; margin-bottom: 1.5vw;">
+				<div style="display: flex; ">
 					<div class="field-container" style="width: 100%;">
 						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">@LangResources["MenuBar_Label_Service"]</span>
 						<div style=" padding: 1vw;" class="containerBackground">
@@ -197,18 +236,19 @@
 
 							<div class="dropright treatmentPlanInfo hideContainer">
 								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding: 0;">
-									<span id="container">+</span>
-									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_AddService"]</span>
+									<!--<span id="container">+</span>-->
+									<i class="bi bi-plus-circle"></i>
+									<span style="font-size: 12px; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_AddService"]</span>
 								</button>
 								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
 									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
 										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
-										<input type="text" id="searchServices" placeholder="@LangResources["Service_Label_SearchService"]" onkeyup="filter(this,'serviceOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+										<input type="text" id="searchServices" placeholder="@LangResources["Service_Label_SearchService"]" onkeyup="filter(this,'serviceOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent; font-size: 12px;" />
 									</div>
 									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
 
-										<div style="margin-bottom: 1vw;">
-											@{
+										<div id="divServices" style="margin-bottom: 1vw;">
+@* 											@{
 												int indexNo = 1;
 												string index = "";
 
@@ -216,22 +256,22 @@
 												{
 													index = "service" + indexNo;
 
-																<div class="form-check">
-																	<input type="checkbox" class="form-check-input serviceOption" id="@index" name="@index" data-id="@service.ID" value="@service.Name" onchange="checkSelected('serviceOption', 'addServices');">
-																	<label class="form-check-label" for="@index">@service.Name</label><br>
-																</div>
+													<div class="form-check">
+														<input type="checkbox" class="form-check-input serviceOption" id="@index" name="@index" data-id="@service.ID" value="@service.Name" onchange="checkSelected('serviceOption', 'addServices');">
+														<label class="form-check-label" for="@index">@service.Name</label><br>
+													</div>
 
 													indexNo++;
 												}
-											}
+											} *@
 										</div>
 
 									</div>
 									<div style="display: flex; justify-content: space-between; align-items: center;">
 										<button class="btn btn-lg btn-primary" name="service" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
-											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
+											<span style="font-size: 12px; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
 										</button>
-										<button id="addServices" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
+										<button id="addServices" class="btn btn-lg btn-primary disable" style="font-size: 12px;">@LangResources["Patient_Button_AddSelections"]</button>
 									</div>
 								</div>
 							</div>
@@ -254,18 +294,19 @@
 
 							<div class="dropright treatmentPlanInfo hideContainer">
 								<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding: 0;">
-									<span id="container">+</span>
-									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_Add"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
+									<!--<span id="container">+</span>-->
+									<i class="bi bi-plus-circle"></i>
+									<span style="font-size: 12px; margin-left: 0.5vw;">@LangResources["TreatmentPlan_Label_Add"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]</span>
 								</button>
-								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw; background-color: white !important;">
+								<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
 									<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
 										<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
-										<input type="text" id="searchMedicationProduct" placeholder="@LangResources["Patient_Button_Search"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]" onkeyup="filter(this, 'productOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
+										<input type="text" id="searchMedicationProduct" placeholder="@LangResources["Patient_Button_Search"] @LangResources["Patient_Label_Medication"] / @LangResources["Patient_Label_Product"]" onkeyup="filter(this, 'productOption');" style=" width: 100%; border: none; outline-width: 0; background-color: transparent; font-size: 12px;" />
 									</div>
 									<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
 
-										<div style="margin-bottom: 1vw;">
-											@{
+										<div id="divMedicationProduct" style="margin-bottom: 1vw;">
+@* 											@{
 												indexNo = 1;
 												index = "";
 
@@ -273,22 +314,22 @@
 												{
 													index = "product" + indexNo;
 
-																<div class="form-check">
-																	<input type="checkbox" class="form-check-input productOption" id="@index" name="@index" data-id="@inventory.ID" value="@inventory.Name" onchange="checkSelected('productOption', 'addMedicationProduct');">
-																	<label class="form-check-label" for="@index">@inventory.Name</label><br>
-																</div>
+													<div class="form-check">
+														<input type="checkbox" class="form-check-input productOption" id="@index" name="@index" data-id="@inventory.ID" value="@inventory.Name" onchange="checkSelected('productOption', 'addMedicationProduct');">
+														<label class="form-check-label" for="@index">@inventory.Name</label><br>
+													</div>
 
 													indexNo++;
 												}
-											}
+											} *@
 										</div>
 
 									</div>
 									<div style="display: flex; justify-content: space-between; align-items: center;">
 										<button class="btn btn-lg btn-primary" name="medicationProduct" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
-											<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
+											<span style="font-size: 12px; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
 										</button>
-										<button id="addMedicationProduct" class="btn btn-lg btn-primary disable" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
+										<button id="addMedicationProduct" class="btn btn-lg btn-primary disable" style="font-size: 12px;">@LangResources["Patient_Button_AddSelections"]</button>
 									</div>
 								</div>
 							</div>
@@ -300,7 +341,7 @@
 					<div class="field-container" style="width: 100%;">
 						<span class="formlabel textColor">@LangResources["TreatmentPlan_Label_Remarks"]</span>
 						<input id="Remarks" type="text" class="form-control form-field inputField treatmentPlanInfo hideContainer" value="@treatmentPlanInfo.Remarks" />
-						<span class="formlabel treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.Remarks</span>
+						<span class="form-label treatmentPlanInfo" style="font-weight: normal;">@treatmentPlanInfo.Remarks</span>
 					</div>
 				</div>
 			</div>
@@ -335,7 +376,7 @@
 					</div>
 				</div>
 
-				<div style="display: flex; justify-content: space-between; margin-bottom: 1.5vw; background-color: #c8dcfc; padding: 0 1vw;">
+				<div class="divTotalCost">
 					<div class="field-container quaterSize" style="margin-bottom: unset;">
 						<span class="formlabel">@LangResources["TreatmentPlan_Label_Total"]</span>
 					</div>
@@ -375,6 +416,28 @@
 			element[i].classList.toggle("hideContainer");
 		}
 
+		// --- Populate Dropdown ----//
+		if ($('#ddlOrganization').val() != '')
+		{
+			loadBranchDropdownList($('#ddlOrganization').val());
+
+			setTimeout(function(){
+				$('#ddlBranch').val('@treatmentPlanInfo.BranchID');
+				$('#ddlBranch').trigger('changes');
+			}, 700);
+
+			loadServicesDropdownList('@treatmentPlanInfo.OrganizationID', '@treatmentPlanInfo.BranchID');
+			loadMedicationProductDropdownList('@treatmentPlanInfo.OrganizationID', '@treatmentPlanInfo.BranchID');
+
+			if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
+			{
+				$('#ddlOrganization').prop('disabled', true);
+			}
+			else if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '0') {
+				$('#ddlOrganization').prop('disabled', true);
+				$('#ddlBranch').prop('disabled', true);
+			}
+		}
 	}
 
 	function getServiceListByPlan(id){
@@ -772,5 +835,84 @@
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
+	}
+
+	function ddlOrganizationChange(ctl)
+	{
+		loadBranchDropdownList(ctl.value);
+	}
+
+	function loadBranchDropdownList(sID) {
+		$.getJSON("/Roles/GetBranchList", { organizationID: sID })
+			.done(function (result) {
+				if (result != null && result.length > 0) {
+					$('#ddlBranch').find("option:not(:first)").remove();
+					for (var i = 0; i < result.length; i++) {
+						var opt = new Option(result[i].Name, result[i].ID);
+						$('#ddlBranch').append(opt);
+					}
+				}
+				else {
+					$('#ddlBranch').find("option:not(:first)").remove();
+				}
+		});
+	}
+
+	function loadServicesDropdownList(iOrganizationID, iBranchID)
+	{
+		$.getJSON("/PatientServices/GetServicesListByOrganizationBranchID", {
+			organizationID: iOrganizationID,
+			branchID: iBranchID
+		}).done(function(result) {
+			if (result != null && result.length > 0)
+			{
+				var index = "";
+
+				$('#divServices').html('');
+				for (var i = 0; i < result.length; i++)
+				{
+					index = "service" + (i + 1);
+
+					var sChkboxHtml = '';
+					sChkboxHtml = '<div class="form-check">' +
+								  '<input type="checkbox" class="form-check-input serviceOption" id=' + index +'" name="' + index + '" ' +
+								  'data-id="' + result[i].ID + '" value="' + result[i].Name + '" onchange="checkSelected(\'serviceOption\', \'addServices\');">' +
+
+								  '<label class="form-check-label productSelectionLabel" for="' + index + '">' + result[i].Name + '</label><br>' +
+								  '</div>';
+
+					$('#divServices').append(sChkboxHtml);
+				}
+			}
+		});
+	}
+
+	function loadMedicationProductDropdownList(iOrganizationID, iBranchID)
+	{
+		$.getJSON("/PatientServices/GetMedicationProductListByOrganizationBranchID", {
+			organizationID: iOrganizationID,
+			branchID: iBranchID
+		}).done(function(result){
+			if (result != null && result.length > 0)
+			{
+				var index = '';
+
+				$('#divMedicationProduct').html('');
+				for (var i = 0; i < result.length; i++)
+				{
+					index = "product" + (i + 1);
+
+					var sMedicationHtml = '';
+					sMedicationHtml = '<div class="form-check">' +
+									  '<input type="checkbox" class="form-check-input productOption" id="' + index + '" name="' + index + '" ' +
+									  'data-id="' + result[i].ID + '" value="' + result[i].ProductName + '" onchange="checkSelected(\'productOption\', \'addMedicationProduct\');">' +
+
+									  '<label class="form-check-label medicationSelectionLabel" for="' + index + '">' + result[i].ProductName + '</label><br>' +
+									  '</div>';
+
+					$('#divMedicationProduct').append(sMedicationHtml);
+				}
+			}
+		});
 	}
 </script>

@@ -154,7 +154,8 @@
 
 <div style="display: flex; justify-content: center;">
 	<div id="LeftInfoContainer" style="overflow: auto; height: 74vh; margin-right: 1vw; width: 51vw;">
-		<div class="invoiceGroup" style="margin: 2vw; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;">
+		<!-- style="margin: 2vw; background-color: whitesmoke; padding: 1vw; border-radius: 0.5vw;"-->
+		<div class="invoiceGroup">
 			<table id="invoiceList" style="font-size: 1vw; width: 100%;">
 			</table>
 		</div>
@@ -406,15 +407,17 @@
 				var content = document.getElementById("invoiceList");
 
 				content.innerHTML =
+					'<thead>' +
 					'<tr style="border-bottom: 0.1vw solid; border-bottom-color: lightgray;">' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["InvoiceReceipt_Label_InvoiceNo"]</th>' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Date"]</th>' +
 					'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["InvoiceReceipt_Label_Fee"] ($)</th>' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Status"]</th>' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["InvoiceReceipt_Label_Action"]</th>' +
-					'</tr> ';
+					'</tr>' +
+					'</thead>';
 
-				if (data.length == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="5" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				if (data.length == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="5" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] </td> </tr>' }
 				else {
 					for (let i = 0; i < data.length; i++) {
 

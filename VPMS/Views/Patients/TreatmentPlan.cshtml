@@ -136,6 +136,10 @@
 	.dropdown:hover .dropdown-arrow {
 		transform: rotate(180deg);
 	}
+
+	#treatmentPlanList{
+		border: 0px !important;
+	}
 </style>
 
 <template id="treatmentPlanTemplate">
@@ -355,14 +359,14 @@
 								int indexNo = 1;
 								string index = "";
 
-								foreach (var treatmentPlan in ViewData["TreatmentPlans"] as List<VPMS.Lib.Data.Models.TreatmentPlanModel>)
+								foreach (var treatmentPlan in ViewData["TreatmentPlans"] as List<VPMS.Lib.Data.Models.TreatmentPlanExtendedModel>)
 								{
 									index = "service" + indexNo;
 
-														<div class="form-check">
-															<input type="checkbox" class="form-check-input treatmentPlanOption" id="@index" name="@index" data-id="@treatmentPlan.ID" value="@treatmentPlan.Name">
-															<label class="form-check-label" for="@index">@treatmentPlan.Name</label><br>
-														</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input treatmentPlanOption" id="@index" name="@index" data-id="@treatmentPlan.ID" value="@treatmentPlan.Name">
+										<label class="form-check-label" for="@index">@treatmentPlan.Name</label><br>
+									</div>
 
 									indexNo++;
 								}

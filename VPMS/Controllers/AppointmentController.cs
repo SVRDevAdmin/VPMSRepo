@@ -28,13 +28,31 @@ namespace VPMSWeb.Controllers
 					sessionBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
 				}
 
+                int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
                 var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
-                _ = SetPermission(roles, "Appointments.View");
+                SetPermission(roles, "Appointments.View");
+
+                int isSuperadmin = 0;
+                int roleIsAdmin = 0;
+                roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+                var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+                if (organizationObj != null)
+                {
+                    if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                    {
+                        isSuperadmin = 1;
+                    }
+                    else
+                    {
+                        isSuperadmin = 0;
+                    }
+                }
 
                 AppointmentViewModel sModel = new AppointmentViewModel();
 
-				sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), sessionBranchID);
-				sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings());
+				sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
+				sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
 				sModel.SpeciesModel = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Species");
 
 				ViewData["AppointmentViewModel"] = sModel;
@@ -61,7 +79,29 @@ namespace VPMSWeb.Controllers
         public IActionResult GetCalendarAppointmentsMonthView(String sYear, String sMonth, String searchOwner, String searchPet, 
                                                               String searchServices, String searchDoctor)
         {
-            var appViewModel = AppointmentRepository.GetCalendarAppointmentMonthView(ConfigSettings.GetConfigurationSettings(), sYear, sMonth, searchOwner, searchPet, searchServices, searchDoctor);
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+            int isSuperadmin = 0;
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            var appViewModel = AppointmentRepository.GetCalendarAppointmentMonthView(
+                                    ConfigSettings.GetConfigurationSettings(), sYear, sMonth, isSuperadmin, iBranchID, iOrganizationID, 
+                                    searchOwner, searchPet, searchServices, searchDoctor
+                               );
             return Json(appViewModel);
         }
 
@@ -511,9 +551,9 @@ namespace VPMSWeb.Controllers
             ViewData["CanEdit"] = false;
             ViewData["CanView"] = false;
 
-            if (roles.Where(x => x.Contains("General.")).Count() > 0)
+            if (roles.Where(x => x.Contains("General.")).Count() > 0 || HttpContext.Session.GetString("IsAdmin") == "1")
             {
-                ViewData["CanAdd"] = true;
+                ViewData["CanAdd"] = false;
                 ViewData["CanEdit"] = true;
                 ViewData["CanView"] = true;
                 havePermission = true;

@@ -30,7 +30,7 @@ namespace VPMS.Lib.Data.DBContext
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 			options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
-		public ObservableCollection<PetsInfo> GetPetsInfoList(int start, int total, string ownerName, string petName, string species, string breed, int branch, int organisation, out int totalPets)
+		public ObservableCollection<PetsInfo> GetPetsInfoList(int start, int total, string ownerName, string petName, string species, string breed, int isSuperadmin,  int branch, int organisation, out int totalPets)
         {
             ObservableCollection<PetsInfo> sList = new ObservableCollection<PetsInfo>();
             int No = start + 1;
@@ -60,13 +60,33 @@ namespace VPMS.Lib.Data.DBContext
             var completeQuery = "select a.PatientID, a.ID, a.Name, b.Name AS 'OwnerName', a.Gender, a.Age, a.DOB, a.Species, a.Breed, a.CreatedDate, "+ totalPetsQuery + " as 'TotalPets' from mst_pets a " +
                 joinQuery + filter +
 				"Order by a.ID LIMIT " + start + ", " + total + ";";
-			
-			try
+
+			String sSelectCommand = "SELECT ROW_NUMBER() OVER () AS 'row_num', " +
+									"a.PatientID, a.ID, a.Name, b.Name AS 'OwnerName', a.Gender, a.Age, a.DOB, " +
+									"a.Species, a.Breed, a.CreatedDate,  COUNT(*) OVER () AS 'TotalPets' " +
+									"FROM mst_pets a " +
+									"INNER JOIN mst_patients_owner b ON b.PatientID = a.PatientID AND b.IsPrimary = 1 " +
+									"INNER JOIN mst_patients c on c.ID = a.PatientID " +
+									"INNER JOIN mst_branch d on d.ID = c.BranchID " +
+									"INNER JOIN mst_organisation e on e.ID = d.OrganizationID " +
+									"WHERE " +
+									"(" +
+									"(" + (isSuperadmin == 1) + " AND e.Level >= 2 AND d.OrganizationID = '" + organisation + "') OR " +
+									"(" + (isSuperadmin == 0) + " AND d.OrganizationID = '" + organisation + "' AND c.BranchID = '" + branch + "') " +
+									") AND " +
+									"( " +
+									"b.Name LIKE '%" + ownerName + "%' AND a.Name LIKE '%" + petName + "%' AND a.Species LIKE '%" + species + "%' AND a.Breed LIKE '%" + breed + "%' " +
+									") " +
+									"LIMIT " + start + ", " + total + " ";
+
+
+            try
             {
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
+                    MySqlCommand cmd = new MySqlCommand(sSelectCommand, conn);
+                    //MySqlCommand cmd = new MySqlCommand(completeQuery, conn);
 
                     using (var reader = cmd.ExecuteReader())
                     {

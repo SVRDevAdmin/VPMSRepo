@@ -183,7 +183,7 @@
             setTimeout(function () {
                 $('#ddlBranch').val('@sRoleObj.BranchID');
                 $('#ddlBranch').trigger('changes');
-            }, 250);
+            }, 400);
 
             /*------ Get Role Permission -----------*/
             $.getJSON("/Roles/GetRolePermissionsByRoleID", {

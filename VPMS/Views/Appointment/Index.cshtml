@@ -242,7 +242,15 @@
         var sOwner = $('#ddlSearchOwner').val();
         var sPet = $('#ddlSearchPet').val();
         var sServices = $('#ddlSearchServices').val();
-        var sDoctor = $('#ddlSearchDoctor').val();
+
+        var sDoctor = '';
+        if ($('#ddlSearchDoctor').val() != ''){
+            sDoctor = $('#ddlSearchDoctor option:selected').text();
+        }
+        else {
+            sDoctor = '';
+        }
+        
 
         $.getJSON("/Appointment/GetCalendarAppointmentsMonthView", {
             sYear: sYr,
@@ -376,8 +384,11 @@
     }
 
     function ddlSearchOwnerChange(patient){
+        const selectedOption = patient.options[patient.selectedIndex];
+
         $.post("/Appointment/GetPetListByPatientID", {
-            PatientID: patient.value
+            //PatientID: patient.value
+            PatientID: selectedOption.getAttribute('data-patientid')
         }).done(function (result) {
             loadddlSearchPet(result);
         });
@@ -415,7 +426,7 @@
         for (var i = 0; i < data.length; i++)
         {
             var opt = new Option(data[i].DoctorName, data[i].DoctorID);
-            $('#ddlAddDoctor').append(opt);
+            $('#ddlNewDoctor').append(opt);
         }
     }
 
@@ -423,7 +434,7 @@
     {
         $('#ddlSearchDoctor').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++){
-            var opt = new Option(data[i].DoctorInCharge, data[i].DoctorInCharge);
+            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
             $('#ddlSearchDoctor').append(opt);
         }
     }
@@ -1275,20 +1286,24 @@
         <div class="col-md-9" style="height: auto;">
             <div class="row" style="height: auto;">
                 <div class="col-md-12">
-                    <label class="apptPageTitle">@LangResources["Appointment_Title_Appointment"]</label>
+                    <label class="apptPageTitle">
+                        @LangResources["Appointment_Title_Appointment"]
+                    </label>
                 </div>
-@*                 <div class="col-md-12" style="display: flex; align-items: center; margin-bottom: 3vw;">
-                    <img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> <span class="textColor" style="font-size: 2vw;">@LangResources["Appointment_Title_Appointment"]</span>
-                </div> *@
             </div>
         </div>
         <div class="col-md-3" style="height: auto;">
             <div clsas="row" style="height: auto;">
                 <div class="col-md-12 createApptRow">
-                    <button id="btnCreate" type="button" class="btn btn-primary" >
-                        <i class="bi bi-plus-circle"></i>
-                        @LangResources["Appointment_Button_NewAppointment"]
-                    </button>
+                    @{
+				        if ((ViewData["CanAdd"] as Boolean?) == true)
+				        {
+                            <button id="btnCreate" type="button" class="btn btn-primary" >
+                                <i class="bi bi-plus-circle"></i>
+                                @LangResources["Appointment_Button_NewAppointment"]
+                            </button>
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -1327,7 +1342,9 @@
                                     sSearchOwnerViewObj.PatientSelectionModel.Count > 0)
                                 {
                                     foreach (var p in sSearchOwnerViewObj.PatientSelectionModel)
-                                    { <option value=@p.ID>@p.Name</option>}
+                                    {
+                                        <option value=@p.ID data-patientid=@p.PatientID>@p.Name</option>
+                                    }
                                 }
                             }
                         </select>
@@ -1436,9 +1453,7 @@
                                     {
                                         foreach (var p in sAddOwnerViewObj.PatientSelectionModel)
                                         {
-                                            // added patientID value (azwan - 20250305)
                                             <option value=@p.ID data-patientid=@p.PatientID>@p.Name</option>
-                                            // <option value=@p.ID>@p.Name</option>
                                         }
                                     }
                                 }

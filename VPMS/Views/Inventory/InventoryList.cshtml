@@ -11,30 +11,6 @@
 
 <link rel="stylesheet" href="~/css/InventoryList.css" />
 
-<style>
-/* 	.table-content {
-		height: 2vw;
-		padding: 0 2vw;
-	}
-
-	.tableOriginal {
-		width: max-content;
-		font-size: 12px;
-		margin-bottom: 1vw;
-	}
-
-	.form-field {
-		border-style: solid;
-		border-color: black;
-		font-size: 12px;
-	}
-
-	#btnNewInventory, #btnDownload, #btnPrint {
-		font-size: 12px;
-		margin-left: 5px;
-	} */
-</style>
-
 <div class="row">
 	<div class="row ms-2">
 		<div class="col-md-5">
@@ -43,7 +19,7 @@
 				<span class="textColor" style="font-size: 24px; font-weight: bold;">@LangResources["MenuBar_Label_Inventory"]</span>
 			</div>
 		</div>
-		<div class="col-md-7 d-flex justify-content-end" style="border: 0px solid black;">
+		<div class="col-md-7 d-flex justify-content-end">
 			<div style="display: flex;">
 				<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
 				<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 12px; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;">

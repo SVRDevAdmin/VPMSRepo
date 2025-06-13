@@ -110,7 +110,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Inventory_Label_Category"]</span>
-					<select id="Category" class="form-control form-field inputField serviceInfo hideContainer">
+					<select id="Category" class="form-select form-field inputField serviceInfo hideContainer">
 						<option value=""> -- @LangResources["Service_Label_SelectCategory"] --</option>
 
 						@{
@@ -210,7 +210,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Inventory_Label_Organisation"]</span>
-					<select id="Organisation" class="form-control form-field inputField serviceInfo hideContainer" onchange="getBranch(this.value, false);">
+					<select id="Organisation" class="form-select form-field inputField serviceInfo hideContainer" onchange="getBranch(this.value, false);">
 						<option value="" selected> -- @LangResources["Inventory_Label_SelectOrganisation"] --</option>
 						@{
 							var organisationName = "";
@@ -234,7 +234,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Inventory_Label_Branch"]</span>
-					<select id="Branch" class="form-control form-field inputField serviceInfo hideContainer">
+					<select id="Branch" class="form-select form-field inputField serviceInfo hideContainer">
 						<option value="" selected> -- @LangResources["Inventory_Label_SelectBranch"] --</option>
 					</select>
 					<span id="BranchText" class="formlabel serviceInfo" style="font-weight: normal;"></span>
@@ -248,7 +248,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
-					<select id="Status" class="form-control form-field inputField serviceInfo hideContainer">
+					<select id="Status" class="form-select form-field inputField serviceInfo hideContainer">
 						<option value=""> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 						@{
 							var statusName = "";

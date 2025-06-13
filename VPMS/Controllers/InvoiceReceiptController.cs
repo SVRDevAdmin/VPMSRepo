@@ -47,6 +47,13 @@ namespace VPMSWeb.Controllers
 
         public IActionResult InvoiceReceiptListing()
         {
+            var branch = 0;
+            var organisation = 0;
+            var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+            var havaPermission = hasPermission(roles, "ServiceListing.View", out branch, out organisation);
+
+            SetPermission(roles);
+
             return View();
         }
 
@@ -77,11 +84,30 @@ namespace VPMSWeb.Controllers
 			var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
 			var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-			if (role != "User")
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+            int isSuperadmin = 0;
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            if (role != "User")
 			{
 				try
 				{
-					var invoiceList = _invoiceReceiptDBContext.GetInvoiceReceiptList(start, rowLimit, 2, branch, organisation, invoiceNo, petName, ownerName, doctor, out totalInvoiceReceipt).ToList();
+					var invoiceList = _invoiceReceiptDBContext.GetInvoiceReceiptList(start, rowLimit, 2, iBranchID, iOrganizationID, isSuperadmin, invoiceNo, petName, ownerName, doctor, out totalInvoiceReceipt).ToList();
 
 					//if(invoiceList.Count == 0 && start != 0)
 					//{
@@ -101,7 +127,7 @@ namespace VPMSWeb.Controllers
 
 		}
 
-		public InvoiceReceiptInfos GetInvoiceReceiptList(int rowLimit, int page, int status, string invoiceReceiptNo, string petName, string ownerName, string doctor)
+		public InvoiceReceiptInfos GetInvoiceReceiptList(int rowLimit, int page, int status, string receiptNo, string petName, string ownerName, string doctor)
 		{
 			var invoiceReceiptInfos = new InvoiceReceiptInfos()
 			{
@@ -115,11 +141,30 @@ namespace VPMSWeb.Controllers
 			var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
 			var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
 
-			if (role != "User")
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+            int isSuperadmin = 0;
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            if (role != "User")
 			{
 				try
 				{
-					var invoiceList = _invoiceReceiptDBContext.GetInvoiceReceiptList(start, rowLimit, status, branch, organisation, invoiceReceiptNo, petName, ownerName, doctor, out totalInvoiceReceipt).ToList();
+					var invoiceList = _invoiceReceiptDBContext.GetInvoiceReceiptList(start, rowLimit, status, iBranchID, iOrganizationID, isSuperadmin, receiptNo, petName, ownerName, doctor, out totalInvoiceReceipt).ToList();
 
 					invoiceReceiptInfos = new InvoiceReceiptInfos() { invoiceReceiptList = invoiceList, TotalInvoiceReceipt = totalInvoiceReceipt };
 
@@ -523,6 +568,103 @@ namespace VPMSWeb.Controllers
             totalAll += total;
 
             return fullString;
+        }
+
+        public IActionResult GetPatientOwnerList()
+        {
+            try
+            {
+                int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+                int isSuperadmin = 0;
+                int roleIsAdmin = 0;
+                roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+                var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+                if (organizationObj != null)
+                {
+                    if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                    {
+                        isSuperadmin = 1;
+                    }
+                    else
+                    {
+                        isSuperadmin = 0;
+                    }
+                }
+
+                List<PatientSelectionModel> sPatientOwners = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
+                return Json(sPatientOwners);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+           
+        }
+
+        public bool hasPermission(List<string> roles, string permission, out int branchID, out int organisationID)
+        {
+            branchID = 0;
+            organisationID = 0;
+            bool havePermission = false;
+
+            //var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+            if (roles.Contains("General.Superadmin") || roles.Contains("General.Superuser"))
+            {
+                organisationID = (roles.Contains("General.Superuser")) ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+                havePermission = true;
+            }
+            else if (roles.Contains(permission) || HttpContext.Session.GetString("IsDoctor") == "1" || HttpContext.Session.GetString("IsAdmin") == "1")
+            {
+                branchID = int.Parse(HttpContext.Session.GetString("BranchID"));
+                havePermission = true;
+            }
+
+            return havePermission;
+        }
+
+        public void SetPermission(List<string> roles)
+        {
+            ViewData["CanAdd"] = "false";
+            ViewData["CanEdit"] = "false";
+            ViewData["CanView"] = "false";
+            ViewData["CanDownload"] = "false";
+            ViewData["CanPrint"] = "false";
+
+            if (roles.Where(x => x.Contains("General.")).Count() > 0 || HttpContext.Session.GetString("IsDoctor") == "1" || HttpContext.Session.GetString("IsAdmin") == "1")
+            {
+                ViewData["CanAdd"] = "false";
+                ViewData["CanEdit"] = "true";
+                ViewData["CanView"] = "true";
+            }
+            else
+            {
+                if (roles.Contains("Invoice.Add"))
+                {
+                    ViewData["CanAdd"] = "true";
+                }
+
+                if (roles.Contains("Invoice.Edit"))
+                {
+                    ViewData["CanEdit"] = "true";
+                }
+
+                if (roles.Contains("Invoice.View"))
+                {
+                    ViewData["CanView"] = "true";
+                }
+
+                if (roles.Contains("Invoice.Download"))
+                {
+                    ViewData["CanDownload"] = "true";
+                }
+
+                if (roles.Contains("Invoice.Print"))
+                {
+                    ViewData["CanPrint"] = "true";
+                }
+            }
         }
     }
 }

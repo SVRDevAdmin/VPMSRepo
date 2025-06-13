@@ -52,9 +52,27 @@ namespace VPMSWeb.Controllers
         /// <returns></returns>
         public IActionResult GetTestResultListing(int branchID, String patientID, String deviceName, String sortOrder, int pageSize, int pageIndex)
         {
-            int iTotalRecords;
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
 
-            var sResult = TestResultRepository.GetTestResultManagementListing(ConfigSettings.GetConfigurationSettings(), branchID, patientID, deviceName, sortOrder, pageSize, pageIndex, out iTotalRecords);
+            int iTotalRecords;
+            int isSuperadmin = 0;
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            var sResult = TestResultRepository.GetTestResultManagementListing(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin, patientID, deviceName, sortOrder, pageSize, pageIndex, out iTotalRecords);
             if (sResult != null)
             {
                 return Json(new { data = sResult, totalRecord = iTotalRecords });
@@ -111,9 +129,27 @@ namespace VPMSWeb.Controllers
             String sDownloadFile = Path.Combine(sMainFolder, DateTime.Now.ToString("yyyyMMddHHmmss") + iRandom.ToString() + ".xlsx");
             String sPDFDownloadFile = Path.Combine(sMainFolder, DateTime.Now.ToString("yyyyMMddHHmmss") + iRandom.ToString() + ".pdf");
 
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+            int isSuperadmin = 0;
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
 
             var sResult = TestResultRepository.GetTestResultManagementListing(ConfigSettings.GetConfigurationSettings(), 
-                                                                            Convert.ToInt32(data.branchID), data.patientID, 
+                                                                            iOrganizationID, iBranchID, isSuperadmin, data.patientID, 
                                                                             data.deviceName, data.sortOrder, 100, 1, out iTotalRecords);
             DataTable sDataTable = Utility.ToDataTable(sResult);
 

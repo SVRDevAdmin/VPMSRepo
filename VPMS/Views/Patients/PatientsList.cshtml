@@ -74,7 +74,7 @@
 
 					<div class="field-container">
 						<span class="form-label">@LangResources["Patient_Label_Species"]</span>
-						<select id="Species" class="form-control form-field" onchange="changeSpecies();">
+						<select id="Species" class="form-select form-field" onchange="changeSpecies();">
 							<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 							@foreach (var species in ViewData["Species"] as List<string>)
 							{
@@ -85,7 +85,7 @@
 
 					<div class="field-container">
 						<span class="form-label">@LangResources["Patient_Label_Breed"]</span>
-						<select id="Breed" class="form-control form-field">
+						<select id="Breed" class="form-select form-field">
 							<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] -- </option>
 						</select>
 					</div>

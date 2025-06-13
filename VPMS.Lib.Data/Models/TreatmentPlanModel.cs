@@ -45,8 +45,15 @@ namespace VPMS.Lib.Data.Models
 
     public class TreatmentPlanInfos
     {
-        public List<TreatmentPlanModel> treatmentPlans { get; set; }
+        public List<TreatmentPlanExtendedModel> treatmentPlans { get; set; }
         public int totalTreatmentPlan {  get; set; }
-
 	}
+
+    public class TreatmentPlanExtendedModel : TreatmentPlanModel
+    {
+        public int? SeqNo { get; set; }
+        public int? OrganizationID { get; set; }
+        public String? BranchName { get; set; }
+        public String? OrganizationName { get; set; }
+    }
 }

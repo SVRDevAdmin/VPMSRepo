@@ -129,7 +129,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Gender"] <span style="color: red;">*</span></span>
-					<select id="Gender" class="form-control form-field inputField isValidate">
+					<select id="Gender" class="form-select form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectGender"] --</option>
 						<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 						<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -140,7 +140,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Country"] <span style="color: red;">*</span></span>
-					<select id="Country" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'country');">
+					<select id="Country" class="form-select form-field inputField isValidate" onchange="changeCountryState(this, 'country');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
 						@foreach(var country in CountryList)
 						{
@@ -151,7 +151,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_State"] <span style="color: red;">*</span></span>
-					<select id="State" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'state');">
+					<select id="State" class="form-select form-field inputField isValidate" onchange="changeCountryState(this, 'state');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
 						@* <option value="Selangor"> Selangor</option> *@
 					</select>
@@ -159,7 +159,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_City"] <span style="color: red;">*</span></span>
-					<select id="City" class="form-control form-field inputField isValidate">
+					<select id="City" class="form-select form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
 						@* <option value="Shah Alam"> Shah Alam</option> *@
 					</select>
@@ -218,7 +218,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Gender"] <span style="color: red;">*</span></span>
-					<select id="CoGender" class="form-control form-field inputField isValidate">
+					<select id="CoGender" class="form-select form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectGender"] --</option>
 						<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 						<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -229,7 +229,7 @@
 			<div style="display: flex; margin-bottom: 1.5vw;">
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Country"] <span style="color: red;">*</span></span>
-					<select id="CoCountry" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'country');">
+					<select id="CoCountry" class="form-select form-field inputField isValidate" onchange="changeCountryState(this, 'country');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCountry"] --</option>
 						@foreach (var country in CountryList)
 						{
@@ -240,7 +240,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_State"] <span style="color: red;">*</span></span>
-					<select id="CoState" class="form-control form-field inputField isValidate" onchange="changeCountryState(this, 'state');">
+					<select id="CoState" class="form-select form-field inputField isValidate" onchange="changeCountryState(this, 'state');">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectState"] --</option>
 						@* <option value="Selangor"> Selangor</option> *@
 					</select>
@@ -248,7 +248,7 @@
 
 				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_City"] <span style="color: red;">*</span></span>
-					<select id="CoCity" class="form-control form-field inputField isValidate">
+					<select id="CoCity" class="form-select form-field inputField isValidate">
 						<option value="" selected> -- @LangResources["Patient_Selection_SelectCity"] --</option>
 						@* <option value="Shah Alam"> Shah Alam</option> *@
 					</select>
@@ -294,7 +294,7 @@
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField TypeVaccination" /> *@
-			<select class="form-control form-field inputField isValidate TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination');">
+			<select class="form-select form-field inputField isValidate TypeVaccination" onchange="serviceList(this.value,this.parentElement.parentElement.querySelector('.NameVaccination'), 'Vaccination');">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccinationType"] --</option>
 				@foreach (var vaccination in ViewData["VaccinationList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 				{
@@ -306,7 +306,7 @@
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField NameVaccination" /> *@
-			<select class="form-control form-field inputField isValidate NameVaccination">
+			<select class="form-select form-field inputField isValidate NameVaccination">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectVaccination"] --</option>
 			</select>
 		</div>
@@ -333,7 +333,7 @@
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField TypeMedication" /> *@
-			<select class="form-control form-field inputField isValidate TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication');">
+			<select class="form-select form-field inputField isValidate TypeMedication" onchange="medicationList(this.value,this.parentElement.parentElement.querySelector('.NameMedication'), 'Medication');">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectMedicationType"] --</option>
 				@foreach (var medication in ViewData["MedicationList"] as List<VPMS.Lib.Data.Models.InventoryCategory>)
 				{
@@ -345,7 +345,7 @@
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
 			@* <input id="NameMedication" type="text" class="form-control form-field inputField NameMedication" /> *@
-			<select class="form-control form-field inputField isValidate NameMedication">
+			<select class="form-select form-field inputField isValidate NameMedication">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectMedication"] --</option>
 			</select>
 		</div>
@@ -367,7 +367,7 @@
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Type"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField TypeSurgeries" /> *@
-			<select class="form-control form-field inputField isValidate TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery');">
+			<select class="form-select form-field inputField isValidate TypeSurgeries" onchange="serviceList(this.value, this.parentElement.parentElement.querySelector('.NameSurgeries'), 'Surgery');">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgeryType"] --</option>
 				@foreach (var vaccination in ViewData["SurgeryList"] as List<VPMS.Lib.Data.Models.ServiceCategory>)
 				{
@@ -379,7 +379,7 @@
 		<div class="field-container">
 			<span class="formlabel">@LangResources["Patient_Label_Name"] <span style="color: red;">*</span></span>
 			@* <input type="text" class="form-control form-field inputField NameSurgeries" /> *@
-			<select class="form-control form-field inputField isValidate NameSurgeries">
+			<select class="form-select form-field inputField isValidate NameSurgeries">
 				<option value="" selected> -- @LangResources["Patient_Selection_SelectSurgery"] --</option>
 			</select>
 		</div>
@@ -423,7 +423,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Sex"] <span style="color: red;">*</span></span>
-							<select class="form-control form-field inputField isValidate Sex">
+							<select class="form-select form-field inputField isValidate Sex">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectSex"] --</option>
 								<option value="M"> @LangResources["Patient_Selection_Male"]</option>
 								<option value="F"> @LangResources["Patient_Selection_Female"]</option>
@@ -444,7 +444,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Species"] <span style="color: red;">*</span></span>
-							<select onchange="changeSpecies(this);" class="form-control form-field inputField isValidate Species">
+							<select onchange="changeSpecies(this);" class="form-select form-field inputField isValidate Species">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectSpecies"] --</option>
 								@foreach (var species in ViewData["Species"] as List<string>)
 								{
@@ -455,7 +455,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Breed"] <span style="color: red;">*</span></span>
-							<select class="form-control form-field inputField isValidate Breed">
+							<select class="form-select form-field inputField isValidate Breed">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectBreed"] --</option>
 							</select>
 						</div>
@@ -469,7 +469,7 @@
 					<div style="display: flex; margin-bottom: 1.5vw;">
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Color"]</span>
-							<select class="form-control form-field inputField Color">
+							<select class="form-select form-field inputField Color">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectColor"] --</option>
 								@foreach (var color in ViewData["Color"] as List<string>)
 								{
@@ -490,7 +490,7 @@
 
 						<div class="field-container quaterSize">
 							<span class="formlabel">@LangResources["Patient_Label_Status"] <span style="color: red;">*</span></span>
-							<select class="form-control form-field inputField isValidate Status">
+							<select class="form-select form-field inputField isValidate Status">
 								<option value="" selected> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 								<option value="1"> @LangResources["Patient_Selection_Active"]</option>
 								<option value="2"> @LangResources["Patient_Selection_Inactive"]</option>

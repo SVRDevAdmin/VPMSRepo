@@ -108,10 +108,16 @@
 					<i class="fa-solid fa-sliders"></i>
 					@LangResources["Patient_Button_ShowFilter"]
 				</button>
-				<button id="btnQuickInvoice" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateInvoice", "InvoiceReceipt")'">
-					<i class="bi bi-plus-circle"></i>
-					@LangResources["InvoiceReceipt_Button_QuickInvoice"]
-				</button>
+				@{
+					if ((ViewData["CanAdd"] as String) == "true")
+					{
+						<button id="btnQuickInvoice" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("CreateInvoice", "InvoiceReceipt")'">
+							<i class="bi bi-plus-circle"></i>
+							@LangResources["InvoiceReceipt_Button_QuickInvoice"]
+						</button>
+					}
+				}
+
 			</div>
 		</div>
 	</div>
@@ -170,17 +176,17 @@
 
 					<div class="field-container">
 						<span class="form-label">@LangResources["Patient_Label_OwnerName"]</span>
-						<select id="Owner" class="form-control form-field">
+						<select id="Owner" class="form-select form-field">
 							<option value="" selected> -- @LangResources["Appointment_Selection_SelectOwner"] --</option>
 						</select>
 					</div>
 
-					<div class="field-container">
+@* 					<div class="field-container">
 						<span class="form-label">@LangResources["Appointment_Label_Doctor"]</span>
 						<select id="Doctor" class="form-control form-field">
 							<option value="" selected> -- @LangResources["Appointment_Selection_SelectDoctor"] -- </option>
 						</select>
-					</div>
+					</div> *@
 
 					<button class="w-100 btn btn-lg btn-primary" onclick="filter();" style="font-size: 1vw;">@LangResources["Patient_Button_Search"]</button>
 				</div>
@@ -405,6 +411,8 @@
 	var totalPaginationReceipt = 0;
 	var currentPageReceipt = 1;
 
+	LoadPatientOwnerDropdownList();
+
 	getInvoiceList(1, true);
 	getReceiptList(1, true);
 
@@ -478,7 +486,7 @@
 					'</tr>' +
 					'</thead>';
 
-				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] </td> </tr>' }
 				else {
 					for (let i = 0; i < data.invoiceReceiptList.length; i++) {
 						var status, color;
@@ -586,7 +594,7 @@
 					'</tr>' +
 					'</thead>';
 
-				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				if (data.TotalInvoiceReceipt == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="8" class="table-content"> @LangResources["Patient_Message_NoRecord"] </td> </tr>' }
 				else {
 					for (let i = 0; i < data.invoiceReceiptList.length; i++) {
 
@@ -727,8 +735,15 @@
 	function filter() {
 		currentInvoiceReceptNo = document.getElementById("InvoiceReceiptNo").value;
 		currentPetName = document.getElementById("PetName").value;
-		currentOwnerName = document.getElementById("Owner").value;
-		currentDoctor = document.getElementById("Doctor").value;
+		//currentOwnerName = document.getElementById("Owner").value;
+		//currentDoctor = document.getElementById("Doctor").value;
+		if ($('#Owner').val() != ""){
+			currentOwnerName = $('#Owner option:selected').text();
+		}
+		else {
+			currentOwnerName = $('#Owner').val();
+		}
+		currentDoctor = null;
 
 		currentPageInvoice = 1;
 		currentPageReceipt = 1;
@@ -1006,5 +1021,23 @@
 		// tableReceiptElement.classList.toggle("tablePartialWidth");
 		// filterElement.classList.toggle("filterHide");
 		// filterElement.classList.toggle("filterShow");
+	}
+
+	function LoadPatientOwnerDropdownList()
+	{
+		$.getJSON("/InvoiceReceipt/GetPatientOwnerList")
+		 .done(function(result) {
+			 if (result.length > 0)
+			 {
+				$('#Owner').find("option:not(:first)").remove();
+				for (var i = 0; i < result.length; i++) {
+					var opt = new Option(result[i].Name, result[i].ID);
+					$('#Owner').append(opt);
+				}
+			 }
+			 else {
+				 $('#Owner').find("option:not(:first)").remove();
+			 }
+		 });
 	}
 </script>

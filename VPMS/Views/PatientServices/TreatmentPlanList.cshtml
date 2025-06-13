@@ -120,7 +120,8 @@
 
 <script>
 	var paginationLimit = 5;
-	var rowLimit = 8;
+	//var rowLimit = 8;
+	var rowLimit = 2;
 	var startPagination = 1;
 	var endPagination = 0;
 	var totalPagination = 0;
@@ -179,9 +180,12 @@
 					'<tr class="containerBackground">' +
 					'<th class="table-content"> @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content" > @LangResources["TreatmentPlan_Label_TreatmentName"] </th >' +
-					'<th class="table-content"> @LangResources["TreatmentPlan_Label_DateCreated"] </th>' +
-					'<th class="table-content"> @LangResources["TreatmentPlan_Label_CreatedBy"] </th>' +
+					'<th class="table-content">@LangResources["TreatmentPlan_Label_Remarks"]</th>' +
+					// '<th class="table-content"> @LangResources["TreatmentPlan_Label_DateCreated"] </th>' +
+					// '<th class="table-content"> @LangResources["TreatmentPlan_Label_CreatedBy"] </th>' +
 					'<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"] ($) </th>' +
+					'<th class="table-content">@LangResources["TreatmentPlan_Label_Organization"]</th>' +
+					'<th class="table-content">@LangResources["TreatmentPlan_Label_Branch"]</th>' +
 					'<th class="table-content"> @LangResources["Patient_Label_Status"] </th>' +
 					'<th class="table-content">  </th>' +
 					'</tr>' +
@@ -233,11 +237,14 @@
 
 						html =
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
-							'<td class="table-content" > ' + index++ + ' </td>' +
+							'<td class="table-content" > ' + data.treatmentPlans[i].SeqNo + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].Name + ' </td>' +
-							'<td class="table-content"> ' + dateString + ' </td>' +
-							'<td class="table-content"> ' + data.treatmentPlans[i].CreatedBy + ' </td>' +
+							'<td class="table-content"> ' + data.treatmentPlans[i].Remarks + ' </td>' +
+							//'<td class="table-content"> ' + dateString + ' </td>' +
+							//'<td class="table-content"> ' + data.treatmentPlans[i].CreatedBy + ' </td>' +
 							'<td class="table-content"> ' + data.treatmentPlans[i].TotalPrice + ' </td>' +
+							'<td class="table-content"> ' + data.treatmentPlans[i].OrganizationName + ' </td>' +
+							'<td class="table-content"> ' + data.treatmentPlans[i].BranchName + ' </td>' +
 							'<td class="table-content treatmentStatus">' +
 							'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">' +
 							status +

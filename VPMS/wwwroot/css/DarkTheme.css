@@ -1542,9 +1542,18 @@ a {
 	vertical-align: middle;
 }
 
+/*----- Treatment Plan Details ---*/
+.divTotalCost {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1.5vw;
+	background-color: #1f2e45;
+	padding: 0 1vw;
+}
+
 /*------- Services List ---------*/
 #serviceList {
-	border: 1px solid white !important;
+	border: 0px solid white !important;
 }
 
 #serviceList > thead > tr > th {
@@ -1622,6 +1631,20 @@ a {
 }
 
 .invoiceFilterTitle {
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+/*------ Invoice & Billing ------*/
+.invoiceGroup {
+	margin: 2vw;
+	background-color: #1f2e45;
+	padding: 1vw;
+	border-radius: 0.5vw;
+}
+
+#invoiceList > thead > tr > th {
 	color: white;
 	font-size: 12px;
 	font-weight: bold;

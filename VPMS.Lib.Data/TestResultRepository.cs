@@ -92,7 +92,9 @@ namespace VPMS.Lib.Data
         /// <param name="PageIndex"></param>
         /// <param name="totalRecords"></param>
         /// <returns></returns>
-        public static List<TestResultViewModel> GetTestResultManagementListing(IConfiguration config, int branchID, String sPatientID, String sDeviceName, String sSortOrder, int PageSize, int PageIndex, out int totalRecords)
+        public static List<TestResultViewModel> GetTestResultManagementListing(IConfiguration config, int organizationID, int branchID, int isSuperadmin, 
+                                                                            String sPatientID, String sDeviceName, String sSortOrder, int PageSize, 
+                                                                            int PageIndex, out int totalRecords)
         {
             List<TestResultViewModel> sResult = new List<TestResultViewModel>();
             totalRecords = 0;
@@ -114,7 +116,14 @@ namespace VPMS.Lib.Data
                                             "A.PatientID, A.InchargeDoctor, A.OperatorID, " +
                                             "A.DeviceName, COUNT(*) OVER() AS 'TotalRows' " + 
                                             "FROM txn_testresults AS A " +
-                                            "WHERE A.BranchID = '" + branchID  + "' AND " +
+                                            "INNER JOIN mst_branch as B on B.ID = A.BranchID " +
+                                            "INNER JOIN mst_organisation as C on C.ID = B.OrganizationID " +
+                                            "WHERE " +
+                                            "( " +
+                                            "(" + (isSuperadmin == 1) + " AND C.Level >= 2 AND B.OrganizationID = '" + organizationID + "') OR " +
+                                            "(" + (isSuperadmin == 0) + " AND B.OrganizationID = '" + organizationID + "' AND A.BranchID ='" + branchID + "') " +
+                                            ") " +
+                                            "AND " +
                                             "(" + (sPatientID == null) + " OR A.PatientID = '" + sPatientID + "') AND " +
                                             "(" + (sDeviceName == null) + " OR A.DeviceName = '" + sDeviceName + "') " +
                                             "ORDER BY A.ResultDateTime " + sSortOrder + " " +

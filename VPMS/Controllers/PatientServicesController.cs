@@ -43,7 +43,7 @@ namespace VPMSWeb.Controllers
                 return RedirectToAction("AccessDenied", "Login");
             }
 
-            SetPermission(roles);
+            SetTreatmentPlanPermission(roles);
 
             return View();
 		}
@@ -77,6 +77,7 @@ namespace VPMSWeb.Controllers
                 return RedirectToAction("AccessDenied", "Login");
             }
 
+			ViewData["OrganizationList"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1 && x.Status == 1).ToList();
             ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
 			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
 			ViewData["UserList"] = _userDBContext.Mst_User.Where(x => x.BranchID == int.Parse(HttpContext.Session.GetString("BranchID"))).ToList();
@@ -137,9 +138,15 @@ namespace VPMSWeb.Controllers
 				return RedirectToAction("TreatmentPlanList", "PatientServices");
 			}
 
-			var treatmentInfo = _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == treatmentPlanId);
-			ViewData["TreatmentPlan"] = treatmentInfo;
-			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
+			var sTreatmentPlanObj = _treatmentPlanDBContext.GetTreatmentPlanByPlanID(treatmentPlanId);
+			if (sTreatmentPlanObj != null)
+			{
+				ViewData["TreatmentPlan"] = sTreatmentPlanObj;
+            }
+            //var treatmentInfo = _treatmentPlanDBContext.Mst_TreatmentPlan.FirstOrDefault(x => x.ID == treatmentPlanId);
+            //ViewData["TreatmentPlan"] = treatmentInfo;
+            ViewData["OrganizationList"] = _organisationDBContext.Mst_Organisation.Where(x => x.Level != 0 && x.Level != 1 && x.Status == 1).ToList();
+            ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
 			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
 			ViewData["Type"] = type;
 			ViewData["UserList"] = _userDBContext.Mst_User.Where(x => x.BranchID == int.Parse(HttpContext.Session.GetString("BranchID"))).ToList();
@@ -193,8 +200,14 @@ namespace VPMSWeb.Controllers
 
 		public TreatmentPlanInfos GetTreatmentPlanList(int rowLimit, int page, string search = "")
 		{
-			int start = (page - 1) * rowLimit;
-			var treatmentPlansInfos = new TreatmentPlanInfos() { totalTreatmentPlan = 0, treatmentPlans = new List<TreatmentPlanModel>() };
+			int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+			int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+            int start = (page - 1) * rowLimit;
+			var treatmentPlansInfos = new TreatmentPlanInfos() { 
+										totalTreatmentPlan = 0, 
+										treatmentPlans = new List<TreatmentPlanExtendedModel>() 
+									  };
 
             //var role = HttpContext.Session.GetString("RoleName");
             //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
@@ -215,9 +228,25 @@ namespace VPMSWeb.Controllers
             var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
             var havaPermission = hasPermission(roles, "TreatmentListing.View", out branch, out organisation);
 
-			if (havaPermission) 
+            int isSuperadmin = 0;
+			int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            if (havaPermission) 
 			{
-                var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, branch, organisation, out totalTreatmentPlan, search).ToList();
+                var treatmentPlanList = _treatmentPlanDBContext.GetTreatmentPlanList(start, rowLimit, isSuperadmin, iBranchID, iOrganizationID, out totalTreatmentPlan, search).ToList();
                 treatmentPlansInfos = new TreatmentPlanInfos() { treatmentPlans = treatmentPlanList, totalTreatmentPlan = totalTreatmentPlan };
             }
 
@@ -284,6 +313,22 @@ namespace VPMSWeb.Controllers
 
             return servicesInfo;
 		}
+
+        [Route("/PatientServices/GetServicesListByOrganizationBranchID")]
+		[HttpGet()]
+        public List<ServiceList> GetServicesListByOrganizationBranchID(int organizationID, int branchID)
+		{
+			int iTotal = 0;
+			return _servicesDBContext.GetServiceList(1, 500, branchID, organizationID, out iTotal).ToList();
+		}
+
+        [Route("/PatientServices/GetMedicationProductListByOrganizationBranchID")]
+        [HttpGet()]
+        public List<InventoryInfoList> GetMedicationProductListByOrganizationBranchID(int organizationID, int branchID)
+		{
+			int iTotal = 0;
+			return _inventoryDBContext.GetInventoryList(organizationID, branchID, 0, 0, 0, out iTotal).ToList();
+        }
 
 		public List<BranchModel> GetBranchList(int organisationID)
 		{
@@ -604,6 +649,11 @@ namespace VPMSWeb.Controllers
             }
             else
             {
+                if (roles.Contains("Service.Add"))
+				{
+                    ViewData["CanAdd"] = "true";
+                }
+
                 if (roles.Contains("ServiceDetails.Add"))
                 {
                     ViewData["CanAdd"] = "true";
@@ -615,6 +665,37 @@ namespace VPMSWeb.Controllers
                 }
 
                 if (roles.Contains("ServiceDetails.View"))
+                {
+                    ViewData["CanView"] = "true";
+                }
+            }
+        }
+
+		public void SetTreatmentPlanPermission(List<String> roles)
+		{
+            ViewData["CanAdd"] = "false";
+            ViewData["CanEdit"] = "false";
+            ViewData["CanView"] = "false";
+
+            if (roles.Where(x => x.Contains("General.")).Count() > 0 || HttpContext.Session.GetString("IsDoctor") == "1" || HttpContext.Session.GetString("IsAdmin") == "1")
+            {
+                ViewData["CanAdd"] = "true";
+                ViewData["CanEdit"] = "true";
+                ViewData["CanView"] = "true";
+            }
+            else
+            {
+                if (roles.Contains("TreatmentPlan.Add"))
+                {
+                    ViewData["CanAdd"] = "true";
+                }
+
+                if (roles.Contains("TreatmentPlan.Edit"))
+                {
+                    ViewData["CanEdit"] = "true";
+                }
+
+                if (roles.Contains("TreatmentPlan.View"))
                 {
                     ViewData["CanView"] = "true";
                 }

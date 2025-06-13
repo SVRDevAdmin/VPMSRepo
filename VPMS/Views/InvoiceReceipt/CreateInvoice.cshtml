@@ -81,7 +81,7 @@
 <template id="itemTemplate">
 	<tr class="itemGroup" style="border-bottom-width: 0.1vw; height: 3.3vw;">
 		<th class="table-content" style="padding: 0 1vw;"> 
-			<select class="form-control form-field inputField itemInfo validationCheck" onchange="ChangeItems(this);">
+			<select class="form-select form-field inputField itemInfo validationCheck" onchange="ChangeItems(this);">
 				<option value="" selected> -- @LangResources["InvoiceReceipt_Label_SelectProduct"] -- </option>
 				@foreach (var item in ViewData["Items"] as List<VPMS.Lib.Data.Models.InventoryModel>)
 				{
@@ -147,7 +147,7 @@
 				<div style="display: flex; justify-content: space-between;">
 					<div class="quaterSize">
 						<span class="formlabel">@LangResources["InvoiceReceipt_Label_Customer"] <span style="color: red;">*</span></span>
-						<select id="owner" class="form-control form-field inputField validationCheck" onchange="ChangeOwner(this);" style="margin-top: 0.6vw;">
+						<select id="owner" class="form-select form-field inputField validationCheck" onchange="ChangeOwner(this);" style="margin-top: 0.6vw;">
 							<option value="" selected> -- @LangResources["InvoiceReceipt_Label_SelectCustomer"] -- </option>
 							@foreach (var customer in ViewData["Customer"] as List<VPMS.Lib.Data.Models.Patient_Owner>)
 							{
@@ -157,7 +157,7 @@
 					</div>
 					<div class="quaterSize">
 						<span class="formlabel">@LangResources["Appointment_Label_Pet"] <span style="color: red;">*</span></span>
-						<select id="pet" class="form-control form-field inputField validationCheck" style="margin-top: 0.6vw;">
+						<select id="pet" class="form-select form-field inputField validationCheck" style="margin-top: 0.6vw;">
 							<option value="" selected> -- @LangResources["Appointment_Selection_SelectPet"] -- </option>
 						</select>
 					</div>

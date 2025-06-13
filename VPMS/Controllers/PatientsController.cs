@@ -12,7 +12,6 @@ using VPMS.Lib.Data;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
-using VPMS.Lib.Data;
 using ZstdSharp.Unsafe;
 using VPMS.Lib;
 using Microsoft.Extensions.Localization;
@@ -163,6 +162,24 @@ namespace VPMSWeb.Controllers
                 //{
                 //    return RedirectToAction("PatientsList", "Patients");
                 //}
+                int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+                int isSuperadmin = 0;
+                int roleIsAdmin = 0;
+                roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+                var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+                if (organizationObj != null)
+                {
+                    if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                    {
+                        isSuperadmin = 1;
+                    }
+                    else
+                    {
+                        isSuperadmin = 0;
+                    }
+                }
 
                 var branch = 0;
                 var organisation = 0;
@@ -182,7 +199,8 @@ namespace VPMSWeb.Controllers
 				ViewData["MedicationList"] = _inventoryDBContext.Mst_ProductType.ToList();
 				ViewData["TestsList"] = _testsListDBContext.mst_testslist.Where(x => x.IsActive == 1).OrderBy(x => x.System_TestID).ToList();
 				ViewData["LocationList"] = _locationDBContext.mst_locationlist.Where(x => x.System_Status == 1).ToList();
-				ViewData["DoctorList"] = _doctorDBContext.mst_doctor.Where(x => x.IsDeleted == 0).ToList();
+                //ViewData["DoctorList"] = _doctorDBContext.mst_doctor.Where(x => x.IsDeleted == 0).ToList();
+                ViewData["DoctorList"] = DoctorRepository.GetDoctorListByOrganizationBranch(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
 
 
                 petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
@@ -207,10 +225,10 @@ namespace VPMSWeb.Controllers
 
 			try
 			{
-                if (!AllowedPatientList(patientid))
-                {
-                    return RedirectToAction("PatientsList", "Patients");
-                }
+                //if (!AllowedPatientList(patientid))
+                //{
+                //    return RedirectToAction("PatientsList", "Patients");
+                //}
 
                 petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 			}
@@ -231,6 +249,9 @@ namespace VPMSWeb.Controllers
 		{
 			Pets petInfo = new Pets();
             List<int> patientList = new List<int>();
+
+			int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+			int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
 
             try
 			{
@@ -258,10 +279,10 @@ namespace VPMSWeb.Controllers
                 //    return RedirectToAction("PatientsList", "Patients");
                 //}
 
-                if (!AllowedPatientList(patientid))
-                {
-                    return RedirectToAction("PatientsList", "Patients");
-                }
+                //if (!AllowedPatientList(patientid))
+                //{
+                //    return RedirectToAction("PatientsList", "Patients");
+                //}
 
                 petInfo = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
 			}
@@ -273,7 +294,13 @@ namespace VPMSWeb.Controllers
 			ViewData["PetName"] = petname;
 			ViewBag.PatientID = patientid;
 
-			ViewData["TreatmentPlans"] = _treatmentPlanDBContext.Mst_TreatmentPlan.ToList();
+			//ViewData["TreatmentPlans"] = _treatmentPlanDBContext.Mst_TreatmentPlan.ToList();
+			var sPlanList = _treatmentPlanDBContext.GetTreatmentPlanListByOrganizationBranch(iOrganizationID, iBranchID);
+			if (sPlanList != null)
+			{
+				ViewData["TreatmentPlans"] = sPlanList;
+
+            }
 
 			ViewData["Services"] = _servicesDBContext.Mst_Services.ToList();
 			ViewData["Inventories"] = _inventoryDBContext.Mst_Product.ToList();
@@ -317,10 +344,10 @@ namespace VPMSWeb.Controllers
 				//	return RedirectToAction("PatientsList", "Patients");
 				//}
 
-				if (!AllowedPatientList(patientid))
-				{
-					return RedirectToAction("PatientsList", "Patients");
-				}
+				//if (!AllowedPatientList(patientid))
+				//{
+				//	return RedirectToAction("PatientsList", "Patients");
+				//}
 
 			}
             catch (Exception ex)
@@ -988,7 +1015,10 @@ namespace VPMSWeb.Controllers
 
 		public PatientsInfo GetPetsInfoList(int rowLimit, int page, string ownername, string petName, string species, string breed)
         {
-			var patientsInfo = new PatientsInfo()
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+
+            var patientsInfo = new PatientsInfo()
 			{
 				petsInfo = new List<PetsInfo>(), totalPatients = 0
 			};
@@ -1003,13 +1033,28 @@ namespace VPMSWeb.Controllers
             //var role = HttpContext.Session.GetString("RoleName");
             //branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
             //organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
+            int isSuperadmin = 0;
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
 
             if (havePermission)
             //if(role != "User")
             {
                 try
                 {
-                    var petsInfoList = _patientDBContext.GetPetsInfoList(start, rowLimit, ownername, petName, species, breed, branch, organisation, out totalPets).ToList();
+                    var petsInfoList = _patientDBContext.GetPetsInfoList(start, rowLimit, ownername, petName, species, breed, isSuperadmin, iBranchID, iOrganizationID, out totalPets).ToList();
 
                     patientsInfo = new PatientsInfo() { petsInfo = petsInfoList, totalPatients = totalPets };
                 }
@@ -1477,7 +1522,7 @@ namespace VPMSWeb.Controllers
 		{
             List<int> patientList = new List<int>();
 			bool allowed = false;
-
+			//return true;
 			try
 			{
                 var branch = 0;
@@ -1520,14 +1565,15 @@ namespace VPMSWeb.Controllers
 
             if (roles.Where(x => x.Contains("General.")).Count() > 0 || HttpContext.Session.GetString("IsDoctor") == "1" || HttpContext.Session.GetString("IsAdmin") == "1")
             {
-                ViewData["CanAdd"] = "true";
+                ViewData["CanAdd"] = "false";
                 ViewData["CanEdit"] = "true";
                 ViewData["CanView"] = "true";
             }
             else
             {
-                if (roles.Contains("PatientDetails.Add"))
-                {
+                //if (roles.Contains("PatientDetails.Add"))
+				if (roles.Contains("Patients.Add"))
+				{
                     ViewData["CanAdd"] = "true";
                 }
 

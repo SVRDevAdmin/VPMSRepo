@@ -1,0 +1,304 @@
+2025-06-11 14:00:53,472 ERROR VPMS.Lib.Data.OrganizationRepository.GetOrganizationByID [0] - MESSAGE: OrganizationRepository >>> GetOrganizationByID >>> 
+ MySqlConnector.MySqlException (0x80004005): Connect Timeout expired.
+ ---> MySqlConnector.MySqlException (0x80004005): Couldn't connect to server
+ ---> System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at MySqlConnector.Core.ServerSession.InitSslAsync(ProtocolCapabilities serverCapabilities, ConnectionSettings cs, MySqlConnection connection, SslProtocols sslProtocols, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 1445
+   at MySqlConnector.Core.ServerSession.ConnectAsync(ConnectionSettings cs, MySqlConnection connection, Int64 startingTimestamp, ILoadBalancer loadBalancer, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 523
+   at MySqlConnector.Core.ServerSession.ConnectAsync(ConnectionSettings cs, MySqlConnection connection, Int64 startingTimestamp, ILoadBalancer loadBalancer, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 564
+   at MySqlConnector.MySqlConnection.CreateSessionAsync(ConnectionPool pool, Int64 startingTimestamp, Activity activity, Nullable`1 ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlConnection.cs:line 932
+   at MySqlConnector.MySqlConnection.CreateSessionAsync(ConnectionPool pool, Int64 startingTimestamp, Activity activity, Nullable`1 ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlConnection.cs:line 938
+   at MySqlConnector.MySqlConnection.CreateSessionAsync(ConnectionPool pool, Int64 startingTimestamp, Activity activity, Nullable`1 ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlConnection.cs:line 951
+   at MySqlConnector.MySqlConnection.OpenAsync(Nullable`1 ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlConnection.cs:line 419
+   at Microsoft.EntityFrameworkCore.ServerVersion.AutoDetect(String connectionString)
+   at VPMS.Lib.Data.DBContext.OrganisationDBContext.OnConfiguring(DbContextOptionsBuilder options)
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+   at System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   at VPMS.Lib.Data.OrganizationRepository.GetOrganizationByID(Int32 iOrganizationID)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:31:52,833 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:31:56,304 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b.OrganizationID = '0') OR (True AND b.OrganizationID = '0' AND a.BranchID = '0'' at line 1
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, Int32 isSuperadmin, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:33:35,420 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:33:36,892 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b.OrganizationID = '0') OR (True AND b.OrganizationID = '0' AND a.BranchID = '0'' at line 1
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, Int32 isSuperadmin, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:33:50,470 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:33:51,795 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'e.Level' in 'where clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, Int32 isSuperadmin, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:34:10,296 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:34:11,700 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.BranchID' in 'where clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, Int32 isSuperadmin, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:34:58,055 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:35:03,874 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'a.BranchID' in 'where clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, Int32 isSuperadmin, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:35:24,319 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:35:56,429 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:36:12,010 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:36:48,486 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:38:10,652 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:38:41,143 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:39:18,711 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:39:38,438 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:39:43,187 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:39:50,507 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:41:39,036 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:42:36,594 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:43:13,542 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:43:44,109 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:44:39,608 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:44:48,735 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:46:02,700 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:46:09,874 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:47:56,419 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:49:34,895 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 14:51:14,717 ERROR VPMS.Program.GetInvoiceReceiptList [0] - MESSAGE: Controller Error >> 
+ System.MissingMethodException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+   at VPMSWeb.Controllers.InvoiceReceiptController.GetInvoiceReceiptList(Int32 rowLimit, Int32 page, Int32 status, String invoiceReceiptNo, String petName, String ownerName, String doctor)
+
+----------------------------------------------------------------------------
+
+2025-06-11 15:45:45,452 ERROR VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList [0] - MESSAGE: Database Error >> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unable to connect to any of the specified MySQL hosts.
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+ ---> System.TimeoutException: The operation has timed out.
+   at MySql.Data.Common.StreamCreator.GetTcpStreamAsync(MySqlConnectionStringBuilder settings, CancellationToken cancellationToken, Boolean execAsync)
+   at MySql.Data.Common.StreamCreator.GetStreamAsync(MySqlConnectionStringBuilder settings, CancellationToken cancellationToken, Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.NativeDriver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.CreateAsync(MySqlConnectionStringBuilder settings, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.CreateAsync(MySqlConnectionStringBuilder settings, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlConnection.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at VPMS.Lib.Data.DBContext.InvoiceReceiptDBContext.GetInvoiceReceiptList(Int32 start, Int32 total, Int32 status, Int32 branch, Int32 organisation, Int32 isSuperadmin, String invoiceReceiptNo, String petName, String ownerName, String doctor, Int32& totalInvoiceReceipt)
+
+----------------------------------------------------------------------------
+

@@ -176,11 +176,11 @@
 					'<th class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_Name"] </th>' +
 					'<th class="table-content" > @LangResources["Inventory_Label_Category"] </th>' +
+					'<th class="table-content table-content-center" > @LangResources["Service_Label_DurationHr"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_Price"] ($) </th>' +
 					'<th class="table-content" > @LangResources["Service_Label_DoctorInCharge"] </th>' +
 					'<th class="table-content" > @LangResources["Inventory_Label_Organisation"] </th>' +
 					'<th class="table-content" > @LangResources["Inventory_Label_Branch"] </th>' +
-					'<th class="table-content table-content-center" > @LangResources["Service_Label_DurationHr"] </th>' +
 					'<th class="table-content table-content-center" > @LangResources["Patient_Label_Status"] </th>' +
 					'<th class="table-content" > </th>' +
 					'</tr>' +
@@ -210,11 +210,11 @@
 							'<td class="table-content" style="padding-left: 0.5vw;">' + data.ServiceList[i].No + '</td>' +
 							'<td class="table-content" > ' + data.ServiceList[i].Name + '</td>' +
 							'<td class="table-content" > ' + data.ServiceList[i].Category + '</td>' +
+							'<td class="table-content table-content-center" >  ' + data.ServiceList[i].Duration + '</td>' +
 							'<td class="table-content" > ' + data.ServiceList[i].Price + '</td>' +
 							'<td class="table-content" > ' + doctorList + '</td>' +
 							'<td class="table-content" > ' + data.ServiceList[i].Organisation + '</td>' +
 							'<td class="table-content" >  ' + data.ServiceList[i].Branch + '</td>' +
-							'<td class="table-content table-content-center" >  ' + data.ServiceList[i].Duration + '</td>' +
 							'<td class="table-content table-content-center"> ' +
 							'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">' +
 							status +
