@@ -55,8 +55,6 @@ namespace VPMSWeb.Controllers
                                                                    System.Globalization.CultureInfo.InvariantCulture);
                             DateTime dtEnd = DateTime.ParseExact(sRequest.body.enddate, "yyyyMMddHHmmss",
                                                                 System.Globalization.CultureInfo.InvariantCulture);
-                            //dtEnd = dtEnd.AddDays(1).AddMinutes(-1);
-
 
                             var appointList = new List<VPMSWeb.Lib.API.General.AppointmentResultObject>();
                             var sResult = AppointmentRepository.GetAppointmentByDateRange(ConfigSettings.GetConfigurationSettings(), isNewType, dtStart, dtEnd);

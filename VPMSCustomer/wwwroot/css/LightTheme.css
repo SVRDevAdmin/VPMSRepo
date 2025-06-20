@@ -12,11 +12,9 @@
 }
 
 .ProfileFont {
-    /*font-size: 1vw;*/
     font-size: 13px;
     font-weight: bold;
     color: black;
-    /*width: 11vw;*/
     width: 130px;
     text-wrap: wrap;
 }
@@ -32,7 +30,6 @@
 
 .profilemenu {
     background-color: white;
-    /*font-size: 1vw;*/
     font-size: 12px;
 }
 
@@ -104,6 +101,10 @@
 
 #nextButton {
     color: black !important;
+}
+
+.dropdown-toggle::after {
+    color: black;
 }
 
 /*------ General --------*/
@@ -206,7 +207,7 @@
 #btnFilter {
     border: 1px solid black;
     border-radius: 6px;
-    colro: black;
+    color: black;
 }
 
 #btnFilter > i {
@@ -246,7 +247,6 @@
     color: black !important;
     font-size: 12px !important;
     border-bottom: 1px solid #ddd;
-    /*background-color: #f7f7f7 !important;*/
 }
 
 /*------ Invoice & Receipt ---------*/
@@ -320,6 +320,11 @@
     font-size: 18px;
     font-weight: bold;
     color: black;
+}
+
+.NoRecordAppointmentBox {
+    border: 1px dashed black;
+    border-radius: 6px;
 }
 
 /*------ Appointment Details ------*/

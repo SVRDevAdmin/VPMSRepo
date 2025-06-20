@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Resources\Resource.de.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="InventoryImages\Feline Viral Rhinotracheitis (FVR).png" />
     <None Remove="InventoryImages\Panleukopenia (FPV).png" />
   </ItemGroup>
@@ -44,12 +40,6 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\Role.css" />
     <_ContentIncludedByDefault Remove="wwwroot\images\vpms_logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Resource.de.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -103,6 +93,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Resource.pt.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resource.id.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resource.hi.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resource.fr.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resource.es.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resource.de.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.ms-MY.resx">
       <SubType>Designer</SubType>
       <CustomToolNamespace></CustomToolNamespace>
@@ -112,25 +132,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.es.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.fr.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.hi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.Id.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.ja.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.ko.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.pt.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.ru.resx">

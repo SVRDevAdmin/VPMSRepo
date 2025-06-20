@@ -12,11 +12,9 @@
 }
 
 .ProfileFont {
-    /*font-size: 1vw;*/
     font-size: 13px;
     font-weight: bold;
     color: white;
-    /*width: 11vw;*/
     width: 130px;
     text-wrap: wrap;
 }
@@ -32,7 +30,6 @@
 
 .profilemenu {
     background-color: #1f2e45;
-    /*font-size: 1vw;*/
     font-size: 12px;
 }
 
@@ -107,6 +104,10 @@
 
 #nextButton {
     color: white !important;
+}
+
+.dropdown-toggle::after {
+    color: white;
 }
 
 /*------ General --------*/
@@ -327,6 +328,11 @@
     font-size: 18px;
     font-weight: bold;
     color: white;
+}
+
+.NoRecordAppointmentBox {
+    border: 1px dashed white;
+    border-radius: 6px;
 }
 
 /*------ Appointment Details ------*/

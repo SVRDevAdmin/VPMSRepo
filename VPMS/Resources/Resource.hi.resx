@@ -117,6 +117,1680 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Appointment_Button_Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
+    <value>अपॉइंटमेंट रद्द करें</value>
+  </data>
+  <data name="Appointment_Button_Confirm" xml:space="preserve">
+    <value>पुष्टि करना</value>
+  </data>
+  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
+    <value>नई नियुक्ति</value>
+  </data>
+  <data name="Appointment_Button_Reset" xml:space="preserve">
+    <value>रीसेट करें</value>
+  </data>
+  <data name="Appointment_Button_Search" xml:space="preserve">
+    <value>खोज</value>
+  </data>
+  <data name="Appointment_Button_Update" xml:space="preserve">
+    <value>अद्यतन</value>
+  </data>
+  <data name="Appointment_Label_ContactNo" xml:space="preserve">
+    <value>संपर्क नंबर।</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>दिनांक समय</value>
+  </data>
+  <data name="Appointment_Label_Day" xml:space="preserve">
+    <value>दिन</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>चिकित्सक</value>
+  </data>
+  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
+    <value>अपॉइंटमेंट संपादित करें</value>
+  </data>
+  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
+    <value>मेल पता</value>
+  </data>
+  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
+    <value>मौजूदा ग्राहक?</value>
+  </data>
+  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
+    <value>*अनिवार्य फ़ील्ड आवश्यक हैं.</value>
+  </data>
+  <data name="Appointment_Label_Month" xml:space="preserve">
+    <value>महीना</value>
+  </data>
+  <data name="Appointment_Label_NewClient" xml:space="preserve">
+    <value>नए ग्राहक?</value>
+  </data>
+  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
+    <value>मुझे ईमेल द्वारा सूचित करें</value>
+  </data>
+  <data name="Appointment_Label_Owner" xml:space="preserve">
+    <value>मालिक</value>
+  </data>
+  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
+    <value>मालिक का पूरा नाम</value>
+  </data>
+  <data name="Appointment_Label_OwnerName" xml:space="preserve">
+    <value>मालिक का नाम</value>
+  </data>
+  <data name="Appointment_Label_Pet" xml:space="preserve">
+    <value>पालतू</value>
+  </data>
+  <data name="Appointment_Label_PetDOB" xml:space="preserve">
+    <value>पालतू जानवर की जन्म तिथि</value>
+  </data>
+  <data name="Appointment_Label_PetName" xml:space="preserve">
+    <value>अल्पार्थक नाम</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>सेवाएं</value>
+  </data>
+  <data name="Appointment_Label_Species" xml:space="preserve">
+    <value>प्रजातियाँ</value>
+  </data>
+  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
+    <value>अपॉइंटमेंट पर वापस जाएँ</value>
+  </data>
+  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
+    <value>त्वरित अपॉइंटमेंट पर स्विच करें</value>
+  </data>
+  <data name="Appointment_Label_Week" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
+  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
+    <value>नियुक्ति रद्द अद्यतन.</value>
+  </data>
+  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>इस नियुक्ति को रद्द करने की पुष्टि करें?</value>
+  </data>
+  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
+    <value>*उपर्युक्त नियुक्ति दिनांक और समय के लिए डॉक्टर उपलब्ध नहीं हैं।</value>
+  </data>
+  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
+    <value>*सिस्टम में एक ही मरीज की नियुक्ति मौजूद है।</value>
+  </data>
+  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
+    <value>अपॉइंटमेंट अपडेट करने में विफल, कृपया बाद में पुनः प्रयास करें.</value>
+  </data>
+  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>सफलतापूर्वक अद्यतन करें.</value>
+  </data>
+  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
+    <value>कृपया डॉक्टर का चयन करें</value>
+  </data>
+  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
+    <value>कृपया स्वामी का चयन करें</value>
+  </data>
+  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
+    <value>कृपया पालतू जानवर चुनें</value>
+  </data>
+  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
+    <value>कृपया सेवाएँ चुनें</value>
+  </data>
+  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
+    <value>कृपया पालतू प्रजाति का चयन करें</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>नियुक्ति</value>
+  </data>
+  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
+    <value>अपॉइंटमेंट रद्द करें</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>अपॉइंटमेंट बनाएं</value>
+  </data>
+  <data name="Appointment_Title_Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
+    <value>अपॉइंटमेंट बनाएं (नया ग्राहक)</value>
+  </data>
+  <data name="DoctorProfile_Button_Back" xml:space="preserve">
+    <value>पीछे</value>
+  </data>
+  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="DoctorProfile_Button_Create" xml:space="preserve">
+    <value>बनाएं</value>
+  </data>
+  <data name="DoctorProfile_Button_Update" xml:space="preserve">
+    <value>अद्यतन</value>
+  </data>
+  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
+    <value>पद का नाम</value>
+  </data>
+  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
+    <value>लिंग</value>
+  </data>
+  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
+    <value>लाइसेंस सं.</value>
+  </data>
+  <data name="DoctorProfile_Label_Name" xml:space="preserve">
+    <value>नाम</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
+    <value>कृपया लिंग चुनें</value>
+  </data>
+  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
+    <value>स्पेशलिटी</value>
+  </data>
+  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
+    <value>सिस्टम आईडी</value>
+  </data>
+  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
+    <value>डॉक्टर सफलतापूर्वक जोड़ा गया</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
+    <value>*डॉक्टर को जोड़ने में असफल, कृपया बाद में पुनः प्रयास करें.</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
+    <value>*डॉक्टर की जानकारी अपडेट करने में विफल, कृपया बाद में पुनः प्रयास करें।</value>
+  </data>
+  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
+    <value>*अनिवार्य फ़ील्ड आवश्यक है.</value>
+  </data>
+  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
+    <value>सफलतापूर्वक अपडेट करें</value>
+  </data>
+  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
+    <value>डॉक्टर जोड़ें</value>
+  </data>
+  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
+    <value>डॉक्टर का विवरण</value>
+  </data>
+  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
+    <value>अपडेट डॉक्टर</value>
+  </data>
+  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
+    <value>नये डॉक्टर</value>
+  </data>
+  <data name="Doctor_Button_Next" xml:space="preserve">
+    <value>अगला</value>
+  </data>
+  <data name="Doctor_Button_Prev" xml:space="preserve">
+    <value>पिछला</value>
+  </data>
+  <data name="Doctor_Button_Search" xml:space="preserve">
+    <value>खोज</value>
+  </data>
+  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
+    <value>पद का नाम</value>
+  </data>
+  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
+    <value>लिंग</value>
+  </data>
+  <data name="Doctor_Label_ColumnID" xml:space="preserve">
+    <value>पहचान</value>
+  </data>
+  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
+    <value>लाइसेंस संख्या</value>
+  </data>
+  <data name="Doctor_Label_ColumnName" xml:space="preserve">
+    <value>नाम</value>
+  </data>
+  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
+    <value>नाम से डॉक्टर खोजें</value>
+  </data>
+  <data name="Doctor_Label_Specialty" xml:space="preserve">
+    <value>स्पेशलिटी</value>
+  </data>
+  <data name="Doctor_Menu_Delete" xml:space="preserve">
+    <value>मिटाना</value>
+  </data>
+  <data name="Doctor_Menu_Edit" xml:space="preserve">
+    <value>संपादन करना</value>
+  </data>
+  <data name="Doctor_Menu_View" xml:space="preserve">
+    <value>देखना</value>
+  </data>
+  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
+    <value>डॉक्टर रिकॉर्ड को हटाने की पुष्टि करें?</value>
+  </data>
+  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
+    <value>रिकॉर्ड हटाने में विफल, कृपया बाद में पुनः प्रयास करें.</value>
+  </data>
+  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
+    <value>डॉक्टर रिकॉर्ड मिटाएँ</value>
+  </data>
+  <data name="Doctor_Title_Doctor" xml:space="preserve">
+    <value>चिकित्सक</value>
+  </data>
+  <data name="Inventory_Label_SelectOrganisation" xml:space="preserve">
+    <value>संगठन का चयन करें</value>
+  </data>
+  <data name="LanguageCountry_Button_Save" xml:space="preserve">
+    <value>बचाना</value>
+  </data>
+  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
+    <value>कोई देश चयन उपलब्ध नहीं है.</value>
+  </data>
+  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
+    <value>कोई भाषा चयन उपलब्ध नहीं है.</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
+    <value>कोई देश चुनें</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
+    <value>भाषा चुनें</value>
+  </data>
+  <data name="Login_Button_Back" xml:space="preserve">
+    <value>पीछे</value>
+  </data>
+  <data name="Login_Button_RecoverPassword" xml:space="preserve">
+    <value>पासवर्ड की वसूली</value>
+  </data>
+  <data name="Login_Link_ForgotPassword" xml:space="preserve">
+    <value>पासवर्ड भूल गए?</value>
+  </data>
+  <data name="Login_Placeholder_Email" xml:space="preserve">
+    <value>ईमेल</value>
+  </data>
+  <data name="Login_Placeholder_LoginID" xml:space="preserve">
+    <value>लॉगिन आईडी</value>
+  </data>
+  <data name="Login_Placeholder_Password" xml:space="preserve">
+    <value>पासवर्ड</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>लॉग इन करें</value>
+  </data>
+  <data name="Login_Title_PasswordRecovery" xml:space="preserve">
+    <value>पासवर्ड की दोबारा प्राप्ति</value>
+  </data>
+  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
+    <value>अभिगम नियंत्रण</value>
+  </data>
+  <data name="MenuBar_Label_Appointments" xml:space="preserve">
+    <value>नियुक्ति</value>
+  </data>
+  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
+    <value>ग्राहक सेवा</value>
+  </data>
+  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
+    <value>डैशबोर्ड</value>
+  </data>
+  <data name="MenuBar_Label_Doctor" xml:space="preserve">
+    <value>चिकित्सक</value>
+  </data>
+  <data name="MenuBar_Label_Integration" xml:space="preserve">
+    <value>एकीकरण</value>
+  </data>
+  <data name="MenuBar_Label_Inventory" xml:space="preserve">
+    <value>भंडार</value>
+  </data>
+  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
+    <value>चालान और रसीदें</value>
+  </data>
+  <data name="MenuBar_Label_Logout" xml:space="preserve">
+    <value>लॉग आउट</value>
+  </data>
+  <data name="MenuBar_Label_MyProfile" xml:space="preserve">
+    <value>मेरी प्रोफाइल</value>
+  </data>
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
+    <value>संगठन</value>
+  </data>
+  <data name="MenuBar_Label_Patients" xml:space="preserve">
+    <value>मरीजों</value>
+  </data>
+  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
+    <value>रोगी सेवाएं</value>
+  </data>
+  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
+    <value>रोगी उपचार योजना</value>
+  </data>
+  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
+    <value>भूमिका निर्धारण</value>
+  </data>
+  <data name="MenuBar_Label_Service" xml:space="preserve">
+    <value>सेवा</value>
+  </data>
+  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
+    <value>स्टाफ सूची</value>
+  </data>
+  <data name="Notification_Label_All" xml:space="preserve">
+    <value>सभी</value>
+  </data>
+  <data name="Notification_Label_Inventory" xml:space="preserve">
+    <value>भंडार</value>
+  </data>
+  <data name="Notification_Label_Messages" xml:space="preserve">
+    <value>संदेशों</value>
+  </data>
+  <data name="Notification_Label_Next" xml:space="preserve">
+    <value>अगला</value>
+  </data>
+  <data name="Notification_Label_Prev" xml:space="preserve">
+    <value>पिछला</value>
+  </data>
+  <data name="Notification_Title_Notification" xml:space="preserve">
+    <value>सूचनाएं</value>
+  </data>
+  <data name="Patient_Button_AddCoOwner" xml:space="preserve">
+    <value>सह-स्वामी जोड़ें</value>
+  </data>
+  <data name="Patient_Button_AddNew" xml:space="preserve">
+    <value>नया जोड़ो</value>
+  </data>
+  <data name="Patient_Button_AddPet" xml:space="preserve">
+    <value>पालतू जानवर जोड़ें</value>
+  </data>
+  <data name="Patient_Button_AddSelections" xml:space="preserve">
+    <value>चयन जोड़ें</value>
+  </data>
+  <data name="Patient_Button_AddTreatment" xml:space="preserve">
+    <value>उपचार जोड़ें</value>
+  </data>
+  <data name="Patient_Button_Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="Patient_Button_ClearAll" xml:space="preserve">
+    <value>सभी साफ करें</value>
+  </data>
+  <data name="Patient_Button_CreateTreatmentPlan" xml:space="preserve">
+    <value>उपचार योजना बनाएं</value>
+  </data>
+  <data name="Patient_Button_Delete" xml:space="preserve">
+    <value>मिटाना</value>
+  </data>
+  <data name="Patient_Button_Edit" xml:space="preserve">
+    <value>संपादन करना</value>
+  </data>
+  <data name="Patient_Button_Finish" xml:space="preserve">
+    <value>खत्म करना</value>
+  </data>
+  <data name="Patient_Button_GoBack" xml:space="preserve">
+    <value>वापस जाओ</value>
+  </data>
+  <data name="Inventory_Button_NewInventory" xml:space="preserve">
+    <value>नई इन्वेंटरी</value>
+  </data>
+  <data name="Patient_Button_NewPatient" xml:space="preserve">
+    <value>नया रोगी</value>
+  </data>
+  <data name="Patient_Button_Next" xml:space="preserve">
+    <value>अगला</value>
+  </data>
+  <data name="Patient_Button_NextStep" xml:space="preserve">
+    <value>अगला चरण</value>
+  </data>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>चल रहा उपचार</value>
+  </data>
+  <data name="Patient_Button_PastTreatment" xml:space="preserve">
+    <value>पिछला उपचार</value>
+  </data>
+  <data name="Patient_Button_Previous" xml:space="preserve">
+    <value>पिछला</value>
+  </data>
+  <data name="Patient_Button_RemoveCoOwner" xml:space="preserve">
+    <value>सह-स्वामी को हटाएँ</value>
+  </data>
+  <data name="Patient_Button_Save" xml:space="preserve">
+    <value>बचाना</value>
+  </data>
+  <data name="Patient_Button_SaveMedication" xml:space="preserve">
+    <value>दवा बचाएँ</value>
+  </data>
+  <data name="Patient_Button_SaveSurgery" xml:space="preserve">
+    <value>सर्जरी बचाओ</value>
+  </data>
+  <data name="Patient_Button_SaveVaccination" xml:space="preserve">
+    <value>टीकाकरण बचाएँ</value>
+  </data>
+  <data name="Patient_Button_Search" xml:space="preserve">
+    <value>खोज</value>
+  </data>
+  <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
+    <value>आगामी उपचार</value>
+  </data>
+  <data name="Patient_Button_View" xml:space="preserve">
+    <value>देखना</value>
+  </data>
+  <data name="Patient_Button_ViewPetProfile" xml:space="preserve">
+    <value>पालतू जानवर का प्रोफ़ाइल देखें</value>
+  </data>
+  <data name="Patient_Label_Address" xml:space="preserve">
+    <value>पता</value>
+  </data>
+  <data name="Patient_Label_AddressLine1" xml:space="preserve">
+    <value>पता पंक्ति 1</value>
+  </data>
+  <data name="Patient_Label_AddressLine2" xml:space="preserve">
+    <value>पता पंक्ति नं। 2</value>
+  </data>
+  <data name="Patient_Label_Age" xml:space="preserve">
+    <value>आयु</value>
+  </data>
+  <data name="Patient_Label_AgeYear" xml:space="preserve">
+    <value>आयु (वर्ष)</value>
+  </data>
+  <data name="Patient_Label_Allergies" xml:space="preserve">
+    <value>एलर्जी</value>
+  </data>
+  <data name="Patient_Label_BMI" xml:space="preserve">
+    <value>बीएमआई</value>
+  </data>
+  <data name="Inventory_Label_Branch" xml:space="preserve">
+    <value>शाखा</value>
+  </data>
+  <data name="Patient_Label_Breed" xml:space="preserve">
+    <value>नस्ल</value>
+  </data>
+  <data name="Inventory_Label_Category" xml:space="preserve">
+    <value>वर्ग</value>
+  </data>
+  <data name="Patient_Label_City" xml:space="preserve">
+    <value>शहर</value>
+  </data>
+  <data name="Patient_Label_Color" xml:space="preserve">
+    <value>रंग</value>
+  </data>
+  <data name="Patient_Label_ContactNo" xml:space="preserve">
+    <value>संपर्क नंबर</value>
+  </data>
+  <data name="Patient_Label_CoOwnerInformationOptional" xml:space="preserve">
+    <value>सह-स्वामी की जानकारी (वैकल्पिक)</value>
+  </data>
+  <data name="Patient_Label_CoOwnerName" xml:space="preserve">
+    <value>सह-स्वामी का नाम</value>
+  </data>
+  <data name="Patient_Label_Country" xml:space="preserve">
+    <value>देश</value>
+  </data>
+  <data name="Inventory_Label_Create" xml:space="preserve">
+    <value>बनाएं</value>
+  </data>
+  <data name="Patient_Label_CreatedOn" xml:space="preserve">
+    <value>पर बनाया</value>
+  </data>
+  <data name="Patient_Label_Date" xml:space="preserve">
+    <value>तारीख</value>
+  </data>
+  <data name="Patient_Label_DOB" xml:space="preserve">
+    <value>जन्म तिथि</value>
+  </data>
+  <data name="Patient_Label_Doctor" xml:space="preserve">
+    <value>चिकित्सक</value>
+  </data>
+  <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>नियत तारीख</value>
+  </data>
+  <data name="Patient_Label_ExpiryDate" xml:space="preserve">
+    <value>समाप्ति तिथि</value>
+  </data>
+  <data name="Patient_Label_Gender" xml:space="preserve">
+    <value>लिंग</value>
+  </data>
+  <data name="Patient_Label_GrandTotal" xml:space="preserve">
+    <value>कुल योग</value>
+  </data>
+  <data name="Patient_Label_HealthCard" xml:space="preserve">
+    <value>स्वास्थ्य कार्ड</value>
+  </data>
+  <data name="Patient_Label_Height" xml:space="preserve">
+    <value>ऊंचाई</value>
+  </data>
+  <data name="Inventory_Label_Image" xml:space="preserve">
+    <value>छवि</value>
+  </data>
+  <data name="Inventory_Label_InStock" xml:space="preserve">
+    <value>स्टॉक में</value>
+  </data>
+  <data name="Inventory_Label_InventoryDetails" xml:space="preserve">
+    <value>इन्वेंटरी विवरण</value>
+  </data>
+  <data name="Inventory_Label_InventoryName" xml:space="preserve">
+    <value>इन्वेंटरी का नाम</value>
+  </data>
+  <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
+    <value>चालान और बिलिंग</value>
+  </data>
+  <data name="Patient_Label_Medication" xml:space="preserve">
+    <value>दवाई</value>
+  </data>
+  <data name="Patient_Label_MedicationName" xml:space="preserve">
+    <value>दवा का नाम</value>
+  </data>
+  <data name="Patient_Label_Name" xml:space="preserve">
+    <value>नाम</value>
+  </data>
+  <data name="Patient_Label_Number" xml:space="preserve">
+    <value>संख्या</value>
+  </data>
+  <data name="Patient_Label_Obese" xml:space="preserve">
+    <value>मोटापे से ग्रस्त?</value>
+  </data>
+  <data name="Patient_Label_Obesity" xml:space="preserve">
+    <value>मोटापा</value>
+  </data>
+  <data name="Inventory_Label_Organisation" xml:space="preserve">
+    <value>संगठन</value>
+  </data>
+  <data name="Inventory_Label_OutOfStock" xml:space="preserve">
+    <value>स्टॉक ख़त्म</value>
+  </data>
+  <data name="Patient_Label_OwnerName" xml:space="preserve">
+    <value>मालिक का नाम</value>
+  </data>
+  <data name="Patient_Label_Payment" xml:space="preserve">
+    <value>भुगतान</value>
+  </data>
+  <data name="Patient_Label_Pet" xml:space="preserve">
+    <value>पालतू</value>
+  </data>
+  <data name="Patient_Label_PetAge" xml:space="preserve">
+    <value>पालतू जानवर की आयु (वर्ष)</value>
+  </data>
+  <data name="Patient_Label_PetName" xml:space="preserve">
+    <value>अल्पार्थक नाम</value>
+  </data>
+  <data name="Patient_Label_Postcode" xml:space="preserve">
+    <value>पोस्टकोड</value>
+  </data>
+  <data name="Patient_Label_Price" xml:space="preserve">
+    <value>कीमत</value>
+  </data>
+  <data name="Inventory_Label_PricePerQty" xml:space="preserve">
+    <value>मूल्य ($) प्रति मात्रा</value>
+  </data>
+  <data name="Patient_Label_Product" xml:space="preserve">
+    <value>उत्पाद</value>
+  </data>
+  <data name="Inventory_Label_ProductName" xml:space="preserve">
+    <value>प्रोडक्ट का नाम</value>
+  </data>
+  <data name="Inventory_Label_ProductType" xml:space="preserve">
+    <value>उत्पाद का प्रकार</value>
+  </data>
+  <data name="Inventory_Label_Quantity" xml:space="preserve">
+    <value>मात्रा</value>
+  </data>
+  <data name="Patient_Label_RegistrationNo" xml:space="preserve">
+    <value>पंजीकरण संख्या।</value>
+  </data>
+  <data name="Inventory_Label_SearchInventory" xml:space="preserve">
+    <value>इन्वेंटरी खोजें</value>
+  </data>
+  <data name="Inventory_Label_SearchSpecies" xml:space="preserve">
+    <value>प्रजाति खोजें</value>
+  </data>
+  <data name="Patient_Label_SearchTreatment" xml:space="preserve">
+    <value>उपचार खोजें</value>
+  </data>
+  <data name="Inventory_Label_SelectProductType" xml:space="preserve">
+    <value>उत्पाद प्रकार चुनें</value>
+  </data>
+  <data name="Patient_Label_Service" xml:space="preserve">
+    <value>सेवा</value>
+  </data>
+  <data name="Patient_Label_Sex" xml:space="preserve">
+    <value>सेक्स</value>
+  </data>
+  <data name="Patient_Label_Species" xml:space="preserve">
+    <value>प्रजातियाँ</value>
+  </data>
+  <data name="Patient_Label_State" xml:space="preserve">
+    <value>राज्य</value>
+  </data>
+  <data name="Patient_Label_Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="Patient_Label_Surgeries" xml:space="preserve">
+    <value>सर्जरी</value>
+  </data>
+  <data name="Patient_Label_Tax" xml:space="preserve">
+    <value>कर</value>
+  </data>
+  <data name="Patient_Label_TestManagement" xml:space="preserve">
+    <value>परीक्षण प्रबंधन</value>
+  </data>
+  <data name="Patient_Label_Time" xml:space="preserve">
+    <value>समय</value>
+  </data>
+  <data name="Patient_Label_TotalCost" xml:space="preserve">
+    <value>कुल लागत</value>
+  </data>
+  <data name="Patient_Label_TreatmentPeriod" xml:space="preserve">
+    <value>उपचार अवधि</value>
+  </data>
+  <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
+    <value>उपचार योजना</value>
+  </data>
+  <data name="Patient_Label_Type" xml:space="preserve">
+    <value>प्रकार</value>
+  </data>
+  <data name="Patient_Label_Unit" xml:space="preserve">
+    <value>इकाई</value>
+  </data>
+  <data name="Inventory_Label_UploadImage" xml:space="preserve">
+    <value>तस्विर अपलोड करना</value>
+  </data>
+  <data name="Inventory_Label_Usage" xml:space="preserve">
+    <value>प्रयोग</value>
+  </data>
+  <data name="Patient_Label_Vaccination" xml:space="preserve">
+    <value>टीकाकरण</value>
+  </data>
+  <data name="Patient_Label_VaccinationTreatment" xml:space="preserve">
+    <value>टीकाकरण/उपचार</value>
+  </data>
+  <data name="Patient_Label_Weight" xml:space="preserve">
+    <value>वज़न</value>
+  </data>
+  <data name="Patient_Label_Year" xml:space="preserve">
+    <value>वर्ष</value>
+  </data>
+  <data name="Patient_Message_IdleMessage" xml:space="preserve">
+    <value>यदि आप लगातार निष्क्रिय रहेंगे तो आप स्वचालित रूप से लॉगआउट हो जाएंगे।</value>
+  </data>
+  <data name="Patient_Message_NoRecord" xml:space="preserve">
+    <value>कोई रिकार्ड उपलब्ध नहीं है.</value>
+  </data>
+  <data name="Patient_Selection_Active" xml:space="preserve">
+    <value>सक्रिय</value>
+  </data>
+  <data name="Patient_Selection_Female" xml:space="preserve">
+    <value>महिला</value>
+  </data>
+  <data name="Patient_Selection_Inactive" xml:space="preserve">
+    <value>निष्क्रिय</value>
+  </data>
+  <data name="Patient_Selection_Male" xml:space="preserve">
+    <value>पुरुष</value>
+  </data>
+  <data name="Patient_Selection_No" xml:space="preserve">
+    <value>संख्या</value>
+  </data>
+  <data name="Patient_Selection_SelectBreed" xml:space="preserve">
+    <value>नस्ल चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectCity" xml:space="preserve">
+    <value>शहर चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectColor" xml:space="preserve">
+    <value>रंग चुनो</value>
+  </data>
+  <data name="Patient_Selection_SelectCountry" xml:space="preserve">
+    <value>देश चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectGender" xml:space="preserve">
+    <value>लिंग चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectSex" xml:space="preserve">
+    <value>लिंग चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectSpecies" xml:space="preserve">
+    <value>प्रजातियाँ चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectState" xml:space="preserve">
+    <value>राज्य चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectStatus" xml:space="preserve">
+    <value>स्थिति चुनें</value>
+  </data>
+  <data name="Patient_Selection_Yes" xml:space="preserve">
+    <value>हाँ</value>
+  </data>
+  <data name="Patient_Title_AdditionalInformation" xml:space="preserve">
+    <value>अतिरिक्त जानकारी</value>
+  </data>
+  <data name="Patient_Title_AllPets" xml:space="preserve">
+    <value>सभी पालतू जानवर</value>
+  </data>
+  <data name="Patient_Title_CoOwnerInfo" xml:space="preserve">
+    <value>सह-स्वामी की जानकारी</value>
+  </data>
+  <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
+    <value>रोगी प्रोफ़ाइल बनाएं</value>
+  </data>
+  <data name="Patient_Title_MedicalRecord" xml:space="preserve">
+    <value>चिकित्सा रिकॉर्ड</value>
+  </data>
+  <data name="Patient_Title_MedicationHistory" xml:space="preserve">
+    <value>दवा का इतिहास</value>
+  </data>
+  <data name="Patient_Title_OwnerInfo" xml:space="preserve">
+    <value>मालिक के बारे में जानकारी</value>
+  </data>
+  <data name="Patient_Title_PatientProfile" xml:space="preserve">
+    <value>रोगी प्रोफ़ाइल</value>
+  </data>
+  <data name="Patient_Title_Patients" xml:space="preserve">
+    <value>मरीजों</value>
+  </data>
+  <data name="Patient_Title_PetGrowthHistory" xml:space="preserve">
+    <value>पालतू विकास इतिहास</value>
+  </data>
+  <data name="Patient_Title_PetGrowthTrend" xml:space="preserve">
+    <value>पालतू पशुओं की वृद्धि की प्रवृत्ति</value>
+  </data>
+  <data name="Patient_Title_PetInfo" xml:space="preserve">
+    <value>पालतू जानवर की जानकारी</value>
+  </data>
+  <data name="Patient_Title_Profile" xml:space="preserve">
+    <value>प्रोफ़ाइल</value>
+  </data>
+  <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
+    <value>आगामी नियुक्ति</value>
+  </data>
+  <data name="Patient_Title_UpcomingVaccinationTreatment" xml:space="preserve">
+    <value>आगामी टीकाकरण/उपचार</value>
+  </data>
+  <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
+    <value>टीकाकरण/उपचार इतिहास</value>
+  </data>
+  <data name="Inventory_Label_Description" xml:space="preserve">
+    <value>विवरण</value>
+  </data>
+  <data name="Inventory_Label_RecommendedBreed" xml:space="preserve">
+    <value>अनुशंसित नस्ल</value>
+  </data>
+  <data name="Inventory_Label_RecommendedWeight" xml:space="preserve">
+    <value>अनुशंसित वजन</value>
+  </data>
+  <data name="Inventory_Label_SearchBreed" xml:space="preserve">
+    <value>नस्ल खोजें</value>
+  </data>
+  <data name="Inventory_Label_SelectBranch" xml:space="preserve">
+    <value>शाखा का चयन करें</value>
+  </data>
+  <data name="Service_Button_NewService" xml:space="preserve">
+    <value>नई सेवा</value>
+  </data>
+  <data name="Service_Label_DoctorInCharge" xml:space="preserve">
+    <value>प्रभारी डॉक्टर</value>
+  </data>
+  <data name="Service_Label_DurationHr" xml:space="preserve">
+    <value>अवधि (घंटा)</value>
+  </data>
+  <data name="Service_Label_Precaution" xml:space="preserve">
+    <value>एहतियात</value>
+  </data>
+  <data name="Service_Label_SearchDoctor" xml:space="preserve">
+    <value>डॉक्टर खोजें</value>
+  </data>
+  <data name="Service_Label_SearchService" xml:space="preserve">
+    <value>खोज सेवा</value>
+  </data>
+  <data name="Service_Label_SelectCategory" xml:space="preserve">
+    <value>श्रेणी चुनना</value>
+  </data>
+  <data name="Service_Label_ServiceDetails" xml:space="preserve">
+    <value>सेवा विवरण</value>
+  </data>
+  <data name="Service_Label_ServiceName" xml:space="preserve">
+    <value>सेवा का नाम</value>
+  </data>
+  <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
+    <value>सेवा का समय (घंटा)</value>
+  </data>
+  <data name="TreatmentPlan_Label_Add" xml:space="preserve">
+    <value>जोड़ना</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
+    <value>सेवा जोड़ें</value>
+  </data>
+  <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
+    <value>लागत</value>
+  </data>
+  <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
+    <value>के द्वारा बनाई गई</value>
+  </data>
+  <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
+    <value>बनाया गया दिनांक</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
+    <value>सक्रिय बनाएं</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeInactive" xml:space="preserve">
+    <value>निष्क्रिय करें</value>
+  </data>
+  <data name="TreatmentPlan_Label_NewTreatment" xml:space="preserve">
+    <value>नया उपचार</value>
+  </data>
+  <data name="TreatmentPlan_Label_Remarks" xml:space="preserve">
+    <value>टिप्पणी</value>
+  </data>
+  <data name="TreatmentPlan_Label_SearchService" xml:space="preserve">
+    <value>खोज सेवा</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
+    <value>उपयोगकर्ता का चयन करें</value>
+  </data>
+  <data name="TreatmentPlan_Label_Total" xml:space="preserve">
+    <value>कुल</value>
+  </data>
+  <data name="TreatmentPlan_Label_Treatment" xml:space="preserve">
+    <value>इलाज</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentDetails" xml:space="preserve">
+    <value>उपचार विवरण</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentName" xml:space="preserve">
+    <value>उपचार का नाम</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
+    <value>उपचार योजनाएँ</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>उत्पाद जोड़ें</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>पुष्टि लंबित</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>पासवर्ड की पुष्टि कीजिये</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>नया पासवर्ड</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>पुराना पासवर्ड</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>पासवर्ड रीसेट</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>दवा का चयन करें</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>दवा का प्रकार चुनेंr</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>सर्जरी का चयन करें</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>सर्जरी का प्रकार चुनें</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>टीकाकरण का चयन करें</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>टीकाकरण का प्रकार चुनें</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>देय</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>समाप्ति</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>कोई निरंतर उपचार नहीं</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>कोई पिछला उपचार नहीं</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>कोई आगामी नियुक्ति नहीं</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>कोई आगामी उपचार नहीं</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>को अपडेट</value>
+  </data>
+  <data name="Patient_Label_NoOtherPet" xml:space="preserve">
+    <value>कोई अन्य पालतू जानवर नहीं.</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>बनाएं</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>नयी भूमिका</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>अद्यतन</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>क्या आप एक डॉक्टर हैं?</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>नियुक्त कर्मचारियों की संख्या</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>शाखा</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>इस भूमिका को हटाने की पुष्टि करें?</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>विवरण</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>भूमिकाएँ बनाने में विफल.</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>रिकॉर्ड मिटाने में विफल.</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>*अनिवार्य फ़ील्ड आवश्यक है.</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>नई भूमिका सफलतापूर्वक बनाई गई.</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>संख्या</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>संगठन</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>अनुमतियां</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>अनुमति सेटिंग्स:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>कृपया शाखा का चयन करें</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>कृपया विकल्प चुनें</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>कृपया संगठन का चयन करें</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>कृपया स्थिति चुनें</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>भूमिका</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>उपयोगकर्ता भूमिका</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>मिटाना</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>संपादन करना</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>देखना</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>नई भूमिका जोड़ें</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>भूमिका बनाएं</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>भूमिका हटाएं</value>
+  </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>भूमिका सेटिंग</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>उपयोगकर्ता पहुँच नियंत्रण</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>भूमिकाएँ अद्यतन करने में विफल.</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>भूमिका सफलतापूर्वक अपडेट की गई.</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>भूमिका अपडेट करें</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>नया स्टाफ</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>संख्या</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>स्टाफ आईडी</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>स्टाफ का नाम</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>फिल्टर</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>स्टाफ सूची</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>भूमिका</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>शाखा</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>ईमेल</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>लिंग</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>संगठन</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>उपनाम</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>स्टाफ आईडी</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>उपनाम</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>फिल्टर</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>रीसेट करें</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>खोज</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>स्टाफ़ को हटाने की पुष्टि करें?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>स्टाफ़ को हटाने में विफल, कृपया पुनः प्रयास करें.</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>मिटाना</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>संपादन करना</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>देखना</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>कृपया शाखा का चयन करें</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>कृपया लिंग चुनें</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>कृपया संगठन का चयन करें</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>कृपया भूमिका चुनें</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>कृपया स्टाफ़ का चयन करें</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>कृपया स्थिति चुनें</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>स्टाफ विवरण</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>स्टाफ़ हटाएँ</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>ईमेल</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>लिंग</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>उपयोगकर्ता भूमिका</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>बनाएं</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>अद्यतन</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>शाखा</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>उपयोगकर्ता सफलतापूर्वक बनाया गया.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>उपयोगकर्ता बनाने में असफल, कृपया पुनः प्रयास करें.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>उपयोगकर्ता प्रोफ़ाइल अपडेट करने में विफल, कृपया पुनः प्रयास करें.</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>लॉगिन आईडी</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*लॉगिन आईडी सिस्टम में मौजूद है, कृपया पुनः प्रयास करें।</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*अनिवार्य फ़ील्ड आवश्यक हैं.</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>संगठन</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>कृपया शाखा का चयन करें</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>कृपया लिंग चुनें</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>कृपया संगठन का चयन करें</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>कृपया भूमिका चुनें</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>कृपया स्थिति चुनें</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>उपयोगकर्ता प्रोफ़ाइल सफलतापूर्वक अपडेट करें.</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>उपयोगकर्ता बनाएं</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>उपयोगकर्ता प्रोफ़ाइल अपडेट करें</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>अमान्य ईमेल पता।</value>
+  </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>सर्वाधिकार सुरक्षित</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>मद जोड़ें</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>डाउनलोड करना</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>भुगतान के रूप में चिह्नित करें</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>छाप</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>त्वरित चालान</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>उप योग</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>कार्रवाई</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>संतुलन</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>रद्द</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>छूट</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>शुल्क</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>से</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>भव्य छूट</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>चालान विवरण</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>चालान नंबर</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>चालान नोट</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>चालान/रसीद संख्या</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>चालान</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>अगली नियुक्ति</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>चुकाया गया</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>लंबित</value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>खरीद आइटम विवरण</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>मात्रा</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>तैयार</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>रसीद</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>रसीद संख्या</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>ग्राहक चुनें</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>उत्पाद का चयन करें</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>सर्जरी/टीकाकरण/परामर्श का नाम</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>को</value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>कुल कीमत</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>क्या आप वाकई भुगतान के रूप में चिह्नित करना चाहते हैं और रसीद पर ले जाना चाहते हैं?</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>कस्टम उपचार जोड़ें</value>
+  </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>मौजूदा उपचार योजना</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>दिखा</value>
+  </data>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>शाखा जोड़ें</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>शाखा पता</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>शाखाओं</value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>शाखा का नाम</value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>संगठन बनाएं</value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>नया संगठन</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>संगठन का नाम</value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>शाखा सहेजें</value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>संगठन खोजें</value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>कुल कर्मचारी</value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>संगठन संपादित करें</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>संगठन विवरण</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>रिपोर्ट देखें</value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>रक्तचाप</value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>रक्त परीक्षण</value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>अस्थि द्रव्यमान</value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>हृदय दर</value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>उच्च</value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>चोट की जांच</value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>कम</value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>फेफड़े का एक्स-रे</value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>नकारात्मक</value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>सामान्य श्रेणी</value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>पैरामीटर</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>पुन: प्राप्त करना</value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>परिणाम</value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>परिणाम गेज</value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>पहुंच अस्वीकृत।</value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>शाखा संपर्क नंबर</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>ग्राहक</value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>सकारात्मक</value>
+  </data>
+  <data name="Appointment_Label_NoFutureAppointment" xml:space="preserve">
+    <value>भविष्य में कोई नियुक्ति नहीं.</value>
+  </data>
+  <data name="Patient_Button_HideFilter" xml:space="preserve">
+    <value>फ़िल्टर छुपाएं</value>
+  </data>
+  <data name="Patient_Button_ShowFilter" xml:space="preserve">
+    <value>फ़िल्टर दिखाएं</value>
+  </data>
+  <data name="TestManagement_Label_Analyzer" xml:space="preserve">
+    <value>विश्लेषक</value>
+  </data>
+  <data name="Dashboard_Button_ViewAll" xml:space="preserve">
+    <value>सभी को देखें</value>
+  </data>
+  <data name="Dashboard_Label_AllDoctors" xml:space="preserve">
+    <value>सभी डॉक्टर</value>
+  </data>
+  <data name="Dashboard_Label_AsOf" xml:space="preserve">
+    <value>के रूप में</value>
+  </data>
+  <data name="Dashboard_Label_ShowMore" xml:space="preserve">
+    <value>और दिखाओ</value>
+  </data>
+  <data name="Dashboard_Label_Summary" xml:space="preserve">
+    <value>सारांश</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatients" xml:space="preserve">
+    <value>कुल मरीज</value>
+  </data>
+  <data name="Dashboard_Label_TotalSales" xml:space="preserve">
+    <value>कुल बिक्री</value>
+  </data>
+  <data name="Dashboard_Label_TotalStaffs" xml:space="preserve">
+    <value>कुल कर्मचारी</value>
+  </data>
+  <data name="Dashboard_Message_Here" xml:space="preserve">
+    <value>यह आपका रोगी प्रबंधन प्रणाली डैशबोर्ड है।</value>
+  </data>
+  <data name="Dashboard_Message_Welcome" xml:space="preserve">
+    <value>वापसी पर स्वागत है,</value>
+  </data>
+  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
+    <value>सॉफ्टवेयर अपडेट</value>
+  </data>
+  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="NotificationSetting_Button_Save" xml:space="preserve">
+    <value>बचाना</value>
+  </data>
+  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
+    <value>वे सूचनाएं सक्षम करें जिन्हें आप प्राप्त करना चाहते हैं</value>
+  </data>
+  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
+    <value>सेटिंग सफलतापूर्वक अपडेट की गई</value>
+  </data>
+  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
+    <value>अधिसूचना सेटिंग्स</value>
+  </data>
+  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
+    <value>अधिसूचना सेटिंग अपडेट करें</value>
+  </data>
+  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
+    <value>अधिसूचना सेटिंग अपडेट करने में विफल.</value>
+  </data>
+  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
+    <value>अधिसूचना सेटिंग्स</value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>डिवाइस का नाम</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>उच्च</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>कम</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>सामान्य श्रेणी</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>ऑपरेटर आईडी</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>मरीज़ आईडी</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>मरीज का नाम</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>परिणाम</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>परिणाम गेज</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>परीक्षा</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>समय</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>समग्र परीक्षा परिणाम</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>रीसेट करें</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>खोज</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>आरोही</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>अवरोही</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>डिवाइस का नाम</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>संख्या</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>ऑपरेटर आईडी</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>मरीज़ आईडी</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>परिणाम स्थिति (+/-)</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>नाम से खोजें</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>इसके अनुसार क्रमबद्ध करें</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>तिथि के अनुसार क्रमबद्ध करें</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>परीक्षण प्रकार</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>समय</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>देखना</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>फिल्टर</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>परीक्षण प्रबंधन</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>परीक्षण प्रबंधन</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>कीमत</value>
+  </data>
+  <data name="Dashboard_Label_Daily" xml:space="preserve">
+    <value>दैनिक</value>
+  </data>
+  <data name="Dashboard_Label_GenderBreakdown" xml:space="preserve">
+    <value>लिंग विभाजन</value>
+  </data>
+  <data name="Dashboard_Label_Monthly" xml:space="preserve">
+    <value>महीने के</value>
+  </data>
+  <data name="Dashboard_Label_OverallRevenue" xml:space="preserve">
+    <value>कुल राजस्व</value>
+  </data>
+  <data name="Dashboard_Label_PatientNumberStatistics" xml:space="preserve">
+    <value>मरीज़ संख्या सांख्यिकी</value>
+  </data>
+  <data name="Dashboard_Label_RevenueBy" xml:space="preserve">
+    <value>राजस्व</value>
+  </data>
+  <data name="Dashboard_Label_StaffBreakdown" xml:space="preserve">
+    <value>स्टाफ ब्रेकडाउन</value>
+  </data>
+  <data name="Dashboard_Label_TopBreed" xml:space="preserve">
+    <value>शीर्ष नस्ल</value>
+  </data>
+  <data name="Dashboard_Label_TopServices" xml:space="preserve">
+    <value>शीर्ष सेवाएँ</value>
+  </data>
+  <data name="Dashboard_Label_TopTreatment" xml:space="preserve">
+    <value>शीर्ष उपचार</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatientByBreed" xml:space="preserve">
+    <value>कुल मरीज़ नस्ल के अनुसार</value>
+  </data>
+  <data name="Dashboard_Label_Weekly" xml:space="preserve">
+    <value>साप्ताहिक</value>
+  </data>
+  <data name="Dashboard_Label_Yearly" xml:space="preserve">
+    <value>सालाना</value>
+  </data>
+  <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
+    <value>कुल नियुक्ति</value>
+  </data>
+  <data name="Dashboard_Label_LatestUpdateOn" xml:space="preserve">
+    <value>नवीनतम अपडेट</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>चालान निर्माण</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>रसीद निर्माण</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>चालान संलग्न है।</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>रसीद संलग्न है।</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>कृपया कम से कम एक उत्पाद जोड़ें.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>कृपया आवश्यक क्षेत्र भरो।</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>कुछ ग़लत हुआ!</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>खाता लॉक कर दिया गया है। कृपया व्यवस्थापक से संपर्क करें।</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>खाता अभी तक पुष्टि नहीं हुआ है। कृपया ईमेल के माध्यम से खाते की पुष्टि करें और पुनः प्रयास करें।</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>उपयोगकर्ता नाम के आधार पर खाता नहीं मिला। कृपया जाँच करें और पुनः प्रयास करें।</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>त्रुटि हुई. कृपया बाद में पुनः प्रयास करें.</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>पासवर्ड रीसेट करने में विफल.</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>ग़लत ईमेल। कृपया जाँचें और पुनः प्रयास करें।</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>गलत पासवर्ड या उपयोगकर्ता नाम।</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>आवश्यक फ़ील्ड भरने की आवश्यकता है.</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>इस श्रेणी के लिए अभी तक कोई रिकॉर्ड मौजूद नहीं है।</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>कम से कम एक सेवा या एक उत्पाद चुनने की आवश्यकता है।</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>उपचार योजना का नाम रिक्त नहीं रह सकता.</value>
+  </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>नियुक्ति स्वीकृत</value>
+  </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>नियुक्ति स्वीकार करें</value>
+  </data>
   <data name="AccessControl_Label_BranchCity" xml:space="preserve">
     <value>शहर</value>
   </data>
@@ -132,146 +1806,83 @@
   <data name="AccessControl_Label_SelectState" xml:space="preserve">
     <value>राज्य चुनें</value>
   </data>
-  <data name="Appointment_Button_Cancel" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>जगह</value>
   </data>
-  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>अनुसूचित परीक्षण</value>
   </data>
-  <data name="Appointment_Button_Confirm" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>स्थान चुनें</value>
   </data>
-  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>टेस्ट चुनें</value>
   </data>
-  <data name="Appointment_Button_Reset" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>परीक्षण</value>
   </data>
-  <data name="Appointment_Button_Search" xml:space="preserve">
-    <value />
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>शेड्यूल टेस्ट बनाएं</value>
   </data>
-  <data name="Appointment_Button_Update" xml:space="preserve">
-    <value />
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>जमा करना</value>
   </data>
-  <data name="Appointment_Label_ContactNo" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>प्रभारी डॉक्टर</value>
   </data>
-  <data name="Appointment_Label_DateTime" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>प्रभारी डॉक्टर का चयन करें</value>
   </data>
-  <data name="Appointment_Label_Day" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>अनिवार्य फ़ील्ड आवश्यक हैं.</value>
   </data>
-  <data name="Appointment_Label_Doctor" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>शेड्यूल परीक्षण भेजने में विफल, कृपया बाद में पुन: प्रयास करें.</value>
   </data>
-  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>शेड्यूल परीक्षण सफलतापूर्वक भेजा गया.</value>
   </data>
-  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
-    <value />
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>शेड्यूल टेस्ट सबमिट करें</value>
   </data>
-  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>शाखा</value>
   </data>
-  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>संगठन</value>
   </data>
-  <data name="Appointment_Label_Month" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>कृपया शाखा का चयन करें</value>
   </data>
-  <data name="Appointment_Label_NewClient" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>कृपया संगठन का चयन करें</value>
   </data>
-  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
-    <value />
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>भूमिका का प्रकार</value>
   </data>
-  <data name="Appointment_Label_Owner" xml:space="preserve">
-    <value />
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>नया बैनर</value>
   </data>
-  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>बैनर</value>
   </data>
-  <data name="Appointment_Label_OwnerName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>अंतिम तिथि</value>
   </data>
-  <data name="Appointment_Label_Pet" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>फ़ाइल का नाम</value>
   </data>
-  <data name="Appointment_Label_PetDOB" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>संख्या</value>
   </data>
-  <data name="Appointment_Label_PetName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>आरंभ करने की तिथि</value>
   </data>
-  <data name="Appointment_Label_Services" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>स्थिति</value>
   </data>
-  <data name="Appointment_Label_Species" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_Week" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
-    <value>नियुक्ति स्वीकृत</value>
-  </data>
-  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
-    <value>नियुक्ति स्वीकार करें</value>
-  </data>
-  <data name="Appointment_Title_Appointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
-    <value />
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>बैनर प्रबंधन</value>
   </data>
   <data name="BannerProfile_Button_Cancel" xml:space="preserve">
     <value>रद्द करना</value>
@@ -298,7 +1909,7 @@
     <value>आरंभ करने की तिथि</value>
   </data>
   <data name="BannerProfile_Label_Status" xml:space="preserve">
-    <value>कई स्थितियां</value>
+    <value>स्थिति</value>
   </data>
   <data name="BannerProfile_Label_Upload" xml:space="preserve">
     <value>अपलोड करें</value>
@@ -339,17 +1950,11 @@
   <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
     <value>बैनर अपलोड करें</value>
   </data>
-  <data name="BannersList_Button_NewBanner" xml:space="preserve">
-    <value>नया बैनर</value>
-  </data>
   <data name="BannersList_Button_Next" xml:space="preserve">
-    <value>अगला पृष्ठ</value>
+    <value>अगला</value>
   </data>
   <data name="BannersList_Button_Prev" xml:space="preserve">
     <value>पिछला</value>
-  </data>
-  <data name="BannersList_Label_Banner" xml:space="preserve">
-    <value>बैनर</value>
   </data>
   <data name="BannersList_Label_CreatedDate" xml:space="preserve">
     <value>सृजित दिनांक</value>
@@ -357,35 +1962,17 @@
   <data name="BannersList_Label_Edit" xml:space="preserve">
     <value>संपादन करना</value>
   </data>
-  <data name="BannersList_Label_EndDate" xml:space="preserve">
-    <value>अंतिम तिथि</value>
-  </data>
-  <data name="BannersList_Label_FileName" xml:space="preserve">
-    <value>फ़ाइल का नाम</value>
-  </data>
-  <data name="BannersList_Label_Number" xml:space="preserve">
-    <value>संख्या</value>
-  </data>
-  <data name="BannersList_Label_StartDate" xml:space="preserve">
-    <value>आरंभ करने की तिथि</value>
-  </data>
-  <data name="BannersList_Label_Status" xml:space="preserve">
-    <value>कई स्थितियां</value>
-  </data>
   <data name="BannersList_Label_View" xml:space="preserve">
     <value>देखना</value>
   </data>
   <data name="BannersList_Message_NoRecords" xml:space="preserve">
     <value>कोई रिकॉर्ड नहीं</value>
   </data>
-  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
-    <value>बैनर प्रबंधन</value>
-  </data>
   <data name="BlogList_Button_NewBlog" xml:space="preserve">
     <value>नया ब्लॉग</value>
   </data>
   <data name="BlogList_Button_Next" xml:space="preserve">
-    <value>अगला पृष्ठ</value>
+    <value>अगला</value>
   </data>
   <data name="BlogList_Button_Prev" xml:space="preserve">
     <value>पिछला</value>
@@ -393,11 +1980,14 @@
   <data name="BlogList_Label_CreatedDate" xml:space="preserve">
     <value>सृजित दिनांक</value>
   </data>
-  <data name="BlogList_Label_Edit" xml:space="preserve">
-    <value>संपादन करना</value>
-  </data>
   <data name="BlogList_Label_EndDate" xml:space="preserve">
     <value>अंतिम तिथि</value>
+  </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>ब्लॉग प्रबंधन</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>संपादन करना</value>
   </data>
   <data name="BlogList_Label_Num" xml:space="preserve">
     <value>संख्या</value>
@@ -406,7 +1996,7 @@
     <value>आरंभ करने की तिथि</value>
   </data>
   <data name="BlogList_Label_Status" xml:space="preserve">
-    <value>कई स्थितियां</value>
+    <value>स्थिति</value>
   </data>
   <data name="BlogList_Label_Title" xml:space="preserve">
     <value>शीर्षक</value>
@@ -419,9 +2009,6 @@
   </data>
   <data name="BlogList_Message_NoRecords" xml:space="preserve">
     <value>कोई रिकॉर्ड नहीं</value>
-  </data>
-  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
-    <value>ब्लॉग प्रबंधन</value>
   </data>
   <data name="BlogProfile_Button_Cancel" xml:space="preserve">
     <value>रद्द करना</value>
@@ -448,7 +2035,7 @@
     <value>आरंभ करने की तिथि</value>
   </data>
   <data name="BlogProfile_Label_Status" xml:space="preserve">
-    <value>कई स्थितियां</value>
+    <value>स्थिति</value>
   </data>
   <data name="BlogProfile_Label_Title" xml:space="preserve">
     <value>शीर्षक</value>
@@ -458,6 +2045,9 @@
   </data>
   <data name="BlogProfile_Label_URL" xml:space="preserve">
     <value>यूआरएल</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>ब्लॉग विवरण</value>
   </data>
   <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
     <value>ब्लॉग सफलतापूर्वक बनाएं.</value>
@@ -483,158 +2073,11 @@
   <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
     <value>थंबनेल अपलोड करना विफल हुआ.</value>
   </data>
-  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
-    <value>ब्लॉग विवरण</value>
-  </data>
   <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
     <value>ब्लॉग प्रविष्टि बनाएँ</value>
   </data>
   <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
     <value>ब्लॉग जानकारी अपडेट करें</value>
-  </data>
-  <data name="DoctorProfile_Button_Back" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
-    <value>शाखा</value>
-  </data>
-  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
-    <value>संगठन</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
-    <value>कृपया शाखा का चयन करें</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value>कृपया संगठन का चयन करें</value>
-  </data>
-  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Appointments" xml:space="preserve">
-    <value />
   </data>
   <data name="MenuBar_Label_Banners" xml:space="preserve">
     <value>बैनर</value>
@@ -645,508 +2088,25 @@
   <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
     <value>ग्राहक पोर्टल</value>
   </data>
-  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Integration" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Organisation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Patients" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Service" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_All" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Messages" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Title_Notification" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Patient_Button_Submit" xml:space="preserve">
-    <value>जमा करना</value>
-  </data>
-  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
-    <value>प्रभारी डॉक्टर</value>
-  </data>
-  <data name="Patient_Label_Location" xml:space="preserve">
-    <value>जगह</value>
-  </data>
-  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
-    <value>अनुसूचित परीक्षण</value>
-  </data>
-  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
-    <value>प्रभारी डॉक्टर का चयन करें</value>
-  </data>
-  <data name="Patient_Label_SelectLocation" xml:space="preserve">
-    <value>स्थान चुनें</value>
-  </data>
-  <data name="Patient_Label_SelectTests" xml:space="preserve">
-    <value>टेस्ट चुनें</value>
-  </data>
-  <data name="Patient_Label_Tests" xml:space="preserve">
-    <value>परीक्षण</value>
-  </data>
-  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
-    <value>अनिवार्य फ़ील्ड आवश्यक हैं.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
-    <value>शेड्यूल परीक्षण भेजने में विफल, कृपया बाद में पुन: प्रयास करें.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
-    <value>शेड्यूल परीक्षण सफलतापूर्वक भेजा गया.</value>
-  </data>
-  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
-    <value>शेड्यूल टेस्ट बनाएं</value>
-  </data>
-  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
-    <value>शेड्यूल टेस्ट सबमिट करें</value>
-  </data>
-  <data name="Roles_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_NewRole" xml:space="preserve">
-    <value />
-  </data>
   <data name="Roles_Button_PermissionDetails" xml:space="preserve">
     <value>अनुमति विवरण</value>
   </data>
-  <data name="Roles_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Permission" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_RoleType" xml:space="preserve">
-    <value>भूमिका का प्रकार</value>
-  </data>
-  <data name="Roles_Label_Status" xml:space="preserve">
-    <value />
-  </data>
   <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
-    <value>दी गई अनुमतियों की कुल संख्या</value>
-  </data>
-  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_UserRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_AddNewRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_CreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_DeleteRole" xml:space="preserve">
-    <value />
+    <value>कुल स्वीकृत अनुमतियाँ</value>
   </data>
   <data name="Roles_Title_Permissions" xml:space="preserve">
     <value>अनुमतियां</value>
   </data>
-  <data name="Roles_Title_RoleSettings" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Branch" xml:space="preserve">
+    <value>शाखा</value>
   </data>
-  <data name="Roles_Title_UpdateRole" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Organization" xml:space="preserve">
+    <value>संगठन</value>
   </data>
-  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectBranch" xml:space="preserve">
+    <value>शाखा का चयन करें</value>
   </data>
-  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Surname" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_NewStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuDelete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuEdit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuView" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffDetail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_High" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Low" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Result" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Test" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Ascending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Descending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SearchByName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortBy" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortByDate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_TestType" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_TestManagement" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectOrganization" xml:space="preserve">
+    <value>संगठन का चयन करें</value>
   </data>
 </root>

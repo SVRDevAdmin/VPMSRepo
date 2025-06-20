@@ -11,6 +11,7 @@
 }
 
 <link rel="stylesheet" href="~/css/PetGrid.css" />
+<script src="lib/html2pdf/v0.10.1/html2pdf.bundle.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -84,7 +85,7 @@
                   '<button id="nav-testmanagement-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-testmanagement_' + iRow + '" role="tab" aria-controls="nav-testmanagement_' + iRow + '" aria-selected="false">' + '@Html.Raw(LangResources["PetGrid_Label_TestManagement"])' + '</button>' + 
                   '</div>' +
                   '<div class="d-flex justify-content-end" style="width: 30%;">' +
-                  '<button id="btnMedical" type="button" class="btn btn-primary btn-sm">' +
+                  '<button id="btnMedical" type="button" class="btn btn-primary btn-sm" onclick="downloadMedicalRecord();">' +
                   '<i class="bi bi-download me-2"></i>' + 
                   '@Html.Raw(LangResources["PetGrid_Button_MedicalRecord"])' +  
                   '</button>' +
@@ -325,6 +326,10 @@
                  $('#lbColor_' + rowID).html(result.data.color);
 
                  $('#collapse_' + rowID).css('background', result.data.colorCode);
+
+                 // Medical Record Content
+                 $('#imgPrintAvatar').attr('src', 'images/pets/' + result.data.avatarImage);
+                 $('#lbPrintPetName').html(result.data.name);
              }
          });
     }
@@ -378,6 +383,7 @@
     function loadMedicationHistory(rowID, petID)
     {
         $('#divMedicationHistory_' + rowID).children('.medicalDisplayText').remove();
+        $('#tblPrintMedication tbody').html('');
 
         $.getJSON("/Pets/GetMedicalHistory/" + petID)
          .done(function(result){
@@ -393,6 +399,15 @@
                                  '</div>';
 
                      $('#divMedicationHistory_' + rowID).append(sMedicine);
+
+
+                     var sPrintMedicineHtml = '';
+                     sPrintMedicineHtml = '<tr>' +
+                                          '<td>' + moment(result.data[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '</td>' +
+                                          '<td>' + result.data[i].productName + '</td>' +
+                                          '<td>' + result.data[i].usage + '</td>' +
+                                          '</tr>';
+                     $('#tblPrintMedication tbody').append(sPrintMedicineHtml);
                  }
              }
          });
@@ -425,6 +440,7 @@
     function loadPastTreatmentPlan(rowID, petID)
     {
         $('#divTreatmentPlanHistory_' + rowID).children('.treatmentDisplayText').remove();
+        $('#tblPrintTreatment tbody').html('');
 
         $.getJSON("/Pets/GetPastTreatmentPlan/" + petID)
          .done(function(result){
@@ -441,6 +457,15 @@
                                         '</div>';
 
                      $('#divTreatmentPlanHistory_' + rowID).append(sActiveTreatment);
+
+
+                     var sPrintTreatmentHtml = '';
+                     sPrintTreatmentHtml = '<tr>' +
+                                           '<td>' + moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '</td>' +
+                                           '<td>' + result.data[i].planName + '</td>' +
+                                           '</tr>';
+
+                     $('#tblPrintTreatment tbody').append(sPrintTreatmentHtml);
                  }
              }
          })
@@ -522,6 +547,23 @@
             }
          })
     }
+
+    function downloadMedicalRecord()
+    {
+        var clone = document.getElementById("divPrintMedical").cloneNode(true);
+
+        var element = clone.querySelector("#divPrintContent");
+
+        var opt = {
+            margin: 0,
+            filename: 'MedicalRecord_' + moment().format("YYYYMMDDhhmmss") + '.pdf',
+            image: { type: 'jpeg', quality: 0.9 },
+            html2canvas: { height: 1024, scale: 2 },
+            jsPDF: { unit : 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+    }
 </script>
 
 <div class="row ms-3">
@@ -543,6 +585,73 @@
     <div class="row">
         <div id="divPetGrid" class="row">
             
+        </div>
+    </div>
+</div>
+
+<!-- Download Medical Record -->
+<div id="divPrintMedical" class="row">
+    <div id="divPrintContent" class="row ms-4 pe-5">
+        <div class="col-md-4 divPrintFrame">
+            <div class="row">
+                <div class="col-md-12 mt-3 text-center">
+                    <img id="imgPrintAvatar" src="" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-4 text-center">
+                    <label id="lbPetName" class="PetNameLabel">
+                        @LangResources["PetGrid_Label_PrintPetName"]
+                        
+                    </label>
+                    <label id="lbPrintPetName" class="PetNameDisply"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 divPrintFrame">
+            <div class="row">
+                <div class="col-md-12 mt-3 ms-2">
+                    <label class="tblPrintTreatmentHeader">@LangResources["PetGrid_Label_PrintTreatmentHistory"]</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-2 ms-2">
+                    <table id="tblPrintTreatment" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 20%;">@LangResources["PetGrid_Label_PrintDate"]</th>
+                                <th scope="col" style="width: 80%;">@LangResources["PetGrid_Label_PrintVaccinationTreatment"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-12 mt-3 ms-2">
+                    <label class="tblPrintMedicationHeader">@LangResources["PetGrid_Label_PrintMedicationHistory"]</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-2 ms-2">
+                    <table id="tblPrintMedication" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 20%;">@LangResources["PetGrid_Label_PrintDate"]</th>
+                                <th scope="col" style="width: 40%;">@LangResources["PetGrid_Label_PrintMedication"]</th>
+                                <th scope="col" style="width: 40%;">@LangResources["PetGrid_Label_PrintUsage"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
         </div>
     </div>
 </div>

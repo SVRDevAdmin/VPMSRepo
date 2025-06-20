@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VGYMFcfsxqvzPJNkTjdZHvK+jbET3Tc0OwnyoOpkI78=",
+  "Hash": "mPZOTi58NlqV/mSZRzC/xKKdy244hJkSQxxPbmMTbTM=",
   "Source": "VPMSWeb",
   "BasePath": "_content/VPMSWeb",
   "Mode": "Default",
@@ -1905,6 +1905,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Icons\\Country\\ko.png"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\Icons\\Country\\ms-MY.png",
+      "SourceId": "VPMSWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\",
+      "BasePath": "_content/VPMSWeb",
+      "RelativePath": "images/Icons/Country/ms-MY#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "o26pky582d",
+      "Integrity": "AGmQBse3I32nvUbxYJ52jiJJEohMf3g0W+dmAPFu1SE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Icons\\Country\\ms-MY.png"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\Icons\\Country\\pt.png",
@@ -15797,6 +15818,88 @@
       ]
     },
     {
+      "Route": "images/Icons/Country/ms-MY.o26pky582d.png",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\Icons\\Country\\ms-MY.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "675"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AGmQBse3I32nvUbxYJ52jiJJEohMf3g0W+dmAPFu1SE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 13 Jun 2025 02:40:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "o26pky582d"
+        },
+        {
+          "Name": "label",
+          "Value": "images/Icons/Country/ms-MY.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AGmQBse3I32nvUbxYJ52jiJJEohMf3g0W+dmAPFu1SE="
+        }
+      ]
+    },
+    {
+      "Route": "images/Icons/Country/ms-MY.png",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\Icons\\Country\\ms-MY.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "675"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AGmQBse3I32nvUbxYJ52jiJJEohMf3g0W+dmAPFu1SE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 13 Jun 2025 02:40:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AGmQBse3I32nvUbxYJ52jiJJEohMf3g0W+dmAPFu1SE="
+        }
+      ]
+    },
+    {
       "Route": "images/Icons/Country/pt.ef3x50rm7i.png",
       "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\images\\Icons\\Country\\pt.png",
       "Selectors": [],
@@ -28283,7 +28386,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 12 Jun 2025 06:26:47 GMT"
+          "Value": "Wed, 18 Jun 2025 01:33:15 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -28320,7 +28423,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 12 Jun 2025 06:26:47 GMT"
+          "Value": "Wed, 18 Jun 2025 01:33:15 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -28357,7 +28460,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 12 Jun 2025 06:26:47 GMT"
+          "Value": "Wed, 18 Jun 2025 01:33:15 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -28402,7 +28505,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 12 Jun 2025 06:26:47 GMT"
+          "Value": "Wed, 18 Jun 2025 01:33:15 GMT"
         },
         {
           "Name": "Cache-Control",

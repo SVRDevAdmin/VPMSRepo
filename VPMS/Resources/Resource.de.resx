@@ -117,1036 +117,1996 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccessControl_Label_BranchCity" xml:space="preserve">
-    <value>Stadt</value>
-  </data>
-  <data name="AccessControl_Label_BranchPostcode" xml:space="preserve">
-    <value>Postleitzahl</value>
-  </data>
-  <data name="AccessControl_Label_BranchState" xml:space="preserve">
-    <value>Zustand</value>
-  </data>
-  <data name="AccessControl_Label_SelectCity" xml:space="preserve">
-    <value>Stadt auswählen</value>
-  </data>
-  <data name="AccessControl_Label_SelectState" xml:space="preserve">
-    <value>Bundesland auswählen</value>
-  </data>
   <data name="Appointment_Button_Cancel" xml:space="preserve">
-    <value />
+    <value>Cancel</value>
   </data>
   <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
-    <value />
+    <value>Cancel Appt</value>
   </data>
   <data name="Appointment_Button_Confirm" xml:space="preserve">
-    <value />
+    <value>Confirm</value>
   </data>
   <data name="Appointment_Button_NewAppointment" xml:space="preserve">
-    <value />
+    <value>New Appointment</value>
   </data>
   <data name="Appointment_Button_Reset" xml:space="preserve">
-    <value />
+    <value>Reset</value>
   </data>
   <data name="Appointment_Button_Search" xml:space="preserve">
-    <value />
+    <value>Search</value>
   </data>
   <data name="Appointment_Button_Update" xml:space="preserve">
-    <value />
+    <value>Update</value>
   </data>
   <data name="Appointment_Label_ContactNo" xml:space="preserve">
-    <value />
+    <value>Contact No.</value>
   </data>
   <data name="Appointment_Label_DateTime" xml:space="preserve">
-    <value />
+    <value>Date &amp; Time</value>
   </data>
   <data name="Appointment_Label_Day" xml:space="preserve">
-    <value />
+    <value>Day</value>
   </data>
   <data name="Appointment_Label_Doctor" xml:space="preserve">
-    <value />
+    <value>Doctor</value>
   </data>
   <data name="Appointment_Label_EditAppointment" xml:space="preserve">
-    <value />
+    <value>Edit Appointment</value>
   </data>
   <data name="Appointment_Label_EmailAddress" xml:space="preserve">
-    <value />
+    <value>Email Address</value>
   </data>
   <data name="Appointment_Label_ExistingClient" xml:space="preserve">
-    <value />
+    <value>Existing Client?</value>
   </data>
   <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
-    <value />
+    <value>*Mandatory fields required.</value>
   </data>
   <data name="Appointment_Label_Month" xml:space="preserve">
-    <value />
+    <value>Month</value>
   </data>
   <data name="Appointment_Label_NewClient" xml:space="preserve">
-    <value />
+    <value>New Client?</value>
   </data>
   <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
-    <value />
+    <value>Notify me via Email</value>
   </data>
   <data name="Appointment_Label_Owner" xml:space="preserve">
-    <value />
+    <value>Owner</value>
   </data>
   <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
-    <value />
+    <value>Owner's Full Name</value>
   </data>
   <data name="Appointment_Label_OwnerName" xml:space="preserve">
-    <value />
+    <value>Owner Name</value>
   </data>
   <data name="Appointment_Label_Pet" xml:space="preserve">
-    <value />
+    <value>Pet</value>
   </data>
   <data name="Appointment_Label_PetDOB" xml:space="preserve">
-    <value />
+    <value>Pet's Date of Birth</value>
   </data>
   <data name="Appointment_Label_PetName" xml:space="preserve">
-    <value />
+    <value>Pet Name</value>
   </data>
   <data name="Appointment_Label_Services" xml:space="preserve">
-    <value />
+    <value>Services</value>
   </data>
   <data name="Appointment_Label_Species" xml:space="preserve">
-    <value />
+    <value>Species</value>
   </data>
   <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
-    <value />
+    <value>Switch back to appointment</value>
   </data>
   <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
-    <value />
+    <value>Switch to quick appointment</value>
   </data>
   <data name="Appointment_Label_Week" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
-    <value>Termin angenommen</value>
+    <value>Week</value>
   </data>
   <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
-    <value />
+    <value>Appointment Cancelled Updated.</value>
   </data>
   <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
-    <value />
+    <value>Confirm to cancel this appointment ?</value>
   </data>
   <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
-    <value />
+    <value>*Doctor not available for the appointment date &amp; time above.</value>
   </data>
   <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
-    <value />
+    <value>*Same patient appointment existis in system.</value>
   </data>
   <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
-    <value />
+    <value>Failed to update appointment, please try again later.</value>
   </data>
   <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
-    <value />
+    <value>Update Successfully.</value>
   </data>
   <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
-    <value />
+    <value>Please select doctor</value>
   </data>
   <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
-    <value />
+    <value>Please select owner</value>
   </data>
   <data name="Appointment_Selection_SelectPet" xml:space="preserve">
-    <value />
+    <value>Please select pet</value>
   </data>
   <data name="Appointment_Selection_SelectServices" xml:space="preserve">
-    <value />
+    <value>Please select services</value>
   </data>
   <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
-    <value>Termin annehmen</value>
+    <value>Please select pet species</value>
   </data>
   <data name="Appointment_Title_Appointment" xml:space="preserve">
-    <value />
+    <value>Appointment</value>
   </data>
   <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
-    <value />
+    <value>Cancel Appointment</value>
   </data>
   <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
-    <value />
+    <value>Create Appointment</value>
   </data>
   <data name="Appointment_Title_Filter" xml:space="preserve">
-    <value />
+    <value>Filter</value>
   </data>
   <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
-    <value />
+    <value>Create Appointment (New Client)</value>
+  </data>
+  <data name="DoctorProfile_Button_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DoctorProfile_Button_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="DoctorProfile_Button_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
+    <value>Designation</value>
+  </data>
+  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
+    <value>License No.</value>
+  </data>
+  <data name="DoctorProfile_Label_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Please select gender</value>
+  </data>
+  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
+    <value>Specialty</value>
+  </data>
+  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
+    <value>System ID</value>
+  </data>
+  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
+    <value>Doctor added successfully</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
+    <value>*Failed to add doctor, please try again later.</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
+    <value>*Failed to update doctor info, please try again later.</value>
+  </data>
+  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
+    <value>*Mandatory field required.</value>
+  </data>
+  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
+    <value>Update successfully</value>
+  </data>
+  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
+    <value>Add Doctor</value>
+  </data>
+  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
+    <value>Doctor Details</value>
+  </data>
+  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
+    <value>Update Doctor</value>
+  </data>
+  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
+    <value>New Doctor</value>
+  </data>
+  <data name="Doctor_Button_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Doctor_Button_Prev" xml:space="preserve">
+    <value>Prev</value>
+  </data>
+  <data name="Doctor_Button_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
+    <value>Designation</value>
+  </data>
+  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Doctor_Label_ColumnID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
+    <value>License No</value>
+  </data>
+  <data name="Doctor_Label_ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
+    <value>Search Doctor by Name</value>
+  </data>
+  <data name="Doctor_Label_Specialty" xml:space="preserve">
+    <value>Specialty</value>
+  </data>
+  <data name="Doctor_Menu_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Doctor_Menu_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Doctor_Menu_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
+    <value>Confirm to delete doctor record?</value>
+  </data>
+  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
+    <value>Failed to delete record, please try again later.</value>
+  </data>
+  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
+    <value>Delete Doctor record</value>
+  </data>
+  <data name="Doctor_Title_Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="Inventory_Label_SelectOrganisation" xml:space="preserve">
+    <value>Select Organisation</value>
+  </data>
+  <data name="LanguageCountry_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
+    <value>No country selection available.</value>
+  </data>
+  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
+    <value>No language selection available.</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
+    <value>Select a Country</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
+    <value>Select a language</value>
+  </data>
+  <data name="Login_Button_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Login_Button_RecoverPassword" xml:space="preserve">
+    <value>Recover Password</value>
+  </data>
+  <data name="Login_Link_ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="Login_Placeholder_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Login_Placeholder_LoginID" xml:space="preserve">
+    <value>Login ID</value>
+  </data>
+  <data name="Login_Placeholder_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_Title_PasswordRecovery" xml:space="preserve">
+    <value>Password Recovery</value>
+  </data>
+  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
+    <value>Access Control</value>
+  </data>
+  <data name="MenuBar_Label_Appointments" xml:space="preserve">
+    <value>Appointments</value>
+  </data>
+  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
+    <value>Customer Service</value>
+  </data>
+  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="MenuBar_Label_Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="MenuBar_Label_Integration" xml:space="preserve">
+    <value>Integration</value>
+  </data>
+  <data name="MenuBar_Label_Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
+    <value>Invoice &amp; Receipts</value>
+  </data>
+  <data name="MenuBar_Label_Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="MenuBar_Label_MyProfile" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="MenuBar_Label_Patients" xml:space="preserve">
+    <value>Patients</value>
+  </data>
+  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
+    <value>Patient Services</value>
+  </data>
+  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
+    <value>Patient Treatment Plan</value>
+  </data>
+  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
+    <value>Role Setting</value>
+  </data>
+  <data name="MenuBar_Label_Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
+    <value>Staff Listing</value>
+  </data>
+  <data name="Notification_Label_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Notification_Label_Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="Notification_Label_Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="Notification_Label_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Notification_Label_Prev" xml:space="preserve">
+    <value>Prev</value>
+  </data>
+  <data name="Notification_Title_Notification" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Patient_Button_AddCoOwner" xml:space="preserve">
+    <value>Add Co-Owner</value>
+  </data>
+  <data name="Patient_Button_AddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="Patient_Button_AddPet" xml:space="preserve">
+    <value>Add Pet</value>
+  </data>
+  <data name="Patient_Button_AddSelections" xml:space="preserve">
+    <value>Add Selections</value>
+  </data>
+  <data name="Patient_Button_AddTreatment" xml:space="preserve">
+    <value>Add Treatment</value>
+  </data>
+  <data name="Patient_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Patient_Button_ClearAll" xml:space="preserve">
+    <value>Clear All</value>
+  </data>
+  <data name="Patient_Button_CreateTreatmentPlan" xml:space="preserve">
+    <value>Create Treatment Plan</value>
+  </data>
+  <data name="Patient_Button_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Patient_Button_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Patient_Button_Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="Patient_Button_GoBack" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="Inventory_Button_NewInventory" xml:space="preserve">
+    <value>New Inventory</value>
+  </data>
+  <data name="Patient_Button_NewPatient" xml:space="preserve">
+    <value>New Patient</value>
+  </data>
+  <data name="Patient_Button_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Patient_Button_NextStep" xml:space="preserve">
+    <value>Next Step</value>
+  </data>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>Ongoing Treatment</value>
+  </data>
+  <data name="Patient_Button_PastTreatment" xml:space="preserve">
+    <value>Past Treatment</value>
+  </data>
+  <data name="Patient_Button_Previous" xml:space="preserve">
+    <value>Prev</value>
+  </data>
+  <data name="Patient_Button_RemoveCoOwner" xml:space="preserve">
+    <value>Remove Co-Owner</value>
+  </data>
+  <data name="Patient_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Patient_Button_SaveMedication" xml:space="preserve">
+    <value>Save Medication</value>
+  </data>
+  <data name="Patient_Button_SaveSurgery" xml:space="preserve">
+    <value>Save Surgery</value>
+  </data>
+  <data name="Patient_Button_SaveVaccination" xml:space="preserve">
+    <value>Save Vaccination</value>
+  </data>
+  <data name="Patient_Button_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
+    <value>Upcoming Treatment</value>
+  </data>
+  <data name="Patient_Button_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Patient_Button_ViewPetProfile" xml:space="preserve">
+    <value>View Pet Profile</value>
+  </data>
+  <data name="Patient_Label_Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Patient_Label_AddressLine1" xml:space="preserve">
+    <value>Address Line 1</value>
+  </data>
+  <data name="Patient_Label_AddressLine2" xml:space="preserve">
+    <value>Address Line 2</value>
+  </data>
+  <data name="Patient_Label_Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="Patient_Label_AgeYear" xml:space="preserve">
+    <value>Age (Year)</value>
+  </data>
+  <data name="Patient_Label_Allergies" xml:space="preserve">
+    <value>Allergies</value>
+  </data>
+  <data name="Patient_Label_BMI" xml:space="preserve">
+    <value>BMI</value>
+  </data>
+  <data name="Inventory_Label_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Patient_Label_Breed" xml:space="preserve">
+    <value>Breed</value>
+  </data>
+  <data name="Inventory_Label_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Patient_Label_City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Patient_Label_Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Patient_Label_ContactNo" xml:space="preserve">
+    <value>Contact No</value>
+  </data>
+  <data name="Patient_Label_CoOwnerInformationOptional" xml:space="preserve">
+    <value>Co-Owner Information (Optional)</value>
+  </data>
+  <data name="Patient_Label_CoOwnerName" xml:space="preserve">
+    <value>Co-Owner Name</value>
+  </data>
+  <data name="Patient_Label_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Inventory_Label_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Patient_Label_CreatedOn" xml:space="preserve">
+    <value>Created On</value>
+  </data>
+  <data name="Patient_Label_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Patient_Label_DOB" xml:space="preserve">
+    <value>Date Of Birth</value>
+  </data>
+  <data name="Patient_Label_Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="Patient_Label_ExpiryDate" xml:space="preserve">
+    <value>Expiry Date</value>
+  </data>
+  <data name="Patient_Label_Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Patient_Label_GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="Patient_Label_HealthCard" xml:space="preserve">
+    <value>Health Card</value>
+  </data>
+  <data name="Patient_Label_Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="Inventory_Label_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Inventory_Label_InStock" xml:space="preserve">
+    <value>In Stock</value>
+  </data>
+  <data name="Inventory_Label_InventoryDetails" xml:space="preserve">
+    <value>Inventory Details</value>
+  </data>
+  <data name="Inventory_Label_InventoryName" xml:space="preserve">
+    <value>Inventory Name</value>
+  </data>
+  <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
+    <value>Invoice &amp; Billing</value>
+  </data>
+  <data name="Patient_Label_Medication" xml:space="preserve">
+    <value>Medication</value>
+  </data>
+  <data name="Patient_Label_MedicationName" xml:space="preserve">
+    <value>Medication Name</value>
+  </data>
+  <data name="Patient_Label_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Patient_Label_Number" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Patient_Label_Obese" xml:space="preserve">
+    <value>Obese?</value>
+  </data>
+  <data name="Patient_Label_Obesity" xml:space="preserve">
+    <value>Obesity</value>
+  </data>
+  <data name="Inventory_Label_Organisation" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="Inventory_Label_OutOfStock" xml:space="preserve">
+    <value>Out of Stock</value>
+  </data>
+  <data name="Patient_Label_OwnerName" xml:space="preserve">
+    <value>Owner Name</value>
+  </data>
+  <data name="Patient_Label_Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="Patient_Label_Pet" xml:space="preserve">
+    <value>Pet</value>
+  </data>
+  <data name="Patient_Label_PetAge" xml:space="preserve">
+    <value>Pet Age (Y)</value>
+  </data>
+  <data name="Patient_Label_PetName" xml:space="preserve">
+    <value>Pet Name</value>
+  </data>
+  <data name="Patient_Label_Postcode" xml:space="preserve">
+    <value>Postcode</value>
+  </data>
+  <data name="Patient_Label_Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Inventory_Label_PricePerQty" xml:space="preserve">
+    <value>Price ($) per Qty</value>
+  </data>
+  <data name="Patient_Label_Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Inventory_Label_ProductName" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="Inventory_Label_ProductType" xml:space="preserve">
+    <value>Product Type</value>
+  </data>
+  <data name="Inventory_Label_Quantity" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="Patient_Label_RegistrationNo" xml:space="preserve">
+    <value>Registration No.</value>
+  </data>
+  <data name="Inventory_Label_SearchInventory" xml:space="preserve">
+    <value>Search Inventory</value>
+  </data>
+  <data name="Inventory_Label_SearchSpecies" xml:space="preserve">
+    <value>Search Species</value>
+  </data>
+  <data name="Patient_Label_SearchTreatment" xml:space="preserve">
+    <value>Search Treatment</value>
+  </data>
+  <data name="Inventory_Label_SelectProductType" xml:space="preserve">
+    <value>Select Product Type</value>
+  </data>
+  <data name="Patient_Label_Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="Patient_Label_Sex" xml:space="preserve">
+    <value>Sex</value>
+  </data>
+  <data name="Patient_Label_Species" xml:space="preserve">
+    <value>Species</value>
+  </data>
+  <data name="Patient_Label_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Patient_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Patient_Label_Surgeries" xml:space="preserve">
+    <value>Surgeries</value>
+  </data>
+  <data name="Patient_Label_Tax" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="Patient_Label_TestManagement" xml:space="preserve">
+    <value>Test Management</value>
+  </data>
+  <data name="Patient_Label_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Patient_Label_TotalCost" xml:space="preserve">
+    <value>Total Cost</value>
+  </data>
+  <data name="Patient_Label_TreatmentPeriod" xml:space="preserve">
+    <value>Treatment period</value>
+  </data>
+  <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
+    <value>Treatment Plan</value>
+  </data>
+  <data name="Patient_Label_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Patient_Label_Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="Inventory_Label_UploadImage" xml:space="preserve">
+    <value>Upload Image</value>
+  </data>
+  <data name="Inventory_Label_Usage" xml:space="preserve">
+    <value>Usage</value>
+  </data>
+  <data name="Patient_Label_Vaccination" xml:space="preserve">
+    <value>Vaccination</value>
+  </data>
+  <data name="Patient_Label_VaccinationTreatment" xml:space="preserve">
+    <value>Vaccination/Treatment</value>
+  </data>
+  <data name="Patient_Label_Weight" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="Patient_Label_Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Patient_Message_IdleMessage" xml:space="preserve">
+    <value>You will be automatically logout if continue to idle.</value>
+  </data>
+  <data name="Patient_Message_NoRecord" xml:space="preserve">
+    <value>No record available.</value>
+  </data>
+  <data name="Patient_Selection_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Patient_Selection_Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Patient_Selection_Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="Patient_Selection_Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Patient_Selection_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Patient_Selection_SelectBreed" xml:space="preserve">
+    <value>Select Breed</value>
+  </data>
+  <data name="Patient_Selection_SelectCity" xml:space="preserve">
+    <value>Select City</value>
+  </data>
+  <data name="Patient_Selection_SelectColor" xml:space="preserve">
+    <value>Select Color</value>
+  </data>
+  <data name="Patient_Selection_SelectCountry" xml:space="preserve">
+    <value>Select Country</value>
+  </data>
+  <data name="Patient_Selection_SelectGender" xml:space="preserve">
+    <value>Select Gender</value>
+  </data>
+  <data name="Patient_Selection_SelectSex" xml:space="preserve">
+    <value>Select Sex</value>
+  </data>
+  <data name="Patient_Selection_SelectSpecies" xml:space="preserve">
+    <value>Select Species</value>
+  </data>
+  <data name="Patient_Selection_SelectState" xml:space="preserve">
+    <value>Select State</value>
+  </data>
+  <data name="Patient_Selection_SelectStatus" xml:space="preserve">
+    <value>Select Status</value>
+  </data>
+  <data name="Patient_Selection_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Patient_Title_AdditionalInformation" xml:space="preserve">
+    <value>Additional Information</value>
+  </data>
+  <data name="Patient_Title_AllPets" xml:space="preserve">
+    <value>All Pets</value>
+  </data>
+  <data name="Patient_Title_CoOwnerInfo" xml:space="preserve">
+    <value>Co-Owner Information</value>
+  </data>
+  <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
+    <value>Create Patient Profile</value>
+  </data>
+  <data name="Patient_Title_MedicalRecord" xml:space="preserve">
+    <value>Medical Record</value>
+  </data>
+  <data name="Patient_Title_MedicationHistory" xml:space="preserve">
+    <value>Medication History</value>
+  </data>
+  <data name="Patient_Title_OwnerInfo" xml:space="preserve">
+    <value>Owner Information</value>
+  </data>
+  <data name="Patient_Title_PatientProfile" xml:space="preserve">
+    <value>Patient Profile</value>
+  </data>
+  <data name="Patient_Title_Patients" xml:space="preserve">
+    <value>Patients</value>
+  </data>
+  <data name="Patient_Title_PetGrowthHistory" xml:space="preserve">
+    <value>Pet Growth History</value>
+  </data>
+  <data name="Patient_Title_PetGrowthTrend" xml:space="preserve">
+    <value>Pet Growth Trend</value>
+  </data>
+  <data name="Patient_Title_PetInfo" xml:space="preserve">
+    <value>Pet Information</value>
+  </data>
+  <data name="Patient_Title_Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
+    <value>Upcoming Appointment</value>
+  </data>
+  <data name="Patient_Title_UpcomingVaccinationTreatment" xml:space="preserve">
+    <value>Upcoming Vaccination/Treatment</value>
+  </data>
+  <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
+    <value>Vaccination/Treatment History</value>
+  </data>
+  <data name="Inventory_Label_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Inventory_Label_RecommendedBreed" xml:space="preserve">
+    <value>Recommended Breed</value>
+  </data>
+  <data name="Inventory_Label_RecommendedWeight" xml:space="preserve">
+    <value>Recommended Weight</value>
+  </data>
+  <data name="Inventory_Label_SearchBreed" xml:space="preserve">
+    <value>Search Breed</value>
+  </data>
+  <data name="Inventory_Label_SelectBranch" xml:space="preserve">
+    <value>Select Branch</value>
+  </data>
+  <data name="Service_Button_NewService" xml:space="preserve">
+    <value>New Service</value>
+  </data>
+  <data name="Service_Label_DoctorInCharge" xml:space="preserve">
+    <value>Doctor In Charge</value>
+  </data>
+  <data name="Service_Label_DurationHr" xml:space="preserve">
+    <value>Duration (Hr)</value>
+  </data>
+  <data name="Service_Label_Precaution" xml:space="preserve">
+    <value>Precaution</value>
+  </data>
+  <data name="Service_Label_SearchDoctor" xml:space="preserve">
+    <value>Search Doctor</value>
+  </data>
+  <data name="Service_Label_SearchService" xml:space="preserve">
+    <value>Search Service</value>
+  </data>
+  <data name="Service_Label_SelectCategory" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="Service_Label_ServiceDetails" xml:space="preserve">
+    <value>Service Details</value>
+  </data>
+  <data name="Service_Label_ServiceName" xml:space="preserve">
+    <value>Service Name</value>
+  </data>
+  <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
+    <value>Time of Service (Hr)</value>
+  </data>
+  <data name="TreatmentPlan_Label_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
+    <value>Add Service</value>
+  </data>
+  <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
+    <value>Date Created</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
+    <value>Make Active</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeInactive" xml:space="preserve">
+    <value>Make Inactive</value>
+  </data>
+  <data name="TreatmentPlan_Label_NewTreatment" xml:space="preserve">
+    <value>New Treatment</value>
+  </data>
+  <data name="TreatmentPlan_Label_Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="TreatmentPlan_Label_SearchService" xml:space="preserve">
+    <value>Search Service</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
+    <value>Select User</value>
+  </data>
+  <data name="TreatmentPlan_Label_Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TreatmentPlan_Label_Treatment" xml:space="preserve">
+    <value>Treatment</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentDetails" xml:space="preserve">
+    <value>Treatment Details</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentName" xml:space="preserve">
+    <value>Treatment Name</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
+    <value>Treatment Plans</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>Add Product</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>Pending Confirmation</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>Old Password</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>Select Medication</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>Select Medication Type</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>Select Surgery</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>Select Surgery Type</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>Select Vaccination</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>Select Vaccination Type</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>Due</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>Expiry</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>No Ongoing Treatment</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>No Past Treatment</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>No Upcoming Appointment</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>No Upcoming Treatment</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>Updated On</value>
+  </data>
+  <data name="Patient_Label_NoOtherPet" xml:space="preserve">
+    <value>No other pet.</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>New Role</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>Are you a doctor?</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>Assigned No of Staffs</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>Confirm delete this role?</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>Failed to create roles.</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>Failed to delete record.</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>*Mandatory field required.</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>New role create successfully.</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>Permission Settings:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Please select branch</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>Please select option</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Please select organization</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Please select status</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>User Role</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>Add New Role</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>Create Role</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>Delete Role</value>
+  </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>Role Settings</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>User Access Control</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>Failed to update roles.</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>Update role successfully.</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>Update Role</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>New Staff</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>Staff ID</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>Staff Name</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>Staff Listing</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>Staff ID</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>Confirm to delete staff?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>Failed to delete staff, please try again.</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Please select branch</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Please select gender</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Please select organization</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Please select role</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>Please select staff</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Please select status</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>Staff Details</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>Delete staff</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>User Role</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>Create user successfully.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>Failed to create user, please try again.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>Failed to update user profile, please try again.</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>Login ID</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*Login ID exists in system, please try again.</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*Mandatory Fields required.</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Please select branch</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Please select gender</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Please select organization</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Please select role</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Please select status</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>Update user profile successfully.</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>Update User Profile</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>Invalid email address.</value>
+  </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>All rights reserved</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>Mark as paid</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>Quick Invoice</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>Grand Discount</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>Invoice Details</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>Invoice No</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>Invoice Note</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>Invoice/Receipt No</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>Invoices</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>Next Appointment</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>Purchase Item Details</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>Receipt</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>Receipt No</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>Select Customer</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>Select Product</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>Surgery/Vaccination/Consultation Name</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>Are you sure you want to mark as paid and move to receipt?</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>Add Custom Treatment</value>
+  </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>Existing Treatment Plan</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>Showing</value>
+  </data>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>Add Branchx</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>Branch Address</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>Branch Name</value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>Create Organisation</value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>New Organisation</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>Organisation Name</value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>Save Branch</value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>Search Organisation</value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>Total Staffs</value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>Edit Organisation</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>Organisation Details</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>View Report</value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>Blood Pressure</value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>Blood Test</value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>Bone Mass</value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>Heart Rate</value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>Injury Exam</value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>Lung X-Ray</value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>Negative</value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>Normal Range</value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>Recovering</value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>Result Gauge</value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>Access Denied.</value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>Branch Contact No</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>Positive</value>
+  </data>
+  <data name="Appointment_Label_NoFutureAppointment" xml:space="preserve">
+    <value>No future appointment.</value>
+  </data>
+  <data name="Patient_Button_HideFilter" xml:space="preserve">
+    <value>Hide Filters</value>
+  </data>
+  <data name="Patient_Button_ShowFilter" xml:space="preserve">
+    <value>Show Filters</value>
+  </data>
+  <data name="TestManagement_Label_Analyzer" xml:space="preserve">
+    <value>Analyzer</value>
+  </data>
+  <data name="Dashboard_Button_ViewAll" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="Dashboard_Label_AllDoctors" xml:space="preserve">
+    <value>All Doctors</value>
+  </data>
+  <data name="Dashboard_Label_AsOf" xml:space="preserve">
+    <value>as of</value>
+  </data>
+  <data name="Dashboard_Label_ShowMore" xml:space="preserve">
+    <value>Show more</value>
+  </data>
+  <data name="Dashboard_Label_Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatients" xml:space="preserve">
+    <value>Total Patients</value>
+  </data>
+  <data name="Dashboard_Label_TotalSales" xml:space="preserve">
+    <value>Total Sales</value>
+  </data>
+  <data name="Dashboard_Label_TotalStaffs" xml:space="preserve">
+    <value>Total Staffs</value>
+  </data>
+  <data name="Dashboard_Message_Here" xml:space="preserve">
+    <value>Here's your Patient Management System Dashboard.</value>
+  </data>
+  <data name="Dashboard_Message_Welcome" xml:space="preserve">
+    <value>Welcome back,</value>
+  </data>
+  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
+    <value>Software Update</value>
+  </data>
+  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="NotificationSetting_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
+    <value>Enable the notifications that you would like to receive</value>
+  </data>
+  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
+    <value>Update settings successfully</value>
+  </data>
+  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
+    <value>Notification Settings</value>
+  </data>
+  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
+    <value>Update Notification Settings</value>
+  </data>
+  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
+    <value>Failed to update Notification settings.</value>
+  </data>
+  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
+    <value>Notification Settings</value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>Device Name</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>Normal Range</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>Operator ID</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>Patient ID</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>Patient Name</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>Result Gauge</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>Overall Test Results</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>Device Name</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>Operator ID</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>Patient ID</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>Result Status (+/-)</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>Search By Name</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>Sort By Date</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>Test Type</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>Test Management</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>Test Management</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Dashboard_Label_Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="Dashboard_Label_GenderBreakdown" xml:space="preserve">
+    <value>Gender Breakdown</value>
+  </data>
+  <data name="Dashboard_Label_Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Dashboard_Label_OverallRevenue" xml:space="preserve">
+    <value>Overall Revenue</value>
+  </data>
+  <data name="Dashboard_Label_PatientNumberStatistics" xml:space="preserve">
+    <value>Patient Number Statistics</value>
+  </data>
+  <data name="Dashboard_Label_RevenueBy" xml:space="preserve">
+    <value>Revenue By</value>
+  </data>
+  <data name="Dashboard_Label_StaffBreakdown" xml:space="preserve">
+    <value>Staff Breakdown</value>
+  </data>
+  <data name="Dashboard_Label_TopBreed" xml:space="preserve">
+    <value>Top Breed</value>
+  </data>
+  <data name="Dashboard_Label_TopServices" xml:space="preserve">
+    <value>Top Services</value>
+  </data>
+  <data name="Dashboard_Label_TopTreatment" xml:space="preserve">
+    <value>Top Treatment</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatientByBreed" xml:space="preserve">
+    <value>Total Patient By Breed</value>
+  </data>
+  <data name="Dashboard_Label_Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="Dashboard_Label_Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
+    <value>Total Appointment</value>
+  </data>
+  <data name="Dashboard_Label_LatestUpdateOn" xml:space="preserve">
+    <value>Latest update on</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>Invoice Creation</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>Receipt Creation</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>Attached is the invoice.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>Attached is the receipt.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>Please add atleast one product.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>Please fill the required field.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>Something wrong happen!</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>The account are locked. Please contact administrator.</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>The account are have not confirmed yet. Please confirm the account through email and try again.</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>Account not found based on the username. Please check and try again.</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>Error occur. Please try again later.</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>Fail to reset password.</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>Wrong email. Please check and try again.</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>Wrong password or username.</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>Need to fill the required fields.</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>No record exist yet for this category.</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>Need to choose atleast one service or one product.</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>Treatment plan name cannot be empty.</value>
+  </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>Appointment Accepted</value>
+  </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>Accept Appointment</value>
+  </data>
+  <data name="AccessControl_Label_BranchCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="AccessControl_Label_BranchPostcode" xml:space="preserve">
+    <value>Postcode</value>
+  </data>
+  <data name="AccessControl_Label_BranchState" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="AccessControl_Label_SelectCity" xml:space="preserve">
+    <value>Select City</value>
+  </data>
+  <data name="AccessControl_Label_SelectState" xml:space="preserve">
+    <value>Select State</value>
+  </data>
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>Scheduled Test</value>
+  </data>
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>Select location</value>
+  </data>
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>Select Tests</value>
+  </data>
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>Tests</value>
+  </data>
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>Create Schedule Tests</value>
+  </data>
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>Incharges Doctor</value>
+  </data>
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>Select Incharges Doctor</value>
+  </data>
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Mandatory fields required.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>Schedule Tests fail to send, please try again later.</value>
+  </data>
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>Schedule Tests sent successfully.</value>
+  </data>
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>Submit Schedule Tests</value>
+  </data>
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Please select branch</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Please select organization</value>
+  </data>
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>Role Type</value>
+  </data>
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>New banner</value>
+  </data>
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>Banners Management</value>
   </data>
   <data name="BannerProfile_Button_Cancel" xml:space="preserve">
-    <value>Stornieren</value>
+    <value>Cancel</value>
   </data>
   <data name="BannerProfile_Button_Create" xml:space="preserve">
-    <value>Erstellen</value>
+    <value>Create</value>
   </data>
   <data name="BannerProfile_Button_Update" xml:space="preserve">
-    <value>Aktualisieren</value>
+    <value>Update</value>
   </data>
   <data name="BannerProfile_Label_Banner" xml:space="preserve">
     <value>Banner</value>
   </data>
   <data name="BannerProfile_Label_Description" xml:space="preserve">
-    <value>Beschreibung</value>
+    <value>Description</value>
   </data>
   <data name="BannerProfile_Label_EndDate" xml:space="preserve">
-    <value>Enddatum</value>
+    <value>End Date</value>
   </data>
   <data name="BannerProfile_Label_PleaseSelectStatus" xml:space="preserve">
-    <value>Bitte wählen Sie den Status</value>
+    <value>Please select status</value>
   </data>
   <data name="BannerProfile_Label_StartDate" xml:space="preserve">
-    <value>Startdatum</value>
+    <value>Start Date</value>
   </data>
   <data name="BannerProfile_Label_Status" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="BannerProfile_Label_Upload" xml:space="preserve">
-    <value>Hochladen</value>
+    <value>Upload</value>
   </data>
   <data name="BannerProfile_Message_Fail" xml:space="preserve">
-    <value>Scheitern</value>
+    <value>Fail</value>
   </data>
   <data name="BannerProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
-    <value>Pflichtfelder sind erforderlich.</value>
+    <value>Mandatory Fields Required.</value>
   </data>
   <data name="BannerProfile_Message_NoBannerSelected" xml:space="preserve">
-    <value>Keine Bannerdatei ausgewählt.</value>
+    <value>No Banner file selected.</value>
   </data>
   <data name="BannerProfile_Message_NoChangesUpdates" xml:space="preserve">
-    <value>Keine Änderungsaktualisierungen.</value>
+    <value>No changes updates.</value>
   </data>
   <data name="BannerProfile_Message_RecommendRemark" xml:space="preserve">
-    <value>* Empfohlene Größe: 1450px (Breite) x 340px (Höhe)</value>
+    <value>* Recommended size: 1450px (Width) x 340px (Height)</value>
   </data>
   <data name="BannerProfile_Message_UpdateFailed" xml:space="preserve">
-    <value>Aktualisierung fehlgeschlagen. Bitte versuchen Sie es erneut.</value>
+    <value>Update Failed, Please try again.</value>
   </data>
   <data name="BannerProfile_Message_UpdateSuccessfully" xml:space="preserve">
-    <value>Aktualisierung erfolgreich.</value>
+    <value>Update successfully.</value>
   </data>
   <data name="BannerProfile_Message_UploadFailed" xml:space="preserve">
-    <value>Das Hochladen der Datei ist fehlgeschlagen.</value>
+    <value>File upload failed.</value>
   </data>
   <data name="BannerProfile_Message_UploadSuccessfully" xml:space="preserve">
-    <value>Hochladen erfolgreich.</value>
+    <value>Upload successfully.</value>
   </data>
   <data name="BannerProfile_Title_BannerDetails" xml:space="preserve">
-    <value>Bannerdetails</value>
+    <value>Banner Details</value>
   </data>
   <data name="BannerProfile_Title_UpdateBannerInfo" xml:space="preserve">
-    <value>Bannerinformationen aktualisieren</value>
+    <value>Update Banner Info</value>
   </data>
   <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
-    <value>Banner hochladen</value>
-  </data>
-  <data name="BannersList_Button_NewBanner" xml:space="preserve">
-    <value>Neues Banner</value>
+    <value>Upload Banner</value>
   </data>
   <data name="BannersList_Button_Next" xml:space="preserve">
-    <value>Nächste Seite</value>
+    <value>Next</value>
   </data>
   <data name="BannersList_Button_Prev" xml:space="preserve">
-    <value>zurück</value>
-  </data>
-  <data name="BannersList_Label_Banner" xml:space="preserve">
-    <value>Banner</value>
+    <value>Prev</value>
   </data>
   <data name="BannersList_Label_CreatedDate" xml:space="preserve">
-    <value>Erstellungsdatum</value>
+    <value>Created Date</value>
   </data>
   <data name="BannersList_Label_Edit" xml:space="preserve">
-    <value>Bearbeiten</value>
-  </data>
-  <data name="BannersList_Label_EndDate" xml:space="preserve">
-    <value>Enddatum</value>
-  </data>
-  <data name="BannersList_Label_FileName" xml:space="preserve">
-    <value>Dateiname</value>
-  </data>
-  <data name="BannersList_Label_Number" xml:space="preserve">
-    <value>Nummer</value>
-  </data>
-  <data name="BannersList_Label_StartDate" xml:space="preserve">
-    <value>Startdatum</value>
-  </data>
-  <data name="BannersList_Label_Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Edit</value>
   </data>
   <data name="BannersList_Label_View" xml:space="preserve">
-    <value>Sicht</value>
+    <value>View</value>
   </data>
   <data name="BannersList_Message_NoRecords" xml:space="preserve">
-    <value>Keine Aufzeichnungen</value>
-  </data>
-  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
-    <value>Bannerverwaltung</value>
+    <value>No Records</value>
   </data>
   <data name="BlogList_Button_NewBlog" xml:space="preserve">
-    <value>Neuer Blog</value>
+    <value>New Blog</value>
   </data>
   <data name="BlogList_Button_Next" xml:space="preserve">
-    <value>Nächste Seite</value>
+    <value>Next</value>
   </data>
   <data name="BlogList_Button_Prev" xml:space="preserve">
-    <value>zurück</value>
+    <value>Prev</value>
   </data>
   <data name="BlogList_Label_CreatedDate" xml:space="preserve">
-    <value>Erstellungsdatum</value>
-  </data>
-  <data name="BlogList_Label_Edit" xml:space="preserve">
-    <value>Bearbeiten</value>
+    <value>Created Date</value>
   </data>
   <data name="BlogList_Label_EndDate" xml:space="preserve">
-    <value>Enddatum</value>
+    <value>End Date</value>
+  </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>Blogs Management</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="BlogList_Label_Num" xml:space="preserve">
-    <value>Nummer</value>
+    <value>No.</value>
   </data>
   <data name="BlogList_Label_StartDate" xml:space="preserve">
-    <value>Startdatum</value>
+    <value>Start Date</value>
   </data>
   <data name="BlogList_Label_Status" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="BlogList_Label_Title" xml:space="preserve">
-    <value>Titel</value>
+    <value>Title</value>
   </data>
   <data name="BlogList_Label_URL" xml:space="preserve">
     <value>URL</value>
   </data>
   <data name="BlogList_Label_View" xml:space="preserve">
-    <value>Sicht</value>
+    <value>View</value>
   </data>
   <data name="BlogList_Message_NoRecords" xml:space="preserve">
-    <value>Keine Aufzeichnungen</value>
-  </data>
-  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
-    <value>Blog-Verwaltung</value>
+    <value>No records</value>
   </data>
   <data name="BlogProfile_Button_Cancel" xml:space="preserve">
-    <value>Stornieren</value>
+    <value>Cancel</value>
   </data>
   <data name="BlogProfile_Button_Create" xml:space="preserve">
-    <value>Erstellen</value>
+    <value>Create</value>
   </data>
   <data name="BlogProfile_Button_Update" xml:space="preserve">
-    <value>Aktualisieren</value>
+    <value>Update</value>
   </data>
   <data name="BlogProfile_Label_Description" xml:space="preserve">
-    <value>Beschreibung</value>
+    <value>Description</value>
   </data>
   <data name="BlogProfile_Label_EndDate" xml:space="preserve">
-    <value>Enddatum</value>
+    <value>End Date</value>
   </data>
   <data name="BlogProfile_Label_FileName" xml:space="preserve">
-    <value>Dateiname</value>
+    <value>File Name</value>
   </data>
   <data name="BlogProfile_Label_PleaseSelectStatus" xml:space="preserve">
-    <value>Bitte wählen Sie den Status</value>
+    <value>Please select status</value>
   </data>
   <data name="BlogProfile_Label_StartDate" xml:space="preserve">
-    <value>Startdatum</value>
+    <value>Start Date</value>
   </data>
   <data name="BlogProfile_Label_Status" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="BlogProfile_Label_Title" xml:space="preserve">
-    <value>Titel</value>
+    <value>Title</value>
   </data>
   <data name="BlogProfile_Label_Upload" xml:space="preserve">
-    <value>Hochladen</value>
+    <value>Upload</value>
   </data>
   <data name="BlogProfile_Label_URL" xml:space="preserve">
     <value>URL</value>
   </data>
-  <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
-    <value>Blog erfolgreich erstellt.</value>
-  </data>
-  <data name="BlogProfile_Message_Fail" xml:space="preserve">
-    <value>Scheitern</value>
-  </data>
-  <data name="BlogProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
-    <value>Pflichtfelder sind erforderlich.</value>
-  </data>
-  <data name="BlogProfile_Message_NoChangesUpdate" xml:space="preserve">
-    <value>Keine Änderungsaktualisierung.</value>
-  </data>
-  <data name="BlogProfile_Message_NoThumbnailSelected" xml:space="preserve">
-    <value>Kein Miniaturbild ausgewählt.</value>
-  </data>
-  <data name="BlogProfile_Message_UpdateBlogSuccessfully" xml:space="preserve">
-    <value>Blog erfolgreich aktualisieren</value>
-  </data>
-  <data name="BlogProfile_Message_UpdateFailed" xml:space="preserve">
-    <value>Aktualisierung fehlgeschlagen. Bitte versuchen Sie es später erneut.</value>
-  </data>
-  <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
-    <value>Das Hochladen der Miniaturansicht ist fehlgeschlagen.</value>
-  </data>
   <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
     <value>Blog Details</value>
   </data>
+  <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
+    <value>Create blog successfully.</value>
+  </data>
+  <data name="BlogProfile_Message_Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="BlogProfile_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Mandatory Fields Required.</value>
+  </data>
+  <data name="BlogProfile_Message_NoChangesUpdate" xml:space="preserve">
+    <value>No changes update.</value>
+  </data>
+  <data name="BlogProfile_Message_NoThumbnailSelected" xml:space="preserve">
+    <value>No thumbnail photo selected.</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateBlogSuccessfully" xml:space="preserve">
+    <value>Update Blog Successfully</value>
+  </data>
+  <data name="BlogProfile_Message_UpdateFailed" xml:space="preserve">
+    <value>Update failed, Please try again later.</value>
+  </data>
+  <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
+    <value>Upload Thumbnail failed.</value>
+  </data>
   <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
-    <value>Blogeintrag erstellen</value>
+    <value>Create blog entry</value>
   </data>
   <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
-    <value>Blog-Informationen aktualisieren</value>
-  </data>
-  <data name="DoctorProfile_Button_Back" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
-    <value>Zweig</value>
-  </data>
-  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
-    <value>Organisationen</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
-    <value>Bitte wählen Sie eine Filiale</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value>Bitte wählen Sie eine Organisation</value>
-  </data>
-  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Appointments" xml:space="preserve">
-    <value />
+    <value>Update Blog Info</value>
   </data>
   <data name="MenuBar_Label_Banners" xml:space="preserve">
-    <value>Banner</value>
+    <value>Banners</value>
   </data>
   <data name="MenuBar_Label_Blogs" xml:space="preserve">
     <value>Blogs</value>
   </data>
   <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
-    <value>Kundenportal</value>
-  </data>
-  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Integration" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Organisation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Patients" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Service" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_All" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Messages" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Title_Notification" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Patient_Button_Submit" xml:space="preserve">
-    <value>Einreichen</value>
-  </data>
-  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
-    <value>Verantwortlicher Arzt</value>
-  </data>
-  <data name="Patient_Label_Location" xml:space="preserve">
-    <value>Standort</value>
-  </data>
-  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
-    <value>Planmäßiger Test</value>
-  </data>
-  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
-    <value>Wählen Sie den verantwortlichen Arzt</value>
-  </data>
-  <data name="Patient_Label_SelectLocation" xml:space="preserve">
-    <value>Standort auswählen</value>
-  </data>
-  <data name="Patient_Label_SelectTests" xml:space="preserve">
-    <value>Tests auswählen</value>
-  </data>
-  <data name="Patient_Label_Tests" xml:space="preserve">
-    <value>Tests</value>
-  </data>
-  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
-    <value>Pflichtfelder sind erforderlich.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
-    <value>Das Senden der geplanten Tests ist fehlgeschlagen. Bitte versuchen Sie es später erneut.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
-    <value>Geplante Tests erfolgreich gesendet.</value>
-  </data>
-  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
-    <value>Erstellen Sie geplante Tests</value>
-  </data>
-  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
-    <value>Senden Sie geplante Tests</value>
-  </data>
-  <data name="Roles_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_NewRole" xml:space="preserve">
-    <value />
+    <value>Customer Portal</value>
   </data>
   <data name="Roles_Button_PermissionDetails" xml:space="preserve">
-    <value>Berechtigungsdetails</value>
-  </data>
-  <data name="Roles_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Permission" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_RoleType" xml:space="preserve">
-    <value>Rollentyp</value>
-  </data>
-  <data name="Roles_Label_Status" xml:space="preserve">
-    <value />
+    <value>Permission Details</value>
   </data>
   <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
-    <value>Gesamtzahl der erteilten Berechtigungen</value>
-  </data>
-  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_UserRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_AddNewRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_CreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_DeleteRole" xml:space="preserve">
-    <value />
+    <value>Total Permissions Granted</value>
   </data>
   <data name="Roles_Title_Permissions" xml:space="preserve">
-    <value>Berechtigungen</value>
+    <value>Permissions</value>
   </data>
-  <data name="Roles_Title_RoleSettings" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Branch" xml:space="preserve">
+    <value>Branch</value>
   </data>
-  <data name="Roles_Title_UpdateRole" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Organization" xml:space="preserve">
+    <value>Organization</value>
   </data>
-  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectBranch" xml:space="preserve">
+    <value>Select Branch</value>
   </data>
-  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Surname" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_NewStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuDelete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuEdit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuView" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffDetail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_High" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Low" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Result" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Test" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Ascending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Descending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SearchByName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortBy" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortByDate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_TestType" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_TestManagement" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectOrganization" xml:space="preserve">
+    <value>Select Organization</value>
   </data>
 </root>

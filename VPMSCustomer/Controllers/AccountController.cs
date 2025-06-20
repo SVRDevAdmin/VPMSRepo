@@ -212,6 +212,15 @@ namespace VPMSCustomer.Controllers
             {
                 if (PatientRepository.UpdatePatientOwnerProfile(ownerlist))
                 {
+                    if (ownerlist.Count > 0)
+                    {
+                        HttpContext.Session.SetString("PatientPostCode", ownerlist[0].PostCode);
+                        HttpContext.Session.SetString("PatientState", ownerlist[0].State);
+                        HttpContext.Session.SetString("PatientCity", ownerlist[0].City);
+                        HttpContext.Session.SetString("PatientCountryID", ownerlist[0].Country);
+                        HttpContext.Session.SetString("Gender", ownerlist[0].Gender);
+                    }
+
                     sResp.StatusCode = (int)StatusCodes.Status200OK;
                 }
                 else
