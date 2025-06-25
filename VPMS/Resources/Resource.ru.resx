@@ -117,6 +117,1680 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Appointment_Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
+    <value>Отменить приложение</value>
+  </data>
+  <data name="Appointment_Button_Confirm" xml:space="preserve">
+    <value>Подтверждать</value>
+  </data>
+  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
+    <value>Новое назначение</value>
+  </data>
+  <data name="Appointment_Button_Reset" xml:space="preserve">
+    <value>Перезагрузить</value>
+  </data>
+  <data name="Appointment_Button_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Appointment_Button_Update" xml:space="preserve">
+    <value>Обновлять</value>
+  </data>
+  <data name="Appointment_Label_ContactNo" xml:space="preserve">
+    <value>Контактный номер</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>Дата и время</value>
+  </data>
+  <data name="Appointment_Label_Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>Доктор</value>
+  </data>
+  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
+    <value>Изменить назначение</value>
+  </data>
+  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
+    <value>Адрес электронной почты</value>
+  </data>
+  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
+    <value>Существующий клиент?</value>
+  </data>
+  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
+    <value>*Обязательные поля обязательны для заполнения.</value>
+  </data>
+  <data name="Appointment_Label_Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="Appointment_Label_NewClient" xml:space="preserve">
+    <value>Новый клиент?</value>
+  </data>
+  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
+    <value>Уведомить меня по электронной почте</value>
+  </data>
+  <data name="Appointment_Label_Owner" xml:space="preserve">
+    <value>Владелец</value>
+  </data>
+  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
+    <value>Полное имя владельца</value>
+  </data>
+  <data name="Appointment_Label_OwnerName" xml:space="preserve">
+    <value>Имя владельца</value>
+  </data>
+  <data name="Appointment_Label_Pet" xml:space="preserve">
+    <value>Домашний питомец</value>
+  </data>
+  <data name="Appointment_Label_PetDOB" xml:space="preserve">
+    <value>Дата рождения питомца</value>
+  </data>
+  <data name="Appointment_Label_PetName" xml:space="preserve">
+    <value>Имя питомца</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>Услуги</value>
+  </data>
+  <data name="Appointment_Label_Species" xml:space="preserve">
+    <value>Разновидность</value>
+  </data>
+  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
+    <value>Вернуться к назначению встречи</value>
+  </data>
+  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
+    <value>Переключиться на быструю запись</value>
+  </data>
+  <data name="Appointment_Label_Week" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
+    <value>Запись отменена. Обновлено.</value>
+  </data>
+  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>Подтвердить отмену этой встречи?</value>
+  </data>
+  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
+    <value>*Врач не сможет принять вас в указанную выше дату и время.</value>
+  </data>
+  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
+    <value>*В системе уже есть запись на прием к этому пациенту.</value>
+  </data>
+  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
+    <value>Не удалось обновить запись, попробуйте еще раз позже.</value>
+  </data>
+  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>Обновление успешно выполнено.</value>
+  </data>
+  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
+    <value>Пожалуйста, выберите врача</value>
+  </data>
+  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
+    <value>Пожалуйста, выберите владельца</value>
+  </data>
+  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
+    <value>Пожалуйста, выберите домашнее животное</value>
+  </data>
+  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
+    <value>Пожалуйста, выберите услуги</value>
+  </data>
+  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
+    <value>Пожалуйста, выберите вид питомца</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>Встреча</value>
+  </data>
+  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
+    <value>Отменить прием</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>Создать встречу</value>
+  </data>
+  <data name="Appointment_Title_Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
+    <value>Создать встречу (новый клиент)</value>
+  </data>
+  <data name="DoctorProfile_Button_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DoctorProfile_Button_Create" xml:space="preserve">
+    <value>Создавать</value>
+  </data>
+  <data name="DoctorProfile_Button_Update" xml:space="preserve">
+    <value>Обновлять</value>
+  </data>
+  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
+    <value>Обозначение</value>
+  </data>
+  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
+    <value>Номер лицензии</value>
+  </data>
+  <data name="DoctorProfile_Label_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Пожалуйста, выберите пол</value>
+  </data>
+  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
+    <value>Специальность</value>
+  </data>
+  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
+    <value>Системный идентификатор</value>
+  </data>
+  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
+    <value>Доктор успешно добавлен</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
+    <value>*Не удалось добавить врача, повторите попытку позже.</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
+    <value>*Не удалось обновить информацию о враче. Повторите попытку позже.</value>
+  </data>
+  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
+    <value>*Обязательное поле для заполнения.</value>
+  </data>
+  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
+    <value>Обновление прошло успешно</value>
+  </data>
+  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
+    <value>Добавить доктора</value>
+  </data>
+  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
+    <value>Данные о докторе</value>
+  </data>
+  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
+    <value>Обновление Доктора</value>
+  </data>
+  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
+    <value>Новый Доктор</value>
+  </data>
+  <data name="Doctor_Button_Next" xml:space="preserve">
+    <value>Следующий</value>
+  </data>
+  <data name="Doctor_Button_Prev" xml:space="preserve">
+    <value>Предыдущая</value>
+  </data>
+  <data name="Doctor_Button_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
+    <value>Обозначение</value>
+  </data>
+  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="Doctor_Label_ColumnID" xml:space="preserve">
+    <value>ИДЕНТИФИКАТОР</value>
+  </data>
+  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
+    <value>Номер лицензии</value>
+  </data>
+  <data name="Doctor_Label_ColumnName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
+    <value>Поиск врача по имени</value>
+  </data>
+  <data name="Doctor_Label_Specialty" xml:space="preserve">
+    <value>Специальность</value>
+  </data>
+  <data name="Doctor_Menu_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Doctor_Menu_Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Doctor_Menu_View" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
+    <value>Подтвердить удаление записи врача?</value>
+  </data>
+  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
+    <value>Не удалось удалить запись, повторите попытку позже.</value>
+  </data>
+  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
+    <value>Удалить запись врача</value>
+  </data>
+  <data name="Doctor_Title_Doctor" xml:space="preserve">
+    <value>Доктор</value>
+  </data>
+  <data name="Inventory_Label_SelectOrganisation" xml:space="preserve">
+    <value>Выберите организацию</value>
+  </data>
+  <data name="LanguageCountry_Button_Save" xml:space="preserve">
+    <value>Сохранять</value>
+  </data>
+  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
+    <value>Выбор страны недоступен.</value>
+  </data>
+  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
+    <value>Выбор языка недоступен.</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
+    <value>Выберите страну</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
+    <value>Выберите язык</value>
+  </data>
+  <data name="Login_Button_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Login_Button_RecoverPassword" xml:space="preserve">
+    <value>Восстановить пароль</value>
+  </data>
+  <data name="Login_Link_ForgotPassword" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="Login_Placeholder_Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="Login_Placeholder_LoginID" xml:space="preserve">
+    <value>Логин ID</value>
+  </data>
+  <data name="Login_Placeholder_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>Авторизоваться</value>
+  </data>
+  <data name="Login_Title_PasswordRecovery" xml:space="preserve">
+    <value>Восстановление пароля</value>
+  </data>
+  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
+    <value>Контроль доступа</value>
+  </data>
+  <data name="MenuBar_Label_Appointments" xml:space="preserve">
+    <value>Назначения</value>
+  </data>
+  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
+    <value>Обслуживание клиентов</value>
+  </data>
+  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
+    <value>Панель инструментов</value>
+  </data>
+  <data name="MenuBar_Label_Doctor" xml:space="preserve">
+    <value>Доктор</value>
+  </data>
+  <data name="MenuBar_Label_Integration" xml:space="preserve">
+    <value>Интеграция</value>
+  </data>
+  <data name="MenuBar_Label_Inventory" xml:space="preserve">
+    <value>Инвентарь</value>
+  </data>
+  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
+    <value>Счета и квитанции</value>
+  </data>
+  <data name="MenuBar_Label_Logout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="MenuBar_Label_MyProfile" xml:space="preserve">
+    <value>Мой профиль</value>
+  </data>
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
+    <value>Организация</value>
+  </data>
+  <data name="MenuBar_Label_Patients" xml:space="preserve">
+    <value>Пациенты</value>
+  </data>
+  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
+    <value>Услуги для пациентов</value>
+  </data>
+  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
+    <value>План лечения пациента</value>
+  </data>
+  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
+    <value>Настройка ролей</value>
+  </data>
+  <data name="MenuBar_Label_Service" xml:space="preserve">
+    <value>Услуга</value>
+  </data>
+  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
+    <value>Список персонала</value>
+  </data>
+  <data name="Notification_Label_All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="Notification_Label_Inventory" xml:space="preserve">
+    <value>Инвентарь</value>
+  </data>
+  <data name="Notification_Label_Messages" xml:space="preserve">
+    <value>Сообщения</value>
+  </data>
+  <data name="Notification_Label_Next" xml:space="preserve">
+    <value>Следующий</value>
+  </data>
+  <data name="Notification_Label_Prev" xml:space="preserve">
+    <value>Предыдущая</value>
+  </data>
+  <data name="Notification_Title_Notification" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="Patient_Button_AddCoOwner" xml:space="preserve">
+    <value>Добавить совладельца</value>
+  </data>
+  <data name="Patient_Button_AddNew" xml:space="preserve">
+    <value>Добавить новый</value>
+  </data>
+  <data name="Patient_Button_AddPet" xml:space="preserve">
+    <value>Добавить питомца</value>
+  </data>
+  <data name="Patient_Button_AddSelections" xml:space="preserve">
+    <value>Добавить выбор</value>
+  </data>
+  <data name="Patient_Button_AddTreatment" xml:space="preserve">
+    <value>Добавить лечение</value>
+  </data>
+  <data name="Patient_Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Patient_Button_ClearAll" xml:space="preserve">
+    <value>Очистить все</value>
+  </data>
+  <data name="Patient_Button_CreateTreatmentPlan" xml:space="preserve">
+    <value>Создать план лечения</value>
+  </data>
+  <data name="Patient_Button_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Patient_Button_Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Patient_Button_Finish" xml:space="preserve">
+    <value>Заканчивать</value>
+  </data>
+  <data name="Patient_Button_GoBack" xml:space="preserve">
+    <value>Возвращаться</value>
+  </data>
+  <data name="Inventory_Button_NewInventory" xml:space="preserve">
+    <value>Новый инвентарь</value>
+  </data>
+  <data name="Patient_Button_NewPatient" xml:space="preserve">
+    <value>Новый пациент</value>
+  </data>
+  <data name="Patient_Button_Next" xml:space="preserve">
+    <value>Следующий</value>
+  </data>
+  <data name="Patient_Button_NextStep" xml:space="preserve">
+    <value>Следующий шаг</value>
+  </data>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>Продолжающееся лечение</value>
+  </data>
+  <data name="Patient_Button_PastTreatment" xml:space="preserve">
+    <value>Прошлое лечение</value>
+  </data>
+  <data name="Patient_Button_Previous" xml:space="preserve">
+    <value>Предыдущая</value>
+  </data>
+  <data name="Patient_Button_RemoveCoOwner" xml:space="preserve">
+    <value>Удалить совладельца</value>
+  </data>
+  <data name="Patient_Button_Save" xml:space="preserve">
+    <value>Сохранять</value>
+  </data>
+  <data name="Patient_Button_SaveMedication" xml:space="preserve">
+    <value>Сохранить лекарство</value>
+  </data>
+  <data name="Patient_Button_SaveSurgery" xml:space="preserve">
+    <value>Сохранить операцию</value>
+  </data>
+  <data name="Patient_Button_SaveVaccination" xml:space="preserve">
+    <value>Сохранить Вакцинация</value>
+  </data>
+  <data name="Patient_Button_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
+    <value>Предстоящее лечение</value>
+  </data>
+  <data name="Patient_Button_View" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Patient_Button_ViewPetProfile" xml:space="preserve">
+    <value>Посмотреть профиль питомца</value>
+  </data>
+  <data name="Patient_Label_Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="Patient_Label_AddressLine1" xml:space="preserve">
+    <value>Адресная строка 1</value>
+  </data>
+  <data name="Patient_Label_AddressLine2" xml:space="preserve">
+    <value>Адресная строка 2</value>
+  </data>
+  <data name="Patient_Label_Age" xml:space="preserve">
+    <value>Возраст</value>
+  </data>
+  <data name="Patient_Label_AgeYear" xml:space="preserve">
+    <value>Возраст (год)</value>
+  </data>
+  <data name="Patient_Label_Allergies" xml:space="preserve">
+    <value>Аллергии</value>
+  </data>
+  <data name="Patient_Label_BMI" xml:space="preserve">
+    <value>ИМТ</value>
+  </data>
+  <data name="Inventory_Label_Branch" xml:space="preserve">
+    <value>Ветвь</value>
+  </data>
+  <data name="Patient_Label_Breed" xml:space="preserve">
+    <value>Порода</value>
+  </data>
+  <data name="Inventory_Label_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Patient_Label_City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="Patient_Label_Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Patient_Label_ContactNo" xml:space="preserve">
+    <value>Контактный номер</value>
+  </data>
+  <data name="Patient_Label_CoOwnerInformationOptional" xml:space="preserve">
+    <value>Информация о совладельце (необязательно)</value>
+  </data>
+  <data name="Patient_Label_CoOwnerName" xml:space="preserve">
+    <value>Имя совладельца</value>
+  </data>
+  <data name="Patient_Label_Country" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="Inventory_Label_Create" xml:space="preserve">
+    <value>Создавать</value>
+  </data>
+  <data name="Patient_Label_CreatedOn" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="Patient_Label_Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Patient_Label_DOB" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
+  <data name="Patient_Label_Doctor" xml:space="preserve">
+    <value>Доктор</value>
+  </data>
+  <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>Срок оплаты</value>
+  </data>
+  <data name="Patient_Label_ExpiryDate" xml:space="preserve">
+    <value>Дата истечения срока действия</value>
+  </data>
+  <data name="Patient_Label_Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="Patient_Label_GrandTotal" xml:space="preserve">
+    <value>Общий итог</value>
+  </data>
+  <data name="Patient_Label_HealthCard" xml:space="preserve">
+    <value>Медицинская карта</value>
+  </data>
+  <data name="Patient_Label_Height" xml:space="preserve">
+    <value>Высота</value>
+  </data>
+  <data name="Inventory_Label_Image" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="Inventory_Label_InStock" xml:space="preserve">
+    <value>В наличии</value>
+  </data>
+  <data name="Inventory_Label_InventoryDetails" xml:space="preserve">
+    <value>Подробности инвентаризации</value>
+  </data>
+  <data name="Inventory_Label_InventoryName" xml:space="preserve">
+    <value>Название инвентаря</value>
+  </data>
+  <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
+    <value>Счета и выставление счетов</value>
+  </data>
+  <data name="Patient_Label_Medication" xml:space="preserve">
+    <value>Медикамент</value>
+  </data>
+  <data name="Patient_Label_MedicationName" xml:space="preserve">
+    <value>Название лекарства</value>
+  </data>
+  <data name="Patient_Label_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Patient_Label_Number" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="Patient_Label_Obese" xml:space="preserve">
+    <value>Страдаете ожирением?</value>
+  </data>
+  <data name="Patient_Label_Obesity" xml:space="preserve">
+    <value>Ожирение</value>
+  </data>
+  <data name="Inventory_Label_Organisation" xml:space="preserve">
+    <value>Организация</value>
+  </data>
+  <data name="Inventory_Label_OutOfStock" xml:space="preserve">
+    <value>Распродано</value>
+  </data>
+  <data name="Patient_Label_OwnerName" xml:space="preserve">
+    <value>Имя владельца</value>
+  </data>
+  <data name="Patient_Label_Payment" xml:space="preserve">
+    <value>Оплата</value>
+  </data>
+  <data name="Patient_Label_Pet" xml:space="preserve">
+    <value>Домашний питомец</value>
+  </data>
+  <data name="Patient_Label_PetAge" xml:space="preserve">
+    <value>Возраст питомца (Y)</value>
+  </data>
+  <data name="Patient_Label_PetName" xml:space="preserve">
+    <value>Имя питомца</value>
+  </data>
+  <data name="Patient_Label_Postcode" xml:space="preserve">
+    <value>Почтовый индекс</value>
+  </data>
+  <data name="Patient_Label_Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Inventory_Label_PricePerQty" xml:space="preserve">
+    <value>Цена ($) за шт.</value>
+  </data>
+  <data name="Patient_Label_Product" xml:space="preserve">
+    <value>Продукт</value>
+  </data>
+  <data name="Inventory_Label_ProductName" xml:space="preserve">
+    <value>Название продукта</value>
+  </data>
+  <data name="Inventory_Label_ProductType" xml:space="preserve">
+    <value>Тип продукта</value>
+  </data>
+  <data name="Inventory_Label_Quantity" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="Patient_Label_RegistrationNo" xml:space="preserve">
+    <value>Регистрационный номер</value>
+  </data>
+  <data name="Inventory_Label_SearchInventory" xml:space="preserve">
+    <value>Поиск инвентаря</value>
+  </data>
+  <data name="Inventory_Label_SearchSpecies" xml:space="preserve">
+    <value>Поиск видов</value>
+  </data>
+  <data name="Patient_Label_SearchTreatment" xml:space="preserve">
+    <value>Поиск Лечение</value>
+  </data>
+  <data name="Inventory_Label_SelectProductType" xml:space="preserve">
+    <value>Выберите тип продукта</value>
+  </data>
+  <data name="Patient_Label_Service" xml:space="preserve">
+    <value>Услуга</value>
+  </data>
+  <data name="Patient_Label_Sex" xml:space="preserve">
+    <value>секс</value>
+  </data>
+  <data name="Patient_Label_Species" xml:space="preserve">
+    <value>Разновидность</value>
+  </data>
+  <data name="Patient_Label_State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Patient_Label_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Patient_Label_Surgeries" xml:space="preserve">
+    <value>Операции</value>
+  </data>
+  <data name="Patient_Label_Tax" xml:space="preserve">
+    <value>Налог</value>
+  </data>
+  <data name="Patient_Label_TestManagement" xml:space="preserve">
+    <value>Управление тестированием</value>
+  </data>
+  <data name="Patient_Label_Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Patient_Label_TotalCost" xml:space="preserve">
+    <value>Общая стоимость</value>
+  </data>
+  <data name="Patient_Label_TreatmentPeriod" xml:space="preserve">
+    <value>Период лечения</value>
+  </data>
+  <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
+    <value>План лечения</value>
+  </data>
+  <data name="Patient_Label_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Patient_Label_Unit" xml:space="preserve">
+    <value>Единица</value>
+  </data>
+  <data name="Inventory_Label_UploadImage" xml:space="preserve">
+    <value>Загрузить изображение</value>
+  </data>
+  <data name="Inventory_Label_Usage" xml:space="preserve">
+    <value>Использование</value>
+  </data>
+  <data name="Patient_Label_Vaccination" xml:space="preserve">
+    <value>Вакцинация</value>
+  </data>
+  <data name="Patient_Label_VaccinationTreatment" xml:space="preserve">
+    <value>Вакцинация/Лечение</value>
+  </data>
+  <data name="Patient_Label_Weight" xml:space="preserve">
+    <value>Масса</value>
+  </data>
+  <data name="Patient_Label_Year" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="Patient_Message_IdleMessage" xml:space="preserve">
+    <value>Если вы продолжите бездействовать, вы автоматически выйдете из системы.</value>
+  </data>
+  <data name="Patient_Message_NoRecord" xml:space="preserve">
+    <value>Записи отсутствуют.</value>
+  </data>
+  <data name="Patient_Selection_Active" xml:space="preserve">
+    <value>Активный</value>
+  </data>
+  <data name="Patient_Selection_Female" xml:space="preserve">
+    <value>Женский</value>
+  </data>
+  <data name="Patient_Selection_Inactive" xml:space="preserve">
+    <value>Неактивный</value>
+  </data>
+  <data name="Patient_Selection_Male" xml:space="preserve">
+    <value>Мужской</value>
+  </data>
+  <data name="Patient_Selection_No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Patient_Selection_SelectBreed" xml:space="preserve">
+    <value>Выбрать породу</value>
+  </data>
+  <data name="Patient_Selection_SelectCity" xml:space="preserve">
+    <value>Выберите город</value>
+  </data>
+  <data name="Patient_Selection_SelectColor" xml:space="preserve">
+    <value>Выберите цвет</value>
+  </data>
+  <data name="Patient_Selection_SelectCountry" xml:space="preserve">
+    <value>Выберите страну</value>
+  </data>
+  <data name="Patient_Selection_SelectGender" xml:space="preserve">
+    <value>Выберите пол</value>
+  </data>
+  <data name="Patient_Selection_SelectSex" xml:space="preserve">
+    <value>Выберите пол</value>
+  </data>
+  <data name="Patient_Selection_SelectSpecies" xml:space="preserve">
+    <value>Выберите вид</value>
+  </data>
+  <data name="Patient_Selection_SelectState" xml:space="preserve">
+    <value>Выберите штат</value>
+  </data>
+  <data name="Patient_Selection_SelectStatus" xml:space="preserve">
+    <value>Выберите статус</value>
+  </data>
+  <data name="Patient_Selection_Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Patient_Title_AdditionalInformation" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="Patient_Title_AllPets" xml:space="preserve">
+    <value>Все домашние животные</value>
+  </data>
+  <data name="Patient_Title_CoOwnerInfo" xml:space="preserve">
+    <value>Информация о совладельце</value>
+  </data>
+  <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
+    <value>Создать профиль пациента</value>
+  </data>
+  <data name="Patient_Title_MedicalRecord" xml:space="preserve">
+    <value>Медицинская карта</value>
+  </data>
+  <data name="Patient_Title_MedicationHistory" xml:space="preserve">
+    <value>История приема лекарств</value>
+  </data>
+  <data name="Patient_Title_OwnerInfo" xml:space="preserve">
+    <value>Информация о владельце</value>
+  </data>
+  <data name="Patient_Title_PatientProfile" xml:space="preserve">
+    <value>Профиль пациента</value>
+  </data>
+  <data name="Patient_Title_Patients" xml:space="preserve">
+    <value>Пациенты</value>
+  </data>
+  <data name="Patient_Title_PetGrowthHistory" xml:space="preserve">
+    <value>История роста питомца</value>
+  </data>
+  <data name="Patient_Title_PetGrowthTrend" xml:space="preserve">
+    <value>Тенденция роста домашних животных</value>
+  </data>
+  <data name="Patient_Title_PetInfo" xml:space="preserve">
+    <value>Информация о домашних животных</value>
+  </data>
+  <data name="Patient_Title_Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
+    <value>Предстоящая встреча</value>
+  </data>
+  <data name="Patient_Title_UpcomingVaccinationTreatment" xml:space="preserve">
+    <value>Предстоящая вакцинация/лечение</value>
+  </data>
+  <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
+    <value>История вакцинации/лечения</value>
+  </data>
+  <data name="Inventory_Label_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Inventory_Label_RecommendedBreed" xml:space="preserve">
+    <value>Рекомендуемая порода</value>
+  </data>
+  <data name="Inventory_Label_RecommendedWeight" xml:space="preserve">
+    <value>Рекомендуемый вес</value>
+  </data>
+  <data name="Inventory_Label_SearchBreed" xml:space="preserve">
+    <value>Поиск породы</value>
+  </data>
+  <data name="Inventory_Label_SelectBranch" xml:space="preserve">
+    <value>Выберите филиал</value>
+  </data>
+  <data name="Service_Button_NewService" xml:space="preserve">
+    <value>Новая услуга</value>
+  </data>
+  <data name="Service_Label_DoctorInCharge" xml:space="preserve">
+    <value>Дежурный врач</value>
+  </data>
+  <data name="Service_Label_DurationHr" xml:space="preserve">
+    <value>Продолжительность (ч)</value>
+  </data>
+  <data name="Service_Label_Precaution" xml:space="preserve">
+    <value>Меры предосторожности</value>
+  </data>
+  <data name="Service_Label_SearchDoctor" xml:space="preserve">
+    <value>Поиск Доктора</value>
+  </data>
+  <data name="Service_Label_SearchService" xml:space="preserve">
+    <value>Поисковая служба</value>
+  </data>
+  <data name="Service_Label_SelectCategory" xml:space="preserve">
+    <value>Выберите категорию</value>
+  </data>
+  <data name="Service_Label_ServiceDetails" xml:space="preserve">
+    <value>Подробности услуги</value>
+  </data>
+  <data name="Service_Label_ServiceName" xml:space="preserve">
+    <value>Название услуги</value>
+  </data>
+  <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
+    <value>Время обслуживания (ч)</value>
+  </data>
+  <data name="TreatmentPlan_Label_Add" xml:space="preserve">
+    <value>Добавлять</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
+    <value>Добавить услугу</value>
+  </data>
+  <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
+    <value>Расходы</value>
+  </data>
+  <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
+    <value>Сделать активным</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeInactive" xml:space="preserve">
+    <value>Сделать неактивным</value>
+  </data>
+  <data name="TreatmentPlan_Label_NewTreatment" xml:space="preserve">
+    <value>Новое Лечение</value>
+  </data>
+  <data name="TreatmentPlan_Label_Remarks" xml:space="preserve">
+    <value>Замечания</value>
+  </data>
+  <data name="TreatmentPlan_Label_SearchService" xml:space="preserve">
+    <value>Поисковая служба</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
+    <value>Выберите пользователя</value>
+  </data>
+  <data name="TreatmentPlan_Label_Total" xml:space="preserve">
+    <value>Общий</value>
+  </data>
+  <data name="TreatmentPlan_Label_Treatment" xml:space="preserve">
+    <value>Уход</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentDetails" xml:space="preserve">
+    <value>Подробности лечения</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentName" xml:space="preserve">
+    <value>Название лечения</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
+    <value>Планы лечения</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>Добавить продукт</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>Ожидается подтверждение</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>Старый пароль</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>Сбросить пароль</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>Выбрать лекарство</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>Выберите тип лекарства</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>Выбрать операцию</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>Выберите тип операции</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>Выбрать вакцинацию</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>Выберите тип вакцинации</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>Должный</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>Истечение срока действия</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>Нет продолжающегося лечения</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>Нет прошлого лечения</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>Нет предстоящей встречи</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>Нет предстоящего лечения</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>Обновлено</value>
+  </data>
+  <data name="Patient_Label_NoOtherPet" xml:space="preserve">
+    <value>Других домашних животных нет.</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>Создавать</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>Новая роль</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>Обновлять</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>Вы врач?</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>Назначенное количество сотрудников</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>Ветвь</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>Подтвердить удаление этой роли?</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>Не удалось создать роли.</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>Не удалось удалить запись.</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>*Обязательное поле для заполнения.</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>Новая роль успешно создана.</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>Организация</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>Разрешения</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>Настройки разрешений:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Пожалуйста, выберите филиал</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>Пожалуйста, выберите вариант</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Пожалуйста, выберите организацию</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Пожалуйста, выберите статус</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>Роль пользователя</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>Добавить новую роль</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>Создать роль</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>Удалить роль</value>
+  </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>Настройки роли</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>Контроль доступа пользователей</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>Не удалось обновить роли.</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>Обновление роли прошло успешно.</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>Обновить роль</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>Новый персонал</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>Персональный идентификатор</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>Имя сотрудника</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>Список персонала</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>Ветвь</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>Организация</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>Персональный идентификатор</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>Перезагрузить</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>Подтвердить удаление персонала?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>Не удалось удалить персонал, попробуйте еще раз.</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Пожалуйста, выберите филиал</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Пожалуйста, выберите пол</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Пожалуйста, выберите организацию</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Пожалуйста, выберите роль</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>Пожалуйста, выберите персонал</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Пожалуйста, выберите статус</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>Сведения о персонале</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>Удалить персонал</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>Роль пользователя</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>Создавать</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>Обновлять</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>Ветвь</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>Пользователь успешно создан.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>Не удалось создать пользователя, попробуйте еще раз.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>Не удалось обновить профиль пользователя. Попробуйте еще раз.</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>Логин ID</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*Идентификатор входа существует в системе, попробуйте еще раз.</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*Обязательные поля.</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>Организация</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Пожалуйста, выберите филиал</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Пожалуйста, выберите пол</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Пожалуйста, выберите организацию</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Пожалуйста, выберите роль</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Пожалуйста, выберите статус</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>Профиль пользователя успешно обновлен.</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>Создать пользователя</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>Обновить профиль пользователя</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>Неверный адрес электронной почты.</value>
+  </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>Все права защищены</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>Добавить элемент</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>Отметить как оплаченный</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>Печать</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>Быстрый счет</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>Подытог</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>Скидка</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>Платеж</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>Гранд Скидка</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>Детали счета</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>Номер счета-фактуры</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>Счет-фактура</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>Номер счета/квитанции</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>Счета-фактуры</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>Следующая встреча</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>Оплаченный</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>В ожидании</value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>Подробности покупки товара</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>Готовый</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>Квитанция</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>Номер квитанции</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>Выбрать клиента</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>Выбрать продукт</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>Имя хирурга/вакцинации/консультации</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>К</value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>Общая цена</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>Вы уверены, что хотите отметить как оплаченный и перейти к получению?</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>Добавить индивидуальное лечение</value>
+  </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>Существующий план лечения</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>Показ</value>
+  </data>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>Добавить филиал</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>Адрес филиала</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>Филиалы</value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>Название филиала</value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>Создать организацию</value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>Новая организация</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>Название организации</value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>Сохранить ветку</value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>Поисковая организация</value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>Всего сотрудников</value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>Редактировать организацию</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>Подробности организации</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>Посмотреть отчет</value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>Артериальное давление</value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>Анализ крови</value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>Масса костей</value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>Частота сердечных сокращений</value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>Экзамен на травму</value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>Рентген легких</value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>Отрицательно</value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>Нормальный</value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>Нормальный диапазон</value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>Параметр</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>Восстановление</value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>Результат измерения</value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>Доступ запрещен.</value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>Контактный номер отделения</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>Клиент</value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>Положительный</value>
+  </data>
+  <data name="Appointment_Label_NoFutureAppointment" xml:space="preserve">
+    <value>Никаких будущих назначений.</value>
+  </data>
+  <data name="Patient_Button_HideFilter" xml:space="preserve">
+    <value>Скрыть фильтры</value>
+  </data>
+  <data name="Patient_Button_ShowFilter" xml:space="preserve">
+    <value>Показать фильтры</value>
+  </data>
+  <data name="TestManagement_Label_Analyzer" xml:space="preserve">
+    <value>Анализатор</value>
+  </data>
+  <data name="Dashboard_Button_ViewAll" xml:space="preserve">
+    <value>Просмотреть все</value>
+  </data>
+  <data name="Dashboard_Label_AllDoctors" xml:space="preserve">
+    <value>Все врачи</value>
+  </data>
+  <data name="Dashboard_Label_AsOf" xml:space="preserve">
+    <value>по состоянию на</value>
+  </data>
+  <data name="Dashboard_Label_ShowMore" xml:space="preserve">
+    <value>Показать больше</value>
+  </data>
+  <data name="Dashboard_Label_Summary" xml:space="preserve">
+    <value>Краткое содержание</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatients" xml:space="preserve">
+    <value>Всего пациентов</value>
+  </data>
+  <data name="Dashboard_Label_TotalSales" xml:space="preserve">
+    <value>Общий объем продаж</value>
+  </data>
+  <data name="Dashboard_Label_TotalStaffs" xml:space="preserve">
+    <value>Всего сотрудников</value>
+  </data>
+  <data name="Dashboard_Message_Here" xml:space="preserve">
+    <value>Вот ваша панель управления системой управления пациентами.</value>
+  </data>
+  <data name="Dashboard_Message_Welcome" xml:space="preserve">
+    <value>Добро пожаловать,</value>
+  </data>
+  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
+    <value>Обновление программного обеспечения</value>
+  </data>
+  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="NotificationSetting_Button_Save" xml:space="preserve">
+    <value>Сохранять</value>
+  </data>
+  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
+    <value>Включите уведомления, которые вы хотели бы получать</value>
+  </data>
+  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
+    <value>Обновление настроек прошло успешно</value>
+  </data>
+  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
+    <value>Настройки уведомлений</value>
+  </data>
+  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
+    <value>Обновить настройки уведомлений</value>
+  </data>
+  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
+    <value>Не удалось обновить настройки уведомлений.</value>
+  </data>
+  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
+    <value>Настройки уведомлений</value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>Имя устройства</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>Нормальный</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>Нормальный диапазон</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>Идентификатор оператора</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>Идентификатор пациента</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>Имя пациента</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>Результат измерения</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>Тест</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>Общие результаты теста</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>Перезагрузить</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>По возрастанию</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>По убыванию</value>
+  </data>
+  <data name="TestResults_Label_DeviceNa2qme" xml:space="preserve">
+    <value>Имя устройства</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>Идентификатор оператора</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>Идентификатор пациента</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>Статус результата (+/-)</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>Поиск по имени</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>Сортировать по</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>Сортировать по дате</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>Тип теста</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>Управление тестированием</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>Управление тестированием</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>Ценить</value>
+  </data>
+  <data name="Dashboard_Label_Daily" xml:space="preserve">
+    <value>Ежедневно</value>
+  </data>
+  <data name="Dashboard_Label_GenderBreakdown" xml:space="preserve">
+    <value>Гендерная разбивка</value>
+  </data>
+  <data name="Dashboard_Label_Monthly" xml:space="preserve">
+    <value>Ежемесячно</value>
+  </data>
+  <data name="Dashboard_Label_OverallRevenue" xml:space="preserve">
+    <value>Общий доход</value>
+  </data>
+  <data name="Dashboard_Label_PatientNumberStatistics" xml:space="preserve">
+    <value>Статистика количества пациентов</value>
+  </data>
+  <data name="Dashboard_Label_RevenueBy" xml:space="preserve">
+    <value>Доход от</value>
+  </data>
+  <data name="Dashboard_Label_StaffBreakdown" xml:space="preserve">
+    <value>Распределение персонала</value>
+  </data>
+  <data name="Dashboard_Label_TopBreed" xml:space="preserve">
+    <value>Лучшая порода</value>
+  </data>
+  <data name="Dashboard_Label_TopServices" xml:space="preserve">
+    <value>Лучшие услуги</value>
+  </data>
+  <data name="Dashboard_Label_TopTreatment" xml:space="preserve">
+    <value>Верхнее лечение</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatientByBreed" xml:space="preserve">
+    <value>Общее количество пациентов по породам</value>
+  </data>
+  <data name="Dashboard_Label_Weekly" xml:space="preserve">
+    <value>Еженедельно</value>
+  </data>
+  <data name="Dashboard_Label_Yearly" xml:space="preserve">
+    <value>Ежегодно</value>
+  </data>
+  <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
+    <value>Всего назначений</value>
+  </data>
+  <data name="Dashboard_Label_LatestUpdateOn" xml:space="preserve">
+    <value>Последние обновления</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>Создание счета-фактуры</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>Создание квитанции</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>Счет-фактура прилагается.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>Квитанция прилагается.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>Пожалуйста, добавьте хотя бы один продукт.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>Пожалуйста, заполните обязательное поле.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>Произошло что-то неладное!</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>Аккаунт заблокирован. Обратитесь к администратору.</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>Аккаунт еще не подтвержден. Пожалуйста, подтвердите аккаунт по электронной почте и попробуйте еще раз.</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>Учетная запись не найдена по имени пользователя. Проверьте и попробуйте еще раз.</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>Произошла ошибка. Попробуйте еще раз позже.</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>Не удалось сбросить пароль.</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>Неправильный адрес электронной почты. Проверьте и попробуйте еще раз.</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>Неправильный пароль или имя пользователя.</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>Необходимо заполнить обязательные поля.</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>Для этой категории пока нет записей.</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>Необходимо выбрать хотя бы одну услугу или один продукт.</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>Название плана лечения не может быть пустым.</value>
+  </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>Назначение принято</value>
+  </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>Принять назначение</value>
+  </data>
   <data name="AccessControl_Label_BranchCity" xml:space="preserve">
     <value>Город</value>
   </data>
@@ -132,146 +1806,83 @@
   <data name="AccessControl_Label_SelectState" xml:space="preserve">
     <value>Выберите штат</value>
   </data>
-  <data name="Appointment_Button_Cancel" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>Расположение</value>
   </data>
-  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>Запланированный тест</value>
   </data>
-  <data name="Appointment_Button_Confirm" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>Выберите местоположение</value>
   </data>
-  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>Выбрать тесты</value>
   </data>
-  <data name="Appointment_Button_Reset" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>Тесты</value>
   </data>
-  <data name="Appointment_Button_Search" xml:space="preserve">
-    <value />
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>Создать расписание тестов</value>
   </data>
-  <data name="Appointment_Button_Update" xml:space="preserve">
-    <value />
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>Представлять на рассмотрение</value>
   </data>
-  <data name="Appointment_Label_ContactNo" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>Обвиняет доктора</value>
   </data>
-  <data name="Appointment_Label_DateTime" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>Выберите лечащего врача</value>
   </data>
-  <data name="Appointment_Label_Day" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Обязательные поля обязательны для заполнения.</value>
   </data>
-  <data name="Appointment_Label_Doctor" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>Расписание тестов не удалось отправить, повторите попытку позже.</value>
   </data>
-  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>Расписание тестов успешно отправлено.</value>
   </data>
-  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
-    <value />
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>Отправить расписание тестов</value>
   </data>
-  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>Ветвь</value>
   </data>
-  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>Организация</value>
   </data>
-  <data name="Appointment_Label_Month" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Пожалуйста, выберите филиал</value>
   </data>
-  <data name="Appointment_Label_NewClient" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Пожалуйста, выберите организацию</value>
   </data>
-  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
-    <value />
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>Тип роли</value>
   </data>
-  <data name="Appointment_Label_Owner" xml:space="preserve">
-    <value />
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>Новый баннер</value>
   </data>
-  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>Баннер</value>
   </data>
-  <data name="Appointment_Label_OwnerName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>Дата окончания</value>
   </data>
-  <data name="Appointment_Label_Pet" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>Имя файла</value>
   </data>
-  <data name="Appointment_Label_PetDOB" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>Число</value>
   </data>
-  <data name="Appointment_Label_PetName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>Дата начала</value>
   </data>
-  <data name="Appointment_Label_Services" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>Статус</value>
   </data>
-  <data name="Appointment_Label_Species" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_Week" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
-    <value>Назначение принято</value>
-  </data>
-  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
-    <value>Принять назначение</value>
-  </data>
-  <data name="Appointment_Title_Appointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
-    <value />
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>Управление баннерами</value>
   </data>
   <data name="BannerProfile_Button_Cancel" xml:space="preserve">
     <value>Отмена</value>
@@ -298,7 +1909,7 @@
     <value>Дата начала</value>
   </data>
   <data name="BannerProfile_Label_Status" xml:space="preserve">
-    <value>статусы</value>
+    <value>Статус</value>
   </data>
   <data name="BannerProfile_Label_Upload" xml:space="preserve">
     <value>Загрузить</value>
@@ -339,17 +1950,11 @@
   <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
     <value>Загрузить баннер</value>
   </data>
-  <data name="BannersList_Button_NewBanner" xml:space="preserve">
-    <value>Новый баннер</value>
-  </data>
   <data name="BannersList_Button_Next" xml:space="preserve">
-    <value>Следующая страница</value>
+    <value>Следующий</value>
   </data>
   <data name="BannersList_Button_Prev" xml:space="preserve">
-    <value>предыдущая</value>
-  </data>
-  <data name="BannersList_Label_Banner" xml:space="preserve">
-    <value>Баннер</value>
+    <value>Предыдущая</value>
   </data>
   <data name="BannersList_Label_CreatedDate" xml:space="preserve">
     <value>Дата создания</value>
@@ -357,56 +1962,41 @@
   <data name="BannersList_Label_Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
-  <data name="BannersList_Label_EndDate" xml:space="preserve">
-    <value>Дата окончания</value>
-  </data>
-  <data name="BannersList_Label_FileName" xml:space="preserve">
-    <value>Имя файла</value>
-  </data>
-  <data name="BannersList_Label_Number" xml:space="preserve">
-    <value>число</value>
-  </data>
-  <data name="BannersList_Label_StartDate" xml:space="preserve">
-    <value>Дата начала</value>
-  </data>
-  <data name="BannersList_Label_Status" xml:space="preserve">
-    <value>статусы</value>
-  </data>
   <data name="BannersList_Label_View" xml:space="preserve">
     <value>Вид</value>
   </data>
   <data name="BannersList_Message_NoRecords" xml:space="preserve">
     <value>Нет записей</value>
   </data>
-  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
-    <value>Управление баннерами</value>
-  </data>
   <data name="BlogList_Button_NewBlog" xml:space="preserve">
     <value>Новый блог</value>
   </data>
   <data name="BlogList_Button_Next" xml:space="preserve">
-    <value>Следующая страница</value>
+    <value>Следующий</value>
   </data>
   <data name="BlogList_Button_Prev" xml:space="preserve">
-    <value>предыдущая</value>
+    <value>Предыдущая</value>
   </data>
   <data name="BlogList_Label_CreatedDate" xml:space="preserve">
     <value>Дата создания</value>
   </data>
-  <data name="BlogList_Label_Edit" xml:space="preserve">
-    <value>Редактировать</value>
-  </data>
   <data name="BlogList_Label_EndDate" xml:space="preserve">
     <value>Дата окончания</value>
   </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>Управление блогами</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
   <data name="BlogList_Label_Num" xml:space="preserve">
-    <value>число</value>
+    <value>Число</value>
   </data>
   <data name="BlogList_Label_StartDate" xml:space="preserve">
     <value>Дата начала</value>
   </data>
   <data name="BlogList_Label_Status" xml:space="preserve">
-    <value>статусы</value>
+    <value>Статус</value>
   </data>
   <data name="BlogList_Label_Title" xml:space="preserve">
     <value>Заголовок</value>
@@ -419,9 +2009,6 @@
   </data>
   <data name="BlogList_Message_NoRecords" xml:space="preserve">
     <value>Нет записей</value>
-  </data>
-  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
-    <value>Управление блогами</value>
   </data>
   <data name="BlogProfile_Button_Cancel" xml:space="preserve">
     <value>Отмена</value>
@@ -448,7 +2035,7 @@
     <value>Дата начала</value>
   </data>
   <data name="BlogProfile_Label_Status" xml:space="preserve">
-    <value>статусы</value>
+    <value>Статус</value>
   </data>
   <data name="BlogProfile_Label_Title" xml:space="preserve">
     <value>Заголовок</value>
@@ -458,6 +2045,9 @@
   </data>
   <data name="BlogProfile_Label_URL" xml:space="preserve">
     <value>URL</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>Подробности блога</value>
   </data>
   <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
     <value>Блог успешно создан.</value>
@@ -483,158 +2073,11 @@
   <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
     <value>Не удалось загрузить миниатюру.</value>
   </data>
-  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
-    <value>Подробности блога</value>
-  </data>
   <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
     <value>Создать запись в блоге</value>
   </data>
   <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
     <value>Обновление информации блога</value>
-  </data>
-  <data name="DoctorProfile_Button_Back" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
-    <value>Ветвь</value>
-  </data>
-  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
-    <value>Организация</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
-    <value>Пожалуйста, выберите филиал</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value>Пожалуйста, выберите организацию</value>
-  </data>
-  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Appointments" xml:space="preserve">
-    <value />
   </data>
   <data name="MenuBar_Label_Banners" xml:space="preserve">
     <value>Баннеры</value>
@@ -645,505 +2088,25 @@
   <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
     <value>Клиентский портал</value>
   </data>
-  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Integration" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Organisation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Patients" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Service" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_All" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Messages" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Title_Notification" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Patient_Button_Submit" xml:space="preserve">
-    <value>Отправить</value>
-  </data>
-  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
-    <value>Обвиняет доктора</value>
-  </data>
-  <data name="Patient_Label_Location" xml:space="preserve">
-    <value>Расположение</value>
-  </data>
-  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
-    <value>Запланированный тест</value>
-  </data>
-  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
-    <value>Выберите лечащего врача</value>
-  </data>
-  <data name="Patient_Label_SelectLocation" xml:space="preserve">
-    <value>Выберите местоположение</value>
-  </data>
-  <data name="Patient_Label_SelectTests" xml:space="preserve">
-    <value>Выбрать тесты</value>
-  </data>
-  <data name="Patient_Label_Tests" xml:space="preserve">
-    <value>Тесты</value>
-  </data>
-  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
-    <value>Обязательные поля обязательны для заполнения.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
-    <value>Расписание тестов не удалось отправить, попробуйте еще раз позже.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
-    <value>Расписание тестов успешно отправлено.</value>
-  </data>
-  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
-    <value>Создать расписание тестов</value>
-  </data>
-  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
-    <value>Отправить расписание тестов</value>
-  </data>
-  <data name="Roles_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_NewRole" xml:space="preserve">
-    <value />
-  </data>
   <data name="Roles_Button_PermissionDetails" xml:space="preserve">
     <value>Подробности разрешения</value>
   </data>
-  <data name="Roles_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Permission" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_RoleType" xml:space="preserve">
-    <value>Тип роли</value>
-  </data>
-  <data name="Roles_Label_Status" xml:space="preserve">
-    <value />
-  </data>
   <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
-    <value>Общее количество выданных разрешений</value>
-  </data>
-  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_UserRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_AddNewRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_CreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_DeleteRole" xml:space="preserve">
-    <value />
+    <value>Всего предоставлено разрешений</value>
   </data>
   <data name="Roles_Title_Permissions" xml:space="preserve">
     <value>Разрешения</value>
   </data>
-  <data name="Roles_Title_RoleSettings" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Branch" xml:space="preserve">
+    <value>Ветвь</value>
   </data>
-  <data name="Roles_Title_UpdateRole" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Organization" xml:space="preserve">
+    <value>Организация</value>
   </data>
-  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectBranch" xml:space="preserve">
+    <value>Выберите филиал</value>
   </data>
-  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Surname" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_NewStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuDelete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuEdit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuView" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffDetail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_High" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Low" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Result" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Test" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Ascending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Descending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SearchByName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortBy" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortByDate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_TestType" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_TestManagement" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectOrganization" xml:space="preserve">
+    <value>Выберите организацию</value>
   </data>
 </root>

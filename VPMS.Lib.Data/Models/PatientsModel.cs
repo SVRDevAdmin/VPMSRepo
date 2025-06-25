@@ -77,6 +77,7 @@ namespace VPMS.Lib.Data.Models
         public String? CreatedBy {  get; set; }
         public DateTime? UpdatedDate {  get; set; }
         public String? UpdatedBy {  get; set; }
+        public String? AspnetUserID { get; set; }
     }
 
     public class Account_Creation_Logs

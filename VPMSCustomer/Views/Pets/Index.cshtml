@@ -79,10 +79,10 @@
 
                   '<nav style="display: flex;">' +
                   '<div id="nav-tab" class="nav nav-tabs" role="tablist" style="width: 70%;">' +
-                  '<button id="nav-overview-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-overview_' + iRow + '" role="tab" aria-controls="nav-overview_' + iRow + '" aria-selected="true">' + '@Html.Raw(LangResources["PetGrid_Label_Overview"])' +  '</button>' + 
-                  '<button id="nav-medical-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-medical_' + iRow + '" role="tab" aria-controls="nav-medical_' + iRow + '" aria-selected="false">' + '@Html.Raw(LangResources["PetGrid_Label_MedicalRecord"])' + '</button>' +
-                  '<button id="nav-treatment-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-treatment_' + iRow + '" role="tab" aria-controls="nav-treatment_' + iRow + '" aria-selected="false">' + '@Html.Raw(LangResources["PetGrid_Label_TreatmentPlan"])' + '</button>' +
-                  '<button id="nav-testmanagement-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-testmanagement_' + iRow + '" role="tab" aria-controls="nav-testmanagement_' + iRow + '" aria-selected="false">' + '@Html.Raw(LangResources["PetGrid_Label_TestManagement"])' + '</button>' + 
+                  '<button id="nav-overview-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-overview_' + iRow + '" role="tab" aria-controls="nav-overview_' + iRow + '" aria-selected="true">' + "@Html.Raw(LangResources["PetGrid_Label_Overview"])" +  '</button>' + 
+                  '<button id="nav-medical-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-medical_' + iRow + '" role="tab" aria-controls="nav-medical_' + iRow + '" aria-selected="false">' + "@Html.Raw(LangResources["PetGrid_Label_MedicalRecord"])" + '</button>' +
+                  '<button id="nav-treatment-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-treatment_' + iRow + '" role="tab" aria-controls="nav-treatment_' + iRow + '" aria-selected="false">' + "@Html.Raw(LangResources["PetGrid_Label_TreatmentPlan"])" + '</button>' +
+                  '<button id="nav-testmanagement-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-testmanagement_' + iRow + '" role="tab" aria-controls="nav-testmanagement_' + iRow + '" aria-selected="false">' + "@Html.Raw(LangResources["PetGrid_Label_TestManagement"])" + '</button>' + 
                   '</div>' +
                   '<div class="d-flex justify-content-end" style="width: 30%;">' +
                   '<button id="btnMedical" type="button" class="btn btn-primary btn-sm" onclick="downloadMedicalRecord();">' +
@@ -118,50 +118,50 @@
                      '<div class="row" style="background-color: white; border-radius: 6px;">' +
                      '<div class="row mt-4 ms-2">' +
                      '<div class="col-md-2">' +
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_PetName"])' + '</label><br />' +  
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_PetName"])" + '</label><br />' +  
                      '<label id="lbPetName_' + iRow + '" class="overviewDisplayText"></label>' +
                      '</div>' +
                      '<div class="col-md-2">' +
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_DateOfBirth"])' + '</label><br />' +  
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_DateOfBirth"])" + '</label><br />' +  
                      '<label id="lbDOB_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' + 
-                     '<label class="overviewTitle">' +  '@Html.Raw(LangResources["PetGrid_Label_Age"])' + '</label><br />' + 
+                     '<label class="overviewTitle">' +  "@Html.Raw(LangResources["PetGrid_Label_Age"])" + '</label><br />' + 
                      '<label id="lbAge_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' + 
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Gender"])' + '</label><br />' + 
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Gender"])" + '</label><br />' + 
                      '<label id="lbGender_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' +
                      '<div class="col-md-2">' + 
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_HeightCM"])' + '</label><br />' + 
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_HeightCM"])" + '</label><br />' + 
                      '<label id="lbHeight_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' + 
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_WeightKG"])' + '</label><br />' + 
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_WeightKG"])" + '</label><br />' + 
                      '<label id="lbWeight_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '</div>' + 
                      '<div class="row">&nbsp;</div>' + 
                      '<div class="row ms-2">' +
                      '<div class="col-md-2">' +
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Breed"])' + '</label><br />' +  
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Breed"])" + '</label><br />' +  
                      '<label id="lbBreed_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' +
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_RegistrationNo"])' + '</label><br />' + 
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_RegistrationNo"])" + '</label><br />' + 
                      '<label id="lbRegNo_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' + 
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Allergies"])' + '</label><br />' +  
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Allergies"])" + '</label><br />' +  
                      '<label id="lbAllergies_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' + 
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Species"])' + '</label><br />' +  
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Species"])" + '</label><br />' +  
                      '<label id="lbSpecies_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' + 
-                     '<label class="overviewTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Color"])' + '</label><br />' +  
+                     '<label class="overviewTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Color"])" + '</label><br />' +  
                      '<label id="lbColor_' + iRow + '" class="overviewDisplayText"></label>' + 
                      '</div>' + 
                      '<div class="col-md-2">' + 
@@ -184,7 +184,7 @@
                   '<div class="row me-2 medicalTabBox">' +
                   '<div id="divMedHistory_' + iRow + '" class="col ms-3 medicalTabInnerBox">' +
 
-                  '<label class="medicalTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Vaccination"])' + '</label>' +  
+                  '<label class="medicalTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Vaccination"])" + '</label>' +  
                   // [Vaccine history] //
                   '</div>' + 
                   '</div>' + 
@@ -193,7 +193,7 @@
                   '<div class="col-md-4">' + 
                   '<div class="row me-2 medicalTabBox">' +
                   '<div id="divMedicationHistory_' + iRow + '" class="col ms-3 medicalTabInnerBox">' +
-                  '<label class="medicalTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Medication"])' + '</label>' +  
+                  '<label class="medicalTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Medication"])" + '</label>' +  
                   // [Medication History] //
                   '</div>' +
                   '</div>' + 
@@ -202,7 +202,7 @@
                   '<div class="col-md-4">' + 
                   '<div class="row me-2 medicalTabBox">' +
                   '<div id="divSurgeryHistory_' + iRow + '" class="col ms-3 medicalTabInnerBox">' +
-                  '<label class="medicalTitle">' + '@Html.Raw(LangResources["PetGrid_Label_Surgery"])' + '</label>' +  
+                  '<label class="medicalTitle">' + "@Html.Raw(LangResources["PetGrid_Label_Surgery"])" + '</label>' +  
                   // [Surgery History] //
                   '</div>' + 
                   '</div>' + 
@@ -221,7 +221,7 @@
                      '<div class="col-md-6">' + 
                      '<div class="row me-2 treatmentTabBox">' +
                      '<div id="divActiveTreatmentPlan_' + iRow + '" class="col ms-3 treatmentTabInnerBox">' +
-                     '<label class="treatmentTitle">' + '@Html.Raw(LangResources["PetGrid_Label_ActiveTreatments"])' + '</label>' +   //Active Treatments
+                     '<label class="treatmentTitle">' + "@Html.Raw(LangResources["PetGrid_Label_ActiveTreatments"])" + '</label>' +  
                      // [Active Treatment Plan]  //
                      '</div>' + 
                      '</div>' + 
@@ -230,7 +230,7 @@
                      '<div class="col-md-6">' + 
                      '<div class="row me-2 treatmentTabBox">' +
                      '<div id="divTreatmentPlanHistory_' + iRow + '" class="col ms-3 treatmentTabInnerBox">' +
-                     '<label class="treatmentTitle">' + '@Html.Raw(LangResources["PetGrid_Label_PastTreatments"])' + '</label>' +  //Past Treatments
+                     '<label class="treatmentTitle">' + "@Html.Raw(LangResources["PetGrid_Label_PastTreatments"])" + '</label>' +  
                      // [Past Treatment Plan] //
                      '</div>' + 
                      '</div>' + 
@@ -251,7 +251,7 @@
                     '<div class="col-md-9">&nbsp;</div>' +
                     '<div class="col-md-3">' + 
                     '<div class="dropdown d-flex tblTestMgmtDropdownRow" >' +
-                    '<label class="tblTestMgmtDropdownLabel">' + '@Html.Raw(LangResources["PetGrid_Label_TestType"])' + ' : </label>' + //Test Type
+                    '<label class="tblTestMgmtDropdownLabel">' + "@Html.Raw(LangResources["PetGrid_Label_TestType"])" + ' : </label>' + 
                     '<div id="testtypetoggle" class="dropdown-toggle" data-toggle="dropdown" onclick="testtypemenutoggle(' + iRow + ');" style="border: 0px solid red; width: 100px;">' +
                     '<label id="lbTestSelection" class="tblTestMgmtDropdownSelection">All</label>' +
                     '</div>' + 
@@ -266,13 +266,13 @@
                     '<table id="tblTestMgmt_' + iRow + '" class="table tblTestMgmt mt-4">' +
                     '<thead>' + 
                     '<tr>' + 
-                    '<th scope="col" class="text-center" style="width: 5%;">' + '@Html.Raw(LangResources["PetGrid_Label_Num"])' + '</th>' +   
-                    '<th scope="col" class="text-left" style="width: 20%;">' + '@Html.Raw(LangResources["PetGrid_Label_Time"])' + '</th>' + 
-                    '<th scope="col" class="text-left" style="width: 15%;">' +  '@Html.Raw(LangResources["PetGrid_Label_TestType"])' + '</th>' +   
-                    '<th scope="col" class="text-left" style="width: 15%;">' + '@Html.Raw(LangResources["PetGrid_Label_ResultStatus"])' + '</th>' +  
-                    '<th scope="col" class="text-left" style="width: 15%;">' + '@Html.Raw(LangResources["PetGrid_Label_PatientID"])' + '</th>' +  
-                    '<th scope="col" class="text-left" style="width: 10%;">' + '@Html.Raw(LangResources["PetGrid_Label_OperatorID"])' + '</th>' +   
-                    '<th scope="col" class="text-left" style="width: 15%;">' + '@Html.Raw(LangResources["PetGrid_Label_DeviceName"])' + '</th>' +  
+                    '<th scope="col" class="text-center" style="width: 5%;">' + "@Html.Raw(LangResources["PetGrid_Label_Num"])" + '</th>' +   
+                    '<th scope="col" class="text-left" style="width: 20%;">' + "@Html.Raw(LangResources["PetGrid_Label_Time"])" + '</th>' + 
+                    '<th scope="col" class="text-left" style="width: 15%;">' + "@Html.Raw(LangResources["PetGrid_Label_TestType"])" + '</th>' +   
+                    '<th scope="col" class="text-left" style="width: 15%;">' + "@Html.Raw(LangResources["PetGrid_Label_ResultStatus"])" + '</th>' +  
+                    '<th scope="col" class="text-left" style="width: 15%;">' + "@Html.Raw(LangResources["PetGrid_Label_PatientID"])" + '</th>' +  
+                    '<th scope="col" class="text-left" style="width: 10%;">' + "@Html.Raw(LangResources["PetGrid_Label_OperatorID"])" + '</th>' +   
+                    '<th scope="col" class="text-left" style="width: 15%;">' + "@Html.Raw(LangResources["PetGrid_Label_DeviceName"])" + '</th>' +  
                     '</tr>' + 
                     '</thead>' + 
 
@@ -426,7 +426,7 @@
                      var sActiveTreatment = '';
                      sActiveTreatment = '<div class="treatmentDisplayText mt-3">' + 
                                         '<strong>' + result.data[i].planName + '</strong><br />' +
-                                        '@Html.Raw(LangResources["PetGrid_Message_TreatmentPeriod"])' + ' : ' +  
+                                        "@Html.Raw(LangResources["PetGrid_Message_TreatmentPeriod"])" + ' : ' +  
                                         moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' + 
                                         moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
                                         '</div>';
@@ -451,7 +451,7 @@
                      var sActiveTreatment = '';
                      sActiveTreatment = '<div class="treatmentDisplayText mt-3">' +
                                         '<strong>' + result.data[i].planName + '</strong><br />' +
-                                        '@Html.Raw(LangResources["PetGrid_Message_TreatmentPeriod"])' + ' : ' +
+                                        "@Html.Raw(LangResources["PetGrid_Message_TreatmentPeriod"])" + ' : ' +
                                         moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' + 
                                         moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
                                         '</div>';
@@ -534,7 +534,7 @@
              {
                  var sNoRecord = '';
                  sNoRecord = '<tr>' + 
-                             '<td class="text-left" colspan="7">' + '@Html.Raw(LangResources["PetGrid_Message_NoRecord"])' + '</td>' +  //No record.
+                             '<td class="text-left" colspan="7">' + "@Html.Raw(LangResources["PetGrid_Message_NoRecord"])" + '</td>' +  
                              '</tr>';
 
                 $('#tblTestMgmt_' + rowID + ' tbody').append(sNoRecord);
@@ -568,12 +568,12 @@
 
 <div class="row ms-3">
     <div class="row pt-4">
-        <div class="col-md-3">
+        <div class="col-md-5">
             <label class="pageTitle">
                 @LangResources["PetGrid_Title_Pets"]
             </label>
         </div>
-        <div class="col-md-8">&nbsp;</div>
+        <div class="col-md-6">&nbsp;</div>
         <div class="col-md-1">
             <div class="row ms-2 gridButtonBox">
                 <a class="mt-1 mb-1 me-2 ps-2" asp-controller="Pets" asp-action="List">

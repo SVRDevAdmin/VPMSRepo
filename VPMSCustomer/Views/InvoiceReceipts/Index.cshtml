@@ -64,7 +64,7 @@
                                    '<img class="imgMore" />' + 
                                    '</button>' +
                                    '<div class="dropdown-menu hiddenMenu containerMenu">' +
-                                   '<a class="dropdown-item" onclick="showDetailsPopup(\'' + result.data[i].invReceiptID + '\', 1);">' + '@Html.Raw(LangResources["InvReceipts_Label_View"])' + '</a>' +
+                                   '<a class="dropdown-item" onclick="showDetailsPopup(\'' + result.data[i].invReceiptID + '\', 1);">' + "@Html.Raw(LangResources["InvReceipts_Label_View"])" + '</a>' +
                                    '</div>' +
 
                                    '</td>'  +
@@ -75,7 +75,7 @@
             }
             else {
                 var sNoRecordInvoice = '';
-                sNoRecordInvoice = '<tr><td class="text-left" colspan="8">' + '@Html.Raw(LangResources["InvReceipts_Message_NoRecords"])' + '</td></tr>';
+                sNoRecordInvoice = '<tr><td class="text-left" colspan="8">' + "@Html.Raw(LangResources["InvReceipts_Message_NoRecords"])" + '</td></tr>';
 
                 $('#tblInvoices').append(sNoRecordInvoice);
             }
@@ -113,7 +113,7 @@
                                    '<img class="imgMore" />' + 
                                    '</button>' +
                                    '<div class="dropdown-menu hiddenMenu containerMenu">' + 
-                                   '<a class="dropdown-item" onclick="showDetailsPopup(\'' + result.data[i].invReceiptID + '\', 0);">' + '@Html.Raw(LangResources["InvReceipts_Label_View"])' + '</a>' +
+                                   '<a class="dropdown-item" onclick="showDetailsPopup(\'' + result.data[i].invReceiptID + '\', 0);">' + "@Html.Raw(LangResources["InvReceipts_Label_View"])" + '</a>' +
                                    '</div>' +
 
                                    '</td>'  +
@@ -124,7 +124,7 @@
             }
             else {
                 var sNoRecordReceipt = '';
-                sNoRecordReceipt = '<tr><td class="text-left" colspan="8">' + '@Html.Raw(LangResources["InvReceipts_Message_NoRecords"])' + '</td></tr>';
+                sNoRecordReceipt = '<tr><td class="text-left" colspan="8">' + "@Html.Raw(LangResources["InvReceipts_Message_NoRecords"])" + '</td></tr>';
 
                 $('#tblReceipts').append(sNoRecordReceipt);
             }
@@ -171,12 +171,12 @@
              if (result != null)
              {
                  if (itype == 0){
-                     $('#lbType').html('@Html.Raw(LangResources["InvReceipts_Label_ReceiptsNo"])' + ' :');
+                     $('#lbType').html("@Html.Raw(LangResources["InvReceipts_Label_ReceiptsNo"])" + ' :');
                      $('#lbInvoiceReceiptNo').html(result.data.receiptNo);
                  }
 
                  if (itype == 1){
-                     $('#lbType').html('@Html.Raw(LangResources["InvReceipts_Label_InvoiceNo"])' + ' :');
+                     $('#lbType').html("@Html.Raw(LangResources["InvReceipts_Label_InvoiceNo"])" + ' :');
                      $('#lbInvoiceReceiptNo').html(result.data.invoiceNo);
                  }
 
@@ -255,7 +255,7 @@
                  {
                      var sService = '';
                      sService = '<tr>' +
-                                '<td class="text-left fw-bold" style="width: 45%;">' + '@Html.Raw(LangResources["InvReceipts_Label_Total"])' + '</td>' +
+                                '<td class="text-left fw-bold" style="width: 45%;">' + "@Html.Raw(LangResources["InvReceipts_Label_Total"])" + '</td>' +
                                 '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
                                 '<td class="text-left fw-bold" style="width: 20%;">' + sServiceGrp[0].itemTotalValue + '</td>' +  
                                 '</tr>';
@@ -265,7 +265,7 @@
                  else{
                      var sService = '';
                      sService = '<tr>' +
-                                '<td class="text-left fw-bold" style="width: 45%;">' + '@Html.Raw(LangResources["InvReceipts_Label_Total"])' + '</td>' +
+                                '<td class="text-left fw-bold" style="width: 45%;">' + "@Html.Raw(LangResources["InvReceipts_Label_Total"])" + '</td>' +
                                 '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
                                 '<td class="text-left fw-bold" style="width: 20%;">0</td>' +
                                 '</tr>';
@@ -282,7 +282,7 @@
                  {
                      var sProduct = '';
                      sProduct = '<tr>' +
-                                '<td class="text-left fw-bold" style="width: 45%;">' + '@Html.Raw(LangResources["InvReceipts_Label_Total"])' + '</td>' +
+                                '<td class="text-left fw-bold" style="width: 45%;">' + "@Html.Raw(LangResources["InvReceipts_Label_Total"])" + '</td>' +
                                 '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
                                 '<td class="text-left fw-bold" style="width: 20%;">' + sProductGrp[0].itemTotalValue + '</td>' + 
                                 '</tr>';
@@ -292,7 +292,7 @@
                  else {
                      var sProduct = '';
                      sProduct = '<tr>' +
-                                '<td class="text-left fw-bold" style="width: 45%;">' + '@Html.Raw(LangResources["InvReceipts_Label_Total"])' + '</td>' +
+                                '<td class="text-left fw-bold" style="width: 45%;">' + "@Html.Raw(LangResources["InvReceipts_Label_Total"])" + '</td>' +
                                 '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
                                 '<td class="text-left fw-bold" style="width: 20%;">0</td>' + 
                                 '</tr>';
@@ -312,7 +312,7 @@
 
                     var sTotalPreTax = '';
                     sTotalPreTax = '<tr>' +
-                           '<td class="text-left" style="width: 45%;">' + '@Html.Raw(LangResources["InvReceipts_Label_Total"])' + '</td>' +
+                           '<td class="text-left" style="width: 45%;">' + "@Html.Raw(LangResources["InvReceipts_Label_Total"])" + '</td>' +
                            '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
                            '<td class="text-left" style="width: 20%;">' + iTotalBeforeTax + '</td>' +
                            '</tr>';
@@ -331,7 +331,7 @@
 
                     var sTax = '';
                     sTax = '<tr>' +
-                           '<td class="text-left" style="width: 45%;">' + '@Html.Raw(LangResources["InvReceipts_Label_Tax"])' + ' (' + sTaxGrp[0].itemTotalValue + '%) </td>' +
+                           '<td class="text-left" style="width: 45%;">' + "@Html.Raw(LangResources["InvReceipts_Label_Tax"])" + ' (' + sTaxGrp[0].itemTotalValue + '%) </td>' +
                            '<td class="text-left" style="width: 35%;">&nbsp;</td>' +
                            '<td class="text-left" style="width: 20%;">' + sTaxValue.toFixed(2) + '</td>' +
                            '</tr>';
@@ -348,7 +348,7 @@
                  {
                      var sTotal = '';
                      sTotal = '<tr>' +
-                               '<td class="text-left fw-bold GrandTotalRow" style="width: 45%;">' + '@Html.Raw(LangResources["InvReceipts_Label_GrandTotal"])' + '</td>' +
+                               '<td class="text-left fw-bold GrandTotalRow" style="width: 45%;">' + "@Html.Raw(LangResources["InvReceipts_Label_GrandTotal"])" + '</td>' +
                                '<td class="text-left GrandTotalRow" style="width: 35%;">&nbsp;</td>' +
                                '<td class="text-left fw-bold GrandTotalRow" style="width: 20%;">' + sTotalGrp[0].itemTotalValue + '</td>' +
                                '</tr>';

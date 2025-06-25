@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -346,6 +347,49 @@ namespace VPMS.Lib.Data
             {
 				logger.Error("NotificationRepository >>> InsertNotification >>> ", ex);
 				isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Insert Notification to Customer
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="sNotificationObj"></param>
+        /// <param name="sRecipients"></param>
+        /// <returns></returns>
+        public static Boolean InsertCustomerNotification(IConfiguration config, NotificationCustomerModel sNotificationObj, List<String> sRecipients)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new NotificationDBContext(config))
+                {
+                    ctx.txn_customer_notifications.Add(sNotificationObj);
+                    ctx.SaveChanges();
+
+                    foreach (String s in sRecipients)
+                    {
+                        NotificationCustomerReceiverModel sReceiverModel = new NotificationCustomerReceiverModel();
+                        sReceiverModel.NotificationID = sNotificationObj.ID;
+                        sReceiverModel.UserID = s;
+                        sReceiverModel.Status = 0;
+                        sReceiverModel.UpdatedDate = sNotificationObj.CreatedDate;
+                        sReceiverModel.UpdatedBy = sNotificationObj.CreatedBy;
+
+                        ctx.txn_customer_notification_receiver.Add(sReceiverModel);
+                        ctx.SaveChanges();
+                    }
+                }
+
+                isSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("NotificationRepository >>> InsertCustomerNotification >>> " + ex.ToString());
+                isSuccess = false;
             }
 
             return isSuccess;

@@ -117,6 +117,1680 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Appointment_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
+    <value>Hủy cuộc hẹn</value>
+  </data>
+  <data name="Appointment_Button_Confirm" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
+    <value>Cuộc hẹn mới</value>
+  </data>
+  <data name="Appointment_Button_Reset" xml:space="preserve">
+    <value>Cài lại</value>
+  </data>
+  <data name="Appointment_Button_Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Appointment_Button_Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="Appointment_Label_ContactNo" xml:space="preserve">
+    <value>Số liên lạc</value>
+  </data>
+  <data name="Appointment_Label_DateTime" xml:space="preserve">
+    <value>Ngày &amp; Giờ</value>
+  </data>
+  <data name="Appointment_Label_Day" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="Appointment_Label_Doctor" xml:space="preserve">
+    <value>Bác sĩ</value>
+  </data>
+  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
+    <value>Chỉnh sửa cuộc hẹn</value>
+  </data>
+  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
+    <value>Địa chỉ Email</value>
+  </data>
+  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
+    <value>Khách hàng hiện tại?</value>
+  </data>
+  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
+    <value>*Các trường bắt buộc phải nhập.</value>
+  </data>
+  <data name="Appointment_Label_Month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="Appointment_Label_NewClient" xml:space="preserve">
+    <value>Khách hàng mới?</value>
+  </data>
+  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
+    <value>Thông báo cho tôi qua Email</value>
+  </data>
+  <data name="Appointment_Label_Owner" xml:space="preserve">
+    <value>Người sở hữu</value>
+  </data>
+  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
+    <value>Họ và tên đầy đủ của chủ sở hữu</value>
+  </data>
+  <data name="Appointment_Label_OwnerName" xml:space="preserve">
+    <value>Tên chủ sở hữu</value>
+  </data>
+  <data name="Appointment_Label_Pet" xml:space="preserve">
+    <value>Thú cưng</value>
+  </data>
+  <data name="Appointment_Label_PetDOB" xml:space="preserve">
+    <value>Ngày sinh của thú cưng</value>
+  </data>
+  <data name="Appointment_Label_PetName" xml:space="preserve">
+    <value>Tên thú cưng</value>
+  </data>
+  <data name="Appointment_Label_Services" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Appointment_Label_Species" xml:space="preserve">
+    <value>Giống loài</value>
+  </data>
+  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
+    <value>Chuyển lại cuộc hẹn</value>
+  </data>
+  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
+    <value>Chuyển sang cuộc hẹn nhanh</value>
+  </data>
+  <data name="Appointment_Label_Week" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
+    <value>Đã hủy cuộc hẹn. Đã cập nhật.</value>
+  </data>
+  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
+    <value>Xác nhận hủy cuộc hẹn này?</value>
+  </data>
+  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
+    <value>*Bác sĩ không có mặt vào ngày và giờ hẹn ở trên.</value>
+  </data>
+  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
+    <value>*Có cùng lịch hẹn khám bệnh nhân trong hệ thống.</value>
+  </data>
+  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
+    <value>Không cập nhật được cuộc hẹn, vui lòng thử lại sau.</value>
+  </data>
+  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
+    <value>Cập nhật thành công.</value>
+  </data>
+  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
+    <value>Vui lòng chọn bác sĩ</value>
+  </data>
+  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
+    <value>Vui lòng chọn chủ sở hữu</value>
+  </data>
+  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
+    <value>Vui lòng chọn thú cưng</value>
+  </data>
+  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
+    <value>Vui lòng chọn dịch vụ</value>
+  </data>
+  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
+    <value>Vui lòng chọn loài vật nuôi</value>
+  </data>
+  <data name="Appointment_Title_Appointment" xml:space="preserve">
+    <value>Cuộc hẹn</value>
+  </data>
+  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
+    <value>Hủy cuộc hẹn</value>
+  </data>
+  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
+    <value>Tạo cuộc hẹn</value>
+  </data>
+  <data name="Appointment_Title_Filter" xml:space="preserve">
+    <value>Lọc</value>
+  </data>
+  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
+    <value>Tạo cuộc hẹn (Khách hàng mới)</value>
+  </data>
+  <data name="DoctorProfile_Button_Back" xml:space="preserve">
+    <value>Mặt sau</value>
+  </data>
+  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="DoctorProfile_Button_Create" xml:space="preserve">
+    <value>Tạo nên</value>
+  </data>
+  <data name="DoctorProfile_Button_Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
+    <value>Chỉ định</value>
+  </data>
+  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
+    <value>Số giấy phép</value>
+  </data>
+  <data name="DoctorProfile_Label_Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Vui lòng chọn giới tính</value>
+  </data>
+  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
+    <value>Chuyên ngành</value>
+  </data>
+  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
+    <value>ID hệ thống</value>
+  </data>
+  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
+    <value>Bác sĩ đã thêm thành công</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
+    <value>*Không thêm được bác sĩ, vui lòng thử lại sau.</value>
+  </data>
+  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
+    <value>*Không cập nhật được thông tin bác sĩ, vui lòng thử lại sau.</value>
+  </data>
+  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
+    <value>*Trường bắt buộc phải nhập.</value>
+  </data>
+  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
+    <value>Cập nhật thành công</value>
+  </data>
+  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
+    <value>Thêm Bác sĩ</value>
+  </data>
+  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
+    <value>Chi tiết bác sĩ</value>
+  </data>
+  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
+    <value>Cập nhật Bác sĩ</value>
+  </data>
+  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
+    <value>Bác sĩ mới</value>
+  </data>
+  <data name="Doctor_Button_Next" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="Doctor_Button_Prev" xml:space="preserve">
+    <value>Trước đó</value>
+  </data>
+  <data name="Doctor_Button_Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
+    <value>Chỉ định</value>
+  </data>
+  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="Doctor_Label_ColumnID" xml:space="preserve">
+    <value>NHẬN DẠNG</value>
+  </data>
+  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
+    <value>Số giấy phép</value>
+  </data>
+  <data name="Doctor_Label_ColumnName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
+    <value>Tìm kiếm Bác sĩ theo Tên</value>
+  </data>
+  <data name="Doctor_Label_Specialty" xml:space="preserve">
+    <value>Chuyên ngành</value>
+  </data>
+  <data name="Doctor_Menu_Delete" xml:space="preserve">
+    <value>Xóa bỏ</value>
+  </data>
+  <data name="Doctor_Menu_Edit" xml:space="preserve">
+    <value>Biên tập</value>
+  </data>
+  <data name="Doctor_Menu_View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
+    <value>Xác nhận xóa hồ sơ bác sĩ?</value>
+  </data>
+  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
+    <value>Không xóa được bản ghi, vui lòng thử lại sau.</value>
+  </data>
+  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
+    <value>Xóa hồ sơ Bác sĩ</value>
+  </data>
+  <data name="Doctor_Title_Doctor" xml:space="preserve">
+    <value>Bác sĩ</value>
+  </data>
+  <data name="Inventory_Label_SelectOrganisation" xml:space="preserve">
+    <value>Chọn tổ chức</value>
+  </data>
+  <data name="LanguageCountry_Button_Save" xml:space="preserve">
+    <value>Cứu</value>
+  </data>
+  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
+    <value>Không có lựa chọn quốc gia nào khả dụng.</value>
+  </data>
+  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
+    <value>Không có lựa chọn ngôn ngữ nào.</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
+    <value>Chọn một quốc gia</value>
+  </data>
+  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
+    <value>Chọn ngôn ngữ</value>
+  </data>
+  <data name="Login_Button_Back" xml:space="preserve">
+    <value>Mặt sau</value>
+  </data>
+  <data name="Login_Button_RecoverPassword" xml:space="preserve">
+    <value>Khôi phục mật khẩu</value>
+  </data>
+  <data name="Login_Link_ForgotPassword" xml:space="preserve">
+    <value>Quên mật khẩu?</value>
+  </data>
+  <data name="Login_Placeholder_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Login_Placeholder_LoginID" xml:space="preserve">
+    <value>ID đăng nhập</value>
+  </data>
+  <data name="Login_Placeholder_Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="Login_Title_Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Login_Title_PasswordRecovery" xml:space="preserve">
+    <value>Phục hồi mật khẩu</value>
+  </data>
+  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
+    <value>Kiểm soát truy cập</value>
+  </data>
+  <data name="MenuBar_Label_Appointments" xml:space="preserve">
+    <value>Cuộc hẹn</value>
+  </data>
+  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
+    <value>Dịch vụ khách hàng</value>
+  </data>
+  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
+    <value>Bảng điều khiển</value>
+  </data>
+  <data name="MenuBar_Label_Doctor" xml:space="preserve">
+    <value>Bác sĩ</value>
+  </data>
+  <data name="MenuBar_Label_Integration" xml:space="preserve">
+    <value>Tích hợp</value>
+  </data>
+  <data name="MenuBar_Label_Inventory" xml:space="preserve">
+    <value>Hàng tồn kho</value>
+  </data>
+  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
+    <value>Hóa đơn và Biên lai</value>
+  </data>
+  <data name="MenuBar_Label_Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="MenuBar_Label_MyProfile" xml:space="preserve">
+    <value>Hồ sơ của tôi</value>
+  </data>
+  <data name="MenuBar_Label_Organisation" xml:space="preserve">
+    <value>Tổ chức</value>
+  </data>
+  <data name="MenuBar_Label_Patients" xml:space="preserve">
+    <value>Bệnh nhân</value>
+  </data>
+  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
+    <value>Dịch vụ bệnh nhân</value>
+  </data>
+  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
+    <value>Kế hoạch điều trị bệnh nhân</value>
+  </data>
+  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
+    <value>Thiết lập vai trò</value>
+  </data>
+  <data name="MenuBar_Label_Service" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
+    <value>Danh sách nhân viên</value>
+  </data>
+  <data name="Notification_Label_All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="Notification_Label_Inventory" xml:space="preserve">
+    <value>Hàng tồn kho</value>
+  </data>
+  <data name="Notification_Label_Messages" xml:space="preserve">
+    <value>Tin nhắn</value>
+  </data>
+  <data name="Notification_Label_Next" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="Notification_Label_Prev" xml:space="preserve">
+    <value>Trước đó</value>
+  </data>
+  <data name="Notification_Title_Notification" xml:space="preserve">
+    <value>Thông báo</value>
+  </data>
+  <data name="Patient_Button_AddCoOwner" xml:space="preserve">
+    <value>Thêm đồng sở hữu</value>
+  </data>
+  <data name="Patient_Button_AddNew" xml:space="preserve">
+    <value>Thêm mới</value>
+  </data>
+  <data name="Patient_Button_AddPet" xml:space="preserve">
+    <value>Thêm thú cưng</value>
+  </data>
+  <data name="Patient_Button_AddSelections" xml:space="preserve">
+    <value>Thêm Lựa chọn</value>
+  </data>
+  <data name="Patient_Button_AddTreatment" xml:space="preserve">
+    <value>Thêm điều trị</value>
+  </data>
+  <data name="Patient_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Patient_Button_ClearAll" xml:space="preserve">
+    <value>Xóa tất cả</value>
+  </data>
+  <data name="Patient_Button_CreateTreatmentPlan" xml:space="preserve">
+    <value>Tạo kế hoạch điều trị</value>
+  </data>
+  <data name="Patient_Button_Delete" xml:space="preserve">
+    <value>Xóa bỏ</value>
+  </data>
+  <data name="Patient_Button_Edit" xml:space="preserve">
+    <value>Biên tập</value>
+  </data>
+  <data name="Patient_Button_Finish" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="Patient_Button_GoBack" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="Inventory_Button_NewInventory" xml:space="preserve">
+    <value>Hàng tồn kho mới</value>
+  </data>
+  <data name="Patient_Button_NewPatient" xml:space="preserve">
+    <value>Bệnh nhân mới</value>
+  </data>
+  <data name="Patient_Button_Next" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="Patient_Button_NextStep" xml:space="preserve">
+    <value>Bước tiếp theo</value>
+  </data>
+  <data name="Patient_Button_OngoingTreatment" xml:space="preserve">
+    <value>Điều trị đang diễn ra</value>
+  </data>
+  <data name="Patient_Button_PastTreatment" xml:space="preserve">
+    <value>Điều trị trước đây</value>
+  </data>
+  <data name="Patient_Button_Previous" xml:space="preserve">
+    <value>Trước đó</value>
+  </data>
+  <data name="Patient_Button_RemoveCoOwner" xml:space="preserve">
+    <value>Xóa đồng sở hữu</value>
+  </data>
+  <data name="Patient_Button_Save" xml:space="preserve">
+    <value>Cứu</value>
+  </data>
+  <data name="Patient_Button_SaveMedication" xml:space="preserve">
+    <value>Lưu Thuốc</value>
+  </data>
+  <data name="Patient_Button_SaveSurgery" xml:space="preserve">
+    <value>Lưu phẫu thuật</value>
+  </data>
+  <data name="Patient_Button_SaveVaccination" xml:space="preserve">
+    <value>Lưu Tiêm chủng</value>
+  </data>
+  <data name="Patient_Button_Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Patient_Button_UpcomingTreatment" xml:space="preserve">
+    <value>Điều trị sắp tới</value>
+  </data>
+  <data name="Patient_Button_View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="Patient_Button_ViewPetProfile" xml:space="preserve">
+    <value>Xem Hồ sơ thú cưng</value>
+  </data>
+  <data name="Patient_Label_Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="Patient_Label_AddressLine1" xml:space="preserve">
+    <value>Dòng địa chỉ 1</value>
+  </data>
+  <data name="Patient_Label_AddressLine2" xml:space="preserve">
+    <value>Dòng địa chỉ 2</value>
+  </data>
+  <data name="Patient_Label_Age" xml:space="preserve">
+    <value>Tuổi</value>
+  </data>
+  <data name="Patient_Label_AgeYear" xml:space="preserve">
+    <value>Tuổi (Năm)</value>
+  </data>
+  <data name="Patient_Label_Allergies" xml:space="preserve">
+    <value>Dị ứng</value>
+  </data>
+  <data name="Patient_Label_BMI" xml:space="preserve">
+    <value>Chỉ số khối cơ thể (BMI)</value>
+  </data>
+  <data name="Inventory_Label_Branch" xml:space="preserve">
+    <value>Chi nhánh</value>
+  </data>
+  <data name="Patient_Label_Breed" xml:space="preserve">
+    <value>Giống</value>
+  </data>
+  <data name="Inventory_Label_Category" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="Patient_Label_City" xml:space="preserve">
+    <value>Thành phố</value>
+  </data>
+  <data name="Patient_Label_Color" xml:space="preserve">
+    <value>Màu sắc</value>
+  </data>
+  <data name="Patient_Label_ContactNo" xml:space="preserve">
+    <value>Số liên lạc</value>
+  </data>
+  <data name="Patient_Label_CoOwnerInformationOptional" xml:space="preserve">
+    <value>Thông tin đồng sở hữu (Tùy chọn)</value>
+  </data>
+  <data name="Patient_Label_CoOwnerName" xml:space="preserve">
+    <value>Tên đồng sở hữu</value>
+  </data>
+  <data name="Patient_Label_Country" xml:space="preserve">
+    <value>Quốc gia</value>
+  </data>
+  <data name="Inventory_Label_Create" xml:space="preserve">
+    <value>Tạo nên</value>
+  </data>
+  <data name="Patient_Label_CreatedOn" xml:space="preserve">
+    <value>Được tạo ra vào</value>
+  </data>
+  <data name="Patient_Label_Date" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="Patient_Label_DOB" xml:space="preserve">
+    <value>Ngày sinh</value>
+  </data>
+  <data name="Patient_Label_Doctor" xml:space="preserve">
+    <value>Bác sĩ</value>
+  </data>
+  <data name="Patient_Label_DueDate" xml:space="preserve">
+    <value>Ngày đến hạn</value>
+  </data>
+  <data name="Patient_Label_ExpiryDate" xml:space="preserve">
+    <value>Ngày hết hạn</value>
+  </data>
+  <data name="Patient_Label_Gender" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="Patient_Label_GrandTotal" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="Patient_Label_HealthCard" xml:space="preserve">
+    <value>Thẻ sức khỏe</value>
+  </data>
+  <data name="Patient_Label_Height" xml:space="preserve">
+    <value>Chiều cao</value>
+  </data>
+  <data name="Inventory_Label_Image" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Inventory_Label_InStock" xml:space="preserve">
+    <value>Còn hàng</value>
+  </data>
+  <data name="Inventory_Label_InventoryDetails" xml:space="preserve">
+    <value>Chi tiết hàng tồn kho</value>
+  </data>
+  <data name="Inventory_Label_InventoryName" xml:space="preserve">
+    <value>Tên hàng tồn kho</value>
+  </data>
+  <data name="Patient_Label_InvoiceBilling" xml:space="preserve">
+    <value>Hóa đơn &amp; Thanh toán</value>
+  </data>
+  <data name="Patient_Label_Medication" xml:space="preserve">
+    <value>Thuốc</value>
+  </data>
+  <data name="Patient_Label_MedicationName" xml:space="preserve">
+    <value>Tên thuốc</value>
+  </data>
+  <data name="Patient_Label_Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="Patient_Label_Number" xml:space="preserve">
+    <value>Con số</value>
+  </data>
+  <data name="Patient_Label_Obese" xml:space="preserve">
+    <value>Béo phì?</value>
+  </data>
+  <data name="Patient_Label_Obesity" xml:space="preserve">
+    <value>Béo phì</value>
+  </data>
+  <data name="Inventory_Label_Organisation" xml:space="preserve">
+    <value>Tổ chức</value>
+  </data>
+  <data name="Inventory_Label_OutOfStock" xml:space="preserve">
+    <value>Hết hàng</value>
+  </data>
+  <data name="Patient_Label_OwnerName" xml:space="preserve">
+    <value>Tên chủ sở hữu</value>
+  </data>
+  <data name="Patient_Label_Payment" xml:space="preserve">
+    <value>Sự chi trả</value>
+  </data>
+  <data name="Patient_Label_Pet" xml:space="preserve">
+    <value>Thú cưng</value>
+  </data>
+  <data name="Patient_Label_PetAge" xml:space="preserve">
+    <value>Tuổi của thú cưng (Y)</value>
+  </data>
+  <data name="Patient_Label_PetName" xml:space="preserve">
+    <value>Tên thú cưng</value>
+  </data>
+  <data name="Patient_Label_Postcode" xml:space="preserve">
+    <value>Mã bưu chính</value>
+  </data>
+  <data name="Patient_Label_Price" xml:space="preserve">
+    <value>Giá</value>
+  </data>
+  <data name="Inventory_Label_PricePerQty" xml:space="preserve">
+    <value>Giá ($) cho mỗi số lượng</value>
+  </data>
+  <data name="Patient_Label_Product" xml:space="preserve">
+    <value>Sản phẩm</value>
+  </data>
+  <data name="Inventory_Label_ProductName" xml:space="preserve">
+    <value>Tên sản phẩm</value>
+  </data>
+  <data name="Inventory_Label_ProductType" xml:space="preserve">
+    <value>Loại sản phẩm</value>
+  </data>
+  <data name="Inventory_Label_Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="Patient_Label_RegistrationNo" xml:space="preserve">
+    <value>Số đăng ký</value>
+  </data>
+  <data name="Inventory_Label_SearchInventory" xml:space="preserve">
+    <value>Tìm kiếm hàng tồn kho</value>
+  </data>
+  <data name="Inventory_Label_SearchSpecies" xml:space="preserve">
+    <value>Tìm kiếm loài</value>
+  </data>
+  <data name="Patient_Label_SearchTreatment" xml:space="preserve">
+    <value>Tìm kiếm điều trị</value>
+  </data>
+  <data name="Inventory_Label_SelectProductType" xml:space="preserve">
+    <value>Chọn loại sản phẩm</value>
+  </data>
+  <data name="Patient_Label_Service" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+  <data name="Patient_Label_Sex" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="Patient_Label_Species" xml:space="preserve">
+    <value>Giống loài</value>
+  </data>
+  <data name="Patient_Label_State" xml:space="preserve">
+    <value>Tình trạng</value>
+  </data>
+  <data name="Patient_Label_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Patient_Label_Surgeries" xml:space="preserve">
+    <value>Phẫu thuật</value>
+  </data>
+  <data name="Patient_Label_Tax" xml:space="preserve">
+    <value>Thuế</value>
+  </data>
+  <data name="Patient_Label_TestManagement" xml:space="preserve">
+    <value>Quản lý thử nghiệm</value>
+  </data>
+  <data name="Patient_Label_Time" xml:space="preserve">
+    <value>Thời gian</value>
+  </data>
+  <data name="Patient_Label_TotalCost" xml:space="preserve">
+    <value>Tổng chi phí</value>
+  </data>
+  <data name="Patient_Label_TreatmentPeriod" xml:space="preserve">
+    <value>Thời gian điều trị</value>
+  </data>
+  <data name="Patient_Label_TreatmentPlan" xml:space="preserve">
+    <value>Kế hoạch điều trị</value>
+  </data>
+  <data name="Patient_Label_Type" xml:space="preserve">
+    <value>Kiểu</value>
+  </data>
+  <data name="Patient_Label_Unit" xml:space="preserve">
+    <value>Đơn vị</value>
+  </data>
+  <data name="Inventory_Label_UploadImage" xml:space="preserve">
+    <value>Tải lên hình ảnh</value>
+  </data>
+  <data name="Inventory_Label_Usage" xml:space="preserve">
+    <value>Cách sử dụng</value>
+  </data>
+  <data name="Patient_Label_Vaccination" xml:space="preserve">
+    <value>Tiêm chủng</value>
+  </data>
+  <data name="Patient_Label_VaccinationTreatment" xml:space="preserve">
+    <value>Tiêm chủng/Điều trị</value>
+  </data>
+  <data name="Patient_Label_Weight" xml:space="preserve">
+    <value>Cân nặng</value>
+  </data>
+  <data name="Patient_Label_Year" xml:space="preserve">
+    <value>Năm</value>
+  </data>
+  <data name="Patient_Message_IdleMessage" xml:space="preserve">
+    <value>Bạn sẽ tự động đăng xuất nếu tiếp tục không sử dụng.</value>
+  </data>
+  <data name="Patient_Message_NoRecord" xml:space="preserve">
+    <value>Không có hồ sơ nào có sẵn.</value>
+  </data>
+  <data name="Patient_Selection_Active" xml:space="preserve">
+    <value>Tích cực</value>
+  </data>
+  <data name="Patient_Selection_Female" xml:space="preserve">
+    <value>Nữ giới</value>
+  </data>
+  <data name="Patient_Selection_Inactive" xml:space="preserve">
+    <value>Không hoạt động</value>
+  </data>
+  <data name="Patient_Selection_Male" xml:space="preserve">
+    <value>Nam giới</value>
+  </data>
+  <data name="Patient_Selection_No" xml:space="preserve">
+    <value>KHÔNG</value>
+  </data>
+  <data name="Patient_Selection_SelectBreed" xml:space="preserve">
+    <value>Chọn giống</value>
+  </data>
+  <data name="Patient_Selection_SelectCity" xml:space="preserve">
+    <value>Chọn thành phố</value>
+  </data>
+  <data name="Patient_Selection_SelectColor" xml:space="preserve">
+    <value>Chọn màu</value>
+  </data>
+  <data name="Patient_Selection_SelectCountry" xml:space="preserve">
+    <value>Chọn quốc gia</value>
+  </data>
+  <data name="Patient_Selection_SelectGender" xml:space="preserve">
+    <value>Chọn giới tính</value>
+  </data>
+  <data name="Patient_Selection_SelectSex" xml:space="preserve">
+    <value>Chọn giới tính</value>
+  </data>
+  <data name="Patient_Selection_SelectSpecies" xml:space="preserve">
+    <value>Chọn loài</value>
+  </data>
+  <data name="Patient_Selection_SelectState" xml:space="preserve">
+    <value>Chọn tiểu bang</value>
+  </data>
+  <data name="Patient_Selection_SelectStatus" xml:space="preserve">
+    <value>Chọn trạng thái</value>
+  </data>
+  <data name="Patient_Selection_Yes" xml:space="preserve">
+    <value>Đúng</value>
+  </data>
+  <data name="Patient_Title_AdditionalInformation" xml:space="preserve">
+    <value>Thông tin bổ sung</value>
+  </data>
+  <data name="Patient_Title_AllPets" xml:space="preserve">
+    <value>Tất cả các vật nuôi</value>
+  </data>
+  <data name="Patient_Title_CoOwnerInfo" xml:space="preserve">
+    <value>Thông tin đồng sở hữu</value>
+  </data>
+  <data name="Patient_Title_CreatePatientProfile" xml:space="preserve">
+    <value>Tạo hồ sơ bệnh nhân</value>
+  </data>
+  <data name="Patient_Title_MedicalRecord" xml:space="preserve">
+    <value>Hồ sơ bệnh án</value>
+  </data>
+  <data name="Patient_Title_MedicationHistory" xml:space="preserve">
+    <value>Tiền sử dùng thuốc</value>
+  </data>
+  <data name="Patient_Title_OwnerInfo" xml:space="preserve">
+    <value>Thông tin chủ sở hữu</value>
+  </data>
+  <data name="Patient_Title_PatientProfile" xml:space="preserve">
+    <value>Hồ sơ bệnh nhân</value>
+  </data>
+  <data name="Patient_Title_Patients" xml:space="preserve">
+    <value>Bệnh nhân</value>
+  </data>
+  <data name="Patient_Title_PetGrowthHistory" xml:space="preserve">
+    <value>Lịch sử phát triển của thú cưng</value>
+  </data>
+  <data name="Patient_Title_PetGrowthTrend" xml:space="preserve">
+    <value>Xu hướng tăng trưởng của thú cưng</value>
+  </data>
+  <data name="Patient_Title_PetInfo" xml:space="preserve">
+    <value>Thông tin thú cưng</value>
+  </data>
+  <data name="Patient_Title_Profile" xml:space="preserve">
+    <value>Hồ sơ</value>
+  </data>
+  <data name="Patient_Title_UpcomingAppointment" xml:space="preserve">
+    <value>Cuộc hẹn sắp tới</value>
+  </data>
+  <data name="Patient_Title_UpcomingVaccinationTreatment" xml:space="preserve">
+    <value>Tiêm chủng/Điều trị sắp tới</value>
+  </data>
+  <data name="Patient_Title_VaccinationTreatmentHistory" xml:space="preserve">
+    <value>Tiền sử tiêm chủng/điều trị</value>
+  </data>
+  <data name="Inventory_Label_Description" xml:space="preserve">
+    <value>Sự miêu tả</value>
+  </data>
+  <data name="Inventory_Label_RecommendedBreed" xml:space="preserve">
+    <value>Giống được đề xuất</value>
+  </data>
+  <data name="Inventory_Label_RecommendedWeight" xml:space="preserve">
+    <value>Trọng lượng khuyến nghị</value>
+  </data>
+  <data name="Inventory_Label_SearchBreed" xml:space="preserve">
+    <value>Tìm kiếm giống</value>
+  </data>
+  <data name="Inventory_Label_SelectBranch" xml:space="preserve">
+    <value>Chọn Chi nhánh</value>
+  </data>
+  <data name="Service_Button_NewService" xml:space="preserve">
+    <value>Dịch vụ mới</value>
+  </data>
+  <data name="Service_Label_DoctorInCharge" xml:space="preserve">
+    <value>Bác sĩ phụ trách</value>
+  </data>
+  <data name="Service_Label_DurationHr" xml:space="preserve">
+    <value>Thời lượng (giờ)</value>
+  </data>
+  <data name="Service_Label_Precaution" xml:space="preserve">
+    <value>Thận trọng</value>
+  </data>
+  <data name="Service_Label_SearchDoctor" xml:space="preserve">
+    <value>Tìm kiếm Bác sĩ</value>
+  </data>
+  <data name="Service_Label_SearchService" xml:space="preserve">
+    <value>Dịch vụ tìm kiếm</value>
+  </data>
+  <data name="Service_Label_SelectCategory" xml:space="preserve">
+    <value>Chọn danh mục</value>
+  </data>
+  <data name="Service_Label_ServiceDetails" xml:space="preserve">
+    <value>Chi tiết dịch vụ</value>
+  </data>
+  <data name="Service_Label_ServiceName" xml:space="preserve">
+    <value>Tên dịch vụ</value>
+  </data>
+  <data name="Service_Label_TimeOfServiceHr" xml:space="preserve">
+    <value>Thời gian phục vụ (giờ)</value>
+  </data>
+  <data name="TreatmentPlan_Label_Add" xml:space="preserve">
+    <value>Thêm vào</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddService" xml:space="preserve">
+    <value>Thêm dịch vụ</value>
+  </data>
+  <data name="TreatmentPlan_Label_Cost" xml:space="preserve">
+    <value>Trị giá</value>
+  </data>
+  <data name="TreatmentPlan_Label_CreatedBy" xml:space="preserve">
+    <value>Được tạo bởi</value>
+  </data>
+  <data name="TreatmentPlan_Label_DateCreated" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeActive" xml:space="preserve">
+    <value>Làm cho hoạt động</value>
+  </data>
+  <data name="TreatmentPlan_Label_MakeInactive" xml:space="preserve">
+    <value>Làm cho không hoạt động</value>
+  </data>
+  <data name="TreatmentPlan_Label_NewTreatment" xml:space="preserve">
+    <value>Điều trị mới</value>
+  </data>
+  <data name="TreatmentPlan_Label_Remarks" xml:space="preserve">
+    <value>Nhận xét</value>
+  </data>
+  <data name="TreatmentPlan_Label_SearchService" xml:space="preserve">
+    <value>Dịch vụ tìm kiếm</value>
+  </data>
+  <data name="TreatmentPlan_Label_SelectUser" xml:space="preserve">
+    <value>Chọn người dùng</value>
+  </data>
+  <data name="TreatmentPlan_Label_Total" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="TreatmentPlan_Label_Treatment" xml:space="preserve">
+    <value>Sự đối đãi</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentDetails" xml:space="preserve">
+    <value>Chi tiết điều trị</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentName" xml:space="preserve">
+    <value>Tên điều trị</value>
+  </data>
+  <data name="TreatmentPlan_Label_TreatmentPlans" xml:space="preserve">
+    <value>Kế hoạch điều trị</value>
+  </data>
+  <data name="TreatmentPlan_Label_AddProduct" xml:space="preserve">
+    <value>Thêm sản phẩm</value>
+  </data>
+  <data name="TreatmentPlan_Message_PendingConfirmation" xml:space="preserve">
+    <value>Đang chờ xác nhận</value>
+  </data>
+  <data name="Login_Label_ConfirmPassword" xml:space="preserve">
+    <value>Xác nhận mật khẩu</value>
+  </data>
+  <data name="Login_Label_NewPassword" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+  </data>
+  <data name="Login_Label_OldPassword" xml:space="preserve">
+    <value>Mật khẩu cũ</value>
+  </data>
+  <data name="Login_Label_ResetPassword" xml:space="preserve">
+    <value>Đặt lại mật khẩu</value>
+  </data>
+  <data name="Patient_Selection_SelectMedication" xml:space="preserve">
+    <value>Chọn thuốc</value>
+  </data>
+  <data name="Patient_Selection_SelectMedicationType" xml:space="preserve">
+    <value>Chọn loại thuốc</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgery" xml:space="preserve">
+    <value>Chọn phẫu thuật</value>
+  </data>
+  <data name="Patient_Selection_SelectSurgeryType" xml:space="preserve">
+    <value>Chọn loại phẫu thuật</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccination" xml:space="preserve">
+    <value>Chọn Tiêm chủng</value>
+  </data>
+  <data name="Patient_Selection_SelectVaccinationType" xml:space="preserve">
+    <value>Chọn loại vắc-xin</value>
+  </data>
+  <data name="Patient_Label_Due" xml:space="preserve">
+    <value>Quá hạn</value>
+  </data>
+  <data name="Patient_Label_Expiry" xml:space="preserve">
+    <value>Hết hạn</value>
+  </data>
+  <data name="Patient_Label_NoOngoingTreatment" xml:space="preserve">
+    <value>Không có điều trị liên tục</value>
+  </data>
+  <data name="Patient_Label_NoPastTreatment" xml:space="preserve">
+    <value>No Past Treatment</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingAppointment" xml:space="preserve">
+    <value>Không có điều trị trong quá khứ</value>
+  </data>
+  <data name="Patient_Label_NoUpcomingTreatment" xml:space="preserve">
+    <value>Không có điều trị sắp tới</value>
+  </data>
+  <data name="Patient_Label_UpdatedOn" xml:space="preserve">
+    <value>Đã cập nhật vào</value>
+  </data>
+  <data name="Patient_Label_NoOtherPet" xml:space="preserve">
+    <value>Không có vật nuôi nào khác.</value>
+  </data>
+  <data name="Roles_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Roles_Button_Create" xml:space="preserve">
+    <value>Tạo nên</value>
+  </data>
+  <data name="Roles_Button_NewRole" xml:space="preserve">
+    <value>Vai trò mới</value>
+  </data>
+  <data name="Roles_Button_Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
+    <value>Bạn có phải là bác sĩ không?</value>
+  </data>
+  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
+    <value>Số lượng nhân viên được phân công</value>
+  </data>
+  <data name="Roles_Label_Branch" xml:space="preserve">
+    <value>Chi nhánh</value>
+  </data>
+  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
+    <value>Xác nhận xóa vai trò này?</value>
+  </data>
+  <data name="Roles_Label_Description" xml:space="preserve">
+    <value>Sự miêu tả</value>
+  </data>
+  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
+    <value>Không tạo được vai trò.</value>
+  </data>
+  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
+    <value>Không xóa được bản ghi.</value>
+  </data>
+  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
+    <value>*Trường bắt buộc phải nhập.</value>
+  </data>
+  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
+    <value>Tạo vai trò mới thành công.</value>
+  </data>
+  <data name="Roles_Label_Number" xml:space="preserve">
+    <value>Con số</value>
+  </data>
+  <data name="Roles_Label_Organization" xml:space="preserve">
+    <value>Tổ chức</value>
+  </data>
+  <data name="Roles_Label_Permission" xml:space="preserve">
+    <value>Quyền</value>
+  </data>
+  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
+    <value>Thiết lập quyền:</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Vui lòng chọn chi nhánh</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
+    <value>Vui lòng chọn tùy chọn</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Vui lòng chọn tổ chức</value>
+  </data>
+  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Vui lòng chọn trạng thái</value>
+  </data>
+  <data name="Roles_Label_Role" xml:space="preserve">
+    <value>Vai trò</value>
+  </data>
+  <data name="Roles_Label_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Roles_Label_UserRole" xml:space="preserve">
+    <value>Vai trò người dùng</value>
+  </data>
+  <data name="Roles_Menu_Delete" xml:space="preserve">
+    <value>Xóa bỏ</value>
+  </data>
+  <data name="Roles_Menu_Edit" xml:space="preserve">
+    <value>Biên tập</value>
+  </data>
+  <data name="Roles_Menu_View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="Roles_Title_AddNewRole" xml:space="preserve">
+    <value>Thêm vai trò mới</value>
+  </data>
+  <data name="Roles_Title_CreateRole" xml:space="preserve">
+    <value>Tạo Vai trò</value>
+  </data>
+  <data name="Roles_Title_DeleteRole" xml:space="preserve">
+    <value>Xóa vai trò</value>
+  </data>
+  <data name="Roles_Title_RoleSettings" xml:space="preserve">
+    <value>Cài đặt vai trò</value>
+  </data>
+  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
+    <value>Kiểm soát truy cập của người dùng</value>
+  </data>
+  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
+    <value>Không cập nhật được vai trò.</value>
+  </data>
+  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
+    <value>Cập nhật vai trò thành công.</value>
+  </data>
+  <data name="Roles_Title_UpdateRole" xml:space="preserve">
+    <value>Cập nhật vai trò</value>
+  </data>
+  <data name="Staff_Button_NewStaff" xml:space="preserve">
+    <value>Nhân viên mới</value>
+  </data>
+  <data name="Staff_Label_Number" xml:space="preserve">
+    <value>Con số</value>
+  </data>
+  <data name="Staff_Label_StaffID" xml:space="preserve">
+    <value>ID nhân viên</value>
+  </data>
+  <data name="Staff_Label_StaffName" xml:space="preserve">
+    <value>Tên nhân viên</value>
+  </data>
+  <data name="Staff_Title_Filters" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="Staff_Title_StaffListing" xml:space="preserve">
+    <value>Danh sách nhân viên</value>
+  </data>
+  <data name="Staff_Label_Role" xml:space="preserve">
+    <value>Vai trò</value>
+  </data>
+  <data name="Staff_Label_Branch" xml:space="preserve">
+    <value>Chi nhánh</value>
+  </data>
+  <data name="Staff_Label_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Staff_Label_Gender" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="Staff_Label_Organization" xml:space="preserve">
+    <value>Tổ chức</value>
+  </data>
+  <data name="Staff_Label_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="StaffDetail_Label_Name" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
+    <value>ID nhân viên</value>
+  </data>
+  <data name="StaffDetail_Label_Surname" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="Staff_Button_Filters" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="Staff_Button_Reset" xml:space="preserve">
+    <value>Cài lại</value>
+  </data>
+  <data name="Staff_Button_Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
+    <value>Xác nhận xóa nhân viên?</value>
+  </data>
+  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
+    <value>Không xóa được nhân viên, vui lòng thử lại.</value>
+  </data>
+  <data name="Staff_Label_MenuDelete" xml:space="preserve">
+    <value>Xóa bỏ</value>
+  </data>
+  <data name="Staff_Label_MenuEdit" xml:space="preserve">
+    <value>Biên tập</value>
+  </data>
+  <data name="Staff_Label_MenuView" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Vui lòng chọn chi nhánh</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Vui lòng chọn giới tính</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Vui lòng chọn tổ chức</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Vui lòng chọn vai trò</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
+    <value>Vui lòng chọn nhân viên</value>
+  </data>
+  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Vui lòng chọn trạng thái</value>
+  </data>
+  <data name="Staff_Label_StaffDetail" xml:space="preserve">
+    <value>Chi tiết nhân viên</value>
+  </data>
+  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
+    <value>Xóa nhân viên</value>
+  </data>
+  <data name="StaffDetail_Label_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="StaffDetail_Label_Gender" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="StaffDetail_Label_Role" xml:space="preserve">
+    <value>Vai trò người dùng</value>
+  </data>
+  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="StaffDetail_Button_Create" xml:space="preserve">
+    <value>Tạo nên</value>
+  </data>
+  <data name="StaffDetail_Button_Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="StaffDetail_Label_Branch" xml:space="preserve">
+    <value>Chi nhánh</value>
+  </data>
+  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
+    <value>Tạo người dùng thành công.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
+    <value>Không tạo được người dùng, vui lòng thử lại.</value>
+  </data>
+  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
+    <value>Không cập nhật được hồ sơ người dùng, vui lòng thử lại.</value>
+  </data>
+  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
+    <value>ID đăng nhập</value>
+  </data>
+  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
+    <value>*ID đăng nhập đã có trong hệ thống, vui lòng thử lại.</value>
+  </data>
+  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
+    <value>*Các trường bắt buộc phải điền.</value>
+  </data>
+  <data name="StaffDetail_Label_Organization" xml:space="preserve">
+    <value>Tổ chức</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Vui lòng chọn chi nhánh</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
+    <value>Vui lòng chọn giới tính</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Vui lòng chọn tổ chức</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
+    <value>Vui lòng chọn vai trò</value>
+  </data>
+  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
+    <value>Vui lòng chọn trạng thái</value>
+  </data>
+  <data name="StaffDetail_Label_Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
+    <value>Cập nhật hồ sơ người dùng thành công.</value>
+  </data>
+  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
+    <value>Tạo người dùng</value>
+  </data>
+  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
+    <value>Cập nhật hồ sơ người dùng</value>
+  </data>
+  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
+    <value>Địa chỉ email không hợp lệ.</value>
+  </data>
+  <data name="General_Label_CopyrightStatement" xml:space="preserve">
+    <value>Mọi quyền được bảo lưu</value>
+  </data>
+  <data name="InvoiceReceipt_Button_AddItem" xml:space="preserve">
+    <value>Thêm mục</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Download" xml:space="preserve">
+    <value>Tải về</value>
+  </data>
+  <data name="InvoiceReceipt_Button_MarkAsPaid" xml:space="preserve">
+    <value>Đánh dấu là đã thanh toán</value>
+  </data>
+  <data name="InvoiceReceipt_Button_Print" xml:space="preserve">
+    <value>In</value>
+  </data>
+  <data name="InvoiceReceipt_Button_QuickInvoice" xml:space="preserve">
+    <value>Hóa đơn nhanh</value>
+  </data>
+  <data name="InvoiceReceipt_Button_SubTotal" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Action" xml:space="preserve">
+    <value>Hoạt động</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Balance" xml:space="preserve">
+    <value>Sự cân bằng</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Canceled" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Discount" xml:space="preserve">
+    <value>Giảm giá</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Fee" xml:space="preserve">
+    <value>Phí</value>
+  </data>
+  <data name="InvoiceReceipt_Label_From" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="InvoiceReceipt_Label_GrandDiscount" xml:space="preserve">
+    <value>Giảm giá lớn</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceDetails" xml:space="preserve">
+    <value>Chi tiết hóa đơn</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNo" xml:space="preserve">
+    <value>Số hóa đơn</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceNote" xml:space="preserve">
+    <value>Ghi chú hóa đơn</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceReceiptNo" xml:space="preserve">
+    <value>Số hóa đơn/Biên lai</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Invoices" xml:space="preserve">
+    <value>Hóa đơn</value>
+  </data>
+  <data name="InvoiceReceipt_Label_NextAppointment" xml:space="preserve">
+    <value>Cuộc hẹn tiếp theo</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Paid" xml:space="preserve">
+    <value>Trả</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Pending" xml:space="preserve">
+    <value>Chưa giải quyết</value>
+  </data>
+  <data name="InvoiceReceipt_Label_PurchaseItemDetails" xml:space="preserve">
+    <value>Chi tiết mặt hàng mua</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Ready" xml:space="preserve">
+    <value>Sẵn sàng</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Receipt" xml:space="preserve">
+    <value>Biên lai</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptNo" xml:space="preserve">
+    <value>Số biên lai</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectCustomer" xml:space="preserve">
+    <value>Chọn Khách hàng</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SelectProduct" xml:space="preserve">
+    <value>Chọn sản phẩm</value>
+  </data>
+  <data name="InvoiceReceipt_Label_SurgVacConsName" xml:space="preserve">
+    <value>Phẫu thuật/Tiêm chủng/Tư vấn Tên</value>
+  </data>
+  <data name="InvoiceReceipt_Label_To" xml:space="preserve">
+    <value>ĐẾN</value>
+  </data>
+  <data name="InvoiceReceipt_Label_TotalPrice" xml:space="preserve">
+    <value>Tổng giá</value>
+  </data>
+  <data name="InvoiceReceipt_Message_MarkAsPaid" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn đánh dấu là đã thanh toán và chuyển đến phần biên lai không?</value>
+  </data>
+  <data name="Patient_Label_Filter" xml:space="preserve">
+    <value>Lọc</value>
+  </data>
+  <data name="TreatmentPlan_Button_AddCustomTreatment" xml:space="preserve">
+    <value>Thêm điều trị tùy chỉnh</value>
+  </data>
+  <data name="TreatmentPlan_Label_ExistingTreatmentPlan" xml:space="preserve">
+    <value>Kế hoạch điều trị hiện tại</value>
+  </data>
+  <data name="TreatmentPlan_Label_Showing" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="AccessControl_Button_AddBranch" xml:space="preserve">
+    <value>Thêm nhánh</value>
+  </data>
+  <data name="AccessControl_Label_BranchAddress" xml:space="preserve">
+    <value>Địa chỉ chi nhánh</value>
+  </data>
+  <data name="AccessControl_Label_Branches" xml:space="preserve">
+    <value>Các nhánh</value>
+  </data>
+  <data name="AccessControl_Label_BranchName" xml:space="preserve">
+    <value>Tên chi nhánh</value>
+  </data>
+  <data name="AccessControl_Label_CreateOrganisation" xml:space="preserve">
+    <value>Tạo tổ chức</value>
+  </data>
+  <data name="AccessControl_Label_NewOrganisation" xml:space="preserve">
+    <value>Tổ chức mới</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationName" xml:space="preserve">
+    <value>Tên tổ chức</value>
+  </data>
+  <data name="AccessControl_Label_SaveBranch" xml:space="preserve">
+    <value>Lưu Chi Nhánh</value>
+  </data>
+  <data name="AccessControl_Label_SearchOrganisation" xml:space="preserve">
+    <value>Tìm kiếm Tổ chức</value>
+  </data>
+  <data name="AccessControl_Label_TotalStaffs" xml:space="preserve">
+    <value>Tổng số nhân viên</value>
+  </data>
+  <data name="AccessControl_Label_EditOrganisation" xml:space="preserve">
+    <value>Chỉnh sửa tổ chức</value>
+  </data>
+  <data name="AccessControl_Label_OrganisationDetails" xml:space="preserve">
+    <value>Chi tiết tổ chức</value>
+  </data>
+  <data name="TestManagement_Button_ViewReport" xml:space="preserve">
+    <value>Xem báo cáo</value>
+  </data>
+  <data name="TestManagement_Label_BloodPressure" xml:space="preserve">
+    <value>Huyết áp</value>
+  </data>
+  <data name="TestManagement_Label_BloodTest" xml:space="preserve">
+    <value>Xét nghiệm máu</value>
+  </data>
+  <data name="TestManagement_Label_BoneMass" xml:space="preserve">
+    <value>Khối lượng xương</value>
+  </data>
+  <data name="TestManagement_Label_HeartRate" xml:space="preserve">
+    <value>Nhịp tim</value>
+  </data>
+  <data name="TestManagement_Label_High" xml:space="preserve">
+    <value>Cao</value>
+  </data>
+  <data name="TestManagement_Label_InjuryExam" xml:space="preserve">
+    <value>Khám chấn thương</value>
+  </data>
+  <data name="TestManagement_Label_Low" xml:space="preserve">
+    <value>Thấp</value>
+  </data>
+  <data name="TestManagement_Label_LungXRay" xml:space="preserve">
+    <value>Chụp X-quang phổi</value>
+  </data>
+  <data name="TestManagement_Label_Negative" xml:space="preserve">
+    <value>Tiêu cực</value>
+  </data>
+  <data name="TestManagement_Label_Normal" xml:space="preserve">
+    <value>Bình thường</value>
+  </data>
+  <data name="TestManagement_Label_NormalRange" xml:space="preserve">
+    <value>Phạm vi bình thường</value>
+  </data>
+  <data name="TestManagement_Label_Parameter" xml:space="preserve">
+    <value>Tham số</value>
+  </data>
+  <data name="TestManagement_Label_Recovering" xml:space="preserve">
+    <value>Phục hồi</value>
+  </data>
+  <data name="TestManagement_Label_Result" xml:space="preserve">
+    <value>Kết quả</value>
+  </data>
+  <data name="TestManagement_Label_ResultGauge" xml:space="preserve">
+    <value>Đo lường kết quả</value>
+  </data>
+  <data name="AccessControl_Label_AccessDenied" xml:space="preserve">
+    <value>Quyền truy cập bị từ chối.</value>
+  </data>
+  <data name="AccessControl_Label_BranchContactNo" xml:space="preserve">
+    <value>Số điện thoại liên lạc của chi nhánh</value>
+  </data>
+  <data name="InvoiceReceipt_Label_Customer" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="TestManagement_Label_Positive" xml:space="preserve">
+    <value>Tích cực</value>
+  </data>
+  <data name="Appointment_Label_NoFutureAppointment" xml:space="preserve">
+    <value>Không có cuộc hẹn nào trong tương lai.</value>
+  </data>
+  <data name="Patient_Button_HideFilter" xml:space="preserve">
+    <value>Ẩn Bộ lọc</value>
+  </data>
+  <data name="Patient_Button_ShowFilter" xml:space="preserve">
+    <value>Hiển thị bộ lọc</value>
+  </data>
+  <data name="TestManagement_Label_Analyzer" xml:space="preserve">
+    <value>Máy phân tích</value>
+  </data>
+  <data name="Dashboard_Button_ViewAll" xml:space="preserve">
+    <value>Xem tất cả</value>
+  </data>
+  <data name="Dashboard_Label_AllDoctors" xml:space="preserve">
+    <value>Tất cả các bác sĩ</value>
+  </data>
+  <data name="Dashboard_Label_AsOf" xml:space="preserve">
+    <value>kể từ</value>
+  </data>
+  <data name="Dashboard_Label_ShowMore" xml:space="preserve">
+    <value>Hiển thị thêm</value>
+  </data>
+  <data name="Dashboard_Label_Summary" xml:space="preserve">
+    <value>Bản tóm tắt</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatients" xml:space="preserve">
+    <value>Tổng số bệnh nhân</value>
+  </data>
+  <data name="Dashboard_Label_TotalSales" xml:space="preserve">
+    <value>Tổng doanh số</value>
+  </data>
+  <data name="Dashboard_Label_TotalStaffs" xml:space="preserve">
+    <value>Tổng số nhân viên</value>
+  </data>
+  <data name="Dashboard_Message_Here" xml:space="preserve">
+    <value>Đây là Bảng điều khiển Hệ thống quản lý bệnh nhân của bạn.</value>
+  </data>
+  <data name="Dashboard_Message_Welcome" xml:space="preserve">
+    <value>Chào mừng trở lại,</value>
+  </data>
+  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
+    <value>Cập nhật phần mềm</value>
+  </data>
+  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="NotificationSetting_Button_Save" xml:space="preserve">
+    <value>Cứu</value>
+  </data>
+  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
+    <value>Bật thông báo mà bạn muốn nhận</value>
+  </data>
+  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
+    <value>Cập nhật cài đặt thành công</value>
+  </data>
+  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
+    <value>Cài đặt thông báo</value>
+  </data>
+  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
+    <value>Cập nhật cài đặt thông báo</value>
+  </data>
+  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
+    <value>Không cập nhật được cài đặt Thông báo.</value>
+  </data>
+  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
+    <value>Cài đặt thông báo</value>
+  </data>
+  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
+    <value>Tên thiết bị</value>
+  </data>
+  <data name="TestResultDetails_Label_High" xml:space="preserve">
+    <value>Cao</value>
+  </data>
+  <data name="TestResultDetails_Label_Low" xml:space="preserve">
+    <value>Thấp</value>
+  </data>
+  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
+    <value>Bình thường</value>
+  </data>
+  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
+    <value>Phạm vi bình thường</value>
+  </data>
+  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
+    <value>ID nhà điều hành</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
+    <value>ID bệnh nhân</value>
+  </data>
+  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
+    <value>Tên bệnh nhân</value>
+  </data>
+  <data name="TestResultDetails_Label_Result" xml:space="preserve">
+    <value>Kết quả</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
+    <value>Đo lường kết quả</value>
+  </data>
+  <data name="TestResultDetails_Label_Test" xml:space="preserve">
+    <value>Bài kiểm tra</value>
+  </data>
+  <data name="TestResultDetails_Label_Time" xml:space="preserve">
+    <value>Thời gian</value>
+  </data>
+  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
+    <value>Kết quả kiểm tra tổng thể</value>
+  </data>
+  <data name="TestResults_Button_Filter" xml:space="preserve">
+    <value>Lọc</value>
+  </data>
+  <data name="TestResults_Button_Reset" xml:space="preserve">
+    <value>Cài lại</value>
+  </data>
+  <data name="TestResults_Button_Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="TestResults_Label_Ascending" xml:space="preserve">
+    <value>Đang tăng dần</value>
+  </data>
+  <data name="TestResults_Label_Descending" xml:space="preserve">
+    <value>Giảm dần</value>
+  </data>
+  <data name="TestResults_Label_DeviceName" xml:space="preserve">
+    <value>Tên thiết bị</value>
+  </data>
+  <data name="TestResults_Label_Number" xml:space="preserve">
+    <value>Con số</value>
+  </data>
+  <data name="TestResults_Label_OperatorID" xml:space="preserve">
+    <value>ID nhà điều hành</value>
+  </data>
+  <data name="TestResults_Label_PatientID" xml:space="preserve">
+    <value>ID bệnh nhân</value>
+  </data>
+  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
+    <value>Trạng thái kết quả (+/-)</value>
+  </data>
+  <data name="TestResults_Label_SearchByName" xml:space="preserve">
+    <value>Tìm kiếm theo tên</value>
+  </data>
+  <data name="TestResults_Label_SortBy" xml:space="preserve">
+    <value>Sắp xếp theo</value>
+  </data>
+  <data name="TestResults_Label_SortByDate" xml:space="preserve">
+    <value>Sắp xếp theo ngày</value>
+  </data>
+  <data name="TestResults_Label_TestType" xml:space="preserve">
+    <value>Loại kiểm tra</value>
+  </data>
+  <data name="TestResults_Label_Time" xml:space="preserve">
+    <value>Thời gian</value>
+  </data>
+  <data name="TestResults_Label_View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="TestResults_Title_Filters" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="TestResults_Title_TestManagement" xml:space="preserve">
+    <value>Quản lý thử nghiệm</value>
+  </data>
+  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
+    <value>Quản lý thử nghiệm</value>
+  </data>
+  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
+    <value>Giá trị</value>
+  </data>
+  <data name="Dashboard_Label_Daily" xml:space="preserve">
+    <value>Hằng ngày</value>
+  </data>
+  <data name="Dashboard_Label_GenderBreakdown" xml:space="preserve">
+    <value>Phân tích giới tính</value>
+  </data>
+  <data name="Dashboard_Label_Monthly" xml:space="preserve">
+    <value>Hàng tháng</value>
+  </data>
+  <data name="Dashboard_Label_OverallRevenue" xml:space="preserve">
+    <value>Tổng doanh thu</value>
+  </data>
+  <data name="Dashboard_Label_PatientNumberStatistics" xml:space="preserve">
+    <value>Thống kê số bệnh nhân</value>
+  </data>
+  <data name="Dashboard_Label_RevenueBy" xml:space="preserve">
+    <value>Doanh thu theo</value>
+  </data>
+  <data name="Dashboard_Label_StaffBreakdown" xml:space="preserve">
+    <value>Phân tích nhân sự</value>
+  </data>
+  <data name="Dashboard_Label_TopBreed" xml:space="preserve">
+    <value>Giống chó hàng đầu</value>
+  </data>
+  <data name="Dashboard_Label_TopServices" xml:space="preserve">
+    <value>Dịch vụ hàng đầu</value>
+  </data>
+  <data name="Dashboard_Label_TopTreatment" xml:space="preserve">
+    <value>Điều trị hàng đầu</value>
+  </data>
+  <data name="Dashboard_Label_TotalPatientByBreed" xml:space="preserve">
+    <value>Tổng số bệnh nhân theo giống</value>
+  </data>
+  <data name="Dashboard_Label_Weekly" xml:space="preserve">
+    <value>Hàng tuần</value>
+  </data>
+  <data name="Dashboard_Label_Yearly" xml:space="preserve">
+    <value>Hàng năm</value>
+  </data>
+  <data name="Dashboard_Label_TotalAppointment" xml:space="preserve">
+    <value>Tổng số cuộc hẹn</value>
+  </data>
+  <data name="Dashboard_Label_LatestUpdateOn" xml:space="preserve">
+    <value>Cập nhật mới nhất về</value>
+  </data>
+  <data name="InvoiceReceipt_Label_InvoiceCreation" xml:space="preserve">
+    <value>Tạo hóa đơn</value>
+  </data>
+  <data name="InvoiceReceipt_Label_ReceiptCreation" xml:space="preserve">
+    <value>Tạo biên lai</value>
+  </data>
+  <data name="InvoiceReceipt_Message_InvoiceCreation" xml:space="preserve">
+    <value>Đính kèm là hóa đơn.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_ReceiptCreation" xml:space="preserve">
+    <value>Đính kèm là biên lai.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct" xml:space="preserve">
+    <value>Vui lòng thêm ít nhất một sản phẩm.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_AddAtleastOneProduct1" xml:space="preserve">
+    <value>Vui lòng điền vào trường bắt buộc.</value>
+  </data>
+  <data name="InvoiceReceipt_Message_SomethingWrongHappen" xml:space="preserve">
+    <value>Có chuyện gì đó không ổn xảy ra!</value>
+  </data>
+  <data name="Login_Message_AccountLocked" xml:space="preserve">
+    <value>Tài khoản đã bị khóa. Vui lòng liên hệ với người quản lý.</value>
+  </data>
+  <data name="Login_Message_AccountNotConfirmed" xml:space="preserve">
+    <value>Tài khoản vẫn chưa được xác nhận. Vui lòng xác nhận tài khoản qua email và thử lại.</value>
+  </data>
+  <data name="Login_Message_AccountNotFound" xml:space="preserve">
+    <value>Không tìm thấy tài khoản dựa trên tên người dùng. Vui lòng kiểm tra và thử lại.</value>
+  </data>
+  <data name="Login_Message_ErrorOccur" xml:space="preserve">
+    <value>Đã xảy ra lỗi. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="Login_Message_FailResetPassword" xml:space="preserve">
+    <value>Không thể đặt lại mật khẩu.</value>
+  </data>
+  <data name="Login_Message_WrongEmail" xml:space="preserve">
+    <value>Email không đúng. Vui lòng kiểm tra và thử lại.</value>
+  </data>
+  <data name="Login_Message_WrongUsernamePasword" xml:space="preserve">
+    <value>Mật khẩu hoặc tên người dùng sai.</value>
+  </data>
+  <data name="Patient_Message_FillRequiredField" xml:space="preserve">
+    <value>Cần phải điền đầy đủ các trường bắt buộc.</value>
+  </data>
+  <data name="TestResults_Message_NoRecords" xml:space="preserve">
+    <value>Chưa có hồ sơ nào cho danh mục này.</value>
+  </data>
+  <data name="TreatmentPlan_Message_ChooseAtleastOneProductService" xml:space="preserve">
+    <value>Cần phải chọn ít nhất một dịch vụ hoặc một sản phẩm.</value>
+  </data>
+  <data name="TreatmentPlan_Message_TreatmentPlaneNameCannotBeEmpty" xml:space="preserve">
+    <value>Tên kế hoạch điều trị không được để trống.</value>
+  </data>
+  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
+    <value>Đã chấp nhận cuộc hẹn</value>
+  </data>
+  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
+    <value>Chấp nhận cuộc hẹn</value>
+  </data>
   <data name="AccessControl_Label_BranchCity" xml:space="preserve">
     <value>Thành phố</value>
   </data>
@@ -132,146 +1806,83 @@
   <data name="AccessControl_Label_SelectState" xml:space="preserve">
     <value>Chọn tiểu bang</value>
   </data>
-  <data name="Appointment_Button_Cancel" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_Location" xml:space="preserve">
+    <value>Vị trí</value>
   </data>
-  <data name="Appointment_Button_CancelAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
+    <value>Kiểm tra theo lịch trình</value>
   </data>
-  <data name="Appointment_Button_Confirm" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectLocation" xml:space="preserve">
+    <value>Chọn vị trí</value>
   </data>
-  <data name="Appointment_Button_NewAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectTests" xml:space="preserve">
+    <value>Chọn bài kiểm tra</value>
   </data>
-  <data name="Appointment_Button_Reset" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_Tests" xml:space="preserve">
+    <value>Kiểm tra</value>
   </data>
-  <data name="Appointment_Button_Search" xml:space="preserve">
-    <value />
+  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
+    <value>Tạo lịch kiểm tra</value>
   </data>
-  <data name="Appointment_Button_Update" xml:space="preserve">
-    <value />
+  <data name="Patient_Button_Submit" xml:space="preserve">
+    <value>Nộp</value>
   </data>
-  <data name="Appointment_Label_ContactNo" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
+    <value>Bác sĩ Incharges</value>
   </data>
-  <data name="Appointment_Label_DateTime" xml:space="preserve">
-    <value />
+  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
+    <value>Chọn Bác sĩ Incharges</value>
   </data>
-  <data name="Appointment_Label_Day" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
+    <value>Những trường bắt buộc phải nhập.</value>
   </data>
-  <data name="Appointment_Label_Doctor" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
+    <value>Không gửi được lịch kiểm tra, vui lòng thử lại sau.</value>
   </data>
-  <data name="Appointment_Label_EditAppointment" xml:space="preserve">
-    <value />
+  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
+    <value>Đã gửi lịch kiểm tra thành công.</value>
   </data>
-  <data name="Appointment_Label_EmailAddress" xml:space="preserve">
-    <value />
+  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
+    <value>Nộp lịch kiểm tra</value>
   </data>
-  <data name="Appointment_Label_ExistingClient" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
+    <value>Chi nhánh</value>
   </data>
-  <data name="Appointment_Label_MandatoryFields" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
+    <value>Tổ chức</value>
   </data>
-  <data name="Appointment_Label_Month" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
+    <value>Vui lòng chọn chi nhánh</value>
   </data>
-  <data name="Appointment_Label_NewClient" xml:space="preserve">
-    <value />
+  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
+    <value>Vui lòng chọn tổ chức</value>
   </data>
-  <data name="Appointment_Label_NotifyMeEmail" xml:space="preserve">
-    <value />
+  <data name="Roles_Label_RoleType" xml:space="preserve">
+    <value>Loại vai trò</value>
   </data>
-  <data name="Appointment_Label_Owner" xml:space="preserve">
-    <value />
+  <data name="BannersList_Button_NewBanner" xml:space="preserve">
+    <value>Biểu ngữ mới</value>
   </data>
-  <data name="Appointment_Label_OwnerFullName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Banner" xml:space="preserve">
+    <value>Ngọn cờ</value>
   </data>
-  <data name="Appointment_Label_OwnerName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_EndDate" xml:space="preserve">
+    <value>Ngày kết thúc</value>
   </data>
-  <data name="Appointment_Label_Pet" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_FileName" xml:space="preserve">
+    <value>Tên tập tin</value>
   </data>
-  <data name="Appointment_Label_PetDOB" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Number" xml:space="preserve">
+    <value>Con số</value>
   </data>
-  <data name="Appointment_Label_PetName" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_StartDate" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
   </data>
-  <data name="Appointment_Label_Services" xml:space="preserve">
-    <value />
+  <data name="BannersList_Label_Status" xml:space="preserve">
+    <value>Trạng thái</value>
   </data>
-  <data name="Appointment_Label_Species" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_SwitchAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_SwitchQuickAppt" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Label_Week" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_AppointmentAccepted" xml:space="preserve">
-    <value>Đã chấp nhận cuộc hẹn</value>
-  </data>
-  <data name="Appointment_Message_ApptCancelUpdated" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_ConfirmCancelAppt" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_DoctorNotAvailable" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_SamePatientAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_UpdateCancelFailed" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Message_UpdateSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectOwner" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectPet" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectServices" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Selection_SelectSpecies" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_AcceptAppointment" xml:space="preserve">
-    <value>Chấp nhận cuộc hẹn</value>
-  </data>
-  <data name="Appointment_Title_Appointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_CancelAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_CreateAppointment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Appointment_Title_NewApptNewClient" xml:space="preserve">
-    <value />
+  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
+    <value>Quản lý biểu ngữ</value>
   </data>
   <data name="BannerProfile_Button_Cancel" xml:space="preserve">
     <value>Hủy bỏ</value>
@@ -298,7 +1909,7 @@
     <value>Ngày bắt đầu</value>
   </data>
   <data name="BannerProfile_Label_Status" xml:space="preserve">
-    <value>trạng thái</value>
+    <value>Trạng thái</value>
   </data>
   <data name="BannerProfile_Label_Upload" xml:space="preserve">
     <value>Tải lên</value>
@@ -339,17 +1950,11 @@
   <data name="BannerProfile_Title_UploadBanner" xml:space="preserve">
     <value>Tải lên biểu ngữ</value>
   </data>
-  <data name="BannersList_Button_NewBanner" xml:space="preserve">
-    <value>Biểu ngữ mới</value>
-  </data>
   <data name="BannersList_Button_Next" xml:space="preserve">
-    <value>Trang tiếp theo</value>
+    <value>Kế tiếp</value>
   </data>
   <data name="BannersList_Button_Prev" xml:space="preserve">
-    <value>trước đó</value>
-  </data>
-  <data name="BannersList_Label_Banner" xml:space="preserve">
-    <value>Ngọn cờ</value>
+    <value>Trước đó</value>
   </data>
   <data name="BannersList_Label_CreatedDate" xml:space="preserve">
     <value>Ngày tạo</value>
@@ -357,56 +1962,41 @@
   <data name="BannersList_Label_Edit" xml:space="preserve">
     <value>Biên tập</value>
   </data>
-  <data name="BannersList_Label_EndDate" xml:space="preserve">
-    <value>Ngày kết thúc</value>
-  </data>
-  <data name="BannersList_Label_FileName" xml:space="preserve">
-    <value>Tên tập tin</value>
-  </data>
-  <data name="BannersList_Label_Number" xml:space="preserve">
-    <value>con số</value>
-  </data>
-  <data name="BannersList_Label_StartDate" xml:space="preserve">
-    <value>Ngày bắt đầu</value>
-  </data>
-  <data name="BannersList_Label_Status" xml:space="preserve">
-    <value>trạng thái</value>
-  </data>
   <data name="BannersList_Label_View" xml:space="preserve">
     <value>Xem</value>
   </data>
   <data name="BannersList_Message_NoRecords" xml:space="preserve">
     <value>Không có hồ sơ</value>
   </data>
-  <data name="BannersList_Title_BannersManagement" xml:space="preserve">
-    <value>Quản lý biểu ngữ</value>
-  </data>
   <data name="BlogList_Button_NewBlog" xml:space="preserve">
     <value>Blog mới</value>
   </data>
   <data name="BlogList_Button_Next" xml:space="preserve">
-    <value>Trang tiếp theo</value>
+    <value>Kế tiếp</value>
   </data>
   <data name="BlogList_Button_Prev" xml:space="preserve">
-    <value>trước đó</value>
+    <value>Trước đó</value>
   </data>
   <data name="BlogList_Label_CreatedDate" xml:space="preserve">
     <value>Ngày tạo</value>
   </data>
-  <data name="BlogList_Label_Edit" xml:space="preserve">
-    <value>Biên tập</value>
-  </data>
   <data name="BlogList_Label_EndDate" xml:space="preserve">
     <value>Ngày kết thúc</value>
   </data>
+  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
+    <value>Quản lý Blog</value>
+  </data>
+  <data name="BlogList_Label_Edit" xml:space="preserve">
+    <value>Biên tập</value>
+  </data>
   <data name="BlogList_Label_Num" xml:space="preserve">
-    <value>con số</value>
+    <value>Con số</value>
   </data>
   <data name="BlogList_Label_StartDate" xml:space="preserve">
     <value>Ngày bắt đầu</value>
   </data>
   <data name="BlogList_Label_Status" xml:space="preserve">
-    <value>trạng thái</value>
+    <value>Trạng thái</value>
   </data>
   <data name="BlogList_Label_Title" xml:space="preserve">
     <value>Tiêu đề</value>
@@ -419,9 +2009,6 @@
   </data>
   <data name="BlogList_Message_NoRecords" xml:space="preserve">
     <value>Không có hồ sơ</value>
-  </data>
-  <data name="BlogList_Title_BlogManagement" xml:space="preserve">
-    <value>Quản lý Blog</value>
   </data>
   <data name="BlogProfile_Button_Cancel" xml:space="preserve">
     <value>Hủy bỏ</value>
@@ -448,7 +2035,7 @@
     <value>Ngày bắt đầu</value>
   </data>
   <data name="BlogProfile_Label_Status" xml:space="preserve">
-    <value>trạng thái</value>
+    <value>Trạng thái</value>
   </data>
   <data name="BlogProfile_Label_Title" xml:space="preserve">
     <value>Tiêu đề</value>
@@ -458,6 +2045,9 @@
   </data>
   <data name="BlogProfile_Label_URL" xml:space="preserve">
     <value>Địa chỉ URL</value>
+  </data>
+  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
+    <value>Chi tiết Blog</value>
   </data>
   <data name="BlogProfile_Message_CreateBlogSuccessfully" xml:space="preserve">
     <value>Tạo blog thành công.</value>
@@ -483,158 +2073,11 @@
   <data name="BlogProfile_Message_UploadThumbnailFailed" xml:space="preserve">
     <value>Tải lên hình thu nhỏ không thành công.</value>
   </data>
-  <data name="BlogProfile_Title_BlogDetails" xml:space="preserve">
-    <value>Chi tiết Blog</value>
-  </data>
   <data name="BlogProfile_Title_CreateBlogEntry" xml:space="preserve">
     <value>Tạo mục nhập blog</value>
   </data>
   <data name="BlogProfile_Title_UpdateBlogInfo" xml:space="preserve">
     <value>Cập nhật thông tin Blog</value>
-  </data>
-  <data name="DoctorProfile_Button_Back" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Branch" xml:space="preserve">
-    <value>Chi nhánh</value>
-  </data>
-  <data name="DoctorProfile_Label_Designation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_LicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_Organization" xml:space="preserve">
-    <value>Tổ chức</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectBranch" xml:space="preserve">
-    <value>Vui lòng chọn chi nhánh</value>
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value>Vui lòng chọn tổ chức</value>
-  </data>
-  <data name="DoctorProfile_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Label_SystemID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_DoctorAddedSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToAddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_FailedToUpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_MandatoryFieldRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Message_UpdateDoctorSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_AddDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_DoctorDetails" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DoctorProfile_Title_UpdateDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_NewDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnDesignation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnLicenseNo" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_ColumnName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_SearchByDoctorName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Label_Specialty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_ConfirmDeleteDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Message_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_DeleteDoctorRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Doctor_Title_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoCountrySelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Label_NoLanguageSelection" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectCountry" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LanguageCountry_Title_SelectLanguage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_AccessControl" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Appointments" xml:space="preserve">
-    <value />
   </data>
   <data name="MenuBar_Label_Banners" xml:space="preserve">
     <value>Biểu ngữ</value>
@@ -645,508 +2088,25 @@
   <data name="MenuBar_Label_CustomerPortal" xml:space="preserve">
     <value>Cổng thông tin khách hàng</value>
   </data>
-  <data name="MenuBar_Label_CustomerService" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Dashboard" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Doctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Integration" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_InvoiceReceipts" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Organisation" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Patients" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientServices" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_PatientTreatmentPlan" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_RoleSetting" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_Service" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="MenuBar_Label_TestManagement" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Button_Save" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Label_EnableNotificationToReceive" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Message_FailedToUpdateSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Message_UpdateSettingsSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_NotificationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NotificationSetting_Title_UpdateNotifSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Button_NotifcationSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_All" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Inventory" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Messages" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Next" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_Prev" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Label_SoftwareUpdate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notification_Title_Notification" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Patient_Button_Submit" xml:space="preserve">
-    <value>Nộp</value>
-  </data>
-  <data name="Patient_Label_InchargesDoctor" xml:space="preserve">
-    <value>Bác sĩ Incharges</value>
-  </data>
-  <data name="Patient_Label_Location" xml:space="preserve">
-    <value>Vị trí</value>
-  </data>
-  <data name="Patient_Label_ScheduledTest" xml:space="preserve">
-    <value>Kiểm tra theo lịch trình</value>
-  </data>
-  <data name="Patient_Label_SelectInchargeDoctor" xml:space="preserve">
-    <value>Chọn Bác sĩ Incharges</value>
-  </data>
-  <data name="Patient_Label_SelectLocation" xml:space="preserve">
-    <value>Chọn vị trí</value>
-  </data>
-  <data name="Patient_Label_SelectTests" xml:space="preserve">
-    <value>Chọn bài kiểm tra</value>
-  </data>
-  <data name="Patient_Label_Tests" xml:space="preserve">
-    <value>Kiểm tra</value>
-  </data>
-  <data name="Patient_Message_MandatoryFieldsRequired" xml:space="preserve">
-    <value>Những trường bắt buộc phải nhập.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsFailToSend" xml:space="preserve">
-    <value>Không gửi được lịch kiểm tra, vui lòng thử lại sau.</value>
-  </data>
-  <data name="Patient_Message_ScheduleTestsSentSuccess" xml:space="preserve">
-    <value>Đã gửi lịch kiểm tra thành công.</value>
-  </data>
-  <data name="Patient_Title_CreateScheduleTests" xml:space="preserve">
-    <value>Tạo lịch kiểm tra</value>
-  </data>
-  <data name="Patient_Title_SubmitScheduleTests" xml:space="preserve">
-    <value>Nộp lịch kiểm tra</value>
-  </data>
-  <data name="Roles_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Button_NewRole" xml:space="preserve">
-    <value />
-  </data>
   <data name="Roles_Button_PermissionDetails" xml:space="preserve">
     <value>Chi tiết quyền</value>
-  </data>
-  <data name="Roles_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AreYouDoctor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_AssignedNoofStaffs" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_ConfirmDeleteRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToCreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToDeleteRecord" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_FailedToUpdateRoles" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_MandatoryFieldRequred" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_NewRoleCreateSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Permission" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PermissionSettings" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOption" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_RoleType" xml:space="preserve">
-    <value>Loại vai trò</value>
-  </data>
-  <data name="Roles_Label_Status" xml:space="preserve">
-    <value />
   </data>
   <data name="Roles_Label_TotalPermissionGranted" xml:space="preserve">
     <value>Tổng số quyền được cấp</value>
   </data>
-  <data name="Roles_Label_UpdateRoleSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Label_UserRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Delete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_Edit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Menu_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_AddNewRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_CreateRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Roles_Title_DeleteRole" xml:space="preserve">
-    <value />
-  </data>
   <data name="Roles_Title_Permissions" xml:space="preserve">
     <value>Quyền</value>
   </data>
-  <data name="Roles_Title_RoleSettings" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Branch" xml:space="preserve">
+    <value>Chi nhánh</value>
   </data>
-  <data name="Roles_Title_UpdateRole" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_Organization" xml:space="preserve">
+    <value>Tổ chức</value>
   </data>
-  <data name="Roles_Title_UserAccessControl" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectBranch" xml:space="preserve">
+    <value>Chọn Chi nhánh</value>
   </data>
-  <data name="StaffDetail_Button_Cancel" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Create" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Button_Update" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_CreateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToCreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_FailedToUpdateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_InvalidEmail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_LoginIDExists" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_MandatoryFieldsRequired" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_Surname" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Label_UpdateUserSuccessfully" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_CreateUser" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StaffDetail_Title_UpdateUserProfile" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_NewStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Branch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_ConfirmDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Email" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_FailedToDeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Gender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuDelete" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuEdit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_MenuView" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Organization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectBranch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectGender" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectOrganization" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectRole" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_PleaseSelectStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Role" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffDetail" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_StaffName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Label_Status" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_DeleteStaff" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Staff_Title_StaffListing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_High" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Low" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Normal" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_NormalRange" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_PatientName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Result" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultGauge" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_ResultValue" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Test" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResultDetails_Title_OverallTestResults" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Filter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Reset" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Button_Search" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Ascending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Descending" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_DeviceName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Number" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_OperatorID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_PatientID" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_ResultStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SearchByName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortBy" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_SortByDate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_TestType" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_Time" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Label_View" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_Filters" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TestResults_Title_TestManagement" xml:space="preserve">
-    <value />
+  <data name="TreatmentPlan_Label_SelectOrganization" xml:space="preserve">
+    <value>Chọn tổ chức</value>
   </data>
 </root>

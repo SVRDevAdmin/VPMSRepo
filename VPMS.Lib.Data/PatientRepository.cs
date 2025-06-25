@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
+using ZstdSharp.Unsafe;
 
 namespace VPMS.Lib.Data
 {
@@ -120,6 +121,28 @@ namespace VPMS.Lib.Data
             {
 				logger.Error("PatientRepository >>> GetPatientOwnerByOwnerID >>> ", ex);
 				return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Patient Owner Login by Owner Id
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="ownerID"></param>
+        /// <returns></returns>
+        public static Patient_Owner_Login GetPatientOwnerLoginByOwnerID(long ownerID)
+        {
+            try
+            {
+                using (var ctx = new PatientDBContext())
+                {
+                    return ctx.Mst_Patients_Login.Where(x => x.PatientOwnerID == ownerID && x.ProfileActivated == 1).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("PatientRepository >>> GetPatientOwnerLoginByOwnerID >>> ", ex);
+                return null;
             }
         }
 

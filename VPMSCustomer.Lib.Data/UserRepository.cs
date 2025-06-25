@@ -111,9 +111,9 @@ namespace VPMSCustomer.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.* " +
-                                            "FROM aspnetusers AS A " + 
-                                            "INNER JOIN mst_patients_login AS B " + 
-                                            "ON B.AspnetUserID COLLATE utf8mb4_general_ci = A.Id " + 
+                                            "FROM aspnetusers AS A " +
+                                            "INNER JOIN mst_patients_login AS B " +
+                                            "ON B.AspnetUserID COLLATE utf8mb4_general_ci = A.Id " +
                                             "WHERE A.UserName='" + sUsername + "' ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
@@ -160,6 +160,79 @@ namespace VPMSCustomer.Lib.Data
             catch (Exception ex)
             {
                 logger.Error("UserRepository >>> GetAspNetUserByUserID >>> " + ex.ToString());
+                return null;
+            }
+        }
+
+        public static List<UserModel> GetUsersListByBranchID(int iBranchID)
+        {
+            List<UserModel> sUserList = new List<UserModel>();
+
+            try
+            {
+                using (var ctx = new UserDBContext())
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.* " +
+                                            "FROM mst_user AS A " +
+                                            "INNER JOIN mst_roles AS B ON B.RoleID = A.RoleID " +
+                                            "WHERE A.Status = 1 AND " +
+                                            "A.BranchID = '" + iBranchID + "' ";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = cmd.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                UserModel sUserObj = new UserModel();
+                                sUserObj.UserID = sReader["UserID"].ToString();
+                                sUserObj.Surname = sReader["Surname"].ToString();
+                                sUserObj.LastName = sReader["LastName"].ToString();
+                                sUserObj.StaffID = sReader["StaffID"].ToString();
+                                sUserObj.Gender = sReader["Gender"].ToString();
+                                sUserObj.EmailAddress = sReader["EmailAddress"].ToString();
+                                sUserObj.Status = Convert.ToInt32(sReader["Status"]);
+                                sUserObj.RoleID = sReader["RoleID"].ToString();
+                                sUserObj.BranchID = Convert.ToInt32(sReader["BranchID"]);
+                                sUserObj.OrganizationID = Convert.ToInt32(sReader["OrganizationID"]);
+                                sUserObj.Level1ID = Convert.ToInt32(sReader["Level1ID"]);
+
+                                if (sReader["LastLoginDate"] != null && sReader["LastLoginDate"].ToString() != "")
+                                {
+                                    sUserObj.LastLoginDate = Convert.ToDateTime(sReader["LastLoginDate"]);
+                                }
+
+                                if (sReader["CreatedDate"] != null && sReader["CreatedDate"].ToString() != "")
+                                {
+                                    sUserObj.CreatedDate = Convert.ToDateTime(sReader["CreatedDate"]);
+                                }
+
+                                sUserObj.CreatedBy = sReader["CreatedBy"].ToString();
+
+                                if (sReader["UpdatedDate"] != null && sReader["UpdatedDate"].ToString() != "")
+                                {
+                                    sUserObj.UpdatedDate = Convert.ToDateTime(sReader["UpdatedDate"]);
+                                }
+
+                                sUserObj.UpdatedBy = sReader["UpdatedBy"].ToString();
+
+
+                                sUserList.Add(sUserObj);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sUserList;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("UserRepository >>> GetUsersListByBranchID >>> " + ex.ToString());
                 return null;
             }
         }

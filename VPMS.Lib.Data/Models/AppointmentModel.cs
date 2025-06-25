@@ -81,6 +81,7 @@ namespace VPMS.Lib.Data.Models
         public String? ApptEndTimeString { get; set; }
         public String? ServiceName { get; set; }
         public String? PetName { get; set; }
+        public long? OwnerID { get; set; }
         public String? OwnerName {  get; set; }
         public String? DoctorName { get; set; }
         public long? AppointmentID { get; set; }

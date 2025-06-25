@@ -114,7 +114,7 @@
                                 '<td class="align-middle">' + result.data[i].age + '</td>' +
                                 '<td class="align-middle">' + moment(result.data[i].createdDate, 'YYYY-MM-DDThh:mm:ss').format("DD/MM/YYYY hh:mm:ss A") + '</td>' +
                                 '<td class="text-center">' + 
-                                '<button id="btnView_' + i + '" class="btn btn-primary btn-sm" type="button" onclick="viewDetails(\'' + result.data[i].id + '\');" />' +  '@Html.Raw(LangResources["PetList_Label_View"])' +
+                                '<button id="btnView_' + i + '" class="btn btn-primary btn-sm" type="button" onclick="viewDetails(\'' + result.data[i].id + '\');" />' +  "@Html.Raw(LangResources["PetList_Label_View"])" +
                                 '</td>' +  
                                 '</tr>';
 
@@ -126,7 +126,7 @@
              else {
                  var sNoRecord = '';
                  sNoRecord = '<tr>' +
-                             '<tr class="text-left" colspan="7">' + '@Html.Raw(LangResources["PetList_Message_NoRecord"])' + '</td>' +  
+                             '<tr class="text-left" colspan="7">' + "@Html.Raw(LangResources["PetList_Message_NoRecord"])" + '</td>' +  
                              '</tr>';
 
                  $('#tblPetListing').append(sNoRecord);
@@ -216,12 +216,12 @@
 
 <div class="row ms-3">
     <div class="row pt-4">
-        <div class="col-md-3">
+        <div class="col-md-5">
             <label class="pageTitle">
                 @LangResources["PetList_Title_Pets"]
             </label>
         </div>
-        <div class="col-md-7">&nbsp;</div>
+        <div class="col-md-5">&nbsp;</div>
         <div class="col-md-2 d-flex">
             <button id="btnFilter" type="button" class="btn">
                 <i class="bi bi-sliders"></i>

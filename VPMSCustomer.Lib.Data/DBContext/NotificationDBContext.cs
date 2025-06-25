@@ -16,6 +16,8 @@ namespace VPMSCustomer.Lib.Data.DBContext
     {
         public DbSet<NotificationModel> txn_customer_notifications { get; set; }
         public DbSet<NotificationReceiver> txn_customer_notification_receiver { get; set;  }
+        public DbSet<NotificationAdminModel> txn_notifications {  get; set; }
+        public DbSet<NotificationAdminReceiverModel> txn_notification_receiver { get; set; }
 
         private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
 

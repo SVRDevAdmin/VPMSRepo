@@ -183,7 +183,7 @@
                      }, 500);
                  }, 500);
                  
-                 var sContactLabel = '@Html.Raw(LangResources["AppointmentDetails_Message_CallPhoneNo"])';
+                 var sContactLabel = "@Html.Raw(LangResources["AppointmentDetails_Message_CallPhoneNo"])";
                  sContactLabel = sContactLabel.replace('####<clinicPhoneNo>###', sApptRow.contactNo);
 
                  $('#lbCallContact').html(sContactLabel);
@@ -204,8 +204,8 @@
             updatedBy: '@sessionUserName'
         }).done(function(result){
             if (result.statusCode == 200){
-                ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
-                                  '@Html.Raw(LangResources["AppointmentDetails_Message_UpdateSuccess"])',
+                ShowSuccessMsgBox("@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])", 
+                                  "@Html.Raw(LangResources["AppointmentDetails_Message_UpdateSuccess"])",
                     function(){
                         window.location.href = '/Appointment/Index';
                     }
@@ -215,8 +215,8 @@
             {
                 if (result.isOverlap)
                 {
-                    ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])', 
-                                      '@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentOverlap"])',
+                    ShowSuccessMsgBox("@Html.Raw(LangResources["AppointmentDetails_Title_UpdateAppointment"])", 
+                                      "@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentOverlap"])",
                         function(){}
                     );
                 }
@@ -233,24 +233,24 @@
 
     function cancelAppointment()
     { 
-        ShowConfirmCancelMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
-                                '@Html.Raw(LangResources["AppointmentDetails_Message_ConfirmCancelAppt"])',
+        ShowConfirmCancelMsgBox("@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])", 
+                                "@Html.Raw(LangResources["AppointmentDetails_Message_ConfirmCancelAppt"])",
             function(){
                 $.post("/Appointment/UpdateAppointmentStatus", {
                     appointmentID: '@appointmentSelected',
                     sUpdatedBy : '@sessionUserName'
                 }).done(function(result){
                     if (result){
-                        ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
-                                          '@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentCancelled"])',
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])", 
+                                          "@Html.Raw(LangResources["AppointmentDetails_Message_AppointmentCancelled"])",
                             function(){
                                 window.location.href = '/Appointment/Index';
                             }
                         );
                     }
                     else {
-                        ShowSuccessMsgBox('@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])', 
-                                          '@Html.Raw(LangResources["AppointmentDetails_Message_FailedToCancelAppt"])',
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["AppointmentDetails_Title_CancelAppointment"])", 
+                                          "@Html.Raw(LangResources["AppointmentDetails_Message_FailedToCancelAppt"])",
                             function(){}
                         );
                     }

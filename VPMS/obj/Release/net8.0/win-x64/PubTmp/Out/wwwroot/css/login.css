@@ -1,0 +1,300 @@
+﻿body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Arial";
+}
+
+.form-title {
+	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 2vw;
+}
+
+.link {
+	display: flex;
+	justify-content: center;
+	margin-top: 1vw;
+	font-size: 1.2vw;
+}
+
+/*#content-container {
+	width: 100vw;
+	height: 100vh;
+	background: rgba(255, 255, 255, 0);
+	background: -webkit-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: -o-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: -moz-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: -ms-linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+	background: linear-gradient(-168.05125862648deg, rgba(230, 240, 255, 255) 0%, rgba(255, 255, 255, 255) 100%);
+}*/
+
+/*below are for theme button*/
+
+#theme {
+	z-index: 9998;
+	position: absolute;
+	right: 0;
+	border-left-style: none;
+}
+
+#path_4043 {
+	top: 1vw;
+	right: 1vw;
+	width: 6.5vw;
+	height: 3.5vw;
+	position: absolute;
+	background-color: #f7f7f7;
+	border-radius: 0.5vw;
+}
+
+#path_4043.darktheme {
+	top: 1vw;
+	right: 1vw;
+	width: 6.5vw;
+	border-left-style: none;
+	height: 3.5vw;
+	position: absolute;
+	background-color: #1f2e45;
+	border-radius: 0.5vw;
+}
+
+#group_1138 {
+	top: 0.47vw;
+	right: 0.85vw;
+	width: 2.6vw;
+	position: absolute;
+
+	/*animation*/
+	transition: all 0.5s linear;
+}
+
+#group_1138.darktheme {
+	top: 0.45vw;
+    right: 2.2vw;
+    width: 3.6vw;
+    position: absolute;
+
+	/*animation*/
+	transition: all 0.5s linear;
+}
+
+#dark_theme_icon {
+	visibility: hidden;
+	opacity: 0;
+
+	/*animation*/
+	transition: opacity 0.5s linear;
+}
+
+#dark_theme_icon.darktheme {
+	visibility: visible;
+	opacity: 1;
+    top: -1.15vw;
+    right: 1.50vw;
+    width: 1.6vw;
+    position: absolute;
+
+	/*animation*/
+	transition: opacity 0.5s linear;
+}
+
+
+#rectangle_1045, #rectangle_1046 {
+	width: 2.6vw;
+	height: 2.6vw;
+	-ms-border-radius: 7px;
+	-o-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 0.5vw;
+	background: rgba(30, 118, 251, 255);
+	position: absolute;
+}
+
+#icon_feather_sun {
+	top: 2.2vw;
+	right: 2.2vw;
+	width: 2.05vw;
+	position: absolute;
+}
+
+#path_519 {
+	top: -0.90vw;
+	right: -0.50vw;
+	width: 0.9vw;
+	position: absolute;
+	visibility: visible;
+	opacity: 1;
+
+	/*animation*/
+	transition: opacity 0.5s linear;
+}
+
+
+#path_520 {
+	top: -1.25vw;
+	right: -0.85vw;
+	width: 1.6vw;
+	position: absolute;
+	visibility: visible;
+	opacity: 1;
+
+	/*animation*/
+	transition: opacity 0.5s linear;
+}
+
+#path_519.darktheme, #path_520.darktheme {
+	visibility: hidden;
+	opacity: 0;
+
+	/*animation*/
+	transition: opacity 0.5s linear;
+}
+
+/*below area for logo*/
+#application_logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 5vh;
+}
+
+#application_logo_img {
+	width: 5vw;
+}
+
+
+#application_logo_text {
+	width: 13vw;
+	margin-left: 0.5vw;
+}
+
+/*Below are for image on the left*/
+
+#group_2126 {
+	position: absolute;
+}
+
+#bg_line_left {
+	width: 32vw;
+	position: absolute;
+}
+
+#circle_bg_left {
+	position: absolute;
+	top: 5.3vw;
+	left: 5.4vw;
+	width: 21.3vw;
+	height: 21.3vw;
+	-ms-border-radius: 262.1px / 262.23px;
+	-o-border-radius: 262.1px / 262.23px;
+	-moz-border-radius: 262.1px / 262.23px;
+	-webkit-border-radius: 262.1px / 262.23px;
+	border-radius: 262.1px / 262.23px;
+	background: rgba(144, 188, 255, 255);
+}
+
+#border_collie_dog {
+	left: 6.5vw;
+	width: 19.3vw;
+	position: absolute;
+	display: block;
+	margin: 0px;
+	border: none;
+	padding: 0px;
+}
+
+#ellipse_413 {
+	top: 23vw;
+	left: 25vw;
+	width: 2vw;
+	height: 2vw;
+	-ms-border-radius: 2vw;
+	-o-border-radius: 2vw;
+	-moz-border-radius: 2vw;
+	-webkit-border-radius: 2vw;
+	border-radius: 2vw;
+	background: rgba(144, 188, 255, 255);
+	position: absolute;
+}
+
+/*Below are for image on the right*/
+
+#img_group_right {
+	right: 5vw;
+	position: absolute;
+	/*margin-right: 4vw;*/
+}
+
+#bg_line {
+	position: absolute;
+	top: 2.1vw;
+	right: 1vw;
+	width: 27.3vw;
+}
+
+
+#bg {
+	top: 6.99vw;
+	right: 5.85vw;
+	width: 17.4vw;
+	height: 17.5vw;
+	-ms-border-radius: 190.01px / 190.11px;
+	-o-border-radius: 190.01px / 190.11px;
+	-moz-border-radius: 190.01px / 190.11px;
+	-webkit-border-radius: 190.01px / 190.11px;
+	border-radius: 190.01px / 190.11px;
+	background: rgba(255, 218, 71, 255);
+	position: absolute;
+}
+
+#kitten_img {
+	right: -4.9vw;
+	top: -5vw;
+	width: 37.7vw;
+	position: absolute;
+}
+
+#ellipse_412 {
+	top: 8.1vw;
+	right: 3vw;
+	width: 2vw;
+	height: 2vw;
+	-ms-border-radius: 2vw;
+	-o-border-radius: 2vw;
+	-moz-border-radius: 2vw;
+	-webkit-border-radius: 2vw;
+	border-radius: 2vw;
+	background: rgba(255, 218, 71, 255);
+	position: absolute;
+}
+
+/*below for login field*/
+
+.fieldContainer {
+	background: transparent;
+}
+
+.fieldContainerChild {
+	display: flex;
+	align-items: center;
+	background: white;
+	border-radius: 0.5vw;
+	padding-left: 1vw;
+	/*border-style: solid;*/
+	border: 1px solid black;
+	min-height: 3.3vw;
+}
+
+.fieldContainerChild img {
+	width: 1.5vw;
+}
+
+.fieldContainerChild input {
+	border: 0;
+}
+
+#loginSubmit{
+	font-size: 14px;
+}

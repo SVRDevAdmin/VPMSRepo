@@ -155,6 +155,30 @@ namespace VPMSWeb.Controllers
             {
                 if (ApprovalType)
                 {
+                    Patient_Owner_Login sOwnerLogin = new Patient_Owner_Login();
+                    var sApptObj = AppointmentRepository.GetAppointmentByID(ConfigSettings.GetConfigurationSettings(), ApptID.ToString());
+                    if (sApptObj != null)
+                    {
+                        sOwnerLogin = PatientRepository.GetPatientOwnerLoginByOwnerID(sApptObj.OwnerID.Value);
+                    }
+
+                    String sContent = "Appointment [" + sApptObj.ApptDate.Value.ToString("dd/MM/yyyy") + "  -  " + sApptObj.ApptStartTimeString +  "] confirmed by clinic admin.";
+
+                    NotificationCustomerModel sCustNotifObj = new NotificationCustomerModel();
+                    sCustNotifObj.NotificationGroup = "Message";
+                    sCustNotifObj.Title = "Appointment Confirmed";
+                    sCustNotifObj.Content = sContent;
+                    sCustNotifObj.CreatedDate = DateTime.Now;
+                    sCustNotifObj.CreatedBy = "";
+
+                    List<String> sReceipientList = new List<String>();
+                    if (sOwnerLogin != null)
+                    {
+                        sReceipientList.Add(sOwnerLogin.AspnetUserID);
+                    }
+
+                    NotificationRepository.InsertCustomerNotification(ConfigSettings.GetConfigurationSettings(), sCustNotifObj, sReceipientList);
+
                     SendAppointmentConfirmedEmail(ApptID);
                 }
 

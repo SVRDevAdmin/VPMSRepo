@@ -281,6 +281,33 @@ namespace VPMSCustomer.Controllers
                     {
                         SendNotificationAppointmentSubmitEmail(sNewAppointment, serviceID);
 
+
+                        // ----- Notification ------- //
+                        var sTargetUser = UserRepository.GetUsersListByBranchID(branchID);
+
+                        String sContent = "";
+                        sContent = "New appointment created by [" + submittedBy + "]. Kindly procced to verify and approve.";
+
+                        NotificationAdminModel sNotificationObj = new NotificationAdminModel();
+                        sNotificationObj.BranchID = branchID;
+                        sNotificationObj.NotificationGroup = "Appointment";
+                        sNotificationObj.NotificationType = "New Appointment";
+                        sNotificationObj.Title = "New Appointment Submitted.";
+                        sNotificationObj.Content = sContent;
+                        sNotificationObj.CreatedDate = DateTime.Now;
+                        sNotificationObj.CreatedBy = submittedBy;
+
+                        List<String> sUserIDLst = new List<String>();
+                        if (sTargetUser != null && sTargetUser.Count > 0)
+                        {
+                            foreach (var t in sTargetUser)
+                            {
+                                sUserIDLst.Add(t.UserID);
+                            }
+                        }
+
+                        NotificationRepository.InsertAdminNotification(sNotificationObj, sUserIDLst, submittedBy);
+
                         sRespObj.StatusCode = (int)StatusCodes.Status200OK;
                         sRespObj.isOverlap = false;
                         sRespObj.isRecordExists = false;

@@ -100,13 +100,13 @@
 
                 let totalExpenses = totalArray.reduce((a, b) => a + b, 0);
                 
-                LoadSummaryChart(serviceArray, totalArray, '@Html.Raw(LangResources["Analytics_Label_TotalSpent"])' + totalExpenses);
+                LoadSummaryChart(serviceArray, totalArray, "@Html.Raw(LangResources["Analytics_Label_TotalSpent"])" + totalExpenses);
 
                 $('#ddlYearSelection').html(iYear);
             }
             else 
             {
-                LoadSummaryChart([], [], '@Html.Raw(LangResources["Analytics_Label_TotalSpent"])' + '0');
+                LoadSummaryChart([], [], "@Html.Raw(LangResources["Analytics_Label_TotalSpent"])" + '0');
 
                 $('#ddlYearSelection').html(iYear);
             }

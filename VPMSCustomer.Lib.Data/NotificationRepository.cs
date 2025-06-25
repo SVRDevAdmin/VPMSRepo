@@ -167,5 +167,50 @@ namespace VPMSCustomer.Lib.Data
 
             return isSuccess;
         }
+
+        /// <summary>
+        /// Insert Notification to Admin
+        /// </summary>
+        /// <param name="sNotificationObj"></param>
+        /// <param name="sUserID"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
+        public static Boolean InsertAdminNotification(NotificationAdminModel sNotificationObj, List<String> sUserID, String sUpdatedBy)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new NotificationDBContext())
+                {
+                    ctx.txn_notifications.Add(sNotificationObj);
+                    ctx.SaveChanges();
+
+                    if (sUserID.Count > 0)
+                    {
+                        foreach (var  s in sUserID)
+                        {
+                            NotificationAdminReceiverModel sReceiver = new NotificationAdminReceiverModel();
+                            sReceiver.NotificationID = sNotificationObj.ID;
+                            sReceiver.TargetUser = s;
+                            sReceiver.Status = 0;
+                            sReceiver.UpdatedDate = DateTime.Now;
+                            sReceiver.UpdatedBy = sUpdatedBy;
+
+                            ctx.txn_notification_receiver.Add(sReceiver);
+                            ctx.SaveChanges();
+                        }
+                    }
+
+                    isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
     }
 }

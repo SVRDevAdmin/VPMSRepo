@@ -196,8 +196,7 @@
                  // Pending Status Appointment
                 if (sViewSelection == 'All' || sViewSelection == '1')
                 {      
-                    //var stringPending = 'Pending';
-                    var stringPending = '@Html.Raw(LangResources["Appointment_Label_Pending"])';
+                    var stringPending = "@Html.Raw(LangResources["Appointment_Label_Pending"])";
                     var sPendingGroup = result.data.filter(function(obj){
                                             return (obj.status == statusPendingAppr || obj.status == statusPendingAccpt);
                                         });
@@ -226,7 +225,7 @@
                 {
 
                     //var stringConfirmed = 'Confirmed';
-                    var stringConfirmed = '@Html.Raw(LangResources["Appointment_Label_Confirmed"])';
+                    var stringConfirmed = "@Html.Raw(LangResources["Appointment_Label_Confirmed"])";
                     var sConfirmedGroup = result.data.filter(function(obj){
                                             return (obj.status == statusConfirmed);
                                         });
@@ -299,7 +298,7 @@
         {
             sRemarks = '<div class="row ms-1">' +
                        '<div class="col-md-12">' +
-                       '<p class="mb-0 AppointmentRemarkLabel">' + '@Html.Raw(LangResources["Appointment_Message_YouHaveRequestedNewTime"])' + '</p>' +
+                       '<p class="mb-0 AppointmentRemarkLabel">' + "@Html.Raw(LangResources["Appointment_Message_YouHaveRequestedNewTime"])" + '</p>' +
                        '</div>' +
                        '</div>';
         }
@@ -308,7 +307,7 @@
         {
             sRemarks = '<div class="row ms-1">' +
                        '<div class="col-md-12">' +
-                       '<p class="mb-0 AppointmentRemarkLabel">' + '@Html.Raw(LangResources["Appointment_Message_ClinicRequestedNewTime"])' + '</p>' +
+                       '<p class="mb-0 AppointmentRemarkLabel">' + "@Html.Raw(LangResources["Appointment_Message_ClinicRequestedNewTime"])" + '</p>' +
                        '</div>' +
                        '</div>';
 
@@ -390,7 +389,7 @@
                     '<div class="col-md-12">' +
                     '<div class="row">&nbsp;</div>' +
                     '<div class="row">&nbsp;</div>' +
-                    '<div class="row" style="color: grey;"><h3 class="text-center">' + '@Html.Raw(LangResources["Appointment_Message_NoRecord"])' + '</h3></div>' +
+                    '<div class="row" style="color: grey;"><h3 class="text-center">' + "@Html.Raw(LangResources["Appointment_Message_NoRecord"])" + '</h3></div>' +
                     '<div class="row">&nbsp;</div>' +
                     '<div class="row">&nbsp;</div>' +
                     '<div class="row">&nbsp;</div>' +
@@ -410,7 +409,7 @@
     function responseButton(apptID, apptDate, apptStartTime)
     {
         var strContent = '';
-        strContent = '@Html.Raw(LangResources["Appointment_Message_AcceptTimeRequest"])';
+        strContent = "@Html.Raw(LangResources["Appointment_Message_AcceptTimeRequest"])";
         strContent = strContent.replace("###<newTIME>###", apptStartTime)
                                .replace("###<newDATE>###", apptDate);
 
@@ -432,8 +431,8 @@
                 window.location.reload();
             }
             else{
-                ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_AppointmentAccepted"])', 
-                                  '@Html.Raw(LangResources["Appointment_Message_FailedToAcceptAppointment"])',
+                ShowSuccessMsgBox("@Html.Raw(LangResources["Appointment_Title_AppointmentAccepted"])", 
+                                  "@Html.Raw(LangResources["Appointment_Message_FailedToAcceptAppointment"])",
                     function(){
                         $('#responseModal').modal('hide');
                     }
@@ -465,8 +464,8 @@
             }).done(function(result) { 
                 if (result.statusCode == 200)
                 {
-                    ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_CreateAppointment"])', 
-                                      '@Html.Raw(LangResources["Appointment_Message_CreateSuccessfully"])',
+                    ShowSuccessMsgBox("@Html.Raw(LangResources["Appointment_Title_CreateAppointment"])", 
+                                      "@Html.Raw(LangResources["Appointment_Message_CreateSuccessfully"])",
                         function(){
                             window.location.href = '/Appointment/Index';
                         }
@@ -476,15 +475,15 @@
                 {
                     if (result.isOverlap)
                     {
-                        ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_CreateAppointment"])', 
-                                          '@Html.Raw(LangResources["Appointment_Message_AppointmentOverlap"])',
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["Appointment_Title_CreateAppointment"])", 
+                                          "@Html.Raw(LangResources["Appointment_Message_AppointmentOverlap"])",
                             function(){}
                         );
                     }
                     else
                     {
-                        ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_CreateAppointment"])', 
-                                          '@Html.Raw(LangResources["Appointment_Message_FailedToCreateAppointment"])',
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["Appointment_Title_CreateAppointment"])", 
+                                          "@Html.Raw(LangResources["Appointment_Message_FailedToCreateAppointment"])",
                             function(){}
                         );
                     }
@@ -493,7 +492,7 @@
         }
         else
         {
-            $('#lbError').html('@Html.Raw(LangResources["Appointment_Message_MandatoryFields"])');
+            $('#lbError').html("@Html.Raw(LangResources["Appointment_Message_MandatoryFields"])");
         }
     }
 

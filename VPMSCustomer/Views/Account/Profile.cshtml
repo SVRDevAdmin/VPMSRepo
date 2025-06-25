@@ -231,13 +231,13 @@
                     );
                 }
                 else{
-                    $('#lbError').html('@Html.Raw(LangResources["Settings_Message_UpdateSettingsFailed"])');
+                    $('#lbError').html("@Html.Raw(LangResources["Settings_Message_UpdateSettingsFailed"])");
                 }
             });
         }
         else
         {
-            $('#lbError').html('@Html.Raw(LangResources["Profile_Message_MandatoryFields"])');
+            $('#lbError').html("@Html.Raw(LangResources["Profile_Message_MandatoryFields"])");
         }
     }
 

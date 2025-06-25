@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3+d8P5qXcOyyt5sOFi2SMLvejqkXwTBKA6mA19eN8ao=",
+  "Hash": "UumXNTFaPOFQFz/qE4UOmJa+Q1SsTu0by5czOWYeP/I=",
   "Source": "VPMSWeb",
   "BasePath": "_content/VPMSWeb",
   "Mode": "Default",
@@ -267,6 +267,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\InventoryList.css"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\css\\landing.css",
+      "SourceId": "VPMSWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\",
+      "BasePath": "_content/VPMSWeb",
+      "RelativePath": "css/landing#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4af6sbsuxu",
+      "Integrity": "JIWOpUYNbRzPWzTOP6+fT+JFe0RiPjdfOjtLn9kqThg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\landing.css"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\css\\LightTheme.css",
@@ -3104,6 +3125,27 @@
       "OriginalItemSpec": "wwwroot\\images\\X-Ray image.png"
     },
     {
+      "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\countryState.js",
+      "SourceId": "VPMSWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\",
+      "BasePath": "_content/VPMSWeb",
+      "RelativePath": "js/countryState#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dcp6nea9b7",
+      "Integrity": "zRT1fAj+HlxenvDMWw6FZ4mMP2NJzLimLG1WQkciAUU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\countryState.js"
+    },
+    {
       "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\FontAwesomeKit.js",
       "SourceId": "VPMSWeb",
       "SourceType": "Discovered",
@@ -3186,6 +3228,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\jquery.slim.min.js"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\login.js",
+      "SourceId": "VPMSWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\",
+      "BasePath": "_content/VPMSWeb",
+      "RelativePath": "js/login#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gqm1d3d8vb",
+      "Integrity": "qO0Qh1Tf0hm6oiKL+8KnJOrDHj8JwT9Aj8lpyPQp17w=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\login.js"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\main.js",
@@ -7198,6 +7261,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-jbaT8zckU8TbI+nQr3dsqm4oW/2tqJf1HTAK1M0nbqs="
+        }
+      ]
+    },
+    {
+      "Route": "css/landing.4af6sbsuxu.css",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\css\\landing.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "90"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JIWOpUYNbRzPWzTOP6+fT+JFe0RiPjdfOjtLn9kqThg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Jun 2025 07:06:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4af6sbsuxu"
+        },
+        {
+          "Name": "label",
+          "Value": "css/landing.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JIWOpUYNbRzPWzTOP6+fT+JFe0RiPjdfOjtLn9kqThg="
+        }
+      ]
+    },
+    {
+      "Route": "css/landing.css",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\css\\landing.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "90"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JIWOpUYNbRzPWzTOP6+fT+JFe0RiPjdfOjtLn9kqThg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Jun 2025 07:06:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JIWOpUYNbRzPWzTOP6+fT+JFe0RiPjdfOjtLn9kqThg="
         }
       ]
     },
@@ -20492,6 +20637,88 @@
       ]
     },
     {
+      "Route": "js/countryState.dcp6nea9b7.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\countryState.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "43850"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zRT1fAj+HlxenvDMWw6FZ4mMP2NJzLimLG1WQkciAUU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Jun 2025 06:42:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dcp6nea9b7"
+        },
+        {
+          "Name": "label",
+          "Value": "js/countryState.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-zRT1fAj+HlxenvDMWw6FZ4mMP2NJzLimLG1WQkciAUU="
+        }
+      ]
+    },
+    {
+      "Route": "js/countryState.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\countryState.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "43850"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zRT1fAj+HlxenvDMWw6FZ4mMP2NJzLimLG1WQkciAUU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Jun 2025 06:42:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-zRT1fAj+HlxenvDMWw6FZ4mMP2NJzLimLG1WQkciAUU="
+        }
+      ]
+    },
+    {
       "Route": "js/FontAwesomeKit.443v25u9rs.js",
       "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\FontAwesomeKit.js",
       "Selectors": [],
@@ -20816,6 +21043,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Z/yIHiT6HJfdwDSS3QRCOEPDc23jZEj3B63hVmvbPi0="
+        }
+      ]
+    },
+    {
+      "Route": "js/login.gqm1d3d8vb.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\login.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1618"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qO0Qh1Tf0hm6oiKL+8KnJOrDHj8JwT9Aj8lpyPQp17w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Jun 2025 06:50:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gqm1d3d8vb"
+        },
+        {
+          "Name": "label",
+          "Value": "js/login.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qO0Qh1Tf0hm6oiKL+8KnJOrDHj8JwT9Aj8lpyPQp17w="
+        }
+      ]
+    },
+    {
+      "Route": "js/login.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\js\\login.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1618"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qO0Qh1Tf0hm6oiKL+8KnJOrDHj8JwT9Aj8lpyPQp17w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Jun 2025 06:50:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qO0Qh1Tf0hm6oiKL+8KnJOrDHj8JwT9Aj8lpyPQp17w="
         }
       ]
     },
@@ -28386,7 +28695,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 20 Jun 2025 07:31:05 GMT"
+          "Value": "Wed, 25 Jun 2025 08:25:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -28423,7 +28732,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 20 Jun 2025 07:31:05 GMT"
+          "Value": "Wed, 25 Jun 2025 08:25:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -28460,7 +28769,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 20 Jun 2025 07:31:05 GMT"
+          "Value": "Wed, 25 Jun 2025 08:25:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -28505,7 +28814,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 20 Jun 2025 07:31:05 GMT"
+          "Value": "Wed, 25 Jun 2025 08:25:25 GMT"
         },
         {
           "Name": "Cache-Control",

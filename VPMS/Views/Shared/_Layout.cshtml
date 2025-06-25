@@ -60,7 +60,6 @@
         {
             <link id="themeCss" rel="stylesheet" href="~/css/LightTheme.css" />
             ViewBag.DarkTheme = "Light";
-            /* temp */
         }
 
         var requestCulture = Context.Features.Get<IRequestCultureFeature>();
@@ -522,7 +521,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="row">
+                        <div class="row me-2">
                             <div class="col-md-10">&nbsp;</div>
                             <div class="col-md-2 ConfigBottomRow">
                                 <button id="btnSave" type="button" class="btn btn-primary">@LangResources["LanguageCountry_Button_Save"]</button>

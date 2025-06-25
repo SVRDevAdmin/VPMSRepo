@@ -43,7 +43,7 @@
                 updateConfigurationSettings('@sessionUserID', sLanguageKey, $lang, '@sessionUserName');
             }
             else {
-                $('#lbErrorLanguage').html('@Html.Raw(LangResources["Settings_Message_PleaseSelectOneLanguage"])');
+                $('#lbErrorLanguage').html("@Html.Raw(LangResources["Settings_Message_PleaseSelectOneLanguage"])");
             }
         });
 
@@ -54,7 +54,7 @@
                 updateConfigurationSettings('@sessionUserID', sCountryKey, $country, '@sessionUserName');
             }
             else {
-                $('#lbErrorCountry').html('@Html.Raw(LangResources["Settings_Message_PleaseSelectOneCountry"])');
+                $('#lbErrorCountry').html("@Html.Raw(LangResources["Settings_Message_PleaseSelectOneCountry"])");
             }
         });
 
@@ -73,7 +73,7 @@
                 updateConfigurationSettings('@sessionUserID', sThemesKey, $themesname, '@sessionUserName');
             }
             else{
-                $('#lbErrorThemes').html('@Html.Raw(LangResources["Settings_Message_PleaseSelectOneTheme"])');
+                $('#lbErrorThemes').html("@Html.Raw(LangResources["Settings_Message_PleaseSelectOneTheme"])");
             }
         });
     });

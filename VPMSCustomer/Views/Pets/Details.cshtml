@@ -149,7 +149,7 @@
                          var sActiveTreatment = '';
                          sActiveTreatment = '<div class="treatmentDisplayText mt-3">' +
                                             '<strong>' + result.data[i].planName + '</strong><br />' +
-                                            '@Html.Raw(LangResources["PetProfile_Message_TreatmentPeriod"])' + ' : ' + 
+                                            "@Html.Raw(LangResources["PetProfile_Message_TreatmentPeriod"])" + ' : ' + 
                                             moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' +
                                             moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
                                             '</div>';
@@ -176,7 +176,7 @@
                          var sActiveTreatment = '';
                          sActiveTreatment = '<div class="treatmentDisplayText mt-3">' +
                                             '<strong>' + result.data[i].planName + '</strong><br />' +
-                                            '@Html.Raw(LangResources["PetProfile_Message_TreatmentPeriod"])' + ' : ' +  
+                                            "@Html.Raw(LangResources["PetProfile_Message_TreatmentPeriod"])" + ' : ' +  
                                             moment(result.data[i].treatmentStart, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + ' - ' +
                                             moment(result.data[i].treatmentEnd, 'YYYY-MM-DDThh:mm:ss').format('DD/MM/YYYY') + '<br />' +
                                             '</div>';
@@ -257,7 +257,7 @@
                  {
                      var sNoRecord = '';
                      sNoRecord = '<tr>' +
-                                 '<td class="text-left" colspan="7">' + '@Html.Raw(LangResources["PetProfile_Message_NoRecord"])' + '</td>' +  //No record.
+                                 '<td class="text-left" colspan="7">' + "@Html.Raw(LangResources["PetProfile_Message_NoRecord"])" + '</td>' +  
                                  '</tr>';
 
                     $('#tblTestMgmt tbody').append(sNoRecord);

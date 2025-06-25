@@ -26,6 +26,7 @@ namespace VPMSCustomer.Lib.Data.Models
         public String? CreatedBy {  get; set; }
         public DateTime? UpdatedDate {  get; set; }
         public String? UpdatedBy { get; set; }
+        public int? OrganizationID { get; set; }
     }
 
     public class IdentityUserObject

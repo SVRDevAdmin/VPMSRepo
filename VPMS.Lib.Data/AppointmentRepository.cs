@@ -407,7 +407,7 @@ namespace VPMS.Lib.Data
                     sConn.Open();
 
                     String selectCommand = "SELECT A.AppointmentID, A.ApptDate, A.ApptStartTime, A.ApptEndTime, C.`Name`, P.Name AS 'PetName', " + 
-                                           "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.Status, PA.EmailAddress " + 
+                                           "PA.Name AS 'OwnerName', A.InchargeDoctor AS 'Doctor', A.Status, PA.EmailAddress, A.OwnerID " + 
                                            "FROM mst_appointment AS A " +
                                            "INNER JOIN mst_appointment_services AS b ON b.ApptID = A.AppointmentID " +
                                            "LEFT JOIN mst_services AS C ON C.ID = b.ServicesID " + 
@@ -433,6 +433,7 @@ namespace VPMS.Lib.Data
                                     sResult.OwnerName = sReader["OwnerName"].ToString();
                                     sResult.Status = Convert.ToInt32(sReader["Status"]);
                                     sResult.EmailAddress = sReader["EmailAddress"].ToString();
+                                    sResult.OwnerID = Convert.ToInt64(sReader["OwnerID"]);
                                 }
                             }
                         }
