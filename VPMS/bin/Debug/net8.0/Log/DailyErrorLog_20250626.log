@@ -1,0 +1,15 @@
+2025-06-26 14:41:36,340 ERROR VPMS.Program.MoveNext [106] - MESSAGE: Controller Error >> 
+ System.InvalidOperationException: User security stamp cannot be null.
+   at Microsoft.AspNetCore.Identity.UserManager`1.GetSecurityStampAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.UserClaimsPrincipalFactory`1.GenerateClaimsAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.UserClaimsPrincipalFactory`2.GenerateClaimsAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.UserClaimsPrincipalFactory`1.CreateAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.CreateUserPrincipalAsync(TUser user)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.SignInWithClaimsAsync(TUser user, AuthenticationProperties authenticationProperties, IEnumerable`1 additionalClaims)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.SignInOrTwoFactorAsync(TUser user, Boolean isPersistent, String loginProvider, Boolean bypassTwoFactor)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.PasswordSignInAsync(TUser user, String password, Boolean isPersistent, Boolean lockoutOnFailure)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.PasswordSignInAsync(String userName, String password, Boolean isPersistent, Boolean lockoutOnFailure)
+   at VPMSWeb.Controllers.LoginController.SignIn(LoginModel loginInfo) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 106
+
+----------------------------------------------------------------------------
+
