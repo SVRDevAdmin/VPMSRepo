@@ -9,6 +9,7 @@ namespace VPMSCustomer.Lib.Data.Models
 {
     public class AnalyticsModel
     {
+        [Key]
         public long ID { get; set; }
         public DateTime? TransDate { get; set; }
         public String? TransDateInMonth { get; set; }
@@ -22,6 +23,7 @@ namespace VPMSCustomer.Lib.Data.Models
         public String? CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public String? UpdatedBy { get; set; }
+        public String? EntityType { get; set; }
     }
 
     public class ExpensesSummaryModel

@@ -11,6 +11,8 @@
 	var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
 	var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
 	var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
+	var sessionCurrencySymbol = httpContextaccessor.HttpContext.Session.GetString("CurrencySymbol");
 
 	List<OrganisationModel> sOrganizationList = new List<OrganisationModel>();
 	if (ViewData["OrganizationList"] != null)
@@ -177,8 +179,6 @@
 
 								<option value="@name"> @name </option>
 							}
-							@* <option value="Admin1"> Admin1 </option>
-							<option value="Admin2"> Admin2 </option> *@
 						</select>
 					</div>
 
@@ -196,10 +196,10 @@
 					<div class="field-container" style="width: 100%;">
 						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">@LangResources["MenuBar_Label_Service"]</span>
 						<div style=" padding: 1vw;" class="containerBackground">
-							<table class="textColor" id="serviceList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
+							<table class="textColor" id="tblServiceList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
 								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
 									<th class="table-content"> @LangResources["MenuBar_Label_Service"] </th>
-									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] (@sessionCurrencyCode) </th>
 									<th class="table-content">  </th>
 								</tr>
 							</table>
@@ -256,7 +256,7 @@
 								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
 									<th class="table-content"> @LangResources["Patient_Label_Medication"] / @LangResources["Inventory_Label_ProductName"] </th>
 									<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
-									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] (@sessionCurrencyCode) </th>
 									<th class="table-content">  </th>
 								</tr>
 							</table>
@@ -330,7 +330,7 @@
 					</div>
 
 					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
-						<span class="formlabel" id="serviceTotal"></span><span class="formlabel">$</span>
+						<span class="formlabel">@sessionCurrencySymbol</span><span class="formlabel" id="serviceTotal"></span>
 					</div>
 				</div>
 
@@ -340,7 +340,7 @@
 					</div>
 
 					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
-						<span class="formlabel" id="medicationProductTotal"></span><span class="formlabel">$</span>
+						<span class="formlabel">@sessionCurrencySymbol</span><span class="formlabel" id="medicationProductTotal"></span>
 					</div>
 				</div>
 
@@ -350,7 +350,7 @@
 					</div>
 
 					<div class="field-container quaterSize" style="flex-direction: row; margin-bottom: unset;">
-						<span class="formlabel" id="total"></span><span class="formlabel">$</span>
+						<span class="formlabel">@sessionCurrencySymbol</span><span class="formlabel" id="total"></span>
 					</div>
 				</div>
 
@@ -403,7 +403,7 @@
 				return response.json();
 			})
 			.then(data => {
-				cloneElement("serviceTemplate", "serviceList", "serviceID", data.ID, "serviceName", data.Name, "servicePrice", data.Prices, false);
+				cloneElement("serviceTemplate", "tblServiceList", "serviceID", data.ID, "serviceName", data.Name, "servicePrice", data.Prices, false);
 				calculateTotal();
 			})
 			.catch(error => {

@@ -7,6 +7,8 @@
 	ViewBag.SelectedMenu = "inventoryMenu";
 
 	string reload = httpContextaccessor.HttpContext.Request.Cookies["reload"];
+
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
 }
 
 <link rel="stylesheet" href="~/css/InventoryList.css" />
@@ -14,15 +16,12 @@
 <div class="row">
 	<div class="row ms-2">
 		<div class="col-md-5">
-			<div class="d-flex">
-				<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> 
-				<span class="textColor" style="font-size: 24px; font-weight: bold;">@LangResources["MenuBar_Label_Inventory"]</span>
-			</div>
+			<label class="pageTitle">@LangResources["MenuBar_Label_Inventory"]</label>
 		</div>
 		<div class="col-md-7 d-flex justify-content-end">
 			<div style="display: flex;">
 				<input id="SearchService" type="text" class="form-control form-field inputField" placeholder="@LangResources["TreatmentPlan_Label_SearchService"]" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" />
-				<button onclick="searchFilter(document.getElementById('SearchService').value);" class="btn btn-lg btn-primary" style="font-size: 12px; display: flex; justify-content: center;  align-items: center; border-bottom-left-radius: 0; border-top-left-radius: 0;">
+				<button class="btn btn-lg btn-primary searchMagnifying" onclick="searchFilter(document.getElementById('SearchService').value);">
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</div>
@@ -41,8 +40,9 @@
 
 	<div class="row mt-4 ms-2">
 		<div class="col-md-12">
-			<div style="overflow:auto; width: 78vw;">
-				<table id="inventoryList"  class="textColor tableStyle tableOriginal">
+			<!-- style="overflow:auto; width: 78vw;"-->
+			<div >
+				<table id="inventoryList" class="table">
 				</table>
 			</div>
 
@@ -194,12 +194,12 @@
 					'<th class="table-content" style="padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_InventoryName"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_Category"] </th>' +
-					'<th class="table-content"> @LangResources["Inventory_Label_Usage"] </th>' +
-					'<th class="table-content"> @LangResources["Inventory_Label_ProductName"] </th>' +
+					//'<th class="table-content"> @LangResources["Inventory_Label_Usage"] </th>' +
+					//'<th class="table-content"> @LangResources["Inventory_Label_ProductName"] </th>' +
 					'<th class="table-content table-content-center"> @LangResources["Inventory_Label_Image"] </th>' +
 					'<th class="table-content"> SKU </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_Quantity"] </th>' +
-					'<th class="table-content table-content-center"> @LangResources["Inventory_Label_PricePerQty"] </th>' +
+					'<th class="table-content table-content-center"> @LangResources["Inventory_Label_PricePerQty"] (@sessionCurrencyCode)</th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_Organisation"] </th>' +
 					'<th class="table-content"> @LangResources["Inventory_Label_Branch"] </th>' +
 					'<th class="table-content table-content-center"> @LangResources["Patient_Label_Status"] </th>' +
@@ -207,7 +207,7 @@
 					'</tr> ' + 
 					'</thead>';
 
-				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
+				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="12" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] <td> </tr>' }
 				else {
 					for (let i = 0; i < data.InventoryInfoList.length; i++) {
 
@@ -229,8 +229,8 @@
 							'<td class="table-content" style = "padding: 0 1vw;" > ' + data.InventoryInfoList[i].No + ' </td>' +
 							'<td class="table-content"> ' + data.InventoryInfoList[i].InventoryName + ' </td>' +
 							'<td class="table-content"> ' + data.InventoryInfoList[i].Category + ' </td>' +
-							'<td class="table-content"> ' + data.InventoryInfoList[i].Usage + ' </td>' +
-							'<td class="table-content"> ' + data.InventoryInfoList[i].ProductName + ' </td>' +
+							//'<td class="table-content"> ' + data.InventoryInfoList[i].Usage + ' </td>' +
+							//'<td class="table-content"> ' + data.InventoryInfoList[i].ProductName + ' </td>' +
 							'<td class="table-content table-content-center">' +
 							'<img src="/InventoryImages/' + data.InventoryInfoList[i].Image + '" style="height: 3vw;" />' +
 							'</td>' +
@@ -286,8 +286,8 @@
 						'<th class="tableContentPrintDownload" style="padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
 						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_InventoryName"] </th>' +
 						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Category"] </th>' +
-						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
-						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
+						//'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
+						//'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
 						'<th class="tableContentPrintDownload table-content-center printHide"> @LangResources["Inventory_Label_Image"] </th>' +
 						'<th class="tableContentPrintDownload"> SKU </th>' +
 						'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Quantity"] </th>' +
@@ -314,8 +314,8 @@
 								'<th class="tableContentPrintDownload" style="padding: 0 1vw;" > @LangResources["Patient_Label_Number"] </th>' +
 								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_InventoryName"] </th>' +
 								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Category"] </th>' +
-								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
-								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
+								//'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Usage"] </th>' +
+								//'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_ProductName"] </th>' +
 								'<th class="tableContentPrintDownload table-content-center printHide"> @LangResources["Inventory_Label_Image"] </th>' +
 								'<th class="tableContentPrintDownload"> SKU </th>' +
 								'<th class="tableContentPrintDownload"> @LangResources["Inventory_Label_Quantity"] </th>' +
@@ -342,8 +342,8 @@
 								'<td class="tableContentPrintDownload" style = "padding: 0 1vw;" > ' + (j + 1) + ' </td>' +
 								'<td class="tableContentPrintDownload"> ' + data[i][j].InventoryName + ' </td>' +
 								'<td class="tableContentPrintDownload"> ' + data[i][j].Category + ' </td>' +
-								'<td class="tableContentPrintDownload"> ' + data[i][j].Usage + ' </td>' +
-								'<td class="tableContentPrintDownload"> ' + data[i][j].ProductName + ' </td>' +
+								//'<td class="tableContentPrintDownload"> ' + data[i][j].Usage + ' </td>' +
+								//'<td class="tableContentPrintDownload"> ' + data[i][j].ProductName + ' </td>' +
 								'<td class="tableContentPrintDownload table-content-center printHide">' +
 								'<img src="/InventoryImages/' + data[i][j].Image + '" style="height: 3vw;" />' +
 								'</td>' +

@@ -1,6 +1,7 @@
 ﻿using VPMS.Lib.Data.DBContext;
 using VPMS.Lib.Data.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 namespace VPMS.Lib.Data
 {
@@ -29,6 +30,22 @@ namespace VPMS.Lib.Data
 				logger.Error("CountryRepository >>> GetCountryList >>> ", ex);
 				return null;
 			}
+		}
+
+		public static CountryListModel GetCountryByID(IConfiguration config, int countryID)
+		{
+			try
+			{
+				using (var ctx = new CountryDBContext(config))
+				{
+					return ctx.mst_countrylist.Where(x => x.ID == countryID).FirstOrDefault();
+				}
+			}
+			catch (Exception ex)
+			{
+                logger.Error("CountryRepository >>> GetCountryByID >>> ", ex);
+                return null;
+            }
 		}
 
 		/// <summary>
@@ -74,5 +91,49 @@ namespace VPMS.Lib.Data
                 return null;
             }
 		}
-	}
+
+		/// <summary>
+		/// Get Country Info by State Name
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="stateName"></param>
+		/// <returns></returns>
+		public static StateModel GetCountryByState(IConfiguration config, String stateName)
+		{
+			try
+			{
+				using (var ctx = new CountryDBContext(config))
+				{
+					return ctx.mst_state.Where(x => x.State.ToLower() == stateName.ToLower()).FirstOrDefault();
+				}
+			}
+			catch (Exception ex)
+			{
+                logger.Error("CountryRepository >>> GetCountryByState >>> ", ex);
+                return null;
+            }
+		}
+
+		/// <summary>
+		/// Get Currency Details by Country Code
+		/// </summary>
+		/// <param name="config"></param>
+		/// <param name="countryCode"></param>
+		/// <returns></returns>
+		public static CurrencyModel GetCurrencyMasterByCountryCode(IConfiguration config, String countryCode)
+		{
+			try
+			{
+				using (var ctx = new CountryDBContext(config))
+				{
+					return ctx.mst_currency.Where(x => x.Country == countryCode).FirstOrDefault();
+				}
+			}
+			catch (Exception ex)
+			{
+                logger.Error("CountryRepository >>> GetCurrencyMasterByCountryCode >>> ", ex);
+                return null;
+            }
+		}
+    }
 }

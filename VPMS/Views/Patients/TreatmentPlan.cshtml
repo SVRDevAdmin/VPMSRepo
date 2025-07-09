@@ -9,6 +9,9 @@
 
 	var startDate = DateOnly.FromDateTime(DateTime.Now);
 	var endDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5));
+
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
+	var sessionCurrencySymbol = httpContextaccessor.HttpContext.Session.GetString("CurrencySymbol");
 }
 
 <style>
@@ -192,7 +195,7 @@
 				</tr>
 				<tr>
 					<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
-					<td class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </td>
+					<td class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> @sessionCurrencySymbol 0 </td>
 				</tr>
 			</table>
 			<button onclick="cloneElement(document.getElementById('treatmentPlanContainer'), true, 'serviceTemplate' , 'serviceList' , 'serviceID' , 0, 'serviceName' , '' , 'servicePrice' , '' , false, 0, 0);" class="btn btn-lg btn-primary treatmentPlanInfo hideContainer" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding-left: 0;">
@@ -211,7 +214,7 @@
 				<tr>
 					<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
 					<td class="table-content">0</td>
-					<td class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </td>
+					<td class="table-content" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> @sessionCurrencySymbol 0 </td>
 				</tr>
 			</table>
 			<button onclick="cloneElement(document.getElementById('treatmentPlanContainer'), true, 'productTemplate', 'productList', 'productID', 0, 'productName', '', 'productPrice', 0, true, 1, 0);;" class="btn btn-lg btn-primary treatmentPlanInfo hideContainer" style="background-color: transparent; color: blue; border-style: none; display: flex; align-items: center; box-shadow: none; padding-left: 0;">
@@ -228,15 +231,15 @@
 				</tr>
 				<tr>
 					<td class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_TotalCost"] </td>
-					<td class="table-content" id="totalCost" style="width: 3vw; padding-right: 0.5vw;"> $0 </td>
+					<td class="table-content" id="totalCost" style="width: 3vw; padding-right: 0.5vw;"> @sessionCurrencySymbol 0 </td>
 				</tr>
 				<tr>
 					<td class="table-content" style="padding-left: 0.5vw;"> @LangResources["Patient_Label_Tax"] 6% </td>
-					<td class="table-content" id="tax" style="width: 3vw; padding-right: 0.5vw;"> $0 </td>
+					<td class="table-content" id="tax" style="width: 3vw; padding-right: 0.5vw;"> @sessionCurrencySymbol 0 </td>
 				</tr>
 				<tr style="background-color: #c8dcfc; color: black;">
 					<td class="table-content" style="font-weight: bold; padding-left: 0.5vw;"> @LangResources["Patient_Label_GrandTotal"] </td>
-					<td class="table-content" id="grandTotal" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> $0 </td>
+					<td class="table-content" id="grandTotal" style="font-weight: bold; width: 3vw; padding-right: 0.5vw;"> @sessionCurrencySymbol 0 </td>
 				</tr>
 			</table>
 		</div>
@@ -997,7 +1000,7 @@
 			priceData = originalPrice * units;
 		}
 
-		clone.querySelector("." + priceElement).innerHTML = "$" + priceData;
+		clone.querySelector("." + priceElement).innerHTML = '@sessionCurrencySymbol' + priceData;
 
 		if(edit){
 			var treatmentPlanInfoElement = clone.querySelectorAll(".treatmentPlanInfo");
@@ -1019,10 +1022,10 @@
 		var priceElements = element.querySelectorAll("." + priceElement);
 
 		for (let i = 0; i < priceElements.length; i++) {
-			totalCost += parseInt(priceElements[i].innerHTML.replace("$", ""));
+			totalCost += parseInt(priceElements[i].innerHTML.replace("@sessionCurrencySymbol", ""));
 		}
 
-		element.querySelector(".totalCost").innerHTML = "$" + (totalCost).toFixed(2).replace(/[.,]00$/, "");
+			element.querySelector(".totalCost").innerHTML = "@sessionCurrencySymbol" + (totalCost).toFixed(2).replace(/[.,]00$/, "");
 
 		calculateTotal(e);
 	}
@@ -1033,10 +1036,10 @@
 		var totalCost = 0;
 
 		for (let i = 0; i < priceElements.length; i++) {
-			totalCost += parseInt(priceElements[i].innerHTML.replace("$", ""));
+			totalCost += parseInt(priceElements[i].innerHTML.replace("@sessionCurrencySymbol", ""));
 		}
 
-		element.querySelector(".totalCost").innerHTML = "$" + (totalCost).toFixed(2).replace(/[.,]00$/, "");
+		element.querySelector(".totalCost").innerHTML = "@sessionCurrencySymbol" + (totalCost).toFixed(2).replace(/[.,]00$/, "");
 
 		calculateTotal(e);
 	}
@@ -1073,16 +1076,16 @@
 		var tax = 0;
 
 		for (let i = 0; i < totalCostList.length; i++) {
-			totalCost += parseInt(totalCostList[i].innerHTML.replace("$", ""));
+				totalCost += parseInt(totalCostList[i].innerHTML.replace("@sessionCurrencySymbol", ""));
 		}
 
 		tax = (totalCost * (6 / 100)).toFixed(2).replace(/[.,]00$/, "");
 
 
 		if (totalElement) {
-			totalElement.innerHTML = "$" + (totalCost).toFixed(2).replace(/[.,]00$/, "");
-			taxElement.innerHTML = "$" + tax;
-			grandTotalElement.innerHTML = "$" + (Number(totalCost) + Number(tax)).toFixed(2).replace(/[.,]00$/, "");
+			totalElement.innerHTML = "@sessionCurrencySymbol" + (totalCost).toFixed(2).replace(/[.,]00$/, "");
+			taxElement.innerHTML = "@sessionCurrencySymbol" + tax;
+			grandTotalElement.innerHTML = "@sessionCurrencySymbol" + (Number(totalCost) + Number(tax)).toFixed(2).replace(/[.,]00$/, "");
 		}
 
 	}

@@ -7,6 +7,7 @@
 	ViewBag.SelectedMenu = "patientServicesMenu";
 
 	var currency = httpContextaccessor.HttpContext.Session.GetString("Currency");
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
 }
 
 <style>
@@ -74,7 +75,7 @@
 	<div class="row ms-2">
 		<div class="col-md-6">
 			<div class="d-flex">
-				<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> 
+				<!---<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> --->
 				<span class="textColor" style="font-size: 24px; font-weight: bold;">
 					@LangResources["TreatmentPlan_Label_TreatmentPlans"]
 				</span>
@@ -120,8 +121,7 @@
 
 <script>
 	var paginationLimit = 5;
-	//var rowLimit = 8;
-	var rowLimit = 2;
+	var rowLimit = 10;
 	var startPagination = 1;
 	var endPagination = 0;
 	var totalPagination = 0;
@@ -183,7 +183,7 @@
 					'<th class="table-content">@LangResources["TreatmentPlan_Label_Remarks"]</th>' +
 					// '<th class="table-content"> @LangResources["TreatmentPlan_Label_DateCreated"] </th>' +
 					// '<th class="table-content"> @LangResources["TreatmentPlan_Label_CreatedBy"] </th>' +
-					'<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"] ($) </th>' +
+					'<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"] (@sessionCurrencyCode) </th>' +
 					'<th class="table-content">@LangResources["TreatmentPlan_Label_Organization"]</th>' +
 					'<th class="table-content">@LangResources["TreatmentPlan_Label_Branch"]</th>' +
 					'<th class="table-content"> @LangResources["Patient_Label_Status"] </th>' +
@@ -268,7 +268,7 @@
 							if(@ViewData["CanEdit"]){
 								html = html +
 									'<a class="dropdown-item" href="/PatientServices/ViewEditTreatmentPlan/Edit/' + data.treatmentPlans[i].ID + '"> @LangResources["Patient_Button_Edit"] </a>' +
-									'<a class="dropdown-item" href="#" onclick="ToggleStatus(this, ' + data.treatmentPlans[i].ID + ', ' + data.treatmentPlans[i].Status + ');"> ' + toggleStatus + ' </a>';
+									'<a class="dropdown-item" onclick="ToggleStatus(this, ' + data.treatmentPlans[i].ID + ', ' + data.treatmentPlans[i].Status + ');"> ' + toggleStatus + ' </a>';
 							}
 
 							html = html +

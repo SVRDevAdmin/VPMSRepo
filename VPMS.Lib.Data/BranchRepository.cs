@@ -33,5 +33,21 @@ namespace VPMS.Lib.Data
                 return null;
             }
         }
+
+        public static BranchModel GetBranchByID(int branchID)
+        {
+            try
+            {
+                using (var ctx = new BranchDBContext())
+                {
+                    return ctx.Mst_Branch.Where(x => x.ID == branchID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("BranchRepository >>> GetBranchByID >>> ", ex);
+                return null;
+            }
+        }
     }
 }

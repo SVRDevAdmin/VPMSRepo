@@ -202,9 +202,8 @@ namespace VPMSWeb.Controllers
                 //ViewData["DoctorList"] = _doctorDBContext.mst_doctor.Where(x => x.IsDeleted == 0).ToList();
                 ViewData["DoctorList"] = DoctorRepository.GetDoctorListByOrganizationBranch(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
 
-
                 petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
-			}
+            }
 			catch (Exception ex)
 			{
 				Program.logger.Error("Controller Error >> ", ex);

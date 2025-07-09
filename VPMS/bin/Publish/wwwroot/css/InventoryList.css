@@ -19,3 +19,22 @@
     font-size: 12px;
     margin-left: 5px;
 }
+
+.pageTitle {
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#inventoryList > thead > tr > th {
+    vertical-align: middle;
+}
+
+.searchMagnifying {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}

@@ -415,6 +415,8 @@ namespace VPMSWeb.Controllers
 
 		public int UpdateTreatmentPlan([FromBody] TreatmentPlanModel treatmentPlanModel)
 		{
+			treatmentPlanModel.UpdatedDate = DateTime.Now;
+
 			_treatmentPlanDBContext.Update(treatmentPlanModel);
 			_treatmentPlanDBContext.SaveChanges();
 

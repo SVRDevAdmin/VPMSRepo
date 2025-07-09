@@ -62,7 +62,8 @@ namespace VPMS.Lib.Data.DBContext
 									"(" + (isSuperadmin == 0) + " AND d.OrganizationID = '" + organizationid + "' AND a.BranchID = '" + branchID + "') " +
 									") AND " +
 									"( " + (search == "") + " OR " +
-									"(a.name like '%" + search + "%' OR b.TypeName like '%" + search  + "%' OR a.InventoryName LIKE '%" + search  + "%' ) " +
+									"(a.name LIKE '%" + search + "%' OR b.TypeName LIKE '%" + search  + "%' OR a.SKU LIKE '%" + search  + "%'  OR " +
+									"d.Name LIKE '%" + search + "%' OR e.Name LIKE '%" + search + "%') " +
 									") " +
 									"ORDER BY a.ID " + limit + ";";
 

@@ -10,6 +10,8 @@
 	var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
 	var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
 	var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
+	var sessionCurrencySymbol = httpContextaccessor.HttpContext.Session.GetString("CurrencySymbol");
 
 	var treatmentPlanInfo = ViewData["TreatmentPlan"] as VPMS.Lib.Data.Models.TreatmentPlanExtendedModel;
 
@@ -226,10 +228,10 @@
 					<div class="field-container" style="width: 100%;">
 						<span class="formlabel textColor" style="font-weight: 800; margin-bottom: 1vw;">@LangResources["MenuBar_Label_Service"]</span>
 						<div style=" padding: 1vw;" class="containerBackground">
-							<table class="textColor" id="serviceList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
+							<table class="textColor" id="tblServiceList" style="width:100%; margin-bottom: 2vw; font-size: 1vw;">
 								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
 									<th class="table-content"> @LangResources["MenuBar_Label_Service"] </th>
-									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] (@sessionCurrencyCode) </th>
 									<th class="table-content">  </th>
 								</tr>
 							</table>
@@ -287,7 +289,7 @@
 								<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
 									<th class="table-content"> @LangResources["Patient_Label_Medication"] / @LangResources["Inventory_Label_ProductName"] </th>
 									<th class="table-content"> @LangResources["Patient_Label_Unit"] </th>
-									<th class="table-content"> @LangResources["Patient_Label_Price"] ($) </th>
+									<th class="table-content"> @LangResources["Patient_Label_Price"] (@sessionCurrencyCode) </th>
 									<th class="table-content">  </th>
 								</tr>
 							</table>
@@ -362,7 +364,7 @@
 					</div>
 
 					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
-						<span class="formlabel" id="serviceTotal"></span><span class="formlabel">$</span>
+						<span class="formlabel">@sessionCurrencySymbol</span><span class="formlabel" id="serviceTotal"></span>
 					</div>
 				</div>
 
@@ -372,7 +374,7 @@
 					</div>
 
 					<div class="field-container quaterSize" style=" flex-direction: row; margin-bottom: unset;">
-						<span class="formlabel" id="medicationProductTotal"></span><span class="formlabel">$</span>
+						<span class="formlabel">@sessionCurrencySymbol</span><span class="formlabel" id="medicationProductTotal"></span>
 					</div>
 				</div>
 
@@ -382,7 +384,7 @@
 					</div>
 
 					<div class="field-container quaterSize" style="flex-direction: row; margin-bottom: unset;">
-						<span class="formlabel" id="total"></span><span class="formlabel">$</span>
+						<span class="formlabel">@sessionCurrencySymbol</span><span class="formlabel" id="total"></span>
 					</div>
 				</div>
 
@@ -451,7 +453,7 @@
 			.then(data => {
 
 				for (let i = 0; i < data.length; i++) {
-					cloneElement(false, "serviceTemplate", "serviceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
+					cloneElement(false, "serviceTemplate", "tblServiceList", "serviceID", data[i].ServiceID, "serviceName", data[i].ServiceName, "servicePrice", data[i].Price, false, 0, 0);
 				}
 				calculateTotal();
 			})
@@ -501,7 +503,7 @@
 				return response.json();
 			})
 			.then(data => {
-				cloneElement(true, "serviceTemplate", "serviceList", "serviceID", data.ID, "serviceName", data.Name, "servicePrice", data.Prices, false, 0, 0);
+				cloneElement(true, "serviceTemplate", "tblServiceList", "serviceID", data.ID, "serviceName", data.Name, "servicePrice", data.Prices, false, 0, 0);
 				calculateTotal();
 			})
 			.catch(error => {
@@ -710,10 +712,10 @@
 			CreatedBy: createdBy.value,
 			Status: status.value,
 			TotalPrice: totalPrice.innerHTML,
-			BranchID: 1,
+			BranchID: $('#ddlBranch').val(),
 			IsDeleted: 0,
 			CreatedDate: document.getElementById("TreatmentPlanCreatedDate").value,
-			UpdatedDate: new Date(),
+			//UpdatedDate: new Date(),
 			UpdatedBy: createdBy.value
 		}
 

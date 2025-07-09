@@ -10,6 +10,7 @@ namespace VPMS.Lib.Data.DBContext
 		public DbSet<CountryListModel> mst_countrylist { get; set; }
 		public DbSet<StateModel> mst_state { get; set; }
 		public DbSet<CityModel> mst_city{ get; set; }
+		public DbSet<CurrencyModel> mst_currency { get; set; }
 
 		public CountryDBContext(IConfiguration config)
 		{

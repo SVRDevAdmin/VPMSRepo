@@ -117,9 +117,9 @@ namespace VPMSWeb.Controllers
 						CookieOptions cookies = new CookieOptions
 						{
 							Expires = DateTime.Now.AddHours(1)
-						};						
+						};
 
-                        Response.Cookies.Append("user", userInfo.Surname +" "+ userInfo.LastName, cookies);
+						Response.Cookies.Append("user", userInfo.Surname + " " + userInfo.LastName, cookies);
 						Response.Cookies.Append("userid", userInfo.UserID, cookies);
 
 						HttpContext.Session.SetString("Username", userInfo.Surname + " " + userInfo.LastName);
@@ -130,46 +130,77 @@ namespace VPMSWeb.Controllers
 						HttpContext.Session.SetString("Level1ID", userInfo.Level1ID.ToString());
 
 						var userRole = await _userManager.GetRolesAsync(user);
-                        HttpContext.Session.SetString("RoleName", userRole.First());
+						HttpContext.Session.SetString("RoleName", userRole.First());
 
 						int iIsAdmin = 0;
-                        int iIsDoctor = 0;
-                        var sRoleContext = _roleDBContext.Mst_Roles.Where(x => x.RoleID == userInfo.RoleID).FirstOrDefault();
+						int iIsDoctor = 0;
+						var sRoleContext = _roleDBContext.Mst_Roles.Where(x => x.RoleID == userInfo.RoleID).FirstOrDefault();
 						if (sRoleContext != null)
 						{
 							iIsAdmin = sRoleContext.IsAdmin;
-                            iIsDoctor = sRoleContext.IsDoctor;
-                        }
-                        HttpContext.Session.SetString("IsAdmin", iIsAdmin.ToString());
-                        HttpContext.Session.SetString("IsDoctor", iIsDoctor.ToString());
+							iIsDoctor = sRoleContext.IsDoctor;
+						}
+						HttpContext.Session.SetString("IsAdmin", iIsAdmin.ToString());
+						HttpContext.Session.SetString("IsDoctor", iIsDoctor.ToString());
 
-                        int iOrgID = -1;
+						int iOrgID = -1;
 						iOrgID = userInfo.OrganizationID.Value;
-                        //var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
-                        //if (sBranchContext != null)
-                        //{
-                        //	iOrgID = sBranchContext.OrganizationID;
+						//var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
+						//if (sBranchContext != null)
+						//{
+						//	iOrgID = sBranchContext.OrganizationID;
 
-                        //}
-                        // HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
-                        //HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
-                        HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
+						//}
+						// HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
+						//HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
+						HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
 
-                        int iLevel = -1;
+						int iLevel = -1;
 						var sOrgContext = _organizationDBContext.Mst_Organisation.Where(x => x.Id == iOrgID).FirstOrDefault();
 						if (sOrgContext != null)
 						{
 							iLevel = sOrgContext.Level;
-                        }
-                        HttpContext.Session.SetString("Level", iLevel.ToString());
+						}
 
-                        HttpContext.Session.SetString("BranchCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name) + userInfo.BranchID);
-                        HttpContext.Session.SetString("OrganisationCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name));
+						String sCountryCode = "";
+						String sCurrencyCode = "";
+						String sCurrencySymbol = "";
+						var sBranchObj = BranchRepository.GetBranchByID(userInfo.BranchID.Value);
+						if (sBranchObj != null)
+						{
+							var sStateObj = CountryRepository.GetCountryByState(ConfigSettings.GetConfigurationSettings(), sBranchObj.Name);
+							if (sStateObj != null)
+							{
+								var sCountryObj = CountryRepository.GetCountryByID(ConfigSettings.GetConfigurationSettings(), sStateObj.CountryID);
+								if (sCountryObj != null)
+								{
+									sCountryCode = sCountryObj.CountryCode;
+								}
+							}
+						}
 
-                        //var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
-                        //var organisationID = organisation == null ? 0 : organisation.OrganizationID;
+						if (String.IsNullOrEmpty(sCountryCode))
+						{
+							sCountryCode = "MY";
+						}
 
-                        //HttpContext.Session.SetString("OrganisationID", organisationID.ToString());
+						HttpContext.Session.SetString("Level", iLevel.ToString());
+
+						HttpContext.Session.SetString("BranchCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name) + userInfo.BranchID);
+						HttpContext.Session.SetString("OrganisationCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name));
+
+						//var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
+						//var organisationID = organisation == null ? 0 : organisation.OrganizationID;
+
+						//HttpContext.Session.SetString("OrganisationID", organisationID.ToString());
+						var sCurrencyObj = CountryRepository.GetCurrencyMasterByCountryCode(ConfigSettings.GetConfigurationSettings(), sCountryCode);
+						if (sCurrencyObj != null)
+						{
+							sCurrencyCode = sCurrencyObj.CurrencyCode;
+							sCurrencySymbol = sCurrencyObj.CurrencySymbol.ToString();
+						}
+						HttpContext.Session.SetString("CurrencyCode", sCurrencyCode);
+                        HttpContext.Session.SetString("CurrencySymbol", sCurrencySymbol);
 
                         var randomAlphanumeric = GenerateRandomAlphanumeric(32);
 						var sessionCreatedOn = DateTime.Now;

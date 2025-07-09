@@ -82,9 +82,13 @@ namespace VPMSExpensesSummaryTask
                            ServiceName = expenses.ServiceName,
                            TotalValue = expenses.ServicePrice,
                            CreatedDate = DateTime.Now,
-                           CreatedBy = "SYSTEM"
+                           CreatedBy = "SYSTEM",
+                           EntityType = expenses.EntityName
                         });
+                    }
 
+                    if (sSummaryObj.Count > 0)
+                    {
                         AnalyticsRepository.InsertExpensesSummary(sSummaryObj);
                     }
 

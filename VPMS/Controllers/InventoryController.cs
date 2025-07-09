@@ -102,6 +102,7 @@ namespace VPMSWeb.Controllers
         {
             int organizationID = 0;
 			int branchID = 0;
+            int roleIsAdmin = 0;
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
             {
                 organizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
@@ -112,14 +113,20 @@ namespace VPMSWeb.Controllers
                 branchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
             }
 
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+
             int isSuperadmin = 0;
             var organizationObj = OrganizationRepository.GetOrganizationByID(organizationID);
             if (organizationObj != null)
             {
-                if (organizationObj.Level == 0 || organizationObj.Level == 1 || organizationObj.Level == 2)
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
                 {
                     isSuperadmin = 1;
                 }
+				else
+				{
+					isSuperadmin = 0;
+				}
             }
 
             List<List<InventoryInfoList>> inventoryInfoLists = new List<List<InventoryInfoList>>();

@@ -26,4 +26,15 @@ namespace VPMS.Lib.Data.Models
 		public int StateID { get; set; }
 		public String? City { get; set; }
 	}
+
+	//public class CurrencyModel : AuditModel
+	//{
+	//	[Key]
+	//	public int ID { get; set; }
+	//	public String? Country { get; set; }
+	//	public String? CurrencyCode { get; set; }
+	//	public String? CurrencySymbol { get; set; }
+	//	public String? DisplayFormat { get; set; }
+	//	public int? Status {  get; set; }
+	//}
 }

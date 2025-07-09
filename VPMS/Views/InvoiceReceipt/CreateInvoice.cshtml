@@ -7,6 +7,7 @@
 	ViewBag.SelectedMenu = "invoiceReceiptMenu";
 
 	var role = httpContextaccessor.HttpContext.Session.GetString("RoleName");
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
 }
 
 <style>
@@ -171,8 +172,8 @@
 					<th class="table-content" style="padding: 0 1vw;"> @LangResources["InvoiceReceipt_Label_PurchaseItemDetails"] <span style="color: red;">*</span> </th>
 					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["InvoiceReceipt_Label_Quantity"] <span style="color: red;">*</span> </th>
 					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["InvoiceReceipt_Label_Discount"] (%) </th>
-					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["Patient_Label_Price"]/@LangResources["Inventory_Label_Quantity"] ($) </th>
-					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["InvoiceReceipt_Label_TotalPrice"] ($) </th>
+					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["Patient_Label_Price"]/@LangResources["Inventory_Label_Quantity"] (@sessionCurrencyCode) </th>
+					<th class="table-content" style="padding: 0 1vw; width: 9vw;"> @LangResources["InvoiceReceipt_Label_TotalPrice"] (@sessionCurrencyCode) </th>
 					<th class="table-content" style="padding: 0 1vw; width: 0;"></th>
 				</tr>
 			</table>
@@ -184,16 +185,16 @@
 		<div style="display: flex; justify-content: flex-end;">
 			<div class="halfSize">
 				<div style="display: flex; justify-content: space-between; margin: 0 1vw;">
-					<div class="formlabel" style="margin: 0;">@LangResources["InvoiceReceipt_Button_SubTotal"] ($)</div>
+					<div class="formlabel" style="margin: 0;">@LangResources["InvoiceReceipt_Button_SubTotal"] (@sessionCurrencyCode)</div>
 					<div class="formlabel" id="SubTotal" style="margin: 0; padding: 0 1vw;">0</div>
 				</div>
 				<div style="display: flex; justify-content: space-between; margin: 0 1vw;">
-					<div class="formlabel" style="margin: 0;">@LangResources["Patient_Label_Tax"] ($)</div>
+					<div class="formlabel" style="margin: 0;">@LangResources["Patient_Label_Tax"] (@sessionCurrencyCode)</div>
 					<div class="formlabel" id="Tax" style="margin: 0; padding: 0 1vw;">0</div>
 				</div>
 				<hr />
 				<div style="display: flex; justify-content: space-between; margin: 0 1vw;">
-					<div class="formlabel" style="margin: 0;">@LangResources["TreatmentPlan_Label_Total"] (USD)</div>
+					<div class="formlabel" style="margin: 0;">@LangResources["TreatmentPlan_Label_Total"] (@sessionCurrencyCode)</div>
 					<div class="formlabel" id="Total" style="margin: 0; padding: 0 1vw;">0</div>
 				</div>
 				@* <div style="display: flex; border-style: solid; border-width: 0.1vw; margin: 0 1vw; margin-top: 1vw; border-radius: 0.4vw;">

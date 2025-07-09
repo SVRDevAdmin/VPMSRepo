@@ -290,9 +290,12 @@
 
         var sRemarks = '';
         var sUpdateFtn = '';
-        sUpdateFtn = '<a onclick="editButton(\'' + dataObj.appointmentID + '\')" style="cursor: pointer;">' +
-                     '<i class="bi bi-pencil ms-2 text-white"></i>' +
-                     '</a>';
+        var sTricolonBtn = '';
+        //sUpdateFtn = '<a onclick="editButton(\'' + dataObj.appointmentID + '\')" style="cursor: pointer;">' +
+        //             '<i class="bi bi-pencil ms-2 text-white"></i>' +
+        //             '</a>';
+
+        sTricolonBtn = generateTricolonButton(dataObj.status, dataObj.appointmentID);
 
         if (dataObj.status == 3)
         {
@@ -362,9 +365,12 @@
                   '</div>' +
                    
                   '<div class="col-md-5">' + 
-                  '<div class="row mt-3 align-items-center ApptBoxStatusRow">' +
-                  '<div class="ms-4 text-center ' + statusStyle + '">' +
+                  '<div class="row mt-3 ApptBoxStatusRow">' +
+                  '<div class="col d-flex justify-content-end">' +
+                  '<div class="me-3 text-center ' + statusStyle + '">' +
                   '<label class="ApptBoxStatusFont">' + statusText + '</label>' +
+                  '</div>' +
+                  sTricolonBtn + 
                   '</div>' +
                   '</div>' +
                   '<div class="row mt-2">&nbsp;</div>' + 
@@ -378,6 +384,27 @@
                   '</div>';
                   
         return strHtml;
+    }
+
+    function generateTricolonButton(status, apptID)
+    {
+        var sHideCss = '';
+        if (status == 1 || status == 2)
+        {
+            sHideCss = 'display: none;';
+        }
+
+        var tricolonHtml = '';
+        tricolonHtml = '<button id="btnTricolon" type="button" class="btn" data-bs-toggle="dropdown" ' + 
+                       'aria-expanded="false" style="padding: 0px; ' + sHideCss + '">' +
+
+                       '<img class="TriColonIcon" />' +
+                       '</button>' +
+                       '<div class="dropdown-menu TriColonMenu">' +
+                       '<a class="dropdown-item" onclick="editButton(\'' + apptID + '\')">' + "@Html.Raw(LangResources["Appointment_Button_Edit"])" + '</a>' +
+                       '</div>';
+
+        return tricolonHtml;
     }
 
     function generateEmptyGrid()

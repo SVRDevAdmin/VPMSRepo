@@ -78,5 +78,6 @@ namespace VPMSCustomer.Lib.Data.Models
         public int? ServiceID { get; set; }
         public String? ServiceName { get; set; }
         public Decimal? ServicePrice { get; set; }
+        public String? EntityName { get; set; }
     }
 }

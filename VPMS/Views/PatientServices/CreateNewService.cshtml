@@ -9,6 +9,7 @@
 	var sessionLevel = httpContextaccessor.HttpContext.Session.GetString("Level");
 	var sessionIsAdmin = httpContextaccessor.HttpContext.Session.GetString("IsAdmin");
 	var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
 }
 
 <style>
@@ -119,7 +120,7 @@
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Price"] ($)</span>
+					<span class="formlabel">@LangResources["Patient_Label_Price"] (@sessionCurrencyCode)</span>
 					<input id="Price" type="number" min="0" onchange="parseFloat(parseFloat(this.value).toFixed(2));" class="form-control form-field inputField" />
 				</div>
 

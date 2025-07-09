@@ -6,6 +6,8 @@
 @{
 	ViewData["Title"] = "Patients Page";
 	ViewBag.SelectedMenu = "patientsMenu";
+
+	var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("CurrencyCode");
 }
 
 <style>
@@ -70,7 +72,7 @@
 	<div class="textColor treatmentPlanGroup" style="border-style: dashed; border-radius: 1vw; padding: 1vw; font-size: 1vw; margin-right: 1vw; margin-bottom: 1vw;">
 		<input type="text" id="invoiceID" hidden/>
 		<div style=" padding: 1vw; border-radius: 0.5vw; margin-top: 1vw;" class="containerBackground">
-			<table class="textColor" id="serviceList" style="width:100%; font-size: 1vw;">
+			<table class="textColor" id="tblServiceList" style="width:100%; font-size: 1vw;">
 				<tr style="border-bottom-width: 0.1vw; border-color: darkgray;">
 					<th class="table-content" style="width: 20vw; padding-left: 0.5vw;"> @LangResources["MenuBar_Label_Service"] </th>
 					<th class="table-content"> @LangResources["TreatmentPlan_Label_Cost"]</th>
@@ -103,7 +105,7 @@
 				<input class="grandDiscount hideContainer" id="grandDiscount" onchange="calculateInvoice();" onkeyup="calculateInvoice();" type="number" style="width: 5vw;" value="0" min="0" max="100" />
 			</div>
 			<div style="display: flex; margin-bottom: 0.5vw; align-items: center;">
-				<div style="font-weight: bold; width: 10vw;"> @LangResources["Patient_Label_GrandTotal"] ($) </div> 
+				<div style="font-weight: bold; width: 10vw;"> @LangResources["Patient_Label_GrandTotal"] (@sessionCurrencyCode) </div>
 				<div id="grandTotal" style="font-weight: bold;">0</div>
 			</div>
 		</div>
@@ -411,7 +413,7 @@
 					'<tr style="border-bottom: 0.1vw solid; border-bottom-color: lightgray;">' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["InvoiceReceipt_Label_InvoiceNo"]</th>' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Date"]</th>' +
-					'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["InvoiceReceipt_Label_Fee"] ($)</th>' +
+					'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["InvoiceReceipt_Label_Fee"] (@sessionCurrencyCode)</th>' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["Patient_Label_Status"]</th>' +
 						'<th style="padding: 0.5vw 2vw; font-weight: bold;">@LangResources["InvoiceReceipt_Label_Action"]</th>' +
 					'</tr>' +
@@ -526,7 +528,7 @@
 			.then(data => {
 				for (let i = 0; i < data.length; i++){
 					const template = document.getElementById("serviceTemplate");
-					var tableElement = document.getElementById("serviceList");
+					var tableElement = document.getElementById("tblServiceList");
 					const clone = template.content.cloneNode(true);
 
 					clone.querySelector(".serviceID").innerHTML = data[i].ID;

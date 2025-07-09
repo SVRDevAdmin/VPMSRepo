@@ -39,7 +39,7 @@
 }
 
 .PendingStatusLabel {
-    width: 60%;
+    width: 80%;
     height: 100%;
     border-radius: 6px;
     background-color: #ffc5c4;
@@ -48,7 +48,7 @@
 }
 
 .ConfirmedStatusLabel {
-    width: 60%;
+    width: 80%;
     height: 100%;
     border-radius: 6px;
     background-color: #c2f7ea;
@@ -57,7 +57,7 @@
 }
 
 .CompletedStatusLabel {
-    width: 60%;
+    width: 80%;
     height: 100%;
     border-radius: 6px;
     background-color: #c6c6c6;
@@ -110,6 +110,27 @@
     height: 18px;
 }
 
+.TriColonIcon {
+    content: url("../Images/more_white.png");
+    width: 12px;
+    height: 16px;
+    vertical-align: top;
+}
+
+#btnTricolon:focus, #btnTricolon:active, #btnTricolon.show {
+    border: 0px !important;
+}
+
+.TriColonMenu{
+    font-size: 12px !important;
+    background-color: white !important;
+}
+
+.TriColonMenu > a:hover{
+    color: black !important;
+    background-color: white !important;
+}
+
 .modalButton {
     width: 45%;
     font-size: 12px;
@@ -126,3 +147,4 @@
     width: 320px;
     height: 130px;
 }
+

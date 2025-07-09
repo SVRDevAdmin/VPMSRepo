@@ -358,11 +358,23 @@ namespace VPMSCustomer.Lib.Data
                     sConn.Open();
 
                     String sSelectCommand = "SELECT A.UpdatedDate AS 'InvoiceDate', M.PatientID, B.PetID, " +
-                                            "C.ServiceID, C.ServiceName, C.TotalPrice AS 'ServicePrice' " +
-                                            "FROM mst_invoicereceipt AS A " + 
+                                            "C.ServiceID as 'ServiceID', C.ServiceName AS 'ServiceName', " +
+                                            "C.TotalPrice AS 'ServicePrice', 'Service' AS 'EntityName' " +
+                                            "FROM mst_invoicereceipt AS A " +
                                             "INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
                                             "INNER JOIN txn_treatmentplan_services AS C ON C.PlanID = B.ID " +
-                                            "INNER JOIN mst_pets AS M ON M.ID = B.PetID " + 
+                                            "INNER JOIN mst_pets AS M ON M.ID = B.PetID " +
+                                            "WHERE (A.UpdatedDate >= '" + sTransStartDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " +
+                                            "A.UpdatedDate <= '" + sTransEndDate.ToString("yyyy-MM-dd HH:mm:ss") + "') AND " +
+                                            "A.Status = '3' " +
+                                            "UNION " +
+                                            "SELECT A.UpdatedDate AS 'InvoiceDate', M.PatientID, B.PetID, " +
+                                            "C.ProductID AS 'ServiceID', C.ProductName AS 'ServiceName', " +
+                                            "C.TotalPrice AS 'ServicePrice', 'Product' AS 'EntityName' " +
+                                            "FROM mst_invoicereceipt AS A  " +
+                                            "INNER JOIN txn_treatmentplan AS B ON B.ID = A.TreatmentPlanID " +
+                                            "INNER JOIN txn_treatmentplan_Products AS C ON C.PlanID = B.ID " +
+                                            "INNER JOIN mst_pets AS M ON M.ID = B.PetID " +
                                             "WHERE (A.UpdatedDate >= '" + sTransStartDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND " +
                                             "A.UpdatedDate <= '" + sTransEndDate.ToString("yyyy-MM-dd HH:mm:ss") + "') AND " +
                                             "A.Status = '3' ";
@@ -380,6 +392,7 @@ namespace VPMSCustomer.Lib.Data
                                 sExpensesObj.ServiceID = Convert.ToInt32(sReader["ServiceID"]);
                                 sExpensesObj.ServiceName = sReader["ServiceName"].ToString();
                                 sExpensesObj.ServicePrice = Convert.ToDecimal(sReader["ServicePrice"]);
+                                sExpensesObj.EntityName = sReader["EntityName"].ToString();
 
                                 sResultList.Add(sExpensesObj);
                             }
