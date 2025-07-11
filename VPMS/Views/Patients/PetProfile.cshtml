@@ -36,6 +36,7 @@
 <script src="~/lib/datepicker/gijgo.min.js" type="text/javascript"></script>
 <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="~/lib/chartjs/js/v2.9.4/Chart.js"></script>
+<script src="~/lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.min.js"></script>
 
 <style>
 	.field-container {
@@ -188,6 +189,16 @@
 
 	.dropdown-arrow {		
 		transition: 0.6s ease;
+	}
+
+	.dropdown-content > a {
+		font-size: 12px;
+		color: black;
+	}
+
+	#chartSelection{
+		font-size: 12px;
+		color: black;
 	}
 </style>
 
@@ -669,11 +680,14 @@
 			<div style="display: flex; justify-content: space-between; margin-bottom: 2vw;">
 				<span style="font-weight: bold;"> @LangResources["Patient_Title_PetGrowthTrend"]</span>
 				<div class="dropdown">
-					<button class="dropbtn textColor"> <span id="chartSelection"></span> <i class="fa-solid fa-chevron-down dropdown-arrow"></i></button>
+					<button class="dropbtn textColor"> 
+						<span id="chartSelection"></span> 
+						<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+					</button>
 					<div class="dropdown-content containerBackground4" style="border: 0.1vw solid; border-radius: 1vw;">
-						<a href="#" class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="changeChart('BMI', this.innerHTML)">@LangResources["Patient_Label_BMI"]</a>
-						<a href="#" class="textColor" onclick="changeChart('Weight', this.innerHTML);">@LangResources["Patient_Label_Weight"]</a>
-						<a href="#" class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="changeChart('Height', this.innerHTML);">@LangResources["Patient_Label_Height"]</a>
+						<a class="textColor" style="border-top-left-radius: 1vw; border-top-right-radius: 1vw;" onclick="changeChart('BMI', this.innerHTML)">@LangResources["Patient_Label_BMI"]</a>
+						<a class="textColor" onclick="changeChart('Weight', this.innerHTML);">@LangResources["Patient_Label_Weight"]</a>
+						<a class="textColor" style="border-bottom-left-radius: 1vw; border-bottom-right-radius: 1vw;" onclick="changeChart('Height', this.innerHTML);">@LangResources["Patient_Label_Height"]</a>
 					</div>
 				</div>
 			</div>
@@ -1006,6 +1020,7 @@
 	var borderOpacity = "0.1";
 	var axisColor = "black";
 	var currentGraph = "";
+	var lstAnnotation = [];
 
 	getPetGrowth();
 
@@ -1080,14 +1095,41 @@
 			if (name == 'Weight') {
 				yData = weight;
 				yLabel = document.getElementById("weight").innerHTML + " (kg)";
+
+				lstAnnotation = [];
 			}
 			else if (name == 'Height') {
 				yData = height;
 				yLabel = document.getElementById("height").innerHTML + " (cm)";
+
+				lstAnnotation = [];
 			}
 			else if (name == 'BMI') {
 				yData = bmi;
 				yLabel = document.getElementById("bmi").innerHTML;
+
+				lstAnnotation = [
+						{
+							drawTime: 'afterDraw',
+							id: 'a-line-1',
+							type: 'line',
+							mode: 'horizontal',
+							scaleID: 'y-axis-0',
+							value: '10',
+							borderColor: 'red',
+							borderWidth: 2
+						},
+						{
+							drawTime: 'afterDraw',
+							id: 'a-line-2',
+							type: 'line',
+							mode: 'horizontal',
+							scaleID: 'y-axis-0',
+							value: '13',
+							borderColor: 'red',
+							borderWidth: 2
+						}
+						]
 			}
 
 			chartElement = new Chart("myChart", {
@@ -1135,6 +1177,31 @@
 								return title;
 							}
 						}
+					},
+					annotation: {
+						annotations: lstAnnotation
+						// annotations: [
+						// {
+						// 	drawTime: 'afterDraw',
+						// 	id: 'a-line-1',
+						// 	type: 'line',
+						// 	mode: 'horizontal',
+						// 	scaleID: 'y-axis-0',
+						// 	value: '10',
+						// 	borderColor: 'red',
+						// 	borderWidth: 2
+						// },
+						// {
+						// 	drawTime: 'afterDraw',
+						// 	id: 'a-line-2',
+						// 	type: 'line',
+						// 	mode: 'horizontal',
+						// 	scaleID: 'y-axis-0',
+						// 	value: '13',
+						// 	borderColor: 'red',
+						// 	borderWidth: 2
+						// }
+						// ]
 					}
 				}
 			});

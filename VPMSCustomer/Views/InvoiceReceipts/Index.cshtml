@@ -8,6 +8,8 @@
     var LoginSessionID = httpContextaccessor.HttpContext.Session.GetString("LoginSession");
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
+    var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("PatientCurrencyCode");
+    var sessionCurrencySymbol = httpContextaccessor.HttpContext.Session.GetString("PatientCurrencySymbol");
 }
 
 <link rel="stylesheet" href="~/css/InvoiceReceipt.css" />
@@ -449,7 +451,7 @@
                                 <th scope="col" class="text-left" style="width: 20%;">@LangResources["InvReceipts_Label_PetName"]</th>
                                 <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_GrandDiscount"]</th>
                                 <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_Tax"]</th>
-                                <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_Fees"]</th>
+                                <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_Fees"] (@sessionCurrencySymbol)</th>
                                 <th scope="col" class="text-left" style="width: 5%;">&nbsp;</th>
                             </tr>
                         </thead>
@@ -469,7 +471,7 @@
                                 <th scope="col" class="text-left" style="width: 20%;">@LangResources["InvReceipts_Label_PetName"]</th>
                                 <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_GrandDiscount"]</th>
                                 <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_Tax"]</th>
-                                <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_Fees"]</th>
+                                <th scope="col" class="text-left" style="width: 10%;">@LangResources["InvReceipts_Label_Fees"] (@sessionCurrencySymbol)</th>
                                 <th scope="col" class="text-left" style="width: 5%;">&nbsp;</th>
                             </tr>
                         </thead>
@@ -613,8 +615,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-left" style="width: 45%">@LangResources["InvReceipts_Title_Service"]</th>
-                                        <th class="text-left" style="width: 35%">@LangResources["InvReceipts_Title_Discount"]</th>
-                                        <th class="text-left" style="width: 20%">@LangResources["InvReceipts_Title_Price"]</th>
+                                        <th class="text-left" style="width: 35%">@LangResources["InvReceipts_Title_Discount"] (@sessionCurrencyCode)</th>
+                                        <th class="text-left" style="width: 20%">@LangResources["InvReceipts_Title_Price"] (@sessionCurrencyCode)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -628,8 +630,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-left" style="width: 45%">@LangResources["InvReceipts_Title_Product"]</th>
-                                        <th class="text-left" style="width: 35%">@LangResources["InvReceipts_Title_Discount"]</th>
-                                        <th class="text-left" style="width: 20%">@LangResources["InvReceipts_Title_Price"]</th>
+                                        <th class="text-left" style="width: 35%">@LangResources["InvReceipts_Title_Discount"] (@sessionCurrencyCode)</th>
+                                        <th class="text-left" style="width: 20%">@LangResources["InvReceipts_Title_Price"] (@sessionCurrencyCode)</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -9,6 +9,8 @@
     var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
     var sessionPatientID = httpContextaccessor.HttpContext.Session.GetString("PatientID");
     var sessionThemes = httpContextaccessor.HttpContext.Session.GetString("CustomerSettings_Themes");
+    var sessionCurrencyCode = httpContextaccessor.HttpContext.Session.GetString("PatientCurrencyCode");
+    var sessionCurrencySymbol = httpContextaccessor.HttpContext.Session.GetString("PatientCurrencySymbol");
 }
 
 <link rel="stylesheet" href="~/css/Analytics.css">
@@ -100,13 +102,13 @@
 
                 let totalExpenses = totalArray.reduce((a, b) => a + b, 0);
                 
-                LoadSummaryChart(serviceArray, totalArray, "@Html.Raw(LangResources["Analytics_Label_TotalSpent"])" + totalExpenses);
+                LoadSummaryChart(serviceArray, totalArray, "@Html.Raw(LangResources["Analytics_Label_TotalSpent"])" + "@sessionCurrencySymbol" + totalExpenses);
 
                 $('#ddlYearSelection').html(iYear);
             }
             else 
             {
-                LoadSummaryChart([], [], "@Html.Raw(LangResources["Analytics_Label_TotalSpent"])" + '0');
+                LoadSummaryChart([], [], "@Html.Raw(LangResources["Analytics_Label_TotalSpent"])" + "@sessionCurrencySymbol" + '0');
 
                 $('#ddlYearSelection').html(iYear);
             }
@@ -221,7 +223,7 @@
                     var sBreakdownHtml = '';
                     sBreakdownHtml = '<div class="row mb-5">' +
                                      '<label class="ms-2 breakdownPetName">' + (sPetObject != null ? sPetObject[0].petName : '') + '</label>' + 
-                                     '<label class="ms-2 breakdownAmount">' + sPetObject[0].petTotal + '</label>' +  
+                                     '<label class="ms-2 breakdownAmount">' + "@sessionCurrencySymbol"  + sPetObject[0].petTotal + '</label>' +
                                      '<div id="barContainer" class="mt-1 ms-2 container">' + 
 
                                      sBarHtml +

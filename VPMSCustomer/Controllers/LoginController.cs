@@ -126,10 +126,12 @@ namespace VPMSCustomer.Controllers
                         }
 
                         String sCountryID = "0";
+                        String sCountryCode = "";
                         var sCountryObj = MastercodeRepository.GetCountryInfoByName(PatientCountry);
                         if (sCountryObj != null)
                         {
                             sCountryID = sCountryObj.ID.ToString();
+                            sCountryCode = sCountryObj.CountryCode;
                         }
                         
                         String sCountrySettings = "";
@@ -163,6 +165,17 @@ namespace VPMSCustomer.Controllers
                             }
                         }
 
+
+                        String sCurrencyCode = "";
+                        String sCurrencySymbol = "";
+                        var sCurrencyObj = CurrencyRepository.GetCurrencyInfoByCountryCode(sCountryCode);
+                        if (sCurrencyObj != null)
+                        {
+                            sCurrencyCode = sCurrencyObj.CurrencyCode;
+                            sCurrencySymbol = sCurrencyObj.CurrencySymbol;
+                        }
+
+
                         HttpContext.Session.SetString("CustomerSettings_Language", sLanguageSettings);
                         HttpContext.Session.SetString("CustomerSettings_Country", sCountrySettings);
                         HttpContext.Session.SetString("CustomerSettings_Themes", sThemesSettings);
@@ -174,6 +187,8 @@ namespace VPMSCustomer.Controllers
                         HttpContext.Session.SetString("PatientPostCode", PatientPostCode);
                         HttpContext.Session.SetString("PatientCity", PatientCity);
                         HttpContext.Session.SetString("PatientCountryID", sCountryID);
+                        HttpContext.Session.SetString("PatientCurrencyCode", sCurrencyCode);
+                        HttpContext.Session.SetString("PatientCurrencySymbol", sCurrencySymbol);
 
                         // ---------- Create Login Session ------------ //
                         DateTime dtSession = DateTime.Now;

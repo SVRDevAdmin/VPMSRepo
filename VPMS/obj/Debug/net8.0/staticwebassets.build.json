@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XAsYdrqIBYcMYs9DgERklXaiDyrTAYl0s0JsiQckCfo=",
+  "Hash": "AX9quxeT4UNTcYD6EliB+uXTRoNNngvnB8LpwNSRDgs=",
   "Source": "VPMSWeb",
   "BasePath": "_content/VPMSWeb",
   "Mode": "Default",
@@ -4593,6 +4593,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\chartjs\\js\\v2.9.4\\Chart.js"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.js",
+      "SourceId": "VPMSWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\",
+      "BasePath": "_content/VPMSWeb",
+      "RelativePath": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "f7u0xncnkm",
+      "Integrity": "65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.js"
+    },
+    {
+      "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.min.js",
+      "SourceId": "VPMSWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\",
+      "BasePath": "_content/VPMSWeb",
+      "RelativePath": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.min#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yhsmd828fl",
+      "Integrity": "Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.min.js"
     },
     {
       "Identity": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\lib\\chartumd\\chart.umd.min.js",
@@ -26373,6 +26415,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-/Mmeek8241V2ZB5V0ZY5Kb5kgOV39K/tE0gdx/2d0IU="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.f7u0xncnkm.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "26848"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 11 Jul 2025 03:48:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "f7u0xncnkm"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "26848"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 11 Jul 2025 03:48:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-65VrZtDIgFNXMsE+kzBqH4uB8vpABjMijjAnb9x8ViY="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.min.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13748"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 11 Jul 2025 03:48:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4="
+        }
+      ]
+    },
+    {
+      "Route": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.min.yhsmd828fl.js",
+      "AssetFile": "C:\\Dev\\VPMS\\VPMS\\wwwroot\\lib\\chartjs-plugin-annotation\\v0.5.7\\chartjs-plugin-annotation.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13748"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 11 Jul 2025 03:48:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yhsmd828fl"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/chartjs-plugin-annotation/v0.5.7/chartjs-plugin-annotation.min.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4="
         }
       ]
     },
