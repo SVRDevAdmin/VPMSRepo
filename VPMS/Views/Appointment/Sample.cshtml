@@ -1,0 +1,2012 @@
+﻿@inject IHttpContextAccessor httpContextaccessor
+@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@model List<VPMSWeb.Controllers.AppointmentViewModel>
+
+@{
+    ViewData["Title"] = "Appointment";
+    ViewData["SelectedMenu"] = "appointmentMenu";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionUserID = httpContextaccessor.HttpContext.Session.GetString("UserID");
+}
+
+<link rel="stylesheet" href="~/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="~/css/Appointment.css" />
+<script src="~/lib/moment.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap-datetimepicker.min.js"> </script>
+
+<style>
+    .styleBtnResch {
+        content: url('/images/icons-accept.png');
+        width: 24px;
+        height: 24px;
+    }
+
+/*     .test {
+        width: 100%;
+        height: auto;
+        position: relative !important;
+        left: 0% !important;
+        margin-right: 0% !important;
+    } */
+
+/*     .fc-v-event{
+        width: auto !important;
+        height: 45px !important;
+    } */
+</style>
+
+<script>
+    var iPendingApproved = 3;
+    var iPendingAccept = 4;
+
+    var sCalendarView = 'dayGridMonth';
+    if (sessionStorage.getItem("CalendarView") != null)
+    {
+        sCalendarView = sessionStorage.getItem("CalendarView");
+    }
+
+    var calendar;
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('apptCalendar');
+        var viewDropdownMenu = document.getElementById('viewDropdownMenu');
+
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: '',
+                center: 'title',
+                right: 'prev,next,customButton'
+            },
+            initialView: 'dayGridMonth',
+            views: {
+                dayGridMonth: {
+                    titleFormat: {
+                        year: 'numeric',
+                        month: 'long'
+                    },
+                    buttonIcons: {
+                        prev: 'chevron-left',
+                        next: 'chevron-right',
+                        customButton: 'chevron-down'
+                    },
+                    dayHeaderFormat: {
+                        weekday: 'long'
+                    },
+                    displayEventTime: false,
+                    eventClick: function (args) {
+                        $('#lbTitle').html('');
+                        $('#lbTime').html('');
+                        $('#lbDoctor').html('');
+                        $('#lbPet').html('');
+                        $('#lbOwner').html('');
+
+                        var extendedObj = args.event._def.extendedProps;
+                        $('#hidApptID').val(extendedObj.apptid);
+                        $('#lbTitle').html(args.event._def.title);
+                        $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' +
+                                          moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
+                        $('#lbDoctor').html(extendedObj.doctor);
+                        $('#lbPet').html(extendedObj.Pet);
+                        $('#lbOwner').html(extendedObj.Owner);
+
+                        if (extendedObj.status == 3){
+                            $('#divFuncBtn').show();
+                        }
+                        else {
+                            $('#divFuncBtn').hide();
+                        }
+
+                        $('#EventModal').modal('show');
+                    },
+                    eventDidMount: function(info){
+                          if (info.event.extendedProps.background) {
+                            info.el.style.background = info.event.extendedProps.background;
+                          }
+                    }
+                },
+                // timeGridWeek: {
+                //     titleFormat: {
+                //         year: 'numeric',
+                //         month: 'long'
+                //     },
+                //     dayHeaderFormat: {
+                //         weekday: 'long',
+                //         day: '2-digit'
+                //     },
+                //     displayEventTime: false,
+                //     allDaySlot: false,
+                //     slotMinTime: "08:00:00",
+                //     slotMaxTime: "24:00:00",
+                //     slotDuration: "00:15:00",
+                //     slotLabelFormat: {
+                //         hour: 'numeric',
+                //         minute: '2-digit',
+                //         hour12: false
+                //     },
+                //     slotEventOverlap: false,
+                //     dayHeaderContent: function(args){
+                //         const dayHeaderHtml = "<div>" + moment(args.date).format("ddd") +
+                //                             "<br/>" + moment(args.date).format("D") +
+                //                             "</div>";
+                //         return {
+                //             html: dayHeaderHtml
+                //         }
+                //     },
+                //     eventContent: function (args, createElement) {
+                //         const extendedObj = args.event._def.extendedProps;
+                //         const contentHtml = PopulateWeekViewsEvent(args, extendedObj);
+                //         //console.info("EventContent:", args.event);
+                //         return {
+                //             html: contentHtml
+                //         };
+                //     },
+                //     eventClick: function (args) {
+                //         $('#lbTitle').html('');
+                //         $('#lbTime').html('');
+                //         $('#lbDoctor').html('');
+                //         $('#lbPet').html('');
+                //         $('#lbOwner').html('');
+
+                //         var extendedObj = args.event._def.extendedProps;
+                //         $('#hidApptID').val(extendedObj.apptid);
+                //         $('#lbTitle').html(args.event._def.title);
+                //         $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' +
+                //                           moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
+                //         $('#lbDoctor').html(extendedObj.doctor);
+                //         $('#lbPet').html(extendedObj.Pet);
+                //         $('#lbOwner').html(extendedObj.Owner);
+
+                //         if (extendedObj.status == 3){
+                //             $('#divFuncBtn').show();
+                //         }
+                //         else{
+                //             $('#divFuncBtn').hide();
+                //         }
+
+                //         $('#EventModal').modal('show');
+                //     },
+                //     eventDidMount: function(info){
+                //           if (info.event.extendedProps.background) {
+                //                 info.el.style.background = info.event.extendedProps.background;
+                //                 info.el.style.borderColor = info.event.extendedProps.background;
+                //           }
+                //     }
+                // },
+                // customDayGrid: {
+                //     type: 'timeGrid',
+                //     titleFormat: {
+                //         year: 'numeric',
+                //         month: 'long',
+                //         day: '2-digit'
+                //     },
+                //     dayHeaders: false,
+                //     displayEventTime: false,
+                //     allDaySlot: false,
+                //     slotMinTime: "08:00:00",
+                //     slotMaxTime: "24:00:00",
+                //     slotDuration: "00:15:00",
+                //     slotLabelFormat: {
+                //         hour: 'numeric',
+                //         minute: '2-digit',
+                //         hour12: false
+                //     },
+                //     slotEventOverlap: false,
+                //     eventContent: function(args, createElement){
+                //         const extendedObj = args.event._def.extendedProps;
+                //         const contentHtml = PopulateCustomViewsEvent(args, extendedObj);
+                //         //console.info("EventContent:", args.event);
+                //         return {
+                //             html: contentHtml
+                //         }
+                //     },
+                //     eventDidMount: function(info){
+                //           if (info.event.extendedProps.background) {
+                //                 info.el.style.background = info.event.extendedProps.background;
+                //                 info.el.style.borderColor = info.event.extendedProps.background;
+                //           }
+                //     }
+                // },
+                customDayGrid: {
+                    type: 'timeGrid',
+                    titleFormat: {
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit'
+                    },
+                    dayHeaders: false,
+                    displayEventTime: false,
+                    allDaySlot: false,
+                    slotMinTime: "08:00:00",
+                    slotMaxTime: "24:00:00",
+                    slotDuration: "00:15:00",
+                    slotLabelFormat: {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: false
+                    },
+                    slotEventOverlap: false,
+                    eventClick: function (args) {
+                        $('#lbTitle').html('');
+                        $('#lbTime').html('');
+                        $('#lbDoctor').html('');
+                        $('#lbPet').html('');
+                        $('#lbOwner').html('');
+
+                        var extendedObj = args.event._def.extendedProps;
+                        $('#hidApptID').val(extendedObj.apptid);
+                        $('#lbTitle').html(args.event._def.title);
+                        $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' +
+                                          moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
+                        $('#lbDoctor').html(extendedObj.doctor);
+                        $('#lbPet').html(extendedObj.Pet);
+                        $('#lbOwner').html(extendedObj.Owner);
+
+                        if (extendedObj.status == 3){
+                            $('#divFuncBtn').show();
+                        }
+                        else{
+                            $('#divFuncBtn').hide();
+                        }
+
+                        $('#EventModal').modal('show');
+                    }
+
+                },
+                timeGridWeek: {
+                    type: 'agendaWeek',
+                    titleFormat: {
+                        year: 'numeric',
+                        month: 'long'
+                    },
+                    dayHeaderFormat: {
+                        weekday: 'long',
+                        day: '2-digit'
+                    },
+                    displayEventTime: false,
+                    allDaySlot: false,
+                    slotMinTime: "08:00:00",
+                    slotMaxTime: "24:00:00",
+                    slotDuration: "00:15:00",
+                    slotLabelFormat: {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: false
+                    },
+                    //expandRows: true,
+                    //themeSystem: 'bootstrap',
+                    slotEventOverlap: true,
+                    dayHeaderContent: function(args){
+                       const dayHeaderHtml = "<div>" + moment(args.date).format("ddd") +
+                                           "<br/>" + moment(args.date).format("D") +
+                                           "</div>";
+                       return {
+                           html: dayHeaderHtml
+                       }
+                    },
+                    // eventContent: function (args, createElement) {
+                    //     const extendedObj = args.event._def.extendedProps;
+                    //     const contentHtml = PopulateWeekViewsEvent(args, extendedObj);
+                    //     //console.info("EventContent:", args.event);
+                    //     return {
+                    //         html: contentHtml
+                    //     };
+                    // },
+                    eventClick: function (args) {
+                        $('#lbTitle').html('');
+                        $('#lbTime').html('');
+                        $('#lbDoctor').html('');
+                        $('#lbPet').html('');
+                        $('#lbOwner').html('');
+
+                        var extendedObj = args.event._def.extendedProps;
+                        $('#hidApptID').val(extendedObj.apptid);
+                        $('#lbTitle').html(args.event._def.title);
+                        $('#lbTime').html(moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + ' - ' +
+                                          moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA'));
+                        $('#lbDoctor').html(extendedObj.doctor);
+                        $('#lbPet').html(extendedObj.Pet);
+                        $('#lbOwner').html(extendedObj.Owner);
+
+                        if (extendedObj.status == 3){
+                            $('#divFuncBtn').show();
+                        }
+                        else{
+                            $('#divFuncBtn').hide();
+                        }
+
+                        $('#EventModal').modal('show');
+                    },
+                    eventDidMount: function(info){
+                          if (info.event.extendedProps.background) {
+                                info.el.style.background = info.event.extendedProps.background;
+                                info.el.style.borderColor = info.event.extendedProps.background;
+                          }
+                    }
+                }
+            },
+            customButtons: {
+                customButton: {
+                    text: '@Html.Raw(LangResources["Appointment_Label_Month"])',
+                    click: function (event) {
+                        var rect = event.target.getBoundingClientRect();
+                        viewDropdownMenu.style.display = 'block';
+                        viewDropdownMenu.style.left = rect.left + 'px';
+                        viewDropdownMenu.style.top = (rect.bottom + window.scrollY) + 'px';
+                    }
+                },
+                prev: {
+                    click: function(event){
+                        var n = $('.fc-customButton-button').text();
+                        calendar.prev();
+
+                        CalendarViewChanges(calendar, 'dayGridMonth');
+
+                        $('.fc-customButton-button').text(n);
+                    }
+                },
+                next: {
+                    click: function(a){
+                        var n = $('.fc-customButton-button').text();
+                        calendar.next();
+
+                        CalendarViewChanges(calendar, 'dayGridMonth');
+
+                        $('.fc-customButton-button').text(n);
+                    }
+                }
+            }
+        });
+
+        calendar.batchRendering(function () {
+            calendar.changeView(sCalendarView);
+            CalendarViewChanges(calendar, sCalendarView);
+        });
+
+        calendar.render();
+    });
+
+    function CalendarViewChanges(calender, viewSelected){
+        var sYr = moment(calendar.currentData.currentDate).format("YYYY");
+        var sMth = moment(calendar.currentData.currentDate).format("M");
+        var sOwner = $('#ddlSearchOwner').val();
+        var sPet = $('#ddlSearchPet').val();
+        var sServices = $('#ddlSearchServices').val();
+
+        var sDoctor = '';
+        if ($('#ddlSearchDoctor').val() != ''){
+            sDoctor = $('#ddlSearchDoctor option:selected').text();
+        }
+        else {
+            sDoctor = '';
+        }
+
+
+        $.getJSON("/Appointment/GetCalendarAppointmentsMonthView", {
+            sYear: sYr,
+            sMonth: sMth,
+            searchOwner: sOwner,
+            searchPet: sPet,
+            searchServices: sServices,
+            searchDoctor: sDoctor
+        }).done(function (result) {
+            if (result.length > 0) {
+                calendar.removeAllEvents();
+
+                for (var i = 0; i < result.length; i++) {
+                    calendar.addEvent({
+                        title: result[i].ServiceName,
+                        start: moment(result[i].ApptDate).format("YYYY-MM-DD") + 'T' + result[i].ApptStartTimeString,
+                        end: moment(result[i].ApptDate).format("YYYY-MM-DD") + 'T' + result[i].ApptEndTimeString,
+                        background: (result[i].Status == 3) ? '#ffc5c4' : '#1D76FB',
+                        extendedProps: {
+                            apptid: result[i].AppointmentID,
+                            doctor: result[i].DoctorName,
+                            Pet: result[i].PetName,
+                            Owner: result[i].OwnerName,
+                            starttime: result[i].ApptStartTimeString,
+                            endtime: result[i].ApptEndTimeString,
+                            status: result[i].Status
+                        }
+                    });
+
+                }
+            }
+            else{
+                calendar.removeAllEvents();
+            }
+        });
+    }
+
+    function PopulateCustomViewsEvent(args, extendedObj)
+    {
+        var sButtonRowHtml = '';
+        if (extendedObj.status == 3){
+            sButtonRowHtml += "<button id='btnTimeGridReschedule' type='button' class='fa-regular fa-circle-xmark' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridRescheduleClick()'></button>" +
+                              "<button id='btnTimeGridAccept' type='button' class='fa-regular fa-circle-check' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridAcceptClick()'></button>";
+        }
+        else {
+            sButtonRowHtml += "<button id='btnTimeGridEdit' type='button' class='bi bi-pencil-fill' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridEditClick()'></button>" +
+                              "<button id='btnTimeGridCancel' type='button' class='bi bi-trash3' style='color: white; border: 0px; background-color: transparent;' onclick='btnTimeGridCancelClick()'></button>";
+        }
+
+
+
+        var sHtmlContent = "<div class='row' style='height: 100% !important; display: flex;'>" +
+                            "<div class='row' style='border: 0px solid black; margin-top: auto; margin-bottom: auto; vertical-align: middle;'>" +
+
+                            "<div style='width: 10%;'>" +
+                            "<div style='width: 40px; height: 40px; display: flex; margin-left: 15%; margin-right: 10%; margin-top: 15%; margin-bottom: 10%; border-radius: 6px; background-color: white;'>" +
+                            "<img src='../images/calendar_cat_icon.png' width='20' height='20' style='background-color: transparent; display: block; margin: auto;' />" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div style='width: 30%; border-right: 1px solid white;'>" +
+                            "<div style='margin-left: 20%; margin-right: 10%; margin-top: 5%; margin-bottom: 5%;'>" +
+                            "<strong>" + args.event._def.title + "</strong><br/>" +
+                            moment(extendedObj.starttime, 'hh:mm:ss').format('hh:mmA') + " - " + moment(extendedObj.endtime, 'hh:mm:ss').format('hh:mmA') +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div style='width: 30%; border-right: 1px solid white;'>" +
+                            "<div style='margin-left: 20%; margin-right: 10%; margin-top: 5%; margin-bottom: 5%;'>" +
+                            "<strong>@Html.Raw(LangResources["Appointment_Label_Pet"]) : " + extendedObj.Pet + "</strong><br />" +
+                            "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div style='width: 20%; border-right: 1px solid white;'>" +
+                            "<div style='margin-left: 20%; margin-right: 10%; margin-top: 5%; margin-bottom: 5%;'>" +
+                            "<strong>" + extendedObj.doctor + "</strong>" +
+                            "</div>" +
+                            "</div>" +
+
+                            "<div style='width: 10%;'>" +
+                            "<div style='margin-left: 5%; margin-right: 5%; margin-top: 30%; margin-bottom: 5%; display: flex;'>" +
+                            sButtonRowHtml +
+                            "<input id='timeGridApptID' type='text' style='visibility: hidden;' value='" + extendedObj.apptid + "' />" +
+                            "<input id='timeGridStatus' type='text' style='visibility: hidden;' value='" + extendedObj.status + "' />" +
+                            "</div>" +
+                            "</div>" +
+
+                            "</div>" +
+                            "</div>";
+
+        return sHtmlContent;
+    }
+
+    function PopulateWeekViewsEvent(args, extendedObj)
+    {
+        var sHtmlContent = "<div class='row' style='border: 0px solid black; margin-top: auto; margin-bottom: auto; vertical-align: middle;'>" +
+                            "<div style='width: 100%; font-size: 10px;'>" +
+                            "<strong>" + args.event._def.title + "</strong><br/>" +
+                            extendedObj.doctor + "<br/>" +
+                            "@Html.Raw(LangResources["Appointment_Label_Pet"])  : " + extendedObj.Pet + "<br/>" +
+                            "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner + "<br/>" +
+                            "</div>" +
+                            "</div>";
+
+        return sHtmlContent;
+    }
+
+    function switchAppt(targetModal) {
+        $('.apptClss').hide();
+        $('#' + targetModal).show();
+    }
+
+    function ddlServicesChanges(services) {
+        $.post("/Appointment/GetServiceDoctorList", {
+            ServicesID: services.value
+        }).done(function (result) {
+            loadddlDoctor(result);
+        });
+    }
+
+    function ddlAddOwnerchanges(patient){
+        // added patientID value (azwan - 20250305)
+        const selectedOption = patient.options[patient.selectedIndex];
+        $.post("/Appointment/GetPetListByPatientID", {
+            // PatientID: patient.value
+            PatientID: selectedOption.getAttribute('data-patientid')
+        }).done(function (result) {
+            loadddlPet(result);
+        });
+    }
+
+    function ddlSearchOwnerChange(patient){
+        const selectedOption = patient.options[patient.selectedIndex];
+
+        $.post("/Appointment/GetPetListByPatientID", {
+            //PatientID: patient.value
+            PatientID: selectedOption.getAttribute('data-patientid')
+        }).done(function (result) {
+            loadddlSearchPet(result);
+        });
+    }
+
+    function ddlNewServicesChanges(services){
+        $.post("/Appointment/GetServiceDoctorList", {
+            ServicesID: services.value
+        }).done(function (result) {
+            loadddlNewDoctor(result);
+        });
+    }
+
+    function ddlSearchServicesChange(services){
+        $.post("/Appointment/GetServiceDoctorList", {
+            ServicesID: services.value
+        }).done(function (result) {
+            loadddlSearchDoctor(result);
+        });
+    }
+
+    function loadddlDoctor(data)
+    {
+        $('#ddlAddDoctor').find("option:not(:first)").remove();
+        for (var i = 0; i < data.length; i++)
+        {
+            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
+            $('#ddlAddDoctor').append(opt);
+        }
+    }
+
+    function loadddlNewDoctor(data)
+    {
+        $('#ddlNewDoctor').find("option:not(:first)").remove();
+        for (var i = 0; i < data.length; i++)
+        {
+            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
+            $('#ddlNewDoctor').append(opt);
+        }
+    }
+
+    function loadddlSearchDoctor(data)
+    {
+        $('#ddlSearchDoctor').find("option:not(:first)").remove();
+        for (var i = 0; i < data.length; i++){
+            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
+            $('#ddlSearchDoctor').append(opt);
+        }
+    }
+
+    function loadddlPet(data)
+    {
+        $('#ddlAddPet').find("option:not(:first)").remove();
+        for (var i = 0; i < data.length; i++) {
+            var opt = new Option(data[i].Name, data[i].ID);
+            $('#ddlAddPet').append(opt);
+        }
+
+        $('#ddlAddPet').val('');
+    }
+
+    function loadddlSearchPet(data)
+    {
+        $('#ddlSearchPet').find("option:not(:first)").remove();
+        for (var i = 0; i < data.length; i++) {
+            var opt = new Option(data[i].Name, data[i].ID);
+            $('#ddlSearchPet').append(opt);
+        }
+
+        $('#ddlSearchPet').val('');
+    }
+
+    function AddAppointment()
+    {
+        if (AddAppointmentValidation()) {
+            var sAppDate = moment($('#dtAddAppt').val(), "DD/MM/YYYY").format('YYYY-MM-DD');
+            var sAppStrDate = $('#strtimePicker').val();
+            var sAppEndDate = $('#endtimePicker').val();
+            var sServicesLit = $('#ddlAddServices').val();
+
+            var sApptObj = {
+                ApptDate: sAppDate,
+                ApptStartTime: sAppStrDate,
+                ApptEndTime: sAppEndDate,
+                BranchID: @sessionBranchID,
+                OwnerID: $('#ddlAddOwner').val(),
+                PetID: $('#ddlAddPet').val(),
+                InchargeDoctor: $('#ddlAddDoctor option:selected').text(),
+                EmailNotify: $('#chkNotify').is(':checked'),
+                ServiceList: [sServicesLit]
+            };
+
+            $.post("/Appointment/CreateAppointment",
+                sApptObj,
+            ).done(function (result) {
+                if (result.StatusCode == 200) {
+                    $('#AppointmentModal').modal('hide');
+                    window.location.reload();
+                }
+                else {
+                    if (result.isDoctApptOverlap && !result.isPatientAppOverlap) {
+                        $('#lbError').html('@Html.Raw(LangResources["Appointment_Message_DoctorNotAvailable"])');
+                        $('#divdtAddAppt').addClass("errorValidation");
+                        $('#divtimePicker').addClass("errorValidation");
+                    }
+
+                    if (!result.isDoctApptOverlap && result.isPatientAppOverlap) {
+                        $('#lbError').html('@Html.Raw(LangResources["Appointment_Message_SamePatientAppointment"])');
+                        $('#divdtAddAppt').addClass("errorValidation");
+                        $('#divtimePicker').addClass("errorValidation");
+                    }
+
+                    $('#lbError').css('visibility', 'visible');
+                }
+            });
+        }
+        else {
+            $('#lbError').html('@Html.Raw(LangResources["Appointment_Label_MandatoryFields"].ToString())');
+            $('#lbError').css('visibility', 'visible');
+        }
+    }
+
+    function AddAppointmentValidation(){
+        $('#lbError').css('visibility', 'hidden');
+        let isValid = true;
+
+        // ---- Owner Dropdown ---- //
+        if ($('#ddlAddOwner').val() == ''){
+            $('#ddlAddOwner').addClass("errorValidation");
+            $('#ddlAddOwner').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlAddOwner').removeClass("errorValidation");
+        }
+
+        // ---- Pet Dropdown ------ //
+        if ($('#ddlAddPet').val() == ''){
+            $('#ddlAddPet').addClass("errorValidation");
+            $('#ddlAddPet').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlAddPet').removeClass("errorValidation");
+        }
+
+        // ----- Doctor Dropdown ----- //
+        if ($('#ddlAddDoctor').val() == ''){
+            $('#ddlAddDoctor').addClass("errorValidation");
+            $('#ddlAddDoctor').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlAddDoctor').removeClass("errorValidation");
+        }
+
+        // ----- Services Dropdown ----- //
+        if ($('#ddlAddServices').val() == ''){
+            $('#ddlAddServices').addClass("errorValidation");
+            $('#ddlAddServices').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlAddServices').removeClass("errorValidation");
+        }
+
+        // ------ Appointment date ------ //
+        if ($('#dtAddAppt').val() == '')
+        {
+            $('#divdtAddAppt').addClass("errorValidation");
+            $('#divdtAddAppt').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#divdtAddAppt').removeClass("errorValidation");
+        }
+
+        // --------- Start Time --------- //
+        if ($('#strtimePicker').val() == '')
+        {
+            $('#divtimePicker').addClass("errorValidation");
+            $('#divtimePicker').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#divtimePicker').removeClass("errorValidation");
+        }
+
+        // ---------- End Time ---------- //
+        if ($('#endtimePicker').val() == '')
+        {
+            $('#divtimePicker').addClass("errorValidation");
+            $('#divtimePicker').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#divtimePicker').removeClass("errorValidation");
+        }
+
+        return isValid;
+    }
+
+    /*------- Create New client Appointment -------*/
+    function AddNewAppointment()
+    {
+        if (AddNewAppointmentValidation())
+        {
+            var sNewAppDate =  moment($('#dtNewApptDate').val(), "DD/MM/YYYY").format('YYYY-MM-DD');
+            var sNewPetDOB = moment($('#dtNewDOB').val(), "DD/MM/YYYY").format('YYYY-MM-DD');
+            var sNewAppStrDate = $('#newStrtimePicker').val();
+            var sNewAppEndDate = $('#newEndtimePicker').val();
+            var sNewServicesList = $('#ddlNewAddServices').val();
+
+            var sNewApptObj = {
+                ApptDate: sNewAppDate,
+                ApptStartTime: sNewAppStrDate,
+                ApptEndTime: sNewAppEndDate,
+                PetDOB: sNewPetDOB,
+                BranchID: @sessionBranchID,
+                OwnerName: $('#txtNewOwnerfullName').val(),
+                ContactNo: $('#txtNewContactNo').val(),
+                PetName: $('#txtNewPetName').val(),
+                Species: $('#ddlNewSpecies').val(),
+                InchargeDoctor: $('#ddlNewDoctor option:selected').text(),
+                EmailAddress: $('#txtNewEmail').val(),
+                EmailNotify: $('#chkNewNotify').is(':checked'),
+                ServiceList: [sNewServicesList]
+            };
+
+            $.post("/Appointment/CreateNewClientAppointment",
+               sNewApptObj
+            ).done(function(result) {
+                if (result.StatusCode == 200){
+                    $('#AppointmentModal').modal('hide');
+
+                    window.location.reload();
+                }
+                else{
+                      if (result.isDoctApptOverlap && !result.isPatientAppOverlap)
+                      {
+                          $('#lbNewError').html('@Html.Raw(LangResources["Appointment_Message_DoctorNotAvailable"])');
+                          $('#divNewDateTime').addClass("errorValidation");
+                          $('#divNewTimePicker').addClass("errorValidation");
+                      }
+
+                      $('#lbNewError').css('visibility', 'visible');
+                }
+            });
+        }
+        else {
+            $('#lbNewError').html('@Html.Raw(LangResources["Appointment_Label_MandatoryFields"].ToString())');
+            $('#lbNewError').css('visibility', 'visible');
+        }
+
+    }
+
+    function AddNewAppointmentValidation()
+    {
+        $('#lbError').css('visibility', 'hidden');
+        let isValid = true;
+
+        /*--------- Owner Name ------------*/
+        if ($('#txtNewOwnerfullName').val() == ''){
+            $('#txtNewOwnerfullName').addClass("errorValidation");
+            $('#txtNewOwnerfullName').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtNewOwnerfullName').removeClass("errorValidation");
+        }
+
+        /*--------- Contact No -------------*/
+        if ($('#txtNewContactNo').val() == '')
+        {
+            $('#txtNewContactNo').addClass("errorValidation");
+            $('#txtNewContactNo').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtNewContactNo').removeClass("errorValidation");
+        }
+
+        /*---------- Email Address ---------*/
+        if ($('#txtNewEmail').val() == '')
+        {
+            $('#txtNewEmail').addClass("errorValidation");
+            $('#txtNewEmail').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtNewEmail').removeClass("errorValidation");
+        }
+
+        /*--------- Pet Name ----------------*/
+        if ($('#txtNewPetName').val() == ''){
+            $('#txtNewPetName').addClass("errorValidation");
+            $('#txtNewPetName').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#txtNewPetName').removeClass("errorValidation");
+        }
+
+        /*--------- Pet DOB -----------------*/
+        if ($('#dtNewDOB').val() == ''){
+            $('#divNewDOB').addClass("errorValidation");
+            $('#divNewDOB').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#divNewDOB').removeClass("errorValidation");
+        }
+
+        /*------- Species Dropdown ----------*/
+        if ($('#ddlNewSpecies').val() == ''){
+            $('#ddlNewSpecies').addClass("errorValidation");
+            $('#ddlNewSpecies').focus();
+
+            isValid = false;
+        }
+        else{
+            $('#ddlNewSpecies').removeClass("errorValidation");
+        }
+
+        /*-------- Services Dropdown -------*/
+        if ($('#ddlNewAddServices').val() == '')
+        {
+            $('#ddlNewAddServices').addClass("errorValidation");
+            $('#ddlNewAddServices').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#ddlNewAddServices').removeClass("errorValidation");
+        }
+
+        /*-------- Appt Date -------------*/
+        if ($('#dtNewApptDate').val() == '')
+        {
+            $('#divNewDateTime').addClass("errorValidation");
+            $('#divNewDateTime').focus();
+
+            isValid = false;
+        }
+        else
+        {
+            $('#divNewDateTime').removeClass("errorValidation");
+        }
+
+        /*-------- Appt Start Time ----------*/
+        if ($('#newStrtimePicker').val() == '')
+        {
+            $('#divNewTimePicker').addClass("errorValidation");
+            $('#divNewTimePicker').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#divNewTimePicker').removeClass("errorValidation");
+        }
+
+        /*--------- Appt End time -------------*/
+        if ($('#newEndtimePicker').val() == '')
+        {
+            $('#divNewTimePicker').addClass("errorValidation");
+            $('#divNewTimePicker').focus();
+
+            isValid = false;
+        } else
+        {
+            $('#divNewTimePicker').removeClass("errorValidation");
+        }
+
+        /*--------- Doctor Dropdown ------------*/
+        if ($('#ddlNewDoctor').val() == '')
+        {
+            $('#ddlNewDoctor').addClass("errorValidation");
+            $('#ddlNewDoctor').focus();
+
+            isValid = false;
+        } else
+        {
+            $('#ddlNewDoctor').removeClass("errorValidation");
+        }
+
+        return isValid;
+    }
+
+    function loadAppointmentData(sID)
+    {
+        $.getJSON("/Appointment/GetAppointmentByID", {
+            ApptID: sID
+        })
+        .done(function (result) {
+            if (result != null) {
+                $('#txtOwner').val(result.OwnerName);
+                $('#txtPet').val(result.PetName);
+                $('#txtServices').val(result.ServiceName);
+                $('#txtDoctor').val(result.DoctorName);
+                $('#hidEditID').val(result.AppointmentID);
+                $('#hidEditStatus').val(result.Status);
+
+                $('#dtEditAppt').val(moment(result.ApptDate).format("DD-MM-YYYY"));
+                $('#EditStrttimePicker').val(moment(result.ApptStartTimeString,'hh:mm:ss').format('HH:mm'));
+                $('#EditEndtimePicker').val(moment(result.ApptEndTimeString,'hh:mm:ss').format('HH:mm'));
+            }
+        })
+    }
+
+    function cancelAppointment(AppointmentID, StatusToUpdate)
+    {
+        $.post("/Appointment/UpdateAppointmentStatus", {
+            ApptID: AppointmentID,
+            ApptStatus: StatusToUpdate
+        }).done(function (result) {
+            return result;
+        });
+    }
+
+    $(document).ready(function()
+    {
+        /*------- Initiate Date Picker ------*/
+        $('#dtAddAppt').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtNewDOB').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtNewApptDate').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+        $('#dtEditAppt').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'dd/mm/yyyy'
+        });
+
+        /*----- initiate TimePicker --------*/
+        $('#strtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#endtimePicker').val(min_time);
+        });
+
+        $('#endtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#strtimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        $('#newStrtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            $(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#newEndtimePicker').val(min_time);
+        });
+
+        $('#newEndtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#newStrtimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        $('#EditStrttimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: 'fa fa-angle-up',
+                down: 'fa fa-angle-down'
+            }
+        }).on('dp.show', function () {
+            time = "09:00 AM";
+            //$(this).data('DateTimePicker').date(time);
+            $(this).data('DateTimePicker').minDate(time);
+        }).on('dp.change', function () {
+            var min_endtime = $(this).val();
+            var min_time = moment(min_endtime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $('#EditEndtimePicker').val(min_time);
+        });
+
+        $('#EditEndtimePicker').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm',
+            icons: {
+                up: "fa fa-angle-up",
+                down: "fa fa-angle-down"
+            }
+        }).on('dp.show', function () {
+            var starttime = $('#EditStrttimePicker').val();
+            var min_starttime = moment(starttime, "HH:mm TT").add(30, 'minutes').format('HH:mm');
+
+            $(this).data('DateTimePicker').date(min_starttime);
+            $(this).data('DateTimePicker').minDate(min_starttime);
+        });
+
+        /*------- Custom Button OnClick ---------*/
+        $('.dropdown-item').on('click', function (ctl) {
+            var sView = $(this)[0].attributes["data"].value;
+            calendar.changeView(sView);
+
+            sessionStorage.setItem("CalendarView", sView);
+
+            var sTag = $(this)[0].text;
+            $('.fc-customButton-button').text(sTag);
+
+            $('.dropdown-menu').hide();
+        });
+
+        $('#btnCreate').on('click', function(ctl){
+            $('#divNewAppt').show();
+            $('#divNewClientAppt').hide();
+            $('#divEditAppt').hide();
+
+            clearFields();
+
+            $('#AppointmentModal').modal('show');
+        });
+
+        $('#btnSearch').on('click', function(ctl){
+            sessionStorage.setItem("CalendarView", "dayGridMonth");
+            CalendarViewChanges(calendar, 'dayGridMonth');
+        });
+
+        $('#btnReset').on('click', function (ctl) {
+            $('#ddlSearchOwner').val($('#ddlSearchOwner option:first').val());
+
+            $('#ddlSearchPet').empty();
+            $('#ddlSearchPet').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectPet"])', ''));
+            $('#ddlSearchPet').val($('#ddlSearchPet option:first').val());
+
+            $('#ddlSearchServices').val($('#ddlSearchServices option:first').val());
+
+            $('#ddlSearchDoctor').empty();
+            $('#ddlSearchDoctor').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectDoctor"])', ''));
+            $('#ddlSearchDoctor').val($('#ddlSearchDoctor option:first').val());
+        });
+
+        $('#btnEditAppt').on('click', function (ctl) {
+            $('#divNewAppt').hide();
+            $('#divNewClientAppt').hide();
+            $('#divEditAppt').show();
+
+            var sApptID = $('#hidApptID').val()
+
+            loadAppointmentData(sApptID);
+
+            $('#EventModal').modal('hide');
+            $('#AppointmentModal').modal('show');
+        });
+
+        $('#btnUpdateAppt').on('click', function (ctl)
+        {
+            var sAppEditDate = moment($('#dtEditAppt').val(), "DD/MM/YYYY").format('YYYY-MM-DD');
+            var sAppEditStrDate = $('#EditStrttimePicker').val();
+            var sAppEditEndDate = $('#EditEndtimePicker').val();
+            var sApptEditID = $('#hidEditID').val();
+            var sApptEditStatus = $('#hidEditStatus').val();
+
+            var isResp = false;
+            if (sApptEditStatus == iPendingApproved){
+                isResp = true;
+            }
+
+            $.post("/Appointment/UpdateAppointment", {
+                ApptDate: sAppEditDate,
+                ApptStartTime: sAppEditStrDate,
+                ApptEndTime: sAppEditEndDate,
+                ApptID: sApptEditID,
+                RespReschedule: isResp
+            }).done(function (result) {
+                if (result.StatusCode == 200) {
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_UpdateSuccessfully"])');
+                    $('#lbEditError').css('visibility', 'visible');
+
+                    setTimeout(function () {
+                        $('#AppointmentModal').modal('hide');
+                        window.location.reload();
+                    }, 1500);
+                }
+                else {
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
+                    $('#lbEditError').css('visibility', 'visible');
+                }
+            });
+        });
+
+        $('#btnCancelAppt').on('click', function (ctl) {
+            var sApptEditID = $('#hidEditID').val();
+            var sStatus = 2;
+
+            $.post("/Appointment/UpdateAppointmentStatus", {
+                ApptID: sApptEditID,
+                ApptStatus: sStatus
+            }).done(function (result) {
+                if (result.StatusCode == 200) {
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_ApptCancelUpdated"])');
+                    $('#lbEditError').css('visibility', 'visible');
+
+                    setTimeout(function () {
+                        $('#AppointmentModal').modal('hide');
+
+                        window.location.reload();
+                    }, 2500);
+                }
+                else {
+                    $('#lbEditError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
+                    $('#lbEditError').css('visibility', 'visible');
+                }
+            });
+        });
+
+        $('#btnDirectCancel').on('click', function (ctl) {
+
+            ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Appointment_Title_CancelAppointment"])", "@Html.Raw(LangResources["Appointment_Message_ConfirmCancelAppt"])",
+                function () {
+                    var sApptID = $('#hidApptID').val();
+                    var sStatus = 2;
+
+                    $.post("/Appointment/UpdateAppointmentStatus", {
+                        ApptID: sApptID,
+                        ApptStatus: sStatus
+                    }).done(function (result) {
+                        if (result.StatusCode == 200) {
+                            $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_ApptCancelUpdated"])');
+                            $('#lbEventError').css('visibility', 'visible');
+
+                            setTimeout(function () {
+                                $('#EventModal').modal('hide');
+                                window.location.reload();
+                            }, 2000);
+                        }
+                        else {
+                            $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
+                            $('#lbEventError').css('visibility', 'visible');
+                        }
+                    });
+                },
+                function () { }
+            );
+        });
+    });
+
+    function btnTimeGridEditClick() {
+        $('#divNewAppt').hide();
+        $('#divNewClientAppt').hide();
+        $('#divEditAppt').show();
+
+        var sApptID = $('#timeGridApptID').val()
+        loadAppointmentData(sApptID);
+
+        $('#AppointmentModal').modal('show');
+    }
+
+    function btnTimeGridCancelClick()
+    {
+        ShowConfirmCancelMsgBox("@Html.Raw(LangResources["Appointment_Title_CancelAppointment"])", "@Html.Raw(LangResources["Appointment_Message_ConfirmCancelAppt"])",
+            function () {
+                var sApptID = $('#timeGridApptID').val();
+                var sStatus = 2;
+
+                $.post("/Appointment/UpdateAppointmentStatus", {
+                    ApptID: sApptID,
+                    ApptStatus: sStatus
+                }).done(function (result) {
+                    if (result.StatusCode == 200) {
+                        //$('#lbEventError').html('Appointment Cancelled Updated.');
+                        //$('#lbEventError').css('visibility', 'visible');
+
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                    else {
+                        //$('#lbEventError').html('Failed to update appointment, please try again later.');
+                        //$('#lbEventError').css('visibility', 'visible');
+                    }
+                });
+            },
+            function () { }
+        );
+    }
+
+    function clearFields()
+    {
+        $('#ddlAddOwner').val($('#ddlAddOwner option:first').val());
+        $('#ddlAddOwner').removeClass("errorValidation");
+
+        $('#ddlAddPet').empty();
+        $('#ddlAddPet').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectPet"])', ''));
+        $('#ddlAddPet').val($('#ddlAddPet option:first').val());
+        $('#ddlAddPet').removeClass("errorValidation");
+
+        $('#ddlAddServices').val($('#ddlAddServices option:first').val());
+        $('#ddlAddServices').removeClass("errorValidation");
+
+        $('#ddlAddDoctor').empty();
+        $('#ddlAddDoctor').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectDoctor"])', ''));
+        $('#ddlAddDoctor').val($('#ddlAddDoctor option:first').val());
+        $('#ddlAddDoctor').removeClass("errorValidation");
+
+        $('#chkNotify').prop('checked', false);
+
+        $('#dtAddAppt').val('');
+        $('#divdtAddAppt').removeClass("errorValidation");
+
+        $('#strtimePicker').val('');
+        $('#endtimePicker').val('');
+        $('#divtimePicker').removeClass("errorValidation");
+
+        $('#lbError').html('');
+
+        /*------ New Client ------*/
+        $('#txtNewOwnerfullName').empty();
+        $('#txtNewOwnerfullName').removeClass("errorValidation");
+
+        $('#txtNewContactNo').empty();
+        $('#txtNewContactNo').removeClass("errorValidation");
+
+        $('#txtNewEmail').empty();
+        $('#txtNewEmail').removeClass("errorValidation");
+
+        $('#txtNewPetName').empty();
+        $('#txtNewPetName').removeClass("errorValidation");
+
+        $('#dtNewDOB').empty();
+        $('#divNewDOB').removeClass("errorValidation");
+
+        $('#ddlNewSpecies').val($('#ddlNewSpecies option:first').val());
+        $('#ddlNewSpecies').removeClass("errorValidation");
+
+        $('#ddlNewAddServices').val($('#ddlNewAddServices option:first').val());
+        $('#ddlNewAddServices').removeClass("errorValidation");
+
+        $('#ddlNewDoctor').val($('#ddlNewDoctor option:first').val());
+        $('#ddlNewDoctor').removeClass("errorValidation");
+
+        $('#dtNewApptDate').val('');
+        $('#divNewDateTime').removeClass("errorValidation");
+
+        $('#newStrtimePicker').val('');
+        $('#newEndtimePicker').val('');
+        $('#divNewTimePicker').removeClass("errorValidation");
+
+        $('#chkNewNotify').prop('checked', false);
+
+        $('#lbNewError').html('');
+    }
+
+    function rescheduleAppt(){
+        $('#divNewAppt').hide();
+        $('#divNewClientAppt').hide();
+        $('#divEditAppt').show();
+
+        var sApptID = $('#hidApptID').val()
+
+        loadAppointmentData(sApptID);
+
+        $('#EventModal').modal('hide');
+        $('#AppointmentModal').modal('show');
+    }
+
+    function acceptAppt()
+    {
+        var sApptID = $('#hidApptID').val();
+        var sStatus = 0;
+
+        $.post("/Appointment/UpdateAppointmentStatus", {
+            ApptID: sApptID,
+            ApptStatus: sStatus,
+            ApprovalType: true
+        }).done(function (result) {
+            if (result.StatusCode == 200) {
+                $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_AppointmentAccepted"])');
+                $('#lbEventError').css('visibility', 'visible');
+
+                setTimeout(function () {
+                    $('#EventModal').modal('hide');
+                    window.location.reload();
+                }, 2000);
+            }
+            else {
+                $('#lbEventError').html('@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])');
+                $('#lbEventError').css('visibility', 'visible');
+            }
+        });
+    }
+
+    function btnTimeGridRescheduleClick()
+    {
+        $('#divNewAppt').hide();
+        $('#divNewClientAppt').hide();
+        $('#divEditAppt').show();
+
+        var sApptID = $('#timeGridApptID').val()
+        loadAppointmentData(sApptID);
+
+        $('#AppointmentModal').modal('show');
+    }
+
+    function btnTimeGridAcceptClick()
+    {
+        var sApptID = $('#timeGridApptID').val();
+        var sStatus = 0;
+
+        $.post("/Appointment/UpdateAppointmentStatus", {
+            ApptID: sApptID,
+            ApptStatus: sStatus
+        }).done(function (result) {
+            if (result.StatusCode == 200) {
+                ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_AcceptAppointment"])',
+                                  '@Html.Raw(LangResources["Appointment_Message_AppointmentAccepted"])',
+                    function(){
+                        window.location.reload();
+                    }
+                );
+            }
+            else {
+                ShowSuccessMsgBox('@Html.Raw(LangResources["Appointment_Title_AcceptAppointment"])',
+                                  '@Html.Raw(LangResources["Appointment_Message_UpdateCancelFailed"])',
+                    function(){ }
+                );
+            }
+        });
+    }
+</script>
+
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9" style="height: auto;">
+            <div class="row" style="height: auto;">
+                <div class="col-md-12">
+                    <label class="apptPageTitle">
+                        @LangResources["Appointment_Title_Appointment"]
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="height: auto;">
+            <div clsas="row" style="height: auto;">
+                <div class="col-md-12 createApptRow">
+                    @{
+                        if ((ViewData["CanAdd"] as Boolean?) == true)
+                        {
+                            <button id="btnCreate" type="button" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i>
+                                @LangResources["Appointment_Button_NewAppointment"]
+                            </button>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="height: auto;">
+            <div class="row calendarBorder">
+                <div id="apptCalendar">
+                </div>
+
+                <div id="viewDropdownMenu" class="dropdown-menu" style="width: 120px; border-radius: 10px;">
+                    <a class="dropdown-item" data="customDayGrid" tags="Day">Day (Sample)</a>
+                    <a class="dropdown-item" data="timeGridWeek" tags="Week">Week (Sample)</a>
+                    <!--
+                    <a class="dropdown-item" data="customDayGrid" tags="Day">@LangResources["Appointment_Label_Day"]</a>
+                    <a class="dropdown-item" data="timeGridWeek" tags="Week">@LangResources["Appointment_Label_Week"]</a>
+                    -->
+                    <a class="dropdown-item" data="dayGridMonth" tags="Month">@LangResources["Appointment_Label_Month"]</a>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+        </div>
+@*         <div class="col-md-3" style="height: auto;">
+            <div id="divSearch" class="row" style="height: auto;">
+                <div class="col-md-12 divSearchBorder">
+                    <div class="row searchTitleBox">
+                        <label class="searchTitle">@LangResources["Appointment_Title_Filter"]</label>
+                    </div>
+                    <!-- Owner -->
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Owner"]</label>
+                    </div>
+                    <div class="row SearchRowFields">
+                        <select id="ddlSearchOwner" class="form-select" onchange="ddlSearchOwnerChange(this)">
+                            <option value="">@LangResources["Appointment_Selection_SelectOwner"]</option>
+
+                            @{
+                                var sSearchOwnerViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                if (sSearchOwnerViewObj.PatientSelectionModel != null &&
+                                sSearchOwnerViewObj.PatientSelectionModel.Count > 0)
+                                {
+                                    foreach (var p in sSearchOwnerViewObj.PatientSelectionModel)
+                                    {
+                                        <option value=@p.ID data-patientid=@p.PatientID>@p.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <!-- Patients -->
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Pet"]</label>
+                    </div>
+                    <div class="row SearchRowFields">
+                        <select id="ddlSearchPet" class="form-select">
+                            <option value="">@LangResources["Appointment_Selection_SelectPet"]</option>
+                        </select>
+                    </div>
+                    <!-- Services -->
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Services"]</label>
+                    </div>
+                    <div class="row SearchRowFields">
+                        <select id="ddlSearchServices" class="form-select" onchange="ddlSearchServicesChange(this)">
+                            <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+
+                            @{
+                                var sSearchServicesObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                if (sSearchServicesObj.TreatmentServicesModel != null &&
+                                sSearchServicesObj.TreatmentServicesModel.Count > 0)
+                                {
+                                    foreach (var ss in sSearchServicesObj.TreatmentServicesModel)
+                                    {
+                                        <option value=@ss.ID>@ss.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <!-- Doctor Selection -->
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Doctor"]</label>
+                    </div>
+                    <div class="row SearchRowFields">
+                        <select id="ddlSearchDoctor" class="form-select">
+                            <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+                        </select>
+                    </div>
+
+                    <div class="row SearchRowButtonSearch">
+                        <button id="btnSearch" type="button" class="btn btn-primary">
+                            @LangResources["Appointment_Button_Search"]
+                        </button>
+                    </div>
+                    <div class="row SearchRowButtonReset">
+                        <button id="btnReset" type="button" class="btn btn-secondary">
+                            @LangResources["Appointment_Button_Reset"]
+                        </button>
+                    </div>
+                    <div class="row" style="height: 20px">&nbsp;</div>
+                </div>
+            </div>
+        </div> *@
+    </div>
+</div>
+
+<div id="AppointmentModal" class="modal fade modal-xl" tabindex="-1" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content popupAppointment">
+            <div class="modal-header" style="border-bottom: 0px;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 0px">
+                <!-- Existing Client -->
+                <div id="divNewAppt" class="row apptClss">
+                    <div class="row" style="width: 100%;">
+                        <div class="col-md-6">
+                            <label class="popupTitleLeftCol">
+                                @LangResources["Appointment_Title_CreateAppointment"]
+                            </label>
+                        </div>
+                        <div class="col-md-6" style="text-align: right;">
+                            <label class="popupTitleRightCol">
+                                @LangResources["Appointment_Label_NewClient"]
+                                <a href="javascript:;" onclick="switchAppt('divNewClientAppt')" class="popupTitleHyperlink">
+                                    @LangResources["Appointment_Label_SwitchQuickAppt"]
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 30px;">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlAddOwner" class="form-select ControlsLeftCol" onchange="ddlAddOwnerchanges(this);" required>
+                                <option value="">@LangResources["Appointment_Selection_SelectOwner"]</option>
+
+                                @{
+                                    var sAddOwnerViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                    if (sAddOwnerViewObj.PatientSelectionModel != null &&
+                                    sAddOwnerViewObj.PatientSelectionModel.Count > 0)
+                                    {
+                                        foreach (var p in sAddOwnerViewObj.PatientSelectionModel)
+                                        {
+                                            <option value=@p.ID data-patientid=@p.PatientID>@p.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="ddlAddPet" class="form-select ControlsRightCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectPet"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlAddServices" class="form-select ControlsLeftCol" onchange="ddlServicesChanges(this)">
+                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+
+                                @{
+                                    var sAppointmentViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                    if (sAppointmentViewObj.TreatmentServicesModel != null &&
+                                    sAppointmentViewObj.TreatmentServicesModel.Count > 0)
+                                    {
+                                        foreach (var s in sAppointmentViewObj.TreatmentServicesModel)
+                                        {
+                                            <option value=@s.ID>@s.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6" style="display: flex; flex-direction: row;">
+                            <div id="divdtAddAppt" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtAddAppt" class="form-control datePickerControl" />
+                            </div>
+                            <div id="divtimePicker" class="DatePickerRightCol">
+                                <input id="strtimePicker" class="form-control timePicker" />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="endtimePicker" class="form-control timePicker" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div action="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlAddDoctor" class="form-select ControlsLeftCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+                            </select>
+                        </div>
+                        <div action="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="chkNotify" class="form-check-input notifyCheckBox" type="checkbox" />
+                            <label style="margin-left: 10px;">@LangResources["Appointment_Label_NotifyMeEmail"]</label><br />
+                            <label id="lbError" class="errorMsgStyle">*Mandatory fields required.</label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right;">
+                            <button id="btnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">
+                                @LangResources["Appointment_Button_Cancel"]
+                            </button>
+                            <button id="btnConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;" onclick="AddAppointment();">
+                                @LangResources["Appointment_Button_Confirm"]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+
+                <!-- New Client -->
+                <div id="divNewClientAppt" class="row apptClss" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="popupTitleLeftCol">
+                                @LangResources["Appointment_Title_NewApptNewClient"]
+                            </label>
+                        </div>
+                        <div class="col-md-6" style="text-align: right;">
+                            <label class="popupTitleRightCol">
+                                @LangResources["Appointment_Label_ExistingClient"]
+                                <a href="javascript:;" onclick="switchAppt('divNewAppt')" class="popupTitleHyperlink">
+                                    @LangResources["Appointment_Label_SwitchAppointment"]
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 30px;">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerFullName"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_ContactNo"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtNewOwnerfullName" type="text" class="form-control ControlsLeftCol" />
+                        </div>
+                        <div class="col-md-6">
+                            <input id="txtNewContactNo" type="text" class="form-control ControlsRightCol" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_EmailAddress"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtNewEmail" type="text" class="form-control ControlsLeftCol" />
+                        </div>
+                        <div class="col-md-6">
+                            <input id="txtNewPetName" type="text" class="form-control ControlsRightCol" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_PetDOB"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_Species"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="divNewDOB" class="dataPickerDOB">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtNewDOB" class="form-control datePickerControl" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="ddlNewSpecies" class="form-select ControlsRightCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectSpecies"]</option>
+
+                                @{
+                                    var sApptViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                    if (sApptViewObj.SpeciesModel != null &&
+                                    sApptViewObj.SpeciesModel.Count > 0)
+                                    {
+                                        foreach (var s in sApptViewObj.SpeciesModel)
+                                        {
+                                            <option value="@s.CodeName">@s.CodeName</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlNewAddServices" class="form-select ControlsLeftCol" onchange="ddlNewServicesChanges(this)">
+                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+
+                                @{
+                                    var sServicesViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                    if (sServicesViewObj.TreatmentServicesModel != null &&
+                                    sServicesViewObj.TreatmentServicesModel.Count > 0)
+                                    {
+                                        foreach (var s in sServicesViewObj.TreatmentServicesModel)
+                                        {
+                                            <option value=@s.ID>@s.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6" style="display: flex; flex-direction: row;">
+                            <div id="divNewDateTime" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtNewApptDate" class="form-control datePickerControl" />
+                            </div>
+                            <div id="divNewTimePicker" class="DatePickerRightCol">
+                                <input id="newStrtimePicker" class="form-control timePicker" />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="newEndtimePicker" class="form-control timePicker" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlNewDoctor" class="form-select ControlsLeftCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="chkNewNotify" class="form-check-input notifyCheckBox" type="checkbox" />
+                            <label style="margin-left: 10px;">@LangResources["Appointment_Label_NotifyMeEmail"]</label><br />
+                            <label id="lbNewError" class="errorMsgStyle">@LangResources["Appointment_Label_MandatoryFields"]</label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right;">
+                            <button id="btnNewCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">
+                                @LangResources["Appointment_Button_Cancel"]
+                            </button>
+                            <button id="btnNewConfirm" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;" onclick="AddNewAppointment();">
+                                @LangResources["Appointment_Button_Confirm"]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+
+                <!-- Edit -->
+                <div id="divEditAppt" class="row apptClss" style="display: none;">
+                    <div class="row" style="width: 100%">
+                        <div class="col-md-6">
+                            <label class="popupTitleLeftCol"></label>
+                        </div>
+                        <div class="col-md-6">
+                            &nbsp;
+                            <input id="hidEditID" type="text" style="visibility: hidden;" />
+                            <input id="hidEditStatus" type="text" style="visibility: hidden;" />
+                        </div>
+                    </div>
+                    <div class="row" style="height: 30px;">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_OwnerName"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_PetName"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtOwner" type="text" class="form-control ControlsLeftCol" disabled />
+                        </div>
+                        <div class="col-md-6">
+                            <input id="txtPet" type="text" class="form-control ControlsRightCol" disabled />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtServices" class="form-control ControlsLeftCol" disabled />
+                        </div>
+                        <div class="col-md-6" style="display: flex; flex-direction: row;">
+                            <div id="divdtAddAppt" class="DatePickerLeftCol">
+                                <i class="gj-icon datePickerCalendar">event</i>
+                                <input id="dtEditAppt" class="form-control datePickerControl" />
+                            </div>
+                            <div id="divtimePicker" class="DatePickerRightCol">
+                                <input id="EditStrttimePicker" class="form-control timePicker" />
+                                <div class="datePickerSeparator">--</div>
+                                <input id="EditEndtimePicker" class="form-control timePicker" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div action="row">
+                        <div class="col-md-6">
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input id="txtDoctor" class="form-control ControlsLeftCol" disabled />
+                        </div>
+                        <div action="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label id="lbEditError" class="errorMsgStyle"></label>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right;">
+                            <button id="btnCancelAppt" type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" style="width: 150px; height: 45px; margin-right: 10px;">
+                                @LangResources["Appointment_Button_CancelAppointment"]
+                            </button>
+                            <button id="btnUpdateAppt" type="button" class="btn btn-primary" style="width: 150px; height: 45px; margin-right: 100px;">
+                                @LangResources["Appointment_Button_Update"]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="EventModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content popupEvent">
+            <div class="modal-header" style="border-bottom: 0px; text-align: right !important;">
+                <button id="btnEditAppt" type="button" class="bi bi-pencil-fill" style="border: 0px; background-color: transparent; margin-left: 70%;"></button>
+                <button id="btnDirectCancel" type="button" class="bi bi-trash3" style="border: 0px; background-color: transparent; margin-left: 5px;"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 0px; margin-top: 5px; margin-left: 20px;">
+                <div class="row">
+                    <div class="col-md-2">
+                        &nbsp;
+                        <input id="hidApptID" style="visibility: hidden;" />
+                    </div>
+                    <div class="col-md-10">
+                        <strong><label id="lbTitle"></label></strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <label id="lbTime">&nbsp;</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <label id="lbDoctor">&nbsp;</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        @LangResources["Appointment_Label_Pet"] :<label id="lbPet">&nbsp;</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        @LangResources["Appointment_Label_Owner"] :<label id="lbOwner">&nbsp;</label>
+                    </div>
+                </div>
+                <!--
+                <div class="row" style="height: 10px;">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+                -->
+                <div id="divFuncBtn" class="row">
+                    <div class="col-md-6 justify-content-end">
+                        <button id="btnReschedule" class="btn btn-secondary mt-4" style="width: 90%; font-size: 12px;" onclick="rescheduleAppt();">
+                            Reschedule
+                        </button>
+                    </div>
+                    <div class="col-md-6 justify-content-start">
+                        <button id="btnAccept" class="btn btn-primary mt-4" style="width: 90%; font-size: 12px;" onclick="acceptAppt();">Accept</button>
+                    </div>
+                </div>
+                <div class="row" style="height: 20px;">
+                    <div class="col-md-12">
+                        <label id="lbEventError" class="errorMsgViewAppt"></label>
+                    </div>
+                </div>
+                <div class="row" style="height: 20px;">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

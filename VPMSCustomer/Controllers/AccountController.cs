@@ -237,6 +237,38 @@ namespace VPMSCustomer.Controllers
         }
 
         /// <summary>
+        /// Update Profile's Avatar Pic
+        /// </summary>
+        /// <param name="ownerID"></param>
+        /// <param name="avatarID"></param>
+        /// <param name="updatedBy"></param>
+        /// <returns></returns>
+        [Route("/Account/Profile/UpdateProfileAvatar")]
+        [HttpPost()]
+        public IActionResult UpdateProfileAvatar(long ownerID, int avatarID, string updatedBy)
+        {
+            ResponseCodeObject sResp = new ResponseCodeObject();
+
+            try
+            {
+                if (PatientRepository.UpdateOwnerProfileAvatar(ownerID, avatarID, updatedBy))
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status200OK;
+                }
+                else
+                {
+                    sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+                }
+            }
+            catch (Exception ex)
+            {
+                sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
+            }
+
+            return Json(sResp);
+        }
+
+        /// <summary>
         /// Update Customer's account Settings
         /// </summary>
         /// <param name="userID"></param>

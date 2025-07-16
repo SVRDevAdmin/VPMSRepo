@@ -199,11 +199,33 @@ namespace VPMSWeb.Controllers
 				ViewData["MedicationList"] = _inventoryDBContext.Mst_ProductType.ToList();
 				ViewData["TestsList"] = _testsListDBContext.mst_testslist.Where(x => x.IsActive == 1).OrderBy(x => x.System_TestID).ToList();
 				ViewData["LocationList"] = _locationDBContext.mst_locationlist.Where(x => x.System_Status == 1).ToList();
-                //ViewData["DoctorList"] = _doctorDBContext.mst_doctor.Where(x => x.IsDeleted == 0).ToList();
                 ViewData["DoctorList"] = DoctorRepository.GetDoctorListByOrganizationBranch(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
 
                 petProfile = _patientDBContext.Mst_Pets.FirstOrDefault(x => x.PatientID == patientid && x.Name == petname);
-            }
+
+				List<RangeObjectModel> sHealthRange = new List<RangeObjectModel>();
+				if (petProfile != null)
+				{
+					String sSpecies = petProfile.Species;
+
+					var sPetBMIRange = _patientDBContext.Mst_Pets_Ranges.Where(x => x.RangeType == "BMI" && x.Species == sSpecies).FirstOrDefault();
+					if (sPetBMIRange != null)
+					{
+						sHealthRange.Add(new RangeObjectModel
+						{
+							SeqNo = 1,
+							RangeValue = sPetBMIRange.RangeStart.Value
+						});
+						sHealthRange.Add(new RangeObjectModel
+						{
+							SeqNo = 2,
+							RangeValue = sPetBMIRange.RangeEnd.Value
+						});
+
+						ViewData["PetHealthRange"] = sHealthRange;
+					}
+				}
+			}
 			catch (Exception ex)
 			{
 				Program.logger.Error("Controller Error >> ", ex);
@@ -538,96 +560,6 @@ namespace VPMSWeb.Controllers
 			return isSuccess;
 		}
 
-        //[Route("/Patients/BloodTest/{patientid}/{petname}")]
-        //public IActionResult BloodTest(int patientid, string petname)
-        //{
-        //	List<int> patientList = new List<int>();
-
-        //	try
-        //	{
-        //		var role = HttpContext.Session.GetString("RoleName");
-        //		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-        //		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
-
-        //		if (role == "Superadmin")
-        //		{
-        //			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-        //		}
-        //		else if (organisation != 0)
-        //		{
-        //			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-        //			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
-
-        //		}
-        //		else if (branch != 0)
-        //		{
-        //			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-        //		}
-
-        //		if (!patientList.Contains(patientid))
-        //		{
-        //			return RedirectToAction("PatientsList", "Patients");
-        //		}
-
-        //	}
-        //	catch (Exception ex)
-        //	{
-        //		Program.logger.Error("Controller Error >> ", ex);
-        //	}
-
-        //	ViewData["PetName"] = petname;
-        //	ViewBag.PatientID = patientid;
-
-        //	Program.CurrentPage = "/Patients/BloodTest/" + patientid + "/" + petname;
-
-        //	return View();
-        //}
-
-        //[Route("/Patients/VCheck/{patientid}/{petname}")]
-        //public IActionResult VCheck(int patientid, string petname)
-        //{
-        //	List<int> patientList = new List<int>();
-
-        //	try
-        //	{
-        //		var role = HttpContext.Session.GetString("RoleName");
-        //		var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-        //		var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
-
-        //		if (role == "Superadmin")
-        //		{
-        //			patientList = _patientDBContext.Mst_Patients.Select(y => y.ID).ToList();
-        //		}
-        //		else if (organisation != 0)
-        //		{
-        //			List<int> branchList = _branchDBContext.Mst_Branch.Where(x => x.OrganizationID == organisation).Select(y => y.ID).ToList();
-        //			patientList = _patientDBContext.Mst_Patients.Where(x => branchList.Contains(x.BranchID)).Select(y => y.ID).ToList();
-
-        //		}
-        //		else if (branch != 0)
-        //		{
-        //			patientList = _patientDBContext.Mst_Patients.Where(x => x.BranchID == branch).Select(y => y.ID).ToList();
-        //		}
-
-        //		if (!patientList.Contains(patientid))
-        //		{
-        //			return RedirectToAction("PatientsList", "Patients");
-        //		}
-
-        //	}
-        //	catch (Exception ex)
-        //	{
-        //		Program.logger.Error("Controller Error >> ", ex);
-        //	}
-
-        //	ViewData["PetName"] = petname;
-        //	ViewBag.PatientID = patientid;
-
-        //	Program.CurrentPage = "/Patients/VCheck/" + patientid + "/" + petname;
-
-        //	return View();
-        //}
-
         [Route("/Patients/TestManagement/{category}/{patientid}/{petname}")]
 		public IActionResult TestResults(int category, int patientid, string petname)
 		{
@@ -700,28 +632,6 @@ namespace VPMSWeb.Controllers
 			return View();
 		}
 
-		//[Route("/Patients/CreatePatientLoginProfile")]
-		//[HttpPost()]
-		//public IActionResult CreatePatientLoginProfile(Patient_Owner_Login sPatientLogin)
-		//{
-		//	Models.ResponseStatusObject sResp = new Models.ResponseStatusObject();
-
-		//	try
-		//	{
-		//		_patientDBContext.Mst_Patients_Login.Add(sPatientLogin);
-		//		_patientDBContext.SaveChanges();
-
-		//		sResp.StatusCode = (int)StatusCodes.Status200OK;
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Program.logger.Error("Controller Error >>> ", ex);
-  //              sResp.StatusCode = (int)StatusCodes.Status400BadRequest;
-  //          }
-
-		//	return Json(sResp);
-		//}
-
 		public PatientTreatmentPlan GetUpcomingTreatmentPlan(int petID) 
 		{
 			PatientTreatmentPlan upcomingTreatmentPlan = new PatientTreatmentPlan();
@@ -735,37 +645,11 @@ namespace VPMSWeb.Controllers
 				Program.logger.Error("Controller Error >> ", ex);
 			}
 
-			//if (upcomingTreatmentPlan == null) 
-			//{
-			//	upcomingTreatmentPlan = new PatientTreatmentPlan();
-			//}
-
             upcomingTreatmentPlan = (upcomingTreatmentPlan == null) ? new PatientTreatmentPlan() : upcomingTreatmentPlan;
 
 
             return upcomingTreatmentPlan;
 		}
-
-		//public PatientTreatmentPlan GetOngoingTreatmentPlan(int petID)
-		//{
-		//	PatientTreatmentPlan upcomingTreatmentPlan = new PatientTreatmentPlan();
-
-		//	try
-		//	{
-		//		upcomingTreatmentPlan = _patientDBContext.Txn_TreatmentPlan.Where(x => x.PetID == petID && x.TreatmentStart <= DateOnly.FromDateTime(DateTime.Now) && x.TreatmentEnd >= DateOnly.FromDateTime(DateTime.Now)).OrderBy(x => x.TreatmentStart).FirstOrDefault();
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Program.logger.Error("Controller Error >> ", ex);
-		//	}
-
-		//	if (upcomingTreatmentPlan == null)
-		//	{
-		//		upcomingTreatmentPlan = new PatientTreatmentPlan();
-		//	}
-
-		//	return upcomingTreatmentPlan;
-		//}
 
 		public List<PatientTreatmentPlan> GetOngoingTreatmentPlan(int petID)
 		{
@@ -1241,8 +1125,9 @@ namespace VPMSWeb.Controllers
 			{
 				var currentPetInfo = _patientDBContext.Mst_Pets.AsNoTracking().FirstOrDefault(p => p.ID == pets.ID);
 
-				_patientDBContext.Update(pets);
+				pets.AvatarID = currentPetInfo.AvatarID;
 
+				_patientDBContext.Update(pets);
 				_patientDBContext.SaveChanges();
 
 				if (currentPetInfo.Height != pets.Height || currentPetInfo.Weight != pets.Weight || currentPetInfo.Allergies != pets.Allergies || currentPetInfo.Age != pets.Age)
@@ -1469,7 +1354,6 @@ namespace VPMSWeb.Controllers
 		{
 			if(countryName != "")
 			{
-				//countryID = _countryDBContext.mst_countrylist.FirstOrDefault(x => x.CountryName == countryName).ID;
                 var sCountryObj = _countryDBContext.mst_countrylist.FirstOrDefault(x => x.CountryName == countryName);
 				if (sCountryObj != null)
 				{
@@ -1485,7 +1369,6 @@ namespace VPMSWeb.Controllers
 		{
 			if (stateName != "")
 			{
-				//stateID = _countryDBContext.mst_state.FirstOrDefault(x => x.State == stateName).ID;
                 var sStateObj = _countryDBContext.mst_state.FirstOrDefault(x => x.State == stateName);
 				if (sStateObj != null)
 				{
@@ -1502,7 +1385,6 @@ namespace VPMSWeb.Controllers
             organisationID = 0;
 			bool havePermission = false;
 
-            //var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
             if (roles.Contains("General.Superadmin") || roles.Contains("General.Superuser"))
             {
                 organisationID = (roles.Contains("General.Superuser")) ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
@@ -1521,7 +1403,7 @@ namespace VPMSWeb.Controllers
 		{
             List<int> patientList = new List<int>();
 			bool allowed = false;
-			//return true;
+
 			try
 			{
                 var branch = 0;
@@ -1570,7 +1452,6 @@ namespace VPMSWeb.Controllers
             }
             else
             {
-                //if (roles.Contains("PatientDetails.Add"))
 				if (roles.Contains("Patients.Add"))
 				{
                     ViewData["CanAdd"] = "true";
@@ -1624,8 +1505,8 @@ namespace VPMSWeb.Controllers
             }
 			catch (Exception ex)
 			{
-
-			}
+                Program.logger.Error("Controller Error >>> SendAccountCreationShortLink >>> ", ex);
+            }
         }
     }
 }

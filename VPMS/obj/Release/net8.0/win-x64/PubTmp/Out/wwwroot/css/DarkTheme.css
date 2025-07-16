@@ -138,7 +138,7 @@ input[type='text']:focus, select:focus {
 .sidebar-nav-font {
 	vertical-align: middle;
 	color: white;
-	font-weight: bold;
+	font-weight: 550;
 }
 
 .divThemes {
@@ -203,61 +203,71 @@ input[type='text']:focus, select:focus {
 }
 
 #iconPatients {
-	content: url('../images/fa_dark_paw_icon.png');
+	/*content: url('../images/fa_dark_paw_icon.png');*/
+	content: url('../images/menu/Patients_Dark.svg');
 	width: 22px;
 	height: 20px;
 }
 
 #iconHome {
-	content: url('../images/home_dark.png');
+	/*content: url('../images/home_dark.png');*/
+	content: url('../images/menu/Dashboard_Dark.svg');
 	width: 20px;
 	height: 20px;
 }
 
 #iconAppt {
-	content: url('../images/calendar_dark_icon.png');
+	/*content: url('../images/calendar_dark_icon.png');*/
+	content: url('../images/menu/Appointments_Dark.svg');
 	width: 20px;
 	height: 20px;
 }
 
 #iconTestMgmt {
-	content: url('../images/flask_white_icon.png');
+	/*content: url('../images/flask_white_icon.png');*/
+	content: url('../images/menu/TestManagement_Dark.svg');
 	width: 20px;
 	height: 20px;
 }
 
-#iconReceipt{
-	content: url('../images/receipt_dark_icon.png');
-	width: 24px;
-	height: 24px;
+#iconReceipt {
+	/*content: url('../images/receipt_dark_icon.png');*/
+	content: url('../images/menu/InvoiceReceipts_Dark.svg');
+	width: 22px;
+	height: 20px;
 }
 
 #iconAccess {
-	content: url('../images/users_dark_icon.png');
-	width: 24px;
-	height: 24px;
-}
-
-#iconDoctor {
-	content: url('../images/doctor_dark_icons.png');
+	/*content: url('../images/users_dark_icon.png');*/
+	content: url('../images/menu/UserAccess_Dark.svg');
 	width: 24px;
 	height: 24px;
 }
 
 #imgTreatment {
-	content: url('../images/plan_dark_icon.png');
+	/*content: url('../images/plan_dark_icon.png');*/
+	content: url('../images/menu/PatientServices_Dark.svg');
 	width: 20px;
 	height: 20px;
 }
 
+#iconDoctor {
+	/*content: url('../images/doctor_dark_icons.png');*/
+	content: url('../images/menu/Doctor_Dark.svg');
+	width: 24px;
+	height: 24px;
+}
+
 #iconInventory {
-	content: url('../images/boxes_dark.png');
+	/*content: url('../images/boxes_dark.png');*/
+	content: url('../images/menu/Inventory_Dark.svg');
 	width: 24px;
 	height: 24px;
 }
 
 #iconServices {
-	content: url('../images/mail_dark_icon.png');
+	/*content: url('../images/mail_dark_icon.png');*/
+	content: url('../images/menu/CustomerService_DarkGrey.svg');
 	width: 24px;
 	height: 24px;
 }
@@ -275,7 +285,8 @@ input[type='text']:focus, select:focus {
 }
 
 #imgManagement {
-	content: url('../images/customer_white.png');
+	/*content: url('../images/customer_white.png');*/
+	content: url('../images/menu/CustomerPortal_Dark.svg');
 	width: 24px;
 	height: 24px;
 }

@@ -65,6 +65,53 @@ namespace VPMSWeb.Controllers
             return View();
         }
 
+        public IActionResult Sample()
+        {
+            try
+            {
+                int sessionBranchID = 0;
+                if (HttpContext.Session.GetString("BranchID") != null)
+                {
+                    sessionBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+                }
+
+                int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+                int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+                var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
+                SetPermission(roles, "Appointments.View");
+
+                int isSuperadmin = 0;
+                int roleIsAdmin = 0;
+                roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+                var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+                if (organizationObj != null)
+                {
+                    if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                    {
+                        isSuperadmin = 1;
+                    }
+                    else
+                    {
+                        isSuperadmin = 0;
+                    }
+                }
+
+                AppointmentViewModel sModel = new AppointmentViewModel();
+
+                sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
+                sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
+                sModel.SpeciesModel = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Species");
+
+                ViewData["AppointmentViewModel"] = sModel;
+            }
+            catch (Exception ex)
+            {
+                Program.logger.Error("Controller Error >> ", ex);
+            }
+
+            return View();
+        }
+
         /// <summary>
         /// Get Appointment list by Calendar View
         /// </summary>

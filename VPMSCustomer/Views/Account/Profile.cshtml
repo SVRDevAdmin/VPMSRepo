@@ -51,14 +51,106 @@
         {
             loadProfile(false);
         }
+
+        $('#btnEditPrimary').on('click', function(ctl){ 
+            GetProfileAvatarList($('#hidPriGender').val(), $('#hidPriAvatarID').val());
+
+            $('#hidSelectedID').val($('#hidPriOwnerID').val());
+            $('#AvatarModal').modal('show');
+        });
+
+        $('#btnEditSecondary').on('click', function(ctl){
+            GetProfileAvatarList($('#hidSecGender').val(), $('#hidSecAvatarID').val());
+
+            $('#hidSelectedID').val($('#hidSecOwnerID').val());
+            $('#AvatarModal').modal('show');
+        });
+
+        $('#btnSaveAvatar').on('click', function(ctl){
+            var sOwnerID = $('#hidSelectedID').val();
+            let sAvatarID = $("input[type='radio'][name='avatarradio']:checked").val();
+
+
+            $.post("/Account/Profile/UpdateProfileAvatar", {
+                ownerID : sOwnerID,
+                avatarID : sAvatarID,
+                updatedBy : '@sessionUserName'
+            }).done(function(result){
+                if (result.statusCode == 200){
+                    window.location.reload();
+                }
+                else {
+                    ShowSuccessMsgBox("@Html.Raw(LangResources["ProfileAvatar_Title_UpdateProfileAvatar"])", 
+                                      "@Html.Raw(LangResources["ProfileAvatar_Message_FailedToUpdateProfileAvatar"])",
+                        function() {}
+                    );
+                }
+            });
+        });
     });
+
+    function GetProfileAvatarList(subgroup, avatarID)
+    {
+        $('#divAvatarBox').html('');
+
+        $.getJSON("/Masterdata/GetProfileAvatars", {
+            group: 'Gender',
+            subGroup: subgroup
+        }).done(function(result){ 
+            if (result != null && result.data.length > 0)
+            {
+                $('#btnSaveAvatar').show();
+
+                for (var i = 0; i < result.data.length; i++)
+                {
+                    var sMarginHtml = 'ms-2 mb-2';
+                    if ((i + 1) % 4 == 1)
+                    {
+                        sMarginHtml = 'mb-2';
+                    }
+
+                    var sFlagChecked = '';
+                    if (result.data[i].id == avatarID)
+                    {
+                        sFlagChecked = "checked='true'";
+                    }
+
+                    var avatarHtml = '';
+                    avatarHtml = '<div class="row ' + sMarginHtml + '">' +
+                                 '<div class="col">' +
+                                 '<input id="' + result.data[i].id + '" name="avatarradio" type="radio" ' + 
+                                 'class="form-check-input" style="border: 1px solid black;" ' + 
+                                 'value="' + result.data[i].id + '" ' + sFlagChecked + ' />' +
+
+                                 '<img src="' + result.data[i].avatarFilePath + '" class="avatarSelectionImg" />' +
+                                 //style="width: 75px; height: 75px; margin-left: 5px;"
+                                 '</div>' +
+                                 '</div>';
+
+                    $('#divAvatarBox').append(avatarHtml);
+                }
+            }
+            else 
+            {
+                var noselectionHtml = '';
+                noselectionHtml = '<div class="row col-sm-4">' +
+                                  '<div class="col-md-12">' +   
+                                  '<label>' + "@Html.Raw(LangResources["ProfileAvatar_Message_NoAvatarAvailable"])" + '</label>' +
+                                  '</div>' +
+                                  '</div>';
+
+                $('#divAvatarBox').append(noselectionHtml);
+                $('#btnSaveAvatar').hide();
+            }
+        });
+    }
 
     function loadProfile(IsEdit)
     {
         $.getJSON("/Account/Profile/" + '@sessionUserID')
             .done(function(result){
 
-                if (result.data.length > 0){
+                if (result != null && result.data.length > 0){
                     // --- Primary Owner ------//
                     var sPrimaryProfile = result.data.filter(function(obj){
                                                 return (obj.isPrimary == 1);
@@ -74,6 +166,8 @@
                             $('#txtPriContactNo').val(sPrimaryProfile[0].contactNo);
                             $('#txtPriEmail').val(sPrimaryProfile[0].emailAddress);
                             $('#txtPriAddress').val(sPrimaryProfile[0].address);
+                            $('#hidPriGender').val(sPrimaryProfile[0].genderName);
+                            $('#hidPriAvatarID').val(sPrimaryProfile[0].profileAvatarID);
 
                             $('#txtPriPostcode').val(sPrimaryProfile[0].postCode);
                             $('#ddlPriCountry option').filter(function() {
@@ -91,6 +185,7 @@
                         }
                         else
                         {
+                            $('#hidPriOwnerID').val(sPrimaryProfile[0].id);
                             $('#lbPriOwnerName').html(sPrimaryProfile[0].name);
                             $('#lbPriGender').html(sPrimaryProfile[0].genderName);
                             $('#lbPriContactNo').html(sPrimaryProfile[0].contactNo);
@@ -100,16 +195,25 @@
                             $('#lbPriPostcode').html(sPrimaryProfile[0].postCode);
                             $('#lbPriState').html(sPrimaryProfile[0].state);
                             $('#lbPriCountry').html(sPrimaryProfile[0].country);
+                            $('#hidPriGender').val(sPrimaryProfile[0].genderName);
+                            $('#hidPriAvatarID').val(sPrimaryProfile[0].profileAvatarID);
                         }
 
-                        if (sPrimaryProfile[0].genderName == 'Female')
+                        if (sPrimaryProfile[0].profileAvatarID == null)
                         {
-                            $('#avatarPrimary').attr('class', 'avatarFemale');
-                        }
+                            if (sPrimaryProfile[0].genderName == 'Female')
+                            {
+                                $('#avatarPrimary').attr('class', 'avatarFemale');
+                            }
 
-                        if (sPrimaryProfile[0].genderName == 'Male')
+                            if (sPrimaryProfile[0].genderName == 'Male')
+                            {
+                                $('#avatarPrimary').attr('class', 'avatarMale');
+                            }
+                        }
+                        else 
                         {
-                            $('#avatarPrimary').attr('class', 'avatarMale');
+                            $('#avatarPrimary').prop('src', sPrimaryProfile[0].profileAvatarFilePath);
                         }
                     }
 
@@ -130,6 +234,8 @@
                             $('#txtSecContactNo').val(sSecondaryProfile[0].contactNo);
                             $('#txtSecEmail').val(sSecondaryProfile[0].emailAddress);
                             $('#txtSecAddress').val(sSecondaryProfile[0].address);
+                            $('#hidSecGender').val(sSecondaryProfile[0].genderName);
+                            $('#hidSecAvatarID').val(sSecondaryProfile[0].profileAvatarID);
 
                             $('#txtSecPostcode').val(sSecondaryProfile[0].postCode);
                             $('#ddlSecCountry option').filter(function() {
@@ -147,6 +253,7 @@
                         }
                         else 
                         {
+                            $('#hidSecOwnerID').val(sSecondaryProfile[0].id);
                             $('#lbSecOwnerName').html(sSecondaryProfile[0].name);
                             $('#lbSecGender').html(sSecondaryProfile[0].genderName);
                             $('#lbSecContactNo').html(sSecondaryProfile[0].contactNo);
@@ -156,17 +263,26 @@
                             $('#lbSecPostcode').html(sSecondaryProfile[0].postCode);
                             $('#lbSecState').html(sSecondaryProfile[0].state);
                             $('#lbSecCountry').html(sSecondaryProfile[0].country);
+                            $('#hidSecGender').val(sSecondaryProfile[0].genderName);
+                            $('#hidSecAvatarID').val(sSecondaryProfile[0].profileAvatarID);
                         }
 
 
-                        if (sSecondaryProfile[0].genderName == 'Female')
+                        if (sSecondaryProfile[0].profileAvatarID == null)
                         {
-                            $('#avatarSecondary').attr('class', 'avatarFemale');
-                        }
+                            if (sSecondaryProfile[0].genderName == 'Female')
+                            {
+                                $('#avatarSecondary').attr('class', 'avatarFemale');
+                            }
 
-                        if (sSecondaryProfile[0].genderName == 'Male')
-                        {
-                            $('#avatarSecondary').attr('class', 'avatarMale');
+                            if (sSecondaryProfile[0].genderName == 'Male')
+                            {
+                                $('#avatarSecondary').attr('class', 'avatarMale');
+                            }
+                        }
+                        else 
+                        { 
+                            $('#avatarSecondary').prop('src', sSecondaryProfile[0].profileAvatarFilePath);
                         }
                     }
                     else
@@ -618,11 +734,16 @@
     <div class="row">&nbsp;</div>
     <div class="row borderFrame">
         <div id="divPrimaryOwner" class="row mt-4">
-            <div class="col-md-2 mt-5 mb-5">
-                <div class="row">
-                    <div class="col-md-12 ms-5 me-5 avatarFrame">
-                        <img id="avatarPrimary" />
+            <div class="col-md-2 mt-5 mb-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 ms-5 me-5 mb-1 avatarFrame">
+                        <img id="avatarPrimary" class="avatarDefault" />
                     </div>
+                </div>
+                <div class="row justify-content-center">
+                    <a id="btnEditPrimary" class="btn btn-outline-secondary btn-sm" role="button">
+                        @LangResources["Profile_Button_EditAvatar"]
+                    </a>
                 </div>
             </div>
             <div class="col-md-10">
@@ -644,7 +765,10 @@
                     <div class="col-md-3">
                         <label id="lbPriOwnerName" class="displayField" style="font-size: 12px;"></label>
                         <input id="txtPriOwnerName" type="text" class="form-control form-control-sm editField" />
+
                         <input id="hidPriOwnerID" type="hidden" />
+                        <input id="hidPriGender" type="hidden" />
+                        <input id="hidPriAvatarID" type="hidden" />
                     </div>
                     <div class="col-md-3">
                         <label id="lbPriGender" class="displayField"></label>
@@ -713,11 +837,16 @@
             <div class="col-md-12">&nbsp;</div>
         </div>
         <div id="divSecondaryOwner" class="row mt-2">
-            <div class="col-md-2">
-                <div class="row mt-5 mb-5">
-                    <div class="col-md-12 ms-5 me-5 avatarFrame">
-                        <img id="avatarSecondary"  />
+            <div class="col-md-2  mt-5 mb-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 ms-5 me-5 mb-1 avatarFrame">
+                        <img id="avatarSecondary" class="avatarDefault" />
                     </div>
+                </div>
+                <div class="row justify-content-center">
+                    <a id="btnEditSecondary" class="btn btn-outline-secondary btn-sm" role="button">
+                        @LangResources["Profile_Button_EditAvatar"]
+                    </a>
                 </div>
             </div>
             <div class="col-md-10">
@@ -739,7 +868,10 @@
                     <div class="col-md-3">
                         <label id="lbSecOwnerName" class="displayField"></label>
                         <input id="txtSecOwnerName" type="text" class="form-control form-control-sm editField" />
+
                         <input id="hidSecOwnerID" type="hidden" />
+                        <input id="hidSecGender" type="hidden" />
+                        <input id="hidSecAvatarID" type="hidden" />
                     </div>
                     <div class="col-md-3">
                         <label id="lbSecGender" class="displayField"></label>
@@ -819,6 +951,40 @@
                 <input id="btnCancel" type="button" class="btn btn-secondary btn-sm me-2" value="@LangResources["Profile_Button_Cancel"]" style="width: 100%" />
                 <input id="btnEdit" type="button" class="btn btn-primary btn-sm me-2" value="@LangResources["Profile_Button_EditProfile"]" style="width: 100%;" />
                 <input id="btnSave" type="button" class="btn btn-primary btn-sm me-2" value="@LangResources["Profile_Button_Save"]" style="width: 100%;" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="AvatarModal" class="modal fade modal-lg" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 0px;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding-top: 0px;">
+                <div class="row ms-2">
+                    <div class="col-md-12 justify-content-start">
+                        <label class="addAvatarTitleFont">
+                            @LangResources["ProfileAvatar_Title_ProfileAvatar"]
+                        </label>
+                        <input id="hidSelectedID" type="hidden" />
+                    </div>
+                </div>
+                <div class="row mt-2 ms-2 me-2">
+                    <div class="col-md-12 divAvatarFrame">
+                        <div id="divAvatarBox" class="row row-cols-4 ms-1 mt-3 mb-3">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 ms-2 me-2">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button id="btnSaveAvatar" type="button" class="btn btn-primary">
+                            @LangResources["ProfileAvatar_Button_Save"]
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

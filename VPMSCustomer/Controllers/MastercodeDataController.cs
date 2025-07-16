@@ -151,6 +151,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Doctor List By Branch ID
+        /// </summary>
+        /// <param name="branchid"></param>
+        /// <returns></returns>
         [Route("/Masterdata/DoctorList/{branchid}")]
         [HttpGet()]
         public IActionResult GetDoctorList(int branchid)
@@ -173,6 +178,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Branch List By Organization ID
+        /// </summary>
+        /// <param name="organizationID"></param>
+        /// <returns></returns>
         [Route("/Masterdata/BranchList/{organizationID}")]
         [HttpGet()]
         public IActionResult GetBranchList(int organizationID)
@@ -195,6 +205,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Services List By Branch ID
+        /// </summary>
+        /// <param name="branchID"></param>
+        /// <returns></returns>
         [Route("/Masterdata/ServiceList/{branchID}")]
         [HttpGet()]
         public IActionResult GetServicesList(int branchID)
@@ -217,6 +232,11 @@ namespace VPMSCustomer.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Doctor List By Services ID
+        /// </summary>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
         [Route("/Masterdata/DoctorListByService/{serviceID}")]
         [HttpGet()]
         public IActionResult GetDoctorListByServices(int serviceID)
@@ -227,6 +247,34 @@ namespace VPMSCustomer.Controllers
                 if (sDoctorObj != null)
                 {
                     return Json(new { data = sDoctorObj });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Profile Avatar List By Grouping
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="subGroup"></param>
+        /// <returns></returns>
+        [Route("/Masterdata/GetProfileAvatars")]
+        [HttpGet()]
+        public IActionResult GetProfileAvatarList(String group, String subGroup)
+        {
+            try
+            {
+                var sAvatarList = AvatarRepository.GetProfileAvatarList(group, subGroup);
+                if (sAvatarList != null)
+                {
+                    return Json(new { data = sAvatarList });
                 }
                 else
                 {

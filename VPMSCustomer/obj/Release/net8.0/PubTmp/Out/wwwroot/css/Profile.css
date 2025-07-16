@@ -25,3 +25,41 @@
     height: 75px !important;
     margin-left: -13px !important;
 }
+
+.avatarDefault {
+    width: 75px !important;
+    height: 75px !important;
+    margin-left: -13px !important;
+}
+
+#btnEditPrimary {
+    width: 30%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#btnEditSecondary {
+    width: 30%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#btnSaveAvatar{
+    font-size: 12px;
+}
+
+.addAvatarTitleFont {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.divAvatarFrame {
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.avatarSelectionImg {
+    width: 75px;
+    height: 75px;
+    margin-left: 5px;
+}

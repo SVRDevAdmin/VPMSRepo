@@ -27,6 +27,27 @@
 	{
 		ViewBag.DarkTheme = "Light";
 	}
+
+	var sMinValue = "";
+	var sMaxValue = "";
+	var sHealthRangeObj = new List<VPMS.Lib.Data.Models.RangeObjectModel>();
+	if (ViewData["PetHealthRange"] != null)
+	{
+		sHealthRangeObj = ViewData["PetHealthRange"] as List<VPMS.Lib.Data.Models.RangeObjectModel>;
+
+		for (var i = 0; i < sHealthRangeObj.Count; i++)
+		{
+			if (sHealthRangeObj[i].SeqNo == 1)
+			{
+				sMinValue = sHealthRangeObj[i].RangeValue.ToString();
+			}
+
+			if (sHealthRangeObj[i].SeqNo == 2)
+			{
+				sMaxValue = sHealthRangeObj[i].RangeValue.ToString();
+			}
+		}
+	}
 }
 
 <link rel="stylesheet" href="~/css/gijgo.min.css" type="text/css" />
@@ -207,6 +228,7 @@
 		<input class="IDVaccination" type="text" hidden/>
 		<input class="CreatedDateVaccination" type="text" value="@currentDateTime" hidden />
 		<input class="CreatedByVaccination" type="text" hidden/>
+
 		<div class="medicalRecord">
 			<span class="TypeVaccinationText"></span> </br>
 			<span class="NameVaccinationText" style="font-weight:bold;"></span> </br>
@@ -1115,9 +1137,9 @@
 							type: 'line',
 							mode: 'horizontal',
 							scaleID: 'y-axis-0',
-							value: '10',
+							value: '@sMinValue',
 							borderColor: 'red',
-							borderWidth: 2
+							borderWidth: 1
 						},
 						{
 							drawTime: 'afterDraw',
@@ -1125,11 +1147,11 @@
 							type: 'line',
 							mode: 'horizontal',
 							scaleID: 'y-axis-0',
-							value: '13',
-							borderColor: 'red',
-							borderWidth: 2
+							value: '@sMaxValue',
+							borderColor: 'green',
+							borderWidth: 1
 						}
-						]
+				]
 			}
 
 			chartElement = new Chart("myChart", {
@@ -1159,6 +1181,7 @@
 							ticks: { beginAtZero: true, fontColor: axisColor }
 						}],
 						xAxes: [{
+							offset: true,
 							scaleLabel: {
 								display: true,
 								labelString: xLable
@@ -1180,34 +1203,22 @@
 					},
 					annotation: {
 						annotations: lstAnnotation
-						// annotations: [
-						// {
-						// 	drawTime: 'afterDraw',
-						// 	id: 'a-line-1',
-						// 	type: 'line',
-						// 	mode: 'horizontal',
-						// 	scaleID: 'y-axis-0',
-						// 	value: '10',
-						// 	borderColor: 'red',
-						// 	borderWidth: 2
-						// },
-						// {
-						// 	drawTime: 'afterDraw',
-						// 	id: 'a-line-2',
-						// 	type: 'line',
-						// 	mode: 'horizontal',
-						// 	scaleID: 'y-axis-0',
-						// 	value: '13',
-						// 	borderColor: 'red',
-						// 	borderWidth: 2
-						// }
-						// ]
 					}
 				}
 			});
 		}
 		
 		
+	}
+
+	function getHealthRange(species, healthType)
+	{
+		$.getJSON("/Patients/PetProfile/GetPetHealthRange", {
+			species : species,
+			sType : healthType
+		}).done(function(result){ 
+			return result;
+		});
 	}
 </script>
 

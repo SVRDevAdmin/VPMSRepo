@@ -41,13 +41,6 @@ namespace VPMSWeb.Controllers
 			int start = (page - 1) * rowLimit;
 			var organisationInfos = new OrganisationInfo() { OrganisationList = new List<OrgansationListExtended>(), TotalOrganisation = 0 };
 
-            //var role = HttpContext.Session.GetString("RoleName");
-            //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
-
-            //var vendorID = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == organisation).ParentID;
-            //var vendor = _organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == vendorID);
-
-
             var organisation = 0;
             var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
             var havaPermission = hasPermission(roles, "OrganizationListing.View", out organisation);
@@ -90,7 +83,6 @@ namespace VPMSWeb.Controllers
 			Boolean isNew = false;
 
 			var Level1ID = _organisationDBContext.Mst_Organisation.Where(x => x.Level == 1).FirstOrDefault().Id;
-			//var Level1ID = int.Parse(HttpContext.Session.GetString("Level1ID"));
 			organisationModel.TotalStaff = 1;
 			organisationModel.Level = 2;
 			organisationModel.ParentID = Level1ID;

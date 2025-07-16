@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using K4os.Compression.LZ4.Streams;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Configuration;
 using MySql.Data.MySqlClient;
@@ -148,11 +149,12 @@ namespace VPMSCustomer.Lib.Data
                     MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
                     sConn.Open();
 
-                    String sSelectCommand = "SELECT A.*, B.CodeName AS 'GenderName' " +
+                    String sSelectCommand = "SELECT A.*, B.CodeName AS 'GenderName', C.AvatarFilePath " +
                                             "FROM mst_patients_owner AS A " +
                                             "LEFT JOIN (" +
                                                 "SELECT * FROM mst_mastercodedata WHERE CodeGroup='Gender' AND IsActive=1" +
                                             ") AS B ON B.CodeID COLLATE UTF8MB4_GENERAL_CI = A.Gender " +
+                                            "LEFT JOIN mst_profile_avatar AS C on C.ID = A.ProfileAvatarID " +
                                             "WHERE A.PatientID = '" + iPatientID + "' ";
 
                     using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
@@ -195,6 +197,16 @@ namespace VPMSCustomer.Lib.Data
                                 if (sReader["UpdatedBy"] != null)
                                 {
                                     sOwnerObj.UpdatedBy = sReader["UpdatedBy"].ToString();
+                                }
+
+                                if (!String.IsNullOrEmpty(sReader["ProfileAvatarID"].ToString()))
+                                {
+                                    sOwnerObj.ProfileAvatarID = Convert.ToInt32(sReader["ProfileAvatarID"]);
+                                }
+
+                                if (!String.IsNullOrEmpty(sReader["AvatarFilePath"].ToString()))
+                                {
+                                    sOwnerObj.ProfileAvatarFilePath = sReader["AvatarFilePath"].ToString();
                                 }
 
                                 sResult.Add(sOwnerObj);
@@ -355,6 +367,47 @@ namespace VPMSCustomer.Lib.Data
                 logger.Error("PatientRepository >>> GetPatientOwnerByID >>> " + ex.ToString());
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Update Patient Owner Profile's Avatar
+        /// </summary>
+        /// <param name="iOwnerID"></param>
+        /// <param name="iAvatarID"></param>
+        /// <param name="sUpdatedBy"></param>
+        /// <returns></returns>
+        public static Boolean UpdateOwnerProfileAvatar(long iOwnerID, int iAvatarID, String sUpdatedBy)
+        {
+            Boolean isSuccess = false;
+
+            try
+            {
+                using (var ctx = new PatientDBContext())
+                {
+                    var sProfile = ctx.mst_patients_Owner.Where(x => x.ID == iOwnerID).FirstOrDefault();
+                    if (sProfile != null)
+                    {
+                        sProfile.ProfileAvatarID = iAvatarID;
+                        sProfile.UpdatedDate = DateTime.Now;
+                        sProfile.UpdatedBy = sUpdatedBy;
+
+                        ctx.SaveChanges();
+
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        isSuccess = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("PatientRepository >>> UpdateOwnerProfileAvatar >>> " + ex.ToString());
+                isSuccess = false;
+            }
+
+            return isSuccess;
         }
     }
 }

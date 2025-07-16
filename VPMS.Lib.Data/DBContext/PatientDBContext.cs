@@ -26,6 +26,7 @@ namespace VPMS.Lib.Data.DBContext
 		public DbSet<Patient_Owner_Login> Mst_Patients_Login {  get; set; }
 		public DbSet<Account_Creation_Logs> Mst_Account_Creation_Logs { get; set; }
 		public DbSet<PetAvatarObject> Mst_Avatar { get; set; }
+		public DbSet<PetRangeModel> Mst_Pets_Ranges { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options) =>
 			options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));

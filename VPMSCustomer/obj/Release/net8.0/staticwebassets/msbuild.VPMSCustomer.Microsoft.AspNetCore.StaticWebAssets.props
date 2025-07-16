@@ -138,8 +138,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>kr3j34amzw</Fingerprint>
-      <Integrity>MNPnxh51USXtiS+pcafUZKrWt59GVzzTFXCpBeWbOm0=</Integrity>
+      <Fingerprint>ecn9p8gyfw</Fingerprint>
+      <Integrity>bjdB41gnwS0sGO/OSz4xCNjblMPcoNQ3auqJ927QQWI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\DarkTheme.css'))</OriginalItemSpec>
@@ -228,8 +228,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>lvxa7ppb47</Fingerprint>
-      <Integrity>/3plIR5SJ7Hd1R0H+XlPXdFE1/LA1VMHPEXFnVrk728=</Integrity>
+      <Fingerprint>h2j6z75lh6</Fingerprint>
+      <Integrity>90rwJw/KvsvQGTluZP11pPb+fsIkx8Z8v3buDgcESOE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\LightTheme.css'))</OriginalItemSpec>
@@ -264,8 +264,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>vkqivp6jq9</Fingerprint>
-      <Integrity>8QWnf+44e7KAhPMuQwUH+5/eKKfYwI4zRQpOCBMJJa4=</Integrity>
+      <Fingerprint>4nutrnf0yr</Fingerprint>
+      <Integrity>YOfN7HHh21EOPK2l9ZJ9Liwo9xXjqm/VmHyt8aaaPsY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\main.css'))</OriginalItemSpec>
@@ -354,8 +354,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>npa9wsnhkg</Fingerprint>
-      <Integrity>haGKFFaR6KCslq8DerpBypbuwWKtbsrkZXtxgA6BCAU=</Integrity>
+      <Fingerprint>j70a9qvstm</Fingerprint>
+      <Integrity>j2CpuJG7qLIbRogl0s5HaP7ODVYU0YQGG8bDLnHUrRQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\Profile.css'))</OriginalItemSpec>
@@ -1116,41 +1116,77 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Country\zh-Hant.png'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-analytics.png'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Analytics.svg'))">
       <SourceType>Package</SourceType>
       <SourceId>VPMSCustomer</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/VPMSCustomer</BasePath>
-      <RelativePath>images/Icons/Icon-analytics.png</RelativePath>
+      <RelativePath>images/Icons/Icon-Analytics.svg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>dwzdtcjdlb</Fingerprint>
-      <Integrity>/VPJVN0cmR5G1Whr72VqjuBML0NGs7z3+MWrjb2W1YA=</Integrity>
+      <Fingerprint>zgmtilbfsf</Fingerprint>
+      <Integrity>A02FJEafzE4lg56JBNAkWNwZ/cCUlLjYNzWvF7v4uoI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-analytics.png'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Analytics.svg'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-appointment.png'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Analytics-Dark.svg'))">
       <SourceType>Package</SourceType>
       <SourceId>VPMSCustomer</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/VPMSCustomer</BasePath>
-      <RelativePath>images/Icons/Icon-appointment.png</RelativePath>
+      <RelativePath>images/Icons/Icon-Analytics-Dark.svg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>1cjet02tr9</Fingerprint>
-      <Integrity>nwmkb8VIKifCG/NxvR5HCJYnCSvpk+p1Kp94QGl0geQ=</Integrity>
+      <Fingerprint>i3o32mdr1h</Fingerprint>
+      <Integrity>Qnk2K4p+IgOR3T7AgtmnX8Y+yib4PIjHUBeTGLhiFLE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-appointment.png'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Analytics-Dark.svg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Appointments.svg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/Icon-Appointments.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>p7gj3lvlr4</Fingerprint>
+      <Integrity>K6CMHNox5le8wij8H0ljeHG1Rx6VAYMYPiu4Aed3880=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Appointments.svg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Appointments-Dark.svg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/Icon-Appointments-Dark.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>4wbqq7ksow</Fingerprint>
+      <Integrity>TCv05VLs6BjxibJY+5h3ccoM3vYhZxqYCOWzWTSGvo4=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Appointments-Dark.svg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Clinic.png'))">
       <SourceType>Package</SourceType>
@@ -1170,23 +1206,41 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Clinic.png'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-customer-service.png'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-CustomerService.svg'))">
       <SourceType>Package</SourceType>
       <SourceId>VPMSCustomer</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/VPMSCustomer</BasePath>
-      <RelativePath>images/Icons/Icon-customer-service.png</RelativePath>
+      <RelativePath>images/Icons/Icon-CustomerService.svg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>de960mm0na</Fingerprint>
-      <Integrity>6xK3uLvEA/vJzpxRGaOBB9thVJcyC+8wqgOjrwvsIZE=</Integrity>
+      <Fingerprint>n9bdrjjcai</Fingerprint>
+      <Integrity>S9FSXGd24YAO+mCdHrqMdKTol7Im1EQw1vRJX/O2QEI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-customer-service.png'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-CustomerService.svg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-CustomerService-Dark.svg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/Icon-CustomerService-Dark.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>liw9v8eex1</Fingerprint>
+      <Integrity>I/TZvyrUi5H8z0835e5JP1qvhsr6ltKcTBKBYNWQ4GU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-CustomerService-Dark.svg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Doctor.png'))">
       <SourceType>Package</SourceType>
@@ -1206,41 +1260,77 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Doctor.png'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-home.png'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-home.svg'))">
       <SourceType>Package</SourceType>
       <SourceId>VPMSCustomer</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/VPMSCustomer</BasePath>
-      <RelativePath>images/Icons/Icon-home.png</RelativePath>
+      <RelativePath>images/Icons/Icon-home.svg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>nh79csp2y2</Fingerprint>
-      <Integrity>1eXcowK8jGaeT5ZUhtQJJNaM/GvVI6G3eSa9wqdO8Bw=</Integrity>
+      <Fingerprint>j1w9pw9p2f</Fingerprint>
+      <Integrity>dxNWIUQenlc6JFDqjhqJ3vETSqox7AzJrSX32thedi4=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-home.png'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-home.svg'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-invoice-receipts.png'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-home-Dark.svg'))">
       <SourceType>Package</SourceType>
       <SourceId>VPMSCustomer</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/VPMSCustomer</BasePath>
-      <RelativePath>images/Icons/Icon-invoice-receipts.png</RelativePath>
+      <RelativePath>images/Icons/Icon-home-Dark.svg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>3d3s94idyp</Fingerprint>
-      <Integrity>B5ljoZmDCtpJM717hECeYUiOhwzOeP6nnhkqCShmjjY=</Integrity>
+      <Fingerprint>x3fno67lb6</Fingerprint>
+      <Integrity>PUyv6yDMxlQYljKAjsSM00IVYEq1W7M/ITRfRaG2FuI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-invoice-receipts.png'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-home-Dark.svg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-InvoiceReceipts.svg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/Icon-InvoiceReceipts.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>icb1dpjuia</Fingerprint>
+      <Integrity>stB7BQ+YQZIUwWSAIPPI0OYyYVDPVryf+mzs0CklGf0=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-InvoiceReceipts.svg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-InvoiceReceipts-Dark.svg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/Icon-InvoiceReceipts-Dark.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>3ootmsnsh8</Fingerprint>
+      <Integrity>3afyt95HPjnbM8eUnRepQykmMstMeB/z3AW40OO/fPM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-InvoiceReceipts-Dark.svg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-locked.png'))">
       <SourceType>Package</SourceType>
@@ -1278,23 +1368,41 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Person.png'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-pets.png'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Pets.svg'))">
       <SourceType>Package</SourceType>
       <SourceId>VPMSCustomer</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/VPMSCustomer</BasePath>
-      <RelativePath>images/Icons/Icon-pets.png</RelativePath>
+      <RelativePath>images/Icons/Icon-Pets.svg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ku73399k8n</Fingerprint>
-      <Integrity>hH6oCjpdNdLBj7M86K+a3e629SQtMwd4SpsWooIm15A=</Integrity>
+      <Fingerprint>vxqmuvt1zw</Fingerprint>
+      <Integrity>4/sQPhtR9N4mXuQo+0rv8Zlp+61vS8de/uCyS1Am/ms=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-pets.png'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Pets.svg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Pets-Dark.svg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/Icon-Pets-Dark.svg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>ophyjejomc</Fingerprint>
+      <Integrity>LKkuy8zHRg0eEvz1cJ28rFVADoXHGNE4/d9JKROd2hc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\Icon-Pets-Dark.svg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\menu.png'))">
       <SourceType>Package</SourceType>
@@ -1331,6 +1439,114 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xIcon-Doctor.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-analytics.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/xxIcon-analytics.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>dwzdtcjdlb</Fingerprint>
+      <Integrity>/VPJVN0cmR5G1Whr72VqjuBML0NGs7z3+MWrjb2W1YA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-analytics.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-appointment.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/xxIcon-appointment.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>1cjet02tr9</Fingerprint>
+      <Integrity>nwmkb8VIKifCG/NxvR5HCJYnCSvpk+p1Kp94QGl0geQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-appointment.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-customer-service.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/xxIcon-customer-service.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>de960mm0na</Fingerprint>
+      <Integrity>6xK3uLvEA/vJzpxRGaOBB9thVJcyC+8wqgOjrwvsIZE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-customer-service.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-invoice-receipts.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/xxIcon-invoice-receipts.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>3d3s94idyp</Fingerprint>
+      <Integrity>B5ljoZmDCtpJM717hECeYUiOhwzOeP6nnhkqCShmjjY=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-invoice-receipts.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-pets.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/xxIcon-pets.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>ku73399k8n</Fingerprint>
+      <Integrity>hH6oCjpdNdLBj7M86K+a3e629SQtMwd4SpsWooIm15A=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxIcon-pets.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxxIcon-home.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Icons/xxxIcon-home.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>nh79csp2y2</Fingerprint>
+      <Integrity>1eXcowK8jGaeT5ZUhtQJJNaM/GvVI6G3eSa9wqdO8Bw=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Icons\xxxIcon-home.png'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Login_Landing_Image.png'))">
       <SourceType>Package</SourceType>
@@ -1583,6 +1799,42 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Pets\Avatar_Dog_3.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Profile\Female\FemaleProfile_1.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Profile/Female/FemaleProfile_1.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>vjpgsue5ig</Fingerprint>
+      <Integrity>pSZb7rlO9l+swwj58DsQWifW7zJU9zwYXQYRSlh9kR8=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Profile\Female\FemaleProfile_1.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Profile\Male\MaleProfile_1.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>VPMSCustomer</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/VPMSCustomer</BasePath>
+      <RelativePath>images/Profile/Male/MaleProfile_1.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>8noopd26xu</Fingerprint>
+      <Integrity>xD/pImSB3JtIcTQvX/rKFHQ9Yvt1Ubq7JSFSLeuZXm0=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Profile\Male\MaleProfile_1.png'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\pumpkin_dog_cat.jpg'))">
       <SourceType>Package</SourceType>

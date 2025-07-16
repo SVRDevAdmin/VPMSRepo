@@ -52,11 +52,13 @@ namespace VPMSCustomer.Lib.Data.Models
         public DateTime? UpdatedDate { get; set; }
         public String? UpdatedBy { get; set; }
         public int? IsPrimary { get; set; }
+        public int? ProfileAvatarID { get; set; }
     }
 
     public class PatientOwnerExtendedModel : PatientOwnerModel
     {
         public String? GenderName { get; set; }
+        public String? ProfileAvatarFilePath { get; set; }
     }
 
     public class PatientConfigurationModel

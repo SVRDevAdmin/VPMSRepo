@@ -145,14 +145,7 @@ namespace VPMSWeb.Controllers
 
 						int iOrgID = -1;
 						iOrgID = userInfo.OrganizationID.Value;
-						//var sBranchContext = _branchDBContext.Mst_Branch.First(x => x.ID == userInfo.BranchID);
-						//if (sBranchContext != null)
-						//{
-						//	iOrgID = sBranchContext.OrganizationID;
 
-						//}
-						// HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
-						//HttpContext.Session.SetString("OrganisationID", _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID).OrganizationID.ToString());
 						HttpContext.Session.SetString("OrganisationID", iOrgID.ToString());
 
 						int iLevel = -1;
@@ -189,10 +182,6 @@ namespace VPMSWeb.Controllers
 						HttpContext.Session.SetString("BranchCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name) + userInfo.BranchID);
 						HttpContext.Session.SetString("OrganisationCode", GetAbbreviation(_organisationDBContext.Mst_Organisation.FirstOrDefault(x => x.Id == iOrgID).Name));
 
-						//var organisation = _branchDBContext.Mst_Branch.FirstOrDefault(x => x.ID == userInfo.BranchID);
-						//var organisationID = organisation == null ? 0 : organisation.OrganizationID;
-
-						//HttpContext.Session.SetString("OrganisationID", organisationID.ToString());
 						var sCurrencyObj = CountryRepository.GetCurrencyMasterByCountryCode(ConfigSettings.GetConfigurationSettings(), sCountryCode);
 						if (sCurrencyObj != null)
 						{

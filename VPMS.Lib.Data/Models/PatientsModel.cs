@@ -295,4 +295,21 @@ namespace VPMS.Lib.Data.Models
         public String? ColorCode { get; set; }
         public int? Status { get; set; }
     }
+
+    public class PetRangeModel : AuditModel
+    {
+        [Key]
+        public int ID { get; set; }
+        public String? Species { get; set; }
+        public String? RangeType { get; set; }
+        public Decimal? RangeStart { get; set; }
+        public Decimal? RangeEnd { get; set; }
+        public int? Status { get; set; }
+    }
+
+    public class RangeObjectModel
+    {
+        public int? SeqNo { get; set; }
+        public decimal? RangeValue { get; set; }
+    }
 }

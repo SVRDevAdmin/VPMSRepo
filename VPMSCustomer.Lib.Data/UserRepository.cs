@@ -164,6 +164,11 @@ namespace VPMSCustomer.Lib.Data
             }
         }
 
+        /// <summary>
+        /// Get Users list by Branch ID
+        /// </summary>
+        /// <param name="iBranchID"></param>
+        /// <returns></returns>
         public static List<UserModel> GetUsersListByBranchID(int iBranchID)
         {
             List<UserModel> sUserList = new List<UserModel>();

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMSMasterDataSynchTask")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29de24ef16e61db9f0ede08a0386dc7812ae2499")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22dd1a364ca8c949527235947d02ccb7fc8c9f30")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMSMasterDataSynchTask")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMSMasterDataSynchTask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
