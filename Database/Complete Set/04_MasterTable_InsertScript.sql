@@ -1074,3 +1074,42 @@ VALUES ('General', 'General.Superadmin', 'Superadmin', 1, NOW(), 'SYSTEM');
 INSERT INTO mst_accesspermission (PermissionGrouping, PermissionKey, PermissionName, IsActive, CreatedDate, CreatedBy) 
 VALUES ('General', 'General.Superuser', 'Superuser', 1, NOW(), 'SYSTEM');
 
+
+/*------- Pets Health Ranges -------- */
+INSERT INTO mst_pets_ranges(Species, RangeType, RangeStart, RangeEnd, STATUS, CreatedDate, CreatedBy)
+VALUES('Dog', 'BMI', '18.5', '24.9', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_pets_ranges(Species, RangeType, RangeStart, RangeEnd, STATUS, CreatedDate, CreatedBy)
+VALUES('Cat', 'BMI', '15', '29.9', 1, NOW(), 'SYSTEM');
+
+/*-------- Currency ---------*/
+INSERT INTO mst_currency(Country, CurrencyCode, CurrencySymbol, DisplayFormat, STATUS, CreatedDate, CreatedBy)
+VALUES('MY', 'MYR', 'RM', 'RM###<Symbol>###', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_currency(Country, CurrencyCode, CurrencySymbol, DisplayFormat, STATUS, CreatedDate, CreatedBy)
+VALUES('UM', 'USD', '$', '$###<Symbol>###', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_currency(Country, CurrencyCode, CurrencySymbol, DisplayFormat, STATUS, CreatedDate, CreatedBy)
+VALUES('JP', 'JPY', '¥', '¥###<Symbol>###', 1, NOW(), 'SYSTEM');
+
+/*-------- Profile Avatar --------- */
+-- Male
+INSERT INTO mst_profile_avatar(EntityGroup, EntitySubGroup, AvatarFileName, AvatarFilePath, STATUS, CreatedDate, CreatedBy)
+VALUES('Gender', 'Male', 'MaleProfile_1.png', '/images/profile/male/MaleProfile_1.png', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_profile_avatar(EntityGroup, EntitySubGroup, AvatarFileName, AvatarFilePath, STATUS, CreatedDate, CreatedBy)
+VALUES('Gender', 'Male', 'MaleProfile_2.png', '/images/profile/male/MaleProfile_2.png', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_profile_avatar(EntityGroup, EntitySubGroup, AvatarFileName, AvatarFilePath, STATUS, CreatedDate, CreatedBy)
+VALUES('Gender', 'Male', 'MaleProfile_3.png', '/images/profile/male/MaleProfile_3.png', 1, NOW(), 'SYSTEM');
+
+-- Female
+INSERT INTO mst_profile_avatar(EntityGroup, EntitySubGroup, AvatarFileName, AvatarFilePath, STATUS, CreatedDate, CreatedBy)
+VALUES('Gender', 'Female', 'FemaleProfile_1.png', '/images/profile/Female/FemaleProfile_1.png', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_profile_avatar(EntityGroup, EntitySubGroup, AvatarFileName, AvatarFilePath, STATUS, CreatedDate, CreatedBy)
+VALUES('Gender', 'Female', 'FemaleProfile_2.png', '/images/profile/Female/FemaleProfile_2.png', 1, NOW(), 'SYSTEM');
+
+INSERT INTO mst_profile_avatar(EntityGroup, EntitySubGroup, AvatarFileName, AvatarFilePath, STATUS, CreatedDate, CreatedBy)
+VALUES('Gender', 'Female', 'FemaleProfile_3.png', '/images/profile/Female/FemaleProfile_3.png', 1, NOW(), 'SYSTEM');
+

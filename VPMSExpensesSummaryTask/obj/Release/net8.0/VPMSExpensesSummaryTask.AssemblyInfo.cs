@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMSExpensesSummaryTask")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22dd1a364ca8c949527235947d02ccb7fc8c9f30")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5b34d4ce558574a611ad0a9ad92646fe406bd80")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMSExpensesSummaryTask")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMSExpensesSummaryTask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

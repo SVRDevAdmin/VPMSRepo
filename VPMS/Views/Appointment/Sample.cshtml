@@ -35,6 +35,14 @@
         width: auto !important;
         height: 45px !important;
     } */
+
+    .test {
+        width: 100%;
+        height: auto;
+        position: relative !important;
+        left: 0% !important;
+        margin-right: 0% !important;
+    }
 </style>
 
 <script>
@@ -46,6 +54,9 @@
     {
         sCalendarView = sessionStorage.getItem("CalendarView");
     }
+
+    var itemsOnSlot = {};       // counter to save number of events in same time slot
+    var maxItemsOnRow = {};
 
     var calendar;
     document.addEventListener('DOMContentLoaded', function () {
@@ -273,8 +284,6 @@
                         minute: '2-digit',
                         hour12: false
                     },
-                    //expandRows: true,
-                    //themeSystem: 'bootstrap',
                     slotEventOverlap: true,
                     dayHeaderContent: function(args){
                        const dayHeaderHtml = "<div>" + moment(args.date).format("ddd") +
@@ -286,12 +295,63 @@
                     },
                     // eventContent: function (args, createElement) {
                     //     const extendedObj = args.event._def.extendedProps;
-                    //     const contentHtml = PopulateWeekViewsEvent(args, extendedObj);
+                    //     const contentHtml = PopulateWeekViewsEventTest(args, extendedObj);
                     //     //console.info("EventContent:", args.event);
                     //     return {
                     //         html: contentHtml
                     //     };
                     // },
+                    eventContent: function (args, element, view){
+                        var rows = [];
+                        $('.fc-timegrid-slots > table > tbody > tr > td[data-time]').each(function() {
+                            rows.push($(this));
+                        });
+
+                        var rowIndex = 0;
+                        var getRowElement = function(time) {
+                            while (rowIndex < row.length && moment()){
+                                rowIndex++;
+                            }
+                            var selectedIndex = rowIndex - 1;
+                            return selectedIndex >= 0 ? rows[selectedIndex] : null;
+                        };
+                        debugger;
+                         $('.fc-timegrid-cols > table > tbody > tr >  .fc-timegrid-col').each(function(){
+                             var accumulator = 0;
+                             var previousRowElement = null;
+
+                             $(this).find('.fc-timegrid-col-frame > .fc-timegrid-col-events > .fc-timegrid-event-harness > a.fc-event.fc-event-start.fc-event-end.fc-timegrid-event.fc-v-event').each(function() {
+                                 var currentEventTime = moment($(this).find('> div.fc-content > div.fc-time').attr('data-full'), ['h:mm A']);
+                                 var currentEventRowElement = getRowElement(currentEventTime);
+
+                                    // the current row has to more than one item
+                                    if (currentEventRowElement === previousRowElement) {
+                                        accumulator++;
+
+                                        // move down the event (with margin-top prop. IT HAS TO BE THAT PROPERTY TO AVOID CONFLICTS WITH FullCalendar BEHAVIOR)
+                                        $(this).css('margin-top', '+=' + (accumulator * defaultItemHeight).toString() + 'px');
+
+                                        // increse the heigth of current row if it overcome its current max-items
+                                        var maxItemsOnRow = currentEventRowElement.attr('data-max-items') || 1;
+                                        if (accumulator >= maxItemsOnRow) {
+                                            currentEventRowElement.attr('data-max-items', accumulator + 1);
+                                            currentEventRowElement.css('height', '+=' + defaultItemHeight.toString() + 'px');
+                                        }
+                                    } else {
+                                        // reset count
+                                        rowIndex = 0;
+                                        accumulator = 0;
+                                    }
+
+                                    // set default styles for event item and update previosRow
+                                    $(this).css('left', '0');
+                                    $(this).css('right', '7px');
+                                    $(this).css('height', defaultEventItemHeight.toString() + 'px');
+                                    $(this).css('margin-right', '0');
+                                    previousRowElement = currentEventRowElement;
+                             });
+                         });
+                    },
                     eventClick: function (args) {
                         $('#lbTitle').html('');
                         $('#lbTime').html('');
@@ -399,6 +459,7 @@
                         start: moment(result[i].ApptDate).format("YYYY-MM-DD") + 'T' + result[i].ApptStartTimeString,
                         end: moment(result[i].ApptDate).format("YYYY-MM-DD") + 'T' + result[i].ApptEndTimeString,
                         background: (result[i].Status == 3) ? '#ffc5c4' : '#1D76FB',
+                        className: 'test',
                         extendedProps: {
                             apptid: result[i].AppointmentID,
                             doctor: result[i].DoctorName,
@@ -485,6 +546,21 @@
                             "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner + "<br/>" +
                             "</div>" +
                             "</div>";
+
+        return sHtmlContent;
+    }
+
+    function PopulateWeekViewsEventTest(args, extendedObj)
+    {
+        var sHtmlContent = "<div class='row' style='border: 0px solid black; margin-top: auto; margin-bottom: auto; vertical-align: middle;'>" +
+                            "<div style='width: 100%; font-size: 10px;'>" +
+                            "<strong>" + args.event._def.title + "</strong><br/>" +
+                            extendedObj.doctor + "<br/>" +
+                            "@Html.Raw(LangResources["Appointment_Label_Pet"])  : " + extendedObj.Pet + "<br/>" +
+                            "@Html.Raw(LangResources["Appointment_Label_Owner"]) : " + extendedObj.Owner + "<br/>" +
+                            "</div>" +
+                            "</div>" + 
+                            "<br/>";
 
         return sHtmlContent;
     }

@@ -46,7 +46,6 @@
 }
 
 .menuHome {
-    /*content: url('../Images/Icons/Icon-home.png');*/
     content: url('../Images/Icons/Icon-home.svg');
     width: 18px;
     height: 18px;
@@ -54,7 +53,6 @@
 }
 
 .menuPets {
-    /*content: url('../Images/Icons/Icon-pets.png');*/
     content: url('../Images/Icons/Icon-Pets.svg');
     width: 18px;
     height: 18px;
@@ -62,7 +60,6 @@
 }
 
 .menuAppointments {
-    /*content: url('../Images/Icons/Icon-appointment.png');*/
     content: url('../Images/Icons/Icon-appointments.svg');
     width: 18px;
     height: 18px;
@@ -70,7 +67,6 @@
 }
 
 .menuInvoiceReceipts {
-    /*content: url('../Images/Icons/Icon-invoice-receipts.png');*/
     content: url('../Images/Icons/Icon-InvoiceReceipts.svg');
     width: 18px;
     height: 18px;
@@ -78,7 +74,6 @@
 }
 
 .menuAnalytics {
-    /*content: url('../Images/Icons/Icon-analytics.png');*/
     content: url('../Images/Icons/Icon-Analytics.svg');
     width: 18px;
     height: 18px;
@@ -86,7 +81,6 @@
 }
 
 .menuCustomerServices {
-    /*content: url('../Images/Icons/Icon-customer-service.png');*/
     content: url('../Images/Icons/Icon-CustomerService.svg');
     width: 18px;
     height: 18px;
@@ -146,6 +140,14 @@
     margin-left: -30px;
     width: 350px;
     height: 90px;
+}
+
+.imgFootstep {
+    content: url('../Images/Footsteps.png');
+    width: 130px;
+    height: 70px;
+    margin-top: 80px;
+    margin-left: 120px;
 }
 
 /*----- Account Settings ------*/

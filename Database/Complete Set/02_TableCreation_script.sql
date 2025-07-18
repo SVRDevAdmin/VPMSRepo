@@ -351,7 +351,9 @@ CREATE TABLE IF NOT EXISTS `mst_countrylist` (
 CREATE TABLE IF NOT EXISTS `mst_currency` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Country` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CurrencyCode` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `CurrencySymbol` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `DisplayFormat` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Status` int DEFAULT NULL,
   `CreatedDate` datetime DEFAULT NULL,
   `CreatedBy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -582,6 +584,7 @@ CREATE TABLE IF NOT EXISTS `mst_patients_owner` (
   `UpdatedDate` datetime DEFAULT NULL,
   `UpdatedBy` varchar(50) DEFAULT NULL,
   `IsPrimary` int DEFAULT NULL,
+  `ProfileAvatarID` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IX_Gender_PatientID` (`Gender`,`PatientID`),
   KEY `IX_Gender` (`Gender`)
@@ -644,6 +647,23 @@ CREATE TABLE IF NOT EXISTS `mst_pets_breed` (
   KEY `IX_Species_Active` (`Species`,`Active`),
   KEY `IX_SeqOrder` (`SeqOrder`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vpmsdb.mst_pets_ranges
+CREATE TABLE IF NOT EXISTS `mst_pets_ranges` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Species` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `RangeType` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `RangeStart` decimal(20,4) DEFAULT NULL,
+  `RangeEnd` decimal(20,4) DEFAULT NULL,
+  `Status` int DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `CreatedBy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `UpdatedDate` datetime DEFAULT NULL,
+  `UpdatedBy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  KEY `ID` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -714,6 +734,23 @@ CREATE TABLE IF NOT EXISTS `mst_product_status` (
   `UpdatedBy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table vpmsdb.mst_profile_avatar
+CREATE TABLE IF NOT EXISTS `mst_profile_avatar` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `EntityGroup` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `EntitySubGroup` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `AvatarFileName` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `AvatarFilePath` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Status` int DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `CreatedBy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `UpdatedDate` datetime DEFAULT NULL,
+  `UpdatedBy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -1007,6 +1044,7 @@ CREATE TABLE IF NOT EXISTS `txn_customer_expenses_summary` (
   `CreatedBy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `UpdatedDate` datetime DEFAULT NULL,
   `UpdatedBy` datetime DEFAULT NULL,
+  `EntityType` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
