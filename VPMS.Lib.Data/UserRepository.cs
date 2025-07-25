@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MySql.Data.MySqlClient;
@@ -507,6 +508,27 @@ namespace VPMS.Lib.Data
             {
 				logger.Error("UserRepository >>> GetPatientsSummary >>> ", ex);
 				return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Total users count by organization
+        /// </summary>
+        /// <param name="organizationID"></param>
+        /// <returns></returns>
+        public static int GetUserCountByOrganizationID(int organizationID)
+        {
+            try
+            {
+                using (var ctx = new UserDBContext())
+                {
+                    return ctx.Mst_User.Where(x => x.OrganizationID == organizationID && x.Status == 1).Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("UserRepository >>> GetUserCountByOrganizationID >>> ", ex);
+                return -1;
             }
         }
     }

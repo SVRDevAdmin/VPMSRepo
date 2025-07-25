@@ -5,6 +5,7 @@ using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using log4net.Repository;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace VPMSStatusChangesUpdateTask
 {
@@ -14,6 +15,7 @@ namespace VPMSStatusChangesUpdateTask
 
         static String sAppointmentStatusTaskName = "StatusChangesTask";
         static String sLoginSessionAutoTaskName = "SessionAutoLogoutTask";
+        static String sOrganizationUpdateTaskName = "OrganizationStaffCountUpdateTask";
         static IConfiguration config;
 
         static void Main(string[] args)
@@ -36,6 +38,7 @@ namespace VPMSStatusChangesUpdateTask
 
                 AppointmentStatusUpdate();
                 LoginSessionStatusUpdate();
+                UpdateOrganizationStaffCount();
             }
         }
 
@@ -110,6 +113,46 @@ namespace VPMSStatusChangesUpdateTask
             }
 
             log.Info("Execute Login Session Checking COMPLETED.");
+        }
+
+        private static void UpdateOrganizationStaffCount()
+        {
+            log.Info("Execute Update Organization Staff Count BEGIN.");
+
+            try
+            {
+                log.Info("Get organization list.");
+
+                var sOrganizationList = OrganizationRepository.GetOrganizationList();
+                if (sOrganizationList != null && sOrganizationList.Count > 0)
+                {
+                    foreach (var o in sOrganizationList)
+                    {
+                        log.Info("Organization : " + o.Name);
+
+                        int iTotalUser = UserRepository.GetUserCountByOrganizationID(o.Id);
+                        if (iTotalUser > -1)
+                        {
+                            log.Info("Total Staff Count : " + iTotalUser.ToString());
+
+                            if (OrganizationRepository.UpdateOrganizationTotalStaff(o.Id, iTotalUser, sOrganizationUpdateTaskName))
+                            {
+                                log.Info("Update organization staff count successful.");
+                            }
+                        }
+                        else
+                        {
+                            log.Info("No staff records found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("VPMSStatusChangesUpdateTask >>> UpdateOrganizationStaffCount >>> " + ex.ToString());
+            }
+
+            log.Info("Execute Update Organization Staff Count COMPLETED.");
         }
     }
 }
