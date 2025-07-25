@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +31,60 @@ namespace VPMSCustomer.Lib.Data
             catch (Exception ex)
             {
                 logger.Error("ServicesRepository >>> GetServicesListByBranchID >>> " + ex.ToString());
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Doctor's Service List
+        /// </summary>
+        /// <param name="doctorID"></param>
+        /// <returns></returns>
+        public static List<ServiceModel> GetServicesListByDoctorID(int doctorID)
+        {
+            List<ServiceModel> sResultList = new List<ServiceModel>();
+
+            try
+            {
+                using (var ctx = new ServiceDBContext())
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT B.ID, B.Name, B.Description, B.Precaution, B.Prices, B.Duration " +
+                                            "FROM mst_doctor_services As A " +
+                                            "INNER JOIN mst_services AS B ON B.ID = A.ServicesID " +
+                                            "WHERE A.DoctorID = '" + doctorID + "' AND " +
+                                            "A.Status = '1' AND " +
+                                            "B.Status = '1' ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                ServiceModel sServiceObj = new ServiceModel();
+                                sServiceObj.ID = Convert.ToInt32(sReader["ID"]);
+                                sServiceObj.Name = sReader["Name"].ToString();
+                                sServiceObj.Description = sReader["Description"].ToString();
+                                sServiceObj.Precaution = sReader["Precaution"].ToString();
+                                sServiceObj.Prices = Convert.ToDecimal(sReader["Prices"]);
+                                sServiceObj.Duration = Convert.ToDecimal(sReader["Duration"]);
+
+                                sResultList.Add(sServiceObj);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResultList;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("ServicesRepository >>> GetServicesListByDoctorID >>> " + ex.ToString());
                 return null;
             }
         }

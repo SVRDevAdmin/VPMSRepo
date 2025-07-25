@@ -19,7 +19,7 @@ namespace VPMS.Lib.Data.Models
 		public string Description { get; set; }
 		public string Precaution { get; set; }
 		public int BranchID { get; set; }
-		public string DoctorInCharge { get; set; }
+		//public string DoctorInCharge { get; set; }
 	}
 
 	public class ServiceCategory : AuditModel

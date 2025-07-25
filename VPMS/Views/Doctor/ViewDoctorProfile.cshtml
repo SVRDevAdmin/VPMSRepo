@@ -18,6 +18,20 @@
         sDoctorObj = ViewData["DoctorProfile"] as VPMS.Lib.Data.Models.DoctorDetailModel;
     }
 
+    var strServiceList = "";
+    var sServList = new List<VPMS.Lib.Data.Models.DoctorServicesExtendedModel>();
+    if (ViewData["DoctorServices"] != null)
+    {
+        sServList = ViewData["DoctorServices"] as List<VPMS.Lib.Data.Models.DoctorServicesExtendedModel>;
+        strServiceList = String.Join(",", sServList.Distinct().Select(x => x.ServicesID.Value));
+    }
+
+    var lstServices = new System.Collections.ObjectModel.ObservableCollection<VPMS.Lib.Data.Models.ServiceList>();
+    if (ViewData["ServicesList"] != null)
+    {
+        lstServices = ViewData["ServicesList"] as System.Collections.ObjectModel.ObservableCollection<VPMS.Lib.Data.Models.ServiceList>;
+    }
+
     var sViewType = ViewData["ViewType"] as String;
 }
 
@@ -28,11 +42,18 @@
         loadGenderDropdownlist();
         loadOrganizationDropdownlist();
 
+        $('#hidServiceLst').val('@strServiceList');
+
         /*---- Add Button -------*/
         $('#btnCreate').on('click', function (ctl) {
             
             if (DoctorFieldsValidation()) 
             {
+                let lstServicesSelected = [];
+                $("input:checkbox[name=chkservices]:checked").each(function(){
+                   lstServicesSelected.push($(this).attr('data-target'));
+                });
+
                 var sNewDoctorObj = {
                     doctorName: $('#txtName').val(),
                     doctorGender: $('#ddlGender').val(),
@@ -41,8 +62,9 @@
                     designation: $('#txtDesignation').val(),
                     specialty: $('#txtSpecialty').val(),
                     branchID: $('#ddlBranch').val(),
-                    createdBy: '@sessionUserName'
-                    //branchID: @sessionBranchID
+                    serviceID: $('#ddlServices').val(),
+                    createdBy: '@sessionUserName',
+                    servicesLst: lstServicesSelected
                 }
 
                 $.post("/Doctor/AddDoctor",
@@ -80,6 +102,11 @@
 
             if (DoctorFieldsValidation())
             {
+                let lstServicesSelected = [];
+                $("input:checkbox[name=chkservices]:checked").each(function(){
+                   lstServicesSelected.push($(this).attr('data-target'));
+                });
+
                 var sUpdateDoctorObj = {
                     doctorName: $('#txtName').val(),
                     doctorGender: $('#ddlGender').val(),
@@ -89,7 +116,8 @@
                     specialty: $('#txtSpecialty').val(),
                     ID: $('#hidID').val(),
                     branchID: $('#ddlBranch').val(),
-                    updatedBy:  '@sessionUserName'
+                    updatedBy:  '@sessionUserName',
+                    servicesLst: lstServicesSelected
                 }
 
                 $.post("/Doctor/UpdateDoctor",
@@ -145,11 +173,26 @@
             setTimeout(function(){
                 $('#ddlBranch').val('@sDoctorObj.BranchID');
                 $('#ddlBranch').trigger('changes');
-            }, 310);
+            }, 600);
 
             if ('@sessionLevel' == '2' && '@sessionIsAdmin' == '1')
             {
                 $('#ddlOrganization').prop('disabled', true);
+            }
+
+            var $arryServ = $('#hidServiceLst').val().split(',');
+            for (var i = 0; i < $arryServ.length; i++)
+            {
+                var sServiceItem = $('input[name=chkservices]');
+                for (var z = 0; z < sServiceItem.length; z++)
+                {
+                    if (sServiceItem[z].attributes['data-target'].value == $arryServ[i])
+                    {
+                        sServiceItem[z].checked = true;
+                    }
+                }
+
+                chkboxChanges();
             }
 
             $('#btnUpdate').show();
@@ -167,6 +210,8 @@
                 $('#txtSpecialty').prop('disabled', true);
                 $('#ddlBranch').prop('disabled', true);
                 $('#ddlOrganization').prop('disabled', true);
+
+                $('#btnddlService').prop('disabled', true);
 
                 $('#btnUpdate').hide();
             }
@@ -312,6 +357,17 @@
             $('#txtSpecialty').removeClass("errorValidation");
         }
 
+        if ($("input:checkbox[name=chkservices]:checked").length == 0)
+        {
+            $('#btnddlService').addClass("errorValidation");
+            $('#btnddlService').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#btnddlService').removeClass("errorValidation");
+        }
+
         /*------- Organization --------*/
         if ($('#ddlOrganization').val() == ''){
             $('#ddlOrganization').addClass("errorValidation");
@@ -359,6 +415,25 @@
 
         $('#lbError').html('');
     }
+
+    function chkboxChanges()
+    {
+        let selectedItems = [];
+        let selectedText = '';
+
+        $("input:checkbox[name=chkservices]:checked").each(function(){
+            selectedItems.push($(this).attr('data-html'));
+        });
+
+        if (selectedItems.length > 0) {
+            selectedText = selectedItems.join(', ');
+        }
+        else {
+            selectedText = "@Html.Raw(LangResources["DoctorProfile_Label_SelectService"])";
+        }
+
+        $('#btnddlService').text(selectedText);
+    }
 </script>
 
 <div class="row">
@@ -373,46 +448,70 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-12">&nbsp;</div>
+                        <div class="col-md-12">
+                            &nbsp;
+                            <input id="hidServiceLst" type="hidden" />
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                             <label for="txtName" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Name"]</label>
                             <input id="txtName" type="text" class="form-control doctorLeftColControl" />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                             <label for="ddlGender" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_Gender"]</label>
                             <select id="ddlGender" class="form-select doctorRightColControl">
                                 <option value="">@LangResources["DoctorProfile_Label_PleaseSelectGender"]</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row">&nbsp;</div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                             <label for="txtLicenseNo" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_LicenseNo"]</label>
                             <input id="txtLicenseNo" type="text" class="form-control doctorLeftColControl" />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                             <label for="txtSystemID" class="doctorRightColLabel">@LangResources["DoctorProfile_Label_SystemID"]</label>
                             <input id="txtSystemID" type="text" class="form-control doctorRightColControl" />
                         </div>
                     </div>
-                    <div class="row">&nbsp;</div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-2">
                             <label for="txtDesignation" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Designation"]</label>
                             <input id="txtDesignation" type="text" class="form-control doctorComboColControl" maxlength="200" />
                         </div>
                     </div>
-                    <div class="row">&nbsp;</div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-2">
                             <label for="txtSpecialty" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Specialty"]</label>
                             <input id="txtSpecialty" type="text" class="form-control doctorComboColControl" maxlength="200" />
                         </div>
                     </div>
-                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <label for="ddlServices" class="doctorLeftColLabel">
+                                @LangResources["DoctorProfile_Label_Services"]
+                            </label>
+
+                            <div id="divServiceDropdown" class="dropdown" style="margin-left: 10px;">
+                                <button id="btnddlService" class="btn btn-secondary dropdown-toggle" type="button" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @LangResources["DoctorProfile_Label_SelectService"]
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnddlService">
+                                    @{
+                                        foreach (var s in lstServices)
+                                        {
+                                            <label class="dropdown-item">
+                                                <input name="chkservices" type="checkbox" class="form-check-input" data-target="@s.ID" data-html="@s.Name" onchange="chkboxChanges();" />
+                                                @s.Name
+                                            </label>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="ddlOrganization" class="doctorLeftColLabel">@LangResources["DoctorProfile_Label_Organization"]</label>
@@ -427,7 +526,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row" style="height: 45px;">&nbsp;
+                    <div class="row" style="height: 35px;">&nbsp;
                         <label id="lbError"></label>
                         <input id="hidID" type="text" style="visibility: hidden; font-size: 12px;" />
                     </div>
@@ -447,4 +546,3 @@
         </div>
     </div>
 </div>
-

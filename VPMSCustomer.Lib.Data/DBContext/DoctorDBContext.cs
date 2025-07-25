@@ -16,6 +16,7 @@ namespace VPMSCustomer.Lib.Data.DBContext
     public class DoctorDBContext : DbContext
     {
         public DbSet<DoctorModel> Mst_Doctor { get; set; }
+        public DbSet<DoctorServicesModel> Mst_Doctor_Services { get; set; }
 
         private readonly string connectionString = Host.CreateApplicationBuilder().Configuration.GetConnectionString("DefaultConnection");
 

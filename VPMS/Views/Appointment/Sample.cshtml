@@ -236,7 +236,7 @@
                         minute: '2-digit',
                         hour12: false
                     },
-                    slotEventOverlap: false,
+                    slotEventOverlap: true,
                     eventClick: function (args) {
                         $('#lbTitle').html('');
                         $('#lbTime').html('');
@@ -265,7 +265,7 @@
 
                 },
                 timeGridWeek: {
-                    type: 'agendaWeek',
+                    //type: 'agendaWeek',
                     titleFormat: {
                         year: 'numeric',
                         month: 'long'
@@ -301,57 +301,57 @@
                     //         html: contentHtml
                     //     };
                     // },
-                    eventContent: function (args, element, view){
-                        var rows = [];
-                        $('.fc-timegrid-slots > table > tbody > tr > td[data-time]').each(function() {
-                            rows.push($(this));
-                        });
+                    // eventContent: function (args, element, view){
+                    //     var rows = [];
+                    //     $('.fc-timegrid-slots > table > tbody > tr > td[data-time]').each(function() {
+                    //         rows.push($(this));
+                    //     });
 
-                        var rowIndex = 0;
-                        var getRowElement = function(time) {
-                            while (rowIndex < row.length && moment()){
-                                rowIndex++;
-                            }
-                            var selectedIndex = rowIndex - 1;
-                            return selectedIndex >= 0 ? rows[selectedIndex] : null;
-                        };
-                        debugger;
-                         $('.fc-timegrid-cols > table > tbody > tr >  .fc-timegrid-col').each(function(){
-                             var accumulator = 0;
-                             var previousRowElement = null;
+                    //     var rowIndex = 0;
+                    //     var getRowElement = function(time) {
+                    //         while (rowIndex < row.length && moment()){
+                    //             rowIndex++;
+                    //         }
+                    //         var selectedIndex = rowIndex - 1;
+                    //         return selectedIndex >= 0 ? rows[selectedIndex] : null;
+                    //     };
+                    //     debugger;
+                    //      $('.fc-timegrid-cols > table > tbody > tr >  .fc-timegrid-col').each(function(){
+                    //          var accumulator = 0;
+                    //          var previousRowElement = null;
 
-                             $(this).find('.fc-timegrid-col-frame > .fc-timegrid-col-events > .fc-timegrid-event-harness > a.fc-event.fc-event-start.fc-event-end.fc-timegrid-event.fc-v-event').each(function() {
-                                 var currentEventTime = moment($(this).find('> div.fc-content > div.fc-time').attr('data-full'), ['h:mm A']);
-                                 var currentEventRowElement = getRowElement(currentEventTime);
+                    //          $(this).find('.fc-timegrid-col-frame > .fc-timegrid-col-events > .fc-timegrid-event-harness > a.fc-event.fc-event-start.fc-event-end.fc-timegrid-event.fc-v-event').each(function() {
+                    //              var currentEventTime = moment($(this).find('> div.fc-content > div.fc-time').attr('data-full'), ['h:mm A']);
+                    //              var currentEventRowElement = getRowElement(currentEventTime);
 
-                                    // the current row has to more than one item
-                                    if (currentEventRowElement === previousRowElement) {
-                                        accumulator++;
+                    //                 // the current row has to more than one item
+                    //                 if (currentEventRowElement === previousRowElement) {
+                    //                     accumulator++;
 
-                                        // move down the event (with margin-top prop. IT HAS TO BE THAT PROPERTY TO AVOID CONFLICTS WITH FullCalendar BEHAVIOR)
-                                        $(this).css('margin-top', '+=' + (accumulator * defaultItemHeight).toString() + 'px');
+                    //                     // move down the event (with margin-top prop. IT HAS TO BE THAT PROPERTY TO AVOID CONFLICTS WITH FullCalendar BEHAVIOR)
+                    //                     $(this).css('margin-top', '+=' + (accumulator * defaultItemHeight).toString() + 'px');
 
-                                        // increse the heigth of current row if it overcome its current max-items
-                                        var maxItemsOnRow = currentEventRowElement.attr('data-max-items') || 1;
-                                        if (accumulator >= maxItemsOnRow) {
-                                            currentEventRowElement.attr('data-max-items', accumulator + 1);
-                                            currentEventRowElement.css('height', '+=' + defaultItemHeight.toString() + 'px');
-                                        }
-                                    } else {
-                                        // reset count
-                                        rowIndex = 0;
-                                        accumulator = 0;
-                                    }
+                    //                     // increse the heigth of current row if it overcome its current max-items
+                    //                     var maxItemsOnRow = currentEventRowElement.attr('data-max-items') || 1;
+                    //                     if (accumulator >= maxItemsOnRow) {
+                    //                         currentEventRowElement.attr('data-max-items', accumulator + 1);
+                    //                         currentEventRowElement.css('height', '+=' + defaultItemHeight.toString() + 'px');
+                    //                     }
+                    //                 } else {
+                    //                     // reset count
+                    //                     rowIndex = 0;
+                    //                     accumulator = 0;
+                    //                 }
 
-                                    // set default styles for event item and update previosRow
-                                    $(this).css('left', '0');
-                                    $(this).css('right', '7px');
-                                    $(this).css('height', defaultEventItemHeight.toString() + 'px');
-                                    $(this).css('margin-right', '0');
-                                    previousRowElement = currentEventRowElement;
-                             });
-                         });
-                    },
+                    //                 // set default styles for event item and update previosRow
+                    //                 $(this).css('left', '0');
+                    //                 $(this).css('right', '7px');
+                    //                 $(this).css('height', defaultEventItemHeight.toString() + 'px');
+                    //                 $(this).css('margin-right', '0');
+                    //                 previousRowElement = currentEventRowElement;
+                    //          });
+                    //      });
+                    // },
                     eventClick: function (args) {
                         $('#lbTitle').html('');
                         $('#lbTime').html('');

@@ -1,0 +1,98 @@
+2025-07-23 10:46:32,209 ERROR VPMS.Lib.Data.DoctorRepository.AddDoctor [116] - MESSAGE: DoctorRepository >>> AddDoctor >>> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMS.Lib.Data.DoctorRepository.AddDoctor(IConfiguration config, DoctorModel sModel, List`1 sServiceList) in C:\Dev\VPMS\VPMS.Lib.Data\DoctorRepository.cs:line 116
+
+----------------------------------------------------------------------------
+
+2025-07-23 10:48:29,286 ERROR VPMS.Lib.Data.DoctorRepository.AddDoctor [116] - MESSAGE: DoctorRepository >>> AddDoctor >>> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMS.Lib.Data.DoctorRepository.AddDoctor(IConfiguration config, DoctorModel sModel, List`1 sServiceList) in C:\Dev\VPMS\VPMS.Lib.Data\DoctorRepository.cs:line 116
+
+----------------------------------------------------------------------------
+
+2025-07-23 13:13:18,423 ERROR VPMS.Program.MoveNext [333] - MESSAGE: Controller Error >> 
+ System.NullReferenceException: Object reference not set to an instance of an object.
+   at VPMSWeb.Controllers.LoginController.Logout(Boolean autoLogout) in C:\Dev\VPMS\VPMS\Controllers\LoginController.cs:line 333
+
+----------------------------------------------------------------------------
+
+2025-07-23 14:24:28,916 ERROR VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList [0] - MESSAGE: DoctorRepository >>> GetDoctorServicesList >>> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'A.ServiceID' in 'on clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList(IConfiguration config, Int32 doctorid)
+
+----------------------------------------------------------------------------
+
+2025-07-23 14:24:32,699 ERROR VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList [0] - MESSAGE: DoctorRepository >>> GetDoctorServicesList >>> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'A.ServiceID' in 'on clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList(IConfiguration config, Int32 doctorid)
+
+----------------------------------------------------------------------------
+
+2025-07-23 14:25:49,780 ERROR VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList [0] - MESSAGE: DoctorRepository >>> GetDoctorServicesList >>> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'A.ServiceID' in 'on clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList(IConfiguration config, Int32 doctorid)
+
+----------------------------------------------------------------------------
+
+2025-07-23 14:27:04,973 ERROR VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList [0] - MESSAGE: DoctorRepository >>> GetDoctorServicesList >>> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'A.ServiceID' in 'on clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList(IConfiguration config, Int32 doctorid)
+
+----------------------------------------------------------------------------
+
+2025-07-23 14:28:47,800 ERROR VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList [0] - MESSAGE: DoctorRepository >>> GetDoctorServicesList >>> 
+ MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown column 'A.ServiceID' in 'on clause'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader()
+   at VPMS.Lib.Data.DoctorRepository.GetDoctorServicesList(IConfiguration config, Int32 doctorid)
+
+----------------------------------------------------------------------------
+

@@ -24,4 +24,15 @@ namespace VPMSCustomer.Lib.Data.Models
         public DateTime? UpdatedDate {  get; set; }
         public String? UpdatedBy { get; set; }
     }
+
+    public class DoctorServicesModel
+    {
+        [Key]
+        public int ID { get; set; }
+        public int? DoctorID { get; set; }
+        public int? ServicesID { get; set; }
+        public int? Status { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public String? CreatedBy { get; set; }
+    }
 }

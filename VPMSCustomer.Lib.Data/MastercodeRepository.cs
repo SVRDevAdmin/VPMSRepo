@@ -216,5 +216,56 @@ namespace VPMSCustomer.Lib.Data
                 return null;
             }
         }
+
+        /// <summary>
+        /// Get Doctor List By Branch ID
+        /// </summary>
+        /// <param name="branchID"></param>
+        /// <returns></returns>
+        public static List<DoctorModel> GetDoctorListByBranchID(int branchID)
+        {
+            List<DoctorModel> sResultList = new List<DoctorModel>();
+
+            try
+            {
+                using (var ctx = new DoctorDBContext())
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.ID, A.`Name`, A.Gender, A.Designation, A.System_ID " +
+                                            "FROM mst_doctor AS A " +
+                                            "WHERE A.BranchID = '" + branchID + "' AND " +
+                                            "A.IsDeleted = 0 ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                DoctorModel sDoctorObj = new DoctorModel();
+                                sDoctorObj.ID = Convert.ToInt32(sReader["ID"]);
+                                sDoctorObj.Name = sReader["Name"].ToString();
+                                sDoctorObj.Gender = sReader["Gender"].ToString();
+                                sDoctorObj.Designation = sReader["Designation"].ToString();
+                                sDoctorObj.System_ID = sReader["System_ID"].ToString();
+
+                                sResultList.Add(sDoctorObj);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sResultList;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("MastercodeRepository >>> GetDoctorListByBranchID >>> " + ex.ToString());
+                return null;
+            }
+        }
     }
 }

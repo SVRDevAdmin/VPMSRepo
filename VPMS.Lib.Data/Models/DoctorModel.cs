@@ -49,5 +49,22 @@ namespace VPMS.Lib.Data.Models
         public String? specialty { get; set; }
         public int? branchID { get; set; }
         public String? updatedBy { get; set; }
+        public List<string>? servicesLst { get; set; }
+    }
+
+    public class DoctorServicesModel
+    {
+        [Key]
+        public int ID { get; set; } 
+        public int? DoctorID { get; set; }
+        public int? ServicesID { get; set; }
+        public int? Status { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public String? CreatedBy { get; set; }
+    }
+
+    public class DoctorServicesExtendedModel : DoctorServicesModel
+    {
+        public String? ServicesName { get; set; }
     }
 }

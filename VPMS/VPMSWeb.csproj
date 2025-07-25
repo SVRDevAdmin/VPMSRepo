@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\Error.cshtml" />
     <Content Remove="Views\User\UserProfile.cshtml" />
     <Content Remove="wwwroot\js\Appointment.js" />
     <Content Remove="wwwroot\js\Roles.js" />

@@ -141,70 +141,9 @@
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Patient_Label_Doctor"]</span>
-					<div class="dropright serviceInfo hideContainer" style="display: flex;">
-						<input id="Doctor" type="text" class="form-control form-field inputField" style="border-right: none; background-color: white; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.5vw;" disabled />
-						<button class="btn btn-lg btn-primary" data-toggle="dropdown" aria-expanded="false" style="background-color: white; color: black; border-left: none; display: flex; align-items: center; box-shadow: none; border-top-left-radius: 0; border-bottom-left-radius: 0; font-size: 1vw; border-color: black; padding: 0; padding-right: 0.5vw;">
-							<i class="fa-solid fa-chevron-down dropdown-arrow"></i>
-						</button>
-						<div class="dropdown-menu containerBackground4" style="padding: 1vw; border: 0.1vw solid; border-radius: 0.3vw;">
-							<div style="display: flex; border: 0.1vw solid; border-radius: 0.3vw; margin-bottom: 1vw; align-items: center; padding: 0 0.5vw; color: black; background-color: #f7f7f7; border-color: darkgray;">
-								<i class="fa-solid fa-magnifying-glass" style="margin-right: 0.3vw; color: darkgray"></i>
-								<input type="text" id="searchDoctor" placeholder="@LangResources["Service_Label_SearchDoctor"]" onkeyup="filterDoctor(this);" style=" width: 100%; border: none; outline-width: 0; background-color: transparent;" />
-							</div>
-							<div style="height: 10vw; width: 23vw; overflow-y: auto; margin-bottom: 1vw; padding: 0 0.5vw;">
-
-								<div style="margin-bottom: 1vw;">
-
-									@{
-										int indexNo = 1;
-										string index = "";
-
-										foreach (var doctor in ViewData["DoctorList"] as List<VPMS.Lib.Data.Models.DoctorModel>)
-										{
-											index = "doctor" + indexNo;
-
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input doctorOption" id="@index" name="@index" data-id="@doctor.ID" value="Dr. @doctor.Name" @(serviceInfo.DoctorInCharge.Contains(doctor.Name) ? "checked='true'" : "")>
-												<label class="form-check-label" for="@index"> Dr. @doctor.Name</label><br>
-											</div>
-
-											indexNo++;
-										}
-									}
-
-									@* <div class="form-check">
-										<input type="checkbox" class="form-check-input doctorOption" id="doctor1" name="doctor1" value="Dr. Park Ji-hoon" @(serviceInfo.DoctorInCharge.Contains("Dr. Park Ji-hoon") ? "checked='true'" : "")>
-										<label class="form-check-label" for="doctor1"> Dr. park Ji-hoon</label><br>
-									</div>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input doctorOption" id="doctor2" name="doctor2" value="Dr. Lee Soo-jin" @(serviceInfo.DoctorInCharge.Contains("Dr. Lee Soo-jin") ? "checked='true'" : "")>
-										<label class="form-check-label" for="doctor2"> Dr. Lee Soo-jin</label><br>
-									</div>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input doctorOption" id="doctor3" name="doctor3" value="Dr. Choi Eun-woo" @(serviceInfo.DoctorInCharge.Contains("Dr. Choi Eun-woo") ? "checked='true'" : "")>
-										<label class="form-check-label" for="doctor3"> Dr. Choi Eun-woo</label><br>
-									</div>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input doctorOption" id="doctor4" name="doctor4" value="Dr. Jung Hye-jin" @(serviceInfo.DoctorInCharge.Contains("Dr. Jung Hye-jin") ? "checked='true'" : "")>
-										<label class="form-check-label" for="doctor4"> Dr. Jung Hye-jin</label><br>
-									</div>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input doctorOption" id="doctor5" name="doctor5" value="Dr. Hang Dong-hyun" @(serviceInfo.DoctorInCharge.Contains("Dr. Hang Dong-hyun") ? "checked='true'" : "")>
-										<label class="form-check-label" for="doctor5"> Dr. Hang Dong-hyun</label><br>
-									</div> *@
-								</div>
-
-							</div>
-							<div style="display: flex; justify-content: space-between; align-items: center;">
-								<button class="btn btn-lg btn-primary" id="clearFilter" href="#" style="background-color: transparent; color: blue; border-style: none; box-shadow: none;">
-									<span style="font-size: 1.2vw; margin-left: 0.5vw;">@LangResources["Patient_Button_ClearAll"]</span>
-								</button>
-								<button id="addSelections" class="btn btn-lg btn-primary" style="font-size: 1vw;">@LangResources["Patient_Button_AddSelections"]</button>
-							</div>
-						</div>
-					</div>
-					<span id="DoctorText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.DoctorInCharge</span>
+					<span class="formlabel">@LangResources["Service_Label_TimeOfServiceHr"]</span>
+					<input id="TimeOfService" min="0" type="number" onchange="parseFloat(parseFloat(this.value).toFixed(1));" step="0.5" class="form-control form-field inputField serviceInfo hideContainer" value="@serviceInfo.Duration" />
+					<span id="TimeOfServiceText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.Duration</span>
 				</div>
 			</div>
 
@@ -242,18 +181,12 @@
 				</div>
 
 				<div class="field-container quaterSize">
-					<span class="formlabel">@LangResources["Service_Label_TimeOfServiceHr"]</span>
-					<input id="TimeOfService" min="0" type="number" onchange="parseFloat(parseFloat(this.value).toFixed(1));" step="0.5" class="form-control form-field inputField serviceInfo hideContainer" value="@serviceInfo.Duration" />
-					<span id="TimeOfServiceText" class="formlabel serviceInfo" style="font-weight: normal;">@serviceInfo.Duration</span>
-				</div>
-
-				<div class="field-container quaterSize">
 					<span class="formlabel">@LangResources["Patient_Label_Status"]</span>
 					<select id="Status" class="form-select form-field inputField serviceInfo hideContainer">
 						<option value=""> -- @LangResources["Patient_Selection_SelectStatus"] --</option>
 						@{
 							var statusName = "";
-							if(serviceInfo.Status == 1)
+							if (serviceInfo.Status == 1)
 							{
 								statusName = LangResources["Patient_Selection_Active"];
 								<option value="1" selected> @LangResources["Patient_Selection_Active"]</option>
@@ -268,6 +201,10 @@
 						}
 					</select>
 					<span id="StatusText" class="formlabel serviceInfo" style="font-weight: normal;">@statusName</span>
+				</div>
+
+				<div class="field-container quaterSize">
+					&nbsp;
 				</div>
 			</div>
 
@@ -299,8 +236,6 @@
 </div>
 
 <script>
-	var doctorListIDGlobal = [];
-	updateDoctors();
 	getBranch(@ViewData["OrganisationID"], true);
 
 	if ("@ViewData["Type"]" == "Edit") {
@@ -312,101 +247,6 @@
 
 	$('#Organisation').change();
 	getBranch("@ViewData["OrganisationID"]", true);
-
-	document.querySelector('#addSelections').addEventListener('click', function (event) {
-		if (this.classList.contains("disable")) { event.stopPropagation(); }
-		else {
-			// const a = document.querySelectorAll(".doctorOption");
-			// var doctorList = ""
-
-			// for (let i = 0; i < a.length; i++) {
-			// 	if (a[i].checked) {
-			// 		doctorList += a[i].value + ";";
-			// 	}
-			// }
-
-			// document.getElementById("Doctor").value = doctorList;
-
-			updateDoctors();
-
-		}
-	});
-
-	function updateDoctors(){
-		const a = document.querySelectorAll(".doctorOption");
-		var doctorList = "";
-		var doctorListID = [];
-
-		for (let i = 0; i < a.length; i++) {
-			if (a[i].checked) {
-				doctorList += a[i].value + ";";
-				doctorListID.push(a[i].getAttribute('data-id'));
-			}
-		}
-
-		doctorListIDGlobal = doctorListID;
-		document.getElementById("Doctor").value = doctorList;
-	}
-
-	document.querySelector('#clearFilter').addEventListener('click', function (event) {
-		event.stopPropagation();
-
-		const a = document.querySelectorAll(".doctorOption");
-
-		for (let i = 0; i < a.length; i++) {
-			if (a[i].checked) {
-				a[i].checked = false;
-			}
-		}
-
-		document.getElementById("searchDoctor").value = "";
-		$('#searchDoctor').keyup();
-
-		var addSelections = document.getElementById("addSelections");
-		if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
-
-	});
-
-	var selections = document.querySelectorAll('.form-check');
-
-	for (let i = 0; i < selections.length; i++) {
-		selections[i].addEventListener('click', function (event) {
-			event.stopPropagation();
-
-			const a = document.querySelectorAll(".doctorOption");
-			var disabledFilter = true;
-
-			for (let i = 0; i < a.length; i++) {
-				if (a[i].checked) {
-					disabledFilter = false;
-				}
-			}
-
-			var addSelections = document.getElementById("addSelections");
-			if (disabledFilter) {
-				if (!addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
-			}
-			else {
-				if (addSelections.classList.contains("disable")) { addSelections.classList.toggle("disable"); }
-			}
-
-		});
-	}
-
-	function filterDoctor(value) {
-		const filter = value.value.toUpperCase();
-
-		const a = document.querySelectorAll(".doctorOption");
-
-		for (let i = 0; i < a.length; i++) {
-			var doctorValue = a[i].value;
-			if (doctorValue.toUpperCase().indexOf(filter) > -1) {
-				a[i].parentElement.style.display = "";
-			} else {
-				a[i].parentElement.style.display = "none";
-			}
-		}
-	}
 
 	function getBranch(organisationID, selected) {
 		fetch('/PatientServices/GetBranchList?organisationID=' + organisationID)
@@ -451,26 +291,24 @@
 	}
 
 	function saveServiceInfo() {
-		var ID = document.getElementById("ServiceID").value
-		var ServiceName = document.getElementById("ServiceName").value
-		var Category = document.getElementById("Category").value
-		var Price = document.getElementById("Price").value
-		var Doctor = document.getElementById("Doctor").value
-		var Organisation = document.getElementById("Organisation").value
-		var Branch = document.getElementById("Branch").value
-		var TimeOfService = document.getElementById("TimeOfService").value
-		var Status = document.getElementById("Status").value
-		var Description = document.getElementById("Description").value
-		var Precaution = document.getElementById("Precaution").value
-		var CreatedDate = document.getElementById("ServiceCreatedDate").value
-		var CreatedBy = document.getElementById("ServiceCreatedBy").value
+		var ID = document.getElementById("ServiceID").value;
+		var ServiceName = document.getElementById("ServiceName").value;
+		var Category = document.getElementById("Category").value;
+		var Price = document.getElementById("Price").value;
+		var Organisation = document.getElementById("Organisation").value;
+		var Branch = document.getElementById("Branch").value;
+		var TimeOfService = document.getElementById("TimeOfService").value;
+		var Status = document.getElementById("Status").value;
+		var Description = document.getElementById("Description").value;
+		var Precaution = document.getElementById("Precaution").value;
+		var CreatedDate = document.getElementById("ServiceCreatedDate").value;
+		var CreatedBy = document.getElementById("ServiceCreatedBy").value;
 
 		var obj = {
 			ID: ID,
 			Name: ServiceName,
 			CategoryID: Category,
 			Prices: Price,
-			DoctorInCharge: Doctor,
 			BranchID: Branch,
 			Duration: TimeOfService,
 			Status: Status,
@@ -480,7 +318,6 @@
 			CreatedBy: CreatedBy
 		};
 
-		var test = doctorListIDGlobal;
 
 		fetch('/PatientServices/UpdateService', {
 			method: 'post',
@@ -495,38 +332,12 @@
 			})
 			.then(data => {
 				if(data != 0){
-					// window.location = "/PatientServices/ServiceList";
-					var test = doctorListIDGlobal;
-					saveDoctorList(ID);
-				}
-			})
-			.catch(error => {
-				console.error('There was a problem with the fetch operation:', error);
-			});
-
-	}
-
-	function saveDoctorList(id) {
-		var test = doctorListIDGlobal;
-
-		fetch('/PatientServices/UpdateServiceDoctor?serviceID=' + id, {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(doctorListIDGlobal)
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				return response.json();
-			})
-			.then(data => {
-				if (data) {
 					window.location = "/PatientServices/ServiceList";
 				}
 			})
 			.catch(error => {
 				console.error('There was a problem with the fetch operation:', error);
 			});
+
 	}
 </script>

@@ -121,9 +121,9 @@
          });
     }
 
-    function LoadServicesDropdownList(clinic)
+    function LoadServicesDropdownList(doctorid)
     {
-        $.getJSON("/Masterdata/ServiceList/" + clinic.value)
+        $.getJSON("/Masterdata/ServiceListByDoctor/" + doctorid.value)
          .done(function(result){
              if (result != null && result.data.length > 0)
              {
@@ -142,9 +142,9 @@
          });
     }
 
-    function LoadDoctorDropdownList(service)
-    { 
-        $.getJSON("/Masterdata/DoctorListByService/" + service.value)
+    function LoadDoctorDropdownList(clinic)
+    {
+        $.getJSON("/Masterdata/DoctorListByBranch/" + clinic.value)
          .done(function(result){
              if (result != null && result.data.length > 0)
              {
@@ -690,26 +690,27 @@
                         <label class="TitleDisplay">@LangResources["Appointment_Label_Clinic"]</label>
                     </div>
                     <div class="row ms-2 me-1">
-                        <select id="ddlClinic" class="form-select form-select-sm" onchange="LoadServicesDropdownList(this);">
+                        <select id="ddlClinic" class="form-select form-select-sm" onchange="LoadDoctorDropdownList(this);">
                             <option value="">@LangResources["Appointment_Label_SelectClinic"]</option>
-                        </select>
-                    </div>
-                    <div class="row mt-3 ms-1">
-                        <label class="TitleDisplay">@LangResources["Appointment_Label_Services"]</label>
-                    </div>
-                    <div class="row ms-2 me-1">
-                        <select id="ddlServices" class="form-select form-select-sm" onchange="LoadDoctorDropdownList(this);">
-                            <option value="">@LangResources["Appointment_Label_SelectService"]</option>
                         </select>
                     </div>
                     <div class="row mt-3 ms-1">
                         <label class="TitleDisplay">@LangResources["Appointment_Label_Doctor"]</label>
                     </div>
                     <div class="row ms-2 me-1">
-                        <select id="ddlDoctor" class="form-select form-select-sm">
+                        <select id="ddlDoctor" class="form-select form-select-sm" onchange="LoadServicesDropdownList(this);">
                             <option value="">@LangResources["Appointment_Label_SelectDoctor"]</option>
                         </select>
                     </div>
+                    <div class="row mt-3 ms-1">
+                        <label class="TitleDisplay">@LangResources["Appointment_Label_Services"]</label>
+                    </div>
+                    <div class="row ms-2 me-1">
+                        <select id="ddlServices" class="form-select form-select-sm">
+                            <option value="">@LangResources["Appointment_Label_SelectService"]</option>
+                        </select>
+                    </div>
+
                     <div class="row mt-3 ms-1">
                         <label class="TitleDisplay">@LangResources["Appointment_Label_DateTime"]</label>
                     </div>

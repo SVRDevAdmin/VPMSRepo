@@ -373,10 +373,8 @@
     }
 
     function ddlAddOwnerchanges(patient){
-        // added patientID value (azwan - 20250305)
         const selectedOption = patient.options[patient.selectedIndex];
         $.post("/Appointment/GetPetListByPatientID", {
-            // PatientID: patient.value
             PatientID: selectedOption.getAttribute('data-patientid')
         }).done(function (result) {
             loadddlPet(result);
@@ -385,7 +383,6 @@
 
     function ddlSearchOwnerChange(patient){
         const selectedOption = patient.options[patient.selectedIndex];
-
         $.post("/Appointment/GetPetListByPatientID", {
             //PatientID: patient.value
             PatientID: selectedOption.getAttribute('data-patientid')
@@ -410,32 +407,60 @@
         });
     }
 
-    function loadddlDoctor(data) 
-    { 
-        $('#ddlAddDoctor').find("option:not(:first)").remove();
+    function ddlSearchDoctorChange(doctor)
+    {
+        $.post("/Appointment/GetDoctorServicesList/", {
+            doctorid: doctor.value
+        }).done(function(result){
+            loadddlSearchServices(result);
+        });
+    }
+
+    function ddlAddDoctorChange(doctor)
+    {
+        $.post("/Appointment/GetDoctorServicesList/", {
+            doctorid: doctor.value
+        }).done(function(result){
+            loadddlAddServices(result);
+        });
+    }
+
+    function ddlNewDoctorChanges(doctor)
+    {
+        $.post("/Appointment/GetDoctorServicesList/", {
+            doctorid: doctor.value
+        }).done(function(result){
+            loadddlNewServices(result);
+        });
+    }
+
+    function loadddlSearchServices(data)
+    {
+        $('#ddlSearchServices').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++)
         {
-            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
-            $('#ddlAddDoctor').append(opt);
+            var opt = new Option(data[i].ServicesName, data[i].ServicesID);
+            $('#ddlSearchServices').append(opt);
         }
     }
 
-    function loadddlNewDoctor(data)
+    function loadddlAddServices(data)
     {
-        $('#ddlNewDoctor').find("option:not(:first)").remove();
+        $('#ddlAddServices').find("option:not(:first)").remove();
         for (var i = 0; i < data.length; i++)
         {
-            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
-            $('#ddlNewDoctor').append(opt);
+            var opt = new Option(data[i].ServicesName, data[i].ServicesID);
+            $('#ddlAddServices').append(opt);
         }
     }
 
-    function loadddlSearchDoctor(data)
+    function loadddlNewServices(data)
     {
-        $('#ddlSearchDoctor').find("option:not(:first)").remove();
-        for (var i = 0; i < data.length; i++){
-            var opt = new Option(data[i].DoctorName, data[i].DoctorID);
-            $('#ddlSearchDoctor').append(opt);
+        $('#ddlNewAddServices').find("option:not(:first)").remove();
+        for (var i = 0; i < data.length; i++)
+        {
+            var opt = new Option(data[i].ServicesName, data[i].ServicesID);
+            $('#ddlNewAddServices').append(opt);
         }
     }
 
@@ -1141,11 +1166,11 @@
         $('#ddlAddPet').val($('#ddlAddPet option:first').val());
         $('#ddlAddPet').removeClass("errorValidation");
 
+        $('#ddlAddServices').empty();
+        $('#ddlAddServices').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectServices"])', ''));
         $('#ddlAddServices').val($('#ddlAddServices option:first').val());
         $('#ddlAddServices').removeClass("errorValidation");
 
-        $('#ddlAddDoctor').empty();
-        $('#ddlAddDoctor').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectDoctor"])', ''));
         $('#ddlAddDoctor').val($('#ddlAddDoctor option:first').val());
         $('#ddlAddDoctor').removeClass("errorValidation");
 
@@ -1179,6 +1204,8 @@
         $('#ddlNewSpecies').val($('#ddlNewSpecies option:first').val());
         $('#ddlNewSpecies').removeClass("errorValidation");
 
+        $('#ddlNewAddServices').empty();
+        $('#ddlNewAddServices').append(new Option('@Html.Raw(LangResources["Appointment_Selection_SelectServices"])', ''));
         $('#ddlNewAddServices').val($('#ddlNewAddServices option:first').val());
         $('#ddlNewAddServices').removeClass("errorValidation");
 
@@ -1304,10 +1331,11 @@
                             </button>
                         }
                     }
-
+                    
                     <button id="btnSample" type="button" class="btn btn-primary" style="font-size: 12px; color: white;" onclick="location.href='@Url.Action("Sample", "Appointment")'">
                         Sample
                     </button>
+                    
                 </div>
             </div>
         </div>
@@ -1363,38 +1391,37 @@
                             <option value="">@LangResources["Appointment_Selection_SelectPet"]</option>
                         </select>
                     </div>
-                    <!-- Services -->
-                    <div class="row SearchRowTitle">
-                        <label class="searchLabel">@LangResources["Appointment_Label_Services"]</label>
-                    </div>
-                    <div class="row SearchRowFields">
-                        <select id="ddlSearchServices" class="form-select" onchange="ddlSearchServicesChange(this)">
-                            <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
-
-                            @{
-                                var sSearchServicesObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
-
-                                if (sSearchServicesObj.TreatmentServicesModel != null && 
-                                    sSearchServicesObj.TreatmentServicesModel.Count > 0)
-                                {
-                                    foreach (var ss in sSearchServicesObj.TreatmentServicesModel)
-                                    {
-                                        <option value=@ss.ID>@ss.Name</option>
-                                    }
-                                }
-                            }
-                        </select>
-                    </div>
                     <!-- Doctor Selection -->
                     <div class="row SearchRowTitle">
                         <label class="searchLabel">@LangResources["Appointment_Label_Doctor"]</label>
                     </div>
                     <div class="row SearchRowFields">
-                        <select id="ddlSearchDoctor" class="form-select">
+                        <select id="ddlSearchDoctor" class="form-select" onchange="ddlSearchDoctorChange(this);">
                             <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+
+                            @{
+                                var sSearchDoctorObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+
+                                if (sSearchDoctorObj.DoctorListModel != null && 
+                                    sSearchDoctorObj.DoctorListModel.Count > 0)
+                                {
+                                    foreach (var d in sSearchDoctorObj.DoctorListModel)
+                                    {
+                                        <option value="@d.ID">@d.Name</option>
+                                    }
+                                }
+                            }
                         </select>
                     </div>
-
+                    <!-- Services -->
+                    <div class="row SearchRowTitle">
+                        <label class="searchLabel">@LangResources["Appointment_Label_Services"]</label>
+                    </div>
+                    <div class="row SearchRowFields">
+                        <select id="ddlSearchServices" class="form-select">
+                            <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+                        </select>
+                    </div>
                     <div class="row SearchRowButtonSearch">
                         <button id="btnSearch" type="button" class="btn btn-primary">
                             @LangResources["Appointment_Button_Search"]
@@ -1473,7 +1500,7 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
                         </div>
                         <div class="col-md-6">
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
@@ -1481,18 +1508,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlAddServices" class="form-select ControlsLeftCol" onchange="ddlServicesChanges(this)">
-                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+                            <select id="ddlAddDoctor" class="form-select ControlsLeftCol" onchange="ddlAddDoctorChange(this);">
+                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
 
                                 @{
-                                    var sAppointmentViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+                                    var sAddDoctorObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
 
-                                    if (sAppointmentViewObj.TreatmentServicesModel != null && 
-                                        sAppointmentViewObj.TreatmentServicesModel.Count > 0)
+                                    if (sAddDoctorObj.DoctorListModel != null &&
+                                    sAddDoctorObj.DoctorListModel.Count > 0)
                                     {
-                                        foreach (var s in sAppointmentViewObj.TreatmentServicesModel)
+                                        foreach (var d in sAddDoctorObj.DoctorListModel)
                                         {
-                                            <option value=@s.ID>@s.Name</option>
+                                            <option value="@d.ID">@d.Name</option>
                                         }
                                     }
                                 }
@@ -1514,14 +1541,15 @@
                     <div class="row">&nbsp;</div>
                     <div action="row">
                         <div class="col-md-6">
-                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
                         <div class="col-md-6"></div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlAddDoctor" class="form-select ControlsLeftCol">
-                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+                            <select id="ddlAddServices" class="form-select ControlsLeftCol">
+                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+
                             </select>
                         </div>
                         <div action="col-md-6"></div>
@@ -1639,7 +1667,7 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
                         </div>
                         <div class="col-md-6">
                             <label class="DetailsTitleRightCol">@LangResources["Appointment_Label_DateTime"]</label>
@@ -1647,18 +1675,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlNewAddServices" class="form-select ControlsLeftCol" onchange="ddlNewServicesChanges(this)">
-                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+                            <select id="ddlNewDoctor" class="form-select ControlsLeftCol" onchange="ddlNewDoctorChanges(this);">
+                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
 
                                 @{
-                                    var sServicesViewObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
+                                    var sNewDoctorObj = ViewData["AppointmentViewModel"] as VPMSWeb.Controllers.AppointmentViewModel;
 
-                                    if (sServicesViewObj.TreatmentServicesModel != null && 
-                                        sServicesViewObj.TreatmentServicesModel.Count > 0)
+                                    if (sNewDoctorObj.DoctorListModel != null &&
+                                        sNewDoctorObj.DoctorListModel.Count > 0)
                                     {
-                                        foreach (var s in sServicesViewObj.TreatmentServicesModel)
+                                        foreach (var d in sNewDoctorObj.DoctorListModel)
                                         {
-                                            <option value=@s.ID>@s.Name</option>
+                                            <option value="@d.ID">@d.Name</option>
                                         }
                                     }
                                 }
@@ -1679,15 +1707,16 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Doctor"]</label>
+                            <label class="DetailsTitleLeftCol">@LangResources["Appointment_Label_Services"]</label>
                         </div>
                         <div class="col-md-6">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select id="ddlNewDoctor" class="form-select ControlsLeftCol">
-                                <option value="">@LangResources["Appointment_Selection_SelectDoctor"]</option>
+                            <select id="ddlNewAddServices" class="form-select ControlsLeftCol" onchange="ddlNewServicesChanges(this)">
+                                <option value="">@LangResources["Appointment_Selection_SelectServices"]</option>
+
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -1850,11 +1879,6 @@
                         @LangResources["Appointment_Label_Owner"] :<label id="lbOwner">&nbsp;</label>
                     </div>
                 </div>
-                <!--
-                <div class="row" style="height: 10px;">
-                    <div class="col-md-12">&nbsp;</div>
-                </div>
-                -->
                 <div id="divFuncBtn" class="row">
                     <div class="col-md-6 justify-content-end">
                         <button id="btnReschedule" class="btn btn-secondary mt-4" style="width: 90%; font-size: 12px;" onclick="rescheduleAppt();">

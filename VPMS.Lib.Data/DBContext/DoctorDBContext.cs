@@ -18,6 +18,7 @@ namespace VPMS.Lib.Data.DBContext
     {
         private readonly IConfiguration config;
         public DbSet<DoctorModel> mst_doctor { get; set; }
+        public DbSet<DoctorServicesModel> mst_doctor_services { get; set; }
 
         public DoctorDBContext(IConfiguration config)
         {

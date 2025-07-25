@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMSStatusChangesUpdateTask")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5b34d4ce558574a611ad0a9ad92646fe406bd80")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85cb6d6c3f25f783b1e4ae37ac478348cbf592b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMSStatusChangesUpdateTask")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMSStatusChangesUpdateTask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -233,6 +233,33 @@ namespace VPMSCustomer.Controllers
         }
 
         /// <summary>
+        /// Get Doctor's Service List
+        /// </summary>
+        /// <param name="doctorid"></param>
+        /// <returns></returns>
+        [Route("/Masterdata/ServiceListByDoctor/{doctorid}")]
+        [HttpGet()]
+        public IActionResult ServiceListByDoctor(int doctorid)
+        {
+            try
+            {
+                var sServiceObj = ServicesRepository.GetServicesListByDoctorID(doctorid);
+                if (sServiceObj != null)
+                {
+                    return Json(new { data = sServiceObj });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Get Doctor List By Services ID
         /// </summary>
         /// <param name="serviceID"></param>
@@ -244,6 +271,33 @@ namespace VPMSCustomer.Controllers
             try
             {
                 var sDoctorObj = MastercodeRepository.GetDoctorListByServices(serviceID);
+                if (sDoctorObj != null)
+                {
+                    return Json(new { data = sDoctorObj });
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Doctor List by Branch ID
+        /// </summary>
+        /// <param name="branchID"></param>
+        /// <returns></returns>
+        [Route("/Masterdata/DoctorListByBranch/{branchID}")]
+        [HttpGet()]
+        public IActionResult GetDoctorListByBranchID(int branchID)
+        {
+            try
+            {
+                var sDoctorObj = MastercodeRepository.GetDoctorListByBranchID(branchID);
                 if (sDoctorObj != null)
                 {
                     return Json(new { data = sDoctorObj });

@@ -286,28 +286,43 @@ namespace VPMSWeb.Controllers
 			int start = (page - 1) * rowLimit;
             ServicesInfo servicesInfo = new ServicesInfo() { ServiceList = new List<ServiceList>(), totalServices = 0 };
 
-            //var role = HttpContext.Session.GetString("RoleName");
-            //var branch = (role == "Doctor" || role == "Clinic Admin") ? int.Parse(HttpContext.Session.GetString("BranchID")) : 0;
-            //var organisation = (role == "Superuser") ? int.Parse(HttpContext.Session.GetString("OrganisationID")) : 0;
-
-            //if (role != "User")
-            //{
-            //    var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, branch, organisation, out totalServices, search).ToList();
-
-            //    servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
-            //}
-
-            //var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, 0, 0, out totalServices, search).ToList();
-            //servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
-
             var branch = 0;
             var organisation = 0;
             var roles = RoleRepository.GetRolePermissionsByRoleID(HttpContext.Session.GetString("RoleID"));
             var havaPermission = hasPermission(roles, "ServiceListing.View", out branch, out organisation);
 
+			int branchID = 0;
+			int organizationID = 0;
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("OrganisationID")))
+            {
+                organizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            }
+
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("BranchID")))
+            {
+                branchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+            }
+
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(organizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
             if (havaPermission)
             {
-                var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, branch, organisation, out totalServices, search).ToList();
+                var serviceList = _servicesDBContext.GetServiceList(start, rowLimit, isSuperadmin, branchID, organizationID, out totalServices, search).ToList();
                 servicesInfo = new ServicesInfo() { ServiceList = serviceList, totalServices = totalServices };
             }
 
@@ -319,7 +334,24 @@ namespace VPMSWeb.Controllers
         public List<ServiceList> GetServicesListByOrganizationBranchID(int organizationID, int branchID)
 		{
 			int iTotal = 0;
-			return _servicesDBContext.GetServiceList(1, 500, branchID, organizationID, out iTotal).ToList();
+            int roleIsAdmin = 0;
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(organizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            return _servicesDBContext.GetServiceList(1, 500, isSuperadmin, branchID, organizationID, out iTotal).ToList();
 		}
 
         [Route("/PatientServices/GetMedicationProductListByOrganizationBranchID")]

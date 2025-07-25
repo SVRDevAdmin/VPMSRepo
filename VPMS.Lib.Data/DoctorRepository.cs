@@ -102,7 +102,7 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="sModel"></param>
         /// <returns></returns>
-        public static Boolean AddDoctor(IConfiguration config, DoctorModel sModel)
+        public static Boolean AddDoctor(IConfiguration config, DoctorModel sModel, List<String> sServiceList)
         {
             Boolean isSuccess = false;
 
@@ -112,6 +112,19 @@ namespace VPMS.Lib.Data
                 {
                     ctx.mst_doctor.Add(sModel);
                     ctx.SaveChanges();
+
+                    foreach(var s in sServiceList)
+                    {
+                        DoctorServicesModel sDocServiceObj = new DoctorServicesModel();
+                        sDocServiceObj.DoctorID = sModel.ID;
+                        sDocServiceObj.ServicesID = Convert.ToInt32(s);
+                        sDocServiceObj.Status = 1;
+                        sDocServiceObj.CreatedDate = sModel.CreatedDate;
+                        sDocServiceObj.CreatedBy = sModel.CreatedBy;
+
+                        ctx.mst_doctor_services.Add(sDocServiceObj);
+                        ctx.SaveChanges();
+                    }
 
                     isSuccess = true;
                 }
@@ -131,7 +144,7 @@ namespace VPMS.Lib.Data
         /// <param name="config"></param>
         /// <param name="sModel"></param>
         /// <returns></returns>
-        public static Boolean UpdateDoctor(IConfiguration config, DoctorModel sModel)
+        public static Boolean UpdateDoctor(IConfiguration config, DoctorModel sModel, List<String> sServiceList)
         {
             Boolean isValid = false;
 
@@ -193,6 +206,34 @@ namespace VPMS.Lib.Data
 
                             ctx.SaveChanges();
                         }
+
+                        var sDocServList = ctx.mst_doctor_services.Where(x => x.DoctorID == sDoctorProfile.ID && x.Status == 1).ToList();
+                        if (sDocServList != null && sDocServList.Count > 0)
+                        {
+                            foreach (var d in sDocServList)
+                            {
+                                d.Status = 0;
+
+                                ctx.SaveChanges();
+                            }
+                        }
+
+                        if (sServiceList != null && sServiceList.Count > 0)
+                        {
+                            foreach (var s in sServiceList)
+                            {
+                                DoctorServicesModel sDocServiceObj = new DoctorServicesModel();
+                                sDocServiceObj.DoctorID = sModel.ID;
+                                sDocServiceObj.ServicesID = Convert.ToInt32(s);
+                                sDocServiceObj.Status = 1;
+                                sDocServiceObj.CreatedDate = sModel.CreatedDate;
+                                sDocServiceObj.CreatedBy = sModel.CreatedBy;
+
+                                ctx.mst_doctor_services.Add(sDocServiceObj);
+                                ctx.SaveChanges();
+                            }
+                        }
+
 
                         isValid = true;
                     }
@@ -297,6 +338,58 @@ namespace VPMS.Lib.Data
             {
 				logger.Error("DoctorRepository >>> GetDoctorByID >>> ", ex);
 				return null;
+            }
+        }
+
+        /// <summary>
+        /// Get Doctor's services list
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="doctorid"></param>
+        /// <returns></returns>
+        public static List<DoctorServicesExtendedModel> GetDoctorServicesList(IConfiguration config, int doctorid)
+        {
+            List<DoctorServicesExtendedModel> sServiceList = new List<DoctorServicesExtendedModel>();
+
+            try
+            {
+                using (var ctx = new DoctorDBContext(config))
+                {
+                    MySqlConnection sConn = new MySqlConnection(ctx.Database.GetConnectionString());
+                    sConn.Open();
+
+                    String sSelectCommand = "SELECT A.DoctorID, A.ServicesID, B.Name AS 'ServiceName', A.Status " +
+                                            "FROM mst_doctor_services As A " +
+                                            "INNER JOIN mst_services AS B on B.ID = A.ServicesID " +
+                                            "WHERE A.DoctorID = '" + doctorid  + "' " +
+                                            "AND A.Status = 1 ";
+
+                    using (MySqlCommand sCommand = new MySqlCommand(sSelectCommand, sConn))
+                    {
+                        using (var sReader = sCommand.ExecuteReader())
+                        {
+                            while (sReader.Read())
+                            {
+                                DoctorServicesExtendedModel sServiceObj = new DoctorServicesExtendedModel();
+                                sServiceObj.DoctorID = Convert.ToInt32(sReader["DoctorID"]);
+                                sServiceObj.ServicesID = Convert.ToInt32(sReader["ServicesID"]);
+                                sServiceObj.Status = Convert.ToInt32(sReader["Status"]);
+                                sServiceObj.ServicesName = sReader["ServiceName"].ToString();
+
+                                sServiceList.Add(sServiceObj);
+                            }
+                        }
+                    }
+
+                    sConn.Close();
+                }
+
+                return sServiceList;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("DoctorRepository >>> GetDoctorServicesList >>> ", ex);
+                return null;
             }
         }
 

@@ -115,9 +115,9 @@
          });
     }
 
-    function LoadServicesDropdownList(clinic)
+    function LoadServicesDropdownList(doctorid)
     {
-        $.getJSON("/Masterdata/ServiceList/" + clinic.value)
+        $.getJSON("/Masterdata/ServiceListByDoctor/" + doctorid.value)
          .done(function(result){
              if (result != null && result.data.length > 0)
              {
@@ -136,9 +136,9 @@
          });
     }
 
-    function LoadDoctorDropdownList(service)
-    { 
-        $.getJSON("/Masterdata/DoctorListByService/" + service.value)
+    function LoadDoctorDropdownList(branchID)
+    {
+        $.getJSON("/Masterdata/DoctorListByBranch/" + branchID.value)
          .done(function(result){
              if (result != null && result.data.length > 0)
              {
@@ -150,7 +150,7 @@
                      $('#ddlDoctor').append(opt);
                  }
              }
-             else 
+             else
              {
                  $('#ddlDoctor').find("option:not(:first)").remove();
              }
@@ -175,14 +175,14 @@
                  $('#ddlClinic').trigger('change');
 
                  setTimeout(function(){
-                     $('#ddlServices').val(sApptRow.servicesID);
-                     $('#ddlServices').trigger('change');
+                     $('#ddlDoctor option:contains("' + sApptRow.inchargeDoctor + '")').attr('selected', true);
+                     $('#ddlDoctor').trigger('change');
 
                      setTimeout(function(){
-                        $('#ddlDoctor option:contains("' + sApptRow.inchargeDoctor + '")').attr('selected', true);
-                     }, 500);
-                 }, 500);
-                 
+                         $('#ddlServices').val(sApptRow.servicesID);
+                     }, 700);
+                 }, 750);
+
                  var sContactLabel = "@Html.Raw(LangResources["AppointmentDetails_Message_CallPhoneNo"])";
                  sContactLabel = sContactLabel.replace('####<clinicPhoneNo>###', sApptRow.contactNo);
 
@@ -298,7 +298,7 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <select id="ddlClinic" class="form-select form-select-sm ms-3" onchange="LoadServicesDropdownList(this);">
+                        <select id="ddlClinic" class="form-select form-select-sm ms-3" onchange="LoadDoctorDropdownList(this);">
                             <option value="">@LangResources["AppointmentDetails_Label_SelectClinic"]</option>
                         </select>
                     </div>
@@ -306,7 +306,7 @@
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Services"]</label>
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Doctor"]</label>
                     </div>
                     <div class="col-md-6">
                         <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Date"]</label>
@@ -314,8 +314,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <select id="ddlServices" class="form-select form-select-sm ms-3" onchange="LoadDoctorDropdownList(this);">
-                            <option value="">@LangResources["AppointmentDetails_Label_SelectServices"]</option>
+                        <select id="ddlDoctor" class="form-select form-select-sm ms-3" onchange="LoadServicesDropdownList(this);">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectDoctor"]</option>
                         </select>
                     </div>
                     <div class="col-md-6 ColumnDateTimeLayout">
@@ -331,15 +331,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Doctor"]</label>
+                        <label class="ms-3 ColumnTitle">@LangResources["AppointmentDetails_Label_Services"]</label>
                     </div>
                     <div class="col-md-6">&nbsp;</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <select id="ddlDoctor" class="form-select form-select-sm ms-3">
-                            <option value="">@LangResources["AppointmentDetails_Label_SelectDoctor"]</option>
+                        <select id="ddlServices" class="form-select form-select-sm ms-3">
+                            <option value="">@LangResources["AppointmentDetails_Label_SelectServices"]</option>
                         </select>
+
                     </div>
                     <div class="col-md-6">&nbsp;</div>
                 </div>

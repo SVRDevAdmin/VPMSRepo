@@ -50,20 +50,6 @@
 		margin-bottom: 0.7vw;
 	}
 
-	/* circle-icon */
-/* 	#container {
-		width: 1.6vw;
-		height: 1.6vw;
-		display: flex;
-		background: transparent;
-		border-radius: 2vw;
-		color: white;
-		border: 0.15vw solid;
-		font-size: 1.5vw;
-		justify-content: center;
-		align-items: center;
-	} */
-
 	#service {
 		color: dodgerblue !important;
 	}
@@ -77,12 +63,6 @@
 <div class="row">
 	<div class="row ms-2">
 		<div class="col-md-6">
-			<!--
-			<div class="d-flex">
-				<img id="imgBackArrow" style=" margin-right: 1vw; width: 1.5vw;" /> 
-				
-			</div>
-			-->
 			<span class="textColor" style="font-size: 24px; font-weight: bold;">@LangResources["MenuBar_Label_Service"]</span>
 		</div>
 		<div class="col-md-6 d-flex justify-content-end">
@@ -184,7 +164,6 @@
 					'<th class="table-content" > @LangResources["Inventory_Label_Category"] </th>' +
 					'<th class="table-content table-content-center" > @LangResources["Service_Label_DurationHr"] </th>' +
 					'<th class="table-content" > @LangResources["Patient_Label_Price"] (@sessionCurrencyCode) </th>' +
-					'<th class="table-content" > @LangResources["Service_Label_DoctorInCharge"] </th>' +
 					'<th class="table-content" > @LangResources["Inventory_Label_Organisation"] </th>' +
 					'<th class="table-content" > @LangResources["Inventory_Label_Branch"] </th>' +
 					'<th class="table-content table-content-center" > @LangResources["Patient_Label_Status"] </th>' +
@@ -192,8 +171,11 @@
 					'</tr>' +
 					'</thead>';
 
-				if (total == 0) { content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] </td> </tr>' }
-				else {
+				if (total == 0) { 
+					content.innerHTML = content.innerHTML + ' <tr style="border-bottom-width: 0.1vw; height: 3.3vw;"> <td colspan="9" class="table-content" style="text-align: center;"> @LangResources["Patient_Message_NoRecord"] </td> </tr>' 
+				}
+				else 
+				{
 					for (let i = 0; i < data.ServiceList.length; i++) {
 
 						var status, color, background;
@@ -209,8 +191,6 @@
 							background = "#ffc5c4";
 						}
 
-						var doctorList = data.ServiceList[i].DoctorInCharge.replaceAll(";", "</br>");
-
 						html =
 							'<tr style="border-bottom-width: 0.1vw; height: 3.3vw;">' +
 							'<td class="table-content" style="padding-left: 0.5vw;">' + data.ServiceList[i].No + '</td>' +
@@ -218,15 +198,13 @@
 							'<td class="table-content" > ' + data.ServiceList[i].Category + '</td>' +
 							'<td class="table-content table-content-center" >  ' + data.ServiceList[i].Duration + '</td>' +
 							'<td class="table-content" > ' + data.ServiceList[i].Price + '</td>' +
-							'<td class="table-content" > ' + doctorList + '</td>' +
 							'<td class="table-content" > ' + data.ServiceList[i].Organisation + '</td>' +
 							'<td class="table-content" >  ' + data.ServiceList[i].Branch + '</td>' +
 							'<td class="table-content table-content-center"> ' +
 							'<div style="color: ' + color + '; background-color: ' + background + '; font-weight: bold; padding: 0.2vw 1vw; border-radius: 0.5vw; width: 6vw; margin: auto;">' +
 							status +
 							'</div > ' +
-							'</td>' +
-							'<td class="table-content"></td>';
+							'</td>';
 
 						if(@ViewData["CanEdit"] || @ViewData["CanView"]){
 							html = html +
@@ -248,9 +226,9 @@
 							}
 
 							html = html +
-										'</div>' +
-									'</div>' +
-								'</td>';
+								   '</div>' +
+								   '</div>' +
+								   '</td>';
 						}
 
 						html = html + '</tr > ';

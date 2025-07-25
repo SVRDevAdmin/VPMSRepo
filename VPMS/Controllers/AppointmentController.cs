@@ -54,8 +54,9 @@ namespace VPMSWeb.Controllers
 				sModel.TreatmentServicesModel = TreatmentServicesRepository.GetTreatmentServicesList(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
 				sModel.PatientSelectionModel = PatientRepository.GetPatientOwnerList(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
 				sModel.SpeciesModel = MastercodeRepository.GetMastercodeByGroup(ConfigSettings.GetConfigurationSettings(), "Species");
+                sModel.DoctorListModel = DoctorRepository.GetDoctorListByOrganizationBranch(ConfigSettings.GetConfigurationSettings(), iOrganizationID, iBranchID, isSuperadmin);
 
-				ViewData["AppointmentViewModel"] = sModel;
+                ViewData["AppointmentViewModel"] = sModel;
 			}
 			catch (Exception ex)
 			{
@@ -453,7 +454,18 @@ namespace VPMSWeb.Controllers
             var sServicesDoctorList = TreatmentServicesRepository.GetServicesDoctorList(ConfigSettings.GetConfigurationSettings(), ServicesID);
             return Json(sServicesDoctorList);
         }
-        
+
+        /// <summary>
+        /// Get Doctor's Services List
+        /// </summary>
+        /// <param name="doctorid"></param>
+        /// <returns></returns>
+        public IActionResult GetDoctorServicesList(int doctorid)
+        {
+            var sServicesList = DoctorRepository.GetDoctorServicesList(ConfigSettings.GetConfigurationSettings(), doctorid);
+            return Json(sServicesList);
+        }
+
         /// <summary>
         /// Get Pet List By Owner ID
         /// </summary>
@@ -661,5 +673,6 @@ namespace VPMSWeb.Controllers
         public List<TreatmentServicesModel> TreatmentServicesModel { get; set; }
         public List<PatientSelectionModel> PatientSelectionModel {  get; set; }
         public List<MastercodeModel> SpeciesModel { get; set; }
+        public List<DoctorModel> DoctorListModel { get; set; }
     }
 }

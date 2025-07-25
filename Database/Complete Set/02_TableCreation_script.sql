@@ -389,6 +389,19 @@ CREATE TABLE IF NOT EXISTS `mst_doctor` (
 
 -- Data exporting was unselected.
 
+-- Dumping structure for table vpmsdb.mst_doctor_services
+CREATE TABLE IF NOT EXISTS `mst_doctor_services` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DoctorID` int DEFAULT NULL,
+  `ServicesID` int DEFAULT NULL,
+  `Status` int DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `CreatedBy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Data exporting was unselected.
+
 -- Dumping structure for table vpmsdb.mst_invoicereceipt
 CREATE TABLE IF NOT EXISTS `mst_invoicereceipt` (
   `ID` int NOT NULL AUTO_INCREMENT,

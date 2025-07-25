@@ -62,8 +62,9 @@ namespace VPMS.Lib.Data.Models
         public string City { get; set; } = null!;
         public string State { get; set; } = null!;
         public string Country { get; set; } = null!;
-        public int Status { get; set; }
-        public int IsPrimary { get; set; }
+        public int? Status { get; set; }
+        public int? IsPrimary { get; set; }
+        public int? ProfileAvatarID { get; set; }
     }
 
     public class Patient_Owner_Login

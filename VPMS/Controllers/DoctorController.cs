@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.ObjectModel;
 using VPMS.Lib.Data;
 using VPMS.Lib.Data.Models;
 using VPMSWeb.Lib.Settings;
@@ -9,6 +10,7 @@ namespace VPMSWeb.Controllers
     [Authorize]
     public class DoctorController : Controller
     {
+        private readonly VPMS.Lib.Data.DBContext.ServicesDBContext _servicesDBContext = new VPMS.Lib.Data.DBContext.ServicesDBContext();
         public String sMasterDataGroupName = "Gender";
 
         /// <summary>
@@ -72,7 +74,7 @@ namespace VPMSWeb.Controllers
             sNewDoctor.CreatedBy = sDoctorModel.updatedBy;
             sNewDoctor.BranchID = sDoctorModel.branchID;
 
-            if (DoctorRepository.AddDoctor(ConfigSettings.GetConfigurationSettings(), sNewDoctor))
+            if (DoctorRepository.AddDoctor(ConfigSettings.GetConfigurationSettings(), sNewDoctor, sDoctorModel.servicesLst))
             {
                 sResp.StatusCode = (int)StatusCodes.Status200OK;
             }
@@ -105,7 +107,7 @@ namespace VPMSWeb.Controllers
             sUpdateDoctor.BranchID = sDoctorModel.branchID;
             sUpdateDoctor.UpdatedBy = sDoctorModel.updatedBy;
 
-            if (DoctorRepository.UpdateDoctor(ConfigSettings.GetConfigurationSettings(), sUpdateDoctor))
+            if (DoctorRepository.UpdateDoctor(ConfigSettings.GetConfigurationSettings(), sUpdateDoctor, sDoctorModel.servicesLst))
             {
                 sResp.StatusCode = (int)StatusCodes.Status200OK;
             }
@@ -146,6 +148,31 @@ namespace VPMSWeb.Controllers
         {
             ViewData["DoctorProfile"] = null;
 
+            int iTotal = 0;
+            int roleIsAdmin = 0;
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            ObservableCollection<ServiceList> sServiceList = new ObservableCollection<ServiceList>();
+            sServiceList = _servicesDBContext.GetServiceList(1, 1000, isSuperadmin, iBranchID, iOrganizationID, out iTotal);
+
+            ViewData["ServicesList"] = sServiceList;
+
             return View("ViewDoctorProfile");
         }
 
@@ -160,8 +187,37 @@ namespace VPMSWeb.Controllers
         {
             DoctorDetailModel sDoctorObject = new DoctorDetailModel();
             sDoctorObject = DoctorRepository.GetDoctorByID(ConfigSettings.GetConfigurationSettings(), doctorid.Value);
+
+            List<DoctorServicesExtendedModel> sDoctorServiceList = new List<DoctorServicesExtendedModel>();
+            sDoctorServiceList = DoctorRepository.GetDoctorServicesList(ConfigSettings.GetConfigurationSettings(), doctorid.Value);
+
+            int iTotal = 0;
+            int roleIsAdmin = 0;
+            int iOrganizationID = Convert.ToInt32(HttpContext.Session.GetString("OrganisationID"));
+            int iBranchID = Convert.ToInt32(HttpContext.Session.GetString("BranchID"));
+            roleIsAdmin = Convert.ToInt32(HttpContext.Session.GetString("IsAdmin"));
+
+            int isSuperadmin = 0;
+            var organizationObj = OrganizationRepository.GetOrganizationByID(iOrganizationID);
+            if (organizationObj != null)
+            {
+                if (organizationObj.Level == 0 || organizationObj.Level == 1 || (organizationObj.Level == 2 && roleIsAdmin == 1))
+                {
+                    isSuperadmin = 1;
+                }
+                else
+                {
+                    isSuperadmin = 0;
+                }
+            }
+
+            ObservableCollection<ServiceList> sServiceList = new ObservableCollection<ServiceList>();
+            sServiceList = _servicesDBContext.GetServiceList(1, 1000, isSuperadmin, iBranchID, iOrganizationID, out iTotal);
+
             ViewData["DoctorProfile"] = sDoctorObject;
             ViewData["ViewType"] = ViewType;
+            ViewData["ServicesList"] = sServiceList;
+            ViewData["DoctorServices"] = sDoctorServiceList;
 
             return View("ViewDoctorProfile", sDoctorObject);
         }
