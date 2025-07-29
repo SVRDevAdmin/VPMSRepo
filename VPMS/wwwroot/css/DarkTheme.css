@@ -1655,3 +1655,60 @@ a {
 	font-size: 12px;
 	font-weight: bold;
 }
+
+/*------ Taxt Configuration */
+.taxListingMoreIcon {
+	content: url('../images/more_white.png');
+	width: 20px;
+	height: 20px;
+}
+
+.taxPageTitle {
+	color: white;
+	font-size: 24px;
+	font-weight: 600;
+}
+
+#tblTax {
+	border: 0px !important;
+}
+
+#tblTax > thead > tr > th {
+	border: 0px;
+	background-color: #1f2e45;
+	border-left: 0px;
+	border-bottom: 1px solid #ddd;
+	color: white;
+	font-size: 12px;
+}
+
+#tblTax > tbody > tr > td {
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom: 1px solid #ddd;
+	background-color: transparent;
+	color: white;
+	font-size: 12px;
+}
+
+/*-------- Tax Configuration Details --------*/
+.titleLabel {
+	color: white;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.contentFrame {
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+}
+
+.headerFrame {
+	height: 28px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	background-color: #1f2e45;
+}

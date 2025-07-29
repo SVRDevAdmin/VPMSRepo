@@ -1,0 +1,201 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/css/Tax.css" />
+<script src="~/lib/bootstrap/dist/js/bootstrap-table.min.js"></script>
+
+<script>
+    var paginationLimit = 5;
+    var pageSize = 10;
+    var pageIndex = 1;
+    var currentPage = 1;
+    var totalPagination = 0;
+    var startPagination = 1;
+    var endPagination = 0;
+
+    $(document).ready(function(){
+        loadTaxConfiguration();
+    });
+
+    function loadTaxConfiguration()
+    {
+        $.getJSON("/Tax/GetTaxConfigurationListing", {
+            pageSize: pageSize,
+            pageIndex: currentPage
+        }).done(function(result){ 
+            if (result.data != null && result.data.length > 0){
+                $('#tblTax').bootstrapTable('destroy');
+                $('#tblTax').bootstrapTable({
+                    data: result.data
+                });
+
+                /*------ Pagination --------*/
+                populatePagingControl(result.totalRecord);
+            }
+            else {
+                $('#tblTax').bootstrapTable('destroy');
+                document.getElementById("pagination").hidden = true;
+            }
+        });
+    }
+
+    function populateTaxHideMenu(value, row)
+    {
+        var hideMenuHtml = '<button type="button" class="btn" data-toggle="dropdown">' +
+                           '<img class="taxListingMoreIcon"  />' +
+                           '</button>' +
+
+                           '<div class="dropdown-menu containerBackground5" style="min-width: fit-content; font-size: 1vw;">' +
+                           '<a class="dropdown-item" href="/Tax/ViewTaxConfiguration/' + value + '/View">' + '@Html.Raw(LangResources["Tax_Label_View"])' + '</a>' +
+                           '<a class="dropdown-item" href="/Tax/ViewTaxConfiguration/' + value + '/Edit">' + '@Html.Raw(LangResources["Tax_Label_Edit"])' + '</a>' +
+                           '</div>';
+        return hideMenuHtml;
+    }
+
+    function populatePagingControl(totalRecord)
+    {
+        let total = totalRecord;
+        if (total == 0)
+        {
+            document.getElementById("pagination").hidden = true;
+        }
+        else
+        {
+            document.getElementById("pagination").hidden = false;
+
+            var totalPage = parseInt(total / pageSize);
+            if (totalPage == 0) {
+                totalPage = totalPage + 1;
+            }
+
+            if ((total > pageSize) && (total % pageSize) != 0) {
+                totalPage = totalPage + 1;
+            }
+
+            totalPagination = totalPage;
+
+            if (totalPage > paginationLimit) {
+                endPagination = paginationLimit
+            }
+            else {
+                endPagination = totalPage;
+            }
+
+            pagination(startPagination, endPagination);
+        }
+
+        if (currentPage == totalPagination) {
+            document.getElementById("nextButton").hidden = true;
+        }
+        else {
+            document.getElementById("nextButton").hidden = false;
+        }
+        if (currentPage == 1) {
+            document.getElementById("prevButton").hidden = true;
+        }
+        else {
+            document.getElementById("prevButton").hidden = false;
+        }
+    }
+
+    function pagination(start, end)
+    {
+        var element = document.getElementById("paginationNumbering");
+
+        element.innerHTML = "";
+        for (let i = start; i < end + 1; i++) {
+            var buttonClassName = "PaginationButton";
+
+            if (currentPage == i) {
+                buttonClassName = "PaginationButtonSelected";
+            }
+
+            element.innerHTML = element.innerHTML +
+                '<div>' +
+                '<button onclick="changePage(this);" data-page="' + i + '" class="' + buttonClassName + '"> ' + ('0' + i).slice(-2) + ' </button>' +
+                '</div>';
+        }
+    }
+
+    function prev() {
+        currentPage = currentPage - 1;
+        loadTaxConfiguration();
+    }
+
+    function next() {
+        currentPage = currentPage + 1;
+
+        loadTaxConfiguration();
+    }
+
+    function changePage(page) {
+        let pageNum = page.getAttribute("data-page");
+
+        currentPage = Number(pageNum);
+        loadTaxConfiguration();
+    }
+</script>
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-12" style="height: auto;">
+            <div class="row" style="height: auto;">
+                <div class="col-md-12 ms-4">
+                    <label class="taxPageTitle">
+                        @LangResources["Tax_Title_TaxConfiguration"]
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 ms-2">
+        <div class="col-md-9">&nbsp;</div>
+        <div class="col-md-3 text-end">
+            <div class="row me-1">
+                <button id="btnAdd" type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details", "Tax")'">
+                    <i class="bi bi-plus-circle"></i>
+                    @LangResources["Tax_Button_AddTaxConfiguration"]
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 ms-2">
+        <div class="col-md-12">
+            <table id="tblTax" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="SeqNo" class="text-center" style="width: 5%">@LangResources["Tax_Label_SeqNo"]</th>
+                        <th scope="col" data-field="TaxName" class="text-center" style="width: 15%">@LangResources["Tax_Label_TaxName"]</th>
+                        <th scope="col" data-field="Description" class="text-center" style="width: 20%">@LangResources["Tax_Label_Description"]</th>
+                        <th scope="col" data-field="ChargesRate" class="text-center" style="width: 15%">@LangResources["Tax_Label_Rates"] (%)</th>
+                        <th scope="col" data-field="StatusName" class="text-center" style="width: 15%">@LangResources["Tax_Label_Status"]</th>
+                        <th scope="col" data-field="CreatedDateInString" class="text-center" style="width: 20%">@LangResources["Tax_Label_DateAdded"]</th>
+                        <th scope="col" data-field="ID" data-formatter="populateTaxHideMenu" class="text-center" style="width: 5%">&nbsp;</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="row">
+                <div id="pagination" style="display: flex; justify-content: flex-end; margin-top: 15px;">
+                    <div>
+                        <button id="prevButton" class="textColor" onclick="prev();" style="width: 3vw; height: 3vw; margin-right: 2vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Prev"]</button>
+                    </div>
+                    <div id="paginationNumbering" style="display: flex; justify-content: flex-end;">
+                    </div>
+                    <div>
+                        <button id="nextButton" class="textColor" onclick="next();" style="width: 3vw; height: 3vw; margin-left: 1vw; text-align: center; display: flex; align-items: center; justify-content: center; background: transparent; border-style: none; font-weight: bold; font-size: 1vw;">@LangResources["Doctor_Button_Next"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

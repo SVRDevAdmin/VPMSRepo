@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMS.Interface.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f828188e26491d0855a4c9a61eebbd553c12597c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b40ffb531fbd261461e69cb5d269eff2850ec9fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMS.Interface.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMS.Interface.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

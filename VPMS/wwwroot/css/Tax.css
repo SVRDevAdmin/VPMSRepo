@@ -1,0 +1,54 @@
+﻿.PaginationButtonSelected {
+    width: 3vw;
+    height: 3vw;
+    background-color: #1E76FB;
+    color: white;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}
+
+.PaginationButton {
+    width: 3vw;
+    height: 3vw;
+    background-color: transparent;
+    color: #1E76FB;
+    margin-right: 1vw;
+    text-align: center;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1E76FB;
+    font-weight: bold;
+}
+
+#btnAdd {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/*------- Details --------*/
+.headerFont {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+#lbError {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+#btnCreate, #btnCancel, #btnUpdate {
+    font-size: 12px;
+}

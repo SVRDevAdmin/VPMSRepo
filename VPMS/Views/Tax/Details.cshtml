@@ -1,0 +1,256 @@
+﻿@inject VPMSWeb.Interface.IResourcesLocalizer LangResources
+@inject IHttpContextAccessor httpContextaccessor
+
+@{
+    ViewData["Title"] = "Details";
+    ViewData["SelectedMenu"] = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sessionUserName = httpContextaccessor.HttpContext.Session.GetString("LoginID");
+    var sessionBranchID = httpContextaccessor.HttpContext.Session.GetString("BranchID");
+    var sessionOrganizationID = httpContextaccessor.HttpContext.Session.GetString("OrganisationID");
+
+    var sTaxObj = new VPMS.Lib.Data.Models.TaxModel();
+    if (ViewData["TaxConfiguration"] != null)
+    {
+        sTaxObj = ViewData["TaxConfiguration"] as VPMS.Lib.Data.Models.TaxModel;
+    }
+
+    var sViewType = ViewData["ViewType"] as String;
+}
+
+<link rel="stylesheet" href="~/css/Tax.css" />
+
+<script>
+    $(document).ready(function(){
+        $('#btnUpdate').hide();
+
+        loadTaxTypeDropdownlist();
+
+        $('#btnCreate').on('click', function(ctl)
+        {
+            if (validateFields())
+            {
+                $.post("/Tax/InsertTax", {
+                    sTaxType: $('#ddlTaxtype').val(),
+                    sDescription: $('#txtDescription').val(),
+                    sChargesRate: $('#txtCharges').val(),
+                    sCreatedBy: '@sessionUserName'
+                }).done(function(result){
+                    if (result.StatusCode == 200)
+                    {
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["TaxDetails_Label_AddTax"])",
+                                          "@Html.Raw(LangResources["TaxDetails_Message_AddTaxSuccess"])",
+                            function(){
+                                window.location.href = '/Tax/Index';
+                            }
+                        )
+                    }
+                    else 
+                    {
+                        if (result.isRecordExists)
+                        {
+                            $('#lbError').html("@Html.Raw(LangResources["TaxDetails_Message_TaxExistsInSystem"])");
+                            $('#lbError').css('visibility', 'visible');
+                        }
+                        else 
+                        {
+                            $('#lbError').html("@Html.Raw(LangResources["TaxDetails_Message_FailedToAddTax"])");
+                            $('#lbError').css('visibility', 'visible');
+                        }
+
+                    }
+                })
+            }
+            else {
+                $('#lbError').html("@Html.Raw(LangResources["TaxDetails_Label_MandatoryFields"])");
+                $('#lbError').css('visibility', 'visible');
+            }
+
+        });
+
+        $('#btnUpdate').on('click', function(ctl)
+        {
+            if (validateFields())
+            {
+                $.post("/Tax/UpdateTaxConfiguration", {
+                    sID: $('#hidID').val(),
+                    sDescription: $('#txtDescription').val(),
+                    sChargeRate: $('#txtCharges').val(),
+                    sUpdatedBy: '@sessionUserName'
+                }).done(function(result) { 
+                    if (result.StatusCode == 200)
+                    {
+                        ShowSuccessMsgBox("@Html.Raw(LangResources["TaxDetails_Label_UpdateTaxConfiguration"])",
+                                          "@Html.Raw(LangResources["TaxDetails_Message_UpdateTaxSuccess"])",
+                            function(){
+                                window.location.href = '/Tax/Index';
+                            }
+                        )
+                    }
+                    else {
+                            $('#lbError').html("@Html.Raw(LangResources["TaxDetails_Message_FailedToUpdateTax"])");
+                            $('#lbError').css('visibility', 'visible');
+                    }
+                });
+            }
+            else 
+            {
+                $('#lbError').html("@Html.Raw(LangResources["TaxDetails_Label_MandatoryFields"])");
+                $('#lbError').css('visibility', 'visible');
+            }
+        });
+
+        $('#btnCancel').on('click', function(ctl){ 
+            window.location.href = '/Tax/Index';
+        });
+
+        if ('@ViewData["TaxConfiguration"]' != '')
+        {
+            $('#hidID').val('@sTaxObj.ID');
+
+            setTimeout(function(){
+                $('#ddlTaxtype').val('@sTaxObj.TaxType');
+            }, 400);
+            
+            $('#txtDescription').val('@sTaxObj.Description');
+            $('#txtCharges').val('@sTaxObj.ChargesRate');
+
+            $('#btnUpdate').show();
+            $('#btnCreate').hide();
+
+            $('#ddlTaxtype').prop('disabled', true);;
+            if ('@sViewType' == "View")
+            {
+                $('#ddlTaxtype').prop('disabled', true);;
+                $('#txtDescription').prop('disabled', true);
+                $('#txtCharges').prop('disabled', true);
+
+                $('#btnUpdate').hide();
+                $('#btnCreate').hide();
+            }
+        }
+    });
+
+    function validateFields()
+    {
+        $('#lbError').css('visiblity', 'hidden');
+        let isValid = true;
+
+        if ($('#ddlTaxtype').val() == ''){
+            $('#ddlTaxtype').addClass("errorValidation");
+            $('#ddlTaxtype').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#ddlTaxtype').removeClass("errorValidation");
+        }
+
+        if ($('#txtDescription').val() == ''){
+            $('#txtDescription').addClass("errorValidation");
+            $('#txtDescription').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtDescription').removeClass("errorValidation");
+        }
+
+        if ($('#txtCharges').val() == ''){
+            $('#txtCharges').addClass("errorValidation");
+            $('#txtCharges').focus();
+
+            isValid = false;
+        }
+        else {
+            $('#txtCharges').removeClass("errorValidation");
+        }
+
+        return isValid;
+    }
+
+    function loadTaxTypeDropdownlist()
+    {
+        $.getJSON("/Tax/GetTaxTypeList")
+         .done(function(result){
+             if (result != null && result.length > 0)
+             {
+                 $('#ddlTaxtype').find("option:not(:first)").remove();
+                 for (var i = 0; i < result.length; i++)
+                 {
+                     var opt = new Option((result[i].CodeName), result[i].CodeID);
+                     $('#ddlTaxtype').append(opt);
+                 }
+             }
+             else {
+                 $('#ddlTaxtype').find("option:not(:first)").remove();
+             }
+         });
+    }
+</script>
+
+<div class="row">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="row contentFrame">
+                <div class="col-md-12 headerFrame">
+                    <label class="headerFont">
+                        @LangResources["TaxDetails_Title_TaxConfigurationDetails"]
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <div class="row mt-4">
+                        <div class="col-md-12 ms-2">
+                            <label for="ddlTaxtype" class="titleLabel">
+                                @LangResources["TaxDetails_Label_TaxType"]
+                            </label>
+                            <select id="ddlTaxtype" class="form-select form-select-sm" style="width: 95%;">
+                                <option value="">@LangResources["TaxDetails_Label_PleaseSelectTaxType"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12 ms-2">
+                            <label for="txtDescription" class="titleLabel">
+                                @LangResources["TaxDetails_Label_Description"]
+                            </label>
+                            <input id="txtDescription" type="text" class="form-control form-control-sm" style="width: 95%;" />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4 ms-2">
+                            <label for="txtCharges" class="titleLabel">
+                                @LangResources["TaxDetails_Label_Rates"]
+                            </label>
+                            <input id="txtCharges" type="number" class="form-control form-control-sm" step="0.01" min="0.00" value="0.00" />
+                        </div>
+                        <div class="col-md-8">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <label id="lbError" />
+                            <input id="hidID" type="hidden" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 me-2">
+                <div class="col-md-12 text-end">
+                    <button id="btnCancel" type="button" class="btn btn-secondary">
+                        @LangResources["TaxDetails_Button_Cancel"]
+                    </button>
+                    <button id="btnCreate" type="button" class="btn btn-primary">
+                        @LangResources["TaxDetails_Button_Create"]
+                    </button>
+                    <button id="btnUpdate" type="button" class="btn btn-primary">
+                        @LangResources["TaxDetails_Button_Update"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
