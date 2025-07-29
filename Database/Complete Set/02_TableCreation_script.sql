@@ -855,6 +855,25 @@ CREATE TABLE IF NOT EXISTS `mst_service_doctor` (
 
 -- Data exporting was unselected.
 
+-- Dumping structure for table vpmsdb.mst_tax_configuration
+CREATE TABLE `mst_tax_configuration` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`TaxType` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`Description` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`ChargesRate` DECIMAL(10,2) NULL DEFAULT NULL,
+	`Status` INT NULL DEFAULT NULL,
+	`CreatedDate` DATETIME NULL DEFAULT NULL,
+	`CreatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`UpdatedDate` DATETIME NULL DEFAULT NULL,
+	`UpdatedBy` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ID`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
+
+-- Data exporting was unselected.
+
 -- Dumping structure for table vpmsdb.mst_state
 CREATE TABLE IF NOT EXISTS `mst_state` (
   `ID` int NOT NULL AUTO_INCREMENT,

@@ -23,7 +23,10 @@ VALUES
 ('WeightUnit','g','Gram','Gram Unit',1,2,NOW(),'System'),
 ('WeightUnit','mg','Miligram','Miligram Unit',1,3,NOW(),'System'),
 ('HeightUnit','cm','Centimeter','Centimeter Unit',1,1,NOW(),'System'),
-('HeightUnit','m','Meter','Meter Unit',1,2,NOW(),'System');
+('HeightUnit','m','Meter','Meter Unit',1,2,NOW(),'System'),
+('TaxType','SST','Sales & Service Tax','Sales & Service Tax',1,1,NOW(),'System'),
+('TaxType','GST','Goods & Service Tax','Goods & Service Tax',1,2,NOW(),'System'),
+('TaxType','SVT','Service Charge','Goods & Service Tax',1,3,NOW(),'System');
 
 INSERT INTO mst_mastercodedata(CodeGroup, CodeID, CodeName, Description, IsActive, SeqOrder, createdDate, CreatedBy)
 VALUES('NotificationConfig', 'INV_Notification', 'Inv. Notification', 'Enable Notification from Inventory', 1, 1, NOW(), 'SYSTEM');
