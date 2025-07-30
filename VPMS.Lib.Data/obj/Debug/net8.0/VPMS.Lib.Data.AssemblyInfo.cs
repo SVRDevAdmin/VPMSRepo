@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VPMS.Lib.Data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b40ffb531fbd261461e69cb5d269eff2850ec9fa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a08581147d8c46bb64a412269b4e8bbeda3d46ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("VPMS.Lib.Data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VPMS.Lib.Data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
